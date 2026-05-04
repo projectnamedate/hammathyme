@@ -6,6 +6,7 @@ import { FilmGrain } from "@/components/FilmGrain";
 import { Nav } from "@/components/Nav";
 import { RunningHead } from "@/components/RunningHead";
 import { RoomNumeral } from "@/components/RoomNumeral";
+import { RoomWatermark } from "@/components/RoomWatermark";
 import { IdleBreath } from "@/components/IdleBreath";
 import { EntryCurtain } from "@/components/EntryCurtain";
 import "./globals.css";
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <RoomWatermark />
         <FilmGrain />
         <Nav />
         <RunningHead />

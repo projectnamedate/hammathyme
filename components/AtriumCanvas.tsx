@@ -37,6 +37,7 @@ export function AtriumCanvas() {
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [touring, setTouring] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -46,6 +47,46 @@ export function AtriumCanvas() {
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
+
+  // Auto-tour: when idle for 4s, the spotlight slowly cycles through pieces
+  // every 3s. Any interaction stops it.
+  useEffect(() => {
+    if (isMobile || reduce) return;
+    let idleTimer: number | null = null;
+    let tourInterval: number | null = null;
+    const startTour = () => {
+      setTouring(true);
+      tourInterval = window.setInterval(() => {
+        setActive((cur) => (cur + 1) % POSITIONS.length);
+      }, 3000);
+    };
+    const stopTour = () => {
+      setTouring(false);
+      if (tourInterval) {
+        window.clearInterval(tourInterval);
+        tourInterval = null;
+      }
+    };
+    const resetIdle = () => {
+      stopTour();
+      if (idleTimer) window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(startTour, 4000);
+    };
+    idleTimer = window.setTimeout(startTour, 4000);
+    const events: Array<keyof WindowEventMap> = [
+      "mousemove",
+      "mousedown",
+      "wheel",
+      "keydown",
+      "touchstart",
+    ];
+    events.forEach((e) => window.addEventListener(e, resetIdle, { passive: true }));
+    return () => {
+      stopTour();
+      if (idleTimer) window.clearTimeout(idleTimer);
+      events.forEach((e) => window.removeEventListener(e, resetIdle));
+    };
+  }, [isMobile, reduce]);
 
   // Arrow-key navigation between pieces (treats wall as 4×2 grid).
   useEffect(() => {
@@ -106,11 +147,20 @@ export function AtriumCanvas() {
         ))}
       </div>
 
-      {/* nav hints */}
+      {/* nav hints + tour indicator */}
       <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-12">
         <span><kbd className="not-italic text-[var(--ink-1)]">←</kbd> <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step</span>
         <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
         <span>hover · click to enter</span>
+        {touring ? (
+          <>
+            <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+            <span className="flex items-center gap-2 text-[var(--cinnamon)]">
+              <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
+              touring
+            </span>
+          </>
+        ) : null}
       </div>
     </section>
   );

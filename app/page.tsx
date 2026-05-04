@@ -1,29 +1,23 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
-import { Wordmark } from "@/components/Wordmark";
+import { HeroWordmark } from "@/components/HeroWordmark";
+import { ViewLink } from "@/components/ViewLink";
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
 
 export default function EntryHall() {
   const reduce = useReducedMotion();
-  // wordmark mask reveals after 0.85s curtain off-sweep finishes
   return (
     <main className="relative flex h-[100svh] w-screen items-center justify-center overflow-hidden bg-[var(--cream-0)]">
       {/* center stack */}
-      <motion.div
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.65, ease: CINEMA }}
-        className="flex flex-col items-center gap-10"
-      >
-        <Wordmark size="hero" ariaLabel="hammer · ai producer" />
+      <div className="flex flex-col items-center gap-10">
+        <HeroWordmark ariaLabel="hammer · ai producer" baseDelay={0.55} />
 
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.1, ease: CINEMA }}
+          transition={{ duration: 0.7, delay: 1.5, ease: CINEMA }}
           className="flex flex-col items-center gap-3"
         >
           <span aria-hidden className="block h-px w-10 bg-[var(--ink-3)]" />
@@ -35,9 +29,9 @@ export default function EntryHall() {
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.7, ease: CINEMA }}
+          transition={{ duration: 0.7, delay: 2.0, ease: CINEMA }}
         >
-          <Link
+          <ViewLink
             href="/work"
             data-cursor="link"
             data-cursor-label="enter →"
@@ -45,9 +39,9 @@ export default function EntryHall() {
           >
             <span className="block h-px w-12 bg-[var(--ink-2)] transition-[width,background] duration-500 group-hover:w-20 group-hover:bg-[var(--cinnamon)]" />
             enter the gallery
-          </Link>
+          </ViewLink>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* bottom kicker */}
       <motion.div

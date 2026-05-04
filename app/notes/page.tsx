@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Plinth } from "@/components/Plinth";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 
 export const metadata = { title: "notes" };
 
@@ -18,9 +19,11 @@ export default function Library() {
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           v · library
         </p>
-        <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
-          essays + <em className="font-serif italic font-normal text-[var(--bloodlust)]">dispatches</em>.
-        </h1>
+        <MaskReveal direction="up" delay={0.3}>
+          <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
+            essays + <em className="font-serif italic font-normal text-[var(--bloodlust)]">dispatches</em>.
+          </h1>
+        </MaskReveal>
         <p className="mt-8 font-display font-light text-[var(--fs-4)] leading-relaxed text-[var(--ink-1)]">
           definitional pieces, model comparisons, workflow diaries. open territory in serp.
         </p>

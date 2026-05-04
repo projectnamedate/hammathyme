@@ -193,6 +193,52 @@ body[data-idle="1"] .kw { animation: hf-kerning-breath 6s ease-in-out infinite; 
 }
 body[data-idle="1"] .kw .dot { animation: hf-period-pulse 60s ease-in-out infinite; transform-origin: center; display: inline-block; }
 
+/* === CardArt micro-motion ===
+   Specimens animate one element when their containing SVG has [data-active="1"].
+   Restrained — single element each, slow loops, easy to ignore. */
+@keyframes hf-pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+@keyframes hf-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes hf-shimmer-x {
+  0%   { transform: translateX(-8%); }
+  50%  { transform: translateX(0%); }
+  100% { transform: translateX(-8%); }
+}
+@keyframes hf-breathe-soft {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+@keyframes hf-twitch {
+  0%, 8%, 100% { transform: rotate(0deg); }
+  4%           { transform: rotate(-6deg); }
+}
+@keyframes hf-stroke-pulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50%      { transform: scaleY(1.08); opacity: 0.65; }
+}
+
+/* hooks (no-op when not active) */
+[data-active="1"] .anim-pulse        { animation: hf-pulse-soft 3.2s ease-in-out infinite; transform-origin: center; }
+[data-active="1"] .anim-orbit        { animation: hf-orbit 28s linear infinite; transform-origin: center; transform-box: fill-box; }
+[data-active="1"] .anim-shimmer-x    { animation: hf-shimmer-x 4.8s ease-in-out infinite; }
+[data-active="1"] .anim-breathe      { animation: hf-breathe-soft 3.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+[data-active="1"] .anim-twitch       { animation: hf-twitch 6s ease-in-out infinite; transform-box: fill-box; }
+[data-active="1"] .anim-stroke-pulse { animation: hf-stroke-pulse 3.6s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-active="1"] .anim-pulse,
+  [data-active="1"] .anim-orbit,
+  [data-active="1"] .anim-shimmer-x,
+  [data-active="1"] .anim-breathe,
+  [data-active="1"] .anim-twitch,
+  [data-active="1"] .anim-stroke-pulse { animation: none; }
+}
+
 /* Focus ring */
 :focus-visible { outline: 2px solid var(--cinnamon); outline-offset: 4px; }
 

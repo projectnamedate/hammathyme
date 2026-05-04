@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { WallPlate } from "@/components/WallPlate";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 
 export const metadata = { title: "process" };
 
@@ -18,9 +19,11 @@ export default function WorkingRoom() {
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           vii · working room
         </p>
-        <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
-          how it <em className="font-serif italic font-normal text-[var(--bloodlust)]">works</em>.
-        </h1>
+        <MaskReveal direction="up" delay={0.3}>
+          <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
+            how it <em className="font-serif italic font-normal text-[var(--bloodlust)]">works</em>.
+          </h1>
+        </MaskReveal>
         <p className="mt-8 font-display font-light text-[var(--fs-4)] leading-relaxed text-[var(--ink-1)]">
           five steps. opinionated, brief, broadcast-grade.
         </p>

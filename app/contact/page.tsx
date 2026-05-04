@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 
 export const metadata = { title: "contact" };
 
@@ -9,9 +10,11 @@ export default function Vestibule() {
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           viii · vestibule
         </p>
-        <h1 className="mt-6 font-display text-[clamp(64px,12vw,200px)] font-light lowercase leading-[0.88] tracking-[-0.05em] text-[var(--ink-0)]">
-          we should <em className="font-serif italic font-normal text-[var(--bloodlust)]">talk</em>.
-        </h1>
+        <MaskReveal direction="up" delay={0.3}>
+          <h1 className="mt-6 font-display text-[clamp(64px,12vw,200px)] font-light lowercase leading-[0.88] tracking-[-0.05em] text-[var(--ink-0)]">
+            we should <em className="font-serif italic font-normal text-[var(--bloodlust)]">talk</em>.
+          </h1>
+        </MaskReveal>
         <p className="mt-12 max-w-[44ch] font-display font-light text-[clamp(20px,2vw,24px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
           hiring, consulting, freelance, brand work, ai pipelines for broadcast — the room is open.
         </p>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Plinth } from "@/components/Plinth";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 
 export const metadata = { title: "lab" };
 
@@ -17,9 +18,11 @@ export default function StudyRoom() {
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           iii · study room
         </p>
-        <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
-          live <em className="font-serif italic font-normal text-[var(--bloodlust)]">demos</em>.
-        </h1>
+        <MaskReveal direction="up" delay={0.3}>
+          <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
+            live <em className="font-serif italic font-normal text-[var(--bloodlust)]">demos</em>.
+          </h1>
+        </MaskReveal>
         <p className="mt-8 font-display font-light text-[var(--fs-4)] leading-relaxed text-[var(--ink-1)]">
           interactive specimens. each runs through a daily cost cap and rate limit.
         </p>

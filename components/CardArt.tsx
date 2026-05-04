@@ -19,6 +19,7 @@ export function CardArt({ capability, active = false }: Props) {
       viewBox={COMMON_VIEWBOX}
       preserveAspectRatio="xMidYMid slice"
       className="h-full w-full"
+      data-active={active ? "1" : "0"}
       aria-hidden
     >
       <Spec active={active} />
@@ -42,7 +43,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
         fill="var(--ink-0)"
       >
         h
-        <tspan fill="var(--cinnamon)">.</tspan>
+        <tspan className="anim-pulse" fill="var(--cinnamon)">.</tspan>
       </text>
       <line x1="20" y1="98" x2="80" y2="98" stroke="var(--ink-3)" strokeWidth="0.4" />
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--ink-2)">
@@ -57,7 +58,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
       <rect width="100" height="120" fill="var(--cream-2)" />
       <g transform="translate(50 56)">
         <circle r="36" fill="none" stroke="var(--ink-1)" strokeWidth="0.6" />
-        <circle r="24" fill="none" stroke="var(--ink-2)" strokeWidth="0.6" strokeDasharray="1 2" />
+        <circle className="anim-orbit" r="24" fill="none" stroke="var(--ink-2)" strokeWidth="0.6" strokeDasharray="1 2" />
         <circle r="14" fill="var(--bloodlust)" />
         <circle r="5" cx="-2" cy="-3" fill="var(--cinnamon)" />
       </g>
@@ -76,7 +77,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
         {[0, 12, 24, 36, 48].map((y) => (
           <rect key={y} x="0" y={y} width="70" height="8" />
         ))}
-        <rect x="0" y="24" width="70" height="8" fill="var(--cinnamon)" stroke="none" />
+        <rect className="anim-shimmer-x" x="0" y="24" width="70" height="8" fill="var(--cinnamon)" stroke="none" />
       </g>
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--cream-1)">
         MOTION · GRAPHICS · 26
@@ -98,7 +99,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
           </g>
         ))}
         {/* play triangle */}
-        <polygon points="44,18 44,38 60,28" fill="var(--cinnamon)" />
+        <polygon className="anim-breathe" points="44,18 44,38 60,28" fill="var(--cinnamon)" />
       </g>
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--ink-0)">
         AI · FILM · VIDEO · 26
@@ -122,7 +123,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
         ].map((n, i) => (
           <g key={i}>
             <circle cx={n.x} cy={n.y} r="3.4" fill="var(--ink-0)" />
-            {i === 5 ? <circle cx={n.x} cy={n.y} r="6" fill="none" stroke="var(--cinnamon)" strokeWidth="0.6" /> : null}
+            {i === 5 ? <circle className="anim-pulse" cx={n.x} cy={n.y} r="6" fill="none" stroke="var(--cinnamon)" strokeWidth="0.6" /> : null}
           </g>
         ))}
         {/* connections */}
@@ -152,7 +153,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
           RUN
         </text>
         {/* cursor arrow */}
-        <g transform="translate(56 38) rotate(-8)" fill="var(--bloodlust)" stroke="var(--cream-0)" strokeWidth="0.4">
+        <g className="anim-twitch" transform="translate(56 38) rotate(-8)" fill="var(--bloodlust)" stroke="var(--cream-0)" strokeWidth="0.4">
           <polygon points="0,0 0,12 3,9 6,12 8,11 5,8 9,8" />
         </g>
         {/* secondary state */}
@@ -184,7 +185,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
         ))}
         {/* lower black */}
         <rect x="0" y="48" width="70" height="14" fill="var(--ink-0)" />
-        <rect x="0" y="48" width="14" height="14" fill="var(--cinnamon)" />
+        <rect className="anim-pulse" x="0" y="48" width="14" height="14" fill="var(--cinnamon)" />
       </g>
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--cream-1)">
         BROADCAST · COMMERCIAL
@@ -214,7 +215,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
           </g>
         ))}
         {/* italic pull-quote stroke */}
-        <line x1="-2" y1="22" x2="-2" y2="40" stroke="var(--cinnamon)" strokeWidth="1.2" />
+        <line className="anim-stroke-pulse" x1="-2" y1="22" x2="-2" y2="40" stroke="var(--cinnamon)" strokeWidth="1.2" />
       </g>
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--ink-2)">
         EDITORIAL · WRITING · 26
