@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { ViewLink } from "./ViewLink";
 import { usePathname } from "next/navigation";
 import { Wordmark } from "./Wordmark";
 
@@ -18,19 +18,19 @@ export function Nav() {
 
   return (
     <nav className="pointer-events-none fixed inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-5 md:px-12 md:py-6">
-      <Link
+      <ViewLink
         href="/"
         className="pointer-events-auto"
         data-cursor="link"
         aria-label="hammer · home"
       >
         <Wordmark size="sm" />
-      </Link>
+      </ViewLink>
 
       <ul className="pointer-events-auto hidden items-center gap-8 font-mono text-[10px] uppercase tracking-[0.22em] md:flex">
         {LINKS.map((l) => (
           <li key={l.href}>
-            <Link
+            <ViewLink
               href={l.href}
               data-cursor="link"
               className={
@@ -45,12 +45,12 @@ export function Nav() {
                   (active(l.href) ? "w-full" : "w-0 group-hover:w-full")
                 }
               />
-            </Link>
+            </ViewLink>
           </li>
         ))}
       </ul>
 
-      <Link
+      <ViewLink
         href="/contact"
         data-cursor="link"
         data-cursor-label="say hi"
@@ -58,7 +58,7 @@ export function Nav() {
       >
         <span className="h-1.5 w-1.5 rounded-full bg-[var(--cinnamon)]" aria-hidden />
         get in touch
-      </Link>
+      </ViewLink>
     </nav>
   );
 }

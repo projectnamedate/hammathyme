@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { ViewLink } from "./ViewLink";
 import { motion, useReducedMotion } from "motion/react";
 import { clsx } from "clsx";
 import type { ReactNode } from "react";
@@ -39,7 +39,7 @@ export function Plinth({
   const num = String(index).padStart(2, "0");
 
   return (
-    <Link
+    <ViewLink
       href={href}
       data-cursor="link"
       data-cursor-label={cursorLabel}
@@ -81,6 +81,6 @@ export function Plinth({
           {caption}
         </span>
       </div>
-    </Link>
+    </ViewLink>
   );
 }

@@ -29,7 +29,9 @@ export function WallPlate({
   className,
   align = "left",
 }: Props) {
-  const meta = [title, year, medium, client, role].filter(Boolean).join(" — ");
+  // Drop medium when it duplicates the title (placeholder data hits this often).
+  const m = medium && title.toLowerCase().trim() !== medium.toLowerCase().trim() ? medium : undefined;
+  const meta = [title, year, m, client, role].filter(Boolean).join(" — ");
   return (
     <figcaption
       className={clsx(
