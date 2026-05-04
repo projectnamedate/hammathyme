@@ -42,15 +42,9 @@ next-env.d.ts
 /.playwright-mcp/
 /playwright-mcp/
 
-# kerning iteration screenshots
-/measure-screenshot.png
-/half-spacing.png
-/three-eighths-spacing.png
-/five-sixteenths.png
-/quarter-spacing.png
-/brand-cover.png
-/brand-wm-render.png
-/brand-wordmarks.png
+# kerning iteration screenshots + phase verification screenshots
+/*.png
+/deployed-design-system.png
 
 # logs
 /tmp/measure-server.log
