@@ -24,12 +24,11 @@ export function RoomWatermark() {
       <motion.span
         key={room.numeral}
         initial={reduce ? false : { opacity: 0, x: 12 }}
-        animate={{ opacity: 1, x: 0 }}
+        animate={{ opacity: 0.06, x: 0 }}
         transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
-        className="select-none font-serif italic font-normal leading-none text-[var(--ink-1)]"
+        className="select-none font-serif italic font-normal leading-none text-[var(--ink-0)]"
         style={{
           fontSize: "clamp(40vh, 56vh, 80vh)",
-          opacity: 0.05,
           letterSpacing: "-0.04em",
           marginRight: "-0.06em",
         }}
