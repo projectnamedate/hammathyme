@@ -27,10 +27,9 @@ export const ROOMS: Room[] = [
   { href: "/work", numeral: "II", wing: "II", name: "atrium", label: "work", inNav: true, inMobileNav: true },
   { href: "/lab", numeral: "III", wing: "III", name: "study room", label: "lab", inNav: true, inMobileNav: false },
   { href: "/agents", numeral: "IV", wing: "IV", name: "roster wall", label: "agents", inNav: true, inMobileNav: false },
-  { href: "/notes", numeral: "V", wing: "V", name: "library", label: "notes", inNav: true, inMobileNav: false },
-  { href: "/about", numeral: "VI", wing: "VI", name: "anteroom", label: "about", inNav: true, inMobileNav: true },
-  { href: "/process", numeral: "VII", wing: "VII", name: "working room", label: "process", inNav: true, inMobileNav: false },
-  { href: "/contact", numeral: "VIII", wing: "VIII", name: "vestibule", label: "contact", inNav: false, inMobileNav: true },
+  { href: "/about", numeral: "V", wing: "V", name: "anteroom", label: "about", inNav: true, inMobileNav: true },
+  { href: "/process", numeral: "VI", wing: "VI", name: "working room", label: "process", inNav: true, inMobileNav: false },
+  { href: "/contact", numeral: "VII", wing: "VII", name: "vestibule", label: "contact", inNav: false, inMobileNav: true },
 ];
 
 export function findRoom(pathname: string | null | undefined): Room {

@@ -18,17 +18,17 @@ import { ViewLink } from "./ViewLink";
 
 type Pos = { x: number; y: number; w: number; h: number };
 
-// Hand-tuned 4×2 staggered grid. x/w in vw, y/h in vh.
-// Top row alternates tall/short; bottom row opposite to create rhythm.
+// Hand-tuned 4-over-3 staggered grid for 7 pieces. x/w in vw, y/h in vh.
+// Top row 4 pieces, alternating tall/short; bottom row 3 pieces offset for
+// asymmetric Swiss feel (not a strict grid).
 const POSITIONS: Pos[] = [
   { x:  6, y: 16, w: 18, h: 30 }, // 01 tall
   { x: 28, y: 22, w: 16, h: 24 }, // 02 short
   { x: 48, y: 16, w: 20, h: 30 }, // 03 tall
   { x: 72, y: 22, w: 16, h: 24 }, // 04 short
-  { x:  6, y: 58, w: 16, h: 24 }, // 05 short
-  { x: 26, y: 52, w: 18, h: 30 }, // 06 tall
-  { x: 50, y: 58, w: 16, h: 24 }, // 07 short
-  { x: 72, y: 52, w: 18, h: 30 }, // 08 tall
+  { x: 14, y: 58, w: 18, h: 24 }, // 05 short
+  { x: 38, y: 52, w: 22, h: 30 }, // 06 tall (the anchor of row 2)
+  { x: 66, y: 58, w: 18, h: 24 }, // 07 short
 ];
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
@@ -93,18 +93,26 @@ export function AtriumCanvas() {
     if (isMobile) return;
     const onKey = (e: KeyboardEvent) => {
       if (document.activeElement?.tagName === "INPUT") return;
-      const cols = 4;
-      const rows = 2;
       const total = POSITIONS.length;
       let next = active;
       if (e.key === "ArrowRight") next = (active + 1) % total;
       else if (e.key === "ArrowLeft") next = (active - 1 + total) % total;
-      else if (e.key === "ArrowDown") next = (active + cols) % total;
-      else if (e.key === "ArrowUp") next = (active - cols + total) % total;
-      else return;
+      else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        // Jump to the row 1↔ row 2 piece nearest the current x position.
+        const cur = POSITIONS[active]!;
+        const onTop = cur.y < 40;
+        const candidates = POSITIONS.map((p, i) => ({ p, i })).filter(
+          ({ p }) => (onTop ? p.y >= 40 : p.y < 40),
+        );
+        const nearest = candidates.reduce(
+          (best, c) =>
+            Math.abs(c.p.x - cur.x) < Math.abs(best.p.x - cur.x) ? c : best,
+          candidates[0]!,
+        );
+        next = nearest.i;
+      } else return;
       e.preventDefault();
       setActive(next);
-      void rows; // 4×2 implied by total
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -119,7 +127,7 @@ export function AtriumCanvas() {
       {/* heading + spotlight caption */}
       <div className="pointer-events-none absolute left-1/2 top-[10vh] z-30 -translate-x-1/2 text-center md:top-[12vh]">
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          ii · atrium · 8 pieces
+          ii · atrium · 7 pieces
         </p>
         <motion.p
           key={activePiece.slug}
@@ -135,7 +143,7 @@ export function AtriumCanvas() {
 
       {/* the wall */}
       <div className="absolute inset-0 z-10">
-        {CASE_STUDIES.map((item, i) => (
+        {CASE_STUDIES.slice(0, POSITIONS.length).map((item, i) => (
           <Tile
             key={item.slug}
             item={item}

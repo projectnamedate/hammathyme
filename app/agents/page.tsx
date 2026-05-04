@@ -63,7 +63,7 @@ export default function RosterWall() {
           ← entry hall
         </Link>
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
-          iv / viii
+          iv / vii
         </span>
       </footer>
     </main>

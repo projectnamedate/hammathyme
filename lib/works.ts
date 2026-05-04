@@ -93,17 +93,6 @@ export const CASE_STUDIES: CaseStudy[] = [
       "ai work delivered to broadcast and agency standards. fifteen years of network pipelines applied.",
     tint: "var(--bloodlust)",
   },
-  {
-    slug: "editorial-writing",
-    title: "editorial + writing",
-    capability: "editorial-writing",
-    capabilityLabel: "editorial + writing",
-    year: "2026",
-    client: "self",
-    summary:
-      "long-form essays and definitional pieces about ai production.",
-    tint: "var(--ink-1)",
-  },
 ];
 
 export function findCase(slug: string): CaseStudy | undefined {

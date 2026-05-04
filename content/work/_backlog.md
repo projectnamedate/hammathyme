@@ -15,4 +15,10 @@ the focus* — he has ideas per item.
 | 7 | AI sound design reel | ai-film-video (audio sub-cat?) | placeholder |
 | 8 | "How I produce" tool/template | pipelines-tools | placeholder |
 
+**Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
+Jeff: "everyone can use ai to write things, its looked down upon. really i am
+a visual ai producer." The site is now visual-only — 7 capability tags, 7
+atrium pieces, no blog. SEO carried by case-study approach blocks + /process
++ /about metadata.
+
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

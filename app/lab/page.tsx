@@ -51,7 +51,7 @@ export default function StudyRoom() {
           ← entry hall
         </Link>
         <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
-          iii / viii
+          iii / vii
         </span>
       </footer>
     </main>

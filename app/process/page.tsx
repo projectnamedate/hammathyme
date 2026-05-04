@@ -17,7 +17,7 @@ export default function WorkingRoom() {
     <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-24 md:px-24 md:pt-40">
       <header className="mb-24 max-w-[60ch]">
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          vii · working room
+          vi · working room
         </p>
         <MaskReveal direction="up" delay={0.3}>
           <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
@@ -44,7 +44,7 @@ export default function WorkingRoom() {
         <Link href="/" data-cursor="link" className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]">
           ← entry hall
         </Link>
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">vii / viii</span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">vi / vii</span>
       </footer>
     </main>
   );

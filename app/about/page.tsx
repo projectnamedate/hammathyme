@@ -18,7 +18,7 @@ export default function Anteroom() {
         {/* left: bio plate */}
         <section className="md:col-span-7">
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-            vi · anteroom
+            v · anteroom
           </p>
           <MaskReveal direction="up" delay={0.3}>
             <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">

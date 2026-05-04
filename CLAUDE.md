@@ -62,6 +62,13 @@ RESEARCH.md          market refresh
 ## Capability taxonomy (filter chips on /work)
 
 1. autonomous-characters · 2. motion-graphics · 3. ai-film-video · 4. pipelines-tools ·
-5. interactive-playable · 6. brand-systems · 7. broadcast-commercial · 8. editorial-writing.
+5. interactive-playable · 6. brand-systems · 7. broadcast-commercial.
 
-Tag every case study with one or more. See `memory/project_portfolio_categories.md` for backlog.
+**The site is visual-only.** /notes was dropped 2026-05-04 — Jeff explicitly
+rejected having a blog because (a) AI-written content is a 2026 anti-signal in
+visual circles and (b) "i am a visual ai producer." No `editorial-writing`
+capability. SEO carried by case-study approach blocks + /process + /about
+metadata + structured data, not a blog.
+
+Tag every case study with one or more capability slug. See
+`memory/project_portfolio_categories.md` for backlog.
