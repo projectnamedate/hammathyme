@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Cursor } from "@/components/Cursor";
+import { FilmGrain } from "@/components/FilmGrain";
+import { Nav } from "@/components/Nav";
+import { RunningHead } from "@/components/RunningHead";
+import { RoomNumeral } from "@/components/RoomNumeral";
+import { IdleBreath } from "@/components/IdleBreath";
+import { EntryCurtain } from "@/components/EntryCurtain";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.ai";
@@ -38,7 +45,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
+        <FilmGrain />
+        <Nav />
+        <RunningHead />
+        <RoomNumeral />
         {children}
+        <Cursor />
+        <IdleBreath />
+        <EntryCurtain />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,5 +1,7 @@
-import { RouteStub } from "@/components/RouteStub";
+import { AtriumCanvas } from "@/components/AtriumCanvas";
+
 export const metadata = { title: "work" };
-export default function WorkIndex() {
-  return <RouteStub kicker="04 · work" title="case studies" slug="/work" />;
+
+export default function Atrium() {
+  return <AtriumCanvas />;
 }

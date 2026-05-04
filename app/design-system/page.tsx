@@ -1,6 +1,17 @@
-import Link from "next/link";
+"use client";
 
-export const metadata = { title: "design system" };
+import Link from "next/link";
+import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { Wordmark } from "@/components/Wordmark";
+import { WallPlate } from "@/components/WallPlate";
+import { Figure } from "@/components/Figure";
+import { Plinth } from "@/components/Plinth";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
+import { StaggerChildren, StaggerItem } from "@/components/motion/StaggerChildren";
+import { SplitText } from "@/components/motion/SplitText";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 
 const COLORS = [
   { token: "--cream-0", role: "page" },
@@ -43,95 +54,91 @@ const DURATIONS = [
   { name: "cinematic", ms: 1000 },
 ];
 
-export default function DesignSystem() {
+function Specimen({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <main className="min-h-screen px-6 py-10 md:px-20 md:py-16">
-      <header className="mb-24 flex items-baseline justify-between">
-        <Link href="/" className="kw text-[clamp(28px,3vw,40px)]" aria-label="hammer · home">
-          <span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span>
-          <span className="dot">.</span>
-        </Link>
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-          /design-system · phase 1 verification
-        </span>
+    <div className="border border-[var(--ink-4)] bg-[var(--cream-1)]/40 p-6">
+      <div className="mb-6 flex items-center justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">{label}</span>
+        <span aria-hidden className="block h-px w-8 bg-[var(--ink-3)]" />
+      </div>
+      {children}
+    </div>
+  );
+}
+
+export default function DesignSystem() {
+  const [splitKey, setSplitKey] = useState(0);
+  const [maskKey, setMaskKey] = useState(0);
+  const [staggerKey, setStaggerKey] = useState(0);
+
+  return (
+    <main className="relative w-screen px-6 pt-32 pb-32 md:px-24 md:pt-40">
+      <header className="mb-32 max-w-[60ch]">
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
+          internal · specimen plates
+        </p>
+        <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
+          design <em className="font-serif italic font-normal text-[var(--bloodlust)]">system</em>.
+        </h1>
+        <p className="mt-8 font-display font-light text-[var(--fs-4)] leading-relaxed text-[var(--ink-1)]">
+          every brand token, every component, every motion primitive on one wall. compiled live from BRAND_GUIDE.md.
+        </p>
       </header>
 
-      <section className="mb-32">
-        <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          01 · wordmark
-        </p>
-        <h1 className="kw text-[clamp(96px,18vw,260px)] leading-[0.84] text-[var(--ink-0)]">
-          <span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span>
-          <span className="dot">.</span>
-        </h1>
-        <p className="mt-6 max-w-[60ch] font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-          outfit black · hand-kerned · 7.8px ink-gap target · cinnamon brand mark
-        </p>
-      </section>
+      {/* 01 wordmark */}
+      <Section number="01" title="wordmark">
+        <div className="flex flex-col gap-8 border border-[var(--ink-4)] bg-[var(--cream-1)]/40 p-8">
+          <Wordmark size="hero" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+            outfit black · hand-kerned · 7.8px ink-gap target · cinnamon brand mark
+          </span>
+        </div>
+      </Section>
 
-      <section className="mb-32 border-t border-[var(--ink-4)] pt-12">
-        <p className="mb-12 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          02 · color
-        </p>
+      {/* 02 color */}
+      <Section number="02" title="color">
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {COLORS.map((c) => (
             <div key={c.token} className="border border-[var(--ink-4)]">
-              <div
-                className="aspect-[4/3] w-full"
-                style={{ background: `var(${c.token})` }}
-                aria-hidden
-              />
+              <div className="aspect-[4/3] w-full" style={{ background: `var(${c.token})` }} aria-hidden />
               <div className="border-t border-[var(--ink-4)] p-3">
-                <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-0)]">
-                  {c.token}
-                </div>
-                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-3)]">
-                  {c.role}
-                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-0)]">{c.token}</div>
+                <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-3)]">{c.role}</div>
               </div>
             </div>
           ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="mb-32 border-t border-[var(--ink-4)] pt-12">
-        <p className="mb-12 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          03 · type scale
-        </p>
+      {/* 03 type scale */}
+      <Section number="03" title="type scale">
         <ul className="space-y-3">
           {TYPE_SCALE.map((t) => (
             <li key={t.px} className="flex items-baseline gap-8 border-b border-[var(--ink-4)] pb-3">
-              <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ink-3)]">
-                {t.label}
-              </span>
+              <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ink-3)]">{t.label}</span>
               <span className="font-display lowercase text-[var(--ink-0)] tracking-[-0.04em]" style={{ fontSize: t.px, fontWeight: 700, lineHeight: 1 }}>
                 hammer · {t.px}px
               </span>
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
-      <section className="mb-32 border-t border-[var(--ink-4)] pt-12">
-        <p className="mb-12 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          04 · type families
-        </p>
+      {/* 04 type families */}
+      <Section number="04" title="type families">
         <div className="grid gap-12 md:grid-cols-3">
-          <div>
-            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">display · outfit</div>
+          <Specimen label="display · outfit">
             <div className="font-display text-[64px] font-light lowercase leading-none tracking-[-0.04em] text-[var(--ink-0)]">aa bb cc</div>
-            <div className="mt-3 font-display text-[16px] font-light leading-relaxed text-[var(--ink-1)]">the quick brown fox jumps over the lazy dog. 0123456789.</div>
-          </div>
-          <div>
-            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">body · geist</div>
-            <div className="font-[var(--font-body)] text-[48px] font-medium leading-none tracking-[-0.025em] text-[var(--ink-0)]">Aa Bb Cc</div>
-            <div className="mt-3 font-[var(--font-body)] text-[16px] leading-relaxed text-[var(--ink-1)]">The quick brown fox jumps over the lazy dog. 0123456789.</div>
-          </div>
-          <div>
-            <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">mono · geist mono</div>
+            <div className="mt-3 font-display font-light text-[16px] leading-relaxed text-[var(--ink-1)]">the quick brown fox jumps over the lazy dog · 0123456789</div>
+          </Specimen>
+          <Specimen label="body · geist">
+            <div className="text-[48px] font-medium leading-none tracking-[-0.025em] text-[var(--ink-0)]">Aa Bb Cc</div>
+            <div className="mt-3 text-[16px] leading-relaxed text-[var(--ink-1)]">The quick brown fox jumps over the lazy dog. 0123456789.</div>
+          </Specimen>
+          <Specimen label="mono · geist mono">
             <div className="font-mono text-[32px] leading-none tracking-[0] text-[var(--ink-0)]">Aa Bb Cc</div>
             <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-1)]">the quick brown fox · 0123456789</div>
-          </div>
+          </Specimen>
         </div>
         <div className="mt-12 border-t border-[var(--ink-4)] pt-6">
           <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">italic motif · instrument serif</div>
@@ -139,12 +146,10 @@ export default function DesignSystem() {
             a producer who treats <em className="font-serif italic font-normal text-[var(--bloodlust)]">machines</em> like crew.
           </p>
         </div>
-      </section>
+      </Section>
 
-      <section className="mb-32 border-t border-[var(--ink-4)] pt-12">
-        <p className="mb-12 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          05 · motion easings
-        </p>
+      {/* 05 motion easings */}
+      <Section number="05" title="motion · easings">
         <div className="grid gap-6 md:grid-cols-4">
           {EASINGS.map((e) => (
             <div key={e.name} className="border border-[var(--ink-4)] p-4">
@@ -153,12 +158,10 @@ export default function DesignSystem() {
             </div>
           ))}
         </div>
-      </section>
+      </Section>
 
-      <section className="mb-32 border-t border-[var(--ink-4)] pt-12">
-        <p className="mb-12 font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          06 · duration scale
-        </p>
+      {/* 06 duration scale */}
+      <Section number="06" title="motion · durations">
         <div className="grid grid-cols-2 gap-6 md:grid-cols-5">
           {DURATIONS.map((d) => (
             <div key={d.name} className="border border-[var(--ink-4)] p-4">
@@ -169,11 +172,151 @@ export default function DesignSystem() {
             </div>
           ))}
         </div>
-      </section>
+      </Section>
 
-      <footer className="border-t border-[var(--ink-0)] pt-12 font-mono text-[10px] uppercase tracking-[0.20em] text-[var(--ink-2)]">
-        brand tokens compiled from BRAND_GUIDE.md · phase 1 verification gate
+      {/* 07 motion primitives */}
+      <Section number="07" title="motion · primitives">
+        <div className="grid gap-6 md:grid-cols-2">
+          <Specimen label="<FadeIn>">
+            <FadeIn>
+              <p className="font-display text-[var(--fs-5)] font-light lowercase tracking-[-0.02em] text-[var(--ink-0)]">fade in from below.</p>
+            </FadeIn>
+          </Specimen>
+          <Specimen label="<ScrollReveal>">
+            <ScrollReveal>
+              <p className="font-display text-[var(--fs-5)] font-light lowercase tracking-[-0.02em] text-[var(--ink-0)]">reveals on viewport entry.</p>
+            </ScrollReveal>
+          </Specimen>
+          <Specimen label="<SplitText>">
+            <button
+              onClick={() => setSplitKey((k) => k + 1)}
+              data-cursor="link"
+              data-cursor-label="replay"
+              className="mb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]"
+            >
+              ↻ replay
+            </button>
+            <div key={splitKey}>
+              <SplitText
+                as="h3"
+                mode="mask"
+                className="font-display text-[clamp(28px,4vw,56px)] font-light lowercase leading-none tracking-[-0.04em] text-[var(--ink-0)]"
+              >
+                letter-by-letter mask reveal.
+              </SplitText>
+            </div>
+          </Specimen>
+          <Specimen label="<MaskReveal>">
+            <button
+              onClick={() => setMaskKey((k) => k + 1)}
+              data-cursor="link"
+              data-cursor-label="replay"
+              className="mb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]"
+            >
+              ↻ replay
+            </button>
+            <div key={maskKey}>
+              <MaskReveal direction="up">
+                <div className="aspect-video w-full bg-[var(--cinnamon)]" />
+              </MaskReveal>
+            </div>
+          </Specimen>
+          <Specimen label="<StaggerChildren>">
+            <button
+              onClick={() => setStaggerKey((k) => k + 1)}
+              data-cursor="link"
+              data-cursor-label="replay"
+              className="mb-4 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]"
+            >
+              ↻ replay
+            </button>
+            <div key={staggerKey}>
+              <StaggerChildren className="space-y-2">
+                {[1, 2, 3, 4].map((n) => (
+                  <StaggerItem key={n}>
+                    <span className="font-display text-[var(--fs-4)] font-light lowercase text-[var(--ink-0)]">item {n}</span>
+                  </StaggerItem>
+                ))}
+              </StaggerChildren>
+            </div>
+          </Specimen>
+          <Specimen label="<Cursor> (live)">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
+              the curator's cursor is mounted globally on fine-pointer devices. hover any link or button to expand the lozenge.
+            </p>
+          </Specimen>
+        </div>
+      </Section>
+
+      {/* 08 chrome components */}
+      <Section number="08" title="chrome · components">
+        <div className="grid gap-6 md:grid-cols-2">
+          <Specimen label="<WallPlate>">
+            <WallPlate
+              index={5}
+              title="building the hammer brand"
+              year="2026"
+              medium="brand systems"
+              client="self"
+              role="ai producer"
+            />
+          </Specimen>
+          <Specimen label="<Figure>">
+            <Figure number={1} caption="pipeline diagram" year="2026">
+              <div className="aspect-video w-full bg-[var(--cream-2)]" />
+            </Figure>
+          </Specimen>
+        </div>
+      </Section>
+
+      {/* 09 plinth */}
+      <Section number="09" title="chrome · plinth">
+        <ScrollReveal>
+          <div className="grid grid-cols-2 gap-12 md:grid-cols-4 md:gap-x-16">
+            {[1, 2, 3, 4].map((n) => (
+              <Plinth
+                key={n}
+                href="#"
+                index={n}
+                title={`piece ${n}`}
+                caption={`0${n} · sample · 2026`}
+                tint={n % 2 === 0 ? "var(--cream-2)" : "var(--cream-1)"}
+              />
+            ))}
+          </div>
+        </ScrollReveal>
+      </Section>
+
+      {/* 10 idle breath demo */}
+      <Section number="10" title="idle · wordmark breath">
+        <div className="border border-[var(--ink-4)] p-12">
+          <p className="mb-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
+            don't move your mouse for 6 seconds.
+          </p>
+          <Wordmark size="lg" />
+        </div>
+      </Section>
+
+      <footer className="mt-32 border-t border-[var(--ink-0)] pt-12 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.20em] text-[var(--ink-2)]">
+        <Link href="/" data-cursor="link" className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]">
+          ← entry hall
+        </Link>
+        <span>brand tokens compiled from BRAND_GUIDE.md · museum-coded gallery · phase 2</span>
       </footer>
     </main>
+  );
+}
+
+function Section({ number, title, children }: { number: string; title: string; children: React.ReactNode }) {
+  return (
+    <section className="mb-32 border-t border-[var(--ink-4)] pt-12">
+      <div className="mb-12 flex items-baseline justify-between">
+        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
+          {number} · {title}
+        </p>
+        <span aria-hidden className="block h-px w-16 bg-[var(--ink-3)]" />
+      </div>
+      {children}
+    </section>
   );
 }

@@ -1,67 +1,63 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "motion/react";
+import { Wordmark } from "@/components/Wordmark";
 
-const NAV = [
-  { href: "/work", label: "work" },
-  { href: "/lab", label: "lab" },
-  { href: "/agents", label: "agents" },
-  { href: "/notes", label: "notes" },
-  { href: "/about", label: "about" },
-  { href: "/process", label: "process" },
-  { href: "/contact", label: "contact" },
-];
+const CINEMA = [0.65, 0, 0.35, 1] as const;
 
-export default function Home() {
+export default function EntryHall() {
+  const reduce = useReducedMotion();
+  // wordmark mask reveals after 0.85s curtain off-sweep finishes
   return (
-    <main className="min-h-screen px-6 py-10 md:px-20 md:py-16">
-      <header className="mb-24 flex items-baseline justify-between">
-        <Link href="/" className="kw text-[clamp(28px,3vw,40px)]" aria-label="hammer · home">
-          <span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span>
-          <span className="dot">.</span>
-        </Link>
-        <nav className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-          phase 1 · scaffold
-        </nav>
-      </header>
+    <main className="relative flex h-[100svh] w-screen items-center justify-center overflow-hidden bg-[var(--cream-0)]">
+      {/* center stack */}
+      <motion.div
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.65, ease: CINEMA }}
+        className="flex flex-col items-center gap-10"
+      >
+        <Wordmark size="hero" ariaLabel="hammer · ai producer" />
 
-      <section className="mb-24">
-        <h1 className="kw text-[clamp(96px,18vw,260px)] leading-[0.84] text-[var(--ink-0)]">
-          <span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span>
-          <span className="dot">.</span>
-        </h1>
-        <p className="mt-12 max-w-[40ch] font-serif italic text-[clamp(20px,2.4vw,32px)] leading-tight text-[var(--ink-1)]">
-          a producer who treats machines <em className="text-[var(--bloodlust)]">like crew</em>.
-        </p>
-      </section>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.1, ease: CINEMA }}
+          className="flex flex-col items-center gap-3"
+        >
+          <span aria-hidden className="block h-px w-10 bg-[var(--ink-3)]" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.32em] text-[var(--ink-2)]">
+            ai producer
+          </span>
+        </motion.div>
 
-      <section className="border-t border-[var(--ink-4)] pt-12">
-        <h2 className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-          routes scaffolded
-        </h2>
-        <ul className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {NAV.map((n) => (
-            <li key={n.href}>
-              <Link
-                href={n.href}
-                className="block border-b border-[var(--ink-4)] pb-2 font-display text-[var(--fs-5)] lowercase text-[var(--ink-1)] transition-colors hover:text-[var(--cinnamon)]"
-              >
-                {n.label}
-              </Link>
-            </li>
-          ))}
-          <li>
-            <Link
-              href="/design-system"
-              className="block border-b border-[var(--ink-4)] pb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] transition-colors hover:text-[var(--cinnamon)]"
-            >
-              /design-system
-            </Link>
-          </li>
-        </ul>
-      </section>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.7, ease: CINEMA }}
+        >
+          <Link
+            href="/work"
+            data-cursor="link"
+            data-cursor-label="enter →"
+            className="group inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.32em] text-[var(--ink-1)] transition-colors hover:text-[var(--cinnamon)]"
+          >
+            <span className="block h-px w-12 bg-[var(--ink-2)] transition-[width,background] duration-500 group-hover:w-20 group-hover:bg-[var(--cinnamon)]" />
+            enter the gallery
+          </Link>
+        </motion.div>
+      </motion.div>
 
-      <footer className="mt-24 border-t border-[var(--ink-0)] pt-12 font-mono text-[10px] uppercase tracking-[0.20em] text-[var(--ink-2)]">
-        v 0.1.0 · phase 1 foundation · vinaceous cinnamon · polished bloodlust
-      </footer>
+      {/* bottom kicker */}
+      <motion.div
+        initial={reduce ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 2.0, ease: CINEMA }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-12"
+      >
+        eight rooms · drag to walk through
+      </motion.div>
     </main>
   );
 }
