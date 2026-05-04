@@ -94,8 +94,7 @@
   --ease-spring: var(--ease-spring);
 }
 
-/* Reset + body */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* Body baseline (Tailwind v4 preflight handles the reset) */
 html { scroll-behavior: smooth; }
 body {
   background: var(--cream-0);
