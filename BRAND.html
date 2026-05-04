@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>hammer — brand guide v3.0</title>
+<meta name="description" content="The Hammer brand contract. Wordmark, color, typography, motion, voice, tokens." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* === Vinaceous Cinnamon · Polished Bloodlust === */
+    /* Page surfaces — warm cream washed with rose */
+    --cream-0: #FAEEE9;   /* page */
+    --cream-1: #F2DDD4;   /* card surface */
+    --cream-2: #E5BFB4;   /* deep cream — accent surface */
+
+    /* Ink — deep maroon ramp */
+    --ink-0:   #1F0707;   /* primary text */
+    --ink-1:   #3D1413;   /* secondary */
+    --ink-2:   #6E2C27;   /* muted */
+    --ink-3:   #A66860;   /* subtle / hairline */
+    --ink-4:   #C99891;   /* faintest divider */
+
+    /* Live accent — the Vinaceous Cinnamon anchor */
+    --cinnamon:   #F28E86;
+    --cinnamon-h: #EE7A71;   /* hover, pressed */
+
+    /* Deep accent — Bloodlust */
+    --bloodlust:  #5A201D;
+
+    /* Type */
+    --display: 'Outfit', 'Futura', 'Avenir Next', system-ui, sans-serif;
+    --body:    'Geist', 'Inter Tight', -apple-system, system-ui, sans-serif;
+    --mono:    'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+    --serif:   'Instrument Serif', 'Tiempos Headline', Georgia, serif;
+
+    /* Motion */
+    --ease-cinema:  cubic-bezier(0.65, 0, 0.35, 1);
+    --ease-shutter: cubic-bezier(0.85, 0, 0.15, 1);
+    --ease-soft:    cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body {
+    background:var(--cream-0); color:var(--ink-0);
+    font-family:var(--body); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    font-feature-settings:'ss01','ss02','cv01','cv11';
+    overflow-x:hidden;
+  }
+  ::selection { background:var(--cinnamon); color:var(--ink-0); }
+
+  /* paper grain — warm rose-tint multiply */
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:1;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.04  0 0 0 0 0.04  0 0 0 0.045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity:0.6; mix-blend-mode:multiply;
+  }
+  @media (prefers-reduced-motion:reduce){ body::before{opacity:0.3;} }
+
+  /* TOC rail */
+  .toc {
+    position:fixed; top:50%; left:32px; transform:translateY(-50%); z-index:40;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--ink-3); display:flex; flex-direction:column; gap:10px;
+  }
+  .toc a { color:var(--ink-3); text-decoration:none; transition:color 280ms var(--ease-soft); display:flex; gap:14px; }
+  .toc a:hover, .toc a.active { color:var(--ink-0); }
+  .toc a span:first-child { font-variant-numeric:tabular-nums; opacity:0.85; }
+  .toc a.active span:first-child { color:var(--cinnamon); opacity:1; }
+  @media (max-width:1280px){ .toc{display:none;} }
+
+  /* Frame counter */
+  .frame {
+    position:fixed; top:32px; right:32px; z-index:40;
+    font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--ink-2); font-variant-numeric:tabular-nums;
+  }
+  .frame .sep { color:var(--ink-3); margin:0 8px; }
+
+  /* Layout */
+  main { position:relative; z-index:2; }
+  .wrap { max-width:1360px; margin:0 auto; padding:0 80px; }
+  @media (max-width:900px){ .wrap{padding:0 28px;} .toc{display:none;} }
+
+  section { padding:160px 0; position:relative; }
+  section + section { border-top:1px solid var(--ink-4); }
+  section:first-of-type { padding:32px 0 0; }
+
+  /* Section header */
+  .head {
+    display:flex; align-items:flex-end; justify-content:space-between; gap:48px;
+    margin-bottom:96px; flex-wrap:wrap;
+  }
+  .head .meta {
+    font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--ink-2); display:flex; align-items:baseline; gap:24px;
+  }
+  .head .meta .n { color:var(--cinnamon); font-variant-numeric:tabular-nums; font-weight:500; }
+  .head h2 {
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(56px,8vw,112px); line-height:0.92; letter-spacing:-0.045em;
+    color:var(--ink-0); max-width:18ch; text-transform:lowercase;
+  }
+  .head h2 .dot { color:var(--cinnamon); }
+  .head h2 .ital { font-family:var(--serif); font-style:italic; font-weight:400; letter-spacing:-0.02em; }
+
+  /* === COVER === */
+  .cover { min-height:100vh; display:flex; flex-direction:column; justify-content:space-between; padding:64px 0 0; }
+  .cover .topbar {
+    display:flex; justify-content:space-between; align-items:flex-start; gap:32px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--ink-2);
+  }
+  .cover .topbar .right { text-align:right; }
+  .cover .topbar .right div + div { margin-top:6px; color:var(--ink-3); }
+
+  .cover .stage {
+    display:flex; flex-direction:column; gap:48px; align-items:flex-start;
+    padding:96px 0 64px;
+  }
+  .cover .mast {
+    font-family:var(--display); font-weight:900;
+    font-size:clamp(120px,30vw,440px); line-height:0.84; letter-spacing:0;
+    font-kerning:normal; text-rendering:geometricPrecision;
+    font-feature-settings:'kern' 1, 'calt' 1;
+    white-space:nowrap;
+    color:var(--ink-0); text-transform:lowercase;
+  }
+  .cover .mast .dot { color:var(--cinnamon); display:inline-block; transform:translateY(-0.05em); }
+  .cover .tag {
+    font-family:var(--serif); font-style:italic; font-weight:400;
+    font-size:clamp(28px,3.6vw,56px); line-height:1.1; color:var(--ink-1); letter-spacing:-0.015em;
+    max-width:24ch;
+  }
+  .cover .tag em { color:var(--bloodlust); font-style:italic; }
+
+  .cover .lower {
+    display:grid; grid-template-columns:1.4fr 1fr; gap:64px; align-items:flex-end;
+    padding:32px 0 64px; border-top:1px solid var(--ink-4);
+  }
+  .cover .lower .pitch {
+    font-family:var(--display); font-weight:300;
+    font-size:clamp(20px,1.7vw,24px); line-height:1.5; color:var(--ink-1);
+    letter-spacing:-0.005em; max-width:48ch;
+  }
+  .cover .lower .pitch em { font-family:var(--serif); font-style:italic; font-weight:400; color:var(--ink-0); font-size:1.05em; }
+  .cover .lower .pitch .ox { color:var(--bloodlust); font-family:var(--serif); font-style:italic; font-weight:400; font-size:1.05em; }
+  .cover .lower .index {
+    font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--ink-2); column-count:2; column-gap:32px;
+  }
+  .cover .lower .index a { color:var(--ink-2); text-decoration:none; display:flex; gap:12px; padding:6px 0; transition:color 280ms var(--ease-soft); break-inside:avoid; }
+  .cover .lower .index a:hover { color:var(--ink-0); }
+  .cover .lower .index a span:first-child { color:var(--ink-3); font-variant-numeric:tabular-nums; }
+
+  @media (max-width:900px){ .cover .lower{grid-template-columns:1fr; gap:32px;} }
+
+  /* === WORDMARK === */
+  .wm-row { border-top:1px solid var(--ink-4); }
+  .wm-row > article { border-bottom:1px solid var(--ink-4); padding:96px 0; transition:background 480ms var(--ease-cinema); }
+  .wm-row > article:hover { background:rgba(31,7,7,0.03); }
+
+  .wm-meta {
+    display:grid; grid-template-columns:1fr 4fr 1.2fr; gap:32px; align-items:flex-start;
+    margin-bottom:80px;
+  }
+  .wm-meta .ix { font-family:var(--mono); font-size:11px; letter-spacing:0.20em; text-transform:uppercase; color:var(--ink-2); line-height:1.8; }
+  .wm-meta .ix .n { color:var(--cinnamon); font-variant-numeric:tabular-nums; font-weight:500; }
+  .wm-meta h3 {
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(36px,4vw,56px); line-height:1; color:var(--ink-0); letter-spacing:-0.04em;
+    text-transform:lowercase;
+  }
+  .wm-meta h3 .dot { color:var(--cinnamon); }
+  .wm-meta .desc {
+    font-family:var(--body); font-size:14px; color:var(--ink-2); line-height:1.65; text-align:right;
+  }
+  .wm-meta .desc .badge {
+    display:inline-block; font-family:var(--mono); font-size:10px; letter-spacing:0.20em; text-transform:uppercase;
+    color:var(--cream-0); background:var(--bloodlust); padding:5px 10px; margin-bottom:12px;
+  }
+  .wm-meta .desc .ref { display:block; margin-top:12px; font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-3); }
+
+  .wm-stage { min-height:280px; display:flex; align-items:center; justify-content:center; padding:32px 0; }
+
+  /* A · pure */
+  .pure-render {
+    font-family:var(--display); font-weight:900; color:var(--ink-0);
+    font-size:clamp(120px,22vw,320px); line-height:0.84; letter-spacing:0;
+    font-kerning:normal; text-rendering:geometricPrecision;
+    font-feature-settings:'kern' 1, 'calt' 1;
+    white-space:nowrap;
+    text-transform:lowercase; text-align:center;
+  }
+  .pure-render .dot { color:var(--cinnamon); display:inline-block; transform:translateY(-0.05em); }
+
+  /* B · producer */
+  .prod-render { display:flex; flex-direction:column; align-items:center; gap:20px; }
+  .prod-render .name {
+    font-family:var(--display); font-weight:900; color:var(--ink-0);
+    font-size:clamp(120px,22vw,300px); line-height:0.84; letter-spacing:0;
+    font-kerning:normal; text-rendering:geometricPrecision;
+    font-feature-settings:'kern' 1, 'calt' 1;
+    white-space:nowrap;
+    text-transform:lowercase;
+  }
+  .prod-render .name .dot { color:var(--cinnamon); display:inline-block; transform:translateY(-0.05em); }
+  .prod-render .cap {
+    font-family:var(--mono); font-size:14px; letter-spacing:0.42em; text-transform:lowercase;
+    color:var(--ink-1); display:flex; align-items:center; gap:18px;
+  }
+  .prod-render .cap .pip { width:6px; height:6px; background:var(--cinnamon); border-radius:50%; }
+
+  /* C · slate */
+  .slate-render { display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:center; }
+  .slate-render .block {
+    width:clamp(72px,12vw,140px); height:clamp(72px,12vw,140px); background:var(--cinnamon); flex-shrink:0;
+  }
+  .slate-render .name {
+    font-family:var(--display); font-weight:900; color:var(--ink-0);
+    font-size:clamp(96px,18vw,240px); line-height:0.84; letter-spacing:0;
+    font-kerning:normal; text-rendering:geometricPrecision;
+    font-feature-settings:'kern' 1, 'calt' 1;
+    white-space:nowrap;
+    text-transform:lowercase;
+  }
+  .slate-render .name .dot { color:var(--cinnamon); display:inline-block; transform:translateY(-0.05em); }
+
+  @media (max-width:900px){
+    .wm-meta{grid-template-columns:1fr; gap:16px;}
+    .wm-meta .desc{text-align:left;}
+  }
+
+  /* === COLOR === */
+  .palette {
+    display:grid; grid-template-columns:repeat(11,1fr); border:1px solid var(--ink-0);
+    margin-bottom:64px;
+  }
+  .palette > div { padding:24px 16px; min-height:200px; display:flex; flex-direction:column; justify-content:flex-end; gap:6px; border-right:1px solid var(--ink-0); }
+  .palette > div:last-child { border-right:none; }
+  .palette .name { font-family:var(--mono); font-size:10px; letter-spacing:0.16em; text-transform:uppercase; }
+  .palette .hex { font-family:var(--mono); font-size:11px; font-variant-numeric:tabular-nums; }
+  .palette .role { font-family:var(--mono); font-size:9px; letter-spacing:0.16em; text-transform:uppercase; opacity:0.7; }
+
+  .accent-strip {
+    display:grid; grid-template-columns:1.2fr 1.8fr 1fr; align-items:stretch; border:1px solid var(--ink-0);
+    min-height:280px;
+  }
+  .accent-strip .swatch { background:var(--cinnamon); position:relative; }
+  .accent-strip .swatch::after {
+    content:'#F28E86'; position:absolute; bottom:24px; left:24px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.20em; color:var(--ink-0);
+  }
+  .accent-strip .swatch-deep { background:var(--bloodlust); position:relative; }
+  .accent-strip .data {
+    padding:40px; display:flex; flex-direction:column; justify-content:space-between; gap:24px;
+    border-left:1px solid var(--ink-0);
+  }
+  .accent-strip .data h4 {
+    font-family:var(--display); font-weight:300; font-size:48px; line-height:1; letter-spacing:-0.035em;
+    text-transform:lowercase;
+  }
+  .accent-strip .data h4 .ital { font-family:var(--serif); font-style:italic; font-weight:400; }
+  .accent-strip .data p {
+    font-family:var(--body); font-size:14px; line-height:1.65; color:var(--ink-1); max-width:36ch;
+  }
+  .accent-strip .data .rule {
+    font-family:var(--mono); font-size:11px; letter-spacing:0.20em; text-transform:uppercase; color:var(--cinnamon);
+    padding:6px 10px; border:1px solid var(--cinnamon); display:inline-block; align-self:flex-start;
+  }
+
+  @media (max-width:900px){
+    .palette{grid-template-columns:repeat(3,1fr);}
+    .palette > div{border-right:none; border-bottom:1px solid var(--ink-0);}
+    .accent-strip{grid-template-columns:1fr;}
+    .accent-strip .data{border-left:none; border-top:1px solid var(--ink-0);}
+  }
+
+  /* === TYPE === */
+  .type-spec {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    border:1px solid var(--ink-0); margin-bottom:96px;
+  }
+  .type-spec > article { padding:48px; border-right:1px solid var(--ink-0); }
+  .type-spec > article:last-child { border-right:none; }
+  .type-spec .role { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-2); margin-bottom:24px; }
+  .type-spec .name { font-size:64px; line-height:1; letter-spacing:-0.045em; color:var(--ink-0); text-transform:lowercase; }
+  .type-spec .name.disp { font-family:var(--display); font-weight:900; }
+  .type-spec .name.bod { font-family:var(--body); font-weight:500; font-size:48px; letter-spacing:-0.025em; }
+  .type-spec .name.mon { font-family:var(--mono); font-size:32px; letter-spacing:0; text-transform:none; }
+  .type-spec .specimen {
+    margin-top:32px; padding-top:24px; border-top:1px solid var(--ink-4);
+    font-family:var(--display); font-weight:300; font-size:18px; line-height:1.45; letter-spacing:-0.005em;
+    color:var(--ink-1);
+  }
+  .type-spec .specimen.bod { font-family:var(--body); font-weight:400; font-size:15px; line-height:1.6; }
+  .type-spec .specimen.mon { font-family:var(--mono); font-size:11px; letter-spacing:0.18em; text-transform:uppercase; }
+  .type-spec .src { margin-top:24px; font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-3); }
+
+  .type-scale { display:flex; flex-direction:column; }
+  .type-scale .row {
+    display:grid; grid-template-columns:80px 110px 1fr; gap:32px; align-items:baseline;
+    padding:32px 0; border-top:1px solid var(--ink-4);
+  }
+  .type-scale .row:last-child { border-bottom:1px solid var(--ink-4); }
+  .type-scale .px { font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+  .type-scale .role { font-family:var(--mono); font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-2); }
+  .type-scale .demo { font-family:var(--display); font-weight:700; color:var(--ink-0); line-height:1.05; letter-spacing:-0.04em; text-transform:lowercase; }
+  .type-scale .demo .ital { font-family:var(--serif); font-style:italic; font-weight:400; letter-spacing:-0.015em; }
+  .type-scale .demo .ox { color:var(--cinnamon); }
+  .type-scale .row.body-row .demo { font-family:var(--body); font-weight:400; line-height:1.55; letter-spacing:0; text-transform:none; }
+  .type-scale .row.mono-row .demo { font-family:var(--mono); letter-spacing:0.18em; text-transform:uppercase; font-size:13px; color:var(--ink-2); font-weight:400; }
+
+  @media (max-width:900px){
+    .type-spec{grid-template-columns:1fr;}
+    .type-spec > article{border-right:none; border-bottom:1px solid var(--ink-0);}
+  }
+
+  /* === MOTION === */
+  .motion {
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--ink-0); margin-bottom:64px;
+  }
+  .motion > article {
+    padding:36px 28px; border-right:1px solid var(--ink-0); min-height:240px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .motion > article:last-child { border-right:none; }
+  .motion .role { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-2); }
+  .motion .name { font-family:var(--display); font-weight:300; font-size:36px; line-height:1; letter-spacing:-0.04em; margin-top:8px; text-transform:lowercase; }
+  .motion .curve { font-family:var(--mono); font-size:10px; color:var(--ink-2); margin-top:20px; word-break:break-all; }
+  .motion .track { height:1px; background:var(--ink-4); position:relative; margin-top:24px; }
+  .motion .pip { position:absolute; top:-3px; left:0; width:7px; height:7px; border-radius:50%; background:var(--cinnamon); animation:ride 4s infinite; }
+  .motion article.cinema .pip { animation-timing-function:cubic-bezier(0.65,0,0.35,1); }
+  .motion article.shutter .pip { animation-timing-function:cubic-bezier(0.85,0,0.15,1); }
+  .motion article.soft .pip { animation-timing-function:cubic-bezier(0.25,0.1,0.25,1); }
+  .motion article.spring .pip { animation-timing-function:cubic-bezier(0.34,1.56,0.64,1); }
+  .motion .use { font-family:var(--mono); font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--ink-3); margin-top:14px; }
+  @keyframes ride { 0%,5% { left:0; } 45%,55% { left:calc(100% - 7px); } 95%,100% { left:0; } }
+  @media (prefers-reduced-motion:reduce){ .motion .pip{animation:none; left:50%;} }
+
+  .durations {
+    display:grid; grid-template-columns:repeat(5,1fr);
+    border:1px solid var(--ink-0); margin-bottom:96px;
+  }
+  .durations > div { padding:32px; border-right:1px solid var(--ink-0); }
+  .durations > div:last-child { border-right:none; }
+  .durations .lab { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-2); }
+  .durations .ms { font-family:var(--display); font-weight:300; font-size:56px; line-height:1; margin-top:16px; letter-spacing:-0.05em; font-variant-numeric:tabular-nums; }
+  .durations .ms .unit { font-family:var(--serif); font-style:italic; color:var(--cinnamon); font-size:32px; letter-spacing:0; }
+
+  .principles { max-width:980px; margin:0 auto; }
+  .principles ol { list-style:none; counter-reset:p; display:flex; flex-direction:column; }
+  .principles li {
+    counter-increment:p; padding:36px 0; border-top:1px solid var(--ink-4);
+    display:grid; grid-template-columns:64px 1fr; gap:32px;
+    font-family:var(--display); font-weight:300; font-size:clamp(28px,3vw,40px); line-height:1.25; letter-spacing:-0.025em;
+    color:var(--ink-0); text-transform:lowercase;
+  }
+  .principles li:last-child { border-bottom:1px solid var(--ink-4); }
+  .principles li::before {
+    content:counter(p,decimal-leading-zero);
+    font-family:var(--mono); font-size:11px; letter-spacing:0.18em; color:var(--cinnamon);
+    align-self:start; padding-top:14px; font-variant-numeric:tabular-nums; font-weight:500;
+  }
+  .principles li .ital { font-family:var(--serif); font-style:italic; font-weight:400; letter-spacing:-0.015em; }
+  .principles li .ox { color:var(--bloodlust); }
+
+  @media (max-width:900px){
+    .motion{grid-template-columns:repeat(2,1fr);}
+    .motion > article:nth-child(2){border-right:none;}
+    .durations{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* === VOICE === */
+  .voice-lead {
+    font-family:var(--display); font-weight:300; font-size:clamp(40px,5vw,80px);
+    line-height:1.05; letter-spacing:-0.045em; max-width:22ch; margin-bottom:96px; color:var(--ink-0);
+    text-transform:lowercase;
+  }
+  .voice-lead .ital { font-family:var(--serif); font-style:italic; font-weight:400; letter-spacing:-0.02em; }
+  .voice-lead .ox { color:var(--bloodlust); }
+
+  .voice-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:80px; }
+  .voice-grid h4 { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-2); margin-bottom:32px; }
+  .pulls { display:flex; flex-direction:column; }
+  .pulls .pull, .rules .rule {
+    padding:28px 0; border-top:1px solid var(--ink-4);
+    font-family:var(--display); font-weight:400; font-size:clamp(22px,2.4vw,30px); line-height:1.25; letter-spacing:-0.025em;
+    color:var(--ink-0); text-transform:lowercase;
+    display:grid; grid-template-columns:42px 1fr; gap:16px; align-items:baseline;
+  }
+  .pulls .pull:last-child, .rules .rule:last-child { border-bottom:1px solid var(--ink-4); }
+  .pulls .pull .n, .rules .rule .n {
+    font-family:var(--mono); font-size:11px; letter-spacing:0.18em; color:var(--cinnamon);
+    font-variant-numeric:tabular-nums; padding-top:6px; font-weight:500;
+  }
+  .pulls .pull .ital, .rules .rule .ital { font-family:var(--serif); font-style:italic; font-weight:400; letter-spacing:-0.015em; }
+  .pulls .pull .dot { color:var(--cinnamon); }
+  .pulls .pull .ox, .rules .rule .ox { color:var(--bloodlust); }
+
+  .banned { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+  .banned span {
+    font-family:var(--mono); font-size:11px; padding:6px 12px;
+    border:1px solid var(--ink-4); color:var(--ink-2);
+    text-decoration:line-through; text-decoration-color:var(--cinnamon); text-decoration-thickness:1.5px;
+  }
+
+  @media (max-width:900px){ .voice-grid{grid-template-columns:1fr; gap:48px;} }
+
+  /* === TOKENS === */
+  .tokens {
+    display:grid; grid-template-columns:repeat(2,1fr);
+    border:1px solid var(--ink-0);
+  }
+  .tokens > article {
+    padding:40px; border-right:1px solid var(--ink-0); border-bottom:1px solid var(--ink-0);
+  }
+  .tokens > article:nth-child(even) { border-right:none; }
+  .tokens > article:nth-last-child(-n+2) { border-bottom:none; }
+  .tokens h4 { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-2); margin-bottom:24px; }
+  .tokens table { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:13px; }
+  .tokens td { padding:8px 0; border-bottom:1px solid var(--ink-4); color:var(--ink-1); font-variant-numeric:tabular-nums; }
+  .tokens td:first-child { color:var(--ink-3); width:50%; }
+  .tokens tr:last-child td { border-bottom:none; }
+
+  /* === CONTRACT === */
+  .contract-lead {
+    font-family:var(--display); font-weight:300; font-size:clamp(28px,3vw,40px); line-height:1.35;
+    letter-spacing:-0.025em; color:var(--ink-1); max-width:60ch; margin-bottom:96px;
+    text-transform:lowercase;
+  }
+  .contract-lead .ital { font-family:var(--serif); font-style:italic; font-weight:400; color:var(--ink-0); letter-spacing:-0.015em; }
+  .contract-lead .ox { color:var(--bloodlust); font-family:var(--serif); font-style:italic; font-weight:400; letter-spacing:-0.015em; }
+  .contract-lead code {
+    font-family:var(--mono); font-size:0.78em; background:var(--cream-1);
+    padding:1px 8px; border:1px solid var(--ink-4); text-transform:none;
+  }
+
+  .contract-foot {
+    display:grid; grid-template-columns:1fr 1fr; gap:64px;
+    padding-top:48px; border-top:1px solid var(--ink-0);
+  }
+  .contract-foot h4 { font-family:var(--mono); font-size:10px; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-2); margin-bottom:24px; }
+  .contract-foot .files { font-family:var(--mono); font-size:12px; color:var(--ink-1); }
+  .contract-foot .files div { padding:6px 0; border-bottom:1px solid var(--ink-4); display:flex; justify-content:space-between; gap:16px; }
+  .contract-foot .files div:last-child { border-bottom:none; }
+  .contract-foot .files .phase { color:var(--ink-3); }
+
+  .contract-foot .gate {
+    font-family:var(--display); font-weight:400; font-size:clamp(28px,3.4vw,42px); line-height:1.25;
+    letter-spacing:-0.04em; text-transform:lowercase;
+  }
+  .contract-foot .gate .ital { font-family:var(--serif); font-style:italic; font-weight:400; color:var(--cinnamon); letter-spacing:-0.015em; }
+
+  @media (max-width:900px){ .contract-foot{grid-template-columns:1fr;} }
+
+  /* Footer */
+  footer { padding:96px 0 64px; border-top:1px solid var(--ink-0); }
+  .foot-grid { display:flex; align-items:flex-end; justify-content:space-between; gap:48px; flex-wrap:wrap; }
+  .foot-grid .lock {
+    font-family:var(--display); font-weight:900; font-size:clamp(80px,14vw,180px);
+    line-height:0.84; letter-spacing:0;
+    font-kerning:normal; text-rendering:geometricPrecision;
+    font-feature-settings:'kern' 1, 'calt' 1;
+    white-space:nowrap;
+    color:var(--ink-0); text-transform:lowercase;
+  }
+  .foot-grid .lock .dot { color:var(--cinnamon); display:inline-block; transform:translateY(-0.05em); }
+  .foot-grid .meta {
+    font-family:var(--mono); font-size:10px; letter-spacing:0.20em; text-transform:uppercase; color:var(--ink-2); text-align:right;
+  }
+  .foot-grid .meta div + div { margin-top:8px; }
+  .foot-grid .meta .ox { color:var(--cinnamon); }
+
+  a.action { color:var(--ink-0); text-decoration:underline; text-underline-offset:5px; text-decoration-color:var(--ink-3); transition:text-decoration-color 240ms var(--ease-soft); }
+  a.action:hover { text-decoration-color:var(--cinnamon); }
+
+  /* Hand-kerned wordmark — uniform 7.8px ink-gap (5/16 of m's internal counter). */
+  .kw > span { display:inline-block; }
+  .kw > span:nth-child(1) { margin-right:-0.003em; }  /* h → a */
+  .kw > span:nth-child(2) { margin-right:-0.041em; }  /* a → m */
+  .kw > span:nth-child(3) { margin-right:-0.032em; }  /* m → m */
+  .kw > span:nth-child(4) { margin-right:0.001em; }   /* m → e */
+  .kw > span:nth-child(5) { margin-right:-0.008em; }  /* e → r */
+  .kw > span:nth-child(6) { margin-right:0.007em; }   /* r → . */
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#cover"><span>01</span><span>cover</span></a>
+  <a href="#wordmark"><span>02</span><span>wordmark</span></a>
+  <a href="#color"><span>03</span><span>color</span></a>
+  <a href="#type"><span>04</span><span>type</span></a>
+  <a href="#motion"><span>05</span><span>motion</span></a>
+  <a href="#voice"><span>06</span><span>voice</span></a>
+  <a href="#tokens"><span>07</span><span>tokens</span></a>
+  <a href="#contract"><span>08</span><span>contract</span></a>
+</nav>
+
+<div class="frame" id="frame">01<span class="sep">/</span>08</div>
+
+<main>
+
+  <!-- 01 · COVER -->
+  <section class="cover" id="cover">
+    <div class="wrap">
+      <div class="topbar">
+        <div>
+          <div>hammer</div>
+          <div style="color:var(--ink-3);margin-top:4px">brand guide</div>
+        </div>
+        <div class="right">
+          <div>v 3.0 · 2026.05.03</div>
+          <div>Vinaceous Cinnamon · Polished Bloodlust</div>
+          <div style="color:var(--ink-3)">status — draft</div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="mast kw"><span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span><span class="dot">.</span></div>
+        <div class="tag">a producer who treats <em>machines like crew.</em></div>
+      </div>
+
+      <div class="lower">
+        <p class="pitch">
+          Fifteen years in broadcast. Eighteen months on AI.
+          <span class="ox">Same job. New tools. Same standard.</span>
+          This document is the <em>design contract</em> for everything Hammer ships —
+          wordmark, color, type, motion, voice, tokens. Phase&nbsp;0. No code is written until approved.
+        </p>
+        <nav class="index" aria-label="Inside">
+          <a href="#wordmark"><span>02</span><span>wordmark</span></a>
+          <a href="#color"><span>03</span><span>color</span></a>
+          <a href="#type"><span>04</span><span>type</span></a>
+          <a href="#motion"><span>05</span><span>motion</span></a>
+          <a href="#voice"><span>06</span><span>voice</span></a>
+          <a href="#tokens"><span>07</span><span>tokens</span></a>
+          <a href="#contract"><span>08</span><span>contract</span></a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · WORDMARK -->
+  <section id="wordmark">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">02</span><span>wordmark · pick one</span></div>
+        <h2>three <span class="ital">directions</span><span class="dot">.</span></h2>
+      </div>
+
+      <div class="wm-row">
+
+        <article>
+          <div class="wm-meta">
+            <div class="ix"><span class="n">A</span><br/>The Pure</div>
+            <h3>just the word<span class="dot">.</span></h3>
+            <div class="desc">
+              The wordmark is the design. Set in Outfit Black at hero scale, lowercase, with
+              the cinnamon period as the entire brand mark — and that period travels everywhere
+              the name does.
+              <span class="ref">A24 · Loewe · Vercel</span>
+            </div>
+          </div>
+          <div class="wm-stage">
+            <div class="pure-render kw"><span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span><span class="dot">.</span></div>
+          </div>
+        </article>
+
+        <article>
+          <div class="wm-meta">
+            <div class="ix"><span class="n">B</span><br/>The Producer</div>
+            <h3>name + caption<span class="dot">.</span></h3>
+            <div class="desc">
+              <span class="badge">★ recommended</span>
+              The Pure with a small, letter-spaced mono caption beneath. Locks the
+              <em>ai · producer</em> keyword visually for SEO without crowding the type.
+              A coral pip carries the accent into the caption row.
+              <span class="ref">Bureau Borsche · Linear · Mucho</span>
+            </div>
+          </div>
+          <div class="wm-stage">
+            <div class="prod-render">
+              <div class="name kw"><span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span><span class="dot">.</span></div>
+              <div class="cap"><span>ai</span><span class="pip"></span><span>producer</span></div>
+            </div>
+          </div>
+        </article>
+
+        <article>
+          <div class="wm-meta">
+            <div class="ix"><span class="n">C</span><br/>The Slate</div>
+            <h3>cinema block<span class="dot">.</span></h3>
+            <div class="desc">
+              A solid cinnamon square sits in front of the wordmark like a film slate or
+              production-company plate. Most explicit cinema connotation — reads as
+              production house, not personal portfolio.
+              <span class="ref">Production company plates · A24 logo · Stink Studios</span>
+            </div>
+          </div>
+          <div class="wm-stage">
+            <div class="slate-render">
+              <div class="block" aria-hidden="true"></div>
+              <div class="name kw"><span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span><span class="dot">.</span></div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · COLOR -->
+  <section id="color">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">03</span><span>color · vinaceous cinnamon</span></div>
+        <h2>one hue. eleven <span class="ital">stops</span><span class="dot">.</span></h2>
+      </div>
+
+      <div class="palette">
+        <div style="background:#0F0303;color:#FAEEE9"><span class="role" style="opacity:0.7">deepest</span><span class="name">ink-deepest</span><span class="hex">#0F0303</span></div>
+        <div style="background:#1F0707;color:#FAEEE9"><span class="role" style="opacity:0.7">primary</span><span class="name">ink-0</span><span class="hex">#1F0707</span></div>
+        <div style="background:#3D1413;color:#FAEEE9"><span class="role" style="opacity:0.7">secondary</span><span class="name">ink-1</span><span class="hex">#3D1413</span></div>
+        <div style="background:#5A201D;color:#FAEEE9"><span class="role" style="opacity:0.7">bloodlust</span><span class="name">bloodlust</span><span class="hex">#5A201D</span></div>
+        <div style="background:#6E2C27;color:#FAEEE9"><span class="role" style="opacity:0.7">muted</span><span class="name">ink-2</span><span class="hex">#6E2C27</span></div>
+        <div style="background:#A66860;color:#FAEEE9"><span class="role" style="opacity:0.7">subtle</span><span class="name">ink-3</span><span class="hex">#A66860</span></div>
+        <div style="background:#C99891"><span class="role">faint</span><span class="name">ink-4</span><span class="hex">#C99891</span></div>
+        <div style="background:#F28E86"><span class="role">accent</span><span class="name">cinnamon</span><span class="hex">#F28E86</span></div>
+        <div style="background:#E5BFB4"><span class="role">cream-2</span><span class="name">cream-2</span><span class="hex">#E5BFB4</span></div>
+        <div style="background:#F2DDD4"><span class="role">cream-1</span><span class="name">cream-1</span><span class="hex">#F2DDD4</span></div>
+        <div style="background:#FAEEE9"><span class="role">page</span><span class="name">cream-0</span><span class="hex">#FAEEE9</span></div>
+      </div>
+
+      <div class="accent-strip">
+        <div class="swatch"></div>
+        <div class="data">
+          <div>
+            <span class="rule">the live accent</span>
+            <h4 style="margin-top:24px">vinaceous <span class="ital">cinnamon</span><span style="color:var(--cinnamon)">.</span></h4>
+          </div>
+          <p>
+            One color. The period after <em style="font-family:var(--serif);font-style:italic">hammer</em>.
+            One CTA per fold. Keyword highlights. Selected states. Used three to five times
+            on any page. Never decorative. Never paired with another saturated hue.
+            The deeper <strong style="color:var(--bloodlust);font-weight:600">Polished Bloodlust</strong>
+            is its hover &amp; pressed state — only.
+          </p>
+          <div style="display:flex;gap:32px;font-family:var(--mono);font-size:11px;color:var(--ink-2);letter-spacing:0.16em;text-transform:uppercase">
+            <div><div style="color:var(--ink-3);margin-bottom:4px">OKLCH</div>0.75 0.123 24.8</div>
+            <div><div style="color:var(--ink-3);margin-bottom:4px">RGB</div>242 142 134</div>
+            <div><div style="color:var(--ink-3);margin-bottom:4px">P3</div>0.895 0.574 0.54</div>
+          </div>
+        </div>
+        <div class="swatch-deep"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · TYPE -->
+  <section id="type">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">04</span><span>type · futura-coded · 1.25 modular</span></div>
+        <h2>display, body, <span class="ital">mono</span><span class="dot">.</span></h2>
+      </div>
+
+      <div class="type-spec">
+        <article>
+          <div class="role">Display</div>
+          <div class="name disp">outfit</div>
+          <div class="specimen">a producer who treats machines like crew.</div>
+          <div class="src">Rodrigo Fuenzalida · 200–900 · free · google fonts</div>
+        </article>
+        <article>
+          <div class="role">Body</div>
+          <div class="name bod">geist</div>
+          <div class="specimen bod">A producer's first job is judgment. Knowing when to re-prompt, when to fix in post, and when to cut the shot entirely.</div>
+          <div class="src">Vercel · 100–900 · free</div>
+        </article>
+        <article>
+          <div class="role">Mono</div>
+          <div class="name mon">geist mono</div>
+          <div class="specimen mon">FRAME 047 / 247 · 2.39:1 · ANAMORPHIC</div>
+          <div class="src">Vercel · 100–900 · free</div>
+        </article>
+      </div>
+
+      <div class="type-scale">
+        <div class="row"><div class="px">112 px</div><div class="role">h1 · hero</div><div class="demo" style="font-size:96px">i produce <span class="ital">stories</span></div></div>
+        <div class="row"><div class="px">72 px</div><div class="role">h2</div><div class="demo" style="font-size:64px">crew of <span class="ital">one</span><span class="ox">.</span></div></div>
+        <div class="row"><div class="px">48 px</div><div class="role">h4 · section</div><div class="demo" style="font-size:44px">from broadcast to ai.</div></div>
+        <div class="row"><div class="px">32 px</div><div class="role">h5</div><div class="demo" style="font-size:30px">same standard. new tools.</div></div>
+        <div class="row"><div class="px">24 px</div><div class="role">h6 · quote</div><div class="demo" style="font-size:22px">a filmmaker who happens to direct machines.</div></div>
+        <div class="row body-row"><div class="px">20 px</div><div class="role">body-lg</div><div class="demo" style="font-size:20px">Veo for the cinematic plate. Kling for character continuity. Suno for the music bed.</div></div>
+        <div class="row body-row"><div class="px">16 px</div><div class="role">body</div><div class="demo" style="font-size:16px">All stitched in Premiere — the same edit suite, a different room.</div></div>
+        <div class="row mono-row"><div class="px">14 px</div><div class="role">caption</div><div class="demo">Frame 047 / 247 · 2.39:1 · Anamorphic</div></div>
+        <div class="row mono-row"><div class="px">12 px</div><div class="role">caption-sm</div><div class="demo">Case study · Autonomous agents · 2026</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · MOTION -->
+  <section id="motion">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">05</span><span>motion · cinema, not productivity</span></div>
+        <h2>four easings. five <span class="ital">durations</span><span class="dot">.</span></h2>
+      </div>
+
+      <div class="motion">
+        <article class="cinema">
+          <div><div class="role">--ease-cinema</div><div class="name">cinema</div><div class="curve">cubic-bezier(0.65, 0, 0.35, 1)</div></div>
+          <div><div class="track"><div class="pip"></div></div><div class="use">default · everything</div></div>
+        </article>
+        <article class="shutter">
+          <div><div class="role">--ease-shutter</div><div class="name">shutter</div><div class="curve">cubic-bezier(0.85, 0, 0.15, 1)</div></div>
+          <div><div class="track"><div class="pip"></div></div><div class="use">page transitions</div></div>
+        </article>
+        <article class="soft">
+          <div><div class="role">--ease-soft</div><div class="name">soft</div><div class="curve">cubic-bezier(0.25, 0.1, 0.25, 1)</div></div>
+          <div><div class="track"><div class="pip"></div></div><div class="use">hover · feedback</div></div>
+        </article>
+        <article class="spring">
+          <div><div class="role">--ease-spring</div><div class="name">spring</div><div class="curve">cubic-bezier(0.34, 1.56, 0.64, 1)</div></div>
+          <div><div class="track"><div class="pip"></div></div><div class="use">delight · used rarely</div></div>
+        </article>
+      </div>
+
+      <div class="durations">
+        <div><div class="lab">instant</div><div class="ms">100<span class="unit"> ms</span></div></div>
+        <div><div class="lab">quick</div><div class="ms">200<span class="unit"> ms</span></div></div>
+        <div><div class="lab">standard</div><div class="ms">400<span class="unit"> ms</span></div></div>
+        <div><div class="lab">slow</div><div class="ms">600<span class="unit"> ms</span></div></div>
+        <div><div class="lab">cinematic</div><div class="ms">1000<span class="unit"> ms</span></div></div>
+      </div>
+
+      <div class="principles">
+        <ol>
+          <li><span class="ital">earn</span> every animation. if it doesn't aid comprehension or set tone, cut it.</li>
+          <li><span class="ital">cinematic</span> over snappy. the site moves like film, not like a productivity app.</li>
+          <li><span class="ital">composed</span>, not choreographed. stagger reveals; never bloom everything at once.</li>
+          <li><span class="ital">scroll</span> is the camera. the user is the operator; the page reacts.</li>
+          <li><span class="ital">reduced-motion</span> is a real audience, not an afterthought.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · VOICE -->
+  <section id="voice">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">06</span><span>voice · producer, not prompt-bro</span></div>
+        <h2>short. cinematic. <span class="ital">earned</span><span class="dot">.</span></h2>
+      </div>
+
+      <p class="voice-lead">
+        fifteen years on broadcast. eighteen months on ai.
+        <span class="ox">same job. new tools. same standard.</span>
+      </p>
+
+      <div class="voice-grid">
+
+        <div>
+          <h4>sample headlines</h4>
+          <div class="pulls">
+            <div class="pull"><span class="n">01</span><span>hammer<span class="dot">.</span> ai producer<span class="dot">.</span></span></div>
+            <div class="pull"><span class="n">02</span><span>i produce <span class="ital">stories</span> with machines.</span></div>
+            <div class="pull"><span class="n">03</span><span>fifteen years on broadcast. eighteen on ai. <span class="ital">same job.</span></span></div>
+            <div class="pull"><span class="n">04</span><span>autonomous ai characters who run their <span class="ital">own</span> socials.</span></div>
+            <div class="pull"><span class="n">05</span><span>crew of <span class="ital">one.</span> output of fifty.</span></div>
+          </div>
+        </div>
+
+        <div>
+          <h4>voice rules</h4>
+          <div class="rules">
+            <div class="rule"><span class="n">01</span><span>concrete numbers and names beat <span class="ital">vague</span> claims.</span></div>
+            <div class="rule"><span class="n">02</span><span>producer voice — <span class="ital">confident</span>, specific, light on hype.</span></div>
+            <div class="rule"><span class="n">03</span><span><span class="ital">short</span> sentences. cinematic. avg 12. cap 25.</span></div>
+          </div>
+
+          <h4 style="margin-top:48px">banned · ci-enforced</h4>
+          <div class="banned">
+            <span>unleash</span><span>harness</span><span>revolutionize</span><span>supercharge</span>
+            <span>game-changing</span><span>next-level</span><span>leverage</span><span>synergy</span>
+            <span>cutting-edge</span><span>seamless</span><span>robust</span><span>empower</span>
+            <span>disrupt</span><span>tap into</span><span>the power of AI</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 · TOKENS -->
+  <section id="tokens">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">07</span><span>tokens · component scales</span></div>
+        <h2>spacing, radius, <span class="ital">elevation</span><span class="dot">.</span></h2>
+      </div>
+
+      <div class="tokens">
+        <article>
+          <h4>spacing · base 4</h4>
+          <table>
+            <tr><td>--space-1</td><td>4 px</td></tr>
+            <tr><td>--space-2</td><td>8 px</td></tr>
+            <tr><td>--space-3</td><td>12 px</td></tr>
+            <tr><td>--space-4</td><td>16 px</td></tr>
+            <tr><td>--space-5</td><td>24 px</td></tr>
+            <tr><td>--space-6</td><td>32 px</td></tr>
+            <tr><td>--space-7</td><td>48 px</td></tr>
+            <tr><td>--space-8</td><td>64 px</td></tr>
+            <tr><td>--space-9</td><td>96 px</td></tr>
+            <tr><td>--space-10</td><td>128 px</td></tr>
+          </table>
+        </article>
+
+        <article>
+          <h4>radius · default sharp</h4>
+          <table>
+            <tr><td>--radius-0</td><td>0 px · default · editorial</td></tr>
+            <tr><td>--radius-1</td><td>2 px · buttons, chips</td></tr>
+            <tr><td>--radius-2</td><td>4 px · inputs, small cards</td></tr>
+            <tr><td>--radius-3</td><td>8 px · media containers</td></tr>
+            <tr><td>--radius-4</td><td>16 px · large media</td></tr>
+          </table>
+        </article>
+
+        <article>
+          <h4>border weights</h4>
+          <table>
+            <tr><td>--bw-1</td><td>1 px · default hairline</td></tr>
+            <tr><td>--bw-2</td><td>2 px · accent · focus</td></tr>
+            <tr><td>--bw-3</td><td>3 px · scrim · disclaimer</td></tr>
+          </table>
+        </article>
+
+        <article>
+          <h4>z-index · named layers</h4>
+          <table>
+            <tr><td>base</td><td>0</td></tr>
+            <tr><td>texture</td><td>10</td></tr>
+            <tr><td>content</td><td>20</td></tr>
+            <tr><td>cursor</td><td>30</td></tr>
+            <tr><td>nav</td><td>40</td></tr>
+            <tr><td>overlay</td><td>50</td></tr>
+            <tr><td>modal</td><td>60</td></tr>
+            <tr><td>toast</td><td>70</td></tr>
+          </table>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · CONTRACT -->
+  <section id="contract">
+    <div class="wrap">
+      <div class="head">
+        <div class="meta"><span class="n">08</span><span>contract · how this compiles</span></div>
+        <h2>one source. many <span class="ital">renders</span><span class="dot">.</span></h2>
+      </div>
+
+      <p class="contract-lead">
+        this document is the <span class="ital">design contract</span>.
+        <code>tailwind.config.ts</code> mirrors §03–§07 one-to-one.
+        <code>app/globals.css</code> declares every custom property in <code>:root</code>.
+        the chosen wordmark becomes the default <code>&lt;Wordmark /&gt;</code> component.
+        any subsequent pr that needs a new color, weight, easing, or component variant updates this guide first.
+        <span class="ox">no deviation without an entry in §changelog.</span>
+      </p>
+
+      <div class="contract-foot">
+        <div>
+          <h4>files this guide produces</h4>
+          <div class="files">
+            <div><span>BRAND.html</span><span class="phase">canonical · this</span></div>
+            <div><span>BRAND_GUIDE.md</span><span class="phase">tokens · prose</span></div>
+            <div><span>brand/wordmark-{a,b,c}.svg</span><span class="phase">phase 0</span></div>
+            <div><span>brand/icon.svg</span><span class="phase">phase 0</span></div>
+            <div><span>brand/grain.svg</span><span class="phase">phase 0</span></div>
+            <div><span>brand/og-template.tsx</span><span class="phase">phase 1</span></div>
+            <div><span>tailwind.config.ts</span><span class="phase">phase 1</span></div>
+          </div>
+        </div>
+        <div>
+          <h4>phase 0 gate</h4>
+          <p class="gate">
+            jeff approves this guide and picks <span class="ital">one</span>
+            wordmark direction. no code is written until both happen.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="lock kw"><span>h</span><span>a</span><span>m</span><span>m</span><span>e</span><span>r</span><span class="dot">.</span></div>
+        <div class="meta">
+          <div>brand guide · v 3.0</div>
+          <div>2026.05.03 · draft</div>
+          <div class="ox">vinaceous cinnamon</div>
+          <div style="color:var(--ink-3)">awaiting approval</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  const sections = document.querySelectorAll('main > section');
+  const counter = document.getElementById('frame');
+  const tocLinks = document.querySelectorAll('.toc a');
+  const total = String(sections.length).padStart(2,'0');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = Array.from(sections).indexOf(e.target) + 1;
+        counter.innerHTML = String(idx).padStart(2,'0') + '<span class="sep">/</span>' + total;
+        tocLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin:'-40% 0px -40% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

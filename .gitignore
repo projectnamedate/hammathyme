@@ -1,0 +1,56 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# next
+/.next/
+/out/
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*.local
+.env.development
+.env.production
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# brand work-in-progress (kept locally as design reference, not in build)
+/brand/measure.html
+/brand/wordmark-fonts-compare.html
+/brand/BRAND_preview.html
+/.playwright-mcp/
+/playwright-mcp/
+
+# kerning iteration screenshots
+/measure-screenshot.png
+/half-spacing.png
+/three-eighths-spacing.png
+/five-sixteenths.png
+/quarter-spacing.png
+/brand-cover.png
+/brand-wm-render.png
+/brand-wordmarks.png
+
+# logs
+/tmp/measure-server.log

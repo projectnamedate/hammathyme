@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 480" role="img" aria-label="hammer — Direction C — The Slate">
+  <title>hammer — Direction C — The Slate</title>
+  <desc>Lowercase wordmark in Outfit Black with a solid cinnamon square slate preceding it, like a film production-company plate.</desc>
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&amp;family=Geist+Mono:wght@400;500&amp;display=swap');
+      .paper { fill:#FAEEE9; }
+      .ink   { fill:#1F0707; }
+      .cin   { fill:#F28E86; }
+      .ink-2 { fill:#6E2C27; }
+      .ink-3 { fill:#A66860; }
+      .wm    { font-family:'Outfit','Futura','Avenir Next',system-ui,sans-serif; font-weight:900; letter-spacing:-0.02em; font-kerning:normal; text-rendering:geometricPrecision; font-feature-settings:'kern' 1, 'calt' 1; }
+      .meta  { font-family:'Geist Mono','JetBrains Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:400; }
+      .lab   { font-family:'Geist Mono','JetBrains Mono',ui-monospace,monospace; font-size:10px; letter-spacing:0.22em; text-transform:uppercase; font-weight:400; }
+    ]]></style>
+  </defs>
+  <rect class="paper" width="1400" height="480" />
+  <line x1="80" y1="64" x2="1320" y2="64" stroke="#1F0707" stroke-width="1" opacity="0.18" />
+  <text class="meta ink-2" x="80" y="48">hammer · brand guide</text>
+  <text class="meta ink-2" x="1320" y="48" text-anchor="end">C · the slate</text>
+
+  <!-- cinnamon slate block -->
+  <rect class="cin" x="280" y="160" width="180" height="180" />
+  <!-- lowercase wordmark -->
+  <text class="wm ink" x="500" y="320" font-size="220">h<tspan dx="-1">a</tspan><tspan dx="-9">m</tspan><tspan dx="-7">m</tspan><tspan dx="0">e</tspan><tspan dx="-2">r</tspan><tspan class="cin" dx="2" dy="-10">.</tspan></text>
+
+  <line x1="80" y1="416" x2="1320" y2="416" stroke="#1F0707" stroke-width="1" opacity="0.18" />
+  <text class="lab ink-3" x="80" y="448">cinema slate · production-company plate</text>
+  <text class="lab ink-3" x="1320" y="448" text-anchor="end">wordmark · v 3.0</text>
+</svg>

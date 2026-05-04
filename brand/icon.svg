@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="hammer — Mark">
+  <title>hammer — Mark</title>
+  <desc>The hammer mark. Lowercase 'h' in Outfit Black with the cinnamon period.</desc>
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@900&amp;display=swap');
+      .paper { fill:#FAEEE9; }
+      .ink   { fill:#1F0707; }
+      .cin   { fill:#F28E86; }
+      .mark  { font-family:'Outfit','Futura',system-ui,sans-serif; font-weight:900; letter-spacing:0; font-kerning:normal; text-rendering:geometricPrecision; font-feature-settings:'kern' 1; }
+    ]]></style>
+  </defs>
+  <rect class="paper" width="256" height="256" />
+  <text class="mark ink" x="128" y="200" font-size="240" text-anchor="middle">h<tspan class="cin" dx="-2" dy="-12">.</tspan></text>
+</svg>
