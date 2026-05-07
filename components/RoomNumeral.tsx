@@ -13,6 +13,8 @@ export function RoomNumeral() {
   const room = findRoom(path);
   const reduce = useReducedMotion();
 
+  if (path === "/work") return null;
+
   return (
     <div
       aria-hidden

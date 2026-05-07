@@ -124,21 +124,11 @@ export function AtriumCanvas() {
 
   return (
     <section className="relative h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)]">
-      {/* heading + spotlight caption */}
-      <div className="pointer-events-none absolute left-1/2 top-[10vh] z-30 -translate-x-1/2 text-center md:top-[12vh]">
+      {/* room sign — top center */}
+      <div className="pointer-events-none absolute left-1/2 top-[8vh] z-30 -translate-x-1/2 text-center md:top-[10vh]">
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           ii · atrium · 7 pieces
         </p>
-        <motion.p
-          key={activePiece.slug}
-          initial={reduce ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: CINEMA }}
-          className="mt-3 font-display text-[clamp(20px,2.4vw,32px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
-        >
-          {activePiece.title}
-          <span aria-hidden className="text-[var(--cinnamon)]">.</span>
-        </motion.p>
       </div>
 
       {/* the wall */}
@@ -155,20 +145,42 @@ export function AtriumCanvas() {
         ))}
       </div>
 
-      {/* nav hints + tour indicator */}
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-12">
-        <span><kbd className="not-italic text-[var(--ink-1)]">←</kbd> <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step</span>
-        <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
-        <span>hover · click to enter</span>
-        {touring ? (
-          <>
-            <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
-            <span className="flex items-center gap-2 text-[var(--cinnamon)]">
-              <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
-              touring
+      {/* active wall plate — bottom center */}
+      <div className="pointer-events-none absolute bottom-10 left-1/2 z-30 w-[min(680px,82vw)] -translate-x-1/2 md:bottom-14">
+        <motion.div
+          key={activePiece.slug}
+          initial={reduce ? false : { opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: CINEMA }}
+        >
+          <div className="flex items-baseline gap-3">
+            <span className="font-display text-[clamp(14px,1.1vw,18px)] font-light tabular-nums leading-none tracking-[-0.04em] text-[var(--ink-1)]">
+              {String(active + 1).padStart(2, "0")}
             </span>
-          </>
-        ) : null}
+            <span aria-hidden className="block h-px flex-1 bg-[var(--ink-4)]" />
+            <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
+              {activePiece.year} · {activePiece.capabilityLabel}
+            </span>
+          </div>
+          <p className="mt-2 text-center font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]">
+            {activePiece.title}
+            <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+          </p>
+        </motion.div>
+        <div className="mt-3 flex items-center justify-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
+          <span><kbd className="not-italic text-[var(--ink-1)]">←</kbd> <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step</span>
+          <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+          <span>hover · click to enter</span>
+          {touring ? (
+            <>
+              <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+              <span className="flex items-center gap-2 text-[var(--cinnamon)]">
+                <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
+                touring
+              </span>
+            </>
+          ) : null}
+        </div>
       </div>
     </section>
   );

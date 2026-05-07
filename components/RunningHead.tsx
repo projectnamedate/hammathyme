@@ -12,6 +12,7 @@ type Props = { piece?: string | number };
 export function RunningHead({ piece }: Props) {
   const path = usePathname();
   const room = findRoom(path);
+  if (path === "/work") return null;
   return (
     <div
       aria-hidden
