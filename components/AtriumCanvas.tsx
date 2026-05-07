@@ -21,12 +21,12 @@ type Pos = { x: number; y: number; w: number; h: number };
 // Hand-tuned 4-over-3 staggered grid for 7 pieces. x/w in vw, y/h in vh.
 // Top row 4 pieces, alternating tall/short; bottom row 3 pieces offset for
 // asymmetric Swiss feel (not a strict grid). y is offset to leave a clear
-// title band 6–14vh at the top.
+// title band ~80–144px at the top (below the fixed nav).
 const POSITIONS: Pos[] = [
-  { x:  6, y: 19, w: 18, h: 28 }, // 01 tall
-  { x: 28, y: 25, w: 16, h: 22 }, // 02 short
-  { x: 48, y: 19, w: 20, h: 28 }, // 03 tall
-  { x: 72, y: 25, w: 16, h: 22 }, // 04 short
+  { x:  6, y: 22, w: 18, h: 26 }, // 01 tall
+  { x: 28, y: 28, w: 16, h: 20 }, // 02 short
+  { x: 48, y: 22, w: 20, h: 26 }, // 03 tall
+  { x: 72, y: 28, w: 16, h: 20 }, // 04 short
   { x: 14, y: 58, w: 18, h: 22 }, // 05 short
   { x: 38, y: 52, w: 22, h: 28 }, // 06 tall (the anchor of row 2)
   { x: 66, y: 58, w: 18, h: 22 }, // 07 short
@@ -125,8 +125,8 @@ export function AtriumCanvas() {
 
   return (
     <section className="relative h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)]">
-      {/* room sign + active wall plate — locked to top band 6–14vh */}
-      <div className="pointer-events-none absolute left-1/2 top-[6vh] z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center">
+      {/* room sign + active wall plate — locked below nav */}
+      <div className="pointer-events-none absolute left-1/2 top-20 z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center md:top-24">
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           ii · atrium · 7 pieces
         </p>
