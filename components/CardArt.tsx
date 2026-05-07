@@ -85,24 +85,58 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 04 — ai film/video · film strip with sprockets */
-  "ai-film-video": () => (
+  /* 04 — animation · keyframe curve + puppet rig joints */
+  animation: () => (
     <g>
       <rect width="100" height="120" fill="var(--cinnamon)" />
-      <g transform="translate(0 28)">
-        <rect x="14" y="0" width="72" height="56" fill="var(--ink-0)" />
-        {/* sprockets top + bottom */}
-        {[6, 18, 30, 42, 54, 66, 78, 90].map((cx) => (
-          <g key={cx}>
-            <rect x={cx - 2} y="-8" width="4" height="6" fill="var(--ink-0)" />
-            <rect x={cx - 2} y="58" width="4" height="6" fill="var(--ink-0)" />
+      {/* timeline panel */}
+      <g transform="translate(14 30)">
+        <rect width="72" height="52" fill="var(--ink-0)" />
+        {/* baseline grid */}
+        <g stroke="var(--ink-2)" strokeWidth="0.3" opacity="0.4">
+          <line x1="0" y1="13" x2="72" y2="13" />
+          <line x1="0" y1="26" x2="72" y2="26" />
+          <line x1="0" y1="39" x2="72" y2="39" />
+        </g>
+        {/* eased keyframe curve — bezier S-curve across timeline */}
+        <path
+          d="M 4 44 C 22 44, 22 12, 36 26 S 50 44, 68 8"
+          fill="none"
+          stroke="var(--cinnamon)"
+          strokeWidth="1.1"
+        />
+        {/* keyframe diamonds along curve */}
+        {[
+          { x: 4, y: 44 },
+          { x: 22, y: 18 },
+          { x: 36, y: 26 },
+          { x: 50, y: 38 },
+          { x: 68, y: 8 },
+        ].map((k, i) => (
+          <g key={i} transform={`translate(${k.x} ${k.y}) rotate(45)`}>
+            <rect x="-2" y="-2" width="4" height="4" fill="var(--cream-0)" />
           </g>
         ))}
-        {/* play triangle */}
-        <polygon className="anim-breathe" points="44,18 44,38 60,28" fill="var(--cinnamon)" />
+        {/* active playhead */}
+        <g transform="translate(36 26)">
+          <circle className="anim-pulse" r="4" fill="none" stroke="var(--cinnamon)" strokeWidth="0.6" />
+        </g>
+        {/* tiny puppet rig — head, torso, foot dots with bone lines */}
+        <g transform="translate(58 38)" stroke="var(--cream-2)" strokeWidth="0.5" fill="var(--cream-0)">
+          <line x1="0" y1="-6" x2="0" y2="2" />
+          <line x1="-3" y1="-3" x2="3" y2="-3" />
+          <line x1="0" y1="2" x2="-2" y2="8" />
+          <line x1="0" y1="2" x2="2" y2="8" />
+          <circle cx="0" cy="-7" r="1.4" />
+          <circle cx="-3" cy="-3" r="0.8" />
+          <circle cx="3" cy="-3" r="0.8" />
+          <circle cx="0" cy="2" r="0.8" />
+          <circle cx="-2" cy="8" r="0.8" />
+          <circle cx="2" cy="8" r="0.8" />
+        </g>
       </g>
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--ink-0)">
-        AI · FILM · VIDEO · 26
+        ANIMATION · 26
       </text>
     </g>
   ),
@@ -166,8 +200,8 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 07 — broadcast / commercial · color bars */
-  "broadcast-commercial": () => (
+  /* 07 — visual media · SMPTE bars + play triangle */
+  "visual-media": () => (
     <g>
       <rect width="100" height="120" fill="var(--bloodlust)" />
       <g transform="translate(15 22)">
@@ -188,7 +222,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
         <rect className="anim-pulse" x="0" y="48" width="14" height="14" fill="var(--cinnamon)" />
       </g>
       <text x="50" y="108" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="3.6" letterSpacing="1" fill="var(--cream-1)">
-        BROADCAST · COMMERCIAL
+        VISUAL · MEDIA · 26
       </text>
     </g>
   ),

@@ -18,24 +18,24 @@ export type CaseStudy = {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "hammer-brand-build",
-    title: "building the hammer brand",
+    title: "identity systems",
     capability: "brand-systems",
     capabilityLabel: "brand systems",
     year: "2026",
-    client: "self",
+    client: "selected",
     summary:
-      "a brand identity and portfolio site designed and built end-to-end with ai in the loop.",
+      "brand identities built with ai in the loop — palette, wordmark, motion, voice. kira, hammer, effigy.",
     tint: "var(--cream-1)",
   },
   {
     slug: "kira-autonomous-character",
-    title: "kira — an autonomous character",
+    title: "persistent characters",
     capability: "autonomous-characters",
     capabilityLabel: "autonomous characters",
     year: "2026",
-    client: "hammer studios",
+    client: "selected",
     summary:
-      "a persistent ai character with her own social presence, scheduled posts, and consistent identity.",
+      "ai characters with their own social presence, scheduled posts, and consistent identity across image, video, and conversation.",
     tint: "var(--cream-2)",
   },
   {
@@ -50,14 +50,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--bloodlust)",
   },
   {
-    slug: "ai-film-placeholder",
-    title: "ai film + video",
-    capability: "ai-film-video",
-    capabilityLabel: "ai film + video",
+    slug: "animation",
+    title: "character animation",
+    capability: "animation",
+    capabilityLabel: "animation",
     year: "2026",
-    client: "tbd",
+    client: "selected",
     summary:
-      "short-form ai-generated video. veo, runway, kling, seedance pipeline.",
+      "puppet character animation built with rive and remotion. rigged, programmable, broadcast-grade.",
     tint: "var(--cinnamon)",
   },
   {
@@ -83,14 +83,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--cream-2)",
   },
   {
-    slug: "broadcast-commercial",
-    title: "broadcast + commercial",
-    capability: "broadcast-commercial",
-    capabilityLabel: "broadcast + commercial",
+    slug: "visual-media",
+    title: "film, video, broadcast",
+    capability: "visual-media",
+    capabilityLabel: "visual media",
     year: "2026",
-    client: "tbd",
+    client: "selected",
     summary:
-      "ai work delivered to broadcast and agency standards. fifteen years of network pipelines applied.",
+      "ai-native film, short-form video, and broadcast-grade work. veo, runway, kling, seedance — finished to network standards.",
     tint: "var(--bloodlust)",
   },
 ];

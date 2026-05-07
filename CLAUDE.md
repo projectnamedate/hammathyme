@@ -61,8 +61,8 @@ RESEARCH.md          market refresh
 
 ## Capability taxonomy (filter chips on /work)
 
-1. autonomous-characters · 2. motion-graphics · 3. ai-film-video · 4. pipelines-tools ·
-5. interactive-playable · 6. brand-systems · 7. broadcast-commercial.
+1. autonomous-characters · 2. motion-graphics · 3. animation · 4. pipelines-tools ·
+5. interactive-playable · 6. brand-systems · 7. visual-media.
 
 **The site is visual-only.** /notes was dropped 2026-05-04 — Jeff explicitly
 rejected having a blog because (a) AI-written content is a 2026 anti-signal in

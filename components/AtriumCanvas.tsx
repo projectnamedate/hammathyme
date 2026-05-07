@@ -20,15 +20,16 @@ type Pos = { x: number; y: number; w: number; h: number };
 
 // Hand-tuned 4-over-3 staggered grid for 7 pieces. x/w in vw, y/h in vh.
 // Top row 4 pieces, alternating tall/short; bottom row 3 pieces offset for
-// asymmetric Swiss feel (not a strict grid).
+// asymmetric Swiss feel (not a strict grid). y is offset to leave a clear
+// title band 6–14vh at the top.
 const POSITIONS: Pos[] = [
-  { x:  6, y: 16, w: 18, h: 30 }, // 01 tall
-  { x: 28, y: 22, w: 16, h: 24 }, // 02 short
-  { x: 48, y: 16, w: 20, h: 30 }, // 03 tall
-  { x: 72, y: 22, w: 16, h: 24 }, // 04 short
-  { x: 14, y: 58, w: 18, h: 24 }, // 05 short
-  { x: 38, y: 52, w: 22, h: 30 }, // 06 tall (the anchor of row 2)
-  { x: 66, y: 58, w: 18, h: 24 }, // 07 short
+  { x:  6, y: 19, w: 18, h: 28 }, // 01 tall
+  { x: 28, y: 25, w: 16, h: 22 }, // 02 short
+  { x: 48, y: 19, w: 20, h: 28 }, // 03 tall
+  { x: 72, y: 25, w: 16, h: 22 }, // 04 short
+  { x: 14, y: 58, w: 18, h: 22 }, // 05 short
+  { x: 38, y: 52, w: 22, h: 28 }, // 06 tall (the anchor of row 2)
+  { x: 66, y: 58, w: 18, h: 22 }, // 07 short
 ];
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
@@ -124,11 +125,21 @@ export function AtriumCanvas() {
 
   return (
     <section className="relative h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)]">
-      {/* room sign — top center */}
-      <div className="pointer-events-none absolute left-1/2 top-[8vh] z-30 -translate-x-1/2 text-center md:top-[10vh]">
+      {/* room sign + active wall plate — locked to top band 6–14vh */}
+      <div className="pointer-events-none absolute left-1/2 top-[6vh] z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center">
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           ii · atrium · 7 pieces
         </p>
+        <motion.p
+          key={activePiece.slug}
+          initial={reduce ? false : { opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: CINEMA }}
+          className="mt-2 font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
+        >
+          {activePiece.title}
+          <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+        </motion.p>
       </div>
 
       {/* the wall */}
@@ -145,42 +156,20 @@ export function AtriumCanvas() {
         ))}
       </div>
 
-      {/* active wall plate — bottom center */}
-      <div className="pointer-events-none absolute bottom-10 left-1/2 z-30 w-[min(680px,82vw)] -translate-x-1/2 md:bottom-14">
-        <motion.div
-          key={activePiece.slug}
-          initial={reduce ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: CINEMA }}
-        >
-          <div className="flex items-baseline gap-3">
-            <span className="font-display text-[clamp(14px,1.1vw,18px)] font-light tabular-nums leading-none tracking-[-0.04em] text-[var(--ink-1)]">
-              {String(active + 1).padStart(2, "0")}
+      {/* nav hints + tour indicator — bottom only */}
+      <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-10">
+        <span><kbd className="not-italic text-[var(--ink-1)]">←</kbd> <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step</span>
+        <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+        <span>hover · click to enter</span>
+        {touring ? (
+          <>
+            <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+            <span className="flex items-center gap-2 text-[var(--cinnamon)]">
+              <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
+              touring
             </span>
-            <span aria-hidden className="block h-px flex-1 bg-[var(--ink-4)]" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-              {activePiece.year} · {activePiece.capabilityLabel}
-            </span>
-          </div>
-          <p className="mt-2 text-center font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]">
-            {activePiece.title}
-            <span aria-hidden className="text-[var(--cinnamon)]">.</span>
-          </p>
-        </motion.div>
-        <div className="mt-3 flex items-center justify-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
-          <span><kbd className="not-italic text-[var(--ink-1)]">←</kbd> <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step</span>
-          <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
-          <span>hover · click to enter</span>
-          {touring ? (
-            <>
-              <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
-              <span className="flex items-center gap-2 text-[var(--cinnamon)]">
-                <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
-                touring
-              </span>
-            </>
-          ) : null}
-        </div>
+          </>
+        ) : null}
       </div>
     </section>
   );

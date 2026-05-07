@@ -7,13 +7,14 @@ the focus* — he has ideas per item.
 | # | piece | category | status |
 |---|---|---|---|
 | 1 | Episodic Kira series (5 eps) | autonomous-characters | placeholder |
-| 2 | 30-second AI ad spot, 48-hr build | broadcast-commercial | placeholder |
-| 3 | Hedra avatar of Jeff explaining AI Producer | ai-film-video | placeholder |
-| 4 | AI music video for an indie artist | ai-film-video | placeholder |
+| 2 | 30-second AI ad spot, 48-hr build | visual-media | placeholder |
+| 3 | Hedra avatar of Jeff explaining AI Producer | visual-media | placeholder |
+| 4 | AI music video for an indie artist | visual-media | placeholder |
 | 5 | Hammer brand build = Case Study #1 | brand-systems | **buildable now** |
-| 6 | 90-second broadcast-grade short | broadcast-commercial | placeholder |
-| 7 | AI sound design reel | ai-film-video (audio sub-cat?) | placeholder |
+| 6 | 90-second broadcast-grade short | visual-media | placeholder |
+| 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | "How I produce" tool/template | pipelines-tools | placeholder |
+| 9 | Rive + Remotion puppet animation reel | animation | placeholder |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
