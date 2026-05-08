@@ -84,7 +84,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "visual-media",
-    title: "film, video, broadcast",
+    title: "film, video, commercial",
     capability: "visual-media",
     capabilityLabel: "visual media",
     year: "2026",
