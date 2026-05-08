@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Plinth } from "@/components/Plinth";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 
@@ -15,9 +14,6 @@ export default function StudyRoom() {
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-24 md:px-24 md:pt-40">
       <header className="mb-24 max-w-[60ch]">
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          iii · study room
-        </p>
         <MaskReveal direction="up" delay={0.3}>
           <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
             live <em className="font-serif italic font-normal text-[var(--bloodlust)]">demos</em>.
@@ -42,18 +38,6 @@ export default function StudyRoom() {
         ))}
       </div>
 
-      <footer className="mt-32 flex items-center justify-between border-t border-[var(--ink-4)] pt-8">
-        <Link
-          href="/"
-          data-cursor="link"
-          className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
-        >
-          ← entry hall
-        </Link>
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
-          iii / vii
-        </span>
-      </footer>
     </main>
   );
 }

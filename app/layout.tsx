@@ -4,8 +4,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Cursor } from "@/components/Cursor";
 import { FilmGrain } from "@/components/FilmGrain";
 import { Nav } from "@/components/Nav";
-import { RunningHead } from "@/components/RunningHead";
-import { RoomNumeral } from "@/components/RoomNumeral";
 import { RoomWatermark } from "@/components/RoomWatermark";
 import { IdleBreath } from "@/components/IdleBreath";
 import { EntryCurtain } from "@/components/EntryCurtain";
@@ -49,8 +47,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RoomWatermark />
         <FilmGrain />
         <Nav />
-        <RunningHead />
-        <RoomNumeral />
         {children}
         <Cursor />
         <IdleBreath />

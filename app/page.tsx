@@ -43,15 +43,6 @@ export default function EntryHall() {
         </motion.div>
       </div>
 
-      {/* bottom kicker */}
-      <motion.div
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 2.0, ease: CINEMA }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-12"
-      >
-        eight rooms · drag to walk through
-      </motion.div>
     </main>
   );
 }

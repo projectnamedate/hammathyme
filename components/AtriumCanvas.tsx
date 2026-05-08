@@ -125,17 +125,14 @@ export function AtriumCanvas() {
 
   return (
     <section className="relative h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)]">
-      {/* room sign + active wall plate — locked below nav */}
+      {/* active piece title — locked below nav */}
       <div className="pointer-events-none absolute left-1/2 top-20 z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center md:top-24">
-        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-          ii · atrium · 7 pieces
-        </p>
         <motion.p
           key={activePiece.slug}
           initial={reduce ? false : { opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: CINEMA }}
-          className="mt-2 font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
+          className="font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
         >
           {activePiece.title}
           <span aria-hidden className="text-[var(--cinnamon)]">.</span>

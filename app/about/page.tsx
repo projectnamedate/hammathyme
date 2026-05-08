@@ -17,9 +17,6 @@ export default function Anteroom() {
       <div className="grid w-full grid-cols-1 gap-24 md:grid-cols-12">
         {/* left: bio plate */}
         <section className="md:col-span-7">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-            v · anteroom
-          </p>
           <MaskReveal direction="up" delay={0.3}>
             <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
               jeff <em className="font-serif italic font-normal text-[var(--bloodlust)]">hammer</em>.
@@ -54,10 +51,7 @@ export default function Anteroom() {
         </aside>
       </div>
 
-      <footer className="mt-32 flex items-center justify-between border-t border-[var(--ink-4)] pt-8">
-        <Link href="/" data-cursor="link" className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]">
-          ← entry hall
-        </Link>
+      <footer className="mt-32 flex border-t border-[var(--ink-4)] pt-8">
         <Link href="/contact" data-cursor="link" data-cursor-label="say hi" className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-1)] hover:text-[var(--cinnamon)]">
           get in touch →
         </Link>
