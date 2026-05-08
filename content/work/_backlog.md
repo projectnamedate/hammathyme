@@ -19,7 +19,7 @@ the focus* — he has ideas per item.
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
 a visual ai producer." The site is now visual-only — 7 capability tags, 7
-atrium pieces, no blog. SEO carried by case-study approach blocks + /process
+atrium pieces, no blog. SEO carried by case-study approach blocks + /about
 + /about metadata.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

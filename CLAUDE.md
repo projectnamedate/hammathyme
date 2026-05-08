@@ -67,7 +67,7 @@ RESEARCH.md          market refresh
 **The site is visual-only.** /notes was dropped 2026-05-04 — Jeff explicitly
 rejected having a blog because (a) AI-written content is a 2026 anti-signal in
 visual circles and (b) "i am a visual ai producer." No `editorial-writing`
-capability. SEO carried by case-study approach blocks + /process + /about
+capability. SEO carried by case-study approach blocks + /about
 metadata + structured data, not a blog.
 
 Tag every case study with one or more capability slug. See
