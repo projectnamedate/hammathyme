@@ -29,10 +29,10 @@ export default function RosterWall() {
           </MaskReveal>
         </div>
         <aside className="flex items-end md:col-span-4">
-          <p className="max-w-[36ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
-            persistent ai personas with their own social presence, posting
-            cadence, and visual identity. they reply, they post, they build a
-            following.
+          <p className="max-w-[40ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
+            a character layered over an autonomous agent. any creator or brand
+            can send one into the digital world to work as a 24/7 marketer,
+            onboarder, and live ad for the product.
           </p>
         </aside>
       </header>
