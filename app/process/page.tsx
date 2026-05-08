@@ -13,16 +13,25 @@ const STEPS = [
 
 export default function WorkingRoom() {
   return (
-    <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-24 md:px-24 md:pt-40">
-      <header className="mb-24 max-w-[60ch]">
-        <MaskReveal direction="up" delay={0.3}>
-          <h1 className="mt-6 font-display text-[clamp(48px,8vw,128px)] font-light lowercase leading-[0.88] tracking-[-0.04em] text-[var(--ink-0)]">
-            how it <em className="font-serif italic font-normal text-[var(--bloodlust)]">works</em>.
-          </h1>
-        </MaskReveal>
-        <p className="mt-8 font-display font-light text-[var(--fs-4)] leading-relaxed text-[var(--ink-1)]">
-          five steps. opinionated, brief, broadcast-grade.
-        </p>
+    <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
+      {/* hero — full-bleed editorial spread */}
+      <header className="mb-20 grid grid-cols-1 gap-10 md:mb-32 md:grid-cols-12 md:gap-x-12">
+        <div className="md:col-span-8">
+          <MaskReveal direction="up" delay={0.3}>
+            <h1 className="font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.86] tracking-[-0.04em] text-[var(--ink-0)]">
+              how it
+              <br />
+              <em className="font-serif italic font-normal text-[var(--bloodlust)]">works</em>
+              <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+            </h1>
+          </MaskReveal>
+        </div>
+        <aside className="flex items-end md:col-span-4">
+          <p className="max-w-[36ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
+            five steps. opinionated, brief, broadcast-grade. the same five
+            steps every project, every time.
+          </p>
+        </aside>
       </header>
 
       <ol className="grid grid-cols-1 gap-12 md:grid-cols-5">
@@ -35,7 +44,6 @@ export default function WorkingRoom() {
           </li>
         ))}
       </ol>
-
     </main>
   );
 }
