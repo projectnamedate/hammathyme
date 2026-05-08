@@ -40,7 +40,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "motion-graphics-reel",
-    title: "motion graphics reel",
+    title: "motion graphics",
     capability: "motion-graphics",
     capabilityLabel: "motion graphics",
     year: "2026",
