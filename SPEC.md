@@ -1,8 +1,23 @@
 # HAMMER — AI Producer Portfolio & Showcase
 
+> **⚠️ HISTORICAL DOCUMENT — DO NOT TRUST FOR LIVE ARCHITECTURE**
+>
+> This is the phase-1 planning spec. The site has since diverged in ways this
+> doc does NOT reflect:
+>
+> - `/notes` was dropped 2026-05-04 (no blog, visual-only)
+> - `/process` was dropped 2026-05-08 (canned waterfall didn't match reality)
+> - `/lab` was dropped 2026-05-08 (overlapped /work pipelines-tools category)
+> - top-level `/agents` was collapsed into `/work/agents` 2026-05-09
+> - Capability taxonomy is now 8 (added `websites`); see CLAUDE.md
+> - Slugs match titles (e.g. `/work/brand-systems`, not `/work/hammer-brand-build`)
+>
+> **For live architecture, taxonomy, and routes, read `CLAUDE.md` and the
+> code itself.** This doc is kept for context on early decisions only.
+
 **Brand:** Hammer
 **Owner:** Jeff Hammer ([linkedin.com/in/jeff-hammer1985](https://www.linkedin.com/in/jeff-hammer1985/))
-**Spec version:** 2.0
+**Spec version:** 2.0 (phase-1 planning, archived)
 **Target handoff:** Claude Code (primary) / Codex (secondary)
 **Date:** May 2026
 

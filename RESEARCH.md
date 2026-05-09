@@ -170,19 +170,19 @@ The SERP for **"AI Producer"** is dominated by:
 - **Embedded X/Telegram post previews** with live timestamps, refreshed via lightweight cron + ISR
 - **"Watch it live" CTA** on the agent's case-study route — invites scrutiny rather than hiding the receipts
 
-**Spec callout — confirmed:** Hermes-style autonomous-character framing is genuinely whitespace. The spec's claim that this is Jeff's differentiator holds. Recommend leaning into it harder: make it a **route**, not a paragraph. `/agents/hermes` with live data > "I also do autonomous agents" in an About blurb.
+**Spec callout — confirmed:** Hermes-style autonomous-character framing is genuinely whitespace. The spec's claim that this is Jeff's differentiator holds. Recommend leaning into it harder: make it a **route**, not a paragraph. The site's `/work/agents` category page with live data > "I also do autonomous agents" in an About blurb.
 
 ---
 
 ## What this means for Hammer's brand guide
 
-1. **Lead with the autonomous-agent differentiator.** It is genuinely unoccupied as portfolio territory. Build a `/agents/hermes` (or similar) route with live post data, agent metrics, and a "watch it run" CTA. Everything else is a tool-fluency claim that competitors can copy; this one isn't.
+1. **Lead with the autonomous-agent differentiator.** It is genuinely unoccupied as portfolio territory. The `/work/agents` category page should host live post data, agent metrics, and a "watch it run" CTA per character. Everything else is a tool-fluency claim that competitors can copy; this one isn't.
 
 2. **Name-drop the May 2026 stack precisely, and only the May 2026 stack.** Veo 3.1, Runway Gen-4.5, Kling 3.0, Seedance 2.0, Suno v4.5, ElevenLabs Music, Nano Banana 2, FLUX.2 Pro, Midjourney v7. Drop Sora references entirely or caveat them as "API-only until Sept 2026." Drop Gen-3, Sora 1, Pika 1.x, Kling 1.x.
 
 3. **Type system: PP Editorial New + Söhne + mono accent is the safe choice; PP Fragment is the distinctive one.** Body sans should be Söhne, PP Neue Montreal, or Inter Tight — pick one and stay there. Avoid mixing more than three families.
 
-4. **`/notes` content strategy should target uncontested SEO terms.** "What an AI Producer does," "How to chain [models] for [output]," "Hiring an AI Producer checklist." Lead with original workflow data — Google's March 2026 Core Update explicitly rewards Information Gain, not keyword density. Personal-portfolio SERP for "AI Producer" is wide open; a year from now it won't be.
+4. **SEO is carried by case-study copy, not a blog.** Jeff dropped /notes 2026-05-04 — visible writing reads as anti-signal in 2026 visual circles. The portfolio's case-study approach blocks (model name, cost, time, output spec per piece) carry the SEO weight instead. Personal-portfolio SERP for "AI Producer" is still wide open; the win is original workflow data inside case studies, not a /notes page.
 
 5. **Visual reference set: ManvsMachine + Silent House (SOTD Apr 28 2026) + Voku.Studio (SOTD Feb 21 2026) + Stink Studios brand case.** Borrow specifics, not vibes — slow type masks, hover-driven color grading, lowercase mono nav, project tiles that desaturate on idle. Daniel Wolfe / Anorak remain valid director-coded references.
 

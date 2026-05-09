@@ -1,6 +1,6 @@
 /**
  * Single source of truth for "rooms" — the spatial metaphor that gives the
- * site its museum feel. Drives RunningHead, RoomNumeral, favicons, nav order.
+ * site its museum feel. Drives the RoomWatermark numeral and nav order.
  */
 
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
