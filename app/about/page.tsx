@@ -123,7 +123,6 @@ export default function Anteroom() {
             <ul className="mt-4 flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-1)]">
               <li>pga member</li>
               <li>aicp member</li>
-              <li>adobe certified pro</li>
             </ul>
           </div>
         </div>
