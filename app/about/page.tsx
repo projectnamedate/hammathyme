@@ -9,10 +9,10 @@ export const metadata = {
 };
 
 const TIMELINE = [
-  { year: "2015 — 2017", role: "producer",          network: "tribune media · la" },
-  { year: "2018 — 2021", role: "creative producer", network: "discovery inc. · la" },
-  { year: "2021 — 2025", role: "senior producer",   network: "comcast · la" },
-  { year: "2025 — now",  role: "ai producer",       network: "self · la" },
+  { year: "2015 — 2017", role: "producer",          network: "tribune media" },
+  { year: "2018 — 2021", role: "creative producer", network: "discovery inc." },
+  { year: "2021 — 2025", role: "senior producer",   network: "comcast" },
+  { year: "2025 — now",  role: "ai producer",       network: "self" },
 ];
 
 const CLIENTS = [
