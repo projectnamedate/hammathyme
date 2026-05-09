@@ -5,16 +5,13 @@ import { MaskReveal } from "@/components/motion/MaskReveal";
 export const metadata = {
   title: "about",
   description:
-    "Jeff Hammer — ten-plus years on broadcast and agency pipelines, now producing with AI out of hammer studios. Discovery, Comcast, Tribune Media, Korey Kay & Partners.",
+    "Jeff Hammer — ten-plus years on broadcast and agency pipelines, now producing with AI. Comcast, Discovery, Tribune Media.",
 };
 
 const TIMELINE = [
-  { year: "2012 — 2014", role: "associate creative director", network: "korey kay & partners · nyc" },
-  { year: "2014 — 2015", role: "freelance producer",          network: "nyc → la" },
-  { year: "2015 — 2017", role: "producer",                    network: "tribune media · la" },
-  { year: "2018 — 2021", role: "creative producer",           network: "discovery inc. · la" },
-  { year: "2021 — now",  role: "senior producer",             network: "comcast · la" },
-  { year: "2024 — now",  role: "ai producer",                 network: "hammer studios · la" },
+  { year: "2015 — 2017", role: "producer",          network: "tribune media · la" },
+  { year: "2018 — 2021", role: "creative producer", network: "discovery inc. · la" },
+  { year: "2021 — now",  role: "senior producer",   network: "comcast · la" },
 ];
 
 const CLIENTS = [
@@ -50,8 +47,8 @@ export default function Anteroom() {
         </div>
         <aside className="flex items-end md:col-span-4">
           <p className="max-w-[36ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
-            ten-plus years on broadcast and agency pipelines. eighteen months
-            on ai. same job: get the cut, hit the deadline, deliver to spec.
+            ten-plus years on broadcast and agency pipelines. now producing
+            with ai. same job: get the cut, hit the deadline, deliver to spec.
           </p>
         </aside>
       </header>
@@ -64,29 +61,8 @@ export default function Anteroom() {
           </p>
           <p className="mt-6 max-w-[44ch] font-display font-light text-[clamp(22px,2vw,28px)] leading-[1.4] tracking-[-0.02em] text-[var(--ink-1)]">
             producing brand systems, agents, motion graphics, animation,
-            visual media, and websites out of hammer studios.
+            visual media, and websites.
           </p>
-
-          <p className="mt-16 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-            track record
-          </p>
-          <ul className="mt-6 grid grid-cols-1 gap-4 max-w-[52ch] font-display font-light text-[clamp(16px,1.2vw,19px)] leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-            <li>
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)] mr-3">+750m</span>
-              impressions and 188m views in one year at xfinity. department
-              output scaled 300% in five months.
-            </li>
-            <li>
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)] mr-3">+550m</span>
-              impressions across 300+ branded pieces and short-form docs at
-              discovery / motor trend.
-            </li>
-            <li>
-              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)] mr-3">+500m</span>
-              views from a social-content division built ground-up at tribune
-              media. first multi-city facebook live event.
-            </li>
-          </ul>
         </div>
 
         <aside className="md:col-span-5">
