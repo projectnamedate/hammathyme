@@ -16,18 +16,18 @@ const TIMELINE = [
 ];
 
 const CLIENTS = [
-  "cadillac",
-  "toyota",
-  "subaru",
-  "nissan",
-  "tire rack",
   "autozone",
-  "fox",
+  "cadillac",
   "columbia",
-  "kodak",
+  "fox",
   "hulu",
-  "sennheiser",
-  "stx",
+  "ihg hotels",
+  "lululemon",
+  "nissan",
+  "porsche",
+  "rémy martin",
+  "subaru",
+  "toyota",
   "xfinity",
 ];
 
