@@ -39,10 +39,11 @@ export default function Anteroom() {
         <div className="md:col-span-8">
           <MaskReveal direction="up" delay={0.3}>
             <h1 className="font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.86] tracking-[-0.04em] text-[var(--ink-0)]">
-              jeff
-              <br />
-              <em className="font-serif italic font-normal text-[var(--bloodlust)]">hammer</em>
-              <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              <span className="block">jeff</span>
+              <span className="block pt-3 md:pt-6">
+                <em className="font-serif italic font-normal text-[var(--bloodlust)]">hammer</em>
+                <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              </span>
             </h1>
           </MaskReveal>
         </div>
