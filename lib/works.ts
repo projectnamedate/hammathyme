@@ -18,7 +18,7 @@ export type CaseStudy = {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "hammer-brand-build",
-    title: "identity systems",
+    title: "brand systems",
     capability: "brand-systems",
     capabilityLabel: "brand systems",
     year: "2026",
@@ -29,7 +29,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "kira-autonomous-character",
-    title: "persistent characters",
+    title: "autonomous characters",
     capability: "autonomous-characters",
     capabilityLabel: "autonomous characters",
     year: "2026",
@@ -51,7 +51,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "animation",
-    title: "character animation",
+    title: "animation",
     capability: "animation",
     capabilityLabel: "animation",
     year: "2026",
@@ -84,7 +84,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "visual-media",
-    title: "film, video, commercial",
+    title: "visual media",
     capability: "visual-media",
     capabilityLabel: "visual media",
     year: "2026",
@@ -92,6 +92,17 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary:
       "ai-native film, short-form video, and broadcast-grade work. veo, runway, kling, seedance — finished to network standards.",
     tint: "var(--bloodlust)",
+  },
+  {
+    slug: "websites",
+    title: "websites",
+    capability: "websites",
+    capabilityLabel: "websites",
+    year: "2026",
+    client: "selected",
+    summary:
+      "ai-native websites — design, build, and ship. brand systems, marketing pages, portfolio sites. this site is the case study.",
+    tint: "var(--cream-1)",
   },
 ];
 

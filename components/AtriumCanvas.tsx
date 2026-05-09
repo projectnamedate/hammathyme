@@ -18,18 +18,18 @@ import { ViewLink } from "./ViewLink";
 
 type Pos = { x: number; y: number; w: number; h: number };
 
-// Hand-tuned 4-over-3 staggered grid for 7 pieces. x/w in vw, y/h in vh.
-// Top row 4 pieces, alternating tall/short; bottom row 3 pieces offset for
-// asymmetric Swiss feel (not a strict grid). y is offset to leave a clear
-// title band ~80–144px at the top (below the fixed nav).
+// Hand-tuned 4-over-4 staggered grid for 8 pieces. x/w in vw, y/h in vh.
+// Top row tall/short/tall/short, bottom row short/tall/short/tall (mirrored)
+// for Swiss asymmetry. y leaves a clear title band ~80–144px at the top.
 const POSITIONS: Pos[] = [
-  { x:  6, y: 22, w: 18, h: 26 }, // 01 tall
-  { x: 28, y: 28, w: 16, h: 20 }, // 02 short
-  { x: 48, y: 22, w: 20, h: 26 }, // 03 tall
-  { x: 72, y: 28, w: 16, h: 20 }, // 04 short
-  { x: 14, y: 58, w: 18, h: 22 }, // 05 short
-  { x: 38, y: 52, w: 22, h: 28 }, // 06 tall (the anchor of row 2)
-  { x: 66, y: 58, w: 18, h: 22 }, // 07 short
+  { x:  6, y: 22, w: 18, h: 26 }, // 01 tall — brand systems
+  { x: 28, y: 28, w: 16, h: 20 }, // 02 short — autonomous characters
+  { x: 48, y: 22, w: 20, h: 26 }, // 03 tall — motion graphics
+  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — animation
+  { x:  6, y: 58, w: 18, h: 20 }, // 05 short — pipelines + tools
+  { x: 28, y: 52, w: 16, h: 26 }, // 06 tall — interactive + playable
+  { x: 48, y: 58, w: 20, h: 20 }, // 07 short — visual media
+  { x: 72, y: 52, w: 16, h: 26 }, // 08 tall — websites
 ];
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
