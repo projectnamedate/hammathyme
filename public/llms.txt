@@ -1,0 +1,27 @@
+# hammer
+
+> ai producer. ten-plus years on broadcast and agency pipelines, now producing with ai. la · ny · remote. brand systems, agents, motion graphics, animation, pipelines, interactive demos, visual media, websites.
+
+## work
+
+- [atrium](https://hammathyme.vercel.app/work): 8 portfolio categories. each a collection of pieces.
+- [brand systems](https://hammathyme.vercel.app/work/brand-systems): identities built with ai in the loop. hammer · kira · effigy.
+- [agents](https://hammathyme.vercel.app/work/agents): autonomous characters layered over agents — 24/7 marketer, onboarder, live ad. kira · winston · bradley.
+- [motion graphics](https://hammathyme.vercel.app/work/motion-graphics): programmatic motion built in remotion + hyperframes. broadcast-grade.
+- [animation](https://hammathyme.vercel.app/work/animation): puppet character animation built with rive + remotion.
+- [pipelines + tools](https://hammathyme.vercel.app/work/pipelines-tools): the tools beneath the work. interactive pipeline visualizer with cost + time at every step.
+- [interactive + playable](https://hammathyme.vercel.app/work/interactive-playable): live demos. talk-to-character, prompt-to-storyboard, consistency lab.
+- [visual media](https://hammathyme.vercel.app/work/visual-media): ai-native film, short-form video, commercial work.
+- [websites](https://hammathyme.vercel.app/work/websites): ai-native websites. hammathyme · kira · opencrawl.
+
+## about
+
+- [bio](https://hammathyme.vercel.app/about): jeff hammer. tribune media → discovery → comcast → ai producer. clients include cadillac, porsche, lululemon, fox, columbia, hulu, ihg hotels, rémy martin.
+
+## contact
+
+- [say hi](https://hammathyme.vercel.app/contact): jeff@projectname.date. taking projects, 48-hour reply.
+
+## colophon
+
+- [colophon](https://hammathyme.vercel.app/colophon): typefaces, build stack, models used, deploy info. nothing hidden.
