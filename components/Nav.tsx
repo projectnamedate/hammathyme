@@ -6,7 +6,6 @@ import { Wordmark } from "./Wordmark";
 
 const LINKS = [
   { href: "/work", label: "work" },
-  { href: "/lab", label: "lab" },
   { href: "/agents", label: "agents" },
   { href: "/about", label: "about" },
 ];

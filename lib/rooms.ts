@@ -25,10 +25,9 @@ export type Room = {
 export const ROOMS: Room[] = [
   { href: "/", numeral: "I", wing: "I", name: "entry hall", label: "home", inNav: false, inMobileNav: false },
   { href: "/work", numeral: "II", wing: "II", name: "atrium", label: "work", inNav: true, inMobileNav: true },
-  { href: "/lab", numeral: "III", wing: "III", name: "study room", label: "lab", inNav: true, inMobileNav: false },
-  { href: "/agents", numeral: "IV", wing: "IV", name: "roster wall", label: "agents", inNav: true, inMobileNav: false },
-  { href: "/about", numeral: "V", wing: "V", name: "anteroom", label: "about", inNav: true, inMobileNav: true },
-  { href: "/contact", numeral: "VI", wing: "VI", name: "vestibule", label: "contact", inNav: false, inMobileNav: true },
+  { href: "/agents", numeral: "III", wing: "III", name: "roster wall", label: "agents", inNav: true, inMobileNav: false },
+  { href: "/about", numeral: "IV", wing: "IV", name: "anteroom", label: "about", inNav: true, inMobileNav: true },
+  { href: "/contact", numeral: "V", wing: "V", name: "vestibule", label: "contact", inNav: false, inMobileNav: true },
 ];
 
 export function findRoom(pathname: string | null | undefined): Room {
