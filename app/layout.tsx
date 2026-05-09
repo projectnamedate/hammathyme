@@ -8,6 +8,7 @@ import { RoomWatermark } from "@/components/RoomWatermark";
 import { IdleBreath } from "@/components/IdleBreath";
 import { EntryCurtain } from "@/components/EntryCurtain";
 import { InspectorOverlay } from "@/components/InspectorOverlay";
+import { HermesStatusBar } from "@/components/HermesStatusBar";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.ai";
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <IdleBreath />
         <EntryCurtain />
         <InspectorOverlay />
+        <HermesStatusBar />
         <Analytics />
         <SpeedInsights />
       </body>

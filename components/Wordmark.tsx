@@ -1,3 +1,5 @@
+"use client";
+
 import { clsx } from "clsx";
 
 type Props = {
@@ -13,6 +15,15 @@ const SIZE = {
   hero: "text-[clamp(96px,18vw,260px)] leading-[0.84]",
 };
 
+function fireHermes(e: React.MouseEvent) {
+  // Tap on the period intercepts: don't trigger the wrapping <a>.
+  e.preventDefault();
+  e.stopPropagation();
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("hammer:hermes"));
+  }
+}
+
 export function Wordmark({ className, ariaLabel = "hammer · home", size = "md" }: Props) {
   return (
     <span className={clsx("kw", SIZE[size], className)} aria-label={ariaLabel}>
@@ -22,7 +33,15 @@ export function Wordmark({ className, ariaLabel = "hammer · home", size = "md" 
       <span>m</span>
       <span>e</span>
       <span>r</span>
-      <span className="dot">.</span>
+      <span
+        className="dot cursor-pointer"
+        onClick={fireHermes}
+        role="button"
+        tabIndex={-1}
+        aria-hidden
+      >
+        .
+      </span>
     </span>
   );
 }

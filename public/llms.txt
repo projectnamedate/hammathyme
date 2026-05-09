@@ -25,3 +25,7 @@
 ## colophon
 
 - [colophon](https://hammathyme.vercel.app/colophon): typefaces, build stack, models used, deploy info. nothing hidden.
+
+## memory
+
+- [jeff.md](https://hammathyme.vercel.app/memories/jeff.md): MEMORY.md in hermes-agent format (☤). frozen-snapshot summary of the operator behind the site.

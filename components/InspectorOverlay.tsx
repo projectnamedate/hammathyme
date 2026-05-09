@@ -114,12 +114,23 @@ export function InspectorOverlay() {
             ))}
           </div>
 
-          {/* lobster pip — bottom right */}
-          <div className="absolute right-6 bottom-6 flex items-center gap-3 md:right-24 md:bottom-12">
-            <Lobster className="h-4 w-4 text-[var(--cinnamon)]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-              openclaw · 347k ★
-            </span>
+          {/* lobster pip + caduceus gag — bottom right */}
+          <div className="absolute right-6 bottom-6 flex flex-col items-end gap-2 md:right-24 md:bottom-12">
+            <a
+              href="https://github.com/NousResearch/hermes-agent/issues/9565"
+              target="_blank"
+              rel="noreferrer"
+              className="pointer-events-auto flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] hover:text-[var(--cinnamon)]"
+            >
+              <span className="text-[14px] leading-none text-[var(--cinnamon)]" aria-hidden>☤</span>
+              <span>caduceus, not ⚕ — issue #9565</span>
+            </a>
+            <div className="flex items-center gap-3">
+              <Lobster className="h-4 w-4 text-[var(--cinnamon)]" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
+                openclaw · 347k ★
+              </span>
+            </div>
           </div>
 
           {/* viewport readout — top center */}

@@ -6,6 +6,14 @@ const CINEMA = [0.65, 0, 0.35, 1] as const;
 
 const LETTERS = ["h", "a", "m", "m", "e", "r"] as const;
 
+function fireHermes(e: React.MouseEvent) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("hammer:hermes"));
+  }
+}
+
 /**
  * Hero variant of the wordmark with a letter-by-letter mask reveal.
  * Used only on the entry hall — every other place uses <Wordmark>.
@@ -33,7 +41,9 @@ export function HeroWordmark({
         {LETTERS.map((l, i) => (
           <span key={i}>{l}</span>
         ))}
-        <span className="dot">.</span>
+        <span className="dot cursor-pointer" onClick={fireHermes} role="button" tabIndex={-1} aria-hidden>
+          .
+        </span>
       </span>
     );
   }
@@ -60,7 +70,14 @@ export function HeroWordmark({
         </span>
       ))}
       {/* cinnamon period — drops in slightly later with a soft scale */}
-      <span className="dot" style={{ display: "inline-block" }}>
+      <span
+        className="dot cursor-pointer"
+        style={{ display: "inline-block" }}
+        onClick={fireHermes}
+        role="button"
+        tabIndex={-1}
+        aria-hidden
+      >
         <motion.span
           style={{ display: "inline-block" }}
           initial={{ scale: 0, opacity: 0 }}
