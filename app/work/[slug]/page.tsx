@@ -6,6 +6,7 @@ import { Figure } from "@/components/Figure";
 import { SceneStack } from "@/components/SceneStack";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
+import { Plinth } from "@/components/Plinth";
 
 export async function generateStaticParams() {
   return CASE_STUDIES.map((c) => ({ slug: c.slug }));
@@ -24,6 +25,83 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   const idx = CASE_STUDIES.findIndex((x) => x.slug === c.slug);
   const next = CASE_STUDIES[(idx + 1) % CASE_STUDIES.length]!;
+
+  // Agents is a roster — multiple characters in one category index.
+  if (c.slug === "agents") {
+    return (
+      <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
+        <header className="mb-20 grid grid-cols-1 gap-10 md:mb-32 md:grid-cols-12 md:gap-x-12">
+          <div className="md:col-span-8">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
+              {String(idx + 1).padStart(2, "0")} · {c.capabilityLabel}
+            </p>
+            <MaskReveal direction="up" delay={0.3}>
+              <h1 className="mt-6 font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.86] tracking-[-0.04em] text-[var(--ink-0)]">
+                autonomous
+                <br />
+                <em className="font-serif italic font-normal text-[var(--bloodlust)]">characters</em>
+                <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              </h1>
+            </MaskReveal>
+          </div>
+          <aside className="flex items-end md:col-span-4">
+            <p className="max-w-[40ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
+              a character layered over an autonomous agent. any creator or brand
+              can send one into the digital world to work as a 24/7 marketer,
+              onboarder, and live ad for the product.
+            </p>
+          </aside>
+        </header>
+
+        <section className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-x-12 md:gap-y-24" data-spotlight-grid>
+          <div className="md:col-span-4">
+            <Plinth
+              href="#kira"
+              index={1}
+              title="kira"
+              caption="feb 2026 · — followers"
+              tint="var(--cream-2)"
+              cursorLabel="meet →"
+            />
+          </div>
+          <div className="md:col-span-4">
+            <div className="flex aspect-[3/4] w-full items-end border border-[var(--ink-4)] bg-[var(--cream-1)] p-6 md:p-8">
+              <p className="max-w-[20ch] font-display font-light text-[clamp(18px,1.4vw,22px)] leading-[1.35] tracking-[-0.02em] text-[var(--ink-2)]">
+                the cast
+                <br />
+                <em className="font-serif italic font-normal text-[var(--bloodlust)]">grows</em>
+                <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              </p>
+            </div>
+            <div className="mt-4 flex flex-col gap-2">
+              <span className="block h-px w-8 bg-[var(--ink-3)]" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
+                02 · in production
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <footer className="mt-24 flex items-center justify-between border-t border-[var(--ink-4)] pt-8 md:mt-32">
+          <Link
+            href="/work"
+            data-cursor="link"
+            className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+          >
+            ← atrium
+          </Link>
+          <Link
+            href={`/work/${next.slug}`}
+            data-cursor="link"
+            data-cursor-label="enter →"
+            className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-1)] hover:text-[var(--cinnamon)]"
+          >
+            next · {next.title} →
+          </Link>
+        </footer>
+      </main>
+    );
+  }
 
   // Pipelines & tools is a live editorial page, not a scene-paged case study —
   // the pipeline visualizer is the centrepiece.

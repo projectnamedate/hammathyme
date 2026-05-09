@@ -28,14 +28,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--cream-1)",
   },
   {
-    slug: "kira-autonomous-character",
-    title: "autonomous characters",
+    slug: "agents",
+    title: "agents",
     capability: "autonomous-characters",
-    capabilityLabel: "autonomous characters",
+    capabilityLabel: "agents",
     year: "2026",
     client: "selected",
     summary:
-      "ai characters with their own social presence, scheduled posts, and consistent identity across image, video, and conversation.",
+      "a character layered over an autonomous agent. any creator or brand can send one into the digital world to work as a 24/7 marketer, onboarder, and live ad for the product.",
     tint: "var(--cream-2)",
   },
   {
