@@ -105,7 +105,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   // Pipelines & tools is a live editorial page, not a scene-paged case study —
   // the pipeline visualizer is the centrepiece.
-  if (c.slug === "pipelines-and-tools") {
+  if (c.slug === "pipelines-tools") {
     return (
       <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
         <header className="mb-20 grid grid-cols-1 gap-10 md:mb-28 md:grid-cols-12 md:gap-x-12">

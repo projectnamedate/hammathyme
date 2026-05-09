@@ -17,7 +17,7 @@ export type CaseStudy = {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    slug: "hammer-brand-build",
+    slug: "brand-systems",
     title: "brand systems",
     capability: "brand-systems",
     capabilityLabel: "brand systems",
@@ -39,7 +39,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--cream-2)",
   },
   {
-    slug: "motion-graphics-reel",
+    slug: "motion-graphics",
     title: "motion graphics",
     capability: "motion-graphics",
     capabilityLabel: "motion graphics",
@@ -61,7 +61,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--cinnamon)",
   },
   {
-    slug: "pipelines-and-tools",
+    slug: "pipelines-tools",
     title: "pipelines + tools",
     capability: "pipelines-tools",
     capabilityLabel: "pipelines + tools",
@@ -72,7 +72,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--cream-1)",
   },
   {
-    slug: "interactive-demos",
+    slug: "interactive-playable",
     title: "interactive + playable",
     capability: "interactive-playable",
     capabilityLabel: "interactive + playable",
