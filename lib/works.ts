@@ -1,11 +1,10 @@
 /**
  * The 8 work categories shown on the /work atrium and their portfolio
- * contents. Each category is a collection of pieces; pieces will eventually
- * have their own /work/[category]/[piece] case-study pages.
+ * contents. Each category is a collection of pieces; ready pieces open
+ * /work/[category]/[piece] detail pages.
  *
- * For now, pieces are placeholders with a status — every category should
- * render populated even before real assets land, so each piece reads as a
- * deliberate slot ("in production · 2026") rather than an empty grid cell.
+ * Not every piece has a detail route yet. In-production pieces still render as
+ * deliberate slots rather than empty grid cells.
  */
 
 export type PieceStatus = "live" | "in-production" | "coming-soon";
@@ -266,7 +265,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "the tools beneath the work. interactive pipeline visualizer below shows three real production pipelines with cost, time, and output at every step.",
+      "the tools beneath the work. the pipeline visualizer detail page shows three real production pipelines with cost, time, and output at every step.",
     tint: "var(--cream-1)",
     hero: { main: "pipelines", italic: "+ tools" },
     pieces: [
@@ -274,7 +273,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "pipeline-visualizer",
         title: "pipeline visualizer",
         year: "2026",
-        blurb: "interactive node-graph of three real pipelines. live below.",
+        blurb: "interactive node-graph of three real pipelines. opens as a detail view.",
         status: "live",
         tint: "var(--cream-1)",
       },
@@ -312,7 +311,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos visitors can use directly. each runs through a daily cost cap and rate limit.",
+      "planned demos visitors can use directly once built. each runs through a daily cost cap and rate limit.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [

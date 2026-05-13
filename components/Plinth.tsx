@@ -21,8 +21,8 @@ type Props = {
 };
 
 /**
- * Plinth — character / demo / book-cover card variant. Used on /agents, /lab,
- * grid. Generous whitespace, museum-plate caption underneath.
+ * Plinth — character / demo / book-cover card variant. Used in portfolio
+ * grids. Generous whitespace, museum-plate caption underneath.
  * Hover: subtle ground shadow + slight tilt; siblings spotlight-fade is
  * handled by the parent grid via [data-spotlight].
  */

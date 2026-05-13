@@ -12,7 +12,7 @@ import { HermesStatusBar } from "@/components/HermesStatusBar";
 import { MadeWithAITag } from "@/components/MadeWithAITag";
 import "./globals.css";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.ai";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

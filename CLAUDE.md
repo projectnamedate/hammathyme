@@ -4,10 +4,11 @@ This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself i
 
 ## Source-of-truth files (read before any work)
 
-- `BRAND_GUIDE.md` — token contract. Color, type, motion, voice, banned words. **Edit this first; mirror into `app/globals.css` and `tailwind.config.ts` in the same change.**
+- `BRAND_GUIDE.md` — token contract. Color, type, motion, voice, banned words. **Edit this first; mirror token changes into `app/globals.css` and any typed constants in the same change.** Tailwind runs through the v4 CSS theme map, not a separate config file.
 - `BRAND.html` — canonical visual reference. Open it to see how a section should *feel*.
 - `RESEARCH.md` — May 2026 market refresh. Current model name-drops, hiring framing, awwwards refs.
-- `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/` — auto-memory. Visual taste, kerning recipe, portfolio categories, voice rules, roadmap.
+- `~/.codex/skills/hammer-startup-check/SKILL.md` — resume audit workflow for roadmap, site drift, content state, and deploy truth.
+- `~/.codex/memories/MEMORY.md` — prior decisions. Visual taste, kerning recipe, portfolio categories, voice rules, roadmap.
 
 > **Note:** `SPEC.md` is a phase-1 planning document and is now historical. It still references `/notes`, `/process`, `/lab`, and a top-level `/agents` route — none of which exist. Trust this CLAUDE.md and the live code over SPEC.md for architecture / IA / route questions.
 
@@ -54,18 +55,23 @@ Live API demos go through `/api/*` routes with edge-middleware rate-limiting and
 /                    entry hall
 /work                atrium — 8 category tiles (Swiss wall, fixed; mobile = vertical snap)
 /work/[category]     category index — editorial header + pieces grid
+/work/[category]/[piece]
+                     detail view for ready live pieces (reel, pipeline graph, brand dossiers)
 /about               anteroom — bio, experience timeline, clients, education, memberships
 /contact             vestibule — poster split layout, contact lines, status indicator
 ```
 
 Top nav: `work · about` (with `get in touch` CTA top-right). Home is reachable
-via the wordmark; /contact via the CTA. Per-piece case studies (`/work/[category]/[piece]`)
-are not yet built; live pieces link to `#anchor` placeholders for now.
+via the wordmark; /contact via the CTA. Ready live pieces use detail pages at
+`/work/[category]/[piece]`; in-production pieces keep hash placeholders until
+the demo or case-study surface exists.
 
 ## Repo structure
 
 ```
 /app                 routes (App Router)
+/app/work/[slug]/[piece]
+                     detail routes for ready pieces; modal-like page pattern
 /components          UI (PascalCase) — AtriumCanvas, CardArt, PipelineVisualizer, Plinth, etc.
 /components/motion   FadeIn, MaskReveal, ScrollReveal, SplitText, StaggerChildren
 /content/work        category-index MDX (one per category, slug matches lib/works.ts)
@@ -95,5 +101,7 @@ ai producer"); /process was dropped 2026-05-08 ("every project is different");
 case-study copy + /about metadata + structured data, not a blog.
 
 Each category is a *collection* — multiple pieces inside. The category page is
-an editorial portfolio index; live pieces will eventually link to per-piece
-case-study pages at `/work/[category]/[piece]`.
+an editorial portfolio index only: header, plinth grid, footer. Long demos and
+case-study surfaces live behind detail pages. Current ready detail routes are:
+`/work/motion-graphics/reel`, `/work/pipelines-tools/pipeline-visualizer`, and
+`/work/brand-systems/{hammer,kira,effigy}`.

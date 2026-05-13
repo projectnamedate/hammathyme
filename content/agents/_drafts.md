@@ -1,10 +1,12 @@
-# /content/agents — phase 7 character pages
+# /content/agents — future character detail pages
 
-launch:
+current source:
 
-1. `kira` — the placeholder character at launch (anonymized fields jeff fills post-launch).
+1. `kira` — canonical autonomous-character source. Public case-study treatment
+   still needs to be built inside `/work/agents`.
 
-post-launch additions go here as `<slug>.mdx` per character.
+future additions go here as `<slug>.mdx` per character if the agents category
+graduates to per-character detail routes.
 
 each character page contains:
 
@@ -12,4 +14,4 @@ each character page contains:
 - "born" date
 - agent stack diagram (hermes / llm / posting)
 - embedded latest social posts (or screenshot fallback)
-- optional "talk to them" link to phase 6 demo
+- optional "talk to them" link to an interactive detail demo

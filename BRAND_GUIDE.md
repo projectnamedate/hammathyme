@@ -3,8 +3,9 @@
 **v 3.0 · 2026.05.03 · Vinaceous Cinnamon · Polished Bloodlust**
 
 The canonical brand guide is `BRAND.html` — open that for the visual reference.
-This file is the **machine-readable token source** that compiles directly into `tailwind.config.ts`
-and `app/globals.css` in Phase 1. Update this file in the same PR as any token change.
+This file is the **machine-readable token source** that compiles directly into
+`app/globals.css` and the Tailwind v4 CSS theme map. Update this file in the
+same PR as any token change.
 
 ---
 
@@ -20,7 +21,7 @@ and `app/globals.css` in Phase 1. Update this file in the same PR as any token c
 - **Deep accent:** `#5A201D` (Polished Bloodlust) — hover/pressed states only.
 - **Surface mode:** light, warm cream washed with rose. Dark mode not in scope.
 - **Wordmark direction:** canonical recipe is Motion Reel `01 - cold open`, mirrored in the fixed Remotion `15 - signature` treatment. Use the cold-open per-letter Outfit Black construction; do not replace it with the native `.kw` text run.
-- **Characters at launch:** 1 placeholder; real ones slot in post-launch.
+- **Characters at launch:** Kira is the canonical autonomous-character source; the public agents case study is still being built.
 
 ## 2. Color tokens
 
@@ -175,8 +176,7 @@ Eight motion primitives: `<FadeIn>`, `<StaggerChildren>`, `<ScrollReveal>`, `<Sh
 | `brand/icon.svg` | 0 | mark-only |
 | `brand/grain.svg` | 0 | paper-grain texture |
 | `brand/og-template.tsx` | 1 | next/og social image template |
-| `tailwind.config.ts` | 1 | mirrors §2–§5 one-to-one |
-| `app/globals.css` | 1 | declares all custom properties in `:root` |
+| `app/globals.css` | 1 | declares all custom properties in `:root` and maps Tailwind v4 theme utilities |
 
 ## Changelog
 

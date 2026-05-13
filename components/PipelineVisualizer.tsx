@@ -377,7 +377,7 @@ function Drawer({
         </ul>
 
         <a
-          href="mailto:hello@hammathyme.ai?subject=lab%20%C2%B7%20pipeline%20configs"
+          href="mailto:hello@hammathyme.ai?subject=portfolio%20%C2%B7%20pipeline%20configs"
           data-cursor="link"
           data-cursor-label="ask →"
           className="mt-6 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
