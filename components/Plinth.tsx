@@ -3,7 +3,7 @@
 import { ViewLink } from "./ViewLink";
 import { motion, useReducedMotion } from "motion/react";
 import { clsx } from "clsx";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 type Props = {
   href: string;
@@ -17,6 +17,7 @@ type Props = {
   /** optional hero (image/video/SVG) */
   children?: ReactNode;
   className?: string;
+  transitionName?: string;
 };
 
 /**
@@ -34,9 +35,14 @@ export function Plinth({
   cursorLabel = "view",
   children,
   className,
+  transitionName,
 }: Props) {
   const reduce = useReducedMotion();
   const num = String(index).padStart(2, "0");
+  const frameStyle: CSSProperties = {
+    ...(tint ? { background: tint } : {}),
+    ...(transitionName ? { viewTransitionName: transitionName } : {}),
+  };
 
   return (
     <ViewLink
@@ -50,7 +56,7 @@ export function Plinth({
         whileHover={reduce ? undefined : { y: -4 }}
         transition={{ duration: 0.4, ease: [0.65, 0, 0.35, 1] }}
         className="relative aspect-[3/4] w-full overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)]"
-        style={tint ? { background: tint } : undefined}
+        style={frameStyle}
       >
         {/* Index numeral, gigantic, low-opacity */}
         <span

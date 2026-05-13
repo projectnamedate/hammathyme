@@ -21,7 +21,7 @@ export default function Colophon() {
           <MaskReveal direction="up" delay={0.3}>
             <h1 className="mt-6 font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.86] tracking-[-0.04em] text-[var(--ink-0)]">
               <em className="font-serif italic font-normal text-[var(--bloodlust)]">colophon</em>
-              <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              <span aria-hidden>.</span>
             </h1>
           </MaskReveal>
         </div>
@@ -65,7 +65,7 @@ export default function Colophon() {
 
         <Field label="brand contract" col={6}>
           <Line k="palette" v="warm cream · maroon ink · vinaceous cinnamon" />
-          <Line k="motif" v="cinnamon period · per-letter wordmark kerning" />
+          <Line k="motif" v="protected wordmark period · governed display dot" />
           <Line k="motion" v="every animation has a reduced-motion fallback" />
           <Line k="voice" v="sentence-case body · italic only on one word" />
         </Field>

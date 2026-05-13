@@ -14,7 +14,8 @@ This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself i
 ## Brand contract (non-negotiable)
 
 - **Light only.** Warm cream `#FAEEE9` page, deep maroon ink ramp, vinaceous cinnamon `#F28E86` as the single live accent. No dark mode.
-- **Lowercase wordmark.** Always render `hammer.` via the `.kw` class with per-letter spans. The cinnamon period is the brand mark.
+- **Lowercase wordmark.** The canonical `hammer.` visual reference is Motion Reel `01 — cold open` and the fixed Remotion `15 — signature`: Outfit Black lowercase `hammer` built with the cold-open per-letter kerning recipe, plus the cinnamon period as a controlled circular mark on the baseline. Avoid native-run substitutes, faux depth, fallback-looking shadows, or alternate title tracking that makes the `a` read like a different font.
+- **Dot system.** The cinnamon dot is protected for `hammer.` and may appear as a controlled circular display punctuation motif on bold Outfit/Geist title lockups only. Do not attach it to Instrument Serif italic words, all-italic lines, metadata separators, repeated item labels, or bloodlust punctuation.
 - **Outfit Black for display.** Geist for body. Geist Mono for captions/code. Instrument Serif **italic only** for the single-italic-word motif inside headlines.
 - **Sentence case body.** Lowercase headings and chips. No ALL CAPS except mono captions where intentional.
 - **Banned words (CI-enforce):** unleash · harness · revolutionize · supercharge · game-changing · next-level · leverage · synergy · cutting-edge · seamless · robust · empower · disrupt · tap into · the power of AI.
@@ -31,6 +32,12 @@ Each phase ships only after: ≥ 90 perf · ≥ 95 a11y · 100 best-practices ·
 ## Cost guardrails
 
 Live API demos go through `/api/*` routes with edge-middleware rate-limiting and a `DAILY_API_BUDGET_USD` env-var hard cap. Demos auto-disable when cap hit.
+
+## Launch TODOs
+
+- Search for a short portfolio domain. Preferred direction is something as direct
+  as `hammer.ai` or `hammer.dev`, but those appear taken; find similarly short,
+  memorable alternatives before final launch wiring.
 
 ## Rules of engagement for Claude
 

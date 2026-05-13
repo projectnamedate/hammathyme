@@ -90,7 +90,7 @@ export default function DesignSystem() {
         <div className="flex flex-col gap-8 border border-[var(--ink-4)] bg-[var(--cream-1)]/40 p-8">
           <Wordmark size="hero" />
           <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-            outfit black · hand-kerned · 7.8px ink-gap target · cinnamon brand mark
+            outfit black · native text run · controlled cinnamon brand mark
           </span>
         </div>
       </Section>

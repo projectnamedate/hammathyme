@@ -135,7 +135,6 @@ export function AtriumCanvas() {
           className="font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
         >
           {activePiece.title}
-          <span aria-hidden className="text-[var(--cinnamon)]">.</span>
         </motion.p>
       </div>
 
@@ -281,7 +280,6 @@ function AtriumStack({
               <span className="block h-px w-12 bg-[var(--ink-3)] mx-auto" />
               <p className="mt-3 font-display text-[clamp(20px,4vw,28px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]">
                 {item.title}
-                <span aria-hidden className="text-[var(--cinnamon)]">.</span>
               </p>
               <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
                 {String(i + 1).padStart(2, "0")} · {item.year} · {item.capabilityLabel}

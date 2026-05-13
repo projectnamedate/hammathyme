@@ -4,8 +4,6 @@ import { motion, useReducedMotion } from "motion/react";
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
 
-const LETTERS = ["h", "a", "m", "m", "e", "r"] as const;
-
 function fireHermes(e: React.MouseEvent) {
   e.preventDefault();
   e.stopPropagation();
@@ -18,12 +16,8 @@ function fireHermes(e: React.MouseEvent) {
  * Hero variant of the wordmark with a letter-by-letter mask reveal.
  * Used only on the entry hall — every other place uses <Wordmark>.
  *
- * Each letter sits inside a horizontal mask (overflow hidden); the inner span
- * starts at translateY(110%) and rises to 0%. The cinnamon period drops in
- * last with a small extra delay.
- *
- * Kerning is preserved by the parent .kw class; we wrap each <span> letter
- * exactly as Wordmark does, with a motion child inside for the mask.
+ * The word renders as one native Outfit text run so browser kerning stays intact.
+ * A controlled circular cinnamon period drops in last.
  */
 export function HeroWordmark({
   ariaLabel = "hammer · ai producer",
@@ -38,12 +32,8 @@ export function HeroWordmark({
     // Reduced motion = static rendering, no mask animation.
     return (
       <span className="kw text-[clamp(96px,18vw,260px)] leading-[0.84]" aria-label={ariaLabel}>
-        {LETTERS.map((l, i) => (
-          <span key={i}>{l}</span>
-        ))}
-        <span className="dot cursor-pointer" onClick={fireHermes} role="button" tabIndex={-1} aria-hidden>
-          .
-        </span>
+        <span className="kw-word">hammer</span>
+        <span className="dot cursor-pointer" onClick={fireHermes} role="button" tabIndex={-1} aria-hidden />
       </span>
     );
   }
@@ -53,44 +43,35 @@ export function HeroWordmark({
       className="kw text-[clamp(96px,18vw,260px)] leading-[0.84]"
       aria-label={ariaLabel}
     >
-      {LETTERS.map((l, i) => (
-        <span key={i} style={{ overflow: "hidden", verticalAlign: "baseline" }}>
-          <motion.span
-            style={{ display: "inline-block", willChange: "transform" }}
-            initial={{ y: "112%" }}
-            animate={{ y: "0%" }}
-            transition={{
-              duration: 0.85,
-              ease: CINEMA,
-              delay: baseDelay + i * 0.045,
-            }}
-          >
-            {l}
-          </motion.span>
-        </span>
-      ))}
-      {/* cinnamon period — drops in slightly later with a soft scale */}
-      <span
+      <span style={{ overflow: "hidden", verticalAlign: "baseline" }}>
+        <motion.span
+          className="kw-word"
+          style={{ display: "inline-block", willChange: "transform" }}
+          initial={{ y: "112%" }}
+          animate={{ y: "0%" }}
+          transition={{
+            duration: 0.85,
+            ease: CINEMA,
+            delay: baseDelay,
+          }}
+        >
+          hammer
+        </motion.span>
+      </span>
+      <motion.span
         className="dot cursor-pointer"
-        style={{ display: "inline-block" }}
         onClick={fireHermes}
         role="button"
         tabIndex={-1}
         aria-hidden
-      >
-        <motion.span
-          style={{ display: "inline-block" }}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{
-            duration: 0.5,
-            ease: [0.34, 1.56, 0.64, 1],
-            delay: baseDelay + LETTERS.length * 0.045 + 0.12,
-          }}
-        >
-          .
-        </motion.span>
-      </span>
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{
+          duration: 0.5,
+          ease: [0.34, 1.56, 0.64, 1],
+          delay: baseDelay + 0.72,
+        }}
+      />
     </span>
   );
 }

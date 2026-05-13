@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CASE_STUDIES, findCase, statusLabel, type Piece } from "@/lib/works";
+import { CASE_STUDIES, findCase, hasPieceDetail, statusLabel, type Piece } from "@/lib/works";
 import { MaskReveal } from "@/components/motion/MaskReveal";
-import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { Plinth } from "@/components/Plinth";
 
 export async function generateStaticParams() {
@@ -32,7 +31,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {String(idx + 1).padStart(2, "0")} · {c.capabilityLabel}
           </p>
           <MaskReveal direction="up" delay={0.3}>
-            <h1 className="mt-6 font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.86] tracking-[-0.04em] text-[var(--ink-0)]">
+            <h1 className="mt-6 pb-[0.16em] font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.92] tracking-[-0.04em] text-[var(--ink-0)]">
               {c.hero.main ? (
                 <>
                   {c.hero.main}
@@ -40,7 +39,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 </>
               ) : null}
               <em className="font-serif italic font-normal text-[var(--bloodlust)]">{c.hero.italic}</em>
-              <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              <span aria-hidden>.</span>
             </h1>
           </MaskReveal>
         </div>
@@ -61,22 +60,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
           <PieceTile key={p.slug} category={c.slug} piece={p} index={i + 1} />
         ))}
       </section>
-
-      {/* category-specific extra widgets */}
-      {c.slug === "pipelines-tools" ? (
-        <section className="mt-32" aria-label="pipeline visualizer">
-          <header className="mb-10 flex items-baseline gap-6 border-t border-[var(--ink-4)] pt-8">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-              live demo
-            </p>
-            <p className="font-display text-[clamp(20px,1.6vw,26px)] font-light lowercase leading-none tracking-[-0.025em] text-[var(--ink-0)]">
-              pipeline visualizer
-              <span aria-hidden className="text-[var(--cinnamon)]">.</span>
-            </p>
-          </header>
-          <PipelineVisualizer />
-        </section>
-      ) : null}
 
       <footer className="mt-24 flex items-center justify-between border-t border-[var(--ink-4)] pt-8 md:mt-32">
         <Link
@@ -108,23 +91,22 @@ function PieceTile({
   piece: Piece;
   index: number;
 }) {
-  const isLive = piece.status === "live";
-  // Live pieces will eventually link to /work/[category]/[piece]; for now,
-  // anchor-only so the click signals "no detail page yet" without 404-ing.
-  const href = isLive ? `#${piece.slug}` : `#${piece.slug}`;
+  const hasDetail = hasPieceDetail(category, piece.slug);
+  const href = hasDetail ? `/work/${category}/${piece.slug}` : `#${piece.slug}`;
   const caption = `${piece.year} · ${statusLabel(piece.status)}`;
-  void category;
+  const transitionName = hasDetail ? `work-${category}-${piece.slug}` : undefined;
 
   return (
     <div className="md:col-span-4">
-      <div className={isLive ? "" : "opacity-80"}>
+      <div className={hasDetail ? "" : "opacity-80"}>
         <Plinth
           href={href}
           index={index}
           title={piece.title}
           caption={caption}
           tint={piece.tint}
-          cursorLabel={isLive ? "view →" : "soon"}
+          cursorLabel={hasDetail ? "open →" : "soon"}
+          transitionName={transitionName}
         />
       </div>
       {piece.blurb ? (

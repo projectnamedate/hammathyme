@@ -27,21 +27,14 @@ function fireHermes(e: React.MouseEvent) {
 export function Wordmark({ className, ariaLabel = "hammer · home", size = "md" }: Props) {
   return (
     <span className={clsx("kw", SIZE[size], className)} aria-label={ariaLabel}>
-      <span>h</span>
-      <span>a</span>
-      <span>m</span>
-      <span>m</span>
-      <span>e</span>
-      <span>r</span>
+      <span className="kw-word">hammer</span>
       <span
         className="dot cursor-pointer"
         onClick={fireHermes}
         role="button"
         tabIndex={-1}
         aria-hidden
-      >
-        .
-      </span>
+      />
     </span>
   );
 }

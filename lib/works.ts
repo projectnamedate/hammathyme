@@ -20,6 +20,16 @@ export type Piece = {
   tint?: string;
 };
 
+export type BrandGuideProfile = {
+  slug: string;
+  title: string;
+  status: string;
+  source: string;
+  description: string;
+  evidence: string[];
+  swatches: { label: string; value: string }[];
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -34,6 +44,8 @@ export type CaseStudy = {
   hero: { main: string; italic: string };
   /** portfolio contents inside this category */
   pieces: Piece[];
+  /** optional source-guide dossiers for brand systems */
+  brandGuides?: BrandGuideProfile[];
 };
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -45,7 +57,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "brand identities built with ai in the loop — palette, wordmark, motion, voice. selected work below.",
+      "brand identities built with ai in the loop: token systems, wordmarks, voice rules, motion language, and live product surfaces.",
     tint: "var(--cream-1)",
     hero: { main: "brand", italic: "systems" },
     pieces: [
@@ -54,7 +66,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "hammer",
         year: "2026",
         client: "self",
-        blurb: "the brand for this studio. wordmark, palette, motion language, deploy pipeline.",
+        blurb: "studio identity for this portfolio: protected wordmark, dot rules, palette, type, motion, and site tokens.",
         status: "live",
         tint: "var(--cream-1)",
       },
@@ -63,7 +75,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "kira",
         year: "2026",
         client: "hammer studios",
-        blurb: "identity for an autonomous character. lora-locked face, voice, posting style.",
+        blurb: "full character bible and website system for an autonomous ai crypto character.",
         status: "live",
         tint: "var(--cream-2)",
       },
@@ -71,10 +83,69 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "effigy",
         title: "effigy",
         year: "2026",
-        client: "tbd",
-        blurb: "ritual / ceremony brand. bloodlust accent, cream paper. coming next.",
-        status: "in-production",
-        tint: "var(--bloodlust)",
+        client: "effigy",
+        blurb: "master brand book for a runtime-agnostic, compliance-first stack for autonomous agents.",
+        status: "live",
+        tint: "#E8EEFF",
+      },
+    ],
+    brandGuides: [
+      {
+        slug: "hammer",
+        title: "hammer",
+        status: "canonical studio guide",
+        source: "brand guide, visual reference, site tokens, motion reel wordmark",
+        description:
+          "Hammer is the portfolio studio identity: a warm editorial system built around a lowercase Outfit Black wordmark, a protected cinnamon circular period, Geist body copy, Instrument Serif italic accents, and motion tokens shared by the site and reel.",
+        evidence: [
+          "canonical wordmark construction, optical letter gaps, and protected dot rules",
+          "warm cream surface system with vinaceous cinnamon and polished bloodlust accents",
+          "motion primitives, easing tokens, and portfolio UI rules compiled into the site",
+        ],
+        swatches: [
+          { label: "cream", value: "#FAEEE9" },
+          { label: "ink", value: "#1F0707" },
+          { label: "cinnamon", value: "#F28E86" },
+          { label: "bloodlust", value: "#5A201D" },
+        ],
+      },
+      {
+        slug: "kira",
+        title: "kira",
+        status: "character bible + website",
+        source: "14-part brand bible, pipeline tokens, onlykira site",
+        description:
+          "Kira is a complete autonomous-character brand system, not just a look. The bible defines essence, canon, voice, visual anchors, platform strategy, content recipes, audience, monetization, AI governance, and the website that consumes those tokens and voice rules.",
+        evidence: [
+          "fourteen-section brand bible with editable markdown source and compiled HTML",
+          "onlykira site imports tokens and runs shipped copy through voice-lint rules",
+          "visual pipeline locks character anchors, lenses, lighting, color grades, and caption recipes",
+        ],
+        swatches: [
+          { label: "paper", value: "#F7F3EC" },
+          { label: "ink", value: "#0F0F0F" },
+          { label: "copper", value: "#B4673A" },
+          { label: "signal", value: "#FF6D1F" },
+        ],
+      },
+      {
+        slug: "effigy",
+        title: "effigy",
+        status: "master brand book",
+        source: "brand book, logo directions, logomark system",
+        description:
+          "Effigy is the identity for a runtime-agnostic, compliance-first stack for autonomous agents. The guide covers positioning, voice, visual language, a split-cast mark, lowercase mono wordmark, product applications, C2PA/provenance, and brand governance.",
+        evidence: [
+          "split-cast logomark encodes source, cast, assembled parts, and provenance",
+          "narwhal grey and veiling-twilight palette with Inter Tight and JetBrains Mono",
+          "voice rules ship as readable SOUL documents and structured JSON for agent outputs",
+        ],
+        swatches: [
+          { label: "field", value: "#F5F7FF" },
+          { label: "ink", value: "#0A1230" },
+          { label: "narwhal", value: "#78A7FF" },
+          { label: "pale", value: "#A8C4FF" },
+        ],
       },
     ],
   },
@@ -133,10 +204,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     pieces: [
       {
         slug: "reel",
-        title: "reel",
+        title: "v3 reel",
         year: "2026",
-        blurb: "selected motion work cut to a single piece. broadcast-grade pacing.",
-        status: "in-production",
+        blurb: "selected ai motion work cut to a single piece. remotion and hyperframes, rendered from prores masters.",
+        status: "live",
         tint: "var(--bloodlust)",
       },
       {
@@ -361,6 +432,34 @@ export const CASE_STUDIES: CaseStudy[] = [
 
 export function findCase(slug: string): CaseStudy | undefined {
   return CASE_STUDIES.find((c) => c.slug === slug);
+}
+
+export function findPiece(categorySlug: string, pieceSlug: string): Piece | undefined {
+  return findCase(categorySlug)?.pieces.find((p) => p.slug === pieceSlug);
+}
+
+const DETAIL_READY_KEYS = new Set([
+  "brand-systems/hammer",
+  "brand-systems/kira",
+  "brand-systems/effigy",
+  "motion-graphics/reel",
+  "pipelines-tools/pipeline-visualizer",
+]);
+
+export function pieceDetailKey(categorySlug: string, pieceSlug: string): string {
+  return `${categorySlug}/${pieceSlug}`;
+}
+
+export function hasPieceDetail(categorySlug: string, pieceSlug: string): boolean {
+  return DETAIL_READY_KEYS.has(pieceDetailKey(categorySlug, pieceSlug));
+}
+
+export function getReadyPieceParams(): { slug: string; piece: string }[] {
+  return CASE_STUDIES.flatMap((category) =>
+    category.pieces
+      .filter((piece) => hasPieceDetail(category.slug, piece.slug))
+      .map((piece) => ({ slug: category.slug, piece: piece.slug })),
+  );
 }
 
 export function statusLabel(s: PieceStatus): string {

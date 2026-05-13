@@ -98,8 +98,8 @@ export function InspectorOverlay() {
           <div className="absolute left-6 bottom-6 flex flex-col gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] md:left-24 md:bottom-12">
             {[
               { token: "cream-0", v: "#FAEEE9" },
-              { token: "ink-0",   v: "#2a0a0a" },
-              { token: "bloodlust", v: "#5a1c1c" },
+              { token: "ink-0",   v: "#1F0707" },
+              { token: "bloodlust", v: "#5A201D" },
               { token: "cinnamon",  v: "#F28E86" },
             ].map((c) => (
               <div key={c.token} className="flex items-center gap-2">

@@ -42,7 +42,7 @@ export default function Anteroom() {
               <span className="block">jeff</span>
               <span className="block pt-3 md:pt-6">
                 <em className="font-serif italic font-normal text-[var(--bloodlust)]">hammer</em>
-                <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+                <span aria-hidden>.</span>
               </span>
             </h1>
           </MaskReveal>

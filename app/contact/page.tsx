@@ -14,7 +14,7 @@ export default function Vestibule() {
               let's
               <br />
               <em className="font-serif italic font-normal text-[var(--bloodlust)]">chat</em>
-              <span aria-hidden className="text-[var(--cinnamon)]">.</span>
+              <span aria-hidden>.</span>
             </h1>
           </MaskReveal>
           <p className="mt-12 max-w-[44ch] font-display font-light text-[clamp(20px,2vw,26px)] leading-[1.45] tracking-[-0.015em] text-[var(--ink-1)]">

@@ -353,7 +353,6 @@ function Drawer({
         </p>
         <p className="mt-3 font-display text-[clamp(22px,2vw,32px)] font-light lowercase leading-none tracking-[-0.04em] text-[var(--ink-0)]">
           {n.label}
-          <span aria-hidden className="text-[var(--cinnamon)]">.</span>
         </p>
       </div>
 

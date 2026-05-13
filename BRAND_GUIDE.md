@@ -16,10 +16,10 @@ and `app/globals.css` in Phase 1. Update this file in the same PR as any token c
 - **Body:** Geist (Vercel, free) — premium humanist grotesque.
 - **Mono:** Geist Mono (Vercel, free) — pairs natively with Geist.
 - **Editorial italic accent:** Instrument Serif Italic — used only for italicized words in headlines (the recurring motif), never as a primary face.
-- **Live accent:** `#F28E86` (Vinaceous Cinnamon, OKLCH 75% 0.123 24.8). The period after `hammer.` is the brand mark.
+- **Live accent:** `#F28E86` (Vinaceous Cinnamon, OKLCH 75% 0.123 24.8). The period after `hammer.` is the protected brand mark; see the dot / period system below.
 - **Deep accent:** `#5A201D` (Polished Bloodlust) — hover/pressed states only.
 - **Surface mode:** light, warm cream washed with rose. Dark mode not in scope.
-- **Wordmark direction:** three options in `BRAND.html §02` — Jeff picks one.
+- **Wordmark direction:** canonical recipe is Motion Reel `01 - cold open`, mirrored in the fixed Remotion `15 - signature` treatment. Use the cold-open per-letter Outfit Black construction; do not replace it with the native `.kw` text run.
 - **Characters at launch:** 1 placeholder; real ones slot in post-launch.
 
 ## 2. Color tokens
@@ -80,12 +80,45 @@ and `app/globals.css` in Phase 1. Update this file in the same PR as any token c
 - All headings set in **Outfit**, weight 700–900.
 - All body copy set in **Geist**, weight 400 (regular) and 500 (emphasis).
 - Recurring motif: a single italic word in a headline, set in **Instrument Serif Italic** (the only place serif appears).
-- Recurring brand mark: the period after `hammer` in `--cinnamon`.
+- Recurring dot usage is governed by the dot / period system below.
 - Wordmark and primary headlines are **lowercase**. Captions and chips are uppercase mono.
 - One `h1` per page; primary keyword in `h1`.
 - Tracking: hero −0.06em, h2/h3 −0.045em, h4 −0.04em. Body 0.
 
 **Loading strategy:** self-host all weights as WOFF2, subset Latin, preload Outfit 900 + Outfit 300 + Geist 400 + Geist 500.
+
+### Canonical wordmark recipe
+
+Reference implementations:
+
+- `/Users/hammer/Desktop/Claude/motion-reel/hyperframes/reel/01-cold-open/index.html`
+- `/Users/hammer/Desktop/Claude/motion-reel/remotion/src/reel/15-Signature.tsx`
+
+- Render `hammer` as six Outfit Black letter spans, not one native text run. The approved visual recipe is the cold-open per-letter construction.
+- Font: `Outfit`, weight `900`, lowercase only. In Remotion, use a dedicated local `@font-face` for the wordmark so shared font-family fallback cannot drift the render.
+- Cold-open reference size: `font-size: 280px`, `line-height: 0.84`, `letter-spacing: 0`.
+- Reel signature size: `font-size: 228px`, `line-height: 0.84`, `letter-spacing: 0`, with dot dimensions scaled from the cold-open 280px geometry.
+- Letter wrapper recipe: each letter uses `display: inline-block`, `overflow: hidden`, `line-height: 1.28`, `padding: 0.22em 0`, `margin-top: -0.22em`, and `margin-bottom: -0.22em`.
+- Letter gaps after `h a m m e r`: `-0.018em`, `-0.055em`, `-0.045em`, `-0.030em`, `-0.022em`, `0.007em`.
+- Period: render as a controlled cinnamon circle, not the font period glyph. Cold-open reference is `48px` circle at `280px` type with `margin-left: 2px`, `margin-bottom: 6px`, and absolute `top: -78px`; scale those pixel values proportionally for other reel sizes.
+- Color: wordmark in `--ink-0`; period in `--cinnamon`.
+- Keep `font-kerning: normal`, `font-feature-settings: "kern" 1, "calt" 1`, `text-rendering: geometricPrecision`.
+
+### Dot / period system
+
+The cinnamon dot has two approved roles:
+
+1. **Protected brand mark.** Only `hammer.` gets the canonical brand mark. Render `hammer` with the cold-open per-letter Outfit Black recipe and render the period as a controlled circular element, never the font period glyph. The dot is always `--cinnamon`, baseline-aligned, and proportioned from the canonical wordmark recipe above.
+2. **Display punctuation motif.** A single cinnamon dot may punctuate a bold Outfit/Geist display title when it is acting as a deliberate title lockup, not as ordinary grammar. It must be a controlled circular element in `--cinnamon`, not a typed period colored pink.
+
+Do not:
+
+- attach the cinnamon dot to Instrument Serif italic words or all-italic lines;
+- use the cinnamon dot as a generic bullet, metadata separator, item marker, or every-label punctuation;
+- color typed period glyphs in `--cinnamon` or `--bloodlust` as a substitute for the controlled circular mark;
+- use `--bloodlust` for punctuation dots. `--bloodlust` remains a deep accent for hover/pressed states and selected dark details.
+
+Use normal text-color punctuation for body copy, all-italic lines, and ordinary sentences when punctuation is needed. Mono metadata uses `·` or `/`, not the brand dot. Functional circles such as chart markers, cursor dots, particles, and graph nodes are not sentence punctuation; they may use brand colors when they are part of the data or motion system.
 
 ## 4. Motion
 

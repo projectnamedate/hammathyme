@@ -112,26 +112,44 @@ body {
 a { color: inherit; text-decoration: none; }
 button { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
 
-/* Hand-kerned wordmark — see brand/measure.html and feedback_wordmark_kerning.md.
-   Target 7.8px ink-gap (5/16 of m's internal counter). */
+/* Canonical wordmark — native Outfit text run + controlled circular period. */
 .kw {
+  display: inline-flex;
+  align-items: baseline;
   font-family: var(--font-display);
   font-weight: 900;
-  letter-spacing: 0;
+  letter-spacing: -0.032em;
+  line-height: 0.84;
   font-kerning: normal;
   text-rendering: geometricPrecision;
   font-feature-settings: "kern" 1, "calt" 1;
   white-space: nowrap;
   text-transform: lowercase;
 }
-.kw > span { display: inline-block; }
-.kw > span:nth-child(1) { margin-right: -0.003em; }   /* h → a */
-.kw > span:nth-child(2) { margin-right: -0.041em; }   /* a → m */
-.kw > span:nth-child(3) { margin-right: -0.032em; }   /* m → m */
-.kw > span:nth-child(4) { margin-right:  0.001em; }   /* m → e */
-.kw > span:nth-child(5) { margin-right: -0.008em; }   /* e → r */
-.kw > span:nth-child(6) { margin-right:  0.007em; }   /* r → . */
-.kw .dot { color: var(--cinnamon); }
+.kw-word { display: inline-block; }
+.kw .dot {
+  display: inline-block;
+  width: 0.171em;
+  height: 0.171em;
+  margin-left: -0.009em;
+  border-radius: 50%;
+  background: var(--cinnamon);
+  color: transparent;
+  vertical-align: baseline;
+  transform: translateY(0.012em);
+  flex: 0 0 auto;
+}
+
+.display-period {
+  display: inline-block;
+  width: 0.15em;
+  height: 0.15em;
+  margin-left: 0.075em;
+  border-radius: 50%;
+  background: var(--cinnamon);
+  vertical-align: baseline;
+  transform: translateY(0.035em);
+}
 
 /* Hide scrollbars on horizontal galleries (still scrollable via wheel/keyboard/drag) */
 .hide-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
@@ -178,20 +196,20 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
 }
 
 /* === Idle wordmark breath ===
-   When body has [data-idle="1"], every .kw element breathes its kerning ±0.5px
+   When body has [data-idle="1"], every .kw element breathes its tracking slightly
    over a 6s sine. Subtle — visitors feel it more than they see it. */
 @keyframes hf-kerning-breath {
-  0%, 100% { letter-spacing: 0; }
-  50% { letter-spacing: 0.004em; }
+  0%, 100% { letter-spacing: -0.032em; }
+  50% { letter-spacing: -0.028em; }
 }
 body[data-idle="1"] .kw { animation: hf-kerning-breath 6s ease-in-out infinite; }
 
 /* Once-per-minute pulse on the cinnamon period when idle */
 @keyframes hf-period-pulse {
-  0%, 96%, 100% { transform: translateY(-0.05em) scale(1); }
-  98%           { transform: translateY(-0.05em) scale(1.18); }
+  0%, 96%, 100% { transform: translateY(0.012em) scale(1); }
+  98%           { transform: translateY(0.012em) scale(1.18); }
 }
-body[data-idle="1"] .kw .dot { animation: hf-period-pulse 60s ease-in-out infinite; transform-origin: center; display: inline-block; }
+body[data-idle="1"] .kw .dot { animation: hf-period-pulse 60s ease-in-out infinite; transform-origin: center; }
 
 /* === CardArt micro-motion ===
    Specimens animate one element when their containing SVG has [data-active="1"].
@@ -252,4 +270,3 @@ body[data-idle="1"] .kw .dot { animation: hf-period-pulse 60s ease-in-out infini
   }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
-
