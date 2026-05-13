@@ -14,7 +14,7 @@ the focus* — he has ideas per item.
 | 6 | 90-second broadcast-grade short | visual-media | placeholder |
 | 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | Pipeline visualizer detail page | pipelines-tools | live |
-| 9 | Rive + Remotion puppet animation reel | animation | collaborative next step |
+| 9 | Rive + Remotion puppet animation reel | animation | brief ready, collaborative build pending |
 | 10 | Motion graphics reel v3 | motion-graphics | live |
 | 11 | Short portfolio domain search | launch | pending |
 
@@ -44,5 +44,10 @@ before the animation category should be marked live.
 **Note (2026-05-13):** Root social preview assets now generate from
 `app/opengraph-image.tsx` and `app/twitter-image.tsx` using the Hammer wordmark
 composition, cream/ink/cinnamon palette, and portfolio capability line.
+
+**Note (2026-05-13):** The Rive MCP animation has a build brief at
+`content/work/rive-mcp-animation-brief.md`. It defines the Hammer-branded
+composition, state-machine inputs, export targets, site integration checklist,
+and the decisions Jeff still needs to make during the collaborative Rive pass.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.
