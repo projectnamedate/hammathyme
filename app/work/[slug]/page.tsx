@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CASE_STUDIES, findCase, hasPieceDetail, statusLabel, type Piece } from "@/lib/works";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { Plinth } from "@/components/Plinth";
+import { PieceArt } from "@/components/PieceArt";
 
 export async function generateStaticParams() {
   return CASE_STUDIES.map((c) => ({ slug: c.slug }));
@@ -108,7 +109,9 @@ function PieceTile({
           tint={piece.tint}
           cursorLabel={hasDetail ? "open →" : "soon"}
           transitionName={transitionName}
-        />
+        >
+          <PieceArt category={category} piece={piece.slug} />
+        </Plinth>
       </div>
       {piece.blurb ? (
         <p className="mt-4 max-w-[36ch] font-display font-light text-[clamp(13px,1vw,16px)] leading-[1.5] tracking-[-0.005em] text-[var(--ink-2)]">

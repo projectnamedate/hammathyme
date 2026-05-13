@@ -61,7 +61,7 @@ export function Plinth({
         {/* Index numeral, gigantic, low-opacity */}
         <span
           aria-hidden
-          className="pointer-events-none absolute left-3 top-3 font-display text-[clamp(56px,8vw,96px)] font-light leading-none tabular-nums tracking-[-0.04em] text-[var(--ink-0)] opacity-[0.06]"
+          className="pointer-events-none absolute left-3 top-3 z-10 font-display text-[clamp(56px,8vw,96px)] font-light leading-none tabular-nums tracking-[-0.04em] text-[var(--ink-0)] opacity-[0.06] mix-blend-multiply"
         >
           {num}
         </span>

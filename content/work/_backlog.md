@@ -14,7 +14,7 @@ the focus* — he has ideas per item.
 | 6 | 90-second broadcast-grade short | visual-media | placeholder |
 | 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | Pipeline visualizer detail page | pipelines-tools | live |
-| 9 | Rive + Remotion puppet animation reel | animation | placeholder |
+| 9 | Rive + Remotion puppet animation reel | animation | collaborative next step |
 | 10 | Motion graphics reel v3 | motion-graphics | live |
 | 11 | Short portfolio domain search | launch | pending |
 
@@ -35,5 +35,10 @@ Hammer and link to the standalone guide artifact. Motion/video and production
 artifacts can live directly inside Hammer as portfolio illustrations. Website
 pieces use Hammer detail pages for the summary/preview, then link out to the
 live public websites.
+
+**Note (2026-05-13):** Category piece grids have Hammer-native SVG card assets
+via `components/PieceArt.tsx`. These are portfolio plates, not substitutes for
+finished case studies. The Rive MCP animation remains a collaborative build
+before the animation category should be marked live.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

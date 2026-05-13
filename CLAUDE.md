@@ -113,3 +113,8 @@ pipeline visuals. Brand-system pages show a Hammer summary first, then link to
 the standalone guide artifact instead of embedding the full guide. Website
 pieces are the other exception: Hammer shows a summary and preview first, then
 links out to the live public site.
+
+Category piece cards use `components/PieceArt.tsx` for Hammer-native SVG plates
+while case studies are still in production. Keep these plates on the Hammer
+token system. Do not mark the animation category live until the Rive MCP
+animation is built with Jeff.
