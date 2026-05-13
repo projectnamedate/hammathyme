@@ -109,5 +109,7 @@ case-study surfaces live behind detail pages. Current ready detail routes are:
 
 Portfolio artifact rule: most finished artifacts live inside Hammer as the
 portfolio illustration itself, including videos, brand guides, brand books, and
-pipeline visuals. Website pieces are the exception: Hammer shows a summary and
-preview first, then links out to the live public site.
+pipeline visuals. Brand-system pages show a Hammer summary first, then link to
+the standalone guide artifact instead of embedding the full guide. Website
+pieces are the other exception: Hammer shows a summary and preview first, then
+links out to the live public site.

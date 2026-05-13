@@ -537,9 +537,21 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
               ))}
             </div>
           </div>
-          <p className="font-display text-[clamp(20px,2vw,34px)] font-light leading-[1.25] tracking-[-0.025em] text-[var(--ink-0)]">
-            {guide.description}
-          </p>
+          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+            <p className="font-display text-[clamp(20px,2vw,34px)] font-light leading-[1.25] tracking-[-0.025em] text-[var(--ink-0)]">
+              {guide.description}
+            </p>
+            <a
+              href={guide.guideUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="link"
+              data-cursor-label="open ↗"
+              className="inline-flex min-h-14 w-fit items-center justify-center border border-[var(--ink-0)] bg-[var(--ink-0)] px-5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--cream-0)] transition-colors hover:border-[var(--cinnamon)] hover:bg-[var(--cinnamon)] hover:text-[var(--ink-0)]"
+            >
+              open full guide ↗
+            </a>
+          </div>
         </div>
 
         <aside className="md:col-span-4">
@@ -550,16 +562,6 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
             <p className="mt-3 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.14em] text-[var(--ink-2)]">
               {guide.source}
             </p>
-            <a
-              href={guide.guideUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="link"
-              data-cursor-label="open ↗"
-              className="mt-5 inline-flex border border-[var(--ink-4)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-1)] hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)]"
-            >
-              open guide ↗
-            </a>
           </div>
           <ul className="mt-8 space-y-4">
             {guide.evidence.map((item) => (
@@ -573,22 +575,6 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
             ))}
           </ul>
         </aside>
-      </div>
-
-      <div className="mt-10 border border-[var(--ink-4)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.07)] md:p-3">
-        <div className="mb-3 flex flex-col gap-2 border-b border-[var(--ink-4)] pb-3 md:flex-row md:items-center md:justify-between">
-          <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-            {guide.guideLabel}
-          </p>
-          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]">
-            scroll the embedded guide below
-          </p>
-        </div>
-        <iframe
-          src={guide.guideUrl}
-          title={guide.guideLabel}
-          className="block h-[78vh] min-h-[720px] w-full bg-white"
-        />
       </div>
     </section>
   );
