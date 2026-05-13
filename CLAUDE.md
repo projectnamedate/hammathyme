@@ -73,6 +73,7 @@ the demo or case-study surface exists.
 /app/opengraph-image.tsx
 /app/twitter-image.tsx
                      generated Hammer social-preview assets
+/app/_fonts          subset Outfit/Geist/Geist Mono cuts for social image generation
 /app/work/[slug]/[piece]
                      detail routes for ready pieces; modal-like page pattern
 /components          UI (PascalCase) — AtriumCanvas, CardArt, PipelineVisualizer, Plinth, etc.

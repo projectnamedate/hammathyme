@@ -25,7 +25,7 @@ export function HammerSocialImage() {
         background: "#FAEEE9",
         color: "#1F0707",
         overflow: "hidden",
-        fontFamily: "Arial, Helvetica, sans-serif",
+        fontFamily: "Geist",
       }}
     >
       <div
@@ -43,6 +43,8 @@ export function HammerSocialImage() {
           top: 62,
           display: "flex",
           fontSize: 18,
+          fontFamily: "Geist Mono",
+          fontWeight: 500,
           letterSpacing: "0.24em",
           textTransform: "uppercase",
           color: "#6E2C27",
@@ -57,6 +59,8 @@ export function HammerSocialImage() {
           top: 62,
           display: "flex",
           fontSize: 18,
+          fontFamily: "Geist Mono",
+          fontWeight: 500,
           letterSpacing: "0.24em",
           textTransform: "uppercase",
           color: "#6E2C27",
@@ -82,6 +86,7 @@ export function HammerSocialImage() {
             style={{
               display: "flex",
               fontSize: 216,
+              fontFamily: "Outfit",
               fontWeight: 900,
               lineHeight: 0.84,
               letterSpacing: 0,
@@ -121,6 +126,8 @@ export function HammerSocialImage() {
           left: 182,
           bottom: 66,
           display: "flex",
+          fontFamily: "Geist",
+          fontWeight: 400,
           fontSize: 32,
           lineHeight: 1.2,
           color: "#3D1413",
@@ -135,6 +142,8 @@ export function HammerSocialImage() {
           bottom: 66,
           display: "flex",
           fontSize: 18,
+          fontFamily: "Geist Mono",
+          fontWeight: 500,
           letterSpacing: "0.22em",
           textTransform: "uppercase",
           color: "#A66860",
