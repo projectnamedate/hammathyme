@@ -41,4 +41,8 @@ via `components/PieceArt.tsx`. These are portfolio plates, not substitutes for
 finished case studies. The Rive MCP animation remains a collaborative build
 before the animation category should be marked live.
 
+**Note (2026-05-13):** Root social preview assets now generate from
+`app/opengraph-image.tsx` and `app/twitter-image.tsx` using the Hammer wordmark
+composition, cream/ink/cinnamon palette, and portfolio capability line.
+
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

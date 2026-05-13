@@ -70,6 +70,9 @@ the demo or case-study surface exists.
 
 ```
 /app                 routes (App Router)
+/app/opengraph-image.tsx
+/app/twitter-image.tsx
+                     generated Hammer social-preview assets
 /app/work/[slug]/[piece]
                      detail routes for ready pieces; modal-like page pattern
 /components          UI (PascalCase) — AtriumCanvas, CardArt, PipelineVisualizer, Plinth, etc.
@@ -77,7 +80,7 @@ the demo or case-study surface exists.
 /content/work        category-index MDX (one per category, slug matches lib/works.ts)
 /lib                 works.ts (case studies + pieces), pipelines.ts (visualizer data),
                      rooms.ts, view-transitions.ts, etc.
-/public/brand        compiled wordmark, icon, grain, og template
+/public/brand        compiled wordmark, icon, grain
 /brand               source design assets
 BRAND_GUIDE.md       token contract
 BRAND.html           visual reference
