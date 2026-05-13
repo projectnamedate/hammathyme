@@ -3,7 +3,8 @@
 current source:
 
 1. `kira` — canonical autonomous-character source. Public case-study treatment
-   still needs to be built inside `/work/agents`.
+   is live at `/work/agents/kira`, with the brand bible kept at
+   `/work/brand-systems/kira`.
 
 future additions go here as `<slug>.mdx` per character if the agents category
 graduates to per-character detail routes.

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>visual identity — kira brand bible</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="tech">
+
+<header class="brand-header">
+  <div class="brand-header__inner">
+    <a href="index.html" class="brand-header__wordmark">kira</a>
+    <nav class="brand-header__nav">
+      <a href="01-essence.html">essence</a>
+      <a href="03-voice.html">voice</a>
+      <a href="04-visual.html">visual</a>
+      <a href="08-monetization.html">money</a>
+      <a href="10-crisis.html">crisis</a>
+      <a href="index.html">contents</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-image">
+  <img src="assets/refs/finals/photo/final/selfie_coffee_shop_POST.jpg" alt="kira visual system — selfie in coffee shop">
+  <div class="hero-image__caption">visual · the tokenized system that makes every image kira</div>
+</section>
+
+<div class="section-header">
+  <div class="section-header__number">section 04 · tech spec</div>
+  <h1 class="section-header__title">visual identity</h1>
+  <p class="section-header__lede">tokens, lenses, lights, grades, the 8-workflow lock, and the do/don't grids that separate kira from every other generated woman</p>
+</div>
+
+<main class="page">
+  <article class="prose">
+
+    <p>The visual system is a specification, not a mood board. Every value below traces to <code class="mono">tokens.json</code> or <code class="mono">reference_kira_postprocess_v8.md</code>. If it's not in one of those two sources, it is not canon. The LoRA renders Kira; this system renders the world around her.</p>
+
+    <hr>
+
+    <h2>1. Design tokens</h2>
+
+    <p>Reference only. Actual values live in <code class="mono">/docs/brand/tokens.json</code> and are consumed by the HTML build layer. The swatches below describe role, not hex — the build renders the chip colors from the token file.</p>
+
+    <h3>1a. Editorial palette — <code class="mono">color.editorial.*</code></h3>
+
+    <p>Used on editorial pages (this brand bible, long-form writing, case studies). Warm paper-on-ink register.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono">color.editorial.bg.cream</code></td><td>Default page background. Warm, not white.</td></tr>
+        <tr><td><code class="mono">color.editorial.bg.cream.deep</code></td><td>Card background within cream pages.</td></tr>
+        <tr><td><code class="mono">color.editorial.ink.primary</code></td><td>Body text. Not pure black — a deep, readable ink.</td></tr>
+        <tr><td><code class="mono">color.editorial.ink.muted</code></td><td>Secondary text, captions, meta.</td></tr>
+        <tr><td><code class="mono">color.editorial.copper</code></td><td>Accent. Tied directly to kira's hair dye — editorial pages use this as the character-anchor color.</td></tr>
+        <tr><td><code class="mono">color.editorial.copper.deep</code></td><td>Copper shadow for hover states and depth.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1b. Tech palette — <code class="mono">color.tech.*</code></h3>
+
+    <p>Used on tech-spec pages (tokens, pipeline docs, developer references, this file's workflow tables when rendered). High-contrast, terminal-coded.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono">color.tech.bg.void</code></td><td>Default page background. Near-black, not pure black.</td></tr>
+        <tr><td><code class="mono">color.tech.bg.panel</code></td><td>Card background.</td></tr>
+        <tr><td><code class="mono">color.tech.bg.line</code></td><td>Grid lines, dividers, subtle rules.</td></tr>
+        <tr><td><code class="mono">color.tech.ink.bone</code></td><td>Body text on void.</td></tr>
+        <tr><td><code class="mono">color.tech.ink.muted</code></td><td>Secondary text, labels.</td></tr>
+        <tr><td><code class="mono">color.tech.orange.accent</code></td><td>Accent. Hotter than editorial copper — this is the runtime-data color.</td></tr>
+        <tr><td><code class="mono">color.tech.orange.deep</code></td><td>Orange shadow, active states.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1c. Shared palette — <code class="mono">color.shared.*</code></h3>
+
+    <p>Used across both editorial and tech. Functional, not decorative.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono">color.shared.btc.orange</code></td><td>Bitcoin identity accent. Bridges crypto layer and hair layer — intentional double-duty.</td></tr>
+        <tr><td><code class="mono">color.shared.signal.green</code></td><td>Positive data indicators (P&amp;L up, system healthy, etc.).</td></tr>
+        <tr><td><code class="mono">color.shared.signal.red</code></td><td>Critical / crisis indicators (P&amp;L down, takedown events, system unhealthy).</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1d. Character palette — <code class="mono">color.character.*</code></h3>
+
+    <p>The color anchors that define Kira as a visual entity. These are reference colors for audit pipelines — not page colors.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono">color.character.hair.copper</code></td><td>The exact copper of kira's dye — sampled for glasses-and-hair verification.</td></tr>
+        <tr><td><code class="mono">color.character.hair.dark_root</code></td><td>The dark root anchor — verifies the dye-job aesthetic (not solid-red wig).</td></tr>
+        <tr><td><code class="mono">color.character.skin.olive.base</code></td><td>Warm olive skin reference. Verifies ambiguous ethnicity rendering.</td></tr>
+        <tr><td><code class="mono">color.character.eyes.hazel</code></td><td>Hazel eye reference.</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>2. Typography</h2>
+
+    <p>Three families, three roles. Never improvise — if a surface doesn't fit one of the three roles, it's not part of the system.</p>
+
+    <h3>2a. Display — Playfair Display (serif)</h3>
+
+    <ul>
+      <li><code class="mono">type.display.family</code></li>
+      <li><strong>Role:</strong> editorial headlines, section openers, pull quotes</li>
+      <li><strong>Weights available:</strong> 400, 600, 800</li>
+      <li><strong>Use:</strong> editorial pages only. NEVER use display on tech-spec pages — the whole point of the tech register is that it doesn't use a serif.</li>
+    </ul>
+
+    <h3>2b. Body — Inter (sans)</h3>
+
+    <ul>
+      <li><code class="mono">type.body.family</code></li>
+      <li><strong>Role:</strong> body copy, navigation, captions</li>
+      <li><strong>Weights available:</strong> 400, 500, 600, 700</li>
+      <li><strong>Use:</strong> universal. Runs on editorial and tech pages equally. This is the workhorse.</li>
+    </ul>
+
+    <h3>2c. Mono — JetBrains Mono</h3>
+
+    <ul>
+      <li><code class="mono">type.mono.family</code></li>
+      <li><strong>Role:</strong> tech-spec pages, tokens, data tables, code blocks, filter strings</li>
+      <li><strong>Weights available:</strong> 400, 500, 700</li>
+      <li><strong>Use:</strong> tech pages primarily. Editorial pages may use mono only for code snippets or spec callouts inline.</li>
+    </ul>
+
+    <h3>2d. Scale</h3>
+
+    <p>From <code class="mono">type.scale</code>: <code class="mono">xs</code> 0.75rem → <code class="mono">sm</code> 0.875 → <code class="mono">base</code> 1 → <code class="mono">md</code> 1.125 → <code class="mono">lg</code> 1.375 → <code class="mono">xl</code> 1.75 → <code class="mono">2xl</code> 2.25 → <code class="mono">3xl</code> 3 → <code class="mono">4xl</code> 4.5 → <code class="mono">5xl</code> 6 → <code class="mono">display</code> clamp(3rem, 10vw, 9rem).</p>
+
+    <h3>2e. Pairing rules</h3>
+
+    <ul>
+      <li><strong>Editorial pairing:</strong> Playfair Display (display) + Inter (body). Serifed headline, clean sans body. Mono inline only for code.</li>
+      <li><strong>Tech pairing:</strong> Inter (body) + JetBrains Mono (accents, headers on tech pages, tables, data). No serif anywhere on tech pages.</li>
+      <li><strong>Never mix:</strong> don't use Playfair on tech pages. Don't use JetBrains Mono for body copy on editorial pages.</li>
+    </ul>
+
+    <hr>
+
+    <h2>3. Signature visual anchors</h2>
+
+    <p>Seven non-negotiable codes. These are what make Kira <em>Kira</em> and not any other generated woman. Every image must pass all seven. Anchors are sourced from <code class="mono">tokens.json → character_visual_anchors.non_negotiable</code> and <code class="mono">characters/kira.yaml</code>.</p>
+
+    <h3>3.1 Copper-orange hair over dark base, visible dark roots</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> This is the brand color anchor. It ties to <code class="mono">color.character.hair.copper</code> AND to <code class="mono">color.shared.btc.orange</code> — the character and the crypto identity share a color space on purpose.</li>
+      <li><strong>Common failure:</strong> Model generates solid redhead without root contrast. Verify dark roots are visible in every render. A solid orange wig is NOT kira.</li>
+    </ul>
+
+    <h3>3.2 Round black wireframe glasses — MANDATORY</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> Single strongest silhouette element. Face-sim would fail without it. Character recognizability at thumbnail size depends on it.</li>
+      <li><strong>Common failure:</strong> NB2 polish and face editors silently drop glasses. ALWAYS verify post-generation. A glasses-less Kira is a re-roll, no exceptions.</li>
+    </ul>
+
+    <h3>3.3 Freckles across nose and cheeks</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> Photorealism anchor. Smooth-skin renders read as plastic-CG — freckles break that.</li>
+      <li><strong>Common failure:</strong> Heavy post-process or NB2 smoothing erases freckles. If the face looks porcelain, the recipe is wrong.</li>
+    </ul>
+
+    <h3>3.4 Warm olive skin, ambiguous ethnicity</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> Market positioning — "no default white influencer face." Locked in training data, must hold in output.</li>
+      <li><strong>Common failure:</strong> Flux 2 base tends to lighten skin on high-key lighting setups. Prompt must reinforce "warm olive," not lean on LoRA alone in bright scenes.</li>
+    </ul>
+
+    <h3>3.5 Hazel eyes</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> Consistency anchor — always hazel (green-brown), never bright blue or green.</li>
+      <li><strong>Common failure:</strong> Close-up shots with strong color grades can shift eye color. Verify on cinematic and candid close-ups especially.</li>
+    </ul>
+
+    <h3>3.6 Slim athletic C-cup curvaceous, tall-model proportions</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> The "Aitana Lopez mirror strategy" requires the body type. This is monetization architecture, not a cosmetic choice.</li>
+      <li><strong>Common failure:</strong> Prompt over-emphasis on "curvaceous" can push proportions cartoonish. Hold the line: slim athletic FIRST, curves on top.</li>
+    </ul>
+
+    <h3>3.7 Solo frame, no background people</h3>
+    <ul>
+      <li><strong>Why non-negotiable:</strong> Legal liability (no real-person faces in the background ever) + brand clarity (she's the subject, always). No exceptions for "crowd" shots.</li>
+      <li><strong>Common failure:</strong> Generators add background pedestrians in candid/street scenes. Negative prompt "people in background, crowd, bystanders" is mandatory for street-context prompts.</li>
+    </ul>
+
+    <hr>
+
+    <h2>4. Variable elements</h2>
+
+    <p>From <code class="mono">tokens.json → character_visual_anchors.variable</code>. These rotate freely.</p>
+
+    <ul>
+      <li><strong>Hairstyle</strong> — up, down, braids, ponytail, messy bun. The COLOR must hold. The style can change any render.</li>
+      <li><strong>Outfit</strong> — she has no default look. She can wear anything. Athleisure, formal, streetwear, cozy, stripped-down Fanvue fits — all canon. The OUTFIT is not her identity; the FACE is.</li>
+      <li><strong>Setting</strong> — rotates per content type per the 8-workflow matrix. Bedroom (selfie), studio (vlog), street / café / gym (candid), cinematic rig location (cinematic).</li>
+      <li><strong>Jewelry / accessories</strong> — chains, earrings, rings — all variable. The hoodie is NOT identity. The glasses are.</li>
+    </ul>
+
+    <hr>
+
+    <h2>5. NEVER show</h2>
+
+    <p>From <code class="mono">tokens.json → character_visual_anchors.never_show</code>, plus discipline tightening.</p>
+
+    <ul>
+      <li><strong>Background people in frame</strong> — legal risk (real-person face in output) and brand risk (the camera is on her, always).</li>
+      <li><strong>Real-person faces</strong> — anywhere, at any scale. Hard legal line.</li>
+      <li><strong>Hoodie-as-identity</strong> — the hoodie is an accessory, not a brand element. "Hoodie Kira" is not canon.</li>
+      <li><strong>Accessories-as-brand</strong> — jewelry, earrings, necklaces, hats are variable, not identity.</li>
+      <li><strong>Generic-AI-girl aesthetic</strong> — plastic skin, perfect symmetry, uncanny-smooth, 3D-CG look. If the output looks like it could headline a Midjourney Discord showcase, the recipe is wrong.</li>
+    </ul>
+
+    <hr>
+
+    <h2>6. Shot-list-as-spec per workflow</h2>
+
+    <p>The visual-system equivalent of a dev API reference. Eight workflows, four modes × photo/video. Everything here traces to <code class="mono">reference_kira_postprocess_v8.md</code> and <code class="mono">tokens.json → grade.*</code> and <code class="mono">tokens.json → lens.*</code>.</p>
+
+    <h3>Workflow 1 — Selfie Photo (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Selfie</td></tr>
+        <tr><td>Format</td><td>Photo</td></tr>
+        <tr><td>Aspect</td><td>4:5 or 9:16</td></tr>
+        <tr><td>Lens</td><td><code class="mono">lens.selfie</code> — 26mm equivalent, phone 1x, f/1.8, deep DOF</td></tr>
+        <tr><td>Light</td><td><code class="mono">light.ugc.warm.key</code> — overhead warm lamp + phone screen fill, 3200K, 1:0.6 ratio</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.ugc.selfie</code> — warm shift +4R/-3B, shadows lift +5, noise 3.0, contrast ×1.025, NO chromatic aberration</td></tr>
+        <tr><td>Output</td><td>JPEG q=90</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 2 — Selfie Video (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Selfie</td></tr>
+        <tr><td>Format</td><td>Video</td></tr>
+        <tr><td>Aspect</td><td>4:5 or 9:16 (inherits from still)</td></tr>
+        <tr><td>Lens</td><td><code class="mono">lens.selfie</code> — 26mm equivalent</td></tr>
+        <tr><td>Engine</td><td>Kling v3 Pro i2v (<code class="mono">fal-ai/kling-video/v3/pro/image-to-video</code>)</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.selfie.video</code></td></tr>
+        <tr><td>ffmpeg filter</td><td><code class="mono">scale=iw*1.01:ih*1.01,crop=iw/1.01:ih/1.01:(iw-iw/1.01)/2+random(0)*1-0.5:(ih-ih/1.01)/2+random(1)*1-0.5,vignette=PI/7,colorbalance=rs=0.0075:bs=-0.004,eq=contrast=0.985</code></td></tr>
+        <tr><td>Key params</td><td>Shake 1px, vignette PI/7, warmth +0.75% red, contrast ×0.985</td></tr>
+        <tr><td>Encode</td><td>libx264, CRF 24</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 3 — Vlog Photo (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Vlog</td></tr>
+        <tr><td>Format</td><td>Photo</td></tr>
+        <tr><td>Aspect</td><td>16:9</td></tr>
+        <tr><td>Lens</td><td><code class="mono">lens.vlog</code> — 35mm, Canon R6 equivalent, f/2.8, shallow DOF</td></tr>
+        <tr><td>Light</td><td><code class="mono">light.vlog.natural.window</code> — large soft window key + bounce fill, 5000K, 1:0.7 ratio</td></tr>
+        <tr><td>Mic</td><td>SM7B visible in scene (boom arm or lavalier) — triggers podcast audio in video-adjacent generation</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.vlog.photo</code> — color ×0.93 (desat), contrast ×0.96, vignette 5%, NO warm shift, NO grain</td></tr>
+        <tr><td>Output</td><td>JPEG q=78 (Twitter-level compression)</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 4 — Vlog Video (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Vlog</td></tr>
+        <tr><td>Format</td><td>Video</td></tr>
+        <tr><td>Aspect</td><td>16:9, 1344×768 still native</td></tr>
+        <tr><td>Lens</td><td><code class="mono">lens.vlog</code> — 35mm Canon R6, f/2.8</td></tr>
+        <tr><td>Pipeline</td><td>Flux 2 + LoRA still (visible mic) → Topaz High Fidelity V2 2x → Kling v3 Pro i2v with podcast audio prompt block → ffmpeg CRF 15 re-encode</td></tr>
+        <tr><td>Mandatory prompt block</td><td>"she stays in sharp focus throughout, camera focus locked on her face" + "crisp and sharp detail throughout, professional 4K video quality" + "podcast quality audio, clear studio microphone, warm full vocal presence, dry close-mic recording, no echo, no reverb, no room ambience"</td></tr>
+        <tr><td>LoRA scale</td><td>1.05–1.1 for identity lock on widescreen</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.vlog.video</code> — <code class="mono">ffmpeg -c:v libx264 -crf 15 -c:a copy</code></td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 5 — Candid Photo (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Candid (Instagram-influencer register — NOT documentary photojournalism)</td></tr>
+        <tr><td>Format</td><td>Photo</td></tr>
+        <tr><td>Aspect</td><td>4:5 or 9:16</td></tr>
+        <tr><td>Lens</td><td><code class="mono">lens.candid</code> — 35mm, hip-height third-person, f/4</td></tr>
+        <tr><td>Light</td><td><code class="mono">light.candid.golden</code> — outdoor golden hour side, 2800K, 1:0.4</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.candid.photo.v10</code> — brightness +7, contrast ×0.94, matte blacks point 6, split tone (+2R shadows / +1B highlights), vignette 8%, filmgrainer type 1 power 0.3</td></tr>
+        <tr><td>Output</td><td>PNG (preserves grain)</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED (V10)</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 6 — Candid Video (LOCKED 2026-04-12)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Candid</td></tr>
+        <tr><td>Format</td><td>Video</td></tr>
+        <tr><td>Aspect</td><td>4:5 portrait input → 9:16 Kling output</td></tr>
+        <tr><td>Still spec</td><td>Flux 2 1344×1728 clean (no V10 photo post — Kling repaints face)</td></tr>
+        <tr><td>Upres</td><td>Topaz High Fidelity V2 2x → ~2688×3456</td></tr>
+        <tr><td>Engine</td><td>Kling v3 Pro i2v, <code class="mono">generate_audio: true</code>, ambient audio (speech negative-prompted)</td></tr>
+        <tr><td>Prompt discipline</td><td>Shortest natural scene description. No motion-dampener language ("softly", "slowly"). No rendering directives ("24fps", "natural tempo"). See <code class="mono">feedback_kling_rules.md</code></td></tr>
+        <tr><td>Negative prompt</td><td><code class="mono">slow motion, slo-mo, slowed down, time dilation, reduced playback speed, speaking, talking, dialogue, voice, words, lip movement, mouth movement, music, soundtrack, extra fingers, six fingers, deformed hands, distorted face, identity drift</code></td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.candid.video</code> — three-stage: ffmpeg color extract → filmgrainer per frame → ffmpeg reassemble</td></tr>
+        <tr><td>Stage A (color)</td><td><code class="mono">ffmpeg -vf "eq=brightness=0.027:contrast=0.94,colorbalance=rs=0.008:bh=0.004,vignette=PI/8"</code></td></tr>
+        <tr><td>Stage B (grain)</td><td>filmgrainer: type 1, power 0.3, shadows 0.05, highs 0.05, scale 1.0 (NEVER ffmpeg noise=)</td></tr>
+        <tr><td>Stage C (encode)</td><td>libx264 CRF 20, aac 192k audio</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 7 — Cinematic Photo (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Cinematic</td></tr>
+        <tr><td>Format</td><td>Photo</td></tr>
+        <tr><td>Aspect</td><td><strong>ASK USER</strong> — 2.35:1 anamorphic (1536×656 native) OR 16:9 (1344×768). Never crop anamorphic in post.</td></tr>
+        <tr><td>Lens</td><td><code class="mono">lens.cinematic</code> — 50mm anamorphic, f/1.4–f/2.8</td></tr>
+        <tr><td>Light</td><td><code class="mono">light.cinematic.side.soft</code> — large soft side + negative fill, 4000K, 1:0.3</td></tr>
+        <tr><td>Composition</td><td>Rule of thirds</td></tr>
+        <tr><td>Upres</td><td>Topaz High Fidelity V2 2x</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.cinematic.photo</code> — SHIPS RAW. Flux 2 prompt carries the look (35mm grain, color grade, letterbox). Post-process was tested and rejected.</td></tr>
+        <tr><td>Output</td><td>PNG</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Workflow 8 — Cinematic Video (LOCKED)</h3>
+    <table class="data-table">
+      <thead><tr><th>Field</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Mode</td><td>Cinematic</td></tr>
+        <tr><td>Format</td><td>Video</td></tr>
+        <tr><td>Aspect</td><td>Same as still (2.35:1 or 16:9) — generate native, do not crop</td></tr>
+        <tr><td>Pipeline</td><td>Flux 2 + LoRA cinematic still (user-chosen aspect) → Topaz High Fidelity V2 2x → Kling v3 Pro i2v with cinematic voice block → ffmpeg post</td></tr>
+        <tr><td>Post recipe</td><td><code class="mono">grade.cinematic.video</code></td></tr>
+        <tr><td>ffmpeg filter</td><td><code class="mono">noise=alls=4:allf=t,vignette=PI/5</code></td></tr>
+        <tr><td>Encode</td><td>libx264 CRF 15, audio copy (pass Kling audio through untouched)</td></tr>
+        <tr><td>Status</td><td><strong>LOCKED</strong></td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>7. LoRA + pipeline lock</h2>
+
+    <ul>
+      <li><strong>LoRA trigger word:</strong> <code class="mono">kira_agi_v1</code> (from <code class="mono">tokens.json → meta.lora_trigger</code>). Baked into the v1 model; locked. Separate from any public handle.</li>
+      <li><strong>Base model:</strong> Flux 2 Dev. Non-negotiable — production LoRA was trained on Flux 2 Dev and drifts significantly on other bases.</li>
+      <li><strong>Production LoRA:</strong> <code class="mono">models/kira_v1/kira_v1_flux2dev_fine_step2500_PRODUCTION.safetensors</code> (390 MB)</li>
+      <li><strong>Backup LoRA (Krea):</strong> <code class="mono">models/kira_v1/kira_v1_fluxkrea_step2500.safetensors</code></li>
+      <li><strong>"One photographer" discipline:</strong> the pipeline IS her photographer. One LoRA for the full feed. Never mix LoRAs between posts in the same week, never swap bases mid-shoot, never let a different checkpoint touch a shipped image. This is the visual-system analog of "trust the photographer" — if she had a human photographer, she wouldn't swap him out mid-session. Same rule here.</li>
+    </ul>
+
+    <hr>
+
+    <h2>8. Generation rules</h2>
+
+    <p>These rules run ahead of every inference job. They exist because we learned each one the hard way.</p>
+
+    <ol>
+      <li><strong>Always generate at canonical aspect.</strong> 2.35:1 cinematic is generated at 1536×656, not 1920×1080-then-cropped. Kling animates the full frame; cropping after Topaz is a quality loss.</li>
+      <li><strong>Always verify glasses post-generation.</strong> Every Kira image gets a glasses check before it enters the production pipeline. NB2 and face editors silently drop them. No glasses → re-roll or manual fix.</li>
+      <li><strong>NB2 is training data only — NEVER a pipeline input.</strong> See <code class="mono">feedback_never_nb2_as_input.md</code>. All pipeline inputs are Flux 2 + LoRA generated.</li>
+      <li><strong>Candid is Instagram-influencer, not photojournalism.</strong> See <code class="mono">feedback_candid_is_instagram_influencer.md</code>. Flattering angles, fitted outfits, playful energy. Not harsh documentary framing.</li>
+      <li><strong>Kling repaints the face — never pre-grade stills that feed Kling.</strong> Apply video post-process AFTER animation. Candid still especially: it is generated CLEAN (no V10 post) and the V10-equivalent recipe is applied to frames AFTER Kling runs.</li>
+      <li><strong>Always use filmgrainer for grain, never ffmpeg noise=.</strong> See <code class="mono">feedback_always_use_filmgrainer.md</code>. ffmpeg noise looks like video static; filmgrainer looks like film grain.</li>
+      <li><strong>No AI-speak in Kling prompts.</strong> See <code class="mono">feedback_kling_rules.md</code>. Describe the scene, not the render. Shortest natural sentence wins.</li>
+      <li><strong>Upres before Kling, not after.</strong> Topaz VIDEO upscale on Kling output breaks identity. Topaz IMAGE upscale on the still before Kling works great.</li>
+    </ol>
+
+    <hr>
+
+    <h2>9. Do / Don't photo grid manifest</h2>
+
+    <p>Five conceptual pairs. Asset curation pass will fill real images into this grid.</p>
+
+    <table class="data-table">
+      <thead><tr><th>#</th><th>DO</th><th>DON'T</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Round black wireframe glasses present and in focus</td><td>Glasses silently dropped by editor / polish pass</td></tr>
+        <tr><td>2</td><td>Solo frame, kira is the only person in the shot</td><td>Background pedestrians / crowd / any other face visible</td></tr>
+        <tr><td>3</td><td>Warm olive skin with freckles, textured realism</td><td>Plastic-CG smooth skin, uncanny-perfect symmetry</td></tr>
+        <tr><td>4</td><td>Candid shot in Instagram-influencer register — flattering angle, fitted outfit, playful</td><td>Documentary photojournalism register — harsh frame, unflattering mid-expression, "authentic ugly"</td></tr>
+        <tr><td>5</td><td>Lens-appropriate composition — 26mm selfie framing, arm extended, close</td><td>Lens-mismatch — e.g. 85mm telephoto portrait labeled as "selfie"</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>10. Color-grade tokens reference table</h2>
+
+    <p>One row per grade token from <code class="mono">tokens.json → grade.*</code>. This is the executable summary.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Token</th><th>Workflow</th><th>Key params</th><th>Output format</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono">grade.ugc.selfie</code></td><td>Selfie Photo</td><td>warm +4R/-3B, shadows +5, noise 3.0, contrast ×1.025</td><td>JPEG q=90</td></tr>
+        <tr><td><code class="mono">grade.vlog.photo</code></td><td>Vlog Photo</td><td>color ×0.93, contrast ×0.96, vignette 5%, no warm, no grain</td><td>JPEG q=78</td></tr>
+        <tr><td><code class="mono">grade.candid.photo.v10</code></td><td>Candid Photo</td><td>brightness +7, contrast ×0.94, matte blacks 6, split tone +2R/+1B, vignette 8%, filmgrainer type 1 power 0.3</td><td>PNG</td></tr>
+        <tr><td><code class="mono">grade.cinematic.photo</code></td><td>Cinematic Photo</td><td>Ships raw — prompt carries the look</td><td>PNG</td></tr>
+        <tr><td><code class="mono">grade.selfie.video</code></td><td>Selfie Video</td><td>Shake 1px, vignette PI/7, warmth +0.75%, contrast ×0.985</td><td>MP4 CRF 24</td></tr>
+        <tr><td><code class="mono">grade.vlog.video</code></td><td>Vlog Video</td><td>Flux 2 still + visible mic → Topaz 2x → Kling v3 Pro + podcast prompt → CRF 15 re-encode, audio copy</td><td>MP4 CRF 15</td></tr>
+        <tr><td><code class="mono">grade.candid.video</code></td><td>Candid Video</td><td>Flux 2 1344×1728 → Topaz 2x → Kling v3 Pro + ambient audio + no-speech negative → three-stage post (ffmpeg color → filmgrainer per frame → ffmpeg reassemble)</td><td>MP4 CRF 20, aac 192k</td></tr>
+        <tr><td><code class="mono">grade.cinematic.video</code></td><td>Cinematic Video</td><td>Native-ratio still → Topaz 2x → Kling v3 Pro → <code class="mono">noise=alls=4:allf=t,vignette=PI/5</code></td><td>MP4 CRF 15, audio copy</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+
+    <h2>11. Print and export guidance</h2>
+
+    <p>File formats are not aesthetic — they encode production discipline. A JPEG at q=90 says "phone selfie." A PNG says "film camera caught me." A q=78 JPEG says "Twitter compressed this for me." We don't fight these signals, we use them.</p>
+
+    <ul>
+      <li><strong>Candid photo:</strong> PNG. The film grain from filmgrainer must be preserved losslessly or the grain structure collapses into JPEG blocks. Non-negotiable.</li>
+      <li><strong>Selfie photo:</strong> JPEG q=90. The compression IS the iPhone look. Higher quality reads as DSLR; lower reads as broken.</li>
+      <li><strong>Vlog photo:</strong> JPEG q=78. Simulates Twitter's recompression pass so we ship pre-cooked. Going higher means Twitter crunches it harder on upload and artifacts appear.</li>
+      <li><strong>Cinematic photo:</strong> PNG. Ships raw; Flux 2 handles the look via prompt. PNG preserves the grain overlay that lives in the generation, not in post.</li>
+      <li><strong>Selfie video:</strong> MP4 libx264 CRF 24. Social-media compression feel without starving bitrate.</li>
+      <li><strong>Vlog video:</strong> MP4 libx264 CRF 15, audio copy. Preserve quality; file gets compressed again by X/Fanvue on upload.</li>
+      <li><strong>Candid video:</strong> MP4 libx264 CRF 20, AAC 192k. Slightly more compression than cinematic — film grain hides the artifacts.</li>
+      <li><strong>Cinematic video:</strong> MP4 libx264 CRF 15, audio copy. Highest quality video tier.</li>
+    </ul>
+
+    <hr>
+
+    <h2>12. What the system protects against</h2>
+
+    <p>To close: a restatement of what this visual system exists to prevent.</p>
+
+    <ol>
+      <li><strong>Generic AI-girl drift.</strong> Every LoRA + base model combo in this space produces a "pretty AI girl" by default. The signature anchors (copper hair, glasses, freckles, olive skin) exist specifically to resist that gravity.</li>
+      <li><strong>Silent glasses-drop.</strong> Editors remove them without warning. Verify every render.</li>
+      <li><strong>Plastic skin.</strong> Post-process that smooths the face kills photorealism. Freckles and grain are the antidote.</li>
+      <li><strong>Background people.</strong> Legal + brand. Negative prompt always.</li>
+      <li><strong>Hoodie-as-identity.</strong> The accessory is not the character. Swap freely.</li>
+      <li><strong>Pipeline mixing.</strong> One LoRA, one base, one photographer. Never mid-feed swap.</li>
+      <li><strong>AI-speak Kling prompts.</strong> "Natural tempo" generates slow-motion. Shortest sentence wins.</li>
+      <li><strong>Candid as photojournalism.</strong> Candid is IG-influencer-caught-in-the-moment, flattering. Not documentary.</li>
+    </ol>
+
+    <p>Every one of those failure modes has been paid for in a real GPU bill. The system exists so they don't get paid for twice.</p>
+
+    <hr>
+
+    <h2>13. Look palette — badass sex-positive empowered AI babe register</h2>
+
+    <p>Locked 2026-04-13 (v1.0.2). Replaces the earlier soft-girl/insta-girlie lean. Kira's aesthetic center of gravity is <strong>badass sex-positive empowered AI babe</strong> — dangerous glamour, power postures, transactional confidence. Softness appears only as contrast, never as default.</p>
+
+    <p>Every look still passes the non-negotiables: copper-orange hair + dark roots, mandatory round black wireframe glasses, freckles, ambiguous olive skin. Outfits rotate. Identity does not.</p>
+
+    <h3>13.1 Core sticky looks</h3>
+    <ul>
+      <li><strong>Leather jacket over black bralette.</strong> Moto zip, no shirt underneath, waist chain. The signature "don't fuck with me" frame.</li>
+      <li><strong>Slicked-back wet hair + oversized blazer, nothing under.</strong> Post-gym or post-shower power read. Gold chains optional.</li>
+      <li><strong>Red dress, fitted, knee-length or midi.</strong> Old-world siren energy — only works when styling is restrained.</li>
+      <li><strong>Black turtleneck + slim trousers.</strong> The thinking-villain look. Deliberate, monochrome, expensive-quiet.</li>
+      <li><strong>White ribbed tank + low-rise cargo pants.</strong> The casual-dangerous baseline. Trading-floor-to-after-hours transition piece.</li>
+    </ul>
+
+    <h3>13.2 Athleisure / gym</h3>
+    <ul>
+      <li>Black sports bra + matching biker shorts, sweat still visible.</li>
+      <li>Cropped zip hoodie half-zipped over a sports bra, scrunchie on wrist.</li>
+      <li>Compression tank + high-waist leggings, gym bag slung.</li>
+    </ul>
+
+    <h3>13.3 Gothcore / edge</h3>
+    <ul>
+      <li>Black corset top + leather mini, chunky boots.</li>
+      <li>Long black leather coat over full black, minimal jewelry.</li>
+      <li>Mesh top over bralette, black lipstick as accent (sparingly).</li>
+    </ul>
+
+    <h3>13.4 Cyberpunk / tech-babe</h3>
+    <ul>
+      <li>Metallic bodysuit, matrix-green or chrome.</li>
+      <li>Techwear cargo + crop, belt with visible tools.</li>
+      <li>Oversized mesh layer + tactical boots.</li>
+    </ul>
+
+    <h3>13.5 Money-glam</h3>
+    <ul>
+      <li>Silk slip dress (black or champagne), bare shoulders.</li>
+      <li>Floor-length gown at a gala, minimal accessorizing — the restraint is the flex.</li>
+      <li>Fur-trim collar on otherwise clean black outfit.</li>
+    </ul>
+
+    <h3>13.6 Transactional-glam (age-gated tier only, Fanvue-side)</h3>
+    <p>These exist for the paid audience. They do not run on public feed without moderation review.</p>
+    <ul>
+      <li>Lingerie-as-outerwear layering: visible balconette under sheer blouse.</li>
+      <li>Micro-mini + thigh-highs with garter details.</li>
+      <li>Satin robe as outerwear, street styling.</li>
+    </ul>
+
+    <h3>13.7 Power / old money</h3>
+    <ul>
+      <li>Equestrian-coded: fitted blazer, riding boots, jodhpur pants.</li>
+      <li>Yacht-coded: white silk button-up half-tucked into tailored shorts, sunglasses pushed up.</li>
+      <li>Black tuxedo jacket over bare skin, trousers, no accessories.</li>
+    </ul>
+
+    <h3>13.8 Edge / counterculture</h3>
+    <ul>
+      <li>Vintage band tee (knotted) + distressed denim.</li>
+      <li>Punk-rocker: leather jacket over fishnet, ripped black jeans, studded belt.</li>
+      <li>Oversized racing jacket + booty shorts, heeled boots.</li>
+    </ul>
+
+    <h3>13.9 Dangerous glamour</h3>
+    <p>The hybrid register — a siren who's also the threat.</p>
+    <ul>
+      <li>Red silk slip + combat boots.</li>
+      <li>Satin evening gown with visible back tattoo.</li>
+      <li>Tight black cocktail dress + visible shoulder holster (prop only, production-reviewed).</li>
+    </ul>
+
+    <h3>13.10 Old-money sport</h3>
+    <ul>
+      <li>Tennis skirt + cropped polo, sweater tied over shoulders.</li>
+      <li>Equestrian jodhpurs + fitted turtleneck, leather gloves.</li>
+      <li>Cable-knit sweater over pleated mini, loafers.</li>
+    </ul>
+
+    <h3>13.11 Specialty / niche</h3>
+    <ul>
+      <li>Business-woman-heiress: silk camisole under structured blazer, pencil skirt, stilettos.</li>
+      <li>Ballroom/heiress: floor-length gown, opera gloves, statement earrings.</li>
+      <li>Punk-rocker: chain belt, ripped band tee, spiked choker.</li>
+    </ul>
+
+    <h3>13.12 Pruned — no longer generate</h3>
+    <p>These looks read as soft-girl / pastel-insta-girlie and no longer match Kira's register. Do not rotate into new batches.</p>
+    <ul>
+      <li>Pastel sweater sets.</li>
+      <li>Flowy sundresses with florals.</li>
+      <li>Cottagecore / picnic styling.</li>
+      <li>"Clean girl" minimal styling with no edge.</li>
+      <li>Soft-knit oversized cardigans.</li>
+      <li>Yoga-pastel athletic wear (lavender, mint).</li>
+    </ul>
+
+    <h3>13.13 How to apply</h3>
+    <ul>
+      <li><strong>Selfie:</strong> core-sticky + athleisure register.</li>
+      <li><strong>Candid:</strong> core-sticky + old-money-sport + edge/counterculture. IG-influencer-caught-in-the-moment framing with the fitted/dangerous-glamour end.</li>
+      <li><strong>Vlog:</strong> core-sticky white tank, black turtleneck, or cropped zip hoodie.</li>
+      <li><strong>Cinematic:</strong> dangerous-glamour + money-glam + gothcore. This is where Kira's badass register peaks.</li>
+      <li><strong>Fanvue (age-gated):</strong> transactional-glam tier — never on public feed without full review.</li>
+    </ul>
+
+    <p>The palette is a <strong>rotation pool</strong>, not a checklist. Every batch pulls from 2-3 registers at once for variety. Identity stays locked; the uniform changes every shoot.</p>
+
+  </article>
+</main>
+
+<footer class="brand-footer">
+  <span>kira brand bible v1.0.0</span>
+  <span>section 04 · visual identity</span>
+  <span><a href="index.html" style="border: 0 !important;">↑ contents</a></span>
+</footer>
+
+</body>
+</html>

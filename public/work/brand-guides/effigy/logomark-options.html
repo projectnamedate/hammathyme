@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>effigy · logomark · silhouette variations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A1230;
+    --ink-2: #1A2350;
+    --ink-3: #2A3A7A;
+    --bone: #F5F7FF;
+    --bone-2: #E8EEFF;
+    --bone-3: #D4E0FF;
+    --accent: #78A7FF;
+    --accent-deep: #4B6DCE;
+    --accent-pale: #A8C4FF;
+    --rule: rgba(10, 18, 48, 0.12);
+    --font-display: 'Inter Tight', system-ui, sans-serif;
+    --font-body: 'Inter Tight', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-logo: 'JetBrains Mono', ui-monospace, monospace;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    min-height: 100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    background: var(--bone);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (pointer: fine) { body { cursor: none; } }
+  body {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+  ::selection { background: var(--accent); color: var(--ink); }
+  a { color: inherit; text-decoration: none; }
+
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 200ms var(--ease), height 200ms var(--ease), background 220ms, border-color 220ms;
+    mix-blend-mode: multiply;
+  }
+  .cursor.hover { width: 44px; height: 44px; background: var(--accent); border-color: var(--accent); opacity: 0.55; }
+  @media (pointer: coarse) { .cursor { display: none; } }
+
+  .chrome {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 14px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--bone) 0%, rgba(245,247,255,0.85) 70%, rgba(245,247,255,0) 100%);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .chrome strong { font-weight: 800; text-transform: lowercase; font-size: 13px; letter-spacing: -0.01em; }
+  .chrome .pill { padding: 4px 10px; background: var(--accent); color: var(--ink); font-weight: 700; }
+  .chrome-left, .chrome-right { display: flex; gap: 24px; align-items: center; }
+  .chrome-sep { opacity: 0.3; }
+  .chrome a { opacity: 0.55; transition: opacity 220ms, color 220ms; }
+  .chrome a:hover { opacity: 1; color: var(--accent-deep); }
+
+  .side-nav {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .side-nav a {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: opacity 220ms, color 220ms;
+  }
+  .side-nav a::after {
+    content: '';
+    display: block;
+    width: 14px; height: 1px;
+    background: currentColor;
+    transition: width 260ms var(--ease);
+  }
+  .side-nav a:hover, .side-nav a.active { opacity: 1; color: var(--accent-deep); }
+  .side-nav a.active::after { width: 28px; background: var(--accent); height: 2px; }
+
+  section {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    padding: 80px 40px 40px;
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 24px;
+  }
+
+  .metabar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .metabar .right { display: flex; gap: 24px; opacity: 0.7; }
+  .metabar .right strong { opacity: 1; font-weight: 700; }
+  .metabar .right .lock { padding: 3px 8px; background: var(--accent); color: var(--ink); font-weight: 700; }
+
+  .content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .col-title {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.55;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .col-title .counter { font-weight: 700; opacity: 1; }
+
+  .mark-stage {
+    aspect-ratio: 1;
+    background: var(--bone);
+    border: 1px solid var(--ink);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 400ms var(--ease);
+  }
+  .mark-stage.ink { background: var(--ink); }
+  .mark-stage.accent { background: var(--accent); }
+  .mark-stage:hover .mark-svg { transform: scale(1.03); }
+  .mark-svg {
+    width: 60%;
+    height: 60%;
+    transition: transform 500ms var(--ease);
+  }
+  .mark-svg svg { width: 100%; height: 100%; display: block; }
+  .mark-stage .stage-meta {
+    position: absolute;
+    top: 20px; left: 20px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+  }
+  .mark-stage.ink .stage-meta { color: var(--bone); }
+
+  .concept {
+    display: grid;
+    gap: 20px;
+    align-content: start;
+    padding: 16px 0;
+  }
+  .concept-name {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+  }
+  .concept-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+  .concept-body {
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.82;
+  }
+  .concept-body p + p { margin-top: 12px; }
+  .concept-specs {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.8;
+    opacity: 0.75;
+  }
+  .concept-specs span { color: var(--accent-deep); font-weight: 700; opacity: 1; }
+
+  .variations { display: grid; gap: 16px; }
+  .var-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: center;
+  }
+  .var-row:first-child { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .size-block { display: flex; align-items: flex-end; gap: 12px; }
+  .size-mark {
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--rule);
+    background: var(--bone);
+  }
+  .size-mark.ink-bg { background: var(--ink); border-color: var(--ink); }
+  .size-mark.accent-bg { background: var(--accent); border-color: var(--accent); }
+  .size-mark svg { display: block; }
+  .s-64 { width: 64px; height: 64px; }
+  .s-64 svg { width: 60%; height: 85%; }
+  .s-32 { width: 32px; height: 32px; }
+  .s-32 svg { width: 62%; height: 85%; }
+  .s-16 { width: 16px; height: 16px; }
+  .s-16 svg { width: 72%; height: 90%; }
+
+  .var-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+  .var-label strong { font-weight: 700; opacity: 1; display: block; font-size: 11px; }
+
+  .lockup-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+    border: 1px solid var(--ink);
+    background: var(--bone);
+  }
+  .lockup-row.ink-bg { background: var(--ink); }
+  .lockup-row.ink-bg .lockup-word { color: var(--bone); }
+  .lockup-row .lockup-mark {
+    width: 48px; height: 56px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .lockup-row .lockup-mark svg { width: 100%; height: 100%; }
+  .lockup-row .lockup-word {
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.065em;
+    color: var(--ink);
+  }
+
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .foot a { color: var(--accent-deep); }
+  .foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .intro, .final { min-height: 60vh; padding: 100px 40px 60px; }
+  .intro-title, .final-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 7vw, 112px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.92;
+    max-width: 20ch;
+    margin-top: 40px;
+  }
+  .intro-title .accent-text, .final-title .accent-text { color: var(--accent-deep); }
+  .intro-sub, .final-sub {
+    max-width: 62ch;
+    font-size: 17px;
+    line-height: 1.55;
+    opacity: 0.82;
+    margin-top: 24px;
+  }
+  .intro-list {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+  }
+  .intro-card {
+    border: 1px solid var(--ink);
+    padding: 24px 22px;
+    background: var(--bone);
+    display: grid;
+    gap: 12px;
+  }
+  .intro-card .idx {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.55;
+  }
+  .intro-card h3 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+  }
+  .intro-card p { font-size: 13px; line-height: 1.55; opacity: 0.8; }
+  .intro-card .mini-mark {
+    margin-top: 8px;
+    height: 72px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .intro-card .mini-mark svg { height: 100%; width: auto; }
+
+  @media (max-width: 1200px) {
+    .content { grid-template-columns: 1fr; }
+    .intro-list { grid-template-columns: 1fr; }
+    .side-nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<div class="chrome">
+  <div class="chrome-left">
+    <strong>effigy</strong>
+    <span class="chrome-sep">/</span>
+    <span>logomark · silhouettes</span>
+    <span class="chrome-sep">/</span>
+    <span class="pill">v0 · pending</span>
+  </div>
+  <div class="chrome-right">
+    <a href="#intro">intro</a>
+    <a href="#standing">01 · standing</a>
+    <a href="#assembled">02 · assembled</a>
+    <a href="#cast">03 · cast</a>
+    <a href="#hybrid">03-b · stacked</a>
+    <a href="#pick">pick</a>
+  </div>
+</div>
+
+<nav class="side-nav">
+  <a href="#intro" class="active">intro</a>
+  <a href="#standing">01 · standing</a>
+  <a href="#assembled">02 · assembled</a>
+  <a href="#cast">03 · cast</a>
+  <a href="#hybrid">03-b · stacked</a>
+  <a href="#pick">pick</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- INTRO                                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="intro" id="intro">
+  <div>
+    <div class="metabar">
+      <span>— logomark · silhouetted effigy · three readings</span>
+      <div class="right">
+        <span>v0 · 2026-04-21</span>
+        <span class="lock">pending approval</span>
+      </div>
+    </div>
+    <h2 class="intro-title">three silhouetted effigies — each shows <span class="accent-text">how a character is made</span> a different way.</h2>
+    <p class="intro-sub">an effigy is a crafted likeness. the platform crafts them. the mark should show that. three silhouettes below: the classical standing form, the figure built from primitives, and the cast figure with its original trace. all ink on bone with narwhal accents.</p>
+  </div>
+
+  <div class="intro-list">
+    <div class="intro-card">
+      <div class="idx">— 01 / standing</div>
+      <div class="mini-mark">
+        <svg viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="28" r="16" fill="#0A1230"/>
+          <path d="M 34 44 L 46 44 L 48 52 L 32 52 Z" fill="#0A1230"/>
+          <path d="M 24 52 L 56 52 L 66 170 L 14 170 Z" fill="#0A1230"/>
+          <rect x="22" y="110" width="36" height="4" fill="#78A7FF"/>
+          <rect x="8" y="170" width="64" height="6" fill="#78A7FF"/>
+          <rect x="10" y="176" width="60" height="16" fill="#0A1230"/>
+        </svg>
+      </div>
+      <h3>the classical form.</h3>
+      <p>tomb-statue silhouette — robed figure on a narwhal plinth. references the etymological meaning: a carved likeness placed where the person cannot be.</p>
+    </div>
+    <div class="intro-card">
+      <div class="idx">— 02 / assembled</div>
+      <div class="mini-mark">
+        <svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="28" r="22" fill="#78A7FF"/>
+          <rect x="25" y="62" width="50" height="78" fill="#0A1230"/>
+          <path d="M 18 148 L 82 148 L 74 195 L 26 195 Z" fill="#0A1230"/>
+        </svg>
+      </div>
+      <h3>built from primitives.</h3>
+      <p>visible seams between narwhal head (identity / soul), ink torso (presence), ink base (platform). the pipeline made legible. the "how" of character creation.</p>
+    </div>
+    <div class="intro-card">
+      <div class="idx">— 03 / cast</div>
+      <div class="mini-mark">
+        <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(14, 8)">
+            <circle cx="40" cy="28" r="16" fill="#78A7FF"/>
+            <path d="M 24 52 L 56 52 L 66 170 L 14 170 Z" fill="#78A7FF"/>
+          </g>
+          <circle cx="40" cy="28" r="16" fill="#0A1230"/>
+          <path d="M 34 44 L 46 44 L 48 52 L 32 52 Z" fill="#0A1230"/>
+          <path d="M 24 52 L 56 52 L 66 170 L 14 170 Z" fill="#0A1230"/>
+        </svg>
+      </div>
+      <h3>the cast and the source.</h3>
+      <p>ink figure with a narwhal trace offset behind — the duplicate and the original visible together. making an effigy is casting one. this shows the act itself.</p>
+    </div>
+  </div>
+  <div class="foot">
+    <span>↓ scroll through all three</span>
+    <span>silhouette · silhouette · silhouette — all ink + narwhal</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 01 · STANDING EFFIGY                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="standing">
+  <div class="metabar">
+    <span>— concept 01 · the standing effigy</span>
+    <div class="right">
+      <strong>classical / etymological</strong>
+      <span>01 / 03 · 2026-04-21</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div>
+      <div class="col-title"><span>— mark at hero scale</span><span class="counter">01 · A</span></div>
+      <div class="mark-stage">
+        <span class="stage-meta">hero · 512px · on bone</span>
+        <div class="mark-svg">
+          <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+            <!-- head -->
+            <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+            <!-- neck -->
+            <path d="M 34 46 L 46 46 L 48 54 L 32 54 Z" fill="#0A1230"/>
+            <!-- robed body (tapering trapezoid) -->
+            <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+            <!-- narwhal sash / waist band -->
+            <rect x="20" y="114" width="40" height="4" fill="#78A7FF"/>
+            <!-- plinth: narwhal rule above + ink base -->
+            <rect x="4" y="176" width="72" height="6" fill="#78A7FF"/>
+            <rect x="8" y="182" width="64" height="20" fill="#0A1230"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="col-title"><span>— concept</span><span class="counter">01 · B</span></div>
+      <span class="concept-tag">— 01 · classical · etymological</span>
+      <h3 class="concept-name">the standing effigy.</h3>
+      <div class="concept-body">
+        <p>a robed figure on a plinth. the <strong>tomb-effigy silhouette</strong> — the carved likeness placed where the person cannot be. this is the literal dictionary entry in geometric form.</p>
+        <p>the narwhal sash at the waist and narwhal band on the plinth locate the figure in the brand's palette. the ink silhouette reads from fifty feet. the plinth grounds it — this is a monument, not a decoration.</p>
+        <p>strongest on etymology. reads "dignified," "enduring," "crafted with intent." slight risk: may read a little memorial / solemn. that risk is also a signal of seriousness.</p>
+      </div>
+      <div class="concept-specs">
+        <span>— proportion</span> 2 : 5 (w:h) · elongated<br>
+        <span>— fills</span> ink figure + plinth · narwhal sash + rule<br>
+        <span>— alt</span> inverted (bone figure on ink, narwhal kept)<br>
+        <span>— min size</span> 24px (sash drops at &lt;20px)<br>
+        <span>— metaphor</span> the crafted likeness, placed on the record
+      </div>
+    </div>
+
+    <div>
+      <div class="col-title"><span>— scales + surfaces</span><span class="counter">01 · C</span></div>
+      <div class="variations">
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64">
+              <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 34 46 L 46 46 L 48 54 L 32 54 Z" fill="#0A1230"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="20" y="114" width="40" height="4" fill="#78A7FF"/>
+                <rect x="4" y="176" width="72" height="6" fill="#78A7FF"/>
+                <rect x="8" y="182" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-32">
+              <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="30" r="18" fill="#0A1230"/>
+                <path d="M 20 52 L 60 52 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="4" y="176" width="72" height="10" fill="#78A7FF"/>
+                <rect x="8" y="186" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-16">
+              <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="36" r="22" fill="#0A1230"/>
+                <path d="M 14 60 L 66 60 L 68 174 L 12 174 Z" fill="#0A1230"/>
+                <rect x="6" y="180" width="68" height="26" fill="#78A7FF"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>scale test · 64 · 32 · 16</strong>sash drops below 32px · plinth simplifies to narwhal-only at 16</div>
+        </div>
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64 ink-bg">
+              <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="30" r="16" fill="#F5F7FF"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#F5F7FF"/>
+                <rect x="20" y="114" width="40" height="4" fill="#78A7FF"/>
+                <rect x="4" y="176" width="72" height="6" fill="#78A7FF"/>
+                <rect x="8" y="182" width="64" height="20" fill="#F5F7FF"/>
+              </svg>
+            </div>
+            <div class="size-mark s-64 accent-bg">
+              <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="4" y="176" width="72" height="6" fill="#0A1230"/>
+                <rect x="8" y="182" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>reversed + accent-field</strong>bone figure on ink · ink-only on narwhal (accent field replaces accent marks)</div>
+        </div>
+        <div class="var-row">
+          <div class="lockup-row">
+            <div class="lockup-mark">
+              <svg viewBox="0 0 80 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="20" y="114" width="40" height="4" fill="#78A7FF"/>
+                <rect x="4" y="176" width="72" height="6" fill="#78A7FF"/>
+                <rect x="8" y="182" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="lockup-word">effigy</div>
+          </div>
+          <div class="var-label"><strong>lockup · figure + wordmark</strong>figure anchors · wordmark carries the name forward</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>01 / 03 · standing</span>
+    <span>↓ <a href="#assembled">concept 02 · assembled</a></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 02 · ASSEMBLED EFFIGY                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="assembled">
+  <div class="metabar">
+    <span>— concept 02 · assembled from primitives</span>
+    <div class="right">
+      <strong>process / pipeline</strong>
+      <span>02 / 03 · 2026-04-21</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div>
+      <div class="col-title"><span>— mark at hero scale</span><span class="counter">02 · A</span></div>
+      <div class="mark-stage">
+        <span class="stage-meta">hero · 512px · on bone</span>
+        <div class="mark-svg">
+          <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+            <!-- head: circle, narwhal (identity / SOUL) -->
+            <circle cx="50" cy="30" r="22" fill="#78A7FF"/>
+            <!-- gap -->
+            <!-- neck mini-rect bridging -->
+            <!-- torso: rect, ink (presence) -->
+            <rect x="26" y="64" width="48" height="78" fill="#0A1230"/>
+            <!-- gap -->
+            <!-- base: trapezoid, ink (platform) -->
+            <path d="M 20 150 L 80 150 L 74 200 L 26 200 Z" fill="#0A1230"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="col-title"><span>— concept</span><span class="counter">02 · B</span></div>
+      <span class="concept-tag">— 02 · process · pipeline</span>
+      <h3 class="concept-name">built from primitives.</h3>
+      <div class="concept-body">
+        <p>a silhouetted figure with its <strong>assembly visible</strong>. head (narwhal circle — the identity, the SOUL, the voice) sits on torso (ink rectangle — the crafted presence) on base (ink trapezoid — the platform that holds it up). three primitives, three concerns, visibly separated.</p>
+        <p>this is the strongest semantic match for the brand's pitch: <em>characters get made from parts, on purpose, on the record</em>. the gaps between primitives aren't accidents — they're the wire frame of the pipeline on display.</p>
+        <p>most directly representational of the platform's value proposition. lowest risk of reading as decorative. best at showing "how characters are made."</p>
+      </div>
+      <div class="concept-specs">
+        <span>— proportion</span> 1 : 2.1 (w:h)<br>
+        <span>— primitives</span> narwhal circle · ink rectangle · ink trapezoid<br>
+        <span>— alt</span> inverted (narwhal head stays, rest bone on ink bg)<br>
+        <span>— min size</span> 20px (gaps close below; primitives merge)<br>
+        <span>— metaphor</span> identity + presence + platform · legibly assembled
+      </div>
+    </div>
+
+    <div>
+      <div class="col-title"><span>— scales + surfaces</span><span class="counter">02 · C</span></div>
+      <div class="variations">
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64">
+              <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="30" r="22" fill="#78A7FF"/>
+                <rect x="26" y="64" width="48" height="78" fill="#0A1230"/>
+                <path d="M 20 150 L 80 150 L 74 200 L 26 200 Z" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-32">
+              <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="36" r="26" fill="#78A7FF"/>
+                <rect x="26" y="70" width="48" height="76" fill="#0A1230"/>
+                <path d="M 20 150 L 80 150 L 74 200 L 26 200 Z" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-16">
+              <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="44" r="30" fill="#78A7FF"/>
+                <rect x="20" y="78" width="60" height="120" fill="#0A1230"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>scale test · 64 · 32 · 16</strong>head grows at small sizes · primitives merge to 2-shape at 16</div>
+        </div>
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64 ink-bg">
+              <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="30" r="22" fill="#78A7FF"/>
+                <rect x="26" y="64" width="48" height="78" fill="#F5F7FF"/>
+                <path d="M 20 150 L 80 150 L 74 200 L 26 200 Z" fill="#F5F7FF"/>
+              </svg>
+            </div>
+            <div class="size-mark s-64 accent-bg">
+              <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="30" r="22" fill="#0A1230"/>
+                <rect x="26" y="64" width="48" height="78" fill="#0A1230"/>
+                <path d="M 20 150 L 80 150 L 74 200 L 26 200 Z" fill="#0A1230"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>reversed + accent-field</strong>narwhal head holds on ink · ink-only on narwhal field for full emphasis</div>
+        </div>
+        <div class="var-row">
+          <div class="lockup-row">
+            <div class="lockup-mark">
+              <svg viewBox="0 0 100 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="30" r="22" fill="#78A7FF"/>
+                <rect x="26" y="64" width="48" height="78" fill="#0A1230"/>
+                <path d="M 20 150 L 80 150 L 74 200 L 26 200 Z" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="lockup-word">effigy</div>
+          </div>
+          <div class="var-label"><strong>lockup · assembled + wordmark</strong>narwhal head in mark reinforces narwhal accent on wordmark period</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>02 / 03 · assembled</span>
+    <span>↓ <a href="#cast">concept 03 · cast</a></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 03 · CAST EFFIGY                                     -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="cast">
+  <div class="metabar">
+    <span>— concept 03 · the cast and the source</span>
+    <div class="right">
+      <strong>duplicate / trace</strong>
+      <span>03 / 03 · 2026-04-21</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div>
+      <div class="col-title"><span>— mark at hero scale</span><span class="counter">03 · A</span></div>
+      <div class="mark-stage">
+        <span class="stage-meta">hero · 512px · on bone</span>
+        <div class="mark-svg">
+          <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+            <!-- narwhal trace (offset behind) -->
+            <g transform="translate(16, 10)">
+              <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+              <path d="M 34 46 L 46 46 L 48 54 L 32 54 Z" fill="#78A7FF"/>
+              <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#78A7FF"/>
+              <rect x="8" y="176" width="64" height="20" fill="#78A7FF"/>
+            </g>
+            <!-- ink primary -->
+            <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+            <path d="M 34 46 L 46 46 L 48 54 L 32 54 Z" fill="#0A1230"/>
+            <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+            <rect x="8" y="176" width="64" height="20" fill="#0A1230"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="col-title"><span>— concept</span><span class="counter">03 · B</span></div>
+      <span class="concept-tag">— 03 · duplicate · trace</span>
+      <h3 class="concept-name">the cast and the source.</h3>
+      <div class="concept-body">
+        <p>ink figure in front. narwhal duplicate behind it, offset down-and-right. <strong>the cast and its source, visible together.</strong> to make an effigy is to cast one — this shows the act, not just the result.</p>
+        <p>the narwhal "ghost" also reads as projection, shadow, reflection, twin. it earns its accent color because narwhal is the brand's signal for autonomous presence; the ghost is the effigy speaking on behalf of the ink original.</p>
+        <p>strongest on "how it's made" as a process. hardest to get right at small sizes — offset has to resolve as two figures, not one blurry one. requires careful minimum-size handling.</p>
+      </div>
+      <div class="concept-specs">
+        <span>— proportion</span> 3 : 5 (w:h) with offset<br>
+        <span>— offset</span> 20% right · 6% down (narwhal behind)<br>
+        <span>— alt</span> inverted (bone front · narwhal trace stays)<br>
+        <span>— min size</span> 32px (below: trace drops, ink figure only)<br>
+        <span>— metaphor</span> the effigy is the duplicate — both present at once
+      </div>
+    </div>
+
+    <div>
+      <div class="col-title"><span>— scales + surfaces</span><span class="counter">03 · C</span></div>
+      <div class="variations">
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64">
+              <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)">
+                  <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                  <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#78A7FF"/>
+                  <rect x="8" y="176" width="64" height="20" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="8" y="176" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-32">
+              <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(20, 12)">
+                  <circle cx="40" cy="36" r="20" fill="#78A7FF"/>
+                  <path d="M 16 60 L 64 60 L 68 176 L 12 176 Z" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="36" r="20" fill="#0A1230"/>
+                <path d="M 16 60 L 64 60 L 68 176 L 12 176 Z" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-16">
+              <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="45" cy="42" r="28" fill="#0A1230"/>
+                <path d="M 8 74 L 82 74 L 86 198 L 4 198 Z" fill="#0A1230"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>scale test · 64 · 32 · 16</strong>trace drops below 32px · at 16 use ink figure alone</div>
+        </div>
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64 ink-bg">
+              <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)">
+                  <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                  <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#78A7FF"/>
+                  <rect x="8" y="176" width="64" height="20" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#F5F7FF"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#F5F7FF"/>
+                <rect x="8" y="176" width="64" height="20" fill="#F5F7FF"/>
+              </svg>
+            </div>
+            <div class="size-mark s-64 accent-bg">
+              <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)" opacity="0.55">
+                  <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                  <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                  <rect x="8" y="176" width="64" height="20" fill="#0A1230"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="8" y="176" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>reversed + accent-field</strong>bone front + narwhal trace on ink · ink + ink-55% trace on narwhal</div>
+        </div>
+        <div class="var-row">
+          <div class="lockup-row">
+            <div class="lockup-mark">
+              <svg viewBox="0 0 130 210" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)">
+                  <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                  <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#78A7FF"/>
+                  <rect x="8" y="176" width="64" height="20" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 22 54 L 58 54 L 68 176 L 12 176 Z" fill="#0A1230"/>
+                <rect x="8" y="176" width="64" height="20" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="lockup-word">effigy</div>
+          </div>
+          <div class="var-label"><strong>lockup · cast + wordmark</strong>mark implies duplication · wordmark declares the name</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>03 / 03 · cast</span>
+    <span>↓ <a href="#hybrid">concept 03-b · stacked</a></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- 03-B · THE SPLIT CAST (both figures split 3 parts)   -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="hybrid">
+  <div class="metabar">
+    <span>— concept 03-b · the split cast · both figures split</span>
+    <div class="right">
+      <strong>03 shape · head / body / lower · both</strong>
+      <span>03-b · v3 · 2026-04-21</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div>
+      <div class="col-title"><span>— mark at hero scale</span><span class="counter">03-b · A</span></div>
+      <div class="mark-stage">
+        <span class="stage-meta">hero · 512px · on bone · both split</span>
+        <div class="mark-svg">
+          <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+            <!-- NARWHAL TRACE · 3-part split, matching ink -->
+            <g transform="translate(16, 10)">
+              <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+              <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/>
+              <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/>
+              <rect x="8" y="184" width="64" height="28" fill="#78A7FF"/>
+            </g>
+            <!-- INK · 3-part split -->
+            <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+            <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/>
+            <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/>
+            <rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="col-title"><span>— concept</span><span class="counter">03-b · B</span></div>
+      <span class="concept-tag">— 03-b · 03 shape · both figures split 3 parts</span>
+      <h3 class="concept-name">the split cast.</h3>
+      <div class="concept-body">
+        <p>03's silhouette, preserved. both figures — ink source and narwhal trace — split into the same 3 parts: <strong>head · body · lower</strong> with 4-unit gaps.</p>
+        <p>reads: <em>the effigy and its source are made the same way — from distinguishable parts, on purpose, on the record.</em> the offset between them shows the cast relationship; the matching splits show they share the construction.</p>
+      </div>
+      <div class="concept-specs">
+        <span>— proportion</span> 03 shape preserved<br>
+        <span>— fills</span> ink 3-part + narwhal 3-part trace<br>
+        <span>— gaps</span> 4 units head→body · 4 units body→lower · both sides<br>
+        <span>— alt</span> inverted (bone 3-part + narwhal 3-part)<br>
+        <span>— min size</span> 40px (below: fall back to solo figure)<br>
+        <span>— metaphor</span> matching construction · offset reveals the cast relationship
+      </div>
+    </div>
+
+    <div>
+      <div class="col-title"><span>— scales + surfaces</span><span class="counter">03-b · C</span></div>
+      <div class="variations">
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64">
+              <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)">
+                  <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                  <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/>
+                  <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/>
+                  <rect x="8" y="184" width="64" height="28" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/>
+                <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/>
+                <rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-32">
+              <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(18, 12)">
+                  <circle cx="40" cy="34" r="20" fill="#78A7FF"/>
+                  <path d="M 22 60 L 58 60 L 66 178 L 14 178 Z" fill="#78A7FF"/>
+                  <rect x="8" y="184" width="64" height="32" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="34" r="20" fill="#0A1230"/>
+                <path d="M 22 60 L 58 60 L 66 178 L 14 178 Z" fill="#0A1230"/>
+                <rect x="8" y="184" width="64" height="32" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="size-mark s-16">
+              <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+                <!-- 16px fallback · solo 03 figure -->
+                <circle cx="40" cy="38" r="28" fill="#0A1230"/>
+                <path d="M 14 70 L 66 70 L 74 172 L 6 172 Z" fill="#0A1230"/>
+                <rect x="0" y="178" width="80" height="34" fill="#78A7FF"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>scale test · 64 · 32 · 16</strong>both figures split at 64 + 32 · 16 falls back to solo 03 figure</div>
+        </div>
+        <div class="var-row">
+          <div class="size-block">
+            <div class="size-mark s-64 ink-bg">
+              <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)">
+                  <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                  <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/>
+                  <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/>
+                  <rect x="8" y="184" width="64" height="28" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#F5F7FF"/>
+                <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#F5F7FF"/>
+                <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#F5F7FF"/>
+                <rect x="8" y="184" width="64" height="28" fill="#F5F7FF"/>
+              </svg>
+            </div>
+            <div class="size-mark s-64 accent-bg">
+              <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)" opacity="0.5">
+                  <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                  <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/>
+                  <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/>
+                  <rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/>
+                <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/>
+                <rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+              </svg>
+            </div>
+          </div>
+          <div class="var-label"><strong>reversed + accent-field</strong>bone 3-part + narwhal 3-part on ink · ink 3-part + 50% ink 3-part on narwhal</div>
+        </div>
+        <div class="var-row">
+          <div class="lockup-row">
+            <div class="lockup-mark">
+              <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(16, 10)">
+                  <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                  <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/>
+                  <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/>
+                  <rect x="8" y="184" width="64" height="28" fill="#78A7FF"/>
+                </g>
+                <circle cx="40" cy="30" r="16" fill="#0A1230"/>
+                <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/>
+                <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/>
+                <rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+              </svg>
+            </div>
+            <div class="lockup-word">effigy</div>
+          </div>
+          <div class="var-label"><strong>lockup · split cast + wordmark</strong>03 silhouette · matching 3-part splits on both sides · wordmark forward</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>03-b · split cast · both figures</span>
+    <span>↓ <a href="#pick">decide</a></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PICK                                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="final" id="pick">
+  <div>
+    <div class="metabar">
+      <span>— pick one · or combine</span>
+      <div class="right">
+        <span>end of options</span>
+        <span class="lock">awaiting signal</span>
+      </div>
+    </div>
+    <h2 class="final-title">which silhouette becomes <span class="accent-text">the mark</span>?</h2>
+    <p class="final-sub">say the number (01 / 02 / 03) — or a fragment combo ("standing body with assembled narwhal head", "cast shape but with the sash", "assembled at scale-1, standing as favicon"). once locked I'll drop it into <code style="background:var(--bone-2);padding:2px 6px;font-family:var(--font-mono);">brand-guide.html</code> §III · 01 logo system with full lockup + clear-space + min-size rules, re-render the favicon set, and add it to <code style="background:var(--bone-2);padding:2px 6px;font-family:var(--font-mono);">logo-directions.html</code> as the canonical mark alongside the wordmark.</p>
+    <div style="margin-top: 40px; font-family: var(--font-mono); font-size: 11px; opacity: 0.5; letter-spacing: 0.1em; text-transform: uppercase;">— nothing ships until you pick.</div>
+  </div>
+</section>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  let tx=0,ty=0,cx=0,cy=0,rafId=null;
+  document.addEventListener('mousemove',(e)=>{
+    tx=e.clientX; ty=e.clientY;
+    if(!rafId) rafId=requestAnimationFrame(tick);
+  });
+  function tick(){
+    cx+=(tx-cx)*0.32; cy+=(ty-cy)*0.32;
+    cursor.style.left=cx+'px'; cursor.style.top=cy+'px';
+    if(Math.abs(tx-cx)>0.1||Math.abs(ty-cy)>0.1) rafId=requestAnimationFrame(tick);
+    else rafId=null;
+  }
+  document.querySelectorAll('a,.mark-stage,.lockup-row,.size-mark,.intro-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
+    el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
+  });
+
+  const sections = document.querySelectorAll('section');
+  const sideLinks = document.querySelectorAll('.side-nav a');
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id;
+        sideLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href')==='#'+id));
+      }
+    });
+  },{threshold:0.4});
+  sections.forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

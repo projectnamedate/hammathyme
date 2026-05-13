@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { CASE_STUDIES } from "@/lib/works";
+import { CASE_STUDIES, getReadyPieceParams } from "@/lib/works";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.vercel.app";
@@ -23,6 +23,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/work/${c.slug}`,
       lastModified: now,
       priority: 0.8,
+    })),
+    ...getReadyPieceParams().map((p) => ({
+      url: `${SITE_URL}/work/${p.slug}/${p.piece}`,
+      lastModified: now,
+      priority: 0.7,
     })),
   ];
 }

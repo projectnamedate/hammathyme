@@ -10,6 +10,7 @@ export default function EntryHall() {
   const reduce = useReducedMotion();
   return (
     <main className="relative flex h-[100svh] w-screen items-center justify-center overflow-hidden bg-[var(--cream-0)]">
+      <h1 className="sr-only">hammer ai producer</h1>
       {/* center stack */}
       <div className="flex flex-col items-center gap-10">
         <HeroWordmark ariaLabel="hammer · ai producer" baseDelay={0.55} />

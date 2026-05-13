@@ -1,0 +1,1084 @@
+/* ======================================================================
+   KIRA BRAND BIBLE — MASTER STYLESHEET
+   v1.0.0 · 2026-04-13 · projectnamedate LLC
+   =====================================================================
+   Hybrid system: editorial pages (cream + serif + wide margins)
+                  tech-spec pages (void + mono + data-dense)
+   Print-optimized. Zero JS. Self-contained via Google Fonts CDN.
+   ====================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ----- 1. DESIGN TOKENS (CSS custom properties) ----- */
+
+:root {
+  /* color — editorial */
+  --c-cream: #F7F3EC;
+  --c-cream-deep: #EFE8DB;
+  --c-ink: #0F0F0F;
+  --c-ink-muted: #52504C;
+  --c-copper: #B4673A;
+  --c-copper-deep: #8A4A26;
+
+  /* color — tech-spec */
+  --c-void: #0A0A0A;
+  --c-panel: #141414;
+  --c-line: #1F1F1F;
+  --c-bone: #EAE7DF;
+  --c-bone-muted: #7A7871;
+  --c-orange: #FF6D1F;
+  --c-orange-deep: #C0480F;
+
+  /* color — shared */
+  --c-btc: #F7931A;
+  --c-signal-green: #9EE07A;
+  --c-signal-red: #E0574A;
+
+  /* type */
+  --f-display: 'Playfair Display', 'Tiempos Headline', Georgia, serif;
+  --f-body: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: 3rem;
+  --fs-4xl: 4.5rem;
+  --fs-5xl: 6rem;
+  --fs-display: clamp(3rem, 10vw, 9rem);
+
+  /* spacing scale — 8px base */
+  --s-0: 0;
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 48px;
+  --s-6: 64px;
+  --s-7: 96px;
+  --s-8: 128px;
+  --s-9: 192px;
+  --s-10: 256px;
+
+  /* layout */
+  --max-w: 1280px;
+  --prose-w: 68ch;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* motion */
+  --ease-brand: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ----- 2. RESET ----- */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; min-height: 100vh; }
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote { margin: 0; }
+img, picture, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: 0; background: transparent; }
+hr { border: 0; height: 1px; background: currentColor; opacity: 0.15; margin: var(--s-4) 0; }
+code, pre { font-family: var(--f-mono); }
+
+/* ----- 3. PAGE TEMPLATES ----- */
+
+body {
+  font-family: var(--f-body);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  color: var(--c-ink);
+  background: var(--c-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body.editorial {
+  background: var(--c-cream);
+  color: var(--c-ink);
+}
+
+body.tech {
+  background: var(--c-void);
+  color: var(--c-bone);
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+body.tech a { color: var(--c-orange); }
+body.tech a:hover { color: var(--c-btc); }
+body.editorial a { color: var(--c-copper); border-bottom: 1px solid var(--c-copper); }
+body.editorial a:hover { color: var(--c-copper-deep); }
+
+/* ----- 4. LAYOUT CONTAINERS ----- */
+
+.page {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding: var(--s-5) var(--s-4);
+}
+
+.page-wide { max-width: 100%; padding: 0; }
+
+.prose {
+  max-width: var(--prose-w);
+  margin-inline: auto;
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--s-3);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-3);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+
+@media (max-width: 768px) {
+  .grid-12 { grid-template-columns: repeat(4, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ----- 5. TYPOGRAPHY ----- */
+
+.display {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: var(--fs-display);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.serif-xl {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+.serif-lg {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: var(--fs-3xl);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.serif-md {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: var(--fs-2xl);
+  line-height: 1.15;
+}
+
+.italic { font-style: italic; }
+.caps { text-transform: uppercase; letter-spacing: 0.12em; font-size: var(--fs-xs); font-weight: 600; }
+.mono { font-family: var(--f-mono); }
+
+.pullquote {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.25;
+  color: var(--c-copper);
+  border-left: 3px solid var(--c-copper);
+  padding-left: var(--s-3);
+  margin: var(--s-5) 0;
+  max-width: 52ch;
+}
+
+body.tech .pullquote {
+  color: var(--c-orange);
+  border-left-color: var(--c-orange);
+  font-family: var(--f-display);
+}
+
+.tagline {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  color: var(--c-copper);
+}
+
+.muted { color: var(--c-ink-muted); }
+body.tech .muted { color: var(--c-bone-muted); }
+
+/* ----- 6. NAVIGATION / HEADER ----- */
+
+.brand-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: color-mix(in oklab, var(--c-cream) 85%, transparent);
+  border-bottom: 1px solid color-mix(in oklab, var(--c-ink) 10%, transparent);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+}
+
+body.tech .brand-header {
+  background: color-mix(in oklab, var(--c-void) 85%, transparent);
+  border-bottom-color: var(--c-line);
+}
+
+.brand-header__inner {
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding: var(--s-2) var(--s-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.brand-header__wordmark {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: var(--fs-md);
+  text-transform: none;
+  letter-spacing: -0.01em;
+}
+
+.brand-header__nav a {
+  margin-left: var(--s-3);
+  text-decoration: none;
+  border: 0 !important;
+  opacity: 0.7;
+  transition: opacity 0.15s var(--ease-brand);
+}
+
+.brand-header__nav a:hover { opacity: 1; }
+
+/* ----- 7. COVER / HERO ----- */
+
+.cover {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: var(--s-5) var(--s-4) var(--s-4);
+  position: relative;
+  overflow: hidden;
+  background: var(--c-cream);
+}
+
+.cover__bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.92;
+}
+
+.cover__veil {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, transparent 0%, transparent 55%, color-mix(in oklab, var(--c-ink) 35%, transparent) 100%);
+}
+
+.cover__content {
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  color: var(--c-cream);
+  max-width: 62ch;
+}
+
+.cover__kicker {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.9;
+  margin-bottom: var(--s-2);
+}
+
+.cover__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-style: italic;
+  font-size: var(--fs-display);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.cover__subtitle {
+  margin-top: var(--s-3);
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
+  opacity: 0.94;
+  max-width: 40ch;
+}
+
+.cover__meta {
+  position: relative;
+  z-index: 2;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  display: flex;
+  justify-content: space-between;
+  color: var(--c-cream);
+  opacity: 0.8;
+  padding-top: var(--s-3);
+  border-top: 1px solid color-mix(in oklab, var(--c-cream) 35%, transparent);
+}
+
+/* ----- 8. TOC / SECTION INDEX ----- */
+
+.toc {
+  counter-reset: toc;
+  list-style: none;
+  padding: 0;
+  margin-top: var(--s-5);
+}
+
+.toc li {
+  counter-increment: toc;
+  display: grid;
+  grid-template-columns: 3ch 1fr auto;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-top: 1px solid color-mix(in oklab, var(--c-ink) 14%, transparent);
+  font-family: var(--f-body);
+  transition: background 0.15s var(--ease-brand);
+}
+
+.toc li:last-child { border-bottom: 1px solid color-mix(in oklab, var(--c-ink) 14%, transparent); }
+
+.toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.1em;
+  color: var(--c-copper);
+}
+
+.toc a {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: var(--fs-xl);
+  border: 0 !important;
+  letter-spacing: -0.01em;
+}
+
+.toc li:hover { background: color-mix(in oklab, var(--c-copper) 6%, transparent); }
+
+.toc__type {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-ink-muted);
+}
+
+/* ----- 9. SECTION HEADER (per-page) ----- */
+
+.section-header {
+  padding: var(--s-7) var(--s-4) var(--s-5);
+  border-bottom: 1px solid color-mix(in oklab, var(--c-ink) 14%, transparent);
+  max-width: var(--max-w);
+  margin-inline: auto;
+}
+
+body.tech .section-header { border-bottom-color: var(--c-line); }
+
+.section-header__number {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--c-copper);
+  margin-bottom: var(--s-2);
+}
+
+body.tech .section-header__number { color: var(--c-orange); }
+
+.section-header__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  max-width: 20ch;
+}
+
+body.tech .section-header__title {
+  font-family: var(--f-display);
+  color: var(--c-bone);
+}
+
+.section-header__lede {
+  margin-top: var(--s-3);
+  font-family: var(--f-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--fs-lg);
+  color: var(--c-ink-muted);
+  max-width: 56ch;
+}
+
+body.tech .section-header__lede {
+  color: var(--c-bone-muted);
+  font-family: var(--f-body);
+  font-style: normal;
+}
+
+/* ----- 10. PROSE BLOCKS ----- */
+
+.prose p { margin-bottom: var(--s-3); max-width: var(--prose-w); }
+.prose p + p { margin-top: 0; }
+.prose h2 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--fs-2xl);
+  margin-top: var(--s-6);
+  margin-bottom: var(--s-3);
+  letter-spacing: -0.01em;
+}
+.prose h3 {
+  font-family: var(--f-body);
+  font-weight: 700;
+  font-size: var(--fs-md);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: var(--s-5);
+  margin-bottom: var(--s-2);
+  color: var(--c-copper);
+}
+body.tech .prose h3 { color: var(--c-orange); font-family: var(--f-mono); }
+
+.prose ul, .prose ol {
+  padding-left: var(--s-3);
+  margin-bottom: var(--s-3);
+  max-width: var(--prose-w);
+}
+
+.prose li { margin-bottom: var(--s-1); }
+.prose strong { font-weight: 600; }
+
+.drop-cap::first-letter {
+  font-family: var(--f-display);
+  font-size: 5.5em;
+  font-weight: 800;
+  float: left;
+  line-height: 0.85;
+  margin-right: 0.06em;
+  margin-top: 0.08em;
+  color: var(--c-copper);
+}
+
+/* ----- 11. CARDS / PANELS ----- */
+
+.card {
+  background: var(--c-cream-deep);
+  padding: var(--s-4);
+  border-radius: var(--radius-md);
+}
+
+body.tech .card {
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-sm);
+}
+
+.card__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-copper);
+  margin-bottom: var(--s-2);
+}
+
+body.tech .card__label { color: var(--c-orange); }
+
+.card__title {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  line-height: 1.15;
+  margin-bottom: var(--s-2);
+}
+
+body.tech .card__title { font-family: var(--f-mono); font-weight: 700; }
+
+/* ----- 12. DATA TABLES ----- */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  margin: var(--s-3) 0;
+}
+
+.data-table th, .data-table td {
+  text-align: left;
+  padding: var(--s-2) var(--s-3);
+  border-bottom: 1px solid color-mix(in oklab, currentColor 15%, transparent);
+  vertical-align: top;
+}
+
+.data-table th {
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--c-ink-muted);
+  border-bottom-width: 2px;
+}
+
+body.tech .data-table th { color: var(--c-orange); }
+
+.data-table tr:hover td {
+  background: color-mix(in oklab, var(--c-copper) 5%, transparent);
+}
+
+body.tech .data-table tr:hover td {
+  background: color-mix(in oklab, var(--c-orange) 8%, transparent);
+}
+
+.data-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----- 13. TOKEN TABLE (color swatches, etc.) ----- */
+
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--s-2);
+  margin: var(--s-3) 0;
+}
+
+.token {
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  padding: var(--s-2);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+}
+
+body.editorial .token {
+  background: var(--c-cream-deep);
+  border-color: color-mix(in oklab, var(--c-ink) 10%, transparent);
+}
+
+.token__swatch {
+  height: 64px;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--s-1);
+  border: 1px solid color-mix(in oklab, currentColor 10%, transparent);
+}
+
+.token__name { opacity: 0.9; }
+.token__value { opacity: 0.6; }
+.token__usage { margin-top: var(--s-1); opacity: 0.7; line-height: 1.4; }
+
+/* ----- 14. VOICE MATRIX ----- */
+
+.voice-matrix {
+  overflow-x: auto;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-sm);
+  margin: var(--s-3) 0;
+}
+
+body.editorial .voice-matrix {
+  border-color: color-mix(in oklab, var(--c-ink) 14%, transparent);
+}
+
+.voice-matrix table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  min-width: 800px;
+}
+
+.voice-matrix th, .voice-matrix td {
+  padding: var(--s-2);
+  border: 1px solid color-mix(in oklab, currentColor 12%, transparent);
+  vertical-align: top;
+}
+
+.voice-matrix th {
+  background: color-mix(in oklab, currentColor 5%, transparent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.voice-matrix .sample {
+  font-family: var(--f-body);
+  font-size: var(--fs-sm);
+  font-style: italic;
+  color: var(--c-copper);
+  line-height: 1.4;
+}
+
+body.tech .voice-matrix .sample { color: var(--c-orange); }
+
+/* ----- 15. DO / DON'T GRID ----- */
+
+.do-dont {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+  margin: var(--s-4) 0;
+}
+
+@media (max-width: 640px) {
+  .do-dont { grid-template-columns: 1fr; }
+}
+
+.do-dont__item { position: relative; }
+
+.do-dont__item img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+
+.do-dont__badge {
+  position: absolute;
+  top: var(--s-1);
+  left: var(--s-1);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  padding: var(--s-1) var(--s-2);
+  color: var(--c-cream);
+}
+
+.do-dont__badge--do { background: var(--c-signal-green); color: var(--c-void); }
+.do-dont__badge--dont { background: var(--c-signal-red); color: var(--c-cream); }
+
+.do-dont__caption {
+  margin-top: var(--s-1);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.4;
+  color: currentColor;
+  opacity: 0.75;
+}
+
+/* ----- 16. DECISION TREE ----- */
+
+.decision {
+  font-family: var(--f-mono);
+  font-size: var(--fs-sm);
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius-sm);
+  padding: var(--s-3);
+  margin: var(--s-3) 0;
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.55;
+}
+
+body.editorial .decision {
+  background: var(--c-cream-deep);
+  border-color: color-mix(in oklab, var(--c-ink) 14%, transparent);
+}
+
+.decision .q { color: var(--c-orange); font-weight: 700; }
+body.editorial .decision .q { color: var(--c-copper); }
+.decision .a { opacity: 0.9; }
+.decision .branch { color: var(--c-signal-green); }
+.decision .danger { color: var(--c-signal-red); }
+
+/* ----- 17. TIMELINE ----- */
+
+.timeline {
+  position: relative;
+  margin: var(--s-5) 0;
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--c-copper);
+}
+
+body.tech .timeline { border-left-color: var(--c-orange); }
+
+.timeline__event { margin-bottom: var(--s-5); position: relative; }
+
+.timeline__event::before {
+  content: '';
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--c-copper);
+  left: calc(var(--s-4) * -1 - 7px);
+  top: 8px;
+}
+
+body.tech .timeline__event::before { background: var(--c-orange); }
+
+.timeline__date {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--c-copper);
+  margin-bottom: var(--s-1);
+}
+
+body.tech .timeline__date { color: var(--c-orange); }
+
+.timeline__title {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  margin-bottom: var(--s-1);
+}
+
+body.tech .timeline__title { font-family: var(--f-mono); }
+
+/* ----- 18. QUADRANT / POSITION MAP ----- */
+
+.quadrant {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 640px;
+  margin: var(--s-4) auto;
+  border: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+  background: linear-gradient(to right, transparent 49.8%, color-mix(in oklab, currentColor 30%, transparent) 50%, transparent 50.2%),
+              linear-gradient(to bottom, transparent 49.8%, color-mix(in oklab, currentColor 30%, transparent) 50%, transparent 50.2%);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+}
+
+.quadrant__axis-x, .quadrant__axis-y {
+  position: absolute;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-ink-muted);
+}
+
+body.tech .quadrant__axis-x, body.tech .quadrant__axis-y { color: var(--c-bone-muted); }
+
+.quadrant__axis-x {
+  bottom: -28px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.quadrant__axis-y {
+  top: 0;
+  left: -8px;
+  transform: translateX(-100%) rotate(-90deg);
+  transform-origin: 100% 0;
+  white-space: nowrap;
+}
+
+.quadrant__point {
+  position: absolute;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--c-ink-muted);
+  transform: translate(-50%, 50%);
+}
+
+.quadrant__point.us { background: var(--c-copper); width: 14px; height: 14px; }
+body.tech .quadrant__point.us { background: var(--c-orange); }
+
+.quadrant__label {
+  position: absolute;
+  font-weight: 500;
+  transform: translate(-50%, calc(50% + 14px));
+  white-space: nowrap;
+}
+
+.quadrant__label.us { color: var(--c-copper); font-weight: 700; }
+body.tech .quadrant__label.us { color: var(--c-orange); }
+
+/* ----- 19. PILL / BADGE ----- */
+
+.pill {
+  display: inline-block;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 2px var(--s-1);
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  margin-right: var(--s-1);
+}
+
+.pill--copper { color: var(--c-copper); }
+.pill--orange { color: var(--c-orange); }
+.pill--danger { color: var(--c-signal-red); }
+.pill--success { color: var(--c-signal-green); }
+
+/* ----- 20. CALLOUT ----- */
+
+.callout {
+  border-left: 3px solid var(--c-copper);
+  padding: var(--s-3);
+  background: color-mix(in oklab, var(--c-copper) 6%, transparent);
+  margin: var(--s-3) 0;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+
+body.tech .callout {
+  border-left-color: var(--c-orange);
+  background: color-mix(in oklab, var(--c-orange) 8%, transparent);
+}
+
+.callout--warn { border-left-color: var(--c-signal-red); background: color-mix(in oklab, var(--c-signal-red) 7%, transparent); }
+.callout--ok   { border-left-color: var(--c-signal-green); background: color-mix(in oklab, var(--c-signal-green) 7%, transparent); }
+
+.callout__label {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-copper);
+  font-weight: 700;
+  margin-bottom: var(--s-1);
+}
+
+body.tech .callout__label { color: var(--c-orange); }
+.callout--warn .callout__label { color: var(--c-signal-red); }
+.callout--ok .callout__label { color: var(--c-signal-green); }
+
+/* ----- 21. FOOTER ----- */
+
+.brand-footer {
+  margin-top: var(--s-8);
+  padding: var(--s-5) var(--s-4);
+  border-top: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--c-ink-muted);
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+body.tech .brand-footer { color: var(--c-bone-muted); border-top-color: var(--c-line); }
+
+/* ----- 22. IMAGE HERO (section opener) ----- */
+
+.hero-image {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 60vh, 720px);
+  overflow: hidden;
+  margin-bottom: var(--s-5);
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+.hero-image__caption {
+  position: absolute;
+  bottom: var(--s-3);
+  left: var(--s-3);
+  right: var(--s-3);
+  color: var(--c-cream);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+}
+
+/* ----- 23. ASCII DIVIDERS (tech-spec accent) ----- */
+
+.ascii-divider {
+  font-family: var(--f-mono);
+  color: var(--c-orange);
+  text-align: center;
+  white-space: pre;
+  margin: var(--s-5) 0;
+  font-size: var(--fs-sm);
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+body.editorial .ascii-divider {
+  color: var(--c-copper);
+}
+
+/* ----- 24. PAGE NUMBER / FOLIO ----- */
+
+.folio {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--c-ink-muted);
+}
+
+body.tech .folio { color: var(--c-bone-muted); }
+
+/* ----- 25. PRINT ----- */
+
+@media print {
+  /* Force all backgrounds, gradients, and colors to render in PDF */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  @page {
+    size: Letter;
+    margin: 0;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  /* Preserve page theme in print (don't flatten to white) */
+  body.editorial {
+    background: var(--c-cream) !important;
+    color: var(--c-ink) !important;
+  }
+  body.tech {
+    background: var(--c-void) !important;
+    color: var(--c-bone) !important;
+  }
+
+  /* Hide sticky header in print (it breaks pagination) */
+  .brand-header { display: none !important; }
+
+  /* Cover fills first page */
+  .cover {
+    min-height: 100vh;
+    height: 100vh;
+    page-break-after: always;
+    break-after: page;
+    padding: 0.7in 0.75in 0.6in !important;
+  }
+  .cover__bg { opacity: 1 !important; }
+  .cover__veil {
+    background: linear-gradient(180deg, transparent 0%, transparent 45%, rgba(0,0,0,0.55) 100%) !important;
+  }
+
+  /* Hero images — fixed height, no weird zoom */
+  .hero-image {
+    height: 4.2in !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin: 0 !important;
+  }
+
+  /* Section header gets its own page opener */
+  .section-header {
+    page-break-before: always;
+    break-before: page;
+    padding: 0.6in 0.75in 0.5in !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+
+  /* Main content padding for print */
+  .page {
+    max-width: none !important;
+    padding: 0 0.75in !important;
+  }
+
+  /* Prevent bad breaks */
+  h1, h2, h3, h4 { page-break-after: avoid; break-after: avoid; }
+  table, figure, .card, .callout, .do-dont, .token-grid, .decision, .quadrant, .hero-image, .timeline__event {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Footer — shows once per page naturally */
+  .brand-footer {
+    border-top: 1px solid rgba(0,0,0,0.2) !important;
+    page-break-before: avoid;
+    margin-top: var(--s-5) !important;
+  }
+  body.tech .brand-footer {
+    border-top-color: rgba(255,255,255,0.15) !important;
+  }
+
+  /* Links — keep color but drop underlines in print */
+  a { text-decoration: none; }
+
+  /* Images */
+  img { max-width: 100% !important; }
+
+  /* Code/mono blocks */
+  pre { page-break-inside: avoid; break-inside: avoid; white-space: pre-wrap; }
+
+  /* Tables wider on print */
+  table { width: 100% !important; }
+
+  /* Voice matrix — allow scrolling to become full-width in print */
+  .voice-matrix { overflow: visible !important; }
+  .voice-matrix table { min-width: 0 !important; }
+}
+
+/* ----- 26. UTILITY ----- */
+
+.u-center { text-align: center; }
+.u-right  { text-align: right; }
+.u-mt-0   { margin-top: 0; }
+.u-mt-3   { margin-top: var(--s-3); }
+.u-mt-5   { margin-top: var(--s-5); }
+.u-mb-3   { margin-bottom: var(--s-3); }
+.u-mb-5   { margin-bottom: var(--s-5); }
+.u-w-full { width: 100%; }
+
+.col-6 { grid-column: span 6; }
+.col-8 { grid-column: span 8; }
+.col-4 { grid-column: span 4; }
+.col-12 { grid-column: span 12; }
+
+@media (max-width: 768px) {
+  .col-6, .col-8, .col-4 { grid-column: span 4; }
+  .col-12 { grid-column: span 4; }
+}

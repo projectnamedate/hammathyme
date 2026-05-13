@@ -112,13 +112,13 @@ body {
 a { color: inherit; text-decoration: none; }
 button { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
 
-/* Canonical wordmark — native Outfit text run + controlled circular period. */
+/* Canonical wordmark — cold-open per-letter word + website-aligned period. */
 .kw {
   display: inline-flex;
   align-items: baseline;
   font-family: var(--font-display);
   font-weight: 900;
-  letter-spacing: -0.032em;
+  letter-spacing: 0;
   line-height: 0.84;
   font-kerning: normal;
   text-rendering: geometricPrecision;
@@ -126,7 +126,28 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
   white-space: nowrap;
   text-transform: lowercase;
 }
-.kw-word { display: inline-block; }
+.kw-word {
+  display: inline-flex;
+  align-items: baseline;
+}
+.kw-letter-mask {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.28;
+  padding: 0.22em 0;
+  margin-top: -0.22em;
+  margin-bottom: -0.22em;
+  vertical-align: baseline;
+}
+.kw-letter-mask:nth-child(1) { margin-right: -0.018em; }
+.kw-letter-mask:nth-child(2) { margin-right: -0.055em; }
+.kw-letter-mask:nth-child(3) { margin-right: -0.045em; }
+.kw-letter-mask:nth-child(4) { margin-right: -0.020em; }
+.kw-letter-mask:nth-child(5) { margin-right: -0.022em; }
+.kw-letter-mask:nth-child(6) { margin-right: 0.007em; }
+.kw-letter {
+  display: inline-block;
+}
 .kw .dot {
   display: inline-block;
   width: 0.171em;
@@ -196,13 +217,15 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
 }
 
 /* === Idle wordmark breath ===
-   When body has [data-idle="1"], every .kw element breathes its tracking slightly
-   over a 6s sine. Subtle — visitors feel it more than they see it. */
-@keyframes hf-kerning-breath {
-  0%, 100% { letter-spacing: -0.032em; }
-  50% { letter-spacing: -0.028em; }
+   Preserve the approved per-letter gaps; breathe the whole mark instead. */
+@keyframes hf-wordmark-breath {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.003); }
 }
-body[data-idle="1"] .kw { animation: hf-kerning-breath 6s ease-in-out infinite; }
+body[data-idle="1"] .kw {
+  animation: hf-wordmark-breath 6s ease-in-out infinite;
+  transform-origin: center;
+}
 
 /* Once-per-minute pulse on the cinnamon period when idle */
 @keyframes hf-period-pulse {

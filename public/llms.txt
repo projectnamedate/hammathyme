@@ -6,13 +6,13 @@
 
 - [atrium](https://hammathyme.vercel.app/work): 8 portfolio categories. each a collection of pieces.
 - [brand systems](https://hammathyme.vercel.app/work/brand-systems): identities built with ai in the loop. hammer · kira · effigy dossiers are live.
-- [agents](https://hammathyme.vercel.app/work/agents): autonomous characters layered over agents — 24/7 marketer, onboarder, live ad. kira · winston · bradley.
+- [agents](https://hammathyme.vercel.app/work/agents): autonomous characters layered over agents. kira detail is live at /work/agents/kira.
 - [motion graphics](https://hammathyme.vercel.app/work/motion-graphics): programmatic motion built in remotion + hyperframes. v3 reel is live.
 - [animation](https://hammathyme.vercel.app/work/animation): puppet character animation built with rive + remotion.
 - [pipelines + tools](https://hammathyme.vercel.app/work/pipelines-tools): the tools beneath the work. pipeline visualizer detail page includes cost + time.
 - [interactive + playable](https://hammathyme.vercel.app/work/interactive-playable): planned demos. talk-to-character, prompt-to-storyboard, consistency lab.
 - [visual media](https://hammathyme.vercel.app/work/visual-media): ai-native film, short-form video, commercial work.
-- [websites](https://hammathyme.vercel.app/work/websites): ai-native websites. hammathyme · kira · opencrawl.
+- [websites](https://hammathyme.vercel.app/work/websites): ai-native websites. hammathyme, onlykira.ai, opencrawl.gg, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
 
 ## about
 

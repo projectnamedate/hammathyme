@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>governance + versioning — kira brand bible</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="tech">
+
+<header class="brand-header">
+  <div class="brand-header__inner">
+    <a href="index.html" class="brand-header__wordmark">kira</a>
+    <nav class="brand-header__nav">
+      <a href="01-essence.html">essence</a>
+      <a href="03-voice.html">voice</a>
+      <a href="04-visual.html">visual</a>
+      <a href="08-monetization.html">money</a>
+      <a href="10-crisis.html">crisis</a>
+      <a href="index.html">contents</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-image">
+  <img src="assets/refs/canonical/ref_07_flux2_desk_crypto.png" alt="kira desk crypto canonical ref — governance">
+  <div class="hero-image__caption">governance · semver, sign, ship</div>
+</section>
+
+<div class="section-header">
+  <div class="section-header__number">section 13 · tech spec</div>
+  <h1 class="section-header__title">governance + versioning</h1>
+  <p class="section-header__lede">version registry, token registry, raci matrix, dam, review cadence, decommissioning sop</p>
+</div>
+
+<main class="page">
+  <article class="prose">
+
+    <p><strong>Version:</strong> 1.0.0<br>
+       <strong>Owner:</strong> projectnamedate LLC<br>
+       <strong>Signed by:</strong> projectnamedate LLC<br>
+       <strong>Last reviewed:</strong> 2026-04-13</p>
+
+    <p>This section defines how the Kira Brand Bible itself is changed: who can change it, under what criteria, where the change is logged, and how the downstream pipeline (tokens.json, scripts, canonical refs) stays in sync. The bible is the source of truth. Everything downstream — prompts, recipes, captions, contracts — derives from here.</p>
+
+    <hr>
+
+    <h2>13.1 Version registry</h2>
+
+    <p><strong>Scheme:</strong> Semantic versioning, <code class="mono">major.minor.patch</code>.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Bump</th><th>Criterion</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Major</strong> (X.0.0)</td><td>Breaking change to voice, visual system, or hard taboo</td><td>Dropping copper-orange hair. Allowing real-person face blends. Changing base model away from Flux 2 Dev. Rewriting voice to "non-vulgar."</td></tr>
+        <tr><td><strong>Minor</strong> (1.X.0)</td><td>New scope added — platform, section, content pillar, workflow</td><td>Adding TikTok as a second primary platform. Adding a new content pillar. Adding a new post-process recipe for a new workflow.</td></tr>
+        <tr><td><strong>Patch</strong> (1.0.X)</td><td>Copy fix, sample rewrite, clarification, non-semantic correction</td><td>Fixing a typo. Replacing a stale sample caption. Clarifying an ambiguous rule without changing the rule.</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Every change is logged in <code class="mono">CHANGELOG.md</code> with WHY, not just WHAT.</strong> The "what" is recoverable from git diff. The "why" isn't, and the why is what future-us needs when asking "can I change this back?"</p>
+
+    <p>Every version is <strong>signed by projectnamedate LLC</strong>. Bible files carry the signing line in the header. No unsigned version ships.</p>
+
+    <h3>Changelog entry template</h3>
+
+    <pre class="decision"><code>## [1.2.0] — 2026-06-15
+
+### Added
+- New content pillar "Frenemy Bits" at 10% mix
+
+### Why
+- M4 data showed frenemy-adjacent posts had 3.1x engagement vs lore posts.
+  Moved 10% out of "meta lore" to make room. Pillar-mix re-audited; no other
+  shifts needed.
+
+### Signed
+- projectnamedate LLC</code></pre>
+
+    <hr>
+
+    <h2>13.2 Token registry</h2>
+
+    <p>Every design token in <code class="mono">/Users/hammer/Desktop/Claude/kira/docs/brand/tokens.json</code> is registered here. Tokens are the machine-readable interface between the bible and the pipeline. Any change to a token requires the corresponding prose section in the bible to change in the same commit.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Token path</th><th>Default value</th><th>Owner</th><th>Platform overrides</th><th>Last-changed</th></tr></thead>
+      <tbody>
+        <tr><td><code class="mono">meta.brand</code></td><td><code class="mono">kira</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">meta.version</code></td><td><code class="mono">1.0.0</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">meta.lora_trigger</code></td><td><code class="mono">kira_agi_v1</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">meta.base_model</code></td><td><code class="mono">Flux 2 Dev</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">identity.name</code></td><td><code class="mono">kira</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">identity.wordmark_case</code></td><td><code class="mono">lowercase</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">identity.tagline</code></td><td><code class="mono">hermes in a dress</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">identity.north_star</code></td><td><code class="mono">Fanvue MRR $10-20K/mo by month 6</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.editorial.*</code></td><td>per JSON</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.tech.*</code></td><td>per JSON</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.shared.btc.orange</code></td><td><code class="mono">#F7931A</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.character.hair.copper</code></td><td><code class="mono">#B4673A</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.character.hair.dark_root</code></td><td><code class="mono">#2B1D16</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.character.skin.olive.base</code></td><td><code class="mono">#D6B08A</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">color.character.eyes.hazel</code></td><td><code class="mono">#7A6038</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">type.display.family</code></td><td>Playfair Display stack</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">type.body.family</code></td><td>Inter stack</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">type.mono.family</code></td><td>JetBrains Mono stack</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">space.base_unit_px</code></td><td><code class="mono">8</code></td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">layout.grid.*</code></td><td>per JSON</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">lens.selfie</code></td><td>26mm f/1.8 4:5/9:16</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">lens.vlog</code></td><td>35mm f/2.8 16:9</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">lens.candid</code></td><td>35mm f/4 4:5/9:16</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">lens.cinematic</code></td><td>50mm f/1.4-f/2.8 2.35:1/16:9</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">light.ugc.warm.key</code></td><td>3200K 1:0.6</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">light.vlog.natural.window</code></td><td>5000K 1:0.7</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">light.candid.golden</code></td><td>2800K 1:0.4</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">light.cinematic.side.soft</code></td><td>4000K 1:0.3</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.ugc.selfie</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.vlog.photo</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.candid.photo.v10</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.cinematic.photo</code></td><td>ships raw, prompt-led</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.selfie.video</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.vlog.video</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.candid.video</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">grade.cinematic.video</code></td><td>locked recipe v8</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">character_visual_anchors.non_negotiable</code></td><td>7-item list</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">character_visual_anchors.variable</code></td><td>4-item list</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">character_visual_anchors.never_show</code></td><td>4-item list</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">platforms.x.handle</code></td><td>TBD</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">platforms.x.bio</code></td><td>per JSON</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">platforms.x.cadence_per_day</code></td><td>2 video / 3 text / 1 thread</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">platforms.fanvue.handle</code></td><td>TBD</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">platforms.fanvue.pricing</code></td><td>$14.99 sub, $5-25 PPV</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">affiliates.priority_order</code></td><td>bybit, binance, kucoin</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">taboos.hard_lines_never</code></td><td>9-item list</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">vocabulary.use_freely</code></td><td>per JSON</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">vocabulary.never</code></td><td>bro, dude, fam</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+        <tr><td><code class="mono">vocabulary.trend_risk_2026</code></td><td>fren, HFSP, wagmi</td><td>LLC</td><td>none</td><td>2026-04-13</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Token owner = projectnamedate LLC across the board in v1</strong> (single-operator reality). Split ownership is a Phase 2 problem once a team exists.</p>
+
+    <hr>
+
+    <h2>13.3 RACI matrix</h2>
+
+    <p><strong>Legend:</strong> R=Responsible (does the work), A=Accountable (approves), C=Consulted (input before decision), I=Informed (notified after decision).</p>
+
+    <h3>v1 — single operator</h3>
+
+    <p>In v1, <code class="mono">projectnamedate LLC</code> (the operator) is R + A on everything. Voice lead is consulted where the decision is voice-adjacent. Legal counsel is on-call for P0 and taboo changes only. "Content generator" = the automated prompt-LLM pipeline + operator review; it is I (gets updated prompt bundles when things change).</p>
+
+    <table class="data-table">
+      <thead><tr><th>Activity</th><th>Operator (LLC)</th><th>Voice lead</th><th>Legal counsel</th><th>Content generator</th></tr></thead>
+      <tbody>
+        <tr><td>Brand essence change (§01)</td><td>R+A</td><td>C</td><td>I</td><td>I</td></tr>
+        <tr><td>Lore canon change (§02)</td><td>R+A</td><td>C</td><td>I</td><td>I</td></tr>
+        <tr><td>Voice change (§03)</td><td>R+A</td><td>C</td><td>I</td><td>I</td></tr>
+        <tr><td>Visual system change (§04)</td><td>R+A</td><td>—</td><td>I</td><td>I</td></tr>
+        <tr><td>Platform strategy change (§05)</td><td>R+A</td><td>—</td><td>I</td><td>I</td></tr>
+        <tr><td>Content pillar % shift (§06)</td><td>R+A</td><td>C</td><td>—</td><td>I</td></tr>
+        <tr><td>Rate card change (§08)</td><td>R+A</td><td>—</td><td>C</td><td>—</td></tr>
+        <tr><td>New decision-tree entry (§09)</td><td>R+A</td><td>C</td><td>C</td><td>I</td></tr>
+        <tr><td>P0 crisis response (§10)</td><td>R+A</td><td>C</td><td><strong>C</strong></td><td>I</td></tr>
+        <tr><td>Taboo list change (§11)</td><td>R+A</td><td>C</td><td><strong>C</strong></td><td>I</td></tr>
+        <tr><td>KPI target change (§12)</td><td>R+A</td><td>—</td><td>—</td><td>I</td></tr>
+        <tr><td>Version bump (§13)</td><td>R+A</td><td>—</td><td>—</td><td>I</td></tr>
+      </tbody>
+    </table>
+
+    <p>Legal is <strong>C</strong> (not just I) on P0 response and taboo changes because those are the only activities where a wrong decision carries regulatory or litigation risk.</p>
+
+    <h3>Phase 2 — post-launch, if team grows</h3>
+
+    <ul>
+      <li><strong>Voice lead</strong> splits from operator — gets R on §03 and §06, A on voice-sample rewrites.</li>
+      <li><strong>Content ops</strong> splits from operator — gets R on §09 decision-tree execution, calendar, cadence enforcement.</li>
+      <li><strong>Legal counsel</strong> moves from on-call to retainer — stays C on P0/taboo, adds C on rate card.</li>
+      <li><strong>Operator</strong> retains A on all sections; R shrinks to §01, §02, §13.</li>
+    </ul>
+
+    <p>Phase 2 trigger: MRR &gt;$10K sustained for 3 months, OR cadence consistently exceeds 10 posts/day, whichever is first.</p>
+
+    <hr>
+
+    <h2>13.4 DAM (Digital Asset Management)</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Concern</th><th>Path / convention</th></tr></thead>
+      <tbody>
+        <tr><td>Asset root</td><td><code class="mono">/Users/hammer/Desktop/Claude/kira/outputs/FINALS/</code></td></tr>
+        <tr><td>Photo finals</td><td><code class="mono">outputs/FINALS/photo/{raw,final}/</code></td></tr>
+        <tr><td>Video finals</td><td><code class="mono">outputs/FINALS/video/{raw,final}/</code></td></tr>
+        <tr><td>Canonical refs</td><td><code class="mono">/Users/hammer/Desktop/Claude/kira/inference/canonical_refs/</code></td></tr>
+        <tr><td>Training set</td><td><code class="mono">assets/kira/nb2/curated_50_upres/</code></td></tr>
+        <tr><td>Legacy training source (legal provenance)</td><td><code class="mono">archive/kira_dataset_sources/</code> — <strong>never delete</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Naming convention</h3>
+
+    <p><code class="mono">{workflow}_{scene}_{pipeline-suffix}.{ext}</code></p>
+
+    <p>Where:</p>
+    <ul>
+      <li><code class="mono">{workflow}</code> ∈ <code class="mono">selfie | vlog | candid | cinematic</code></li>
+      <li><code class="mono">{scene}</code> = short slug describing content (e.g. <code class="mono">desk-crypto</code>, <code class="mono">brooklyn-walk</code>, <code class="mono">tokyo-night</code>)</li>
+      <li><code class="mono">{pipeline-suffix}</code> ∈ <code class="mono">RAW | POST | UPRES | SIGNED | FINAL</code>
+        <ul>
+          <li><code class="mono">RAW</code> = direct model output, no post</li>
+          <li><code class="mono">POST</code> = post-processed per locked recipe</li>
+          <li><code class="mono">UPRES</code> = Topaz 2x applied</li>
+          <li><code class="mono">SIGNED</code> = C2PA-signed (provenance manifest attached)</li>
+          <li><code class="mono">FINAL</code> = shippable — the file a platform sees</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <ul>
+      <li><code class="mono">selfie_desk-crypto_FINAL.jpg</code></li>
+      <li><code class="mono">vlog_podcast-take3_UPRES.png</code></li>
+      <li><code class="mono">cinematic_tokyo-rain_SIGNED.mp4</code></li>
+    </ul>
+
+    <h3>Retention policy</h3>
+
+    <ul>
+      <li>Everything kept indefinitely.</li>
+      <li>A published asset is <strong>never deleted</strong> (provenance + takedown obligations outlive the asset's marketing life).</li>
+      <li>Version by filename, <strong>never overwrite</strong>. If a regenerate is needed, append <code class="mono">_v2</code>, <code class="mono">_v3</code>, etc.</li>
+      <li>Legacy training source at <code class="mono">archive/kira_dataset_sources/</code> is legal provenance — deletion would destroy our ability to respond to a training-data challenge.</li>
+    </ul>
+
+    <hr>
+
+    <h2>13.5 Update cadence</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Cadence</th><th>Scope</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Quarterly</strong></td><td>Calendar-driven review — run at Q1, Q2, Q3, Q4. Check KPIs, roll the CT allies/enemies roster (it churns), refresh rate card, review brand-audit trendline.</td></tr>
+        <tr><td><strong>Ad-hoc</strong></td><td>Triggered by any P0 or P1 crisis. Learning from the crisis is written up and the relevant section is patched within 7 days of incident close.</td></tr>
+        <tr><td><strong>Annual</strong></td><td>Full top-to-bottom review against a year of data. Major version bump if voice, visual, or taboo has materially shifted.</td></tr>
+      </tbody>
+    </table>
+
+    <p>Quarterly and annual cadences are calendared in advance. Ad-hoc reviews inherit the triggering event's incident ID in the changelog entry.</p>
+
+    <hr>
+
+    <h2>13.6 Review checklist for updates</h2>
+
+    <p>Before shipping a new version:</p>
+
+    <ol>
+      <li>Every change entered in <code class="mono">CHANGELOG.md</code> with <strong>why</strong> (not just what).</li>
+      <li><code class="mono">tokens.json</code> updated in sync with any visual / color / post-recipe changes. Token registry (13.2) updated.</li>
+      <li>Pipeline scripts in <code class="mono">scripts/pipeline/</code> re-verified to consume tokens correctly — if a token moved or changed, the script that reads it is checked.</li>
+      <li>All sample rewrites in the affected sections still pass the brand-audit scorecard (<a href="12-kpis.html">§12.6</a>).</li>
+      <li>No new content violates any hard taboo (<a href="11-ai-governance.html">§11</a>).</li>
+      <li>Version bumped per semver rules (13.1).</li>
+      <li>Bible files carry the <code class="mono">Signed by: projectnamedate LLC</code> header.</li>
+      <li><code class="mono">CLAUDE.md</code> and <code class="mono">docs/WHERE_WE_ARE.md</code> updated to reflect the new version, if the change affects production state.</li>
+    </ol>
+
+    <p>A change that fails any of 1-8 is not shipped. A skipped step is a defect.</p>
+
+    <hr>
+
+    <h2>13.7 Decommissioning SOP</h2>
+
+    <p>If Kira is ever retired, paused, or handed off to a different operator:</p>
+
+    <ul>
+      <li>All published content stays up. Retroactive deletion is not possible without violating provenance obligations to past subscribers and platforms.</li>
+      <li>C2PA certificates are renewed for <strong>at least 5 years post-retirement</strong>, so any challenge to historic content can be verified against a live chain of trust.</li>
+      <li>The takedown inbox remains monitored. The LLC remains the responsible entity. Inbox ownership does not transfer with any handoff unless the new operator is itself a legal entity capable of responding to legal process.</li>
+      <li>The canonical training set, legacy training source, and full content archive are preserved indefinitely.</li>
+      <li>The LoRA weights (<code class="mono">kira_v1_flux2dev_fine_step2500_PRODUCTION.safetensors</code> and all successors) stay under LLC control and are not sold, licensed, or released publicly. A Kira persona in retirement is still a persona the LLC is legally responsible for.</li>
+    </ul>
+
+    <p>Retirement is a <strong>legal status</strong>, not a creative status. The character can stop posting. The LLC cannot stop answering for what the character posted.</p>
+
+  </article>
+</main>
+
+<footer class="brand-footer">
+  <span>kira brand bible v1.0.0</span>
+  <span>section 13 · governance + versioning</span>
+  <span><a href="index.html" style="border: 0 !important;">↑ contents</a></span>
+</footer>
+
+</body>
+</html>

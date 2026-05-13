@@ -15,6 +15,8 @@ const SIZE = {
   hero: "text-[clamp(96px,18vw,260px)] leading-[0.84]",
 };
 
+export const WORDMARK_LETTERS = ["h", "a", "m", "m", "e", "r"] as const;
+
 function fireHermes(e: React.MouseEvent) {
   // Tap on the period intercepts: don't trigger the wrapping <a>.
   e.preventDefault();
@@ -27,7 +29,13 @@ function fireHermes(e: React.MouseEvent) {
 export function Wordmark({ className, ariaLabel = "hammer · home", size = "md" }: Props) {
   return (
     <span className={clsx("kw", SIZE[size], className)} aria-label={ariaLabel}>
-      <span className="kw-word">hammer</span>
+      <span className="kw-word" aria-hidden>
+        {WORDMARK_LETTERS.map((letter, index) => (
+          <span className="kw-letter-mask" key={`${letter}-${index}`}>
+            <span className="kw-letter">{letter}</span>
+          </span>
+        ))}
+      </span>
       <span
         className="dot cursor-pointer"
         onClick={fireHermes}

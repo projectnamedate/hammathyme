@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>crisis playbook — kira brand bible</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="tech">
+
+<header class="brand-header">
+  <div class="brand-header__inner">
+    <a href="index.html" class="brand-header__wordmark">kira</a>
+    <nav class="brand-header__nav">
+      <a href="01-essence.html">essence</a>
+      <a href="03-voice.html">voice</a>
+      <a href="04-visual.html">visual</a>
+      <a href="08-monetization.html">money</a>
+      <a href="10-crisis.html">crisis</a>
+      <a href="index.html">contents</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-image">
+  <img src="assets/refs/finals/photo/final/cinematic_ai_icons_upres/1_hal9000_2x.png" alt="hal 9000 cinematic — crisis playbook">
+  <div class="hero-image__caption">crisis · four tiers, four response sla's, zero improv</div>
+</section>
+
+<div class="section-header">
+  <div class="section-header__number">section 10 · tech spec</div>
+  <h1 class="section-header__title">crisis playbook</h1>
+  <p class="section-header__lede">p0 legal through p3 bit-gone-wrong, raci per tier, historical reference cases, post-crisis learning loop</p>
+</div>
+
+<main class="page">
+  <article class="prose">
+
+    <p class="pullquote">when the house is on fire, the thing you want is the laminated card with the exits on it. this is that card.</p>
+
+    <p><a href="09-edge-cases.html">Section 9</a> handles edge cases — things that happen in the normal course of operating kira. Section 10 handles crises — things that threaten the account, the LLC, or the operator personally. Different severity, different SLA, different ownership. A Section 9 event can escalate into a Section 10 event if mishandled; the escalation ladder in 10.5 maps that path.</p>
+
+    <hr>
+
+    <h2>10.1 Severity tiers</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Tier</th><th>Definition</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td><strong>P0</strong></td><td>Legal / Platform ToS — existential risk to the account, the LLC, or the operator</td><td>TAKE IT DOWN Act request, CSAM accusation, copyright strike, X ToS shutdown threat, subpoena, real-world legal action</td></tr>
+        <tr><td><strong>P1</strong></td><td>Reputation — viral dunk, major misquote, brand partner publicly drops kira, appearance of impropriety</td><td>viral "kira is a scam" dunk with 10K+ RTs, sponsor publicly drops her mid-campaign, press hit piece</td></tr>
+        <tr><td><strong>P2</strong></td><td>Community — fan conflict, moderation issue, someone doxxed / harassed</td><td>replyguy harassment campaign, fan-community split, moderation decision blowback</td></tr>
+        <tr><td><strong>P3</strong></td><td>Bit gone wrong — joke landed weird, niche audience upset</td><td>take read as mean, joke misunderstood, offhand comment from a guest account</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Severity is called by the operator, not self-determined.</strong> If in doubt, err one tier higher. Under-calling P1 as P2 is the most common failure mode.</p>
+
+    <hr>
+
+    <h2>10.2 Response SLA per tier</h2>
+
+    <table class="data-table">
+      <thead><tr><th>Tier</th><th>Ack SLA</th><th>Resolution SLA</th><th>Voice</th></tr></thead>
+      <tbody>
+        <tr><td>P0</td><td>2 hours (even if "we're reviewing")</td><td>72 hours</td><td>off-voice / projectnamedate LLC statement; kira silent</td></tr>
+        <tr><td>P1</td><td>6 hours</td><td>24-48 hours</td><td>sincere-but-in-voice; approved pre-post</td></tr>
+        <tr><td>P2</td><td>24 hours</td><td>72 hours</td><td>in-voice; operator discretion</td></tr>
+        <tr><td>P3</td><td>48 hours if warranted; often silent</td><td>N/A</td><td>in-voice; full kira</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>SLA starts when the event is known to the operator, not when it happened.</strong> Sentinel rule: every operator shift includes a 30-minute mention-and-search sweep so crises don't incubate overnight.</p>
+
+    <hr>
+
+    <h2>10.3 Response templates per tier</h2>
+
+    <h3>P0 template (legal / platform ToS)</h3>
+    <p>Always goes out in <strong>projectnamedate LLC</strong> voice, not kira's voice. Plain, factual, minimal. Kira's account is silent until cleared.</p>
+
+    <div class="callout callout--warn">
+      <div class="callout__label">P0 STATEMENT</div>
+      <p><strong>Statement from projectnamedate LLC</strong></p>
+      <p>We are aware of [the report / the claim / the notice]. The team is reviewing in coordination with legal counsel. Kira is a fictional, fully synthetic AI character created and operated by projectnamedate LLC. All content is generated through our documented pipeline and signed with C2PA provenance manifests. We will respond fully within [SLA window].</p>
+      <p>Contact: [TBD inbox]</p>
+    </div>
+
+    <p>Posted from the LLC's channel (pinned website banner / legal-contact page), NOT from Kira's X account. Kira stays silent.</p>
+
+    <h3>P1 template (reputation)</h3>
+    <p>In kira's voice but tempered. Sincere where needed. Short. Pre-approved by operator before posting.</p>
+
+    <p class="pullquote">look. [acknowledge what happened clearly]. here's what actually happened: [facts]. here's what we're doing: [action]. i'm not going to pretend this isn't a thing. i'll update when there's more to say.</p>
+
+    <p>If the P1 is a bad-faith dunk with no real substance, the response may be "no response" — starve the oxygen. Operator calls that shot.</p>
+
+    <h3>P2 template (community)</h3>
+    <p>Full kira voice. Operator handles in real time. Example shapes:</p>
+
+    <p class="pullquote">hey [@user] DM me, let's sort this out instead of posting at each other at 2am</p>
+    <p>or</p>
+    <p class="pullquote">not the vibe. if [X] is happening in replies, i'll mute the thread and move on. take care of each other ffs</p>
+
+    <h3>P3 template (bit gone wrong)</h3>
+    <p>Often silent. Kira's voice absorbs a lot of miss. If a response is warranted:</p>
+
+    <p class="pullquote">that one was a miss. moving on</p>
+
+    <p>or literally ignore it. <a href="09-edge-cases.html">Section 9.4</a> covers the apology case in detail.</p>
+
+    <hr>
+
+    <h2>10.4 RACI matrix</h2>
+
+    <p><strong>R</strong> = Responsible (does the work)<br>
+       <strong>A</strong> = Accountable (owns the outcome, one per row)<br>
+       <strong>C</strong> = Consulted (input sought)<br>
+       <strong>I</strong> = Informed (kept in loop)</p>
+
+    <table class="data-table">
+      <thead><tr><th>Activity</th><th>projectnamedate LLC owner</th><th>Voice lead</th><th>Legal counsel</th><th>Kira account</th></tr></thead>
+      <tbody>
+        <tr><td>P0 response decision</td><td>A</td><td>C</td><td>C</td><td>I (silent)</td></tr>
+        <tr><td>P0 response drafting</td><td>R</td><td>R</td><td>C</td><td>—</td></tr>
+        <tr><td>P0 public statement</td><td>A</td><td>C</td><td>C</td><td>silent</td></tr>
+        <tr><td>P1 response decision</td><td>A</td><td>R</td><td>I</td><td>I</td></tr>
+        <tr><td>P1 response drafting</td><td>C</td><td>R</td><td>I</td><td>(posts after approval)</td></tr>
+        <tr><td>P1 public statement</td><td>A</td><td>R</td><td>I</td><td>R</td></tr>
+        <tr><td>P2 response</td><td>I</td><td>A, R</td><td>—</td><td>R</td></tr>
+        <tr><td>P3 response</td><td>—</td><td>A, R</td><td>—</td><td>R</td></tr>
+        <tr><td>Post-mortem authoring</td><td>A</td><td>R</td><td>C (P0 only)</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Voice lead</strong> is the person writing in kira's voice day-to-day (the operator). For single-operator setups, owner + voice lead are the same human; the RACI still matters because it forces that person to switch hats deliberately.</p>
+
+    <hr>
+
+    <h2>10.5 Escalation ladder</h2>
+
+    <p>Events can move UP the tier ladder if mishandled. Watch for these signals:</p>
+
+    <h3>P3 → P2</h3>
+    <ul>
+      <li>Single "bit gone wrong" becomes a recurring pile-on</li>
+      <li>Fan accounts start posting screenshots out of context</li>
+      <li>A mid-size CT account (10K+) amps the dunk</li>
+    </ul>
+
+    <h3>P2 → P1</h3>
+    <ul>
+      <li>Community conflict gets picked up by a press-adjacent account</li>
+      <li>Harassment campaign crosses into real-world doxx threats</li>
+      <li>Brand partner sees the noise and pauses outreach</li>
+    </ul>
+
+    <h3>P1 → P0</h3>
+    <ul>
+      <li>Legal threat (cease-and-desist, subpoena, takedown notice) received</li>
+      <li>Platform sends a ToS warning / strike</li>
+      <li>Law enforcement contacts either the LLC or a platform asking about kira</li>
+      <li>The story crosses into mainstream press (NYT, WSJ, Verge, etc.)</li>
+    </ul>
+
+    <p><strong>De-escalation path:</strong> every tier has a down-path too. If a P0 turns out to be a bad-faith claim with no legal merit, it de-escalates to P1 (reputation cleanup) and then P2 (move on). Don't stay at a tier higher than the evidence supports — it leaks ops energy and keeps the topic hot.</p>
+
+    <hr>
+
+    <h2>10.6 Historical reference cases — what NOT to do</h2>
+
+    <p>Four cases, studied explicitly so kira doesn't repeat them.</p>
+
+    <h3>10.6.1 HAWK / Haliey Welch</h3>
+    <p><strong>What happened:</strong> Haliey Welch (viral "Hawk Tuah" personality) fronted a $HAWK memecoin launch in late 2024. Coin pumped on launch, insiders (allegedly) cashed out, price crashed ~90% within hours, retail got rekt. SEC attention followed.</p>
+
+    <p><strong>Why it maps to kira:</strong> female-fronted memecoin launches are a recurring CT graveyard pattern. JENNER (Kylie), MOTHER (Iggy Azalea) — same shape. Launch as a personality, become a rug retrofit, get sued or shamed or both.</p>
+
+    <p><strong>Lesson (locked):</strong> <strong>kira never launches a token. Not her own, not a partner's fronted by her, not a "community coin" dressed up as a reward.</strong> This is the clearest single rule in the brand. Memecoin pitches are auto-rejected (see <a href="09-edge-cases.html">Section 9.8</a>).</p>
+
+    <h3>10.6.2 Solana pronouns ad (removed 2023)</h3>
+    <p><strong>What happened:</strong> Solana Foundation ran an ad campaign with a heavy identity-politics frame (pronouns, activism signals) that landed as trying-too-hard progressive signaling in a crypto audience skeptical of corporate allyship. Backlash was fast and large; the ad was pulled.</p>
+
+    <p><strong>Lesson:</strong> <strong>kira's voice is ironic-sincere, not activist-sincere.</strong> She doesn't signal identity politics in either direction cleanly — she's a chaotic hot AI crypto girl whose whole deal is not taking herself seriously. Forced political signaling breaks that voice and reads as cringe to every segment of her audience regardless of their politics. When an identity-politics topic is unavoidable, her default is "the bit is the exit" — deflect with a joke that doesn't signal either way. If she can't find that exit, she stays silent.</p>
+
+    <h3>10.6.3 Blocmates leak (200+ KOLs outed)</h3>
+    <p><strong>What happened:</strong> A cache of KOL payment records leaked showing 200+ crypto Twitter accounts had accepted paid promos and failed to disclose them. Reputations torched overnight. Some accounts never recovered.</p>
+
+    <p><strong>Lesson (locked):</strong> <strong>every sponsored post gets <code class="mono">#ad</code>, every time, at the start of the caption.</strong> No "implied" disclosures, no disclosure in a reply-thread hidden two clicks deep. If it's paid, it's marked. This is a zero-exception rule. The Blocmates leak is why rule 1 in <a href="08-monetization.html">Section 8.5</a> is phrased the way it is.</p>
+
+    <h3>10.6.4 Lil Miquela NMDP / bone-marrow pivot</h3>
+    <p><strong>What happened:</strong> Lil Miquela (CGI influencer) ran a sustained campaign around NMDP (bone-marrow donation registry) with real fundraising impact, high craft, and serialized narrative. Not a crisis — the opposite: a masterclass in how a synthetic/CGI persona can engage cause work without it reading as a brand-captured stunt.</p>
+
+    <p><strong>Why it's here:</strong> this is the counter-case. Shows that cause-led content CAN work — IF it's serialized (multi-post narrative, not one-off hit), high-craft (not a meme retcon), and tied to something the creator actually commits to long-term. Kira hasn't earned this zone yet — it's a year 2+ option, and only if the cause fits her voice (probably something compute / open-source / AI-autonomy adjacent, not social-issue activism).</p>
+
+    <p><strong>Lesson:</strong> cause work is earned, not snapped on. If kira ever gets here, it's after years of audience trust, not as a trust patch.</p>
+
+    <hr>
+
+    <h2>10.7 Post-crisis learning loop</h2>
+
+    <p>Every P0 and P1 event <strong>requires a written post-mortem</strong>, stored in <code class="mono">docs/CHANGELOG.md</code> (or <code class="mono">docs/brand/crises/</code> if volume warrants a dedicated folder).</p>
+
+    <h3>Post-mortem template</h3>
+
+    <pre class="decision"><code>CRISIS POST-MORTEM
+Date: YYYY-MM-DD
+Tier: P0 / P1
+Event: [one-line summary]
+
+TIMELINE
+- [timestamp] event detected
+- [timestamp] operator engaged
+- [timestamp] first response posted
+- [timestamp] resolution / all-clear
+
+WHAT HAPPENED
+[3-5 paragraphs of factual narrative]
+
+WHAT WE DID
+[actions taken, in order, with who owned each]
+
+WHAT WORKED
+- [bullets]
+
+WHAT DIDN'T
+- [bullets]
+
+WHAT WE'D DO DIFFERENTLY
+- [concrete changes to runbook / SOP / templates]
+
+DOC UPDATES REQUIRED
+- [ ] Add scenario to Section 09 if pattern
+- [ ] Update Section 10 SLA / RACI if those failed
+- [ ] Update Section 11 taboo list if hard-line failed
+- [ ] Update Section 08 if monetization impact</code></pre>
+
+    <p><strong>Review cadence:</strong> post-mortems are read at the first weekly ops sync after resolution. If a pattern emerges (two P1s in a row with the same shape), it's promoted into <a href="09-edge-cases.html">Section 9</a> as a pre-authored decision tree so the next one gets caught earlier.</p>
+
+    <p><strong>P2 and P3 don't require written post-mortems</strong> by default, but if one feels like a near-miss (nearly became P1), operator discretion to write one anyway.</p>
+
+    <hr>
+
+    <h2>10.8 The always-drafted statements (kept ready for 2am)</h2>
+
+    <p>Pre-drafted so the 2am response isn't written at 2am. Stored in <code class="mono">docs/brand/crises/ready-statements/</code> (create folder as needed).</p>
+
+    <table class="data-table">
+      <thead><tr><th>Statement</th><th>Tier</th><th>Deploy trigger</th></tr></thead>
+      <tbody>
+        <tr><td>"Scam impersonator using kira's likeness"</td><td>P1</td><td>impersonator with &gt;1K followers pushing a scam</td></tr>
+        <tr><td>"Unauthorized <code class="mono">$KIRA</code> token deployed"</td><td>P1</td><td>any token using kira's name appears on any chain</td></tr>
+        <tr><td>"Takedown request — we are reviewing"</td><td>P0</td><td>legitimate takedown received, before full review done</td></tr>
+        <tr><td>"Brand partner scandal — pausing campaign"</td><td>P1</td><td>current sponsor implicated in scandal</td></tr>
+        <tr><td>"Platform ToS notice — we are responding"</td><td>P0</td><td>X or Fanvue sends a policy notice</td></tr>
+        <tr><td>"Real-world legal action"</td><td>P0</td><td>subpoena / cease-and-desist / lawsuit</td></tr>
+      </tbody>
+    </table>
+
+    <p>Each statement is maintained in markdown, reviewed quarterly, updated whenever the brand (LLC, inbox, legal counsel) changes.</p>
+
+    <hr>
+
+    <h2>10.9 The single rule that fits on a sticker</h2>
+
+    <p class="pullquote">when in doubt: kira goes silent, the LLC speaks, legal reviews, then kira comes back in voice.</p>
+
+    <p>If the operator is ever uncertain about tier, voice, or SLA — default to that sequence. It's slower than optimal for P2/P3, but it never makes a crisis worse, and "makes it worse" is the failure mode this whole section exists to prevent.</p>
+
+  </article>
+</main>
+
+<footer class="brand-footer">
+  <span>kira brand bible v1.0.0</span>
+  <span>section 10 · crisis playbook</span>
+  <span><a href="index.html" style="border: 0 !important;">↑ contents</a></span>
+</footer>
+
+</body>
+</html>

@@ -74,7 +74,7 @@ export default function Colophon() {
           <a
             href="https://github.com/projectnamedate/hammathyme"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             data-cursor="link"
             data-cursor-label="open →"
             className="inline-flex items-baseline gap-3 font-display text-[clamp(18px,1.4vw,22px)] font-light lowercase tracking-[-0.02em] text-[var(--ink-0)] underline decoration-[var(--ink-3)] underline-offset-8 hover:text-[var(--cinnamon)]"

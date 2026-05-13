@@ -26,7 +26,12 @@ structured metadata rather than editorial writing.
 
 **Note (2026-05-13):** Category pages are gallery-first. Ready work opens in
 detail routes, currently `/work/motion-graphics/reel`,
-`/work/pipelines-tools/pipeline-visualizer`, and
+`/work/pipelines-tools/pipeline-visualizer`, `/work/agents/kira`,
+`/work/websites/{hammathyme,kira,opencrawl,coefficient}`, and
 `/work/brand-systems/{hammer,kira,effigy}`.
+
+**Note (2026-05-13):** Brand guides, motion/video, and production artifacts
+live inside Hammer as portfolio illustrations. Website pieces use Hammer detail
+pages for the summary/preview, then link out to the live public websites.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

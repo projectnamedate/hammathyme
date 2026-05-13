@@ -87,10 +87,10 @@ export default function DesignSystem() {
 
       {/* 01 wordmark */}
       <Section number="01" title="wordmark">
-        <div className="flex flex-col gap-8 border border-[var(--ink-4)] bg-[var(--cream-1)]/40 p-8">
-          <Wordmark size="hero" />
+        <div className="flex flex-col gap-8 overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)]/40 p-6 md:p-8">
+          <Wordmark size="hero" className="!text-[clamp(72px,18vw,260px)]" />
           <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-            outfit black · native text run · controlled cinnamon brand mark
+            outfit black · per-letter cold-open construction · website-aligned period
           </span>
         </div>
       </Section>
@@ -114,9 +114,15 @@ export default function DesignSystem() {
       <Section number="03" title="type scale">
         <ul className="space-y-3">
           {TYPE_SCALE.map((t) => (
-            <li key={t.px} className="flex items-baseline gap-8 border-b border-[var(--ink-4)] pb-3">
-              <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ink-3)]">{t.label}</span>
-              <span className="font-display lowercase text-[var(--ink-0)] tracking-[-0.04em]" style={{ fontSize: t.px, fontWeight: 700, lineHeight: 1 }}>
+            <li
+              key={t.px}
+              className="flex min-w-0 flex-col gap-2 border-b border-[var(--ink-4)] pb-3 [container-type:inline-size] sm:flex-row sm:items-baseline sm:gap-8"
+            >
+              <span className="w-auto shrink-0 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--ink-3)] sm:w-24">{t.label}</span>
+              <span
+                className="block min-w-0 font-display lowercase tracking-[-0.04em] text-[var(--ink-0)]"
+                style={{ fontSize: `min(${t.px}px, 24cqw)`, fontWeight: 700, lineHeight: 1 }}
+              >
                 hammer · {t.px}px
               </span>
             </li>

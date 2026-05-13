@@ -15,7 +15,7 @@ This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself i
 ## Brand contract (non-negotiable)
 
 - **Light only.** Warm cream `#FAEEE9` page, deep maroon ink ramp, vinaceous cinnamon `#F28E86` as the single live accent. No dark mode.
-- **Lowercase wordmark.** The canonical `hammer.` visual reference is Motion Reel `01 — cold open` and the fixed Remotion `15 — signature`: Outfit Black lowercase `hammer` built with the cold-open per-letter kerning recipe, plus the cinnamon period as a controlled circular mark on the baseline. Avoid native-run substitutes, faux depth, fallback-looking shadows, or alternate title tracking that makes the `a` read like a different font.
+- **Lowercase wordmark.** The canonical `hammer.` recipe is a hybrid: Outfit Black lowercase `hammer` built with the Motion Reel cold-open per-letter construction and approved visual rhythm, plus the current website period placement as the approved controlled circular mark on the baseline. Avoid native-run substitutes, faux depth, fallback-looking shadows, mathematically equal ink-box spacing, or alternate title tracking that makes the `a` read like a different font.
 - **Dot system.** The cinnamon dot is protected for `hammer.` and may appear as a controlled circular display punctuation motif on bold Outfit/Geist title lockups only. Do not attach it to Instrument Serif italic words, all-italic lines, metadata separators, repeated item labels, or bloodlust punctuation.
 - **Outfit Black for display.** Geist for body. Geist Mono for captions/code. Instrument Serif **italic only** for the single-italic-word motif inside headlines.
 - **Sentence case body.** Lowercase headings and chips. No ALL CAPS except mono captions where intentional.
@@ -56,7 +56,7 @@ Live API demos go through `/api/*` routes with edge-middleware rate-limiting and
 /work                atrium — 8 category tiles (Swiss wall, fixed; mobile = vertical snap)
 /work/[category]     category index — editorial header + pieces grid
 /work/[category]/[piece]
-                     detail view for ready live pieces (reel, pipeline graph, brand dossiers)
+                     detail view for ready pieces (reel, pipeline graph, brand dossiers, agents, websites)
 /about               anteroom — bio, experience timeline, clients, education, memberships
 /contact             vestibule — poster split layout, contact lines, status indicator
 ```
@@ -103,5 +103,11 @@ case-study copy + /about metadata + structured data, not a blog.
 Each category is a *collection* — multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
-`/work/motion-graphics/reel`, `/work/pipelines-tools/pipeline-visualizer`, and
+`/work/motion-graphics/reel`, `/work/pipelines-tools/pipeline-visualizer`,
+`/work/agents/kira`, `/work/websites/{hammathyme,kira,opencrawl,coefficient}`, and
 `/work/brand-systems/{hammer,kira,effigy}`.
+
+Portfolio artifact rule: most finished artifacts live inside Hammer as the
+portfolio illustration itself, including videos, brand guides, brand books, and
+pipeline visuals. Website pieces are the exception: Hammer shows a summary and
+preview first, then links out to the live public site.

@@ -13,6 +13,7 @@ import { MadeWithAITag } from "@/components/MadeWithAITag";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.vercel.app";
+const ENABLE_VERCEL_OBSERVABILITY = process.env.VERCEL === "1";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -47,10 +48,10 @@ hello@hammathyme.ai · the period after "hammer" is intentional.
 const CONSOLE_BANNER = `(() => {
   if (typeof window === "undefined") return;
   const css = [
-    "font: 600 22px Outfit, sans-serif; color: #2a0a0a; letter-spacing: -0.02em;",
+    "font: 600 22px Outfit, sans-serif; color: #1F0707; letter-spacing: -0.02em;",
     "font: 900 22px Outfit, sans-serif; color: #F28E86;",
-    "font: 11px 'Geist Mono', ui-monospace, monospace; color: #6e3030; letter-spacing: 0.18em;",
-    "font: 11px 'Geist Mono', ui-monospace, monospace; color: #c66a64; letter-spacing: 0.18em;",
+    "font: 11px 'Geist Mono', ui-monospace, monospace; color: #6E2C27; letter-spacing: 0.18em;",
+    "font: 11px 'Geist Mono', ui-monospace, monospace; color: #A66860; letter-spacing: 0.18em;",
   ];
   console.log(
     "%chammer%c.   %cai producer · la / ny / remote%c   hello@hammathyme.ai",
@@ -83,8 +84,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EntryCurtain />
         <InspectorOverlay />
         <HermesStatusBar />
-        <Analytics />
-        <SpeedInsights />
+        {ENABLE_VERCEL_OBSERVABILITY ? (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        ) : null}
       </body>
     </html>
   );

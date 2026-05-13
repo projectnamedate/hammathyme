@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>effigy · logo · v1.0 locked</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A1230;
+    --ink-2: #1A2350;
+    --ink-3: #2A3A7A;
+    --ink-deep: #050919;
+    --bone: #F5F7FF;
+    --bone-2: #E8EEFF;
+    --bone-3: #D4E0FF;
+    --accent: #78A7FF;
+    --accent-deep: #4B6DCE;
+    --accent-pale: #A8C4FF;
+    --rule: rgba(10, 18, 48, 0.12);
+    --rule-strong: rgba(10, 18, 48, 0.32);
+    --font-display: 'JetBrains Mono', ui-monospace, monospace;
+    --font-body: 'Inter Tight', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    min-height: 100%;
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    background: var(--bone);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  @media (pointer: fine) { body { cursor: none; } }
+  ::selection { background: var(--accent); color: var(--ink); }
+  a { color: inherit; text-decoration: none; }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 220ms var(--ease), height 220ms var(--ease), background 260ms, border-color 260ms;
+    mix-blend-mode: multiply;
+  }
+  .cursor.hover { width: 44px; height: 44px; background: var(--accent); border-color: var(--accent); opacity: 0.55; }
+  @media (pointer: coarse) { .cursor { display: none; } }
+
+  /* Top fixed chrome */
+  .chrome {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 14px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, var(--bone) 0%, rgba(245,247,255,0.85) 70%, rgba(245,247,255,0) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .chrome strong { font-weight: 800; text-transform: lowercase; font-size: 13px; letter-spacing: -0.01em; }
+  .chrome-left, .chrome-right { display: flex; gap: 24px; align-items: center; }
+  .chrome-sep { opacity: 0.3; }
+  .chrome a { opacity: 0.55; transition: opacity 220ms, color 220ms; }
+  .chrome a:hover { opacity: 1; color: var(--accent-deep); }
+  .chrome .pill {
+    padding: 4px 10px;
+    background: var(--accent);
+    color: var(--ink);
+    font-weight: 700;
+    border-radius: 0;
+  }
+
+  /* Page grid + container */
+  .container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Section base */
+  section { padding: 120px 0 80px; position: relative; }
+  section:first-of-type { padding-top: 80px; }
+
+  /* Meta bar */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.55;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 40px;
+  }
+  .meta .counter { font-weight: 700; opacity: 1; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  HERO — LOCKED LOGO                                  */
+  /* ═══════════════════════════════════════════════════ */
+  .hero {
+    padding: 140px 0 80px;
+    position: relative;
+  }
+  .hero-stamp {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.55;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .hero-stamp .lock { background: var(--accent); color: var(--ink); padding: 3px 8px; font-weight: 700; }
+  .wordmark-stage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 40px 0;
+  }
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(120px, 22vw, 380px);
+    line-height: 0.82;
+    letter-spacing: -0.065em;
+    color: var(--ink);
+    position: relative;
+    display: inline-block;
+    transition: letter-spacing 600ms var(--ease), transform 600ms var(--ease);
+  }
+  .wordmark::after {
+    content: '';
+    position: absolute;
+    bottom: -18px; left: 0; right: 0;
+    height: 10px;
+    background: var(--accent);
+    transform-origin: left center;
+    animation: ruleIn 1400ms var(--ease) 300ms both;
+  }
+  @keyframes ruleIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .wordmark:hover { letter-spacing: -0.055em; }
+  .tagline {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    opacity: 0.75;
+    margin-top: 32px;
+    padding-top: 8px;
+  }
+  .hero-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .hero-footer .left { display: flex; gap: 32px; opacity: 0.7; }
+  .hero-footer .left strong { opacity: 1; font-weight: 700; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  LOGOMARK — 03-B SPLIT CAST                          */
+  /* ═══════════════════════════════════════════════════ */
+  .logomark-wrap {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 48px;
+    align-items: stretch;
+    margin-bottom: 32px;
+  }
+  .logomark-stage {
+    background: var(--bone-2);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    position: relative;
+    border: 1px solid var(--ink);
+    overflow: hidden;
+    transition: background 400ms var(--ease);
+  }
+  .logomark-stage:hover { background: var(--bone-3); }
+  .logomark-stage svg {
+    width: auto;
+    height: 66%;
+    max-width: 56%;
+    transition: transform 600ms var(--ease);
+  }
+  .logomark-stage:hover svg { transform: translateY(-6px); }
+  .lm-stamp {
+    font-family: var(--font-mono);
+    position: absolute;
+    top: 18px; left: 18px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.55;
+  }
+  .logomark-specs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 0;
+  }
+  .lm-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    opacity: 0.6;
+    margin-bottom: 10px;
+  }
+  .lm-name {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    margin: 0 0 20px;
+  }
+  .lm-body {
+    font-family: var(--font-display);
+    font-size: 18px;
+    line-height: 1.55;
+    margin: 0 0 28px;
+    max-width: 58ch;
+    color: var(--ink);
+    opacity: 0.9;
+  }
+  .lm-body strong { font-weight: 700; }
+  .lm-spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 32px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-top: 20px;
+    border-top: 1px solid var(--ink);
+  }
+  .lm-spec-grid > div { line-height: 1.5; }
+  .lm-spec-grid span {
+    color: var(--accent-deep);
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .lm-spec-grid code {
+    background: var(--bone-2);
+    padding: 1px 5px;
+    font-size: 10px;
+  }
+
+  .lm-scales {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    padding: 32px;
+    background: var(--bone-2);
+    border: 1px solid var(--ink);
+    align-items: end;
+  }
+  .lm-scale-stage {
+    position: relative;
+    display: grid;
+    place-items: end center;
+    padding: 24px 12px 40px;
+    background: var(--bone);
+    aspect-ratio: 3 / 4;
+    transition: transform 300ms var(--ease);
+  }
+  .lm-scale-stage:hover { transform: translateY(-4px); }
+  .lm-scale-stage[data-size="fallback"] { background: var(--ink); }
+  .lm-scale-stage[data-size="fallback"] .lm-size-meta { color: var(--bone); opacity: 0.7; }
+  .lm-size-meta {
+    font-family: var(--font-mono);
+    position: absolute;
+    bottom: 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+  }
+  .lm-fallback-e {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 180px;
+    line-height: 0.85;
+    letter-spacing: -0.07em;
+    color: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    .logomark-wrap { grid-template-columns: 1fr; }
+    .lm-scales { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  LOCKUP SYSTEM                                       */
+  /* ═══════════════════════════════════════════════════ */
+  .lockup-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .lockup-card {
+    border: 1px solid var(--ink);
+    padding: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+    transition: transform 300ms var(--ease);
+    background: var(--bone);
+  }
+  .lockup-card:hover { transform: translateY(-4px); }
+  .lockup-visual {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .lockup-label {
+    padding: 16px 18px;
+    border-top: 1px solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: grid;
+    gap: 2px;
+  }
+  .lockup-label strong { font-weight: 700; font-size: 11px; }
+  .lockup-label span { opacity: 0.6; }
+
+  .lockup-word {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 72px;
+    line-height: 0.85;
+    letter-spacing: -0.065em;
+    color: var(--ink);
+  }
+  .lockup-word-white {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 72px;
+    line-height: 0.85;
+    letter-spacing: -0.065em;
+    color: var(--bone);
+  }
+
+  .lockup-visual.ink { background: var(--ink); }
+  .lockup-visual.accent { background: var(--accent); }
+  .lockup-visual.bone { background: var(--bone-2); }
+
+  .monogram-big {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 180px;
+    line-height: 0.85;
+    letter-spacing: -0.07em;
+  }
+  .monogram-big.ink-text { color: var(--ink); }
+  .monogram-big.bone-text { color: var(--bone); }
+
+  .favicon-stack {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 24px;
+    align-items: end;
+    justify-content: center;
+  }
+  .favicon-block {
+    background: var(--ink);
+    color: var(--bone);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .fb-64 { width: 64px; height: 64px; font-size: 44px; }
+  .fb-32 { width: 32px; height: 32px; font-size: 22px; }
+  .fb-16 { width: 16px; height: 16px; font-size: 11px; }
+
+  .accent-bar {
+    position: absolute;
+    bottom: 16px; left: 24px;
+    width: calc(100% - 48px);
+    height: 4px;
+    background: var(--accent);
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  CONSTRUCTION & CLEAR SPACE                          */
+  /* ═══════════════════════════════════════════════════ */
+  .construction-block {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 24px;
+  }
+  .construction-stage {
+    aspect-ratio: 2/1;
+    background: var(--bone);
+    border: 1px solid var(--ink);
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .construction-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--accent-pale) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent-pale) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: -1px -1px;
+    opacity: 0.5;
+  }
+  .clear-ring {
+    position: absolute;
+    inset: 15%;
+    border: 1.5px dashed var(--accent);
+    opacity: 0.8;
+  }
+  .construction-stage .wm-mid {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 120px;
+    line-height: 1;
+    letter-spacing: -0.065em;
+    color: var(--ink);
+    position: relative;
+    z-index: 2;
+  }
+  .construction-stage .wm-mid::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 0; right: 0;
+    height: 6px;
+    background: var(--accent);
+  }
+  .construction-stage .dim {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+  .dim.top { top: 8px; left: 50%; transform: translateX(-50%); }
+  .dim.bottom { bottom: 8px; left: 50%; transform: translateX(-50%); }
+  .dim.left { left: 8px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
+  .dim.right { right: 8px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: center; }
+
+  .construction-specs { display: grid; gap: 20px; }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 18px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .spec-row:first-child { border-top: 2px solid var(--ink); padding-top: 16px; }
+  .spec-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .spec-value { font-size: 14px; line-height: 1.55; }
+  .spec-value code {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 2px 6px;
+    background: var(--bone-2);
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PALETTE — FULL TINTS & SHADES                       */
+  /* ═══════════════════════════════════════════════════ */
+  .palette-hero {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+  .chip {
+    aspect-ratio: 0.8;
+    border: 1px solid var(--ink);
+    padding: 18px 16px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: transform 300ms var(--ease);
+  }
+  .chip:hover { transform: translateY(-4px); }
+  .chip-name { font-size: 9px; opacity: 0.75; letter-spacing: 0.1em; }
+  .chip-hex { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; }
+  .chip-data { font-size: 8.5px; opacity: 0.55; line-height: 1.65; }
+
+  /* Tint/shade row */
+  .spectrum-row {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    height: 56px;
+    border: 1px solid var(--ink);
+  }
+  .spectrum-row .step {
+    position: relative;
+    transition: transform 260ms var(--ease);
+  }
+  .spectrum-row .step:hover {
+    transform: scaleY(1.12);
+    z-index: 2;
+  }
+  .spectrum-row .step::after {
+    content: attr(data-hex);
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    transition: opacity 220ms;
+    white-space: nowrap;
+  }
+  .spectrum-row .step:hover::after { opacity: 0.75; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  TYPE PAIRING                                        */
+  /* ═══════════════════════════════════════════════════ */
+  .type-block { margin-top: 24px; }
+  .type-row {
+    display: grid;
+    grid-template-columns: 140px 100px 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .type-row:first-child { border-top: 2px solid var(--ink); }
+  .type-row .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+  }
+  .type-row .size {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+  .type-row .sample {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+  .type-row .sample.body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+  .type-row .sample.mono {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  DON'TS                                              */
+  /* ═══════════════════════════════════════════════════ */
+  .donts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .dont-card {
+    aspect-ratio: 1;
+    border: 1px solid var(--ink);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.065em;
+    color: var(--ink);
+  }
+  .dont-card::after {
+    content: '';
+    position: absolute;
+    top: 10%; left: 10%; right: 10%; bottom: 10%;
+    border: 2px solid var(--accent-deep);
+    transform: rotate(-10deg);
+    opacity: 0.85;
+  }
+  .dont-card .x-mark {
+    position: absolute;
+    top: 10px; right: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-deep);
+    text-transform: uppercase;
+    z-index: 3;
+  }
+  .dont-card .caption {
+    position: absolute;
+    bottom: 10px; left: 12px; right: 12px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+  .dont-card.uppercase { text-transform: uppercase; font-size: 44px; letter-spacing: -0.03em; }
+  .dont-card.italic { font-style: italic; font-family: 'Inter Tight', sans-serif; font-weight: 600; }
+  .dont-card.rotated { transform: rotate(-6deg); }
+  .dont-card.stretched { font-size: 48px; transform: scaleX(1.6); }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  FOOTER                                              */
+  /* ═══════════════════════════════════════════════════ */
+  footer {
+    margin-top: 120px;
+    padding: 60px 32px 40px;
+    background: var(--ink);
+    color: var(--bone);
+    border-top: 6px solid var(--accent);
+  }
+  .footer-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 48px;
+  }
+  .footer-wm {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(80px, 15vw, 200px);
+    line-height: 0.82;
+    letter-spacing: -0.065em;
+    color: var(--bone);
+    position: relative;
+  }
+  .footer-wm::after {
+    content: '';
+    position: absolute;
+    bottom: 0.18em; left: -2px; width: 14px; height: 14px;
+    background: var(--accent);
+  }
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: right;
+    line-height: 2;
+    opacity: 0.7;
+  }
+  .footer-meta strong { font-weight: 700; opacity: 1; color: var(--accent); }
+
+  @media (max-width: 1100px) {
+    .lockup-grid, .donts { grid-template-columns: 1fr 1fr; }
+    .palette-hero { grid-template-columns: 1fr 1fr; }
+    .spectrum-row { grid-template-columns: repeat(5, 1fr); height: 80px; }
+    .spectrum-row .step:nth-child(n+6) { display: none; }
+    .construction-block, .type-row { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<div class="chrome">
+  <div class="chrome-left">
+    <strong>effigy</strong>
+    <span class="chrome-sep">/</span>
+    <span>logo system</span>
+    <span class="chrome-sep">/</span>
+    <span class="pill">locked v1.0</span>
+  </div>
+  <div class="chrome-right">
+    <a href="#logomark">logomark</a>
+    <a href="#lockups">lockups</a>
+    <a href="#construction">construction</a>
+    <a href="#palette">palette</a>
+    <a href="#type">type</a>
+    <a href="#donts">don'ts</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- HERO                                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-stamp">
+      <span>— effigy · logo specification · wordmark + logomark</span>
+      <span><span class="lock">locked</span> · v1.1 · 2026-04-21 · direction a bones × narwhal palette · 03-b split cast</span>
+    </div>
+    <div class="wordmark-stage">
+      <div class="wordmark">effigy</div>
+      <div class="tagline">— a crafted likeness · autonomous presence —</div>
+    </div>
+    <div class="hero-footer">
+      <div class="left">
+        <span><strong>typeface</strong> · jetbrains mono 800 <span style="opacity:0.5;">(berkeley mono at ship)</span></span>
+        <span><strong>tracking</strong> · -0.065em</span>
+        <span><strong>rule</strong> · 10px · narwhal</span>
+      </div>
+      <span>01 · hero</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LOGOMARK · 03-B THE SPLIT CAST                       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="logomark">
+  <div class="container">
+    <div class="meta"><span>— logomark · 03-b the split cast</span><span class="counter">02 / 07</span></div>
+
+    <div class="logomark-wrap">
+      <div class="logomark-stage">
+        <div class="lm-stamp">— 03-b · head · body · lower · 4u gaps</div>
+        <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg" aria-label="effigy logomark — the split cast">
+          <g transform="translate(16, 10)">
+            <circle cx="40" cy="30" r="16" fill="var(--accent)"/>
+            <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="var(--accent)"/>
+            <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="var(--accent)"/>
+            <rect x="8" y="184" width="64" height="28" fill="var(--accent)"/>
+          </g>
+          <circle cx="40" cy="30" r="16" fill="var(--ink)"/>
+          <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="var(--ink)"/>
+          <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="var(--ink)"/>
+          <rect x="8" y="184" width="64" height="28" fill="var(--ink)"/>
+        </svg>
+      </div>
+      <div class="logomark-specs">
+        <div class="lm-tag">— concept</div>
+        <h3 class="lm-name">the split cast.</h3>
+        <p class="lm-body">a robed effigy figure + narwhal offset trace behind. both figures split into <strong>head · body · lower</strong> with 4-unit gaps. the mark reads as construction on purpose — an agent assembled from distinct parts, cast from a source, offset on the record.</p>
+        <div class="lm-spec-grid">
+          <div><span>— shape</span> robed silhouette · head / body / lower</div>
+          <div><span>— fills</span> ink front · narwhal offset trace behind</div>
+          <div><span>— gaps</span> 4 units · head→body · body→lower · both planes</div>
+          <div><span>— offset</span> 16 right · 10 down (narwhal plane)</div>
+          <div><span>— viewbox</span> 0 0 130 230 · 0.565 : 1 ratio</div>
+          <div><span>— min size</span> 64px (below: fall back to monogram <code>e</code>)</div>
+          <div><span>— alt</span> bone front + narwhal trace (reversed on ink surfaces)</div>
+          <div><span>— never</span> no color outside palette · no rotation · no rearrangement</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lm-scales">
+      <div class="lm-scale-stage" data-size="hero">
+        <div class="lm-size-meta">hero · 512</div>
+        <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg" style="height: 256px;">
+          <g transform="translate(16, 10)"><circle cx="40" cy="30" r="16" fill="#78A7FF"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/><rect x="8" y="184" width="64" height="28" fill="#78A7FF"/></g>
+          <circle cx="40" cy="30" r="16" fill="#0A1230"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/><rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+        </svg>
+      </div>
+      <div class="lm-scale-stage" data-size="mid">
+        <div class="lm-size-meta">nav · 128</div>
+        <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg" style="height: 128px;">
+          <g transform="translate(16, 10)"><circle cx="40" cy="30" r="16" fill="#78A7FF"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/><rect x="8" y="184" width="64" height="28" fill="#78A7FF"/></g>
+          <circle cx="40" cy="30" r="16" fill="#0A1230"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/><rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+        </svg>
+      </div>
+      <div class="lm-scale-stage" data-size="card">
+        <div class="lm-size-meta">card · 80</div>
+        <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg" style="height: 80px;">
+          <g transform="translate(16, 10)"><circle cx="40" cy="30" r="16" fill="#78A7FF"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/><rect x="8" y="184" width="64" height="28" fill="#78A7FF"/></g>
+          <circle cx="40" cy="30" r="16" fill="#0A1230"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/><rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+        </svg>
+      </div>
+      <div class="lm-scale-stage" data-size="min">
+        <div class="lm-size-meta">min · 64</div>
+        <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg" style="height: 64px;">
+          <g transform="translate(16, 10)"><circle cx="40" cy="30" r="16" fill="#78A7FF"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/><rect x="8" y="184" width="64" height="28" fill="#78A7FF"/></g>
+          <circle cx="40" cy="30" r="16" fill="#0A1230"/><path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230"/><path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230"/><rect x="8" y="184" width="64" height="28" fill="#0A1230"/>
+        </svg>
+      </div>
+      <div class="lm-scale-stage" data-size="fallback">
+        <div class="lm-size-meta">&lt; 64 · use e</div>
+        <div class="lm-fallback-e">e</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LOCKUPS                                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="lockups">
+  <div class="container">
+    <div class="meta"><span>— lockup system · 4 canonical placements</span><span class="counter">03 / 07</span></div>
+
+    <div class="lockup-grid">
+      <!-- Primary wordmark on bone -->
+      <div class="lockup-card">
+        <div class="lockup-visual bone" style="position: relative;">
+          <div style="position:relative;">
+            <div class="lockup-word">effigy</div>
+            <div style="position:absolute;bottom:-8px;left:0;right:0;height:5px;background:var(--accent);"></div>
+          </div>
+        </div>
+        <div class="lockup-label">
+          <strong>primary · wordmark on bone</strong>
+          <span>default · use 80% of the time · ink on bone-2 or bone</span>
+        </div>
+      </div>
+
+      <!-- Wordmark on ink (reversed) -->
+      <div class="lockup-card">
+        <div class="lockup-visual ink" style="position: relative;">
+          <div style="position:relative;">
+            <div class="lockup-word-white">effigy</div>
+            <div style="position:absolute;bottom:-8px;left:0;right:0;height:5px;background:var(--accent);"></div>
+          </div>
+        </div>
+        <div class="lockup-label">
+          <strong>reversed · wordmark on ink</strong>
+          <span>footer · dark sections · sparingly in product</span>
+        </div>
+      </div>
+
+      <!-- Wordmark on accent -->
+      <div class="lockup-card">
+        <div class="lockup-visual accent">
+          <div class="lockup-word">effigy</div>
+        </div>
+        <div class="lockup-label">
+          <strong>accent · wordmark on narwhal</strong>
+          <span>moments of emphasis · launch / release / key frames</span>
+        </div>
+      </div>
+
+      <!-- Monogram on ink -->
+      <div class="lockup-card">
+        <div class="lockup-visual ink">
+          <div class="monogram-big bone-text">e</div>
+        </div>
+        <div class="lockup-label">
+          <strong>monogram · lowercase e</strong>
+          <span>favicons · app icons ≤32px · where wordmark loses legibility</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second row: applied real-world examples -->
+    <div class="lockup-grid" style="margin-top: 16px;">
+      <!-- X / Twitter header -->
+      <div class="lockup-card" style="grid-column: span 2;">
+        <div class="lockup-visual ink" style="aspect-ratio: 3/1; padding: 0; position: relative;">
+          <div style="position:absolute; top:0; left:0; right:0; height:6px; background: var(--accent);"></div>
+          <div style="position:absolute; top:18px; left:24px; font-family: var(--font-mono); font-size:10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--bone); opacity: 0.4;">@effigy · 1500×500 · header crop</div>
+          <div style="position:absolute; bottom: 20px; left: 24px; display: flex; align-items: flex-end; gap: 12px;">
+            <div class="lockup-word-white" style="font-size: 48px;">effigy</div>
+            <span style="font-family: var(--font-mono); font-size: 10px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; padding-bottom: 8px;">a crafted likeness</span>
+          </div>
+        </div>
+        <div class="lockup-label">
+          <strong>social · x / instagram / linkedin header</strong>
+          <span>accent bar top · wordmark + mono descriptor · ink background</span>
+        </div>
+      </div>
+
+      <!-- Favicon stack -->
+      <div class="lockup-card">
+        <div class="lockup-visual bone" style="padding: 32px;">
+          <div class="favicon-stack">
+            <div class="favicon-block fb-64">e</div>
+            <div class="favicon-block fb-32">e</div>
+            <div class="favicon-block fb-16">e</div>
+          </div>
+        </div>
+        <div class="lockup-label">
+          <strong>favicon · 64 / 32 / 16</strong>
+          <span>legible to one pixel · always ink on bone or bone on ink</span>
+        </div>
+      </div>
+
+      <!-- App icon -->
+      <div class="lockup-card">
+        <div class="lockup-visual accent">
+          <div style="width: 140px; height: 140px; background: var(--ink); display:grid; place-items:center;">
+            <div class="monogram-big bone-text" style="font-size: 96px;">e</div>
+          </div>
+        </div>
+        <div class="lockup-label">
+          <strong>app icon · 1024 · rounded to platform</strong>
+          <span>ink square · bone monogram · narwhal canvas around</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CONSTRUCTION & CLEAR SPACE                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="construction">
+  <div class="container">
+    <div class="meta"><span>— construction · clear space · rules</span><span class="counter">04 / 07</span></div>
+    <div class="construction-block">
+      <div class="construction-stage">
+        <div class="construction-grid"></div>
+        <div class="clear-ring"></div>
+        <span class="dim top">1× cap-height clear above</span>
+        <span class="dim bottom">rule + 2× below</span>
+        <span class="dim left">1× cap-height left</span>
+        <span class="dim right">1× cap-height right</span>
+        <div class="wm-mid">effigy</div>
+      </div>
+      <div class="construction-specs">
+        <div class="spec-row">
+          <span class="spec-label">type</span>
+          <div class="spec-value">JetBrains Mono 800 (production swaps to <code>Berkeley Mono Bold</code>). Lowercase only. Always.</div>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">tracking</span>
+          <div class="spec-value">Display: <code>-0.065em</code>. Small contexts (≤24px): <code>-0.04em</code>. Never positive.</div>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">rule</span>
+          <div class="spec-value">10px accent bar flush-left, full-wordmark-width, 18px below baseline. Scales 1:1 with wordmark.</div>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">clear space</span>
+          <div class="spec-value">Minimum 1× cap-height on all sides. Nothing crosses the cap-line or drops below the rule.</div>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">min size</span>
+          <div class="spec-value">Wordmark: 80px wide. Below that, switch to monogram. Monogram: 16px minimum.</div>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">color</span>
+          <div class="spec-value">Primary: ink on bone. Reversed: bone on ink. Emphasis: ink on narwhal. Never anything else.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PALETTE                                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="palette">
+  <div class="container">
+    <div class="meta"><span>— palette · narwhal grey in veiling twilight</span><span class="counter">05 / 07</span></div>
+
+    <div class="palette-hero">
+      <div class="chip" style="background: var(--ink); color: var(--bone); border-color: var(--ink);">
+        <span class="chip-name">ink · primary text</span>
+        <span class="chip-hex">#0A1230</span>
+        <span class="chip-data">rgb 10 18 48<br>hsl 229 66% 11%<br>oklch 0.17 0.08 276</span>
+      </div>
+      <div class="chip" style="background: var(--ink-2); color: var(--bone); border-color: var(--ink-2);">
+        <span class="chip-name">ink-2 · deep</span>
+        <span class="chip-hex">#1A2350</span>
+        <span class="chip-data">rgb 26 35 80<br>hsl 230 51% 21%<br>oklch 0.25 0.1 276</span>
+      </div>
+      <div class="chip" style="background: var(--ink-3); color: var(--bone); border-color: var(--ink-3);">
+        <span class="chip-name">ink-3 · mid</span>
+        <span class="chip-hex">#2A3A7A</span>
+        <span class="chip-data">rgb 42 58 122<br>hsl 228 49% 32%<br>oklch 0.38 0.13 277</span>
+      </div>
+      <div class="chip" style="background: var(--accent-deep); color: var(--bone); border-color: var(--accent-deep);">
+        <span class="chip-name">accent-deep · body links</span>
+        <span class="chip-hex">#4B6DCE</span>
+        <span class="chip-data">rgb 75 109 206<br>hsl 224 56% 55%<br>oklch 0.56 0.17 270<br>wcag aa on bone</span>
+      </div>
+      <div class="chip" style="background: var(--accent); color: var(--ink); border-color: var(--accent);">
+        <span class="chip-name">narwhal · primary accent</span>
+        <span class="chip-hex">#78A7FF</span>
+        <span class="chip-data">rgb 120 167 255<br>hsl 221 100% 74%<br>oklch 0.74 0.24 264<br>large + display only</span>
+      </div>
+      <div class="chip" style="background: var(--accent-pale); color: var(--ink); border-color: var(--accent-pale);">
+        <span class="chip-name">accent-pale · rare</span>
+        <span class="chip-hex">#A8C4FF</span>
+        <span class="chip-data">rgb 168 196 255<br>hsl 220 100% 83%<br>oklch 0.82 0.15 260</span>
+      </div>
+      <div class="chip" style="background: var(--bone-3); color: var(--ink); border-color: var(--ink);">
+        <span class="chip-name">bone-3 · soft tint</span>
+        <span class="chip-hex">#D4E0FF</span>
+        <span class="chip-data">rgb 212 224 255<br>hsl 223 100% 92%<br>oklch 0.91 0.06 270</span>
+      </div>
+      <div class="chip" style="background: var(--bone-2); color: var(--ink); border-color: var(--ink);">
+        <span class="chip-name">bone-2 · elevation</span>
+        <span class="chip-hex">#E8EEFF</span>
+        <span class="chip-data">rgb 232 238 255<br>hsl 224 100% 95%<br>oklch 0.95 0.03 267</span>
+      </div>
+      <div class="chip" style="background: var(--bone); color: var(--ink); border-color: var(--ink);">
+        <span class="chip-name">bone · background</span>
+        <span class="chip-hex">#F5F7FF</span>
+        <span class="chip-data">rgb 245 247 255<br>hsl 228 100% 98%<br>oklch 0.97 0.015 276</span>
+      </div>
+      <div class="chip" style="background: #FAFBFF; color: var(--ink); border-color: var(--ink);">
+        <span class="chip-name">bone-lift · highlight</span>
+        <span class="chip-hex">#FAFBFF</span>
+        <span class="chip-data">rgb 250 251 255<br>nearly pure<br>use above bone layers</span>
+      </div>
+    </div>
+
+    <!-- Full spectrum (TAS) row -->
+    <div style="margin-top: 48px;">
+      <div style="font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.55; margin-bottom: 12px;">— full tint &amp; shade spectrum · hue 264 · lightness steps</div>
+      <div class="spectrum-row">
+        <div class="step" style="background: #050919;" data-hex="#050919"></div>
+        <div class="step" style="background: #0A1230;" data-hex="#0A1230"></div>
+        <div class="step" style="background: #1A2350;" data-hex="#1A2350"></div>
+        <div class="step" style="background: #2A3A7A;" data-hex="#2A3A7A"></div>
+        <div class="step" style="background: #4B6DCE;" data-hex="#4B6DCE"></div>
+        <div class="step" style="background: #78A7FF;" data-hex="#78A7FF"></div>
+        <div class="step" style="background: #A8C4FF;" data-hex="#A8C4FF"></div>
+        <div class="step" style="background: #C4D4FF;" data-hex="#C4D4FF"></div>
+        <div class="step" style="background: #D4E0FF;" data-hex="#D4E0FF"></div>
+        <div class="step" style="background: #E8EEFF;" data-hex="#E8EEFF"></div>
+        <div class="step" style="background: #F5F7FF;" data-hex="#F5F7FF"></div>
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 9.5px; opacity: 0.55; margin-top: 28px; letter-spacing: 0.04em; display: flex; justify-content: space-between;">
+        <span>— ink · near-black</span>
+        <span>— bone · near-white</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TYPE                                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="type">
+  <div class="container">
+    <div class="meta"><span>— type · display · body · mono</span><span class="counter">06 / 07</span></div>
+    <div class="type-block">
+      <div class="type-row">
+        <div class="label">display / wordmark</div>
+        <div class="size">380/820</div>
+        <div class="sample" style="font-size: 104px;">effigy</div>
+      </div>
+      <div class="type-row">
+        <div class="label">display / h2</div>
+        <div class="size">800</div>
+        <div class="sample" style="font-size: 56px;">runtime-agnostic.</div>
+      </div>
+      <div class="type-row">
+        <div class="label">display / h3</div>
+        <div class="size">700</div>
+        <div class="sample" style="font-size: 36px;">bring your brain.</div>
+      </div>
+      <div class="type-row">
+        <div class="label">body / large</div>
+        <div class="size">inter 400</div>
+        <div class="sample body" style="font-size: 17px;">every "AI influencer" project fails for the same three reasons. we wrote them down. the character stops being a vibe and becomes a reproducible artifact.</div>
+      </div>
+      <div class="type-row">
+        <div class="label">body / regular</div>
+        <div class="size">inter 400</div>
+        <div class="sample body" style="font-size: 14px;">an effigy is a crafted likeness that speaks on your behalf. the platform ships it with provenance, a loop, and a legal layer.</div>
+      </div>
+      <div class="type-row">
+        <div class="label">mono / data</div>
+        <div class="size">jetbrains 500</div>
+        <div class="sample mono" style="font-size: 13px;">section 04 / 05 · v1.0 · 2026-04-21 · status: production</div>
+      </div>
+      <div class="type-row">
+        <div class="label">mono / metadata</div>
+        <div class="size">jetbrains 500</div>
+        <div class="sample mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;">— a crafted likeness · autonomous presence · 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- DON'TS                                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="donts">
+  <div class="container">
+    <div class="meta"><span>— don'ts · never do these</span><span class="counter">07 / 07</span></div>
+    <div class="donts">
+      <div class="dont-card uppercase">
+        <span class="x-mark">× 01</span>
+        EFFIGY
+        <span class="caption">never uppercase · lowercase only</span>
+      </div>
+      <div class="dont-card italic">
+        <span class="x-mark">× 02</span>
+        effigy
+        <span class="caption">no italic · no alt weights</span>
+      </div>
+      <div class="dont-card rotated">
+        <span class="x-mark">× 03</span>
+        effigy
+        <span class="caption">never rotate · always baseline</span>
+      </div>
+      <div class="dont-card stretched">
+        <span class="x-mark">× 04</span>
+        effigy
+        <span class="caption">no distortion · never scale x/y non-uniformly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- FOOTER                                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-wm">effigy</div>
+    <div class="footer-meta">
+      <div><strong>locked · v1.0</strong></div>
+      <div>2026-04-21</div>
+      <div>— palette: narwhal grey</div>
+      <div>— structure: direction a bones</div>
+      <div>— type: jetbrains mono 800</div>
+      <div>— contact: brand@effigy.studio</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  let tx=0,ty=0,cx=0,cy=0,rafId=null;
+  document.addEventListener('mousemove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  });
+  function tick() {
+    cx += (tx - cx) * 0.3;
+    cy += (ty - cy) * 0.3;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    if (Math.abs(tx-cx) > 0.1 || Math.abs(ty-cy) > 0.1) rafId = requestAnimationFrame(tick);
+    else rafId = null;
+  }
+  document.querySelectorAll('a, .chip, .lockup-card, .dont-card, .wordmark, .spec-row').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+</script>
+</body>
+</html>

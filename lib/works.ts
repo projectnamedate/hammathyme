@@ -27,6 +27,8 @@ export type BrandGuideProfile = {
   description: string;
   evidence: string[];
   swatches: { label: string; value: string }[];
+  guideUrl: string;
+  guideLabel: string;
 };
 
 export type CaseStudy = {
@@ -107,6 +109,8 @@ export const CASE_STUDIES: CaseStudy[] = [
           { label: "cinnamon", value: "#F28E86" },
           { label: "bloodlust", value: "#5A201D" },
         ],
+        guideUrl: "/work/brand-guides/hammer/index.html",
+        guideLabel: "full Hammer brand guide",
       },
       {
         slug: "kira",
@@ -126,6 +130,8 @@ export const CASE_STUDIES: CaseStudy[] = [
           { label: "copper", value: "#B4673A" },
           { label: "signal", value: "#FF6D1F" },
         ],
+        guideUrl: "/work/brand-guides/kira/index.html",
+        guideLabel: "full Kira brand bible",
       },
       {
         slug: "effigy",
@@ -145,6 +151,8 @@ export const CASE_STUDIES: CaseStudy[] = [
           { label: "narwhal", value: "#78A7FF" },
           { label: "pale", value: "#A8C4FF" },
         ],
+        guideUrl: "/work/brand-guides/effigy/index.html",
+        guideLabel: "full Effigy brand guide",
       },
     ],
   },
@@ -158,14 +166,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary:
       "a character layered over an autonomous agent. any creator or brand can send one into the digital world to work as a 24/7 marketer, onboarder, and live ad for the product.",
     tint: "var(--cream-2)",
-    hero: { main: "autonomous", italic: "characters" },
+    hero: { main: "", italic: "agents" },
     pieces: [
       {
         slug: "kira",
         title: "kira",
         year: "feb 2026",
         client: "hammer studios",
-        blurb: "the first. persistent face, scheduled posts, replies in voice. kira-class.",
+        blurb: "the first kira-class autonomous character: persistent face, brand bible, scheduled posts, replies, media policy, and runtime guardrails.",
         status: "live",
         tint: "var(--cream-2)",
       },
@@ -395,7 +403,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "ai-native websites — design, build, and ship. brand systems, marketing pages, portfolio sites.",
+      "ai-native websites — design, build, and ship. live public work includes onlykira.ai, opencrawl.gg, and coefficient.mythx.art.",
     tint: "var(--cream-1)",
     hero: { main: "", italic: "websites" },
     pieces: [
@@ -404,7 +412,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "hammathyme",
         year: "2026",
         client: "self",
-        blurb: "this site. case study #1 — full visibility into process, prompts, decisions.",
+        blurb: "this site. a brand-system-first portfolio with gallery routes, detail pages, motion, and source-readable docs.",
         status: "live",
         tint: "var(--cream-1)",
       },
@@ -413,17 +421,26 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "kira",
         year: "2026",
         client: "hammer studios",
-        blurb: "site for the autonomous character — bio, posts, talk-to-character demo.",
-        status: "in-production",
+        blurb: "onlykira.ai — public microsite for the autonomous character, built with AI and the Kira brand bible.",
+        status: "live",
         tint: "var(--cream-2)",
       },
       {
         slug: "opencrawl",
         title: "opencrawl",
         year: "2026",
-        blurb: "marketing site build. brand, copy, and deploy pipeline in flight.",
-        status: "in-production",
+        blurb: "opencrawl.gg — devnet-alpha frontend and brand surface for autonomous crawler tournaments.",
+        status: "live",
         tint: "var(--bloodlust)",
+      },
+      {
+        slug: "coefficient",
+        title: "coefficient",
+        year: "2026",
+        client: "mythx",
+        blurb: "coefficient.mythx.art — Solana stake-pool health dashboard and scoring system.",
+        status: "live",
+        tint: "var(--cream-2)",
       },
     ],
   },
@@ -441,8 +458,13 @@ const DETAIL_READY_KEYS = new Set([
   "brand-systems/hammer",
   "brand-systems/kira",
   "brand-systems/effigy",
+  "agents/kira",
   "motion-graphics/reel",
   "pipelines-tools/pipeline-visualizer",
+  "websites/hammathyme",
+  "websites/kira",
+  "websites/opencrawl",
+  "websites/coefficient",
 ]);
 
 export function pieceDetailKey(categorySlug: string, pieceSlug: string): string {

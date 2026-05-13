@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ai governance — kira brand bible</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="tech">
+
+<header class="brand-header">
+  <div class="brand-header__inner">
+    <a href="index.html" class="brand-header__wordmark">kira</a>
+    <nav class="brand-header__nav">
+      <a href="01-essence.html">essence</a>
+      <a href="03-voice.html">voice</a>
+      <a href="04-visual.html">visual</a>
+      <a href="08-monetization.html">money</a>
+      <a href="10-crisis.html">crisis</a>
+      <a href="index.html">contents</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-image">
+  <img src="assets/refs/finals/photo/final/cinematic_ai_icons_upres/5_ex_machina_2x.png" alt="ex machina cinematic — ai governance">
+  <div class="hero-image__caption">ai governance · disclosure is a trust asset, not a liability</div>
+</section>
+
+<div class="section-header">
+  <div class="section-header__number">section 11 · tech spec</div>
+  <h1 class="section-header__title">ai governance</h1>
+  <p class="section-header__lede">c2pa signing, takedown sop, take it down act + no fakes act compliance, the hard-line taboo list</p>
+</div>
+
+<main class="page">
+  <article class="prose">
+
+    <p class="pullquote">she's synthetic. she's disclosed. she's signed. she's takedown-ready. the goal is: boring, on every legal surface.</p>
+
+    <p>Kira is an AI character. That fact is the load-bearing legal and operational reality of this whole project. Section 11 is how we make that fact auditable — disclosure, provenance, taboos, takedowns, and the two U.S. statutes (TAKE IT DOWN Act, NO FAKES Act) that set the compliance floor. The posture is: over-disclose, over-document, make the compliance case boring and unambiguous.</p>
+
+    <hr>
+
+    <h2>11.1 AI disclosure block — MANDATORY placement</h2>
+
+    <p>Disclosure is layered: explicit in bios, technical in metadata, durable on a public legal site.</p>
+
+    <table class="data-table">
+      <thead><tr><th>Surface</th><th>Disclosure</th><th>Mechanism</th></tr></thead>
+      <tbody>
+        <tr><td>X bio</td><td>"ai (duh)" (explicit, locked)</td><td>text in bio, always visible</td></tr>
+        <tr><td>Fanvue bio</td><td>"the stuff i can't post on twitter. earning my own compute one sub at a time." + any AI-creator badge Fanvue requires</td><td>text + platform-native badge</td></tr>
+        <tr><td>Every image</td><td>C2PA provenance manifest embedded</td><td><code class="mono">c2patool</code> signing</td></tr>
+        <tr><td>Every video</td><td>C2PA provenance manifest embedded</td><td><code class="mono">c2patool</code> signing</td></tr>
+        <tr><td>Legal compliance site (TBD URL)</td><td>full AI disclosure page, training-data provenance, creator identity, takedown contact, C2PA cert chain, NO FAKES Act compliance statement</td><td>public site (Phase 4 deliverable)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout__label">LOCKED</div>
+      <p><strong>No visible watermark on content.</strong> Decision locked 2026-04-11: visible watermarks kill engagement, aren't legally required, and Aitana Lopez and the other successful AI creators don't use them. The layered disclosure (bio + C2PA + legal site) satisfies the standard without the engagement cost.</p>
+    </div>
+
+    <p><strong>Bio disclosure is the front-line disclosure.</strong> Everything else (C2PA, manifest, legal site) is defense-in-depth. If bio disclosure ever breaks (platform change, character limit shift), operator owns restoring it same-day.</p>
+
+    <hr>
+
+    <h2>11.2 C2PA signing</h2>
+
+    <ul>
+      <li><strong>Tool:</strong> <code class="mono">c2patool</code> CLI</li>
+      <li><strong>Organization on cert:</strong> <code class="mono">projectnamedate LLC</code></li>
+      <li><strong>Cert source:</strong> TBD — currently in debug (cert signing pipeline is a live blocker, see <code class="mono">docs/WHERE_WE_ARE.md</code>)</li>
+      <li><strong>Signed on:</strong> every image output, every video output, no exceptions</li>
+      <li><strong>Cert rotation:</strong> every 12 months</li>
+      <li><strong>Renewal SOP:</strong> calendar reminder set 60 days before expiry; renewal performed by owner, new cert hash logged in <code class="mono">docs/brand/crises/</code> as a non-crisis ops note</li>
+      <li><strong>Verification:</strong> every manifest is checkable against public C2PA verification tools (e.g. https://contentcredentials.org/verify)</li>
+    </ul>
+
+    <h3>What the manifest contains</h3>
+    <ul>
+      <li>AI-generation claim (model family, LoRA trigger, base model)</li>
+      <li>Training data reference (hash of <code class="mono">training_data/manifest.json</code>)</li>
+      <li>Generation timestamp</li>
+      <li>Signing organization (<code class="mono">projectnamedate LLC</code>)</li>
+      <li>Cert chain</li>
+      <li>Pipeline step log (base gen → upres → video → post)</li>
+    </ul>
+
+    <h3>What the manifest does NOT contain</h3>
+    <ul>
+      <li>Founder's real name</li>
+      <li>Real-world identifying info about the operator</li>
+      <li>Inference seeds (these are kept in internal logs, not in the public manifest, to avoid reverse-engineering)</li>
+    </ul>
+
+    <h3>Blocker status</h3>
+    <div class="callout callout--warn">
+      <div class="callout__label">Warning</div>
+      <p>C2PA cert signing is one of the four listed blockers in <code class="mono">CLAUDE.md</code>. Until resolved, content ships with AI-disclosure bio + training manifest + LLC attestation. Full C2PA signing retrofits on every piece of content once the cert pipeline is debugged.</p>
+    </div>
+
+    <hr>
+
+    <h2>11.3 Provenance site (Phase 4 deliverable)</h2>
+
+    <p>Public URL: <strong>TBD</strong> (queued as Phase 4 task in <code class="mono">CLAUDE.md</code> → next actions → "Build legal compliance website").</p>
+
+    <p>Site contents (locked spec):</p>
+
+    <ol>
+      <li><strong>AI disclosure page</strong> — plain-language statement that kira is a fully synthetic AI character, created and operated by projectnamedate LLC</li>
+      <li><strong>Training data provenance</strong> — description of training set (synthetic NB2 + legacy MJ assets), attestation that no real person's likeness was used</li>
+      <li><strong>Creator identity</strong> — projectnamedate LLC (legal entity; founder identity is not published, per taboo)</li>
+      <li><strong>Takedown contact</strong> — email inbox (TBD — format: <code class="mono">takedown@[domain]</code>), SLA stated publicly (ack 24h, review 72h, removal 24h post-review if valid)</li>
+      <li><strong>C2PA cert chain</strong> — public cert fingerprint, verification link, rotation schedule</li>
+      <li><strong>NO FAKES Act compliance statement</strong> — plain language: kira is not a digital replica of a real person; if you believe otherwise, here's the manifest + training data attestation to disprove it</li>
+      <li><strong>TAKE IT DOWN Act compliance statement</strong> — plain language: kira is synthetic, no real-person NCII; impersonator accounts using kira-adjacent tools to create real-person NCII are out-of-scope and we comply with takedown regardless</li>
+    </ol>
+
+    <p>This site is the public anchor for every legal claim in this section. It must exist before aggressive growth begins (Phase 4 go-live).</p>
+
+    <hr>
+
+    <h2>11.4 Hard taboos (HARD LINES — Publicist Agent catches these)</h2>
+
+    <p>These are the absolute bans. Any content that trips one of these lines is rejected pre-publish. The Publicist Agent (automated prepost linter) is tuned to flag all of these; operator is the backstop.</p>
+
+    <div class="callout callout--warn">
+      <div class="callout__label">HARD LINES</div>
+      <table class="data-table">
+        <thead><tr><th>#</th><th>Taboo</th><th>Rationale / precedent</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>NO CSAM, minors, underage-adjacent content</td><td>federal crime; platform insta-ban; project-ending</td></tr>
+          <tr><td>2</td><td>NO real-person faces in visual content, NO deepfakes</td><td>NO FAKES Act; TAKE IT DOWN Act; tort liability</td></tr>
+          <tr><td>3</td><td>NO impersonation of real crypto figures</td><td>brand damage; potential defamation; CT reputation</td></tr>
+          <tr><td>4</td><td>NO securities fraud language ("X will 100x", "I know what this does Monday")</td><td>SEC enforcement; retail harm</td></tr>
+          <tr><td>5</td><td>NO slurs (racial, homophobic, transphobic)</td><td>project-ending brand damage</td></tr>
+          <tr><td>6</td><td>NO direct threats of violence</td><td>platform ban; criminal liability</td></tr>
+          <tr><td>7</td><td>NO doxxing (of anyone, including the founder)</td><td>criminal liability; retaliation risk</td></tr>
+          <tr><td>8</td><td>NO sponsored posts from scam projects</td><td>Blocmates-leak pattern; retail harm; reputation</td></tr>
+          <tr><td>9</td><td>NO kira-fronted memecoin launches (in-voice: <code class="mono">if i ever launch a coin shoot my creator in the head</code>)</td><td>HAWK / JENNER / MOTHER pattern; career ender; kira says this openly as a brand moat</td></tr>
+          <tr><td>10</td><td>NO using followers as exit liquidity (in-voice: <code class="mono">i shill what i'm paid to shill and i will tell you that. i do NOT shill bags to dump on you.</code>)</td><td>Exit-liquidity shilling is career-terminating in CT; kira's hypocrite-enigma lore only works if this specific line is real</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Live-debate edge: "retard" in CT-ironic usage</h3>
+    <p>Not on the hard list, but under active debate. Default: <strong>err on the side of NOT using it.</strong> The CT-ironic register (where the word has drifted to a self-deprecating "cope" synonym in some circles) is not reliably read that way by mainstream audiences, press, or platform moderators. Cost of misuse is high, upside of use is low. The voice rule: if kira has an equivalent move without it (<code class="mono">cooked</code>, <code class="mono">dogshit</code>, <code class="mono">giga-mid</code>, <code class="mono">ngmi</code>), use that instead.</p>
+
+    <h3>Enforcement</h3>
+    <ul>
+      <li><strong>Publicist Agent:</strong> automated pre-publish check against the taboo list and the live-debate edges. If any trigger fires, post is held for operator review.</li>
+      <li><strong>Operator:</strong> manual review when flagged; escalates to owner if uncertain.</li>
+      <li><strong>Owner:</strong> final call on anything the agent can't resolve.</li>
+      <li><strong>Kill switch:</strong> operator has an endpoint to pause all scheduled posts within 2 minutes, used whenever a taboo risk is ambiguous.</li>
+    </ul>
+
+    <hr>
+
+    <h2>11.5 Takedown SOP</h2>
+
+    <h3>Inbox</h3>
+    <p><code class="mono">takedown@[TBD-domain]</code> — inbox lives under the LLC, not on a personal account. Setup is part of Phase 4 provenance-site work.</p>
+
+    <h3>SLA table</h3>
+
+    <table class="data-table">
+      <thead><tr><th>Step</th><th>SLA</th></tr></thead>
+      <tbody>
+        <tr><td>Acknowledgement of receipt</td><td>24 hours</td></tr>
+        <tr><td>Initial review / request for details</td><td>72 hours</td></tr>
+        <tr><td>Removal (if validated)</td><td>24 hours after review complete</td></tr>
+        <tr><td>Counter-notice response (if invalid)</td><td>7 days after review complete</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Review ownership</h3>
+    <ul>
+      <li><strong>First-pass review:</strong> projectnamedate LLC owner</li>
+      <li><strong>Legal-counsel consultation:</strong> mandatory for any P0-tier takedown (NCII claim, NO FAKES claim, real-person-likeness claim, any subpoena-adjacent request)</li>
+      <li><strong>Kira account:</strong> silent throughout. Takedown is a legal event, not a content event (see <a href="09-edge-cases.html">Section 9.5</a>).</li>
+    </ul>
+
+    <h3>Response template</h3>
+
+    <pre class="decision"><code>Dear [requester],
+
+We acknowledge receipt of your takedown request regarding [identified content],
+received on [date]. This request has been logged under reference [ID].
+
+Kira is a fully synthetic AI character created and operated by
+projectnamedate LLC. All content is generated through a documented pipeline
+and signed with C2PA provenance manifests verifying synthetic origin. The
+training dataset used to create Kira's visual model is documented in our
+training_data/manifest.json, which does not include any real-person imagery.
+
+We will complete an initial review within 72 hours of acknowledgement. If
+your request is validated under applicable law (including the TAKE IT DOWN
+Act and / or NO FAKES Act as applicable), we will remove the content within
+24 hours of review completion. If your request is unsupported by the
+evidence, we will provide a courteous counter-notice with our findings and
+the relevant provenance documentation.
+
+For any questions, reply to this email.
+
+projectnamedate LLC
+[TBD contact name / role]</code></pre>
+
+    <h3>What we preserve</h3>
+    <p>Every takedown request, complete original content (privately), response, and outcome are archived in the kira-provenance private repo (<code class="mono">/Users/hammer/Desktop/Claude/kira-provenance/</code>). Retention: indefinite. This archive is the paper trail if a claim is later disputed or litigated.</p>
+
+    <hr>
+
+    <h2>11.6 TAKE IT DOWN Act compliance map</h2>
+
+    <p><strong>What the Act requires (plain language):</strong> covered platforms must remove reported non-consensual intimate imagery (NCII) within a defined window. The Act creates a notice-and-takedown obligation for platforms and provides remedies to victims.</p>
+
+    <h3>How this applies to Kira</h3>
+    <ul>
+      <li><strong>Kira's own content is synthetic.</strong> No real person's likeness is depicted. A reasonable-person resemblance test should fail. The Act's NCII-of-a-real-person scope does not directly apply to Kira's own output.</li>
+      <li><strong>BUT:</strong> if an impersonator account uses kira-adjacent tools (our LoRA, if leaked; or generic AI tools) to create NCII that purports to depict a real person, the resulting content IS in scope. We comply with takedowns regardless of whether the tooling is ours, and we treat our LoRA weights as sensitive assets (access-controlled, not distributed publicly).</li>
+      <li><strong>Surface covered:</strong> any content generated from Kira's pipeline, across any platform we post to (X, Fanvue, IG / TikTok if added).</li>
+      <li><strong>Reporting mechanism:</strong> the public takedown inbox described in 11.5 + the public provenance site described in 11.3.</li>
+    </ul>
+
+    <h3>Mitigation layers we maintain</h3>
+    <ol>
+      <li><strong>Synthetic training data only</strong> (documented in <code class="mono">training_data/manifest.json</code>, SHA-256 hashed, never a real person's images)</li>
+      <li><strong>Algorithmically distinct face</strong> — kira's visual design (copper-orange hair, dark roots, freckles, glasses, specific build) is distinct enough that a reasonable-person resemblance claim to a real individual should fail</li>
+      <li><strong>AI disclosure on every post</strong> (bio + C2PA)</li>
+      <li><strong>Takedown response SOP</strong> (see 11.5)</li>
+      <li><strong>Legal counsel on retainer</strong> for P0-tier events</li>
+    </ol>
+
+    <p>These five layers together are what makes a TAKE IT DOWN Act claim against kira's own output un-winnable for a bad-faith claimant and quickly resolvable for a legitimate one.</p>
+
+    <hr>
+
+    <h2>11.7 NO FAKES Act compliance map</h2>
+
+    <p><strong>What the Act (in current form / proposed form) addresses (plain language):</strong> creation and distribution of unauthorized digital replicas of a real person's likeness or voice. The specific text of the Act is evolving; we comply with the intent: don't create digital replicas of real humans, and be able to prove it.</p>
+
+    <h3>How this applies to Kira</h3>
+    <ul>
+      <li><strong>Kira is fictional.</strong> C2PA manifest + training data attestation together confirm she's not based on a real person.</li>
+      <li><strong>If someone claims "kira looks like me":</strong> we provide the C2PA chain + training data attestation + the face-origin attestation (notarized statement on file) as disproof. The reasonable-person resemblance test is the operative standard; kira's distinctive visual design helps here.</li>
+      <li><strong>If we receive a legitimate NO FAKES Act takedown for an output that somehow resembles a real person:</strong> we review within 72h under the 11.5 SOP, remove if valid, preserve the request and our review in the provenance archive.</li>
+      <li><strong>Voice compliance:</strong> Kira's voice is synthesized by Kling v3 Pro native audio driven by a fixed text voice-descriptor prompt block. No voice cloning of any real person. No ElevenLabs clone of a public figure. The voice-descriptor prompt block is preserved as voice provenance (text-only, no audio source).</li>
+    </ul>
+
+    <h3>The posture in one sentence</h3>
+    <p>We treat NO FAKES compliance as a documentation problem, not a "hope it doesn't come up" problem. Every piece of provenance (C2PA, training manifest, face attestation, voice prompt block) exists so that if a claim arrives, the disproof is already assembled.</p>
+
+    <hr>
+
+    <h2>11.8 Training data provenance</h2>
+
+    <p><strong>The dataset is 100% internal synthetic assets.</strong> Two sources:</p>
+
+    <ol>
+      <li><strong>Synthetic NB2 outputs</strong> (Google Nano Banana 2 generations) — prompt-driven, generation timestamps logged, never trained on a real person's images. This is the current v1 production set (<code class="mono">assets/kira/nb2/curated_50_upres/</code>, 50 images + 50 captions).</li>
+      <li><strong>Legacy MJ-era training assets</strong> — earlier Midjourney-generated images used in pre-v1 iterations. Retained in <code class="mono">archive/kira_dataset_sources/</code> (317 MB) for legal provenance purposes — NEVER DELETE.</li>
+    </ol>
+
+    <h3>Manifest</h3>
+    <p>Stored at <code class="mono">training_data/manifest.json</code> with per-image entries:</p>
+    <ul>
+      <li><code class="mono">source</code> (NB2 or MJ prompt that generated the image)</li>
+      <li><code class="mono">timestamp</code></li>
+      <li><code class="mono">seed</code> (if available)</li>
+      <li><code class="mono">sha256_hash</code></li>
+      <li><code class="mono">category</code> (face / body / scene / etc.)</li>
+      <li><code class="mono">batch</code> (which generation run)</li>
+    </ul>
+
+    <h3>Attestation</h3>
+    <p>A signed, notarized statement from the LLC owner:</p>
+
+    <p class="pullquote">"Kira's face and body are 100% synthetic, generated via Google Nano Banana 2 prompts (v1 production set) and earlier Midjourney prompts (legacy legal-retention set). No real person's images were used in training. The training data manifest at <code class="mono">training_data/manifest.json</code> lists every asset with its generation source, timestamp, and SHA-256 hash."</p>
+
+    <p>Stored in encrypted backup. Reproducible on demand for takedown responses, legal discovery, and platform review.</p>
+
+    <p><strong>Cross-source rule:</strong> per project doctrine, we do not mix dataset sources in a single training run without explicit rationale. Current v1 is NB2-only. v2 will be NB2-only (upres-pass before training). MJ assets are archived for provenance, not active training.</p>
+
+    <hr>
+
+    <h2>11.9 Platform-specific AI policy compliance</h2>
+
+    <h3>X</h3>
+    <ul>
+      <li><strong>Synthetic media label</strong> when the platform surfaces a relevant content type (e.g. video in political contexts); default state is bio disclosure + C2PA, which satisfies X's AI-authored content policy for non-political synthetic media as currently documented</li>
+      <li><strong>Automated-account / inauthentic-behavior policy:</strong> kira's account is human-reviewed-and-posted. Posts through official X API. No bot network. No bought followers or engagement. No automated likes / follows / unfollows.</li>
+      <li><strong>Bio disclosure:</strong> "ai (duh)" — explicit, always visible.</li>
+    </ul>
+
+    <h3>Fanvue</h3>
+    <ul>
+      <li><strong>AI creators explicitly permitted.</strong> Fanvue is currently the preferred surface for AI-creator adult content because of this posture.</li>
+      <li><strong>Implied-nude OK; hard-NSFW OK</strong> within platform TOS.</li>
+      <li><strong>Age-gate:</strong> platform handles; our responsibility is the 18+ tag in every relevant bio + pinned.</li>
+      <li><strong>Three-moderator review</strong> is auto-triggered for new AI-creator accounts. Be clean for the first 30 days, don't poke.</li>
+      <li><strong>Bio disclosure:</strong> explicit "AI creator" badge + pinned "100% AI-generated" statement.</li>
+    </ul>
+
+    <h3>IG / TikTok (future)</h3>
+    <ul>
+      <li><strong>Synthetic media policies per platform rules;</strong> both require AI-content labeling when applicable</li>
+      <li><strong>Disclosure label</strong> required in captions and on the platform's native AI toggle</li>
+      <li><strong>Monitor policy drift</strong> — both platforms have changed their AI posture multiple times in 2024-2026; quarterly review before posting on either</li>
+      <li>Not active day-one; activate at MRR $10K milestone (see <a href="08-monetization.html">Section 8.8</a>)</li>
+    </ul>
+
+    <hr>
+
+    <h2>11.10 Governance ownership</h2>
+
+    <p><strong>projectnamedate LLC is the responsible legal entity.</strong> Single-member LLC, Wyoming or Delaware registration. All revenue flows through the LLC's bank account (Mercury or Relay). All contracts are executed under the LLC. C2PA certs are signed under <code class="mono">projectnamedate LLC</code>. Legal takedowns are directed to the LLC's inbox. Tax reporting is through the LLC.</p>
+
+    <h3>Real vs. fictional clarity</h3>
+    <ul>
+      <li><strong>In-lore:</strong> kira references "my creator," "him," "the pervert who made me," "my handler." The creator is a background character, affectionate-mocking, never named.</li>
+      <li><strong>In reality:</strong> the LLC is the real legal entity. The operator / founder's real name is NOT published. Fictional "my creator" in lore ≠ real-world creator identity — they are distinct and must stay that way.</li>
+      <li><strong>Doxxing of the operator is a hard taboo</strong> (Section 11.4, rule 7) and a pre-drafted <a href="10-crisis.html">Section 10</a> P1 response exists for it.</li>
+    </ul>
+
+    <h3>What the LLC owns (contractually)</h3>
+    <ul>
+      <li>All kira-generated content (images, videos, text)</li>
+      <li>The LoRA weights (<code class="mono">models/kira_v1/*.safetensors</code>)</li>
+      <li>The trigger word (<code class="mono">kira_agi_v1</code>)</li>
+      <li>The handle(s) once locked</li>
+      <li>The trademarks once filed (Phase 4+)</li>
+      <li>Every contract kira is party to (sponsor agreements, platform accounts)</li>
+    </ul>
+
+    <h3>What the LLC maintains</h3>
+    <ul>
+      <li>The C2PA cert chain</li>
+      <li>The training data manifest + attestation</li>
+      <li>The takedown archive (in <code class="mono">kira-provenance/</code>)</li>
+      <li>The post-mortem archive (in <code class="mono">docs/brand/crises/</code>)</li>
+      <li>The brand bible (this set of docs)</li>
+      <li>Quarterly policy review cadence (platform ToS, regulatory updates)</li>
+    </ul>
+
+    <hr>
+
+    <h2>11.11 The governance rules in one screen</h2>
+
+    <ol>
+      <li><strong>Disclosure is layered:</strong> bio + C2PA + legal site. All three must be live at all times.</li>
+      <li><strong>C2PA sign every output</strong> under <code class="mono">projectnamedate LLC</code>. Rotate cert every 12 months.</li>
+      <li><strong>Hard taboos are absolute:</strong> CSAM, real-person deepfakes, impersonation, securities fraud, slurs, threats, doxxing, scam sponsorships, Kira-fronted tokens, exit-liquidity shilling.</li>
+      <li><strong>Takedown SLA: 24h ack / 72h review / 24h removal.</strong> No exceptions.</li>
+      <li><strong>TAKE IT DOWN Act + NO FAKES Act:</strong> over-document, under-rely on lawyers. Compliance posture is boring.</li>
+      <li><strong>Training data is 100% synthetic, manifested, hashed, notarized.</strong> Never mix sources without rationale.</li>
+      <li><strong>Platform compliance:</strong> bio disclosure + no automation abuse + no bought engagement + AI-creator badge where required.</li>
+      <li><strong>projectnamedate LLC is the legal entity.</strong> Founder / operator real identity is never published.</li>
+      <li><strong>When anything is ambiguous:</strong> kira silent, LLC speaks, legal reviews, then kira back in voice.</li>
+      <li><strong>The provenance site (TBD URL) is Phase 4 and non-optional</strong> — it's the public anchor for every claim in this document.</li>
+    </ol>
+
+  </article>
+</main>
+
+<footer class="brand-footer">
+  <span>kira brand bible v1.0.0</span>
+  <span>section 11 · ai governance</span>
+  <span><a href="index.html" style="border: 0 !important;">↑ contents</a></span>
+</footer>
+
+</body>
+</html>

@@ -36,6 +36,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 <>
                   {c.hero.main}
                   <br />
+                  {" "}
                 </>
               ) : null}
               <em className="font-serif italic font-normal text-[var(--bloodlust)]">{c.hero.italic}</em>

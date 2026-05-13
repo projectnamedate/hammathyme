@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>effigy — master brand book · v1.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="effigy · the runtime-agnostic stack for autonomous AI agents. master brand book v1.0.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ═══════════════════════════════════════════════════ */
+  /*  TOKENS · narwhal grey in veiling twilight          */
+  /* ═══════════════════════════════════════════════════ */
+  :root {
+    --fg: #0A1230;
+    --fg-2: #1A2350;
+    --fg-3: #2A3A7A;
+    --bg: #F5F7FF;
+    --bg-2: #E8EEFF;
+    --bg-3: #D4E0FF;
+    --accent: #78A7FF;
+    --accent-deep: #4B6DCE;
+    --accent-pale: #A8C4FF;
+    --accent-dim: rgba(120, 167, 255, 0.14);
+    --rule: rgba(10, 18, 48, 0.12);
+    --rule-strong: rgba(10, 18, 48, 0.32);
+
+    --font-display: 'Inter Tight', system-ui, sans-serif;
+    --font-body: 'Inter Tight', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --font-logo: 'JetBrains Mono', ui-monospace, monospace;
+
+    --ease: cubic-bezier(0.2, 0, 0, 1);
+
+    --col-1: 8.33%;
+    --col-full: 100%;
+
+    --unit: 8px;
+    --gap: 40px;
+    --pad: 32px;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  RESET                                               */
+  /* ═══════════════════════════════════════════════════ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { color-scheme: light; }
+  html, body {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  body { scroll-behavior: smooth; }
+  @media (pointer: fine) { body { cursor: none; } }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  CUSTOM CURSOR                                       */
+  /* ═══════════════════════════════════════════════════ */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    border: 1.5px solid var(--fg);
+    background: transparent;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 240ms var(--ease), height 240ms var(--ease), background 320ms, border-color 320ms, border-radius 320ms;
+    mix-blend-mode: difference;
+  }
+  .cursor.hover { width: 48px; height: 48px; background: rgba(120,167,255,0.18); border-color: var(--accent); }
+  .cursor.text { width: 2px; height: 22px; border-radius: 0; }
+  @media (pointer: coarse) { .cursor { display: none; } }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  FIXED CHROME — nav, progress, metadata              */
+  /* ═══════════════════════════════════════════════════ */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    background: linear-gradient(to bottom, var(--bg) 0%, rgba(245,247,255,0.9) 60%, rgba(245,247,255,0) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .nav-left, .nav-right { display: flex; gap: 24px; align-items: center; }
+  .nav-left strong { font-weight: 800; letter-spacing: 0.02em; text-transform: lowercase; font-size: 13px; }
+  .nav-sep { opacity: 0.3; }
+  .nav a { opacity: 0.5; transition: opacity 220ms, color 220ms; }
+  .nav a:hover { opacity: 1; color: var(--accent); }
+
+  .progress {
+    position: fixed;
+    top: 50px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--rule);
+    z-index: 99;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 80ms linear;
+  }
+
+  .side-nav {
+    position: fixed;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .side-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    transition: opacity 220ms;
+  }
+  .side-nav a::after {
+    content: '';
+    display: block;
+    width: 14px; height: 1px;
+    background: currentColor;
+    transition: width 260ms var(--ease);
+  }
+  .side-nav a:hover, .side-nav a.active { opacity: 1; }
+  .side-nav a.active::after { width: 26px; background: var(--accent); height: 2px; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  LAYOUT PRIMITIVES                                   */
+  /* ═══════════════════════════════════════════════════ */
+  section { position: relative; padding: 120px 0 100px; }
+  .container {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+  .col-mono { font-family: var(--font-mono); }
+
+  .meta-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.55;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--fg);
+    margin-bottom: 32px;
+  }
+  .meta-label .counter {
+    font-weight: 700;
+    opacity: 1;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--fg);
+  }
+  h2 { font-size: clamp(48px, 7vw, 104px); line-height: 0.92; letter-spacing: -0.04em; }
+  h3 { font-size: clamp(28px, 3vw, 44px); line-height: 1.05; letter-spacing: -0.025em; }
+  h4 { font-size: 18px; line-height: 1.2; font-weight: 700; }
+  p { max-width: 62ch; font-size: 17px; line-height: 1.6; opacity: 0.85; }
+
+  /* Scroll reveal base state */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+  }
+  [data-reveal].in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  HERO                                                */
+  /* ═══════════════════════════════════════════════════ */
+  .hero {
+    height: 100vh;
+    min-height: 720px;
+    padding: 0;
+    display: grid;
+    align-items: end;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(245,247,255,0) 0%, rgba(245,247,255,0.4) 70%, var(--bg) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 var(--pad) 60px;
+    width: 100%;
+  }
+  .hero-stamp {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.75;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .hero-wordmark {
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: clamp(180px, 24vw, 420px);
+    line-height: 0.82;
+    letter-spacing: -0.065em;
+    color: var(--fg);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+  .hero-wordmark::after {
+    content: '';
+    position: absolute;
+    bottom: 0.16em; left: -8px;
+    width: 28px; height: 28px;
+    background: var(--accent);
+    animation: heroDot 2400ms var(--ease) 600ms both;
+  }
+  @keyframes heroDot {
+    from { transform: translate(-60px, 60px); opacity: 0; }
+    to { transform: translate(0, 0); opacity: 1; }
+  }
+  .hero-tagline {
+    font-size: clamp(18px, 1.6vw, 24px);
+    max-width: 680px;
+    opacity: 0.8;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 48px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule-strong);
+  }
+  .hero-scroll {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .hero-scroll::after {
+    content: '';
+    display: inline-block;
+    width: 40px; height: 1px;
+    background: var(--fg);
+    animation: scrollHint 1600ms ease-in-out infinite;
+    transform-origin: left;
+  }
+  @keyframes scrollHint {
+    0%, 100% { transform: scaleX(1); opacity: 1; }
+    50% { transform: scaleX(0.2); opacity: 0.4; }
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART HEADER                                         */
+  /* ═══════════════════════════════════════════════════ */
+  .part-header {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 80px;
+  }
+  .part-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    opacity: 0.55;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--fg);
+    display: flex;
+    justify-content: space-between;
+  }
+  .part-tag .counter { font-weight: 700; opacity: 1; }
+  .part-title {
+    font-size: clamp(64px, 9vw, 140px);
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    font-weight: 700;
+    margin-top: 16px;
+    max-width: 10ch;
+  }
+  .part-title .accent-text { color: var(--accent); }
+  .part-subtitle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    margin-top: 24px;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART I — FOUNDATION                                 */
+  /* ═══════════════════════════════════════════════════ */
+  .origin-story {
+    max-width: 680px;
+    margin-top: 40px;
+  }
+  .origin-story p + p { margin-top: 20px; }
+  .origin-story .pullout {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 2.6vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    color: var(--fg);
+    max-width: 24ch;
+    padding: 32px 0;
+    margin: 48px 0;
+    border-top: 2px solid var(--fg);
+    border-bottom: 1px solid var(--fg);
+    position: relative;
+  }
+  .origin-story .pullout::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 0;
+    width: 80px; height: 4px;
+    background: var(--accent);
+  }
+
+  /* MVV cards */
+  .mvv {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+  .mvv-card {
+    padding: 32px 28px;
+    border: 1px solid var(--fg);
+    background: var(--bg);
+    transition: background 320ms, color 320ms, border-color 320ms;
+    display: grid;
+    gap: 20px;
+    align-content: start;
+    min-height: 280px;
+  }
+  .mvv-card:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .mvv-card:hover .mvv-num { color: var(--accent); }
+  .mvv-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    transition: color 320ms;
+  }
+  .mvv-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .mvv-body {
+    font-size: 14px;
+    line-height: 1.55;
+    opacity: 0.85;
+    font-family: var(--font-body);
+  }
+
+  /* Brand principles — scroll reveal, big */
+  .principles {
+    margin-top: 120px;
+    display: grid;
+    gap: 0;
+  }
+  .principle {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 40px;
+    padding: 48px 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .principle:first-child { border-top: 2px solid var(--fg); }
+  .principle-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .principle-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+  .principle-body {
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 60ch;
+    margin-top: 20px;
+    opacity: 0.75;
+  }
+
+  /* 4-quadrant positioning chart */
+  .quadrant-chart {
+    margin-top: 120px;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .quadrant-chart-visual {
+    aspect-ratio: 1;
+    position: relative;
+    border: 1px solid var(--fg);
+    background: var(--bg);
+  }
+  .quadrant-axis-x, .quadrant-axis-y {
+    position: absolute;
+    background: var(--fg);
+  }
+  .quadrant-axis-x { top: 50%; left: 0; right: 0; height: 1px; }
+  .quadrant-axis-y { left: 50%; top: 0; bottom: 0; width: 1px; }
+  .quadrant-label {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.65;
+  }
+  .quadrant-label.top { top: 12px; left: 50%; transform: translateX(-50%); }
+  .quadrant-label.bottom { bottom: 12px; left: 50%; transform: translateX(-50%); }
+  .quadrant-label.left { left: 12px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
+  .quadrant-label.right { right: 12px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: center; }
+
+  .q-point {
+    position: absolute;
+    width: 10px; height: 10px;
+    background: var(--fg);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+  .q-point.in {
+    opacity: 1;
+    transition: opacity 600ms var(--ease);
+  }
+  .q-point.us {
+    width: 16px; height: 16px;
+    background: var(--accent);
+  }
+  .q-point-label {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    padding: 4px 6px;
+    background: var(--bg);
+    border: 1px solid var(--fg);
+  }
+  .q-point.us .q-point-label {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 700;
+  }
+  .quadrant-legend {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .quadrant-legend h3 { font-size: 22px; margin-bottom: 24px; }
+  .quadrant-legend .row {
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .quadrant-legend .row .dot {
+    width: 10px; height: 10px;
+    background: var(--fg);
+  }
+  .quadrant-legend .row.us .dot { background: var(--accent); }
+  .quadrant-legend .row.us { font-weight: 700; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART II — VERBAL IDENTITY                           */
+  /* ═══════════════════════════════════════════════════ */
+  .registers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .register {
+    padding: 24px 22px;
+    border: 1px solid var(--fg);
+    cursor: pointer;
+    display: grid;
+    gap: 14px;
+    align-content: start;
+    min-height: 240px;
+    position: relative;
+    overflow: hidden;
+    transition: background 320ms, color 320ms;
+  }
+  .register::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px; width: 0;
+    background: var(--accent);
+    transition: width 500ms var(--ease);
+  }
+  .register.active::before { width: 100%; }
+  .register.active {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .register-name {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .register-desc {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    opacity: 0.7;
+  }
+  .register-sample {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+
+  /* Vocab lists */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 80px;
+  }
+  .vocab-col {
+    padding: 28px 24px;
+    border: 1px solid var(--fg);
+  }
+  .vocab-col h4 { margin-bottom: 4px; font-size: 22px; }
+  .vocab-col .subtitle {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+    margin-bottom: 24px;
+  }
+  .vocab-col ul { list-style: none; }
+  .vocab-col li {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--rule);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.01em;
+  }
+  .vocab-col li:last-child { border-bottom: none; }
+  .vocab-col.preferred { border-left: 4px solid var(--accent); }
+  .vocab-col.avoid { border-left: 4px solid #888; background: rgba(0,0,0,0.02); }
+  .vocab-col.banned {
+    border-left: 4px solid var(--fg);
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .vocab-col.banned li { border-bottom-color: rgba(245,245,240,0.15); }
+  .vocab-col.banned li::before {
+    content: '× ';
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .vocab-col.preferred li::before {
+    content: '✓ ';
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Tagline marquee */
+  .marquee {
+    margin-top: 96px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 20px 0;
+    border-top: 2px solid var(--fg);
+    border-bottom: 2px solid var(--fg);
+    font-family: var(--font-display);
+    font-size: clamp(40px, 6vw, 80px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-track span {
+    margin-right: 48px;
+  }
+  .marquee-track span.blue { color: var(--accent); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  FONT SYSTEM CARDS                                   */
+  /* ═══════════════════════════════════════════════════ */
+  .font-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .font-card {
+    border: 1px solid var(--fg);
+    padding: 32px 28px;
+    display: grid;
+    gap: 20px;
+    align-content: start;
+    background: var(--bg);
+    transition: background 300ms, color 300ms;
+  }
+  .font-card:hover { background: var(--bg-2); }
+  .font-specimen {
+    color: var(--fg);
+    line-height: 0.9;
+  }
+  .font-name {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .font-role {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+  }
+  .font-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.7;
+    opacity: 0.72;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .font-meta div { letter-spacing: 0.02em; }
+  .font-usage {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.85;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+  .font-usage div { letter-spacing: 0.02em; }
+  .font-usage div:first-letter { color: var(--accent); font-weight: 700; }
+
+  .weight-matrix {
+    margin-top: 48px;
+    border-top: 2px solid var(--fg);
+  }
+  .weight-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 300px;
+    gap: 28px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .weight-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.65;
+    font-weight: 500;
+  }
+  .weight-sample { color: var(--fg); }
+  .weight-note {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    opacity: 0.55;
+    text-align: right;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  LOGO PLACEMENT & CLEAR SPACE                        */
+  /* ═══════════════════════════════════════════════════ */
+  .placement-block {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .placement-stage {
+    aspect-ratio: 2/1;
+    background: var(--bg);
+    border: 1px solid var(--fg);
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .placement-stage .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--accent-pale) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent-pale) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.55;
+  }
+  .placement-stage .clear-ring {
+    position: absolute;
+    inset: 15%;
+    border: 1.5px dashed var(--accent);
+    opacity: 0.85;
+  }
+  .placement-stage .placement-word {
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: 120px;
+    line-height: 1;
+    letter-spacing: -0.065em;
+    color: var(--fg);
+    position: relative;
+    z-index: 2;
+  }
+  .placement-stage .placement-word::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 0; right: 0;
+    height: 6px;
+    background: var(--accent);
+  }
+  .placement-stage .dim {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+  .placement-stage .dim.top { top: 10px; left: 50%; transform: translateX(-50%); }
+  .placement-stage .dim.bottom { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .placement-stage .dim.left { left: 10px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: center; }
+  .placement-stage .dim.right { right: 10px; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: center; }
+
+  .donts-mini {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .dont-mini {
+    aspect-ratio: 1.6;
+    border: 1px solid var(--fg);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .dont-sample {
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--fg);
+  }
+  .dont-label {
+    position: absolute;
+    bottom: 10px; left: 12px; right: 12px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.65;
+    color: var(--accent-deep);
+  }
+  .dont-mini::after {
+    content: '';
+    position: absolute;
+    top: 10%; left: 10%; right: 10%; bottom: 30%;
+    border: 2px solid var(--accent-deep);
+    transform: rotate(-8deg);
+    opacity: 0.7;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART III — VISUAL IDENTITY (anchor)                 */
+  /* ═══════════════════════════════════════════════════ */
+  .logo-section {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .logo-stack { display: grid; gap: 18px; }
+  .mark-stage {
+    aspect-ratio: 1;
+    background: var(--fg);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .mark-stage svg {
+    width: auto;
+    height: 62%;
+    max-width: 58%;
+    display: block;
+    transition: transform 600ms var(--ease);
+  }
+  .mark-stage:hover svg { transform: translateY(-6px); }
+  .logo-stage {
+    aspect-ratio: 21 / 9;
+    background: var(--fg);
+    color: var(--bg);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: 148px;
+    line-height: 0.85;
+    letter-spacing: -0.065em;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-stage .accent-dot {
+    position: absolute;
+    bottom: 36px; left: 36px;
+    width: 28px; height: 28px;
+    background: var(--accent);
+    transition: transform 420ms var(--ease);
+  }
+  .logo-stage:hover .accent-dot {
+    transform: translate(-12px, -12px);
+  }
+  .logo-meta {
+    font-family: var(--font-mono);
+    position: absolute;
+    top: 20px; left: 20px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.5;
+  }
+
+  .logo-specs {
+    display: grid;
+    gap: 32px;
+  }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .spec-row:first-child { border-top: 2px solid var(--fg); padding-top: 20px; }
+  .spec-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .spec-value { font-size: 16px; line-height: 1.5; }
+  .spec-value code {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 2px 6px;
+    background: rgba(10,10,10,0.05);
+  }
+
+  /* Palette */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 72px;
+  }
+  .palette-chip {
+    aspect-ratio: 0.75;
+    border: 1px solid var(--fg);
+    padding: 20px 18px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    position: relative;
+    transition: transform 320ms var(--ease);
+  }
+  .palette-chip:hover { transform: translateY(-4px); }
+  .palette-chip .chip-hex {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .palette-chip .chip-name {
+    font-size: 10px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+  }
+  .palette-chip .chip-data {
+    font-size: 9px;
+    opacity: 0.55;
+    line-height: 1.6;
+    text-transform: uppercase;
+  }
+  .palette-chip.black { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .palette-chip.offwhite { background: var(--bg); color: var(--fg); }
+  .palette-chip.accent-blue { background: var(--accent); color: var(--fg); border-color: var(--accent); }
+  .palette-chip.accent-acid { background: var(--accent-deep); color: var(--bg); border-color: var(--accent-deep); }
+  .palette-chip.accent-oxblood { background: var(--fg-3); color: var(--bg); border-color: var(--fg-3); }
+
+  /* Type scale */
+  .type-scale {
+    margin-top: 80px;
+    border-top: 2px solid var(--fg);
+    padding-top: 40px;
+  }
+  .type-row {
+    display: grid;
+    grid-template-columns: 120px 60px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .type-row .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+    padding-top: 8px;
+  }
+  .type-row .size {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.6;
+    padding-top: 8px;
+  }
+  .type-row .sample {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .type-row .sample.body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.5;
+  }
+  .type-row .sample.mono {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* Motion principles */
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 80px;
+  }
+  .motion-card {
+    aspect-ratio: 1.2;
+    border: 1px solid var(--fg);
+    padding: 20px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .motion-card .motion-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+  }
+  .motion-card .motion-box {
+    position: absolute;
+    top: 50%; left: 20%;
+    width: 40px; height: 40px;
+    background: var(--accent);
+    transform: translate(0, -50%);
+  }
+  .motion-card:hover .motion-box {
+    left: calc(100% - 60px);
+  }
+  .motion-card.ease-quick .motion-box { transition: left 180ms cubic-bezier(0.2,0,0,1); }
+  .motion-card.ease-slow .motion-box { transition: left 640ms cubic-bezier(0.2,0,0,1); }
+  .motion-card.ease-snap .motion-box { transition: left 280ms cubic-bezier(0.76,0,0.24,1); }
+  .motion-card.ease-stutter .motion-box { transition: left 320ms steps(6, end); }
+  .motion-card .motion-spec {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    opacity: 0.55;
+    letter-spacing: 0.05em;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART IV — AI EXTENSIONS                             */
+  /* ═══════════════════════════════════════════════════ */
+  .ai-block {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .ai-card {
+    border: 1px solid var(--fg);
+    padding: 36px 32px;
+    display: grid;
+    gap: 20px;
+    align-content: start;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-card .ai-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .ai-card h3 { font-size: 32px; }
+  .ai-card p { font-size: 15px; opacity: 0.85; }
+
+  .c2pa-badge {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 14px;
+    border: 1.5px solid var(--fg);
+    background: var(--bg);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    width: fit-content;
+    margin-top: 12px;
+  }
+  .c2pa-badge .cr-icon {
+    width: 14px; height: 14px;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    color: var(--bg);
+    font-size: 9px;
+    font-weight: 800;
+  }
+
+  .chat-demo {
+    background: var(--fg);
+    color: var(--bg);
+    padding: 20px 22px;
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.6;
+    border-radius: 0;
+  }
+  .chat-demo .msg {
+    margin: 8px 0;
+    padding: 8px 10px;
+    border-left: 2px solid var(--accent);
+  }
+  .chat-demo .msg.user { border-left-color: rgba(245,245,240,0.25); opacity: 0.8; }
+  .chat-demo .msg-label {
+    font-size: 9px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART V — APPLICATIONS                               */
+  /* ═══════════════════════════════════════════════════ */
+  .apps-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .app-card {
+    border: 1px solid var(--fg);
+    padding: 0;
+    overflow: hidden;
+    background: var(--bg);
+    transition: transform 320ms var(--ease);
+  }
+  .app-card:hover { transform: translateY(-4px); }
+  .app-preview {
+    aspect-ratio: 4/3;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 20px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-preview.tweet { background: var(--bg); color: var(--fg); }
+  .app-preview.tweet .tweet-content {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 16px;
+  }
+  .app-preview.email { background: #fff; color: var(--fg); }
+  .app-preview.landing { background: var(--fg); color: var(--bg); }
+  .app-preview .preview-chrome {
+    display: flex;
+    gap: 6px;
+    opacity: 0.6;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .app-preview .preview-body {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .app-card-label {
+    padding: 20px 22px;
+    border-top: 1px solid var(--fg);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+  }
+  .app-card-label strong { font-weight: 700; }
+  .app-card-label span { opacity: 0.6; }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  PART VI — GOVERNANCE                                */
+  /* ═══════════════════════════════════════════════════ */
+  .changelog {
+    margin-top: 40px;
+    border-top: 2px solid var(--fg);
+  }
+  .changelog-entry {
+    display: grid;
+    grid-template-columns: 140px 100px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .changelog-entry .clog-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+  .changelog-entry .clog-version {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 3px 8px;
+    width: fit-content;
+    letter-spacing: 0.05em;
+  }
+  .changelog-entry .clog-version.accent {
+    background: var(--accent);
+  }
+  .changelog-entry .clog-desc {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  FOOTER                                              */
+  /* ═══════════════════════════════════════════════════ */
+  footer {
+    margin-top: 160px;
+    padding: 80px var(--pad) 60px;
+    background: var(--fg);
+    color: var(--bg);
+    border-top: 8px solid var(--accent);
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: end;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(245,245,240,0.15);
+  }
+  .footer-wordmark {
+    font-family: var(--font-logo);
+    font-weight: 800;
+    font-size: clamp(100px, 18vw, 280px);
+    line-height: 0.8;
+    letter-spacing: -0.065em;
+  }
+  .footer-stamp {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    line-height: 1.8;
+    text-align: right;
+  }
+  .footer-bottom {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .footer-bottom h5 { opacity: 0.5; margin-bottom: 12px; font-weight: 700; }
+  .footer-bottom a { opacity: 0.85; display: block; padding: 4px 0; transition: color 220ms; }
+  .footer-bottom a:hover { color: var(--accent); }
+
+  /* ═══════════════════════════════════════════════════ */
+  /*  RESPONSIVE                                          */
+  /* ═══════════════════════════════════════════════════ */
+  @media (max-width: 1000px) {
+    .mvv, .vocab-grid, .apps-grid { grid-template-columns: 1fr; }
+    .registers { grid-template-columns: 1fr 1fr; }
+    .motion-grid { grid-template-columns: 1fr 1fr; }
+    .palette-grid { grid-template-columns: 1fr 1fr; }
+    .logo-section, .ai-block, .quadrant-chart { grid-template-columns: 1fr; gap: 40px; }
+    .side-nav { display: none; }
+    .changelog-entry { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .marquee-track { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav class="nav">
+  <div class="nav-left">
+    <strong>effigy</strong>
+    <span class="nav-sep">/</span>
+    <span>master brand book</span>
+    <span class="nav-sep">/</span>
+    <span>v1.0</span>
+  </div>
+  <div class="nav-right">
+    <a href="#foundation">foundation</a>
+    <a href="#voice">voice</a>
+    <a href="#visual">visual</a>
+    <a href="#ai">ai</a>
+    <a href="#applications">applications</a>
+    <a href="#governance">governance</a>
+  </div>
+</nav>
+
+<div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+
+<nav class="side-nav" id="side-nav">
+  <a href="#hero" data-label="intro" class="active">intro</a>
+  <a href="#foundation" data-label="i · foundation">i · foundation</a>
+  <a href="#voice" data-label="ii · voice">ii · voice</a>
+  <a href="#visual" data-label="iii · visual">iii · visual</a>
+  <a href="#ai" data-label="iv · ai">iv · ai</a>
+  <a href="#applications" data-label="v · applications">v · applications</a>
+  <a href="#governance" data-label="vi · governance">vi · governance</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- HERO                                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="shader-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-stamp">
+      <span>effigy · master brand book</span>
+      <span>v1.0 · 2026-04-21 · classified: living document</span>
+    </div>
+    <h1 class="hero-wordmark">effigy</h1>
+    <p class="hero-tagline">the runtime-agnostic stack that plugs any agent brain into an autonomous content-creation loop. generative tools, channels, hosting, and legal provenance — wired by default.</p>
+    <div class="hero-bottom">
+      <span class="hero-scroll">↓ &nbsp; proceed</span>
+      <span>six parts · one standard</span>
+      <span>01 · intro</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PART I — FOUNDATION                                  -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="foundation">
+  <div class="container">
+    <header class="part-header" data-reveal>
+      <div class="part-tag">
+        <span>— part one</span>
+        <span class="counter">01 / 06</span>
+      </div>
+      <h2 class="part-title">foundation<span class="accent-text">.</span></h2>
+      <div class="part-subtitle">origin · principles · positioning</div>
+    </header>
+
+    <div class="grid-12" data-reveal>
+      <div style="grid-column: 1 / span 5;">
+        <div class="meta-label"><span>— origin story</span><span class="counter">01 · 01</span></div>
+        <div class="origin-story">
+          <p>effigy grew out of a question. every team building autonomous AI personas in 2026 was rebuilding the same pipeline from scratch — LoRA training, voice rules, channel wiring, provenance signing, hosting — one character at a time, one runtime at a time, one mistake at a time. nothing tied it together.</p>
+          <p>we built kira first. a single character, end-to-end, at $60-75/mo all-in. she still runs today. every brittle edge and expensive lesson on the way to her became a rule, a linter, a skill.</p>
+          <div class="pullout">the character stops being a vibe and becomes a reproducible artifact.</div>
+          <p>effigy takes that pipeline and makes it runtime-agnostic. bring your brain — hermes, langgraph, crewai, whatever comes next. we wire the loop, the tools, the channels, the legal layer. one click becomes a deployed autonomous presence.</p>
+        </div>
+      </div>
+
+      <div style="grid-column: 7 / span 6;">
+        <div class="meta-label"><span>— what an effigy is</span><span class="counter">01 · 02</span></div>
+        <div class="origin-story">
+          <p><strong>effigy</strong> (n.): a crafted likeness that stands in for someone else and speaks on their behalf. historically sculpted; lately software.</p>
+          <p>our customers build effigies — synthetic presences that carry their brand, their voice, and their posture into channels where they cannot be. the effigy is not the person. the effigy is a disclosed, provenance-signed extension of the person, operating inside rules they set.</p>
+          <p>this is the distinction that matters. not impersonation. representation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MISSION VISION VALUES -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— mission · vision · values</span><span class="counter">01 · 03</span></div>
+      <div class="mvv">
+        <div class="mvv-card">
+          <span class="mvv-num">mission / 01</span>
+          <h3 class="mvv-title">make autonomous presence honest work.</h3>
+          <p class="mvv-body">every artifact ships signed. every agent declares itself. every brand we touch gets a takedown SOP on day one. compliance is not a tax — it's the product.</p>
+        </div>
+        <div class="mvv-card">
+          <span class="mvv-num">vision / 02</span>
+          <h3 class="mvv-title">one click, any runtime, any channel.</h3>
+          <p class="mvv-body">the user should not have to pick a framework to get a working agent. the platform makes the framework invisible. swap hermes for langgraph in one config line.</p>
+        </div>
+        <div class="mvv-card">
+          <span class="mvv-num">values / 03</span>
+          <h3 class="mvv-title">craft is load-bearing.</h3>
+          <p class="mvv-body">prompt linters, voice-check gates, C2PA manifests, moderation queues. the boring disciplines compound. we will not ship a half-baked loop and call it "in beta."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND PRINCIPLES -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— brand principles · five to hold</span><span class="counter">01 · 04</span></div>
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div>
+            <div class="principle-title">runtime-neutral, never runtime-lite.</div>
+            <p class="principle-body">the common agent interface is a thin, opinionated abstraction — not a lowest-common-denominator. framework-specific power is available through explicit escape hatches, never by accident.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div>
+            <div class="principle-title">compliance is a feature, not a footnote.</div>
+            <p class="principle-body">C2PA signing, FTC disclosure, takedown SOP, GDPR consent — all built in, all default on. the projects that get killed by regulation are the ones that added it last.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div>
+            <div class="principle-title">identity is infrastructure.</div>
+            <p class="principle-body">a persona is a locked LoRA, a loaded SOUL, a linter that knows the character's anchors. the character stops being a vibe and becomes a reproducible artifact.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div>
+            <div class="principle-title">show your work.</div>
+            <p class="principle-body">exposed rules, visible rulers, monospace metadata, version stamps. the guide, the product, the agent — all declare themselves. no slick opacity over empty machinery.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">05</div>
+          <div>
+            <div class="principle-title">precise, with teeth.</div>
+            <p class="principle-body">tech-min clarity leads, brutalist edge earns it. we are not notion. we are not stripe. we are linear with are.na's bones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUADRANT CHART -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— competitive positioning · 4-quadrant</span><span class="counter">01 · 05</span></div>
+      <div class="quadrant-chart">
+        <div class="quadrant-chart-visual" id="quadrant">
+          <div class="quadrant-axis-x"></div>
+          <div class="quadrant-axis-y"></div>
+          <div class="quadrant-label top">compliance-first</div>
+          <div class="quadrant-label bottom">compliance-ignored</div>
+          <div class="quadrant-label left">runtime-locked</div>
+          <div class="quadrant-label right">runtime-agnostic</div>
+
+          <div class="q-point" style="left: 22%; top: 68%;" data-reveal><span class="q-point-label" style="transform: translate(-50%, -130%);">character.ai</span></div>
+          <div class="q-point" style="left: 35%; top: 48%;" data-reveal><span class="q-point-label" style="transform: translate(-50%, -130%);">delphi.ai</span></div>
+          <div class="q-point" style="left: 28%; top: 74%;" data-reveal><span class="q-point-label" style="transform: translate(-50%, 50%);">heygen</span></div>
+          <div class="q-point" style="left: 70%; top: 70%;" data-reveal><span class="q-point-label" style="transform: translate(-50%, 50%);">langgraph cloud</span></div>
+          <div class="q-point" style="left: 50%; top: 56%;" data-reveal><span class="q-point-label" style="transform: translate(-50%, -130%);">mastra</span></div>
+          <div class="q-point us" style="left: 78%; top: 24%;" data-reveal><span class="q-point-label" style="transform: translate(-50%, -140%);">effigy</span></div>
+        </div>
+        <div class="quadrant-legend">
+          <h3>where we sit.</h3>
+          <p style="font-family: var(--font-body); font-size: 15px; opacity: 0.75; margin-bottom: 24px; max-width: 38ch;">the upper-right quadrant — runtime-agnostic AND compliance-first — was empty. everyone else either locks you into one framework or treats provenance as an afterthought.</p>
+          <div class="row us"><span class="dot"></span><span>effigy — runtime-agnostic + compliance-by-default</span></div>
+          <div class="row"><span class="dot"></span><span>character.ai — locked + lawsuit-prone</span></div>
+          <div class="row"><span class="dot"></span><span>delphi.ai — locked + partial compliance</span></div>
+          <div class="row"><span class="dot"></span><span>heygen / synthesia — avatar-only + ignored</span></div>
+          <div class="row"><span class="dot"></span><span>langgraph cloud — agnostic-ish + compliance-ignored</span></div>
+          <div class="row"><span class="dot"></span><span>mastra — agent-infra, not persona-infra</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PART II — VERBAL IDENTITY                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="voice">
+  <div class="container">
+    <header class="part-header" data-reveal>
+      <div class="part-tag">
+        <span>— part two</span>
+        <span class="counter">02 / 06</span>
+      </div>
+      <h2 class="part-title">voice<span class="accent-text">.</span></h2>
+      <div class="part-subtitle">register · vocabulary · taglines</div>
+    </header>
+
+    <div data-reveal>
+      <div class="meta-label"><span>— four registers · click to swap sample</span><span class="counter">02 · 01</span></div>
+      <div class="registers">
+        <div class="register active" data-reg="confident">
+          <span class="register-name">confident</span>
+          <span class="register-desc">— primary · ~60% of copy</span>
+          <p class="register-sample">"the upper-right quadrant was empty. that's where we built."</p>
+        </div>
+        <div class="register" data-reg="technical">
+          <span class="register-name">technical</span>
+          <span class="register-desc">— docs · changelog · SDK</span>
+          <p class="register-sample">"the CAI spec has 11 ops. MCP is the tool protocol. adapters declare their surface."</p>
+        </div>
+        <div class="register" data-reg="warm">
+          <span class="register-name">warm</span>
+          <span class="register-desc">— onboarding · empty states</span>
+          <p class="register-sample">"you brought a brain. we'll handle the rest. take a minute to name your first effigy."</p>
+        </div>
+        <div class="register" data-reg="irreverent">
+          <span class="register-name">irreverent</span>
+          <span class="register-desc">— social · launch · rare moments</span>
+          <p class="register-sample">"every "AI influencer" project fails for the same three reasons. we wrote them down."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOCAB -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 80px;"><span>— vocabulary · three lists</span><span class="counter">02 · 02</span></div>
+      <div class="vocab-grid">
+        <div class="vocab-col preferred">
+          <h4>preferred</h4>
+          <div class="subtitle">— use these · ship these</div>
+          <ul>
+            <li>effigy · effigies</li>
+            <li>runtime-agnostic</li>
+            <li>autonomous presence</li>
+            <li>crafted likeness</li>
+            <li>reproducible artifact</li>
+            <li>provenance-by-default</li>
+            <li>the loop</li>
+            <li>brain · channels · tools</li>
+          </ul>
+        </div>
+        <div class="vocab-col avoid">
+          <h4>avoid</h4>
+          <div class="subtitle">— vague · overused · soft</div>
+          <ul>
+            <li>AI influencer</li>
+            <li>chatbot · bot</li>
+            <li>agents-as-a-service</li>
+            <li>revolutionary · game-changing</li>
+            <li>seamless · unified</li>
+            <li>empowering</li>
+            <li>our AI</li>
+            <li>just</li>
+          </ul>
+        </div>
+        <div class="vocab-col banned">
+          <h4>banned</h4>
+          <div class="subtitle">— never · in any context</div>
+          <ul>
+            <li>replace humans</li>
+            <li>indistinguishable from real</li>
+            <li>impersonation</li>
+            <li>undetectable AI</li>
+            <li>evade moderation</li>
+            <li>bypass policy</li>
+            <li>clone a person</li>
+            <li>revenge / non-consensual</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAGLINE MARQUEE -->
+    <div data-reveal style="margin-top: 80px;">
+      <div class="meta-label"><span>— tagline catalog · scroll to see more</span><span class="counter">02 · 03</span></div>
+      <div class="marquee">
+        <div class="marquee-track">
+          <span>the stack for autonomous agents.</span>
+          <span class="blue">bring your brain.</span>
+          <span>a crafted likeness, signed by default.</span>
+          <span>one click. any runtime. any channel.</span>
+          <span class="blue">runtime-agnostic, compliance-first.</span>
+          <span>precise, with teeth.</span>
+          <span>the stack for autonomous agents.</span>
+          <span class="blue">bring your brain.</span>
+          <span>a crafted likeness, signed by default.</span>
+          <span>one click. any runtime. any channel.</span>
+          <span class="blue">runtime-agnostic, compliance-first.</span>
+          <span>precise, with teeth.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PART III — VISUAL IDENTITY                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="visual">
+  <div class="container">
+    <header class="part-header" data-reveal>
+      <div class="part-tag">
+        <span>— part three · anchor section</span>
+        <span class="counter">03 / 06</span>
+      </div>
+      <h2 class="part-title">visual<span class="accent-text">.</span></h2>
+      <div class="part-subtitle">logo · palette · type · motion</div>
+    </header>
+
+    <!-- LOGO -->
+    <div data-reveal>
+      <div class="meta-label"><span>— logo system · logomark + wordmark + monogram</span><span class="counter">03 · 01</span></div>
+      <div class="logo-section">
+        <div class="logo-stack">
+          <div class="mark-stage">
+            <div class="logo-meta">03-b · the split cast · head · body · lower</div>
+            <svg viewBox="0 0 130 230" xmlns="http://www.w3.org/2000/svg" aria-label="effigy logomark — the split cast">
+              <!-- narwhal trace · 3-part split -->
+              <g transform="translate(16, 10)">
+                <circle cx="40" cy="30" r="16" fill="#78A7FF"/>
+                <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF"/>
+                <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF"/>
+                <rect x="8" y="184" width="64" height="28" fill="#78A7FF"/>
+              </g>
+              <!-- ink · 3-part split -->
+              <circle cx="40" cy="30" r="16" fill="#F5F7FF"/>
+              <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#F5F7FF"/>
+              <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#F5F7FF"/>
+              <rect x="8" y="184" width="64" height="28" fill="#F5F7FF"/>
+            </svg>
+          </div>
+          <div class="logo-stage">
+            <div class="logo-meta">wordmark · 148px · 800 · -0.065em · jetbrains mono</div>
+            effigy
+            <div class="accent-dot"></div>
+          </div>
+        </div>
+        <div class="logo-specs">
+          <div class="spec-row">
+            <span class="spec-label">logomark</span>
+            <div class="spec-value">the <strong>split cast</strong>. robed effigy figure + narwhal offset trace, both split into <code>head · body · lower</code> with 4-unit gaps. the mark encodes the product: agents assembled from distinct parts, cast from a source, offset on the record.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">wordmark</span>
+            <div class="spec-value">always lowercase <code>effigy</code>. jetbrains mono 800 (berkeley mono at ship). tracking <code>-0.065em</code> at display, <code>-0.045em</code> at body. never tracked wider than <code>0</code>.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">monogram</span>
+            <div class="spec-value">lowercase <code>e</code> in jetbrains mono 800. small-size fallback only — favicon, app icon, timeline avatar, sidebar nav <strong>≤40px</strong>. never replaces the logomark at hero scale.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">signature</span>
+            <div class="spec-value">logomark + wordmark stacked on dark, logomark + wordmark horizontal on light. mark at ~1.15× cap-height. never split across columns.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">min size</span>
+            <div class="spec-value">logomark <strong>64px</strong> (below: gaps collapse, fall back to monogram). wordmark <strong>80px</strong> for display, <strong>16px</strong> for inline prose. monogram <strong>16px</strong>.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">clear space</span>
+            <div class="spec-value">minimum 1× cap-height of the wordmark (or 1× head-diameter of the logomark) on all sides. no UI chrome, type, or edges inside that band.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">never</span>
+            <div class="spec-value">no recolor outside the palette. no rotation. no drop-shadow. no gradients inside the mark. no rearranging parts (the 4-unit gaps are fixed). no all-caps wordmark. no serif, no italic, no script.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FONT SYSTEM -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— font system · two faces, four roles</span><span class="counter">03 · 02</span></div>
+
+      <div class="font-grid">
+        <div class="font-card">
+          <div class="font-specimen" style="font-family: var(--font-display); font-weight: 700; font-size: 96px; letter-spacing: -0.035em;">Aa Rr</div>
+          <div class="font-name">Inter Tight</div>
+          <div class="font-role">— display · ui · body</div>
+          <div class="font-meta">
+            <div>— weights · 400 · 500 · 600 · 700 · 800</div>
+            <div>— source · rsms.me · SIL Open Font License</div>
+            <div>— stack · <code style="background:var(--bg-2);padding:1px 5px;">'Inter Tight', system-ui, sans-serif</code></div>
+          </div>
+          <div class="font-usage">
+            <div>✓ section headings (h2 / h3 / h4)</div>
+            <div>✓ body copy + pull-quotes</div>
+            <div>✓ UI chrome, buttons, microcopy</div>
+            <div>× logo wordmarks — use JetBrains Mono</div>
+            <div>× UI labels / metadata — use JetBrains Mono</div>
+          </div>
+        </div>
+
+        <div class="font-card">
+          <div class="font-specimen" style="font-family: var(--font-mono); font-weight: 800; font-size: 96px; letter-spacing: -0.055em;">Aa 01</div>
+          <div class="font-name">JetBrains Mono</div>
+          <div class="font-role">— logo · metadata · code</div>
+          <div class="font-meta">
+            <div>— weights · 400 · 500 · 700 · 800 (ships as Berkeley Mono in prod)</div>
+            <div>— source · jetbrains.com · Apache 2.0</div>
+            <div>— stack · <code style="background:var(--bg-2);padding:1px 5px;">'JetBrains Mono', ui-monospace, monospace</code></div>
+          </div>
+          <div class="font-usage">
+            <div>✓ logo wordmark — 800 · tracked -0.065em</div>
+            <div>✓ UI labels, counters, metadata strips</div>
+            <div>✓ code samples, technical data, file paths</div>
+            <div>× body prose (fatigue sets in &gt; 60 chars)</div>
+            <div>× display non-logo headers</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEIGHT MATRIX -->
+      <div class="weight-matrix">
+        <div class="weight-row">
+          <span class="weight-label">Inter Tight · 400</span>
+          <span class="weight-sample" style="font-family: var(--font-body); font-weight: 400; font-size: 22px;">Body copy at rest. Primary reading weight.</span>
+          <span class="weight-note">body 14-17px</span>
+        </div>
+        <div class="weight-row">
+          <span class="weight-label">Inter Tight · 500</span>
+          <span class="weight-sample" style="font-family: var(--font-body); font-weight: 500; font-size: 22px;">Emphasis and strong links.</span>
+          <span class="weight-note">inline emphasis · strong · button</span>
+        </div>
+        <div class="weight-row">
+          <span class="weight-label">Inter Tight · 700</span>
+          <span class="weight-sample" style="font-family: var(--font-display); font-weight: 700; font-size: 40px; letter-spacing: -0.03em; line-height: 1.05;">Display headlines.</span>
+          <span class="weight-note">h3 · card titles · pull quotes</span>
+        </div>
+        <div class="weight-row">
+          <span class="weight-label">Inter Tight · 800</span>
+          <span class="weight-sample" style="font-family: var(--font-display); font-weight: 800; font-size: 56px; letter-spacing: -0.04em; line-height: 0.95;">Part titles.</span>
+          <span class="weight-note">h2 · major section headlines only</span>
+        </div>
+        <div class="weight-row">
+          <span class="weight-label">JetBrains Mono · 500</span>
+          <span class="weight-sample" style="font-family: var(--font-mono); font-weight: 500; font-size: 18px; letter-spacing: 0.02em;">// 03 · 02 · metadata at rest</span>
+          <span class="weight-note">labels · counters · technical data</span>
+        </div>
+        <div class="weight-row">
+          <span class="weight-label">JetBrains Mono · 800</span>
+          <span class="weight-sample" style="font-family: var(--font-logo); font-weight: 800; font-size: 60px; letter-spacing: -0.065em;">effigy</span>
+          <span class="weight-note">LOGO ONLY · never elsewhere</span>
+        </div>
+      </div>
+
+      <!-- SPACING / STYLE CUES -->
+      <div style="margin-top: 48px;">
+        <div class="meta-label"><span>— spacing + style cues</span><span class="counter">03 · 02 · rules</span></div>
+        <div class="logo-specs" style="margin-top: 24px;">
+          <div class="spec-row">
+            <span class="spec-label">letter-spacing</span>
+            <div class="spec-value">display ≥40px: <code>-0.03em to -0.04em</code>. body: <code>0</code>. mono logo: <code>-0.065em</code>. mono small: <code>0.02em</code>. uppercase mono metadata: <code>0.1em to 0.14em</code>.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">line-height</span>
+            <div class="spec-value">display 0.9–1.0. body 1.5–1.6. mono labels 1.4–1.5. tight headlines 0.95. never &lt;0.85 on display.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">case</span>
+            <div class="spec-value">sentence case default. lowercase for <code>effigy</code> wordmark + tone-of-voice editorial moments. uppercase ONLY for 10–12px mono metadata with ≥0.1em tracking. never all-caps display type.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">punctuation</span>
+            <div class="spec-value">period after wordmark acceptable in display (<code>effigy.</code>). em-dashes for in-prose emphasis. mono-label metadata uses <code>·</code> (middle dot) separator or <code>—</code>, never <code>|</code> or <code>/</code>.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">optical sizing</span>
+            <div class="spec-value">no optical-size swaps. Inter Tight at all sizes, JetBrains Mono at all sizes. tracking tightens at larger sizes (scale -0.025em → -0.04em from 24px → 96px display).</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">numerals</span>
+            <div class="spec-value">tabular (<code>font-variant-numeric: tabular-nums</code>) for any data / counters / price / metric. proportional elsewhere.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGO PLACEMENT -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— logo placement · clear space · minimums</span><span class="counter">03 · 03</span></div>
+      <div class="placement-block">
+        <div class="placement-stage">
+          <div class="grid-bg"></div>
+          <div class="clear-ring"></div>
+          <span class="dim top">1× cap-height clear above</span>
+          <span class="dim bottom">rule + 2× below</span>
+          <span class="dim left">1× cap-height left</span>
+          <span class="dim right">1× cap-height right</span>
+          <div class="placement-word">effigy</div>
+        </div>
+        <div class="logo-specs">
+          <div class="spec-row">
+            <span class="spec-label">clear space</span>
+            <div class="spec-value">Minimum <code>1× cap-height</code> on all sides. Nothing crosses the cap-line or drops below the accent rule.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">min size · wordmark</span>
+            <div class="spec-value">80px wide (digital). 0.5in wide (print). Below: switch to monogram.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">min size · monogram</span>
+            <div class="spec-value">16px (digital favicon). 8mm (print). Below: drop the mark entirely — wordmark in copy instead.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">background</span>
+            <div class="spec-value">Bone <code>#F5F7FF</code> default. Ink <code>#0A1230</code> reversed. Narwhal <code>#78A7FF</code> emphasis only. Never other colors.</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">alignment</span>
+            <div class="spec-value">Flush-left default. Centered only in square frames (favicon, app icon, social avatar).</div>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">rule</span>
+            <div class="spec-value">10px accent bar, full-wordmark-width, 18px below baseline. Scales 1:1 with the wordmark. Optional below 60px — if included, 6% of wordmark height.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DON'TS MINI -->
+      <div style="margin-top: 48px;">
+        <div class="meta-label"><span>— don'ts · four common violations</span><span class="counter">03 · 03 · x</span></div>
+        <div class="donts-mini">
+          <div class="dont-mini">
+            <div class="dont-sample" style="text-transform: uppercase;">EFFIGY</div>
+            <div class="dont-label">× never uppercase</div>
+          </div>
+          <div class="dont-mini">
+            <div class="dont-sample" style="font-style: italic; font-family: 'Inter Tight', sans-serif; font-weight: 700;">effigy</div>
+            <div class="dont-label">× never italic · never non-mono</div>
+          </div>
+          <div class="dont-mini">
+            <div class="dont-sample" style="transform: rotate(-8deg);">effigy</div>
+            <div class="dont-label">× never rotate</div>
+          </div>
+          <div class="dont-mini">
+            <div class="dont-sample" style="transform: scaleX(1.6);">effigy</div>
+            <div class="dont-label">× never stretch or distort</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PALETTE -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— palette · narwhal grey in veiling twilight</span><span class="counter">03 · 04</span></div>
+      <div class="palette-grid">
+        <div class="palette-chip black">
+          <span class="chip-name">ink · primary text</span>
+          <span class="chip-hex">#0A1230</span>
+          <span class="chip-data">rgb 10 18 48<br>hsl 229 66% 11%<br>oklch 0.17 0.08 276</span>
+        </div>
+        <div class="palette-chip offwhite">
+          <span class="chip-name">bone · background</span>
+          <span class="chip-hex">#F5F7FF</span>
+          <span class="chip-data">rgb 245 247 255<br>hsl 228 100% 98%<br>oklch 0.97 0.015 276</span>
+        </div>
+        <div class="palette-chip accent-blue">
+          <span class="chip-name">narwhal · primary accent</span>
+          <span class="chip-hex">#78A7FF</span>
+          <span class="chip-data">rgb 120 167 255<br>hsl 221 100% 74%<br>oklch 0.74 0.24 264</span>
+        </div>
+        <div class="palette-chip accent-acid">
+          <span class="chip-name">accent-deep · body links</span>
+          <span class="chip-hex">#4B6DCE</span>
+          <span class="chip-data">rgb 75 109 206<br>hsl 224 56% 55%<br>wcag aa on bone</span>
+        </div>
+        <div class="palette-chip accent-oxblood">
+          <span class="chip-name">ink-3 · mid-depth</span>
+          <span class="chip-hex">#2A3A7A</span>
+          <span class="chip-data">rgb 42 58 122<br>hsl 228 49% 32%<br>editorial only</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPE SCALE -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— type scale · display · body · mono</span><span class="counter">03 · 05</span></div>
+      <div class="type-scale">
+        <div class="type-row">
+          <div class="label">display / xxl</div>
+          <div class="size">104px</div>
+          <div class="sample" style="font-size: 104px;">effigy</div>
+        </div>
+        <div class="type-row">
+          <div class="label">display / xl</div>
+          <div class="size">64px</div>
+          <div class="sample" style="font-size: 64px;">runtime-agnostic</div>
+        </div>
+        <div class="type-row">
+          <div class="label">display / l</div>
+          <div class="size">40px</div>
+          <div class="sample" style="font-size: 40px;">a crafted likeness.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">display / m</div>
+          <div class="size">28px</div>
+          <div class="sample" style="font-size: 28px;">bring your brain.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">body / l</div>
+          <div class="size">17px</div>
+          <div class="sample body" style="font-size: 17px;">every "AI influencer" project fails for the same three reasons. we wrote them down.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">body / m</div>
+          <div class="size">15px</div>
+          <div class="sample body" style="font-size: 15px;">the upper-right quadrant was empty. that's where we built effigy.</div>
+        </div>
+        <div class="type-row">
+          <div class="label">mono / l</div>
+          <div class="size">13px</div>
+          <div class="sample mono" style="font-size: 13px;">section 01 / 06 · v1.0 · 2026-04-21</div>
+        </div>
+        <div class="type-row">
+          <div class="label">mono / s</div>
+          <div class="size">10px</div>
+          <div class="sample mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;">— metadata · status: production</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOTION -->
+    <div data-reveal>
+      <div class="meta-label" style="margin-top: 120px;"><span>— motion · hover to see easing</span><span class="counter">03 · 04</span></div>
+      <div class="motion-grid">
+        <div class="motion-card ease-quick">
+          <span class="motion-name">— quick / ui tap</span>
+          <div class="motion-box"></div>
+          <span class="motion-spec">180ms · cubic-bezier(0.2, 0, 0, 1)</span>
+        </div>
+        <div class="motion-card ease-slow">
+          <span class="motion-name">— slow / section</span>
+          <div class="motion-box"></div>
+          <span class="motion-spec">640ms · cubic-bezier(0.2, 0, 0, 1)</span>
+        </div>
+        <div class="motion-card ease-snap">
+          <span class="motion-name">— snap / emphasis</span>
+          <div class="motion-box"></div>
+          <span class="motion-spec">280ms · cubic-bezier(0.76, 0, 0.24, 1)</span>
+        </div>
+        <div class="motion-card ease-stutter">
+          <span class="motion-name">— stutter / brutalist</span>
+          <div class="motion-box"></div>
+          <span class="motion-spec">320ms · steps(6, end)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PART IV — AI EXTENSIONS                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="ai">
+  <div class="container">
+    <header class="part-header" data-reveal>
+      <div class="part-tag">
+        <span>— part four · category-defining</span>
+        <span class="counter">04 / 06</span>
+      </div>
+      <h2 class="part-title">ai<span class="accent-text">.</span></h2>
+      <div class="part-subtitle">what brand guides never had to ship until now</div>
+    </header>
+
+    <div class="ai-block" data-reveal>
+      <div class="ai-card">
+        <span class="ai-tag">— 04 · 01 · provenance</span>
+        <h3>every artifact signed.</h3>
+        <p>every image and video the platform produces carries a C2PA manifest — synthetic origin, training source, model, creator, takedown contact. the badge appears everywhere the work does. unverifiable means unshipped.</p>
+        <div class="c2pa-badge"><div class="cr-icon">cr</div>content credentials · c2pa · effigy</div>
+      </div>
+      <div class="ai-card">
+        <span class="ai-tag">— 04 · 02 · voice rules</span>
+        <h3>a voice that answers to rules.</h3>
+        <p>every SOUL document is paired with a two-gate voice check — lexical linter (banned words, register drift) + semantic judge (grok evaluates whether the draft matches the archetype). nothing ships without passing both.</p>
+        <div class="chat-demo">
+          <div class="msg user">
+            <span class="msg-label">— agent draft · attempt 1</span>
+            revolutionary AI solution that empowers every creator 🚀
+          </div>
+          <div class="msg">
+            <span class="msg-label">— voice-check · rejected</span>
+            banned: "revolutionary", "empowers", emoji.<br>register drift: marketing.
+          </div>
+          <div class="msg user">
+            <span class="msg-label">— agent draft · attempt 2</span>
+            the upper-right quadrant was empty. we built there.
+          </div>
+          <div class="msg">
+            <span class="msg-label">— voice-check · shipped</span>
+            passes. register: confident. match 0.94.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ai-block" data-reveal style="margin-top: 40px;">
+      <div class="ai-card">
+        <span class="ai-tag">— 04 · 03 · visual guardrails</span>
+        <h3>the linter knows the face.</h3>
+        <p>no image leaves the pipeline without the identity linter passing — trigger word present, distinctive-feature anchors intact, mode-appropriate framing, banned styling words absent. hard-block on violation. identity does not drift.</p>
+        <div style="margin-top: 16px; font-family: var(--font-mono); font-size: 11px; line-height: 1.8; opacity: 0.7;">
+          ✓ trigger · kira_agi_v1<br>
+          ✓ identity anchors · 3/3<br>
+          ✓ mode · candid_1344x1728<br>
+          ✗ "editorial" — banned styling<br>
+          <span style="color: var(--accent); font-weight: 700;">→ exit 3. prompt rejected.</span>
+        </div>
+      </div>
+      <div class="ai-card">
+        <span class="ai-tag">— 04 · 04 · structured voice</span>
+        <h3>voice as data, not just prose.</h3>
+        <p>every brand's voice ships as both a readable SOUL.md and a machine-readable JSON export. LLM routing, voice-check grok judges, quality audits — all consume the structured form. no prose parsing.</p>
+        <pre style="background: var(--fg); color: var(--bg); padding: 18px; margin-top: 12px; font-family: var(--font-mono); font-size: 11px; line-height: 1.6; overflow-x: auto;">{
+  "archetype": "confident",
+  "registers": { "confident": 0.6, "technical": 0.2, "warm": 0.15, "irreverent": 0.05 },
+  "banned": ["revolutionary", "empowers", "bro"],
+  "tics": ["precise, with teeth", "bring your brain"],
+  "length_target": { "min": 80, "max": 240, "p50": 140 }
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PART V — APPLICATIONS                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="applications">
+  <div class="container">
+    <header class="part-header" data-reveal>
+      <div class="part-tag">
+        <span>— part five</span>
+        <span class="counter">05 / 06</span>
+      </div>
+      <h2 class="part-title">channels<span class="accent-text">.</span></h2>
+      <div class="part-subtitle">web · social · email · deck · docs</div>
+    </header>
+
+    <div class="apps-grid" data-reveal>
+      <div class="app-card">
+        <div class="app-preview landing">
+          <div class="preview-chrome">— effigy.studio / landing</div>
+          <div class="preview-body">bring your brain.<br>we wire the rest.</div>
+          <div class="c2pa-badge" style="color: var(--bg); border-color: var(--bg);"><div class="cr-icon">cr</div>c2pa signed</div>
+        </div>
+        <div class="app-card-label">
+          <strong>web · landing</strong>
+          <span>1440×900 · desktop</span>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-preview tweet">
+          <div class="preview-chrome">— @effigy · x post</div>
+          <div class="tweet-content">
+            <strong>effigy</strong> <span style="opacity:0.5;">@effigy</span><br>
+            every "AI influencer" project fails for the same three reasons.<br>
+            we wrote them down.<br><br>
+            the stack: <span style="color: var(--accent);">effigy.studio</span>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 10px; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.1em;">— ai-generated · c2pa signed · see manifest</div>
+        </div>
+        <div class="app-card-label">
+          <strong>social · x</strong>
+          <span>single post</span>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-preview email">
+          <div class="preview-chrome" style="color:var(--fg);">— inbox · effigy update</div>
+          <div class="preview-body" style="color:var(--fg); margin-top: 12px;">your first effigy<br>has posted.</div>
+          <div style="font-family: var(--font-body); font-size: 13px; margin-top: 12px; opacity: 0.8;">three replies drafted. two awaiting your review.</div>
+          <div style="margin-top: 16px; padding: 8px 12px; background: var(--accent); color: var(--bg); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; width: fit-content;">review →</div>
+        </div>
+        <div class="app-card-label">
+          <strong>email · transactional</strong>
+          <span>600px wide</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="apps-grid" data-reveal style="margin-top: 24px;">
+      <div class="app-card">
+        <div class="app-preview" style="background: var(--bg); color: var(--fg); border-bottom: 1px solid var(--fg);">
+          <div class="preview-chrome" style="color: var(--fg);">— deck · pitch slide 4</div>
+          <div style="margin-top: 12px;">
+            <div style="font-family: var(--font-mono); font-size: 9px; opacity: 0.5; text-transform: uppercase;">— the solution</div>
+            <div class="preview-body" style="margin-top: 8px; color: var(--fg);">meta-layer for<br>any agent runtime.</div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 9px; opacity: 0.4;">04 / 12</div>
+        </div>
+        <div class="app-card-label">
+          <strong>deck · pitch</strong>
+          <span>16:9 · 1920×1080</span>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-preview" style="background:var(--bg);color:var(--fg);">
+          <div class="preview-chrome" style="color: var(--fg);">— docs · /brand/voice</div>
+          <div style="margin-top: 12px;">
+            <div class="preview-body" style="color:var(--fg); font-size: 18px;">voice / 02 · vocabulary</div>
+            <div style="font-family: var(--font-mono); font-size: 11px; margin-top: 10px; line-height: 1.8;">
+              ✓ preferred · effigy · runtime-agnostic<br>
+              × avoid · AI influencer · seamless<br>
+              ✗ banned · replace humans · undetectable
+            </div>
+          </div>
+        </div>
+        <div class="app-card-label">
+          <strong>docs · voice</strong>
+          <span>desktop 1200px</span>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-preview" style="background:var(--fg);color:var(--bg);">
+          <div class="preview-chrome">— sow · client brand pack</div>
+          <div style="margin-top: 12px;">
+            <div class="preview-body">client × effigy<br>brand guide v1.0</div>
+            <div style="font-family: var(--font-mono); font-size: 9px; opacity: 0.5; margin-top: 8px;">SOW · 18-22k · band b · 2026</div>
+          </div>
+          <div style="font-family: var(--font-mono); font-size: 9px; opacity: 0.4;">01 / 40</div>
+        </div>
+        <div class="app-card-label">
+          <strong>document · sow</strong>
+          <span>letter · pdf</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- PART VI — GOVERNANCE                                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="governance">
+  <div class="container">
+    <header class="part-header" data-reveal>
+      <div class="part-tag">
+        <span>— part six</span>
+        <span class="counter">06 / 06</span>
+      </div>
+      <h2 class="part-title">governance<span class="accent-text">.</span></h2>
+      <div class="part-subtitle">review · versioning · contribution</div>
+    </header>
+
+    <div data-reveal>
+      <div class="meta-label"><span>— changelog · this document</span><span class="counter">06 · 01</span></div>
+      <div class="changelog">
+        <div class="changelog-entry">
+          <span class="clog-date">2026-04-21</span>
+          <span class="clog-version accent">v1.0</span>
+          <span class="clog-desc">first full draft. six parts shipped. hero shader live. 50/50 brutalist × tech-min aesthetic confirmed. wordmark locked lowercase. logo directions a/b/c under pick.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="clog-date">2026-04-20</span>
+          <span class="clog-version">v0.3</span>
+          <span class="clog-desc">name pivoted from agentify → effigy after all 10 TLDs taken + 4 common-law competitors surfaced. effigy.studio secured as primary domain. USPTO class 9/35/42 clear.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="clog-date">2026-04-20</span>
+          <span class="clog-version">v0.2</span>
+          <span class="clog-desc">pricing tightened via research: creator $79 caps revised to 210 images + 8 videos/mo for 62% margin at cap. white-glove raised to $12/$18-22/$28-35k across three bands.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="clog-date">2026-04-19</span>
+          <span class="clog-version">v0.1</span>
+          <span class="clog-desc">initial aesthetic direction. austere-brutalist × tech-minimalist. references: linear, are.na, teenage engineering, readymag. palette + type candidates drafted.</span>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal style="margin-top: 80px;">
+      <div class="meta-label"><span>— review cadence · how this document stays alive</span><span class="counter">06 · 02</span></div>
+      <div class="grid-12" style="margin-top: 40px;">
+        <div style="grid-column: span 4;">
+          <h3 style="font-size: 28px; margin-bottom: 16px;">weekly</h3>
+          <p style="font-size: 15px;">founders review voice-check reject patterns + updates any drift-prone rules. takes 20 minutes.</p>
+        </div>
+        <div style="grid-column: span 4;">
+          <h3 style="font-size: 28px; margin-bottom: 16px;">quarterly</h3>
+          <p style="font-size: 15px;">full guide audit. every section revisited, every rule tested against the last 90 days of real artifacts. new version shipped.</p>
+        </div>
+        <div style="grid-column: span 4;">
+          <h3 style="font-size: 28px; margin-bottom: 16px;">annually</h3>
+          <p style="font-size: 15px;">brand-voice writer review. major version bump if positioning, audience, or aesthetic shifts materially.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- FOOTER                                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-wordmark">effigy.</div>
+    <div class="footer-stamp">
+      master brand book<br>
+      v1.0 · 2026-04-21<br>
+      living document<br>
+      classified: internal + partners<br><br>
+      — contact: brand@effigy.studio<br>
+      — takedown: takedown@effigy.studio
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>
+      <h5>guide</h5>
+      <a href="#foundation">i · foundation</a>
+      <a href="#voice">ii · voice</a>
+      <a href="#visual">iii · visual</a>
+      <a href="#ai">iv · ai</a>
+      <a href="#applications">v · channels</a>
+      <a href="#governance">vi · governance</a>
+    </div>
+    <div>
+      <h5>downloads</h5>
+      <a href="#">pdf · 60pp</a>
+      <a href="#">component library · storybook</a>
+      <a href="#">tokens · css + tailwind + json</a>
+      <a href="#">asset zip · logos + fonts</a>
+    </div>
+    <div>
+      <h5>provenance</h5>
+      <a href="#">c2pa manifest</a>
+      <a href="#">/legal / disclosure</a>
+      <a href="#">takedown sop</a>
+      <a href="#">consent flow</a>
+    </div>
+    <div>
+      <h5>build</h5>
+      <a href="#">← back to kira reference</a>
+      <a href="#">← plan file v2</a>
+      <a href="#">agentify-to-effigy pivot notes</a>
+      <a href="#">© 2026 effigy</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<script>
+  // ─── Custom cursor ───
+  const cursor = document.getElementById('cursor');
+  let tx = 0, ty = 0, cx = 0, cy = 0, rafId = null;
+  document.addEventListener('mousemove', (e) => {
+    tx = e.clientX; ty = e.clientY;
+    if (!rafId) rafId = requestAnimationFrame(tick);
+  });
+  function tick() {
+    cx += (tx - cx) * 0.3;
+    cy += (ty - cy) * 0.3;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) rafId = requestAnimationFrame(tick);
+    else rafId = null;
+  }
+  document.querySelectorAll('a, button, .register, .mvv-card, .motion-card, .app-card, .palette-chip').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // ─── Progress bar ───
+  const pfill = document.getElementById('progress-fill');
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    pfill.style.width = Math.min(100, p * 100) + '%';
+  });
+
+  // ─── Side-nav active tracking ───
+  const sections = document.querySelectorAll('section');
+  const sideNavLinks = document.querySelectorAll('.side-nav a');
+  const sectionIds = ['hero', 'foundation', 'voice', 'visual', 'ai', 'applications', 'governance'];
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = sectionIds.indexOf(e.target.id);
+        if (idx >= 0) sideNavLinks.forEach((a, i) => a.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+
+  // ─── Scroll reveal ───
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('in');
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+  // ─── Register click-swap ───
+  document.querySelectorAll('.register').forEach(r => {
+    r.addEventListener('click', () => {
+      document.querySelectorAll('.register').forEach(x => x.classList.remove('active'));
+      r.classList.add('active');
+    });
+  });
+
+  // ─── WebGL shader hero ───
+  const canvas = document.getElementById('shader-canvas');
+  const gl = canvas.getContext('webgl', { antialias: true, alpha: false });
+
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    if (gl) gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  if (gl) {
+    // Fragment shader — noise gradient in brand palette
+    const vs = `
+      attribute vec2 p;
+      void main() { gl_Position = vec4(p, 0.0, 1.0); }
+    `;
+    const fs = `
+      precision highp float;
+      uniform vec2 uRes;
+      uniform float uTime;
+      uniform vec2 uMouse;
+
+      // Simplex noise (abbreviated, standard implementation)
+      vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+      float snoise(vec2 v) {
+        const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+        vec2 i  = floor(v + dot(v, C.yy));
+        vec2 x0 = v -   i + dot(i, C.xx);
+        vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+        vec4 x12 = x0.xyxy + C.xxzz;
+        x12.xy -= i1;
+        i = mod289(i);
+        vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+        vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+        m = m*m; m = m*m;
+        vec3 x = 2.0 * fract(p * C.www) - 1.0;
+        vec3 h = abs(x) - 0.5;
+        vec3 ox = floor(x + 0.5);
+        vec3 a0 = x - ox;
+        m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+        vec3 g;
+        g.x  = a0.x  * x0.x  + h.x  * x0.y;
+        g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+        return 130.0 * dot(m, g);
+      }
+
+      void main() {
+        vec2 uv = gl_FragCoord.xy / uRes;
+        vec2 pos = uv * 3.0;
+        float t = uTime * 0.06;
+
+        float n1 = snoise(pos + t);
+        float n2 = snoise(pos * 1.8 - t * 0.6);
+        float n = (n1 + n2 * 0.5) * 0.5 + 0.5;
+
+        // palette blending: narwhal veiling twilight
+        // bone #F5F7FF → narwhal #78A7FF → ink #0A1230
+        vec3 bone = vec3(0.961, 0.969, 1.0);
+        vec3 narwhal = vec3(0.471, 0.655, 1.0);
+        vec3 ink = vec3(0.039, 0.071, 0.188);
+        vec3 ink2 = vec3(0.102, 0.137, 0.314);
+
+        // Soft atmospheric gradient — narwhal rises where noise peaks mid
+        // ink3 rises where noise peaks high
+        vec3 col = bone;
+        float narwhalPunch = smoothstep(0.55, 0.82, n);
+        float inkPunch = smoothstep(0.85, 0.98, n);
+        col = mix(col, narwhal, narwhalPunch * 0.42);
+        col = mix(col, ink2, inkPunch * 0.22);
+
+        // subtle vertical wash — cooler at top, lighter at bottom
+        col *= mix(0.96, 1.02, uv.y);
+
+        // grain — tuned subtle
+        float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
+        col += (grain - 0.5) * 0.014;
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `;
+
+    function compile(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+      return s;
+    }
+    const vso = compile(gl.VERTEX_SHADER, vs);
+    const fso = compile(gl.FRAGMENT_SHADER, fs);
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vso);
+    gl.attachShader(prog, fso);
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    const pLoc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(pLoc);
+    gl.vertexAttribPointer(pLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const uResLoc = gl.getUniformLocation(prog, 'uRes');
+    const uTimeLoc = gl.getUniformLocation(prog, 'uTime');
+    const uMouseLoc = gl.getUniformLocation(prog, 'uMouse');
+    let mouseX = 0.5, mouseY = 0.5;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX / window.innerWidth;
+      mouseY = 1 - e.clientY / window.innerHeight;
+    });
+
+    let start = performance.now();
+    let running = true;
+    const heroEl = document.getElementById('hero');
+    const heroObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { running = e.isIntersecting; });
+    }, { threshold: 0.01 });
+    heroObs.observe(heroEl);
+
+    function render() {
+      if (running) {
+        gl.uniform2f(uResLoc, canvas.width, canvas.height);
+        gl.uniform1f(uTimeLoc, (performance.now() - start) / 1000);
+        gl.uniform2f(uMouseLoc, mouseX, mouseY);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      requestAnimationFrame(render);
+    }
+    render();
+  }
+
+  // ─── Quadrant point reveal on scroll ───
+  const quadPoints = document.querySelectorAll('#quadrant .q-point');
+  const quadObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        quadPoints.forEach((p, i) => setTimeout(() => p.classList.add('in'), i * 180));
+      }
+    });
+  }, { threshold: 0.3 });
+  if (document.getElementById('quadrant')) quadObs.observe(document.getElementById('quadrant'));
+</script>
+</body>
+</html>

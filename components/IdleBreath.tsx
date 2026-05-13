@@ -5,9 +5,9 @@ import { useEffect } from "react";
 /**
  * Idle micro-motion on the wordmark.
  *
- *   • CSS animation (kerning-breath) on every `.kw` element runs continuously
- *     when the body has [data-idle="1"]. ±0.5px equivalent via letter-spacing
- *     oscillation, 6s sine.
+ *   • CSS animation (wordmark-breath) on every `.kw` element runs continuously
+ *     when the body has [data-idle="1"]. It scales the whole mark subtly so
+ *     the approved per-letter gaps stay intact.
  *   • Once per minute, the cinnamon period in `.kw .dot` redraws as a single
  *     stroke (clip-path animation).
  *
