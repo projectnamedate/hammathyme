@@ -4,6 +4,7 @@ import { CASE_STUDIES, findCase, hasPieceDetail, statusLabel, type Piece } from 
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { Plinth } from "@/components/Plinth";
 import { PieceArt } from "@/components/PieceArt";
+import { Wordmark } from "@/components/Wordmark";
 
 export async function generateStaticParams() {
   return CASE_STUDIES.map((c) => ({ slug: c.slug }));
@@ -97,6 +98,12 @@ function PieceTile({
   const href = hasDetail ? `/work/${category}/${piece.slug}` : `#${piece.slug}`;
   const caption = `${piece.year} · ${statusLabel(piece.status)}`;
   const transitionName = hasDetail ? `work-${category}-${piece.slug}` : undefined;
+  const title =
+    category === "websites" && piece.slug === "hammer" ? (
+      <Wordmark size="sm" ariaLabel="hammer" />
+    ) : (
+      piece.title
+    );
 
   return (
     <div className="md:col-span-4">
@@ -104,7 +111,7 @@ function PieceTile({
         <Plinth
           href={href}
           index={index}
-          title={piece.title}
+          title={title}
           caption={caption}
           tint={piece.tint}
           cursorLabel={hasDetail ? "open →" : "soon"}

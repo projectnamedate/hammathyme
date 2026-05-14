@@ -7,6 +7,15 @@ const projectRoot = dirname(fileURLToPath(import.meta.url));
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/work/websites/hammathyme",
+        destination: "/work/websites/hammer",
+        permanent: false,
+      },
+    ];
+  },
   turbopack: {
     root: projectRoot,
   },

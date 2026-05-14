@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
+import { Wordmark } from "@/components/Wordmark";
 import {
   findCase,
   findPiece,
@@ -41,10 +42,11 @@ export default async function WorkPiecePage({
   if (!category || !piece || !hasPieceDetail(slug, pieceSlug)) notFound();
 
   const transitionName = `work-${category.slug}-${piece.slug}`;
+  const showStandardHeader = category.slug !== "brand-systems";
 
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-28 pb-16 md:px-24 md:pt-32 md:pb-24">
-      <DetailHeader category={category} piece={piece} />
+      {showStandardHeader ? <DetailHeader category={category} piece={piece} /> : null}
       {renderPieceDetail(category, piece, transitionName)}
     </main>
   );
@@ -58,7 +60,11 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
           {category.capabilityLabel} · {statusLabel(piece.status)}
         </p>
         <h1 className="mt-3 pb-[0.18em] font-display text-[clamp(44px,7vw,112px)] font-black lowercase leading-[0.96] tracking-[-0.045em] text-[var(--ink-0)]">
-          {piece.title}
+          {category.slug === "websites" && piece.slug === "hammer" ? (
+            <Wordmark size="lg" ariaLabel="hammer" className="align-baseline" />
+          ) : (
+            piece.title
+          )}
         </h1>
       </div>
       <ViewLink
@@ -220,7 +226,7 @@ type WebsiteProfile = {
 
 const WEBSITE_DETAILS: WebsiteProfile[] = [
   {
-    slug: "hammathyme",
+    slug: "hammer",
     status: "live portfolio system",
     liveUrl: "https://hammathyme.vercel.app",
     summary:
@@ -236,7 +242,7 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
       {
         src: "/work/websites/hammathyme/home.png",
         label: "entry hall",
-        alt: "Hammathyme homepage screenshot",
+        alt: "Hammer homepage screenshot",
         width: 1440,
         height: 1000,
       },
@@ -519,12 +525,22 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
         >
           <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between md:gap-8">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-                {guide.status}
-              </p>
-              <h2 className="mt-4 pb-[0.18em] font-display text-[clamp(58px,8vw,132px)] font-black lowercase leading-[0.88] tracking-[-0.05em] text-[var(--ink-0)]">
-                {guide.title}
-              </h2>
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+                  {guide.status}
+                </p>
+                <ViewLink
+                  href="/work/brand-systems"
+                  data-cursor="link"
+                  data-cursor-label="close"
+                  className="w-fit font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+                >
+                  close
+                </ViewLink>
+              </div>
+              <h1 className="mt-5 pb-[0.18em] lowercase leading-none text-[var(--ink-0)]">
+                <BrandGuideLogo guide={guide} />
+              </h1>
             </div>
             <div className="grid w-fit grid-cols-4 gap-1 md:grid-cols-2" aria-label={`${guide.title} color swatches`}>
               {guide.swatches.map((swatch) => (
@@ -547,7 +563,7 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
               rel="noopener noreferrer"
               data-cursor="link"
               data-cursor-label="open ↗"
-              className="inline-flex min-h-14 w-fit items-center justify-center border border-[var(--ink-0)] bg-[var(--ink-0)] px-5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--cream-0)] transition-colors hover:border-[var(--cinnamon)] hover:bg-[var(--cinnamon)] hover:text-[var(--ink-0)]"
+              className="inline-flex min-h-14 w-fit items-center justify-center border border-[var(--ink-3)] bg-[var(--cream-0)] px-5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ink-0)] transition-colors hover:border-[var(--cinnamon)] hover:bg-[var(--cinnamon)] hover:text-[var(--ink-0)]"
             >
               open full guide ↗
             </a>
@@ -577,5 +593,64 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
         </aside>
       </div>
     </section>
+  );
+}
+
+function BrandGuideLogo({ guide }: { guide: BrandGuideProfile }) {
+  if (guide.slug === "hammer") {
+    return <Wordmark size="lg" ariaLabel="hammer" className="align-baseline" />;
+  }
+
+  if (guide.slug === "kira") {
+    return (
+      <span
+        className="block font-serif text-[clamp(74px,9vw,156px)] font-normal italic leading-[0.86] tracking-[-0.06em]"
+        style={{ color: "#0F0F0F", fontFamily: '"Playfair Display", "Instrument Serif", Georgia, serif' }}
+      >
+        kira
+      </span>
+    );
+  }
+
+  if (guide.slug === "effigy") {
+    return (
+      <span className="flex flex-wrap items-end gap-5 md:gap-7">
+        <EffigyLogomark className="h-[clamp(70px,9vw,150px)] w-auto shrink-0" />
+        <span
+          className="font-mono text-[clamp(58px,7vw,132px)] font-black leading-[0.82] tracking-[-0.065em]"
+          style={{ color: "#0A1230", fontFamily: '"JetBrains Mono", "Geist Mono", ui-monospace, monospace' }}
+        >
+          effigy
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <span className="font-display text-[clamp(58px,8vw,132px)] font-black tracking-[-0.05em]">
+      {guide.title}
+    </span>
+  );
+}
+
+function EffigyLogomark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 130 230"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+      className={className}
+    >
+      <g transform="translate(16, 10)">
+        <circle cx="40" cy="30" r="16" fill="#78A7FF" />
+        <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF" />
+        <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF" />
+        <rect x="8" y="184" width="64" height="28" fill="#78A7FF" />
+      </g>
+      <circle cx="40" cy="30" r="16" fill="#0A1230" />
+      <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230" />
+      <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230" />
+      <rect x="8" y="184" width="64" height="28" fill="#0A1230" />
+    </svg>
   );
 }

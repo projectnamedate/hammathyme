@@ -8,7 +8,7 @@ import type { CSSProperties, ReactNode } from "react";
 type Props = {
   href: string;
   index: number;
-  title: string;
+  title: ReactNode;
   caption: string;
   /** background tint */
   tint?: string;

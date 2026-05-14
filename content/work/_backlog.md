@@ -7,16 +7,22 @@ the focus* — he has ideas per item.
 | # | piece | category | status |
 |---|---|---|---|
 | 1 | Episodic Kira series (5 eps) | autonomous-characters | placeholder |
-| 2 | 30-second AI ad spot, 48-hr build | visual-media | placeholder |
+| 2 | Fictional Hammer soda hero-shot commercial | visual-media | placeholder |
 | 3 | Hedra avatar of Jeff explaining AI Producer | visual-media | placeholder |
-| 4 | AI music video for an indie artist | visual-media | placeholder |
+| 4 | Documentary opener / broadcast cold open | visual-media | placeholder |
 | 5 | Hammer brand build = Case Study #1 | brand-systems | live dossier |
 | 6 | 90-second broadcast-grade short | visual-media | placeholder |
 | 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | Pipeline visualizer detail page | pipelines-tools | live |
 | 9 | Rive + Remotion puppet animation reel | animation | brief ready, collaborative build pending |
-| 10 | Motion graphics reel v3 | motion-graphics | live |
-| 11 | Short portfolio domain search | launch | pending |
+| 10 | Motion graphics reel | motion-graphics | live |
+| 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
+| 12 | Audio-reactive overlays with electronic track | motion-graphics | tomorrow build candidate |
+| 13 | Animated short | animation | placeholder |
+| 14 | Flux v2 LoRA training process | pipelines-tools | placeholder |
+| 15 | Creative skills library | pipelines-tools | placeholder |
+| 16 | Interactive + playable demos | interactive-playable | roadmap, after current motion/animation/site polish |
+| 17 | Short portfolio domain search | launch | pending |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
@@ -27,7 +33,7 @@ structured metadata rather than editorial writing.
 **Note (2026-05-13):** Category pages are gallery-first. Ready work opens in
 detail routes, currently `/work/motion-graphics/reel`,
 `/work/pipelines-tools/pipeline-visualizer`, `/work/agents/kira`,
-`/work/websites/{hammathyme,kira,opencrawl,coefficient}`, and
+`/work/websites/{hammer,kira,opencrawl,coefficient}`, and
 `/work/brand-systems/{hammer,kira,effigy}`.
 
 **Note (2026-05-13):** Brand-system detail pages summarize the guide inside

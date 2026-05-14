@@ -35,18 +35,20 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
   "animation/puppet-rig-character": PuppetRig,
   "animation/looping-social-bumpers": LoopingBumpers,
+  "animation/animated-short": AnimatedShort,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/prompt-library": PromptLibrary,
-  "pipelines-tools/comfyui-graphs": ComfyGraphs,
-  "pipelines-tools/mcp-servers": McpServers,
+  "pipelines-tools/flux-v2-lora-training": FluxLoraTraining,
+  "pipelines-tools/creative-skills": CreativeSkills,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "interactive-playable/consistency-lab": ConsistencyLab,
   "interactive-playable/live-render-feed": LiveRenderFeed,
   "interactive-playable/talk-to-character": TalkToCharacter,
   "visual-media/commercial": CommercialSpot,
   "visual-media/short-film": ShortFilm,
-  "visual-media/third-piece": VisualMediaThird,
-  "websites/hammathyme": HammathymeSite,
+  "visual-media/documentary-opener": DocumentaryOpener,
+  "websites/hammer": HammerSite,
+  "websites/hammathyme": HammerSite,
   "websites/kira": KiraSite,
   "websites/opencrawl": OpenCrawlSite,
   "websites/coefficient": CoefficientSite,
@@ -60,7 +62,7 @@ const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
   "pipelines-tools": PipelineVisualizerCard,
   "interactive-playable": PromptStoryboard,
   "visual-media": CommercialSpot,
-  websites: HammathymeSite,
+  websites: HammerSite,
 };
 
 function Plate({
@@ -137,7 +139,7 @@ function HammerGuide() {
       <text x="28" y="82" fontFamily="Outfit, sans-serif" fontWeight="900" fontSize="34" fill="var(--ink-0)">
         h
       </text>
-      <circle cx="50" cy="76" r="3.2" fill="var(--cinnamon)" />
+      <circle cx="50" cy="78.8" r="3.2" fill="var(--cinnamon)" />
       <g stroke="var(--ink-3)" strokeWidth="0.7">
         <line x1="66" y1="53" x2="94" y2="53" />
         <line x1="66" y1="63" x2="88" y2="63" />
@@ -156,14 +158,26 @@ function HammerGuide() {
 function KiraGuide() {
   return (
     <Plate bg="var(--cream-2)">
-      <circle cx="60" cy="63" r="25" fill="var(--ink-0)" />
-      <circle cx="50" cy="58" r="3" fill="var(--cinnamon)" />
-      <circle cx="70" cy="58" r="3" fill="var(--cinnamon)" />
-      <path d="M 45 78 C 54 86, 66 86, 75 78" fill="none" stroke="var(--cream-0)" strokeWidth="1.2" />
-      <g stroke="var(--ink-2)" strokeWidth="0.65">
-        <line x1="26" y1="105" x2="94" y2="105" />
-        <line x1="26" y1="115" x2="84" y2="115" />
-        <line x1="26" y1="125" x2="91" y2="125" />
+      <g transform="translate(60 72)">
+        <text
+          x="0"
+          y="0"
+          textAnchor="middle"
+          fontFamily="Playfair Display, Instrument Serif, Georgia, serif"
+          fontStyle="italic"
+          fontWeight="800"
+          fontSize="38"
+          letterSpacing="-1.6"
+          fill="#0F0F0F"
+        >
+          kira
+        </text>
+        <line x1="-29" y1="9" x2="29" y2="9" stroke="#B4673A" strokeWidth="1.4" />
+      </g>
+      <g stroke="#52504C" strokeWidth="0.65">
+        <line x1="26" y1="108" x2="94" y2="108" />
+        <line x1="26" y1="118" x2="84" y2="118" />
+        <line x1="26" y1="128" x2="91" y2="128" />
       </g>
       <MonoLabel>CHARACTER BIBLE</MonoLabel>
     </Plate>
@@ -173,14 +187,33 @@ function KiraGuide() {
 function EffigyGuide() {
   return (
     <Plate bg="#E8EEFF">
-      <g transform="translate(60 70)">
-        <path d="M -30 -18 L 0 -34 L 30 -18 L 30 20 L 0 36 L -30 20 Z" fill="#0A1230" />
-        <path d="M 0 -34 L 30 -18 L 30 20 L 0 36 Z" fill="#78A7FF" />
-        <path d="M -18 -8 L 0 -18 L 18 -8 L 18 14 L 0 24 L -18 14 Z" fill="#F5F7FF" />
+      <g transform="translate(42 28) scale(0.32)">
+        <g transform="translate(16, 10)">
+          <circle cx="40" cy="30" r="16" fill="#78A7FF" />
+          <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF" />
+          <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF" />
+          <rect x="8" y="184" width="64" height="28" fill="#78A7FF" />
+        </g>
+        <circle cx="40" cy="30" r="16" fill="#0A1230" />
+        <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230" />
+        <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230" />
+        <rect x="8" y="184" width="64" height="28" fill="#0A1230" />
       </g>
+      <text
+        x="60"
+        y="112"
+        textAnchor="middle"
+        fontFamily="JetBrains Mono, Geist Mono, monospace"
+        fontWeight="800"
+        fontSize="13"
+        letterSpacing="-0.85"
+        fill="#0A1230"
+      >
+        effigy
+      </text>
       <g stroke="#0A1230" strokeWidth="0.8" opacity="0.75">
-        <line x1="28" y1="114" x2="92" y2="114" />
-        <line x1="36" y1="124" x2="84" y2="124" />
+        <line x1="32" y1="121" x2="88" y2="121" />
+        <line x1="40" y1="130" x2="80" y2="130" />
       </g>
       <MonoLabel>PROVENANCE BOOK</MonoLabel>
     </Plate>
@@ -238,7 +271,7 @@ function MotionReel() {
         <rect x="15" y="18" width="54" height="34" fill="var(--cinnamon)" />
         <path d="M 24 42 L 36 28 L 48 38 L 58 24" fill="none" stroke="var(--cream-0)" strokeWidth="1.2" />
       </FilmFrame>
-      <MonoLabel y={136}>REEL V3</MonoLabel>
+      <MonoLabel y={136}>MOTION REEL</MonoLabel>
     </Plate>
   );
 }
@@ -252,7 +285,7 @@ function InternetCapitalMarkets() {
         <line x1="0" y1="10" x2="0" y2="54" stroke="var(--ink-3)" />
       </g>
       <circle cx="89" cy="50" r="4" fill="var(--cinnamon)" />
-      <MonoLabel>ICM TITLE PACK</MonoLabel>
+      <MonoLabel>ICM TEASER</MonoLabel>
     </Plate>
   );
 }
@@ -309,6 +342,20 @@ function LoopingBumpers() {
   );
 }
 
+function AnimatedShort() {
+  return (
+    <Plate bg="var(--bloodlust)">
+      <FilmFrame>
+        <rect x="17" y="16" width="50" height="38" fill="var(--cream-0)" />
+        <path d="M 24 45 C 30 28, 44 24, 56 38 L 66 22 L 70 54 L 20 54 Z" fill="var(--ink-0)" />
+        <circle cx="34" cy="29" r="5" fill="var(--cinnamon)" />
+        <path d="M 18 58 C 32 64, 50 64, 66 58" fill="none" stroke="var(--cinnamon)" strokeWidth="1" />
+      </FilmFrame>
+      <MonoLabel y={136}>ANIMATED SHORT</MonoLabel>
+    </Plate>
+  );
+}
+
 function PipelineVisualizerCard() {
   return (
     <Plate>
@@ -334,33 +381,57 @@ function PromptLibrary() {
   );
 }
 
-function ComfyGraphs() {
+function FluxLoraTraining() {
   return (
     <Plate bg="var(--bloodlust)">
-      <g transform="translate(18 44)">
-        {[0, 1, 2, 3].map((i) => (
-          <rect key={i} x={(i % 2) * 44} y={Math.floor(i / 2) * 34} width="36" height="18" fill="var(--cream-0)" />
+      <g transform="translate(21 38)">
+        <rect x="0" y="0" width="78" height="52" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <rect
+            key={i}
+            x={8 + (i % 3) * 21}
+            y={9 + Math.floor(i / 3) * 18}
+            width="13"
+            height="13"
+            fill={i === 5 ? "var(--cinnamon)" : "var(--ink-0)"}
+            opacity={i === 5 ? 1 : 0.7}
+          />
         ))}
-        <path d="M 36 9 L 44 9 L 44 43 L 54 43 M 18 18 L 18 43 L 44 43" fill="none" stroke="var(--cinnamon)" strokeWidth="1.1" />
+        <path d="M 14 72 C 28 58, 50 88, 65 62" fill="none" stroke="var(--cinnamon)" strokeWidth="1.3" />
+        <line x1="8" y1="78" x2="70" y2="78" stroke="var(--cream-0)" strokeWidth="0.8" />
       </g>
-      <MonoLabel y={139}>COMFYUI MAP</MonoLabel>
+      <MonoLabel y={139}>FLUX V2 LORA</MonoLabel>
     </Plate>
   );
 }
 
-function McpServers() {
+function CreativeSkills() {
   return (
     <Plate>
-      <g transform="translate(60 78)">
-        <rect x="-25" y="-32" width="50" height="64" fill="var(--ink-0)" />
-        {[0, 1, 2].map((i) => (
-          <g key={i} transform={`translate(0 ${-18 + i * 18})`}>
-            <rect x="-16" y="-4" width="32" height="8" fill="var(--cream-0)" />
-            <circle cx="21" cy="0" r="3" fill="var(--cinnamon)" />
+      <g transform="translate(24 40)">
+        {[
+          ["COLOR", 0],
+          ["KIRA", 21],
+          ["VIDEO", 42],
+          ["PROMPT", 63],
+        ].map(([label, y], i) => (
+          <g key={label} transform={`translate(0 ${y})`}>
+            <rect width="72" height="14" fill={i === 1 ? "var(--cinnamon)" : "var(--cream-0)"} stroke="var(--ink-3)" strokeWidth="0.6" />
+            <text
+              x="8"
+              y="9.5"
+              fontFamily="Geist Mono, monospace"
+              fontSize="4.8"
+              letterSpacing="0.8"
+              fill="var(--ink-0)"
+            >
+              {label}
+            </text>
+            <circle cx="63" cy="7" r="2.2" fill={i === 1 ? "var(--cream-0)" : "var(--cinnamon)"} />
           </g>
         ))}
       </g>
-      <MonoLabel>MCP SERVERS</MonoLabel>
+      <MonoLabel>CREATIVE SKILLS</MonoLabel>
     </Plate>
   );
 }
@@ -437,11 +508,15 @@ function CommercialSpot() {
   return (
     <Plate bg="var(--bloodlust)">
       <FilmFrame>
-        <rect x="17" y="18" width="50" height="28" fill="var(--cream-0)" />
-        <rect x="24" y="24" width="22" height="6" fill="var(--ink-0)" />
-        <circle cx="57" cy="31" r="7" fill="var(--cinnamon)" />
+        <rect x="29" y="13" width="26" height="48" rx="7" fill="var(--cream-0)" />
+        <rect x="31" y="17" width="22" height="40" rx="5" fill="var(--cinnamon)" opacity="0.22" />
+        <text x="36" y="43" fontFamily="Outfit, sans-serif" fontSize="16" fontWeight="900" fill="var(--ink-0)">
+          h
+        </text>
+        <circle cx="47" cy="41.4" r="1.8" fill="var(--cinnamon)" />
+        <path d="M 56 20 C 66 21, 70 30, 66 38 S 56 54, 64 60" fill="none" stroke="var(--cream-0)" strokeWidth="1" opacity="0.8" />
       </FilmFrame>
-      <MonoLabel y={136}>30 SEC SPOT</MonoLabel>
+      <MonoLabel y={136}>SODA HERO</MonoLabel>
     </Plate>
   );
 }
@@ -458,28 +533,35 @@ function ShortFilm() {
   );
 }
 
-function VisualMediaThird() {
+function DocumentaryOpener() {
   return (
     <Plate bg="var(--cinnamon)">
-      <g transform="translate(20 44)">
-        {[0, 1, 2].map((i) => (
-          <rect key={i} x={i * 18} y={i * 10} width="52" height="32" fill="none" stroke="var(--ink-0)" strokeWidth="1" />
-        ))}
-        <line x1="18" y1="70" x2="78" y2="70" stroke="var(--cream-0)" strokeWidth="1.3" />
+      <FilmFrame bg="var(--cream-0)">
+        <rect x="16" y="14" width="52" height="25" fill="var(--ink-0)" />
+        <circle cx="28" cy="26" r="5" fill="var(--cinnamon)" />
+        <path d="M 36 32 L 46 20 L 57 32" fill="none" stroke="var(--cream-0)" strokeWidth="1.1" />
+        <rect x="16" y="48" width="38" height="5" fill="var(--ink-0)" />
+        <rect x="16" y="56" width="28" height="3" fill="var(--ink-3)" />
+        <rect x="50" y="56" width="18" height="3" fill="var(--cinnamon)" />
+      </FilmFrame>
+      <g transform="translate(26 114)">
+        <line x1="0" y1="0" x2="68" y2="0" stroke="var(--cream-0)" strokeWidth="1" opacity="0.9" />
       </g>
-      <MonoLabel>MEDIA SLOT</MonoLabel>
+      <MonoLabel>DOC OPENER</MonoLabel>
     </Plate>
   );
 }
 
-function HammathymeSite() {
+function HammerSite() {
   return (
     <Plate>
       <Browser>
-        <text x="13" y="36" fontFamily="Outfit, sans-serif" fontSize="18" fontWeight="900" fill="var(--ink-0)">
-          h
-        </text>
-        <circle cx="25" cy="32" r="2" fill="var(--cinnamon)" />
+        <g transform="translate(11 20)">
+          <text x="0" y="18" fontFamily="Outfit, sans-serif" fontSize="18" fontWeight="900" fill="var(--ink-0)">
+            h
+          </text>
+          <circle cx="12" cy="16" r="2" fill="var(--cinnamon)" />
+        </g>
         <line x1="12" y1="46" x2="68" y2="46" stroke="var(--ink-3)" />
       </Browser>
       <MonoLabel>THIS SITE</MonoLabel>

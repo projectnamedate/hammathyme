@@ -4,7 +4,7 @@ import { MaskReveal } from "@/components/motion/MaskReveal";
 export const metadata = {
   title: "colophon",
   description:
-    "The back-of-book for hammathyme — typefaces, build stack, models, hosting, license. Nothing hidden.",
+    "The back-of-book for Hammer — typefaces, build stack, models, hosting, license. Nothing hidden.",
 };
 
 const SHA = (process.env.VERCEL_GIT_COMMIT_SHA ?? "").slice(0, 7) || "dev";

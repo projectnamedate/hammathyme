@@ -43,9 +43,9 @@ const ROW = 200;
 
 export const PIPELINES: Pipeline[] = [
   {
-    slug: "thirty-second-spot",
-    label: "30-second commercial",
-    brief: "soda spot · concept to broadcast master",
+    slug: "soda-hero-shots",
+    label: "soda hero shots",
+    brief: "fictional Hammer soda · concept to compact cut",
     totalCost: "≈ $25",
     totalTime: "≈ 50 min",
     finalOutput: "broadcast prores 4444 + h.264 web cut",
@@ -66,8 +66,8 @@ export const PIPELINES: Pipeline[] = [
         tool: "claude opus 4.7",
         cost: "$0.04",
         time: "60s",
-        output: "script.fountain",
-        summary: "30-second beat sheet — voiceover, visual, sfx columns.",
+        output: "shot-list.md",
+        summary: "hero-shot list: can design, condensation, pour, macro texture, and pack shot.",
         x: 320, y: ROW,
       },
       {
