@@ -41,7 +41,7 @@ export function HeroWordmark({
             </span>
           ))}
         </span>
-        <span className="dot cursor-pointer" onClick={fireHermes} role="button" tabIndex={-1} aria-hidden />
+        <span className="dot cursor-pointer" onClick={fireHermes} aria-hidden />
       </span>
     );
   }
@@ -73,8 +73,6 @@ export function HeroWordmark({
       <motion.span
         className="inline-block cursor-pointer"
         onClick={fireHermes}
-        role="button"
-        tabIndex={-1}
         aria-hidden
         style={{ transformOrigin: "center center" }}
         initial={{ scale: 0, opacity: 0 }}

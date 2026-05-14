@@ -87,7 +87,7 @@ function MonoLabel({ children, y = 139 }: { children: string; y?: number }) {
       x="60"
       y={y}
       textAnchor="middle"
-      fontFamily="Geist Mono, monospace"
+      fontFamily="var(--font-mono)"
       fontSize="4.8"
       letterSpacing="1.2"
       fill="var(--ink-2)"
@@ -136,7 +136,7 @@ function FilmFrame({ children, bg = "var(--ink-deepest)" }: { children: ReactNod
 function HammerGuide() {
   return (
     <Plate>
-      <text x="28" y="82" fontFamily="Outfit, sans-serif" fontWeight="900" fontSize="34" fill="var(--ink-0)">
+      <text x="28" y="82" fontFamily="var(--font-display)" fontWeight="900" fontSize="34" fill="var(--ink-0)">
         h
       </text>
       <circle cx="50" cy="78.8" r="3.2" fill="var(--cinnamon)" />
@@ -163,7 +163,7 @@ function KiraGuide() {
           x="0"
           y="0"
           textAnchor="middle"
-          fontFamily="Playfair Display, Instrument Serif, Georgia, serif"
+          fontFamily="var(--font-playfair-display), var(--font-instrument-serif), Georgia, serif"
           fontStyle="italic"
           fontWeight="800"
           fontSize="38"
@@ -203,7 +203,7 @@ function EffigyGuide() {
         x="60"
         y="112"
         textAnchor="middle"
-        fontFamily="JetBrains Mono, Geist Mono, monospace"
+        fontFamily="var(--font-jetbrains-mono), var(--font-geist-mono), ui-monospace, monospace"
         fontWeight="800"
         fontSize="13"
         letterSpacing="-0.85"
@@ -420,7 +420,7 @@ function CreativeSkills() {
             <text
               x="8"
               y="9.5"
-              fontFamily="Geist Mono, monospace"
+              fontFamily="var(--font-mono)"
               fontSize="4.8"
               letterSpacing="0.8"
               fill="var(--ink-0)"
@@ -510,7 +510,7 @@ function CommercialSpot() {
       <FilmFrame>
         <rect x="29" y="13" width="26" height="48" rx="7" fill="var(--cream-0)" />
         <rect x="31" y="17" width="22" height="40" rx="5" fill="var(--cinnamon)" opacity="0.22" />
-        <text x="36" y="43" fontFamily="Outfit, sans-serif" fontSize="16" fontWeight="900" fill="var(--ink-0)">
+        <text x="36" y="43" fontFamily="var(--font-display)" fontSize="16" fontWeight="900" fill="var(--ink-0)">
           h
         </text>
         <circle cx="47" cy="41.4" r="1.8" fill="var(--cinnamon)" />
@@ -557,7 +557,7 @@ function HammerSite() {
     <Plate>
       <Browser>
         <g transform="translate(11 20)">
-          <text x="0" y="18" fontFamily="Outfit, sans-serif" fontSize="18" fontWeight="900" fill="var(--ink-0)">
+          <text x="0" y="18" fontFamily="var(--font-display)" fontSize="18" fontWeight="900" fill="var(--ink-0)">
             h
           </text>
           <circle cx="12" cy="16" r="2" fill="var(--cinnamon)" />

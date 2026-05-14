@@ -39,18 +39,18 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     <g>
       <rect width="100" height="120" fill="var(--cream-1)" />
       <text
-        x="50"
+        x="48"
         y="78"
         textAnchor="middle"
-        fontFamily="Outfit, sans-serif"
+        fontFamily="var(--font-display)"
         fontWeight="900"
         fontSize="62"
         letterSpacing="-2"
         fill="var(--ink-0)"
       >
         h
-        <tspan className="anim-pulse" fill="var(--cinnamon)">.</tspan>
       </text>
+      <circle className="anim-pulse" cx="65" cy="72.7" r="5.3" fill="var(--cinnamon)" />
     </g>
   ),
 
@@ -165,7 +165,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
       <rect width="100" height="120" fill="var(--cream-2)" />
       <g transform="translate(0 32)">
         <rect x="14" y="14" width="72" height="32" fill="none" stroke="var(--ink-1)" strokeWidth="0.6" rx="2" />
-        <text x="50" y="34" textAnchor="middle" fontFamily="Geist Mono, monospace" fontSize="5" letterSpacing="1.2" fill="var(--ink-1)">
+        <text x="50" y="34" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="5" letterSpacing="1.2" fill="var(--ink-1)">
           RUN
         </text>
         <g className="anim-twitch" transform="translate(56 38) rotate(-8)" fill="var(--bloodlust)" stroke="var(--cream-0)" strokeWidth="0.4">

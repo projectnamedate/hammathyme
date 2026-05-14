@@ -32,10 +32,10 @@
   --error: #5A201D;
 
   /* Type families */
-  --font-display: "Outfit", "Futura", "Avenir Next", system-ui, sans-serif;
-  --font-body: "Geist", "Inter Tight", -apple-system, system-ui, sans-serif;
-  --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
-  --font-serif: "Instrument Serif", "Tiempos Headline", Georgia, serif;
+  --font-display: var(--font-outfit), "Futura", "Avenir Next", system-ui, sans-serif;
+  --font-body: var(--font-geist), "Inter Tight", -apple-system, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument-serif), var(--font-playfair-display), Georgia, serif;
 
   /* Type scale (1.25 modular, 9 steps) */
   --fs-1: 12px; --fs-2: 14px; --fs-3: 16px; --fs-4: 20px; --fs-5: 24px;

@@ -228,7 +228,7 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
   {
     slug: "hammer",
     status: "live portfolio system",
-    liveUrl: "https://hammathyme.vercel.app",
+    liveUrl: "https://hammer.ad",
     summary:
       "The current Hammer site is itself a finished portfolio asset: a warm editorial identity, eight-category work atrium, detail-route gallery model, motion surfaces, and source-readable docs.",
     stack: ["next.js 16", "react 19", "tailwind v4", "motion", "view transitions", "vercel"],
@@ -469,28 +469,81 @@ function WebsiteDetail({ piece, transitionName }: { piece: Piece; transitionName
 function MotionReelDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
   return (
-    <section className="mx-auto grid max-w-[1180px] grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
-      <aside className="md:col-span-3">
-        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-[-0.015em] text-[var(--ink-1)]">
-          A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion, kinetic type,
-          data motion, particles, and audio-reactive animation.
-        </p>
-      </aside>
-      <div
-        className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
-        style={frameStyle}
-      >
-        <video className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata">
-          <source src="/work/motion/hammer-reel-v3-web-hq-10bit-hevc.mp4" type='video/mp4; codecs="hvc1"' />
-          <source
-            src="/work/motion/hammer-reel-v3-web-max-h264.mp4"
-            type='video/mp4; codecs="avc1.64002A, mp4a.40.2"'
-          />
-        </video>
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-[-0.015em] text-[var(--ink-1)]">
+            A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion,
+            kinetic type, data motion, particles, and early audio-reactive animation tests.
+          </p>
+          <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-5">
+            {MOTION_REEL_RECEIPTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata">
+            <source src="/work/motion/hammer-reel-v3-web-hq-10bit-hevc.mp4" type='video/mp4; codecs="hvc1"' />
+            <source
+              src="/work/motion/hammer-reel-v3-web-max-h264.mp4"
+              type='video/mp4; codecs="avc1.64002A, mp4a.40.2"'
+            />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-4">
+        {MOTION_REEL_CHAPTERS.map((chapter) => (
+          <div key={chapter.label} className="border-t border-[var(--ink-4)] pt-4">
+            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+              {chapter.label}
+            </p>
+            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
+              {chapter.copy}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
+
+const MOTION_REEL_RECEIPTS: [string, string][] = [
+  ["role", "ai producer · motion systems · edit"],
+  ["tools", "remotion · hyperframes · motion/react · ffmpeg"],
+  ["surface", "brand reel · web video · social crops"],
+  ["next", "icm teaser · audio-reactive overlays"],
+];
+
+const MOTION_REEL_CHAPTERS = [
+  {
+    label: "identity motion",
+    copy: "Hammer lockups, kinetic type, and logo timing are rendered from code so the same system can output web, reel, and social variants without hand-timing every pass.",
+  },
+  {
+    label: "generative overlays",
+    copy: "Particles, data sweeps, frame ladders, and editorial transitions are built as reusable motion layers that can sit over AI footage or live-action edits.",
+  },
+  {
+    label: "render discipline",
+    copy: "The reel favors deterministic renders, named assets, codec fallbacks, and browser-safe delivery over one-off exports that are hard to revise.",
+  },
+  {
+    label: "sound path",
+    copy: "The next pass adds audio-reactive overlays to an electronic track, with timing data exposed as a production primitive rather than baked into a single edit.",
+  },
+] as const;
 
 function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };

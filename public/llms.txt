@@ -4,28 +4,28 @@
 
 ## work
 
-- [atrium](https://hammathyme.vercel.app/work): 8 portfolio categories. each a collection of pieces.
-- [brand systems](https://hammathyme.vercel.app/work/brand-systems): identities built with ai in the loop. hammer · kira · effigy dossiers are live.
-- [agents](https://hammathyme.vercel.app/work/agents): autonomous characters layered over agents. kira detail is live at /work/agents/kira.
-- [motion graphics](https://hammathyme.vercel.app/work/motion-graphics): programmatic motion built in remotion + hyperframes. motion graphics reel is live; icm teaser and audio-reactive overlays are in production.
-- [animation](https://hammathyme.vercel.app/work/animation): puppet rigs, looping social bumpers, and an animated short built with ai-assisted animation + remotion.
-- [pipelines + tools](https://hammathyme.vercel.app/work/pipelines-tools): the tools beneath the work. pipeline visualizer is live; Flux v2 LoRA training and creative skills are planned surfaces.
-- [interactive + playable](https://hammathyme.vercel.app/work/interactive-playable): planned demos. talk-to-character, prompt-to-storyboard, consistency lab.
-- [visual media](https://hammathyme.vercel.app/work/visual-media): ai-native film, Hammer soda hero shots, documentary-opener polish, and commercial work.
-- [websites](https://hammathyme.vercel.app/work/websites): ai-native websites. hammer, onlykira.ai, opencrawl.gg, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
+- [atrium](https://hammer.ad/work): 8 portfolio categories. each a collection of pieces.
+- [brand systems](https://hammer.ad/work/brand-systems): identities built with ai in the loop. hammer · kira · effigy dossiers are live.
+- [agents](https://hammer.ad/work/agents): autonomous characters layered over agents. kira detail is live at /work/agents/kira.
+- [motion graphics](https://hammer.ad/work/motion-graphics): programmatic motion built in remotion + hyperframes. motion graphics reel is live; icm teaser and audio-reactive overlays are in production.
+- [animation](https://hammer.ad/work/animation): puppet rigs, looping social bumpers, and an animated short built with ai-assisted animation + remotion.
+- [pipelines + tools](https://hammer.ad/work/pipelines-tools): the tools beneath the work. pipeline visualizer is live; Flux v2 LoRA training and creative skills are planned surfaces.
+- [interactive + playable](https://hammer.ad/work/interactive-playable): planned demos. talk-to-character, prompt-to-storyboard, consistency lab.
+- [visual media](https://hammer.ad/work/visual-media): ai-native film, Hammer soda hero shots, documentary-opener polish, and commercial work.
+- [websites](https://hammer.ad/work/websites): ai-native websites. hammer, onlykira.ai, opencrawl.gg, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
 
 ## about
 
-- [bio](https://hammathyme.vercel.app/about): jeff hammer. tribune media → discovery → comcast → ai producer. clients include cadillac, porsche, lululemon, fox, columbia, hulu, ihg hotels, rémy martin.
+- [bio](https://hammer.ad/about): jeff hammer. tribune media → discovery → comcast → ai producer. clients include cadillac, porsche, lululemon, fox, columbia, hulu, ihg hotels, rémy martin.
 
 ## contact
 
-- [say hi](https://hammathyme.vercel.app/contact): hello@hammathyme.ai. taking projects, 48-hour reply.
+- [say hi](https://hammer.ad/contact): hello@hammathyme.ai. taking projects, 48-hour reply.
 
 ## colophon
 
-- [colophon](https://hammathyme.vercel.app/colophon): typefaces, build stack, models used, deploy info. nothing hidden.
+- [colophon](https://hammer.ad/colophon): typefaces, build stack, models used, deploy info. nothing hidden.
 
 ## memory
 
-- [jeff.md](https://hammathyme.vercel.app/memories/jeff.md): MEMORY.md in hermes-agent format (☤). frozen-snapshot summary of the operator behind the site.
+- [jeff.md](https://hammer.ad/memories/jeff.md): MEMORY.md in hermes-agent format (☤). frozen-snapshot summary of the operator behind the site.

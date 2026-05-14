@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { PIPELINES, type Pipeline, type PipelineNode } from "@/lib/pipelines";
 
@@ -116,7 +116,7 @@ export function PipelineVisualizer() {
       </figure>
 
       {/* drawer — receipt for the focused node */}
-      <Drawer pipeline={pipeline} node={activeNode} />
+      <Drawer pipeline={pipeline} node={activeNode} reduce={!!reduce} />
     </section>
   );
 }
@@ -176,18 +176,29 @@ function Node({
 }) {
   const left = node.x - NODE_W / 2;
   const top = node.y - NODE_H / 2;
+  const activateFromKey = (event: KeyboardEvent<SVGGElement>) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    onActivate();
+  };
+
   return (
     <motion.g
       initial={reduce ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay: 0.1 + index * 0.06, ease: CINEMA }}
+      transition={{ duration: reduce ? 0 : 0.55, delay: reduce ? 0 : 0.1 + index * 0.06, ease: CINEMA }}
       onMouseEnter={onActivate}
       onFocus={onActivate}
       onClick={onActivate}
+      onKeyDown={activateFromKey}
+      role="button"
+      aria-label={`Select ${node.label} pipeline step. Tool: ${node.tool}.`}
+      aria-pressed={active}
       tabIndex={0}
-      style={{ cursor: "pointer", outline: "none" }}
+      style={{ cursor: "pointer" }}
       data-cursor="link"
     >
+      <title>{`${String(index).padStart(2, "0")} ${node.label} · ${node.tool}`}</title>
       <rect
         x={left}
         y={top}
@@ -196,6 +207,16 @@ function Node({
         fill={active ? "var(--cream-0)" : "var(--cream-0)"}
         stroke={active ? "var(--ink-0)" : "var(--ink-3)"}
         strokeWidth={active ? 1.2 : 0.7}
+      />
+      <rect
+        x={left + 4}
+        y={top + 4}
+        width={NODE_W - 8}
+        height={NODE_H - 8}
+        fill="none"
+        stroke="var(--cinnamon)"
+        strokeWidth="1"
+        opacity={active ? 0.75 : 0}
       />
 
       {/* corner pip — cinnamon when active */}
@@ -210,7 +231,7 @@ function Node({
       <text
         x={left + 14}
         y={top + 28}
-        fontFamily="Outfit, sans-serif"
+        fontFamily="var(--font-display)"
         fontSize="18"
         fontWeight="300"
         fill="var(--ink-1)"
@@ -233,7 +254,7 @@ function Node({
       <text
         x={left + 14}
         y={top + 58}
-        fontFamily="Outfit, sans-serif"
+        fontFamily="var(--font-display)"
         fontSize="15"
         fontWeight="400"
         fill="var(--ink-0)"
@@ -246,7 +267,7 @@ function Node({
       <text
         x={left + 14}
         y={top + 76}
-        fontFamily="Geist Mono, monospace"
+        fontFamily="var(--font-mono)"
         fontSize="9"
         fill="var(--ink-2)"
         style={{ letterSpacing: "0.06em", textTransform: "uppercase" }}
@@ -258,7 +279,7 @@ function Node({
       <text
         x={left + 14}
         y={top + 89}
-        fontFamily="Geist Mono, monospace"
+        fontFamily="var(--font-mono)"
         fontSize="9"
         fill="var(--ink-3)"
         style={{ letterSpacing: "0.06em" }}
@@ -333,18 +354,20 @@ function ArrowHead({ x, y, angle = 0 }: { x: number; y: number; angle?: number }
 function Drawer({
   pipeline,
   node,
+  reduce,
 }: {
   pipeline: Pipeline;
   node: PipelineNode | null;
+  reduce: boolean;
 }) {
   const fallback = pipeline.nodes[0]!;
   const n = node ?? fallback;
   return (
     <motion.div
       key={`${pipeline.slug}-${n.id}`}
-      initial={{ opacity: 0, y: 6 }}
+      initial={reduce ? false : { opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: CINEMA }}
+      transition={{ duration: reduce ? 0 : 0.4, ease: CINEMA }}
       className="grid grid-cols-1 gap-8 border-t border-[var(--ink-4)] pt-8 md:grid-cols-12"
     >
       <div className="md:col-span-3">

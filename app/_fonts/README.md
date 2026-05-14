@@ -1,4 +1,5 @@
 Subset TTF cuts used by the generated Hammer social-preview images.
+Runtime pages use `next/font` self-hosted Latin subsets from `app/layout.tsx`.
 
 - `Outfit-Black-Social.ttf` — Outfit 900 from Google Fonts.
 - `Geist-Regular-Social.ttf` — Geist 400 from Google Fonts.

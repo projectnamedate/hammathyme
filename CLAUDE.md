@@ -1,4 +1,4 @@
-# CLAUDE.md — hammer (hammathyme)
+# CLAUDE.md — hammer
 
 This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself is a portfolio piece.
 
@@ -14,6 +14,11 @@ This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself i
 
 ## Brand contract (non-negotiable)
 
+- **Brand name is always Hammer / `hammer`.** Do not use the current or future
+  domain as the public brand, case-study title, nav label, product name, or
+  wordmark. Domains belong only in technical URL surfaces: canonical metadata,
+  SEO, sitemap/robots, redirects, email/contact, and agent-readable docs where
+  a real URL is needed.
 - **Light only.** Warm cream `#FAEEE9` page, deep maroon ink ramp, vinaceous cinnamon `#F28E86` as the single live accent. No dark mode.
 - **Lowercase wordmark.** The canonical `hammer.` recipe is a hybrid: Outfit Black lowercase `hammer` built with the Motion Reel cold-open per-letter construction and approved visual rhythm, plus the current website period placement as the approved controlled circular mark on the baseline. Avoid native-run substitutes, faux depth, fallback-looking shadows, mathematically equal ink-box spacing, or alternate title tracking that makes the `a` read like a different font.
 - **Dot system.** The cinnamon dot is protected for `hammer.` and may appear as a controlled circular display punctuation motif on bold Outfit/Geist title lockups only. Do not attach it to Instrument Serif italic words, all-italic lines, metadata separators, repeated item labels, or bloodlust punctuation.
@@ -34,11 +39,16 @@ Each phase ships only after: ≥ 90 perf · ≥ 95 a11y · 100 best-practices ·
 
 Live API demos go through `/api/*` routes with edge-middleware rate-limiting and a `DAILY_API_BUDGET_USD` env-var hard cap. Demos auto-disable when cap hit.
 
-## Launch TODOs
+## Domain status
 
-- Search for a short portfolio domain. Preferred direction is something as direct
-  as `hammer.ai` or `hammer.dev`, but those appear taken; find similarly short,
-  memorable alternatives before final launch wiring.
+- Purchased canonical domain: `hammer.ad`.
+- The public brand remains Hammer / `hammer`; do not use the domain as the
+  brand, case-study title, nav label, product name, or wordmark.
+- Domain surfaces are technical only: metadata/SEO, sitemap/robots, redirects,
+  email/contact, Vercel domain config, and agent-readable URL docs such as
+  `llms.txt`.
+- Canonical redirect behavior lives in `proxy.ts`: `www.hammer.ad` and
+  `hammathyme.vercel.app` redirect to `https://hammer.ad`.
 
 ## Rules of engagement for Claude
 
@@ -108,7 +118,7 @@ Each category is a *collection* — multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/motion-graphics/reel`, `/work/pipelines-tools/pipeline-visualizer`,
-`/work/agents/kira`, `/work/websites/{hammathyme,kira,opencrawl,coefficient}`, and
+`/work/agents/kira`, `/work/websites/{hammer,kira,opencrawl,coefficient}`, and
 `/work/brand-systems/{hammer,kira,effigy}`.
 
 Portfolio artifact rule: most finished artifacts live inside Hammer as the

@@ -50,7 +50,7 @@ export function Plinth({
       data-cursor="link"
       data-cursor-label={cursorLabel}
       data-plinth
-      className={clsx("group relative block focus:outline-none", className)}
+      className={clsx("group relative block", className)}
     >
       <motion.div
         whileHover={reduce ? undefined : { y: -4 }}

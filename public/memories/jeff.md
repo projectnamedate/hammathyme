@@ -1,6 +1,6 @@
-[69% — 1,523/2,200 chars]
+[90% — 1,988/2,200 chars]
 
-§ jeff hammer · ai producer · la / ny / remote · hello@hammathyme.ai.
+§ jeff hammer · ai producer · la / ny / remote · https://hammer.ad · hello@hammathyme.ai.
 § ten-plus years on broadcast and agency pipelines. tribune media → discovery → comcast → ai producer. now producing with ai. same discipline, new tools.
 § stack: claude code · codex · opus 4.7 · gpt-5.5 · hermes agent · nano banana 2 · midjourney · kling · remotion · hyperframes · rive.
 § visual-only producer. no /notes. no blog. case-study copy carries the seo, not editorial writing. (rejected 2026-05-04: "everyone can use ai to write things, its looked down upon.")

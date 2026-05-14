@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { CASE_STUDIES, getReadyPieceParams } from "@/lib/works";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammathyme.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammer.ad";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

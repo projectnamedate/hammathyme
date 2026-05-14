@@ -35,8 +35,9 @@ export default function Colophon() {
 
       <section className="grid grid-cols-1 gap-y-16 gap-x-12 md:grid-cols-12 md:gap-y-24">
         <Field label="typefaces" col={6}>
-          <Line k="display" v="outfit · 900 black" />
-          <Line k="body" v="geist · 300 / 400 / 500" />
+          <Line k="loading" v="next/font · self-hosted latin subsets" />
+          <Line k="display" v="outfit · 200–900" />
+          <Line k="body" v="geist · 300 / 400 / 500 / 600" />
           <Line k="mono" v="geist mono · 400 / 500" />
           <Line k="accent" v="instrument serif · italic only" />
         </Field>

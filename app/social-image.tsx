@@ -149,7 +149,7 @@ export function HammerSocialImage() {
           color: "#A66860",
         }}
       >
-        hammathyme.vercel.app
+        hammer.ad
       </div>
     </div>
   );

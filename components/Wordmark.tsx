@@ -39,8 +39,6 @@ export function Wordmark({ className, ariaLabel = "hammer · home", size = "md" 
       <span
         className="dot cursor-pointer"
         onClick={fireHermes}
-        role="button"
-        tabIndex={-1}
         aria-hidden
       />
     </span>

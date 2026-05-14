@@ -33,6 +33,8 @@ const POSITIONS: Pos[] = [
 ];
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
+const TOUR_IDLE_MS = 10000;
+const TOUR_STEP_MS = 4500;
 
 export function AtriumCanvas() {
   const reduce = useReducedMotion();
@@ -49,8 +51,7 @@ export function AtriumCanvas() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Auto-tour: when idle for 4s, the spotlight slowly cycles through pieces
-  // every 3s. Any interaction stops it.
+  // Auto-tour waits for a real idle pause so the wall feels calm, not kiosk-like.
   useEffect(() => {
     if (isMobile || reduce) return;
     let idleTimer: number | null = null;
@@ -59,7 +60,7 @@ export function AtriumCanvas() {
       setTouring(true);
       tourInterval = window.setInterval(() => {
         setActive((cur) => (cur + 1) % POSITIONS.length);
-      }, 3000);
+      }, TOUR_STEP_MS);
     };
     const stopTour = () => {
       setTouring(false);
@@ -71,9 +72,9 @@ export function AtriumCanvas() {
     const resetIdle = () => {
       stopTour();
       if (idleTimer) window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(startTour, 4000);
+      idleTimer = window.setTimeout(startTour, TOUR_IDLE_MS);
     };
-    idleTimer = window.setTimeout(startTour, 4000);
+    idleTimer = window.setTimeout(startTour, TOUR_IDLE_MS);
     const events: Array<keyof WindowEventMap> = [
       "mousemove",
       "mousedown",
@@ -202,7 +203,7 @@ function Tile({
         href={`/work/${item.slug}`}
         data-cursor="link"
         data-cursor-label="enter →"
-        className="group relative flex h-full w-full flex-col focus:outline-none"
+        className="group relative flex h-full w-full flex-col"
       >
         {/* the framed piece */}
         <div
