@@ -22,7 +22,7 @@ the focus* — he has ideas per item.
 | 14 | Flux v2 LoRA training process | pipelines-tools | placeholder |
 | 15 | Creative skills library | pipelines-tools | placeholder |
 | 16 | Interactive + playable demos | interactive-playable | roadmap, after current motion/animation/site polish |
-| 17 | Canonical domain wiring: `hammer.ad` | launch | in progress |
+| 17 | Canonical domain wiring: `hammer.ad` | launch | done, live |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
@@ -61,9 +61,10 @@ of which final domain is purchased. The domain should appear only where the
 actual URL matters: metadata/SEO, sitemap/robots, redirects, email/contact, and
 agent-readable docs such as `llms.txt`.
 
-**Note (2026-05-14):** Jeff purchased `hammer.ad`; use it as the canonical URL
+**Note (2026-05-14):** Jeff purchased `hammer.ad`; it is now the canonical URL
 for metadata, sitemap/robots, website-detail links, social images, Vercel
 project domain wiring, host redirects, and `llms.txt`. Keep the public-facing
-brand as Hammer.
+brand as Hammer. `www.hammer.ad` and `hammathyme.vercel.app` redirect to the
+apex host.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.
