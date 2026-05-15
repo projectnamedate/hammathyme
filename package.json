@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:rive-puppet": "node scripts/verify-rive-puppet-gate.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.5.0",

@@ -31,6 +31,7 @@ Approval manifest:
 - Premium design candidates: created.
 - Approval board: created.
 - Approval manifest: created with `approvalStatus: pending`.
+- Approval gate verifier: created at `scripts/verify-rive-puppet-gate.mjs`.
 - Post-approval Rive build packet: created.
 - Completion audit: created at
   `content/work/rive-puppet-completion-audit.md`.
@@ -59,3 +60,11 @@ Jeff replies with one of:
 - Do not add `@rive-app/react-webgl2` before the `.riv` exists.
 - Do not publish the animation piece before the Rive runtime and poster are
   verified.
+
+## Gate check
+
+Run before any Rive work:
+
+```bash
+npm run verify:rive-puppet
+```

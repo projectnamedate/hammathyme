@@ -38,6 +38,8 @@
 - Approval manifest created:
   `content/work/rive-puppet-approval-manifest.json`, currently set to
   `approvalStatus: pending`.
+- Approval gate verifier created:
+  `npm run verify:rive-puppet`.
 - Post-approval build packet prepared:
   `content/work/rive-premium-build-packet.md`.
 - Current gate handoff saved:
@@ -58,6 +60,7 @@
 ## Validation Log
 
 - `git diff --check`: passed.
+- `npm run verify:rive-puppet`: passed.
 - `npm run lint`: passed.
 - `npm run typecheck`: passed.
 - `npm run build`: passed.
