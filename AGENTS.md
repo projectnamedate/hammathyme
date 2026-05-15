@@ -28,3 +28,7 @@
   while the manifest says `approvalStatus: pending`.
 - Do not proceed past the approval board until Jeff explicitly approves
   candidate 01 or candidate 02, or gives design changes to apply first.
+- Current Hammer puppet state: candidate 01's character read is approved, but
+  the production reference must be redesigned into a T-pose with no
+  storyboard/shot-board/clapperboard/clipboard/held prop before any Rive
+  rebuild, rigging, animation, export, or site integration.

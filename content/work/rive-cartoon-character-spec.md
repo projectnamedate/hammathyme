@@ -14,8 +14,8 @@ the hero.
 
 Hammer producer character: a compact cartoon filmmaker / AI producer with a
 strong head silhouette, expressive brows, simple jacket shape, visible hands,
-and a small shot-board prop. This avoids Kira continuity risk while still
-feeling like a real character.
+clean T-pose production stance, and no storyboard/shot-board prop. This avoids
+Kira continuity risk while still feeling like a real character.
 
 ## Approval gate
 
@@ -27,6 +27,10 @@ The first SVG approval candidate is demoted to a technical rig sketch. It is
 not premium enough for approval because it reads too much like cheap flat web
 animation. Use `content/work/rive-premium-character-art-direction.md` as the
 new design target before creating the final Rive puppet.
+
+Post-approval correction: Jeff likes the candidate 01 character design, but the
+production reference must be revised into a T-pose with no storyboard or held
+prop before Rive rigging starts.
 
 Design audit constraint: avoid any historical-dictator read. Do not use black
 side-part hair, toothbrush-moustache shapes, a central shadow under the nose,
@@ -42,11 +46,12 @@ glasses, soft auburn hair, a headset, or a beanie instead.
 ## Required character sheet
 
 - Front-facing neutral pose
+- Clean T-pose production pose with arms extended horizontally
 - Three-quarter pose
 - Neutral, focused, surprised, pleased expressions
 - Closed, small, open, smile mouth shapes
 - Rest hand, pointing hand, presenting hand, wave hand
-- Shot-board prop
+- Relaxed open hands suitable for rigging
 - One finished premium style frame showing the character in a cinematic pose
 - Rive simplification notes showing which painterly details become vector
   planes
@@ -102,7 +107,6 @@ glasses, soft auburn hair, a headset, or a beanie instead.
 - `mouth_small`
 - `mouth_open`
 - `mouth_smile`
-- `frame_prop`
 - `dot`
 - `state_label`
 
@@ -116,7 +120,7 @@ glasses, soft auburn hair, a headset, or a beanie instead.
 - `lookY`: number, -1 to 1
 - `expression`: number, 0 neutral, 1 focused, 2 surprised, 3 pleased
 - `mouth`: number, 0 closed, 1 small, 2 open, 3 smile
-- `gesture`: number, 0 rest, 1 point, 2 present frame, 3 wave
+- `gesture`: number, 0 rest, 1 point, 2 present, 3 wave
 
 ## Rigging notes
 
@@ -127,8 +131,8 @@ glasses, soft auburn hair, a headset, or a beanie instead.
 - Face should use discrete brows, lids, eyes, and mouth shapes, not a single
   flattened face drawing.
 - Eye/head tracking should be driven by targets bound to `lookX` and `lookY`.
-- IK should be used only for target beats: planted feet, hand pulling the frame,
-  or a present-frame gesture.
+- IK should be used only for target beats: planted feet, hand targets, pointing,
+  or a wave gesture. Do not build a storyboard/shot-board prop target.
 
 ## Acceptance criteria
 

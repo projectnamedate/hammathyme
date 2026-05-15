@@ -2,9 +2,11 @@
 
 ## Status
 
-Prepared for post-approval work. Do not execute this build packet until Jeff
-approves candidate 01 or candidate 02 from the approval board. Candidate 02 is
-the recommended direction.
+Prepared for post-approval work. Candidate 01's character read is approved, but
+Jeff requested a production T-pose revision with no storyboard/shot-board prop
+before Rive rigging. Do not execute Rive rigging until that revised production
+reference is created and approved. Candidate 02 is the earlier recommended
+alternate/reference.
 
 ## Source references
 
@@ -25,7 +27,9 @@ the recommended direction.
 
 The approved concept art is the visual quality target. The SVG and HTML
 sketches are only technical references for naming, state, and motion logic.
-Use candidate 02 if Jeff approves the recommended direction.
+Use candidate 01's character identity, but revise it into a clean front-facing
+T-pose before building the Rive file. Remove any storyboard, shot-board,
+clapperboard, clipboard, or held prop from the production reference.
 
 ## Artboard
 
@@ -42,7 +46,6 @@ Top-level groups:
 
 - `character`
 - `rig`
-- `frame`
 - `state_label`
 - `dot`
 
@@ -106,24 +109,16 @@ Character subgroups:
 - `foot_R`
 - `rim_light`
 
-Prop subgroups:
-
-- `frame_prop`
-- `frame_prop_shadow`
-- `frame_prop_board`
-- `frame_prop_panel_01`
-- `frame_prop_panel_02`
-- `frame_prop_panel_03`
-- `frame_prop_tape_01`
-- `frame_prop_tape_02`
-- `frame_prop_dot`
-
 ## Vector translation rules
 
 - Do not import the concept image as the puppet body.
 - Rebuild as Rive-native vectors with simplified premium planes.
 - Preserve big readable shapes first: hair mass, collar, glasses, jacket,
-  hands, prop board.
+  hands, stance, headset, lanyard, and badge.
+- Start from a clean front-facing T-pose production reference with arms
+  extended horizontally, relaxed open hands, straight spine, and planted feet.
+- Do not include a storyboard, shot-board, clapperboard, clipboard, or held prop
+  in the production reference or base rig.
 - Convert painterly texture into 2 to 4 clean shadow/highlight planes per major
   region.
 - Keep fingers as grouped shapes so they can deform slightly without becoming
@@ -145,14 +140,14 @@ Constraints:
 
 - Head aim target bound to `lookX` and `lookY`.
 - Eye aim target bound to `lookX` and `lookY`.
-- Present-frame hand target for the prop gesture.
+- Hand targets for point/wave/attention gestures.
 - Optional planted-foot IK for the loop settle.
 
 Solo or swap groups:
 
 - `expression`: neutral, focused, surprised, pleased.
 - `mouth`: closed, small, open, smile, side-talk.
-- `gesture`: rest, point, present-frame, wave.
+- `gesture`: rest, point, present, wave.
 
 ## View Model
 
@@ -166,7 +161,7 @@ View Model: `HammerPuppetVM`
 - `lookY`: number, `-1` to `1`
 - `expression`: number, `0` neutral, `1` focused, `2` surprised, `3` pleased
 - `mouth`: number, `0` closed, `1` small, `2` open, `3` smile, `4` side-talk
-- `gesture`: number, `0` rest, `1` point, `2` present frame, `3` wave
+- `gesture`: number, `0` rest, `1` point, `2` present, `3` wave
 
 ## State machine
 
@@ -190,9 +185,11 @@ Timing:
 - Total loop: 6 to 8 seconds.
 - Idle: slow breathing, small hair/collar drift, no bounce.
 - Wake: cinnamon signal moves through rig points in one clear pass.
-- Produce: right hand presents the board, head and eyes track it.
+- Produce: right hand presents an invisible production cue, head and eyes track
+  the gesture, but no board prop appears in the base design.
 - React: expression changes once, then settles.
-- Lockup: board becomes a clean Hammer plate; cinnamon dot lands on baseline.
+- Lockup: character settles into a clean Hammer-facing plate; cinnamon dot
+  lands on baseline.
 - Return: settle back to idle without a hard snap.
 
 ## Rive AI Agent prompt
@@ -207,14 +204,15 @@ puppet.
 
 Artboard: HammerPuppet, 1200 x 1600, background #FAEEE9.
 
-Create top-level groups: character, rig, frame, state_label, dot.
+Create top-level groups: character, rig, state_label, dot.
 
 Inside character, create clean vector groups for head, cheek planes, hair lock
 groups, glasses, headset, eyes, lids, brows, mouth shapes, neck, jacket shell,
 shirt, collars, lanyard, badge, arms, cuffs, hands, legs, feet, rim light, and
 shadow planes. Preserve the premium model-sheet read: expressive eyes,
-appealing hands, layered jacket, cinematic lighting planes, and the shot-board
-prop. Avoid a flat web mascot look.
+appealing hands, layered jacket, cinematic lighting planes, headset, lanyard,
+badge, and clean T-pose silhouette. Avoid a flat web mascot look. Do not add a
+storyboard, shot-board, clapperboard, clipboard, or held prop.
 
 Create View Model HammerPuppetVM with properties: hover, focus, reducedMotion,
 mode, lookX, lookY, expression, mouth, gesture.
@@ -224,8 +222,9 @@ produce_frame, react_track, lockup_land, blink, mouth_cycle, gesture_point,
 gesture_wave, reduced_idle.
 
 Use bones for spine, head, arms, and legs. Use constraints for head and eye
-tracking, and a hand target for the present-frame gesture. Use Solos or nested
-groups for expression, mouth, and gesture swaps.
+tracking, and hand targets for point/present/wave gestures. Use Solos or nested
+groups for expression, mouth, and gesture swaps. Start from the T-pose
+production reference, not the older action-pose concept.
 
 Keep rig accents subtle. The character must remain the hero. Reduced motion
 must still show a polished static character and a restrained dot/state change.
@@ -233,7 +232,7 @@ must still show a polished static character and a restrained dot/state change.
 
 ## Acceptance before site integration
 
-- Jeff has approved the design.
+- Jeff has approved the T-pose/no-storyboard production reference.
 - `.riv` export exists at `public/work/animation/hammer-puppet-rig.riv`.
 - Poster exists at `public/work/animation/hammer-puppet-rig-poster.png`.
 - Rive file exposes `HammerPuppetVM`.

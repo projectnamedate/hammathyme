@@ -1,7 +1,10 @@
 # Rive post-approval agent prompt
 
-Use this only after Jeff explicitly approves candidate 01 or candidate 02.
-Candidate 02 is the recommended direction.
+Use this only after Jeff explicitly approves candidate 01 or candidate 02 and
+then approves the revised production reference. Candidate 01's character read
+is approved, but Jeff requested a T-pose/no-storyboard revision before Rive
+rigging. Candidate 02 is the recommended direction. It remains the earlier
+recommended alternate/reference from the original approval board.
 
 ## If Jeff approves candidate 02
 
@@ -18,10 +21,12 @@ content/work/rive-premium-build-packet.md
 content/work/rive-premium-character-approval-02.md
 content/work/rive-premium-vector-extraction-map-02.md
 
-Do not import the bitmap as the puppet body. Rebuild the character as clean
+Do not import the bitmap as the puppet body. First revise the design into a
+clean front-facing T-pose production reference with no storyboard, shot-board,
+clapperboard, clipboard, or held prop. Rebuild the character as clean
 Rive-native vector groups with premium planes for the auburn/sage hair-cap
 silhouette, large eyes, glasses, lids, brows, mouth shapes, high-collar
-jacket, hands, prop, shadows, highlights, and rim light.
+jacket, hands, shadows, highlights, and rim light.
 
 Create artboard HammerPuppet at 1200 x 1600. Create View Model
 HammerPuppetVM and state machine HammerPuppet exactly as documented. Rig with
@@ -47,9 +52,11 @@ content/work/rive-premium-build-packet.md
 content/work/rive-premium-character-approval-01.md
 content/work/rive-premium-vector-extraction-map.md
 
-Do not import the bitmap as the puppet body. Rebuild the character as clean
+Do not import the bitmap as the puppet body. First revise the design into a
+clean front-facing T-pose production reference with no storyboard, shot-board,
+clapperboard, clipboard, or held prop. Rebuild the character as clean
 Rive-native vector groups with premium planes for head, hair, eyes, lids,
-brows, mouth shapes, jacket, hands, prop, shadows, highlights, and rim light.
+brows, mouth shapes, jacket, hands, shadows, highlights, and rim light.
 
 Create artboard HammerPuppet at 1200 x 1600. Create View Model
 HammerPuppetVM and state machine HammerPuppet exactly as documented. Rig with

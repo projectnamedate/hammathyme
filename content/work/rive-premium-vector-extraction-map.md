@@ -2,8 +2,9 @@
 
 ## Status
 
-Prepared from candidate 01. This is a translation map only. It does not mean
-the design is approved.
+Prepared from approved candidate 01's character identity. Use this as the
+production translation map only after revising the character into a clean
+front-facing T-pose with no storyboard/shot-board or held prop.
 
 Source candidate:
 
@@ -17,9 +18,8 @@ Trace these first because they define the expensive read at card size:
 2. Head and jaw shape.
 3. Glasses, eyes, lids, brows, and catchlights.
 4. High collar and jacket shell.
-5. Presenting hand and board hand.
-6. Shot-board prop.
-7. Shoe and stance silhouette.
+5. T-pose arm silhouette and relaxed open hands.
+6. Shoe and planted stance silhouette.
 
 Only after those read correctly should smaller details be added.
 
@@ -37,7 +37,8 @@ literally. Convert it into clean Rive planes:
 - Jacket: shell, inner lining, collar left, collar right, zipper strip, cuff
   shapes, pocket, badge, soft shadow planes.
 - Hands: palm, thumb, index, grouped fingers, knuckle accent, nail/edge accent.
-- Board: frame, paper face, panel grid, tape tabs, inset artwork blocks, dot.
+- Remove the storyboard/shot-board prop from the production reference and base
+  rig.
 
 ## Layer-to-rig mapping
 
@@ -55,8 +56,7 @@ literally. Convert it into clean Rive planes:
 | Lanyard/badge | `lanyard`, `badge` | Follows torso, optional small lag |
 | Arms | `arm_L_upper`, `arm_L_lower`, `arm_R_upper`, `arm_R_lower` | Shoulder/elbow/wrist bones |
 | Hands | `hand_*` groups | Hand targets and gesture swaps |
-| Board prop | `frame_prop_*` | Presented by right hand, lockup target |
-| Dot | `dot`, `frame_prop_dot` | Final lockup accent |
+| Dot | `dot` | Final lockup accent |
 
 ## Shapes that should remain vector-stable
 
@@ -64,7 +64,6 @@ These must be manually cleaned after tracing:
 
 - Eye rings and glasses must stay circular enough to avoid shimmer.
 - Hands must use broad shapes, not tiny finger strokes.
-- Board edges should be straight enough to feel intentional.
 - Jacket zipper and collar should not become noisy sketch texture.
 - Hair locks should keep a readable silhouette without strand clutter.
 
@@ -72,7 +71,8 @@ These must be manually cleaned after tracing:
 
 - At 360 px tall, the silhouette still reads as the premium candidate.
 - Eyes still feel alive after simplification.
-- Hands still read as real hands in rest and present poses.
+- Hands still read as real hands in T-pose/rest/present poses.
 - Jacket depth remains visible after flattening to vector planes.
-- The board prop still feels integrated with the character.
+- No storyboard, shot-board, clapperboard, clipboard, or held prop remains in
+  the production reference.
 - No moustache-like shadows or face-center rig lines are introduced.

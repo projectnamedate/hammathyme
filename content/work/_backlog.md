@@ -14,7 +14,7 @@ the focus* — he has ideas per item.
 | 6 | 90-second broadcast-grade short | visual-media | placeholder |
 | 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | Pipeline visualizer detail page | pipelines-tools | live |
-| 9 | Rive + Remotion puppet animation reel | animation | approval package ready, candidate 02 pending Jeff approval |
+| 9 | Rive + Remotion puppet animation reel | animation | candidate 01 character read approved; pending Rive Cadet, T-pose/no-storyboard redesign, rig, animation, export |
 | 10 | Motion graphics reel | motion-graphics | live |
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
 | 12 | Audio-reactive overlays with electronic track | motion-graphics | tomorrow build candidate |
@@ -62,6 +62,12 @@ with desktop/mobile PNG snapshots beside it. Candidate 02 is visibly marked as
 recommended. Run `npm run verify:rive-puppet` before any Rive work; do not
 create the `.riv`, poster export, rig, animation, runtime install, or site
 integration until Jeff explicitly approves a candidate.
+
+**Note (2026-05-15):** Jeff approved candidate 01's character read, then
+requested the production model be redesigned into a clean T-pose with no
+storyboard/shot-board or held prop. Next session: Jeff signs up for Rive Cadet,
+then create/approve the T-pose reference before rigging, animation, `.riv`
+export, poster export, and Hammer site integration.
 
 **Note (2026-05-14):** The public brand is always Hammer / `hammer`, regardless
 of which final domain is purchased. The domain should appear only where the

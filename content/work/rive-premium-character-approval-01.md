@@ -10,14 +10,15 @@ Approval board:
 
 ## Status
 
-Awaiting Jeff approval. Do not start Rive rigging from this candidate until the
-design is explicitly approved.
+Approved by Jeff on 2026-05-15 as the character identity/read. The production
+Rive reference still needs Jeff's requested T-pose/no-storyboard revision before
+Rive-native rebuild, rigging, animation, `.riv` export, and poster export.
 
 ## Why this is closer to the bar
 
 - Reads as a feature-film-style character model sheet, not a flat web puppet.
 - Has a distinctive silhouette: expressive hair mass, high collar, headset,
-  layered jacket, board prop, and production tools.
+  layered jacket, hands, and production-tool styling.
 - Includes face studies, mouth shapes, eye/lid studies, and hand studies.
 - Hands are appealing and usable for rig poses rather than circle symbols.
 - Clothing has material depth: collar, jacket panels, cuffs, lanyard, seams,
@@ -25,13 +26,14 @@ design is explicitly approved.
 - Lighting and texture can be translated into Rive vector planes without
   becoming flat clip art.
 
-## Remaining approval questions
+## Resolved approval notes
 
-- Whether the character should stay male-presenting or become more ambiguous.
-- Whether the hair volume and glasses are right for Hammer.
-- Whether the headset should stay, or if it reads too call-center.
-- Whether the storyboard board prop is the right hero prop.
-- Whether the clothing should lean more studio-director, producer, or animator.
+- Preserve the candidate 01 read: expressive hair mass, glasses, headset,
+  layered jacket, hands, premium planes, and production attitude.
+- Revise the production reference into a clean front-facing T-pose with no
+  storyboard, shot-board, clapperboard, clipboard, or held prop.
+- Candidate 02 remains a strong alternate/reference, but candidate 01 is the
+  approved character identity.
 
 ## Rive translation notes
 
@@ -46,7 +48,8 @@ importing the bitmap as the puppet:
   shadow planes.
 - Arms: upper/lower sleeves, cuffs, elbow shadows.
 - Hands: palm, thumb, index, grouped fingers, nail/knuckle accents.
-- Prop: board body, inner panels, tabs, paper shadows, cinnamon dot.
+- No prop: remove the storyboard/shot-board from the production reference and
+  base Rive rig.
 
 Build packet:
 
@@ -63,3 +66,4 @@ Vector extraction map:
 - Do not remove all clothing depth.
 - Do not make the rig overlay visible in the final approval art.
 - Do not let the Rive version become a generic mascot.
+- Do not build the Rive rig from the old action pose with the board prop.

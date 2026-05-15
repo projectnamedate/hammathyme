@@ -16,8 +16,9 @@
 - Task 2: complete with a first vector reference asset saved as
   `public/work/animation/source/character-sheet-01.svg` and
   `public/work/animation/source/character-sheet-01.png`.
-- Design approval gate: active. Jeff must approve the puppet design before
-  Task 3 starts.
+- Character-read approval: Jeff approved candidate 01 before Task 3.
+- Production approval gate: reopened after Jeff requested a T-pose model with
+  no storyboard/shot-board or held prop before Rive rigging.
 - Current approval set has been revised after design audit to avoid the bad
   historical-dictator read: no black side-part hair, no face-center rig line,
   no nose/mouth shadow, no suit/tie silhouette. Candidate 02 is the recommended
@@ -28,10 +29,11 @@
   `content/work/rive-premium-character-art-direction.md`.
 - Premium candidate 01 created:
   `public/work/animation/source/hammer-puppet-premium-concept-01.png`.
-  Awaiting Jeff approval before Rive rigging.
+  Approved by Jeff on 2026-05-15 as the character identity/read.
 - Premium candidate 02 created:
   `public/work/animation/source/hammer-puppet-premium-concept-02.png`.
-  Awaiting Jeff approval before Rive rigging.
+  Kept as a strong alternate/reference; candidate 02 remains visibly marked as
+  recommended in the original approval board.
 - Approval board created:
   `public/work/animation/source/hammer-puppet-approval-board.html`.
   It visibly marks candidate 02 as recommended.
@@ -41,7 +43,8 @@
   `public/work/animation/source/hammer-puppet-approval-board-mobile.png`.
 - Approval manifest created:
   `content/work/rive-puppet-approval-manifest.json`, currently set to
-  `approvalStatus: pending`.
+  `approvalStatus: pending` until the revised T-pose/no-storyboard production
+  reference is approved.
 - Approval gate verifier created:
   `npm run verify:rive-puppet`.
 - Repo agent guardrail created:
@@ -59,20 +62,24 @@
   `content/work/rive-premium-vector-extraction-map-02.md`.
 - Post-approval agent prompt prepared:
   `content/work/rive-post-approval-agent-prompt.md`, with candidate 02 first.
-- Tasks 3-7: blocked until Rive Editor is installed/open and a `.riv` file can
-  be created/exported.
-- Local Rive MCP bridge check: `http://localhost:9791/sse` is not currently
-  listening, so editor automation cannot start from Codex yet.
+- Tasks 3-7: blocked until Jeff signs up for Rive Cadet, the T-pose/no-prop
+  production reference is created and approved, and a `.riv` file can be
+  exported.
+- Rive Early Access is installed at `/Applications/Rive Early Access.app`.
+- Local Rive MCP bridge check: `http://127.0.0.1:9791/sse` returned an MCP
+  session and tool list while Rive Early Access was open.
 
 ## Validation Log
 
 - `git diff --check`: passed.
 - `npm run verify:rive-puppet`: passed.
-  Verifies the pending gate, visible candidate 02 recommendation, build-packet
-  labels, and post-approval prompt ordering.
+  Verifies the pending manifest state, visible candidate 02 recommendation,
+  build-packet labels, and post-approval prompt ordering.
 - `npm run lint`: passed.
 - `npm run typecheck`: passed.
 - `npm run build`: passed.
+- Rive Early Access installed and local MCP SSE endpoint verified during the
+  wrap-up session.
 - `public/work/animation/source/character-sheet-01.png`: 1800 x 1200 PNG.
 - `public/work/animation/source/hammer-puppet-design-approval.png`: 1800 x
   1200 PNG.
@@ -165,7 +172,7 @@ Build a Hammer-native 2D cartoon character puppet that feels like a working anim
 
 ## Recommended character
 
-Hammer producer character: a compact cartoon filmmaker / AI producer with a strong head silhouette, expressive brows, simple jacket shape, visible hands, and a small shot-board prop. This avoids Kira continuity risk while still feeling like a real character.
+Hammer producer character: a compact cartoon filmmaker / AI producer with a strong head silhouette, expressive brows, simple jacket shape, visible hands, clean T-pose production stance, and no storyboard/shot-board prop. This avoids Kira continuity risk while still feeling like a real character.
 
 ## Alternate character paths
 
@@ -175,11 +182,12 @@ Hammer producer character: a compact cartoon filmmaker / AI producer with a stro
 ## Required character sheet
 
 - Front-facing neutral pose
+- Clean T-pose production pose with arms extended horizontally
 - Three-quarter pose
 - Neutral, focused, surprised, pleased expressions
 - Closed, small, open, smile mouth shapes
 - Rest hand, pointing hand, presenting hand, wave hand
-- Shot-board prop
+- Relaxed open hands suitable for rigging
 
 ## Rive layer map
 
@@ -213,7 +221,6 @@ Hammer producer character: a compact cartoon filmmaker / AI producer with a stro
 - `mouth_small`
 - `mouth_open`
 - `mouth_smile`
-- `frame_prop`
 - `dot`
 - `state_label`
 
@@ -227,7 +234,7 @@ Hammer producer character: a compact cartoon filmmaker / AI producer with a stro
 - `lookY`: number, -1 to 1
 - `expression`: number, 0 neutral, 1 focused, 2 surprised, 3 pleased
 - `mouth`: number, 0 closed, 1 small, 2 open, 3 smile
-- `gesture`: number, 0 rest, 1 point, 2 present frame, 3 wave
+- `gesture`: number, 0 rest, 1 point, 2 present, 3 wave
 ```
 
 - [x] **Step 3: Verify docs**
@@ -257,7 +264,7 @@ Create `content/work/rive-cartoon-character-prompts.md` with:
 
 ## Character sheet prompt
 
-Original 2D cartoon character sheet for a premium AI producer portfolio, clean vector-animation style, warm cream background, deep maroon linework, cinnamon accent details, compact filmmaker slash producer character, expressive head silhouette, simple jacket, readable hands, friendly but work-focused, not childish, not mascot-like, front pose, three-quarter pose, neutral expression, focused expression, surprised expression, pleased expression, closed mouth, small mouth, open mouth, smile mouth, pointing hand, presenting hand, waving hand, small shot-board prop, separated parts clearly visible for rigging, flat colors, clean shape language, no text, no logo, no complex background
+Original 2D cartoon character sheet for a premium AI producer portfolio, clean vector-animation style, warm cream background, deep maroon linework, cinnamon accent details, compact filmmaker slash producer character, expressive head silhouette, simple jacket, readable hands, friendly but work-focused, not childish, not mascot-like, clean front-facing T-pose, three-quarter pose, neutral expression, focused expression, surprised expression, pleased expression, closed mouth, small mouth, open mouth, smile mouth, pointing hand, presenting hand, waving hand, relaxed open hands, separated parts clearly visible for rigging, flat colors, clean shape language, no text, no logo, no complex background, no storyboard, no shot-board, no held prop
 ```
 
 - [x] **Step 2: Generate first reference**
@@ -349,7 +356,7 @@ Use Solos or nested groups so runtime control can switch:
 ```txt
 expression: neutral, focused, surprised, pleased
 mouth: closed, small, open, smile
-gesture: rest, point, present frame, wave
+gesture: rest, point, present, wave
 ```
 
 - [ ] **Step 5: Export a temporary poster**

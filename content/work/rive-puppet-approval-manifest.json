@@ -1,6 +1,6 @@
 {
   "project": "hammer-rive-puppet",
-  "updated": "2026-05-15T03:37:38-0700",
+  "updated": "2026-05-15T09:46:32-0700",
   "approvalStatus": "pending",
   "recommendedCandidate": "candidate-02",
   "approvedCandidate": null,
@@ -53,8 +53,8 @@
     "stateMachine": "HammerPuppet"
   },
   "blockers": [
-    "Jeff has not explicitly approved candidate 01 or candidate 02.",
-    "Rive MCP bridge is not currently available on localhost:9791.",
+    "Candidate 01 character read is approved, but Jeff requested a production T-pose revision with no storyboard or shot-board prop before Rive rigging.",
+    "Revised T-pose/no-storyboard production reference has not been generated and approved yet.",
     "Rive runtime export and poster do not exist yet."
   ]
 }

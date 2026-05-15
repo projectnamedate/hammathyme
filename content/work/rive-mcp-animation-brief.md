@@ -20,6 +20,10 @@ Flash animation. Build the character from a premium model sheet and style
 frame first, then translate it into Rive-native planes. The early SVG rig
 sketch is only a technical layer map, not the final visual bar.
 
+Production correction: candidate 01's character read is approved, but Jeff
+requested the production model be redesigned into a clean T-pose with no
+storyboard/shot-board or held prop before rigging starts.
+
 See `content/work/rive-premium-character-art-direction.md` for the current
 premium target.
 
@@ -30,9 +34,10 @@ built-in Rive AI Agent. Treat MCP as a bridge for editor control only if the
 local Rive Early Access app exposes it. The durable runtime contract should be
 Rive Data Binding / View Models, not legacy state-machine inputs.
 
-For Codex, the current local setup does not include a Rive MCP server. If we
-test the local Rive editor bridge, keep it temporary until the endpoint and
-transport are verified.
+Rive Early Access is installed locally at `/Applications/Rive Early Access.app`.
+The local MCP SSE bridge at `http://127.0.0.1:9791/sse` was verified while the
+app was open. Jeff will sign up for Rive Cadet next session to unlock Early
+Access/export access.
 
 ## Brand frame
 
@@ -58,10 +63,15 @@ Primary artboard:
 Character construction:
 
 - Head, torso, neck, upper/lower arms, hands, upper/lower legs, feet, hair,
-  eyes, lids, brows, mouth shapes, and prop hands should be separable layers.
+  eyes, lids, brows, mouth shapes, and relaxed hands should be separable
+  layers.
+- The base production model must be front-facing T-pose: arms extended
+  horizontally, relaxed open hands, straight spine, planted feet.
 - The design can be stylized, but it must preserve premium animated-character
   cues: distinctive silhouette, appealing eyes, shaped hands, layered clothing,
   controlled lighting planes, and asymmetry.
+- Do not include a storyboard, shot-board, clapperboard, clipboard, or held prop
+  in the production reference or base rig.
 - Use visible rig accents only as a secondary production detail; the character
   should be the hero.
 
@@ -78,9 +88,10 @@ Scene beats:
 
 1. Idle pose: puppet stands quiet, joints dim, hairline rig visible.
 2. Wake: cinnamon joint signals move from spine to shoulders to hands.
-3. Produce: one hand pulls a small frame into view, like a shot board.
-4. React: head and eyes track the frame, expression changes once.
-5. Lockup: frame snaps into a clean Hammer plate, dot lands on baseline.
+3. Produce: one hand presents a production cue without introducing a board prop.
+4. React: head and eyes track the gesture, expression changes once.
+5. Lockup: character settles into a clean Hammer-facing plate, dot lands on
+   baseline.
 6. Loop: puppet settles back into idle without a hard jump.
 
 Timing:
@@ -122,7 +133,7 @@ Runtime properties:
 - `gesture` number:
   - `0` rest
   - `1` point
-  - `2` present frame
+  - `2` present
   - `3` wave
 
 Legacy-input fallback:
@@ -149,9 +160,10 @@ when `reducedMotion` is true.
 ## Rive MCP build checklist
 
 - Create artboard, View Model, and state machine with the names above.
+- Start from the approved T-pose/no-storyboard production reference.
 - Use a reference image only as a design guide. Rebuild the character as
   vector-native, layer-separated Rive artwork for rigging.
-- Use named groups for `puppet`, `rig`, `frame`, `state_label`, and `dot`.
+- Use named groups for `puppet`, `rig`, `state_label`, and `dot`.
 - Bind control properties exactly as listed so the site embed can be simple.
 - Use bones for limbs/spine, constraints for eyes/head/hand targets, Solos or
   nested groups for face/mouth swaps, and IK for any planted feet or hand-target
@@ -165,8 +177,8 @@ when `reducedMotion` is true.
 
 Preferred path:
 
-1. Generate or draw a cartoon character sheet with front pose, expression
-   variants, hand poses, and a simple prop frame.
+1. Generate or draw a cartoon character sheet with a clean front-facing T-pose,
+   expression variants, hand poses, and no storyboard/shot-board prop.
 2. Rebuild the selected design as clean, layer-separated Rive vector artwork.
 3. Use Rive's built-in AI Agent to scaffold the artboard, named groups,
    View Model, and state-machine shell.
@@ -211,9 +223,7 @@ Before marking the animation piece live:
 
 ## Decisions to make together
 
-- Character identity: Hammer producer character, Kira-adjacent cartoon, literal
-  dog/pupper character, or another original cartoon performer.
-- Whether the shot-board prop should show a real Hammer work frame.
+- T-pose production reference approval after Jeff signs up for Rive Cadet.
 - Whether the final lockup includes the full `hammer.` wordmark or just the
   controlled cinnamon dot.
 - Whether the detail page should show Rive controls or keep controls hidden.
