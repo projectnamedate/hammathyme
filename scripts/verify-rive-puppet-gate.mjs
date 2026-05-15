@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = process.cwd();
@@ -46,6 +46,7 @@ for (const expectedId of ["candidate-01", "candidate-02"]) {
 
 const requiredPaths = [
   manifest.approvalBoard,
+  manifest.approvalBoardSnapshot,
   manifest.postApprovalBuildPacket,
   manifest.postApprovalAgentPrompt,
   ...manifest.candidates.flatMap((candidate) => [
@@ -59,6 +60,10 @@ for (const path of requiredPaths) {
   if (!path || !exists(path)) {
     fail(`referenced path is missing: ${path}`);
   }
+}
+
+if (statSync(resolve(root, manifest.approvalBoardSnapshot)).size < 100000) {
+  fail("approval board snapshot is unexpectedly small");
 }
 
 const board = readText(manifest.approvalBoard);

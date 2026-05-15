@@ -1,6 +1,6 @@
 # Rive puppet current gate
 
-Updated: 2026-05-15T02:32:39-0700
+Updated: 2026-05-15T02:51:19-0700
 
 ## Objective
 
@@ -19,6 +19,10 @@ Review board:
 
 `public/work/animation/source/hammer-puppet-approval-board.html`
 
+Static board snapshot:
+
+`public/work/animation/source/hammer-puppet-approval-board.png`
+
 Recommended choice: candidate 02, because it has the stronger stylized
 feature-animation silhouette and cleaner mascot read.
 
@@ -30,6 +34,7 @@ Approval manifest:
 
 - Premium design candidates: created.
 - Approval board: created with candidate 02 visibly marked as recommended.
+- Approval board snapshot: created.
 - Approval manifest: created with `approvalStatus: pending`.
 - Approval gate verifier: created at `scripts/verify-rive-puppet-gate.mjs`.
 - Repo agent guardrail: created at `AGENTS.md`.
