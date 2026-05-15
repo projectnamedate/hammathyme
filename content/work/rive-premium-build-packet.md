@@ -3,8 +3,8 @@
 ## Status
 
 Prepared for post-approval work. Do not execute this build packet until Jeff
-approves `public/work/animation/source/hammer-puppet-premium-concept-01.png`
-or chooses a different design.
+approves candidate 01 or candidate 02 from the approval board. Candidate 02 is
+the recommended direction.
 
 ## Source references
 
@@ -25,6 +25,7 @@ or chooses a different design.
 
 The approved concept art is the visual quality target. The SVG and HTML
 sketches are only technical references for naming, state, and motion logic.
+Use candidate 02 if Jeff approves the recommended direction.
 
 ## Artboard
 

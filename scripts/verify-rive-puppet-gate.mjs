@@ -78,9 +78,20 @@ if (!board.includes("Recommendation: candidate 02")) {
 
 const currentGate = readText("content/work/rive-puppet-current-gate.md");
 const completionAudit = readText("content/work/rive-puppet-completion-audit.md");
+const buildPacket = readText(manifest.postApprovalBuildPacket);
 for (const doc of [currentGate, completionAudit]) {
   if (!doc.includes(manifestPath)) {
     fail(`${manifestPath} is not referenced by current gate/audit docs`);
+  }
+}
+
+if (!buildPacket.includes("Candidate 02 is")) {
+  fail("post-approval build packet must preserve the candidate 02 recommendation");
+}
+
+for (const candidate of manifest.candidates) {
+  if (!buildPacket.includes(candidate.image)) {
+    fail(`post-approval build packet is missing candidate image: ${candidate.image}`);
   }
 }
 
