@@ -14,7 +14,7 @@ the focus* — he has ideas per item.
 | 6 | 90-second broadcast-grade short | visual-media | placeholder |
 | 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | Pipeline visualizer detail page | pipelines-tools | live |
-| 9 | Rive + Remotion puppet animation reel | animation | brief ready, collaborative build pending |
+| 9 | Rive + Remotion puppet animation reel | animation | approval package ready, candidate 02 pending Jeff approval |
 | 10 | Motion graphics reel | motion-graphics | live |
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
 | 12 | Audio-reactive overlays with electronic track | motion-graphics | tomorrow build candidate |
@@ -55,6 +55,13 @@ composition, cream/ink/cinnamon palette, and portfolio capability line.
 `content/work/rive-mcp-animation-brief.md`. It defines the Hammer-branded
 composition, state-machine inputs, export targets, site integration checklist,
 and the decisions Jeff still needs to make during the collaborative Rive pass.
+
+**Note (2026-05-15):** Rive puppet approval assets are prepared. The current
+approval board is `public/work/animation/source/hammer-puppet-approval-board.html`
+with desktop/mobile PNG snapshots beside it. Candidate 02 is visibly marked as
+recommended. Run `npm run verify:rive-puppet` before any Rive work; do not
+create the `.riv`, poster export, rig, animation, runtime install, or site
+integration until Jeff explicitly approves a candidate.
 
 **Note (2026-05-14):** The public brand is always Hammer / `hammer`, regardless
 of which final domain is purchased. The domain should appear only where the
