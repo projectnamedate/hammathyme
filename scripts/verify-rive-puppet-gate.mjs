@@ -90,6 +90,8 @@ const currentGate = readText("content/work/rive-puppet-current-gate.md");
 const completionAudit = readText("content/work/rive-puppet-completion-audit.md");
 const buildPacket = readText(manifest.postApprovalBuildPacket);
 const postApprovalPrompt = readText(manifest.postApprovalAgentPrompt);
+const packageJson = JSON.parse(readText("package.json"));
+const packageLockText = exists("package-lock.json") ? readText("package-lock.json") : "";
 for (const doc of [currentGate, completionAudit]) {
   if (!doc.includes(manifestPath)) {
     fail(`${manifestPath} is not referenced by current gate/audit docs`);
@@ -150,6 +152,29 @@ if (manifest.approvalStatus === "pending") {
 
   if (posterExport && exists(posterExport)) {
     fail(`${posterExport} exists while approvalStatus is pending`);
+  }
+
+  const dependencySections = [
+    packageJson.dependencies,
+    packageJson.devDependencies,
+    packageJson.optionalDependencies,
+    packageJson.peerDependencies,
+  ];
+
+  for (const runtimePackage of manifest.blockedWhilePending?.runtimePackages ?? []) {
+    if (dependencySections.some((section) => section?.[runtimePackage])) {
+      fail(`${runtimePackage} must not be installed while approvalStatus is pending`);
+    }
+
+    if (packageLockText.includes(runtimePackage)) {
+      fail(`${runtimePackage} must not appear in package-lock while approvalStatus is pending`);
+    }
+  }
+
+  for (const runtimeWrapper of manifest.blockedWhilePending?.runtimeWrapperFiles ?? []) {
+    if (exists(runtimeWrapper)) {
+      fail(`${runtimeWrapper} must not exist while approvalStatus is pending`);
+    }
   }
 }
 

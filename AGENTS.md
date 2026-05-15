@@ -24,5 +24,7 @@
 - Do not create `public/work/animation/hammer-puppet-rig.riv` or
   `public/work/animation/hammer-puppet-rig-poster.png` while the manifest says
   `approvalStatus: pending`.
+- Do not add the Rive runtime package or `components/RiveCartoonPuppet.tsx`
+  while the manifest says `approvalStatus: pending`.
 - Do not proceed past the approval board until Jeff explicitly approves
   candidate 01 or candidate 02, or gives design changes to apply first.

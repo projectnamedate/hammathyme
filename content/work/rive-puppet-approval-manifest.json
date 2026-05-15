@@ -1,6 +1,6 @@
 {
   "project": "hammer-rive-puppet",
-  "updated": "2026-05-15T03:25:32-0700",
+  "updated": "2026-05-15T03:37:38-0700",
   "approvalStatus": "pending",
   "recommendedCandidate": "candidate-02",
   "approvedCandidate": null,
@@ -10,6 +10,14 @@
     "rive-animation",
     "site-runtime-integration"
   ],
+  "blockedWhilePending": {
+    "runtimePackages": [
+      "@rive-app/react-webgl2"
+    ],
+    "runtimeWrapperFiles": [
+      "components/RiveCartoonPuppet.tsx"
+    ]
+  },
   "approvalBoard": "public/work/animation/source/hammer-puppet-approval-board.html",
   "approvalPhrases": [
     "approved candidate 01",

@@ -1,6 +1,6 @@
 # Rive puppet current gate
 
-Updated: 2026-05-15T03:25:32-0700
+Updated: 2026-05-15T03:37:38-0700
 
 ## Objective
 
@@ -68,6 +68,8 @@ Jeff replies with one of:
 - Do not import the bitmap as the puppet body.
 - Do not create the final `.riv` before design approval.
 - Do not add `@rive-app/react-webgl2` before the `.riv` exists.
+- Do not add `components/RiveCartoonPuppet.tsx` before design approval and
+  verified `.riv`/poster exports.
 - Do not publish the animation piece before the Rive runtime and poster are
   verified.
 
