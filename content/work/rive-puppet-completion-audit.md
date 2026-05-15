@@ -47,7 +47,8 @@ approve the design before the Rive rigging phase starts.
 ## Current answer
 
 The goal is not complete. The next required action is Jeff approving candidate
-01, approving candidate 02, or giving design changes.
+01, approving candidate 02, or giving design changes. Candidate 02 is the
+recommended approval path.
 
 Approval board:
 

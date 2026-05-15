@@ -297,7 +297,8 @@ Expected: Jeff explicitly approves or redirects the character design. Do not
 start Task 3 until this approval happens.
 
 Current note: the first SVG candidate is not the approval target. Premium
-candidate 01 is now the approval target.
+candidates 01 and 02 are the approval options on the board, with candidate 02
+recommended as the stronger feature-animation direction.
 
 ---
 

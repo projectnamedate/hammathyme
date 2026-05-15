@@ -19,6 +19,9 @@ Review board:
 
 `public/work/animation/source/hammer-puppet-approval-board.html`
 
+Recommended choice: candidate 02, because it has the stronger stylized
+feature-animation silhouette and cleaner mascot read.
+
 ## Current status
 
 - Premium design candidates: created.
