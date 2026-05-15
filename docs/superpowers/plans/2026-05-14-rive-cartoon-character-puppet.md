@@ -40,6 +40,9 @@
   `approvalStatus: pending`.
 - Approval gate verifier created:
   `npm run verify:rive-puppet`.
+- Repo agent guardrail created:
+  `AGENTS.md` requires the Rive puppet verifier and approval manifest before
+  any Rive rebuild, rigging, animation, runtime install, or site integration.
 - Post-approval build packet prepared:
   `content/work/rive-premium-build-packet.md`.
 - Current gate handoff saved:

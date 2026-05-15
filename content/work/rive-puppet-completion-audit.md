@@ -1,6 +1,6 @@
 # Rive puppet completion audit
 
-Updated: 2026-05-14T23:56:14-0700
+Updated: 2026-05-15T00:29:07-0700
 
 ## Objective
 
@@ -35,6 +35,7 @@ approve the design before the Rive rigging phase starts.
 | Approval board | `public/work/animation/source/hammer-puppet-approval-board.html` exists | Complete |
 | Approval manifest | `content/work/rive-puppet-approval-manifest.json` exists and says `approvalStatus: pending` | Complete |
 | Approval gate verifier | `npm run verify:rive-puppet` passes and confirms pending approval | Complete |
+| Repo agent guardrail | `AGENTS.md` requires the verifier and manifest before any Rive rebuild, rigging, animation, runtime install, or site integration | Complete |
 | Post-approval build packet | `content/work/rive-premium-build-packet.md` exists | Complete |
 | Vector extraction map candidate 01 | `content/work/rive-premium-vector-extraction-map.md` exists | Complete |
 | Vector extraction map candidate 02 | `content/work/rive-premium-vector-extraction-map-02.md` exists | Complete |
