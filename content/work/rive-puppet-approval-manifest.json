@@ -1,6 +1,6 @@
 {
   "project": "hammer-rive-puppet",
-  "updated": "2026-05-15T02:51:19-0700",
+  "updated": "2026-05-15T03:25:32-0700",
   "approvalStatus": "pending",
   "recommendedCandidate": "candidate-02",
   "approvedCandidate": null,
@@ -16,6 +16,7 @@
     "approved candidate 02"
   ],
   "approvalBoardSnapshot": "public/work/animation/source/hammer-puppet-approval-board.png",
+  "approvalBoardMobileSnapshot": "public/work/animation/source/hammer-puppet-approval-board-mobile.png",
   "candidates": [
     {
       "id": "candidate-01",

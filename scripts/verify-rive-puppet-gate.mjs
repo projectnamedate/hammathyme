@@ -47,6 +47,7 @@ for (const expectedId of ["candidate-01", "candidate-02"]) {
 const requiredPaths = [
   manifest.approvalBoard,
   manifest.approvalBoardSnapshot,
+  manifest.approvalBoardMobileSnapshot,
   manifest.postApprovalBuildPacket,
   manifest.postApprovalAgentPrompt,
   ...manifest.candidates.flatMap((candidate) => [
@@ -64,6 +65,10 @@ for (const path of requiredPaths) {
 
 if (statSync(resolve(root, manifest.approvalBoardSnapshot)).size < 100000) {
   fail("approval board snapshot is unexpectedly small");
+}
+
+if (statSync(resolve(root, manifest.approvalBoardMobileSnapshot)).size < 100000) {
+  fail("approval board mobile snapshot is unexpectedly small");
 }
 
 const board = readText(manifest.approvalBoard);

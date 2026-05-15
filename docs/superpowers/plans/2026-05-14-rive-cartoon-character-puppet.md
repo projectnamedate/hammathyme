@@ -37,6 +37,8 @@
   It visibly marks candidate 02 as recommended.
 - Approval board snapshot created:
   `public/work/animation/source/hammer-puppet-approval-board.png`.
+- Approval board mobile snapshot created:
+  `public/work/animation/source/hammer-puppet-approval-board-mobile.png`.
 - Approval manifest created:
   `content/work/rive-puppet-approval-manifest.json`, currently set to
   `approvalStatus: pending`.
