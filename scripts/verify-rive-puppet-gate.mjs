@@ -79,6 +79,7 @@ if (!board.includes("Recommendation: candidate 02")) {
 const currentGate = readText("content/work/rive-puppet-current-gate.md");
 const completionAudit = readText("content/work/rive-puppet-completion-audit.md");
 const buildPacket = readText(manifest.postApprovalBuildPacket);
+const postApprovalPrompt = readText(manifest.postApprovalAgentPrompt);
 for (const doc of [currentGate, completionAudit]) {
   if (!doc.includes(manifestPath)) {
     fail(`${manifestPath} is not referenced by current gate/audit docs`);
@@ -97,6 +98,21 @@ for (const candidate of manifest.candidates) {
   if (!buildPacket.includes(candidate.image)) {
     fail(`post-approval build packet is missing candidate image: ${candidate.image}`);
   }
+}
+
+if (!postApprovalPrompt.includes("Candidate 02 is the recommended direction.")) {
+  fail("post-approval agent prompt must preserve the candidate 02 recommendation");
+}
+
+const candidate02PromptIndex = postApprovalPrompt.indexOf("## If Jeff approves candidate 02");
+const candidate01PromptIndex = postApprovalPrompt.indexOf("## If Jeff approves candidate 01");
+
+if (candidate02PromptIndex === -1 || candidate01PromptIndex === -1) {
+  fail("post-approval agent prompt must include candidate 01 and candidate 02 sections");
+}
+
+if (candidate02PromptIndex > candidate01PromptIndex) {
+  fail("post-approval agent prompt must present candidate 02 before candidate 01");
 }
 
 const riveExport = manifest.expectedExports?.riveRuntime;
