@@ -1,6 +1,6 @@
 # Rive puppet current gate
 
-Updated: 2026-05-15T00:29:07-0700
+Updated: 2026-05-15T02:02:11-0700
 
 ## Objective
 
@@ -29,7 +29,7 @@ Approval manifest:
 ## Current status
 
 - Premium design candidates: created.
-- Approval board: created.
+- Approval board: created with candidate 02 visibly marked as recommended.
 - Approval manifest: created with `approvalStatus: pending`.
 - Approval gate verifier: created at `scripts/verify-rive-puppet-gate.mjs`.
 - Repo agent guardrail: created at `AGENTS.md`.

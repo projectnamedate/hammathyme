@@ -35,6 +35,7 @@
   Awaiting Jeff approval before Rive rigging.
 - Approval board created:
   `public/work/animation/source/hammer-puppet-approval-board.html`.
+  It visibly marks candidate 02 as recommended.
 - Approval manifest created:
   `content/work/rive-puppet-approval-manifest.json`, currently set to
   `approvalStatus: pending`.
@@ -64,6 +65,7 @@
 
 - `git diff --check`: passed.
 - `npm run verify:rive-puppet`: passed.
+  Verifies the pending gate and visible candidate 02 recommendation.
 - `npm run lint`: passed.
 - `npm run typecheck`: passed.
 - `npm run build`: passed.
