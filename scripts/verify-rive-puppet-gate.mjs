@@ -68,6 +68,14 @@ for (const phrase of manifest.approvalPhrases ?? []) {
   }
 }
 
+if (!board.includes("recommended")) {
+  fail("approval board must visibly mark the recommended candidate");
+}
+
+if (!board.includes("Recommendation: candidate 02")) {
+  fail("approval board must explain candidate 02 as the recommendation");
+}
+
 const currentGate = readText("content/work/rive-puppet-current-gate.md");
 const completionAudit = readText("content/work/rive-puppet-completion-audit.md");
 for (const doc of [currentGate, completionAudit]) {
