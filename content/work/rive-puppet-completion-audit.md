@@ -1,6 +1,6 @@
 # Rive puppet completion audit
 
-Updated: 2026-05-14T23:16:00-0700
+Updated: 2026-05-14T23:56:14-0700
 
 ## Objective
 
@@ -33,6 +33,7 @@ approve the design before the Rive rigging phase starts.
 | Premium design candidate 01 | `public/work/animation/source/hammer-puppet-premium-concept-01.png` exists | Complete |
 | Premium design candidate 02 | `public/work/animation/source/hammer-puppet-premium-concept-02.png` exists | Complete |
 | Approval board | `public/work/animation/source/hammer-puppet-approval-board.html` exists | Complete |
+| Approval manifest | `content/work/rive-puppet-approval-manifest.json` exists and says `approvalStatus: pending` | Complete |
 | Post-approval build packet | `content/work/rive-premium-build-packet.md` exists | Complete |
 | Vector extraction map candidate 01 | `content/work/rive-premium-vector-extraction-map.md` exists | Complete |
 | Vector extraction map candidate 02 | `content/work/rive-premium-vector-extraction-map-02.md` exists | Complete |

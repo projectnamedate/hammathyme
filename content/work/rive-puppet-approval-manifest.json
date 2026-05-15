@@ -1,0 +1,50 @@
+{
+  "project": "hammer-rive-puppet",
+  "updated": "2026-05-14T23:56:14-0700",
+  "approvalStatus": "pending",
+  "recommendedCandidate": "candidate-02",
+  "approvedCandidate": null,
+  "approvalRequiredBefore": [
+    "rive-native-vector-rebuild",
+    "rive-rigging",
+    "rive-animation",
+    "site-runtime-integration"
+  ],
+  "approvalBoard": "public/work/animation/source/hammer-puppet-approval-board.html",
+  "approvalPhrases": [
+    "approved candidate 01",
+    "approved candidate 02"
+  ],
+  "candidates": [
+    {
+      "id": "candidate-01",
+      "label": "Premium producer direction",
+      "image": "public/work/animation/source/hammer-puppet-premium-concept-01.png",
+      "approvalNotes": "content/work/rive-premium-character-approval-01.md",
+      "vectorExtractionMap": "content/work/rive-premium-vector-extraction-map.md"
+    },
+    {
+      "id": "candidate-02",
+      "label": "Stylized feature-animation puppet direction",
+      "image": "public/work/animation/source/hammer-puppet-premium-concept-02.png",
+      "approvalNotes": "content/work/rive-premium-character-approval-02.md",
+      "vectorExtractionMap": "content/work/rive-premium-vector-extraction-map-02.md"
+    }
+  ],
+  "postApprovalBuildPacket": "content/work/rive-premium-build-packet.md",
+  "postApprovalAgentPrompt": "content/work/rive-post-approval-agent-prompt.md",
+  "expectedExports": {
+    "riveRuntime": "public/work/animation/hammer-puppet-rig.riv",
+    "poster": "public/work/animation/hammer-puppet-rig-poster.png"
+  },
+  "runtimeContract": {
+    "artboard": "HammerPuppet",
+    "viewModel": "HammerPuppetVM",
+    "stateMachine": "HammerPuppet"
+  },
+  "blockers": [
+    "Jeff has not explicitly approved candidate 01 or candidate 02.",
+    "Rive MCP bridge is not currently available on localhost:9791.",
+    "Rive runtime export and poster do not exist yet."
+  ]
+}

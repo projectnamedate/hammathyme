@@ -1,6 +1,6 @@
 # Rive puppet current gate
 
-Updated: 2026-05-14T23:13:13-0700
+Updated: 2026-05-14T23:56:14-0700
 
 ## Objective
 
@@ -22,10 +22,15 @@ Review board:
 Recommended choice: candidate 02, because it has the stronger stylized
 feature-animation silhouette and cleaner mascot read.
 
+Approval manifest:
+
+`content/work/rive-puppet-approval-manifest.json`
+
 ## Current status
 
 - Premium design candidates: created.
 - Approval board: created.
+- Approval manifest: created with `approvalStatus: pending`.
 - Post-approval Rive build packet: created.
 - Completion audit: created at
   `content/work/rive-puppet-completion-audit.md`.

@@ -35,6 +35,9 @@
   Awaiting Jeff approval before Rive rigging.
 - Approval board created:
   `public/work/animation/source/hammer-puppet-approval-board.html`.
+- Approval manifest created:
+  `content/work/rive-puppet-approval-manifest.json`, currently set to
+  `approvalStatus: pending`.
 - Post-approval build packet prepared:
   `content/work/rive-premium-build-packet.md`.
 - Current gate handoff saved:
