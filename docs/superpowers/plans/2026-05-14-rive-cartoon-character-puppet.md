@@ -54,7 +54,7 @@
 - Vector extraction map for candidate 02 prepared:
   `content/work/rive-premium-vector-extraction-map-02.md`.
 - Post-approval agent prompt prepared:
-  `content/work/rive-post-approval-agent-prompt.md`.
+  `content/work/rive-post-approval-agent-prompt.md`, with candidate 02 first.
 - Tasks 3-7: blocked until Rive Editor is installed/open and a `.riv` file can
   be created/exported.
 - Local Rive MCP bridge check: `http://localhost:9791/sse` is not currently
@@ -64,7 +64,8 @@
 
 - `git diff --check`: passed.
 - `npm run verify:rive-puppet`: passed.
-  Verifies the pending gate and visible candidate 02 recommendation.
+  Verifies the pending gate, visible candidate 02 recommendation, build-packet
+  labels, and post-approval prompt ordering.
 - `npm run lint`: passed.
 - `npm run typecheck`: passed.
 - `npm run build`: passed.

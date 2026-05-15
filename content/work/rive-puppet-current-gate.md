@@ -1,6 +1,6 @@
 # Rive puppet current gate
 
-Updated: 2026-05-15T02:02:11-0700
+Updated: 2026-05-15T02:32:39-0700
 
 ## Objective
 
@@ -36,7 +36,7 @@ Approval manifest:
 - Post-approval Rive build packet: created.
 - Completion audit: created at
   `content/work/rive-puppet-completion-audit.md`.
-- Post-approval agent prompt: created at
+- Post-approval agent prompt: created with candidate 02 first at
   `content/work/rive-post-approval-agent-prompt.md`.
 - Rive `.riv` rig: not created.
 - Rive poster export: not created.
