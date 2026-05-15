@@ -89,6 +89,10 @@ if (!buildPacket.includes("Candidate 02 is")) {
   fail("post-approval build packet must preserve the candidate 02 recommendation");
 }
 
+if (!buildPacket.includes("Premium concept candidate 02, recommended")) {
+  fail("post-approval build packet must label candidate 02 as recommended");
+}
+
 for (const candidate of manifest.candidates) {
   if (!buildPacket.includes(candidate.image)) {
     fail(`post-approval build packet is missing candidate image: ${candidate.image}`);

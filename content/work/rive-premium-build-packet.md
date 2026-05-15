@@ -10,9 +10,9 @@ the recommended direction.
 
 - Design approval board:
   `public/work/animation/source/hammer-puppet-approval-board.html`
-- Premium concept candidate:
+- Premium concept candidate 01:
   `public/work/animation/source/hammer-puppet-premium-concept-01.png`
-- Alternate premium concept candidate:
+- Premium concept candidate 02, recommended:
   `public/work/animation/source/hammer-puppet-premium-concept-02.png`
 - Vector extraction map candidate 01:
   `content/work/rive-premium-vector-extraction-map.md`

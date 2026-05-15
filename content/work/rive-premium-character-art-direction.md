@@ -62,6 +62,7 @@ Candidate 02:
 Notes:
 
 - These are the current design approval candidates.
+- Candidate 02 is the current recommended direction.
 - They should be treated as concept/model-sheet references, not runtime assets.
 - See `content/work/rive-premium-character-approval-01.md` for the approval
   audit and Rive translation notes.

@@ -18,11 +18,10 @@
   `public/work/animation/source/character-sheet-01.png`.
 - Design approval gate: active. Jeff must approve the puppet design before
   Task 3 starts.
-- Current approval candidate has been revised after design audit to avoid the
-  bad historical-dictator read: no black side-part hair, no face-center rig
-  line, no nose/mouth shadow, no suit/tie silhouette. The current direction is
-  a soft auburn-haired creative producer with round glasses, headset, utility
-  jacket, lanyard badge, and sneakers.
+- Current approval set has been revised after design audit to avoid the bad
+  historical-dictator read: no black side-part hair, no face-center rig line,
+  no nose/mouth shadow, no suit/tie silhouette. Candidate 02 is the recommended
+  stylized feature-animation direction.
 - Design quality gate updated: the current SVG remains a technical sketch only.
   It is not premium enough for final approval. The next approval artifact must
   be a high-budget model sheet/style frame based on
