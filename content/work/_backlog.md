@@ -15,7 +15,7 @@ the focus* — he has ideas per item.
 | 7 | AI sound design reel | visual-media (audio sub-cat?) | placeholder |
 | 8 | Pipeline visualizer detail page | pipelines-tools | live |
 | 9 | Rive + Remotion puppet animation reel | animation | candidate 01 character read approved; pending Rive Cadet, T-pose/no-storyboard redesign, rig, animation, export |
-| 10 | Motion graphics reel | motion-graphics | live |
+| 10 | Motion graphics reel | motion-graphics | live; final card has no email |
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
 | 12 | Audio-reactive overlays with electronic track | motion-graphics | tomorrow build candidate |
 | 13 | Animated short | animation | placeholder |
@@ -79,5 +79,10 @@ for metadata, sitemap/robots, website-detail links, social images, Vercel
 project domain wiring, host redirects, and `llms.txt`. Keep the public-facing
 brand as Hammer. `www.hammer.ad` and `hammathyme.vercel.app` redirect to the
 apex host.
+
+**Note (2026-05-18):** Motion reel v3 was rebuilt and redeployed with the final
+thank-you card stripped of the old email line. The Hammer contact surface now
+uses `jeff@projectname.date` in `/contact`, mailto links, the console/LLM note,
+pipeline-config mailto, `public/llms.txt`, and `public/memories/jeff.md`.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.
