@@ -16,6 +16,26 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform float u_time;
 
+vec3 cream = vec3(0.980, 0.933, 0.914);
+vec3 rose = vec3(0.949, 0.867, 0.831);
+vec3 deepRose = vec3(0.898, 0.749, 0.706);
+vec3 cinnamon = vec3(0.949, 0.557, 0.525);
+
+float hash(vec2 p) {
+  return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+    mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+
 mat2 rotate(float angle) {
   float s = sin(angle);
   float c = cos(angle);
@@ -24,27 +44,27 @@ mat2 rotate(float angle) {
 
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-  vec2 p = uv - 0.5;
-  p.x *= u_resolution.x / u_resolution.y;
+  uv.x *= u_resolution.x / u_resolution.y;
 
-  float t = u_time * 0.052;
-  vec2 q = rotate(0.28 + sin(t * 0.7) * 0.055) * p;
+  vec2 p = uv - vec2(0.5 * u_resolution.x / u_resolution.y, 0.5);
+  float t = u_time * 0.16;
+  vec2 q = rotate(0.4 + sin(t) * 0.12) * p;
 
-  float waveA = 0.5 + 0.5 * sin((q.x * 2.8 + q.y * 1.8) + t * 2.3);
-  float waveB = 0.5 + 0.5 * sin((q.x * -1.5 + q.y * 3.2) - t * 1.9);
-  float waveC = 0.5 + 0.5 * sin(length(q + vec2(sin(t * 0.7) * 0.35, cos(t * 0.8) * 0.22)) * 8.0 - t * 1.5);
-  float wash = smoothstep(0.12, 0.94, waveA * 0.50 + waveB * 0.36 + waveC * 0.30);
-  float filament = pow(0.5 + 0.5 * sin((q.x - q.y) * 4.2 + t * 2.2), 2.45);
-  float vignette = 1.0 - smoothstep(0.55, 1.35, length(p));
+  float n = noise(q * 2.6 + vec2(t, -t * 0.4));
+  n += 0.52 * noise(q * 5.4 - vec2(t * 0.7, t * 0.6));
 
-  vec3 cream = vec3(0.980, 0.933, 0.914);
-  vec3 rose = vec3(0.949, 0.867, 0.831);
-  vec3 cinnamon = vec3(0.949, 0.557, 0.525);
+  float ribbons = sin(
+    (q.x + n * 0.52) * 7.2 + sin(q.y * 6.0 - t) * 1.8 + t * 2.2
+  );
+  float body = smoothstep(-0.15, 0.95, ribbons + n * 0.9);
+  float glow = smoothstep(0.18, 0.92, noise(q * 3.0 + vec2(-t * 0.6, t)));
 
-  vec3 color = mix(cream, rose, wash * 0.78);
-  color = mix(color, cinnamon, filament * 0.22);
+  vec3 color = mix(cream, rose, body * 0.72);
+  color = mix(color, cinnamon, glow * 0.34);
+  color = mix(color, deepRose, body * glow * 0.22);
 
-  float alpha = (0.14 + wash * 0.16 + filament * 0.085) * (0.70 + vignette * 0.30);
+  float vignette = 1.0 - smoothstep(0.62, 1.28, length(p));
+  float alpha = (0.74 + body * 0.12 + glow * 0.12) * (0.82 + vignette * 0.18);
   gl_FragColor = vec4(color, alpha);
 }
 `;
@@ -190,10 +210,10 @@ export function AmbientShader() {
     <div
       aria-hidden
       data-ambient-shader
-      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-90 mix-blend-multiply [filter:saturate(1.08)] motion-reduce:opacity-60"
+      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-90 mix-blend-multiply [filter:saturate(1.12)] motion-reduce:opacity-65"
       style={{
         background:
-          "linear-gradient(115deg, rgba(242, 142, 134, 0.16), rgba(250, 238, 233, 0) 36%, rgba(229, 191, 180, 0.22) 66%, rgba(242, 142, 134, 0.10))",
+          "linear-gradient(115deg, rgba(242, 142, 134, 0.10), rgba(250, 238, 233, 0) 34%, rgba(229, 191, 180, 0.16) 68%, rgba(242, 142, 134, 0.08))",
       }}
     >
       <canvas
