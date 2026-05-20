@@ -9,6 +9,7 @@ import {
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AmbientShader } from "@/components/AmbientShader";
 import { Cursor } from "@/components/Cursor";
 import { FilmGrain } from "@/components/FilmGrain";
 import { Nav } from "@/components/Nav";
@@ -130,6 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {/* prettier-ignore */}
         <div dangerouslySetInnerHTML={{ __html: `<!--${LLM_NOTE}-->` }} />
+        <AmbientShader />
         <RoomWatermark />
         <FilmGrain />
         <Nav />
