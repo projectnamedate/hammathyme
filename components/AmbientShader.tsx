@@ -27,14 +27,14 @@ void main() {
   vec2 p = uv - 0.5;
   p.x *= u_resolution.x / u_resolution.y;
 
-  float t = u_time * 0.035;
-  vec2 q = rotate(0.28 + sin(t * 0.7) * 0.035) * p;
+  float t = u_time * 0.052;
+  vec2 q = rotate(0.28 + sin(t * 0.7) * 0.055) * p;
 
   float waveA = 0.5 + 0.5 * sin((q.x * 2.8 + q.y * 1.8) + t * 2.3);
   float waveB = 0.5 + 0.5 * sin((q.x * -1.5 + q.y * 3.2) - t * 1.9);
   float waveC = 0.5 + 0.5 * sin(length(q + vec2(sin(t * 0.7) * 0.35, cos(t * 0.8) * 0.22)) * 8.0 - t * 1.5);
-  float wash = smoothstep(0.18, 1.0, waveA * 0.48 + waveB * 0.34 + waveC * 0.28);
-  float filament = pow(0.5 + 0.5 * sin((q.x - q.y) * 4.2 + t * 1.8), 3.0);
+  float wash = smoothstep(0.12, 0.94, waveA * 0.50 + waveB * 0.36 + waveC * 0.30);
+  float filament = pow(0.5 + 0.5 * sin((q.x - q.y) * 4.2 + t * 2.2), 2.45);
   float vignette = 1.0 - smoothstep(0.55, 1.35, length(p));
 
   vec3 cream = vec3(0.980, 0.933, 0.914);
@@ -42,9 +42,9 @@ void main() {
   vec3 cinnamon = vec3(0.949, 0.557, 0.525);
 
   vec3 color = mix(cream, rose, wash * 0.78);
-  color = mix(color, cinnamon, filament * 0.13);
+  color = mix(color, cinnamon, filament * 0.22);
 
-  float alpha = (0.08 + wash * 0.09 + filament * 0.035) * (0.72 + vignette * 0.28);
+  float alpha = (0.14 + wash * 0.16 + filament * 0.085) * (0.70 + vignette * 0.30);
   gl_FragColor = vec4(color, alpha);
 }
 `;
@@ -190,10 +190,10 @@ export function AmbientShader() {
     <div
       aria-hidden
       data-ambient-shader
-      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-70 mix-blend-multiply [filter:saturate(0.9)] motion-reduce:opacity-45"
+      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-90 mix-blend-multiply [filter:saturate(1.08)] motion-reduce:opacity-60"
       style={{
         background:
-          "linear-gradient(115deg, rgba(242, 142, 134, 0.08), rgba(250, 238, 233, 0) 38%, rgba(229, 191, 180, 0.14) 66%, rgba(250, 238, 233, 0))",
+          "linear-gradient(115deg, rgba(242, 142, 134, 0.16), rgba(250, 238, 233, 0) 36%, rgba(229, 191, 180, 0.22) 66%, rgba(242, 142, 134, 0.10))",
       }}
     >
       <canvas
