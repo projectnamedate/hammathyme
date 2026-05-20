@@ -189,7 +189,7 @@ function Tile({
     <motion.div
       onMouseEnter={onEnter}
       onFocus={onEnter}
-      animate={{ opacity: isActive ? 1 : 0.35 }}
+      animate={{ scale: isActive ? 1 : 0.985 }}
       transition={{ duration: 0.6, ease: CINEMA }}
       className="absolute"
       style={{
@@ -207,10 +207,27 @@ function Tile({
       >
         {/* the framed piece */}
         <div
-          className="relative h-[78%] w-full overflow-hidden border border-[var(--ink-4)]"
+          className={
+            "relative h-[78%] w-full overflow-hidden border transition-[border-color,box-shadow] duration-500 " +
+            (isActive
+              ? "border-[var(--ink-4)] shadow-[0_14px_46px_rgba(31,7,7,0.10)]"
+              : "border-[rgba(31,7,7,0.16)] shadow-[0_8px_24px_rgba(31,7,7,0.055)]")
+          }
           style={{ background: item.tint }}
         >
           <CardArt capability={item.capability} active={isActive} />
+
+          <span
+            aria-hidden
+            className={
+              "pointer-events-none absolute inset-0 transition-opacity duration-500 " +
+              (isActive ? "opacity-0" : "opacity-100")
+            }
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(250, 238, 233, 0.18), rgba(242, 142, 134, 0.10) 52%, rgba(229, 191, 180, 0.18))",
+            }}
+          />
 
           {/* hairline frame on hover */}
           <span
@@ -230,11 +247,27 @@ function Tile({
 
         {/* mini wall plate caption */}
         <div className="mt-3 flex items-baseline gap-3">
-          <span className="font-display text-[clamp(18px,1.4vw,22px)] font-light tabular-nums leading-none tracking-[-0.04em] text-[var(--ink-0)]">
+          <span
+            className={
+              "font-display text-[clamp(18px,1.4vw,22px)] font-light tabular-nums leading-none tracking-[-0.04em] transition-colors duration-500 " +
+              (isActive ? "text-[var(--ink-0)]" : "text-[var(--ink-1)]")
+            }
+          >
             {String(index).padStart(2, "0")}
           </span>
-          <span aria-hidden className="block h-px flex-1 bg-[var(--ink-4)]" />
-          <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
+          <span
+            aria-hidden
+            className={
+              "block h-px flex-1 transition-colors duration-500 " +
+              (isActive ? "bg-[var(--ink-4)]" : "bg-[rgba(242,142,134,0.42)]")
+            }
+          />
+          <span
+            className={
+              "font-mono text-[9px] uppercase tracking-[0.22em] transition-colors duration-500 " +
+              (isActive ? "text-[var(--ink-2)]" : "text-[var(--ink-2)]")
+            }
+          >
             {item.capabilityLabel}
           </span>
         </div>
