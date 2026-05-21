@@ -9,10 +9,10 @@
 > - `/process` was dropped 2026-05-08 (canned waterfall didn't match reality)
 > - `/lab` was dropped 2026-05-08 (overlapped /work pipelines-tools category)
 > - top-level `/agents` was collapsed into `/work/agents` 2026-05-09
-> - Capability taxonomy is now 8 (added `websites`); see CLAUDE.md
+> - Capability taxonomy is now 8 (added `websites`); see `AGENTS.md`
 > - Slugs match titles (e.g. `/work/brand-systems`, not `/work/hammer-brand-build`)
 >
-> **For live architecture, taxonomy, and routes, read `CLAUDE.md` and the
+> **For live architecture, taxonomy, and routes, read `AGENTS.md` and the
 > code itself.** This doc is kept for context on early decisions only.
 
 **Brand:** Hammer
@@ -33,7 +33,7 @@ This document is the single source of truth for an autonomous coding agent (Clau
 
 ```
 /model opusplan          # Opus plans, Sonnet implements
-# Drop SPEC.md, CLAUDE.md, and BRAND_GUIDE.md (once created) in repo root, then:
+# Drop SPEC.md, AGENTS.md, and BRAND_GUIDE.md (once created) in repo root, then:
 "Read SPEC.md. Enter plan mode. We start with Phase 0: produce the BRAND_GUIDE.md
 artifact per §5. Do not write any application code until the brand guide is approved."
 ```
@@ -693,7 +693,7 @@ Build script (`scripts/build-resume.ts`) that produces:
 - Configure ESLint, Prettier, Husky pre-commit
 - Compile `BRAND_GUIDE.md` tokens into `tailwind.config.ts` and CSS vars
 - Set up `/content` directory structure
-- Drop `CLAUDE.md` and this `SPEC.md` in repo root
+- Drop `AGENTS.md` and this `SPEC.md` in repo root
 - Stub all routes with placeholder pages
 - Push to GitHub, connect Vercel, get preview deploy live
 - **Gate:** preview URL works, all routes return 200, brand tokens render correctly
@@ -780,89 +780,12 @@ Plan mode should produce this clarifying-question list:
 
 ---
 
-## 16. CLAUDE.md (drop this in repo root alongside SPEC.md)
+## 16. Agent instructions
 
-```markdown
-# Project: hammer
-
-## Identity
-Jeff Hammer's AI Producer portfolio under the brand "Hammer."
-Goal: convert hiring managers, freelance leads, build brand, demo skills.
-Vibe: editorial / cinematic / dark / Awwwards-tier motion.
-References: Daniel Wolfe, ManvsMachine, Pentagram, Linear.
-
-## The Brand Guide is law
-BRAND_GUIDE.md is the design contract. Never deviate from it without
-explicit approval. If something isn't in the guide, propose an addition
-to the guide BEFORE building.
-
-## Stack
-- Next.js 15 (App Router), TypeScript strict, Tailwind v4
-- Framer Motion + GSAP ScrollTrigger + Lenis
-- React Three Fiber for 3D and shader moments
-- MDX in /content (work, notes, agents)
-- Mux or Cloudflare Stream for video (HLS only)
-- Resend for email
-- Vercel hosting
-- Pagefind for site search
-- Anthropic API + FAL.AI for AI demos
-
-## SEO is mandatory, not optional
-Every page: server-rendered, structured data, OG image, canonical URL,
-proper heading hierarchy, internal links to ≥ 3 other pages.
-robots.txt allows GPTBot, ClaudeBot, PerplexityBot.
-See SPEC.md §3 for full SEO spec.
-
-## Conventions
-- TypeScript strict, no `any` without a justifying comment
-- Components in PascalCase folders with index.ts barrel
-- Co-locate styles, types, tests with component
-- Tailwind only; no inline styles unless dynamic computed values
-- Animation: Framer for component-local, GSAP for scroll-driven cinema
-- All interactive demos: in-memory state ONLY, no localStorage/sessionStorage
-- Never import from a CDN at runtime; bundle everything
-- Banned words in copy: unleash, harness, revolutionize, supercharge,
-  game-changing, next-level, leverage, synergy
-- All animations respect prefers-reduced-motion
-
-## File structure
-/app                  Next routes
-/components           Reusable UI
-/components/motion    Animation primitives
-/components/lab       Interactive demo components
-/content/work/*.mdx   Case studies
-/content/agents/*.mdx Character pages
-/content/notes/*.mdx  SEO articles
-/content/resume.md    Single source of truth for /about and résumé PDF
-/lib                  Utilities, API clients
-/lib/anthropic.ts     Claude API helpers
-/lib/fal.ts           FAL.AI router helpers
-/lib/seo.ts           Metadata + JSON-LD generators
-/public               Static assets
-/brand                Wordmark, icon, OG template, grain
-/scripts              Build-time tooling (resume PDF, OG images, sitemap)
-
-## API/cost guardrails
-- All Anthropic/FAL calls go through /api/* — never client-side
-- Rate-limit per IP via Vercel Edge Middleware
-- Daily spend cap via env var DAILY_API_BUDGET_USD
-- Disable expensive demos when cap hit; show graceful fallback
-
-## What to ask before doing
-- Anything that costs money beyond the daily cap
-- Anything that touches Jeff's social accounts directly
-- Anything that publishes to production
-- Anything that mutates content/* (always confirm)
-- Any deviation from BRAND_GUIDE.md
-
-## What you can do without asking
-- Refactor within a single component
-- Add tests
-- Run linters/formatters
-- Generate OG images
-- Update internal docs in repo
-- Pull from public APIs (sitemap, etc.)
-```
+This archived phase-1 spec originally carried a `CLAUDE.md` template. That
+template is no longer live guidance. The canonical current repo instructions
+are in `AGENTS.md`; `CLAUDE.md` is only a compatibility pointer for older
+Claude Code workflows.
 
 ---
 
@@ -930,4 +853,4 @@ These items aren't nailed down by this spec; the agent surfaces them at the top 
 
 ---
 
-*End of spec. Hand to Claude Code with: "Read SPEC.md and CLAUDE.md. Enter plan mode. Confirm understanding, list clarifying questions, then propose Phase 0 (BRAND_GUIDE.md production) implementation. Do not write any application code until BRAND_GUIDE.md is approved."*
+*End of spec. Hand to Claude Code with: "Read SPEC.md and AGENTS.md. Enter plan mode. Confirm understanding, list clarifying questions, then propose Phase 0 (BRAND_GUIDE.md production) implementation. Do not write any application code until BRAND_GUIDE.md is approved."*
