@@ -22,7 +22,6 @@ import { MadeWithAITag } from "@/components/MadeWithAITag";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammer.ad";
-const ENABLE_VERCEL_OBSERVABILITY = process.env.VERCEL === "1";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -142,12 +141,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EntryCurtain />
         <InspectorOverlay />
         <HermesStatusBar />
-        {ENABLE_VERCEL_OBSERVABILITY ? (
-          <>
-            <Analytics />
-            <SpeedInsights />
-          </>
-        ) : null}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

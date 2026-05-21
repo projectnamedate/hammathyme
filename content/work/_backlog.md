@@ -23,6 +23,7 @@ the focus* — he has ideas per item.
 | 15 | Creative skills library | pipelines-tools | placeholder |
 | 16 | Interactive + playable demos | interactive-playable | roadmap, after current motion/animation/site polish |
 | 17 | Canonical domain wiring: `hammer.ad` | launch | done, live |
+| 18 | Technical SEO audit | launch | todo: Lighthouse mobile SEO, per-route metadata, structured data, canonical URLs, OG/Twitter previews, and Rich Results validation |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
