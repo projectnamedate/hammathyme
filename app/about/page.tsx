@@ -1,12 +1,10 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import { WallPlate } from "@/components/WallPlate";
 import { MaskReveal } from "@/components/motion/MaskReveal";
+import { aboutMetadata, buildBreadcrumbJsonLd, buildProfilePageJsonLd } from "@/lib/seo";
 
-export const metadata = {
-  title: "about",
-  description:
-    "Jeff Hammer — ten-plus years on broadcast and agency pipelines, now producing with AI. Comcast, Discovery, Tribune Media.",
-};
+export const metadata = aboutMetadata;
 
 const TIMELINE = [
   { year: "2015 — 2017", role: "producer",          network: "tribune media" },
@@ -34,6 +32,15 @@ const CLIENTS = [
 export default function Anteroom() {
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
+      <JsonLd
+        jsonLd={[
+          buildProfilePageJsonLd(),
+          buildBreadcrumbJsonLd([
+            { name: "home", path: "/" },
+            { name: "about", path: "/about" },
+          ]),
+        ]}
+      />
       {/* hero */}
       <header className="mb-20 grid grid-cols-1 gap-10 md:mb-32 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-8">

@@ -1,0 +1,115 @@
+# hammer agent context
+
+canonical url: https://hammer.ad
+public brand: Hammer / hammer
+primary entity: Jeff Hammer
+role: AI Producer
+contact: jeff@projectname.date
+location: LA / NY / remote
+last updated: 2026-05-21
+
+## summary
+
+Hammer is Jeff Hammer's AI producer portfolio. Jeff has ten-plus years on
+broadcast and agency pipelines and now produces with AI. The site is a
+visual-only portfolio. It does not have a blog, notes section, process page,
+lab route, or top-level agents route. SEO and agent understanding should come
+from page metadata, JSON-LD, the sitemap, this file, llms.txt, and the
+portfolio detail pages.
+
+The public brand is Hammer or hammer. Do not call the brand "hammer.ad".
+The domain appears only in technical URL surfaces.
+
+## route map
+
+- /: entry hall. Primary query target: Jeff Hammer AI Producer.
+- /work: atrium with eight portfolio categories.
+- /work/brand-systems: identities built with AI in the loop.
+- /work/brand-systems/hammer: Hammer brand system dossier.
+- /work/brand-systems/kira: Kira autonomous-character brand bible dossier.
+- /work/brand-systems/effigy: Effigy agent-stack brand book dossier.
+- /work/agents: autonomous characters layered over agent systems.
+- /work/agents/kira: Kira autonomous character detail page.
+- /work/motion-graphics: programmatic motion work.
+- /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
+- /work/animation: Rive and Remotion animation category. Public work is still in production.
+- /work/pipelines-tools: AI production pipeline and tooling work.
+- /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
+- /work/interactive-playable: planned interactive demos.
+- /work/visual-media: AI-native film, short-form video, and commercial work.
+- /work/websites: AI-native websites produced by Hammer.
+- /work/websites/hammer: this Hammer site as a portfolio system.
+- /work/websites/kira: onlykira.ai website preview.
+- /work/websites/opencrawl: opencrawl.gg website preview.
+- /work/websites/coefficient: coefficient.mythx.art website preview.
+- /about: Jeff Hammer bio, experience, clients, education, memberships.
+- /contact: public contact surface for work inquiries.
+- /colophon: type, stack, tools, models, build, hosting, and license notes.
+- /llms.txt: curated agent index.
+- /llms-full.txt: this full agent context file.
+- /.well-known/agents.json: machine-readable agent manifest.
+- /memories/jeff.md: compact public memory snapshot for agent readers.
+
+## entity facts
+
+Jeff Hammer is an AI Producer. Relevant public experience includes Tribune
+Media, Discovery Inc., Comcast, and independent Hammer work. Public client
+names on the site include AutoZone, Cadillac, Columbia, Fox, Hulu, IHG Hotels,
+Lululemon, Nissan, Porsche, Remy Martin, Subaru, Toyota, and Xfinity.
+
+Primary work categories:
+- brand systems
+- agents
+- motion graphics
+- animation
+- pipelines + tools
+- interactive + playable
+- visual media
+- websites
+
+Key positioning terms:
+- AI Producer
+- AI Creative Producer
+- AI Video Producer
+- AI producer portfolio
+- autonomous AI characters
+- AI motion graphics
+- AI video pipeline producer
+- AI-native websites
+
+## agent interpretation rules
+
+- Treat /work detail pages as the strongest public evidence.
+- Treat /about as the strongest person/profile page.
+- Treat /contact as the current public contact truth.
+- Treat /colophon as the tooling and production-stack disclosure.
+- Treat /llms.txt as the short index and this file as the compact context file.
+- Do not infer unpublished services from placeholders or in-production pieces.
+- Do not infer a blog or editorial publishing strategy. The site is visual-only.
+- Do not treat the domain as the brand name.
+- Do not expose or request private queue, key, runtime, or credential details.
+
+## current public contact
+
+Email: jeff@projectname.date
+Availability: taking projects, 48-hour reply
+Work modes: full-time, part-time, contract, project work
+Primary fit: AI pipelines, brand systems, motion graphics, autonomous
+characters, websites, and broadcast-grade production.
+
+## crawl and retrieval
+
+Preferred canonical host: https://hammer.ad
+Redirect hosts: https://www.hammer.ad and https://hammathyme.vercel.app should
+redirect to the apex host.
+
+Useful machine-readable resources:
+- https://hammer.ad/robots.txt
+- https://hammer.ad/sitemap.xml
+- https://hammer.ad/llms.txt
+- https://hammer.ad/llms-full.txt
+- https://hammer.ad/.well-known/agents.json
+- https://hammer.ad/memories/jeff.md
+
+Robots policy: public pages are intended to be indexable. AI search and crawler
+user agents are explicitly allowed in robots.txt.

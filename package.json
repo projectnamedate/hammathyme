@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "verify:seo": "node scripts/verify-seo.mjs",
     "verify:rive-puppet": "node scripts/verify-rive-puppet-gate.mjs"
   },
   "dependencies": {

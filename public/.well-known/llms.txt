@@ -1,0 +1,5 @@
+# hammer llms pointer
+
+The canonical agent-readable index is https://hammer.ad/llms.txt.
+The compact full context file is https://hammer.ad/llms-full.txt.
+The machine-readable agent manifest is https://hammer.ad/.well-known/agents.json.

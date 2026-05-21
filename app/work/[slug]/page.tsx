@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CASE_STUDIES, findCase, hasPieceDetail, statusLabel, type Piece } from "@/lib/works";
+import { JsonLd } from "@/components/JsonLd";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { Plinth } from "@/components/Plinth";
 import { PieceArt } from "@/components/PieceArt";
 import { Wordmark } from "@/components/Wordmark";
+import { buildBreadcrumbJsonLd, buildCategoryMetadata, buildCollectionPageJsonLd } from "@/lib/seo";
 
 export async function generateStaticParams() {
   return CASE_STUDIES.map((c) => ({ slug: c.slug }));
@@ -13,7 +15,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const c = findCase(slug);
-  return { title: c?.title ?? `work · ${slug}` };
+  return c ? buildCategoryMetadata(c) : { title: `work · ${slug}` };
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,6 +28,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
+      <JsonLd
+        jsonLd={[
+          buildCollectionPageJsonLd(c),
+          buildBreadcrumbJsonLd([
+            { name: "home", path: "/" },
+            { name: "work", path: "/work" },
+            { name: c.title, path: `/work/${c.slug}` },
+          ]),
+        ]}
+      />
       {/* editorial header — full-bleed h1 + right pull-quote */}
       <header className="mb-20 grid grid-cols-1 gap-10 md:mb-32 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-8">

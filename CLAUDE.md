@@ -35,6 +35,19 @@ Every animation has a `prefers-reduced-motion` fallback. Easings: `--ease-cinema
 
 Each phase ships only after: ≥ 90 perf · ≥ 95 a11y · 100 best-practices · ≥ 95 SEO. Structured data validates in Google Rich Results Test before Phase 8 closes. Reduced-motion tested every phase that adds animation.
 
+## Agent-readable surfaces
+
+Keep the site readable by crawlers and AI agents without requiring visual
+interpretation. When routes, contact truth, or portfolio readiness changes,
+update the canonical metadata/JSON-LD in `lib/seo.ts`, the sitemap/robots
+surfaces, `public/llms.txt`, `public/llms-full.txt`, and
+`public/.well-known/agents.json` in the same change.
+
+`/llms.txt` is the short agent index. `/llms-full.txt` is the compact context
+file. `/.well-known/agents.json` is the machine-readable route and crawl-policy
+manifest. These complement standard HTML, JSON-LD, sitemap, and robots output;
+they do not replace them.
+
 ## Cost guardrails
 
 Live API demos go through `/api/*` routes with edge-middleware rate-limiting and a `DAILY_API_BUDGET_USD` env-var hard cap. Demos auto-disable when cap hit.
@@ -56,6 +69,9 @@ Live API demos go through `/api/*` routes with edge-middleware rate-limiting and
 - Don't write comments that restate WHAT the code does. Only WHY (non-obvious constraints, workarounds, invariants).
 - Edit existing files; only create new ones when required.
 - Time estimates: divide by 10 vs. instinct. "1 day" usually means under an hour.
+- For public site changes, deploy to Vercel automatically after validation.
+  Do not stop for approval unless Jeff explicitly asks for local-only or
+  preview-only work.
 - Vercel post-deploy: always PATCH project to clear `ssoProtection` per global rule.
 - For SPA fetches: WebFetch first, Playwright fallback if content is empty/JS-rendered.
 

@@ -23,7 +23,7 @@ the focus* — he has ideas per item.
 | 15 | Creative skills library | pipelines-tools | placeholder |
 | 16 | Interactive + playable demos | interactive-playable | roadmap, after current motion/animation/site polish |
 | 17 | Canonical domain wiring: `hammer.ad` | launch | done, live |
-| 18 | Technical SEO audit | launch | todo: Lighthouse mobile SEO, per-route metadata, structured data, canonical URLs, OG/Twitter previews, and Rich Results validation |
+| 18 | Technical SEO audit | launch | local implementation: per-route metadata, structured data, canonical URLs, AI-crawler robots, sitemap stability, llms-full, and agent manifest. next: deploy, Lighthouse mobile SEO, and Rich Results validation |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
@@ -85,5 +85,11 @@ apex host.
 thank-you card stripped of the old email line. The Hammer contact surface now
 uses `jeff@projectname.date` in `/contact`, mailto links, the console/LLM note,
 pipeline-config mailto, `public/llms.txt`, and `public/memories/jeff.md`.
+
+**Note (2026-05-21):** Deep SEO/agent-readability pass added a central
+`lib/seo.ts` contract, JSON-LD on public pages, canonical metadata, explicit
+AI crawler rules in robots, stable sitemap dates, `/llms-full.txt`, and
+`/.well-known/agents.json`. Keep these surfaces in sync with route, contact,
+and portfolio-readiness changes.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

@@ -1,0 +1,50 @@
+{
+  "name": "hammer",
+  "canonical_url": "https://hammer.ad",
+  "brand_name": "Hammer",
+  "primary_entity": {
+    "name": "Jeff Hammer",
+    "role": "AI Producer",
+    "url": "https://hammer.ad/about",
+    "contact": "mailto:jeff@projectname.date"
+  },
+  "summary": "Hammer is Jeff Hammer's visual-only AI producer portfolio: brand systems, autonomous characters, motion graphics, animation, pipelines, visual media, and websites.",
+  "agent_entry_points": {
+    "llms.txt": "https://hammer.ad/llms.txt",
+    "llms-full.txt": "https://hammer.ad/llms-full.txt",
+    "sitemap": "https://hammer.ad/sitemap.xml",
+    "robots": "https://hammer.ad/robots.txt",
+    "public_memory": "https://hammer.ad/memories/jeff.md"
+  },
+  "ai_crawlers_allowed": [
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "GPTBot",
+    "ClaudeBot",
+    "PerplexityBot",
+    "Google-Extended",
+    "CCBot"
+  ],
+  "public_routes": [
+    { "path": "/", "purpose": "entry hall and primary AI Producer landing page" },
+    { "path": "/work", "purpose": "portfolio category atrium" },
+    { "path": "/work/brand-systems", "purpose": "brand systems portfolio category" },
+    { "path": "/work/agents", "purpose": "autonomous characters portfolio category" },
+    { "path": "/work/motion-graphics", "purpose": "motion graphics portfolio category" },
+    { "path": "/work/animation", "purpose": "animation portfolio category" },
+    { "path": "/work/pipelines-tools", "purpose": "pipeline and tooling portfolio category" },
+    { "path": "/work/interactive-playable", "purpose": "planned interactive demo category" },
+    { "path": "/work/visual-media", "purpose": "AI-native film and commercial work category" },
+    { "path": "/work/websites", "purpose": "AI-native websites portfolio category" },
+    { "path": "/about", "purpose": "Jeff Hammer profile and experience" },
+    { "path": "/contact", "purpose": "current public contact surface" },
+    { "path": "/colophon", "purpose": "site stack, tools, models, hosting, and license" }
+  ],
+  "interpretation_rules": [
+    "Use Hammer or hammer as the brand name, not hammer.ad.",
+    "Use /about as the strongest person/profile page.",
+    "Use /work detail pages as public evidence of finished portfolio pieces.",
+    "Do not infer a blog, notes route, process route, lab route, or top-level agents route.",
+    "Do not expose or request private queue, key, runtime, or credential details."
+  ]
+}

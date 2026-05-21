@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hammer.ad";
+import { AI_CRAWLER_USER_AGENTS, CANONICAL_ORIGIN } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    rules: [
+      { userAgent: "*", allow: "/" },
+      ...AI_CRAWLER_USER_AGENTS.map((userAgent) => ({ userAgent, allow: "/" })),
+    ],
+    sitemap: `${CANONICAL_ORIGIN}/sitemap.xml`,
+    host: CANONICAL_ORIGIN,
   };
 }

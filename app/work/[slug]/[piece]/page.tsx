@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { JsonLd } from "@/components/JsonLd";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { Wordmark } from "@/components/Wordmark";
@@ -14,6 +15,12 @@ import {
   type CaseStudy,
   type Piece,
 } from "@/lib/works";
+import {
+  buildBreadcrumbJsonLd,
+  buildCreativeWorkJsonLd,
+  buildPieceMetadata,
+  buildVideoObjectJsonLd,
+} from "@/lib/seo";
 import type { CSSProperties } from "react";
 
 export async function generateStaticParams() {
@@ -28,7 +35,7 @@ export async function generateMetadata({
   const { slug, piece } = await params;
   const category = findCase(slug);
   const item = findPiece(slug, piece);
-  return { title: item && category ? `${item.title} · ${category.title}` : "work" };
+  return item && category ? buildPieceMetadata(category, item) : { title: "work" };
 }
 
 export default async function WorkPiecePage({
@@ -46,6 +53,18 @@ export default async function WorkPiecePage({
 
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-28 pb-16 md:px-24 md:pt-32 md:pb-24">
+      <JsonLd
+        jsonLd={[
+          buildCreativeWorkJsonLd(category, piece),
+          buildVideoObjectJsonLd(category, piece),
+          buildBreadcrumbJsonLd([
+            { name: "home", path: "/" },
+            { name: "work", path: "/work" },
+            { name: category.title, path: `/work/${category.slug}` },
+            { name: piece.title, path: `/work/${category.slug}/${piece.slug}` },
+          ]),
+        ]}
+      />
       {showStandardHeader ? <DetailHeader category={category} piece={piece} /> : null}
       {renderPieceDetail(category, piece, transitionName)}
     </main>

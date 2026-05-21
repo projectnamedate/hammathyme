@@ -1,11 +1,9 @@
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import { MaskReveal } from "@/components/motion/MaskReveal";
+import { buildBreadcrumbJsonLd, colophonMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "colophon",
-  description:
-    "The back-of-book for Hammer — typefaces, build stack, models, hosting, license. Nothing hidden.",
-};
+export const metadata = colophonMetadata;
 
 const SHA = (process.env.VERCEL_GIT_COMMIT_SHA ?? "").slice(0, 7) || "dev";
 const BUILD_DATE = process.env.VERCEL_GIT_COMMIT_AUTHOR_DATE ?? "";
@@ -13,6 +11,12 @@ const BUILD_DATE = process.env.VERCEL_GIT_COMMIT_AUTHOR_DATE ?? "";
 export default function Colophon() {
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
+      <JsonLd
+        jsonLd={buildBreadcrumbJsonLd([
+          { name: "home", path: "/" },
+          { name: "colophon", path: "/colophon" },
+        ])}
+      />
       <header className="mb-20 grid grid-cols-1 gap-10 md:mb-32 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-8">
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">

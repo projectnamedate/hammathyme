@@ -1,10 +1,21 @@
+import { JsonLd } from "@/components/JsonLd";
 import { MaskReveal } from "@/components/motion/MaskReveal";
+import { buildBreadcrumbJsonLd, buildContactPageJsonLd, contactMetadata } from "@/lib/seo";
 
-export const metadata = { title: "contact" };
+export const metadata = contactMetadata;
 
 export default function Vestibule() {
   return (
     <main className="relative flex min-h-[100svh] w-screen flex-col px-6 pt-32 pb-12 md:px-24 md:pt-40 md:pb-16">
+      <JsonLd
+        jsonLd={[
+          buildContactPageJsonLd(),
+          buildBreadcrumbJsonLd([
+            { name: "home", path: "/" },
+            { name: "contact", path: "/contact" },
+          ]),
+        ]}
+      />
       {/* hero — split poster on desktop, stacked on mobile */}
       <section className="grid flex-1 grid-cols-1 items-center gap-16 md:grid-cols-12 md:gap-x-12">
         {/* left: headline */}
