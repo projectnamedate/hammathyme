@@ -24,6 +24,11 @@ const nextConfig = {
         destination: "https://agentify.nexus/brand-bible",
         permanent: false,
       },
+      {
+        source: "/work/brand-guides/agentify/BRAND_GUIDE.md",
+        destination: "https://agentify.nexus/brand-bible",
+        permanent: false,
+      },
     ];
   },
   turbopack: {
