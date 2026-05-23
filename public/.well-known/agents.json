@@ -29,7 +29,7 @@
     { "path": "/", "purpose": "entry hall and primary AI Producer landing page" },
     { "path": "/work", "purpose": "portfolio category atrium" },
     { "path": "/work/brand-systems", "purpose": "brand systems portfolio category" },
-    { "path": "/work/brand-systems/agentify", "purpose": "Agentify brand guide dossier" },
+    { "path": "/work/brand-systems/agentify", "purpose": "Agentify brand guide dossier linking to https://agentify.nexus/brand-bible" },
     { "path": "/work/agents", "purpose": "autonomous characters portfolio category" },
     { "path": "/work/motion-graphics", "purpose": "motion graphics portfolio category" },
     { "path": "/work/animation", "purpose": "animation portfolio category" },

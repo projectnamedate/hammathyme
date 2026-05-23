@@ -14,6 +14,16 @@ const nextConfig = {
         destination: "/work/websites/hammer",
         permanent: false,
       },
+      {
+        source: "/work/brand-guides/agentify",
+        destination: "https://agentify.nexus/brand-bible",
+        permanent: false,
+      },
+      {
+        source: "/work/brand-guides/agentify/index.html",
+        destination: "https://agentify.nexus/brand-bible",
+        permanent: false,
+      },
     ];
   },
   turbopack: {
