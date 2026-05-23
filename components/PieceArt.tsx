@@ -137,7 +137,7 @@ function FilmFrame({ children, bg = "var(--ink-deepest)" }: { children: ReactNod
 function HammerGuide() {
   return (
     <Plate>
-      <text x="28" y="82" fontFamily="var(--font-display)" fontWeight="900" fontSize="34" fill="var(--ink-0)">
+      <text x="28" y="82" fontFamily="var(--font-display)" fontWeight="300" fontSize="34" fill="var(--ink-0)">
         h
       </text>
       <circle cx="50" cy="78.8" r="3.2" fill="var(--cinnamon)" />
@@ -548,7 +548,7 @@ function DotDiscipline() {
           x="0"
           y="0"
           fontFamily="var(--font-display)"
-          fontWeight="900"
+          fontWeight="300"
           fontSize="26"
           letterSpacing="-1.2"
           fill="var(--ink-0)"
@@ -579,7 +579,7 @@ function CommercialSpot() {
       <FilmFrame>
         <rect x="29" y="13" width="26" height="48" rx="7" fill="var(--cream-0)" />
         <rect x="31" y="17" width="22" height="40" rx="5" fill="var(--cinnamon)" opacity="0.22" />
-        <text x="36" y="43" fontFamily="var(--font-display)" fontSize="16" fontWeight="900" fill="var(--ink-0)">
+        <text x="36" y="43" fontFamily="var(--font-display)" fontSize="16" fontWeight="300" fill="var(--ink-0)">
           h
         </text>
         <circle cx="47" cy="41.4" r="1.8" fill="var(--cinnamon)" />
@@ -626,7 +626,7 @@ function HammerSite() {
     <Plate>
       <Browser>
         <g transform="translate(11 20)">
-          <text x="0" y="18" fontFamily="var(--font-display)" fontSize="18" fontWeight="900" fill="var(--ink-0)">
+          <text x="0" y="18" fontFamily="var(--font-display)" fontSize="18" fontWeight="300" fill="var(--ink-0)">
             h
           </text>
           <circle cx="12" cy="16" r="2" fill="var(--cinnamon)" />

@@ -4,6 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { Wordmark } from "@/components/Wordmark";
+import { FadeIn } from "@/components/motion/FadeIn";
 import {
   ConsistencyLabDemo,
   DotDisciplineGame,
@@ -71,8 +72,14 @@ export default async function WorkPiecePage({
           ]),
         ]}
       />
-      {showStandardHeader ? <DetailHeader category={category} piece={piece} /> : null}
-      {renderPieceDetail(category, piece, transitionName)}
+      {showStandardHeader ? (
+        <FadeIn duration={0.65} y={18}>
+          <DetailHeader category={category} piece={piece} />
+        </FadeIn>
+      ) : null}
+      <FadeIn delay={showStandardHeader ? 0.08 : 0} duration={0.7} y={24}>
+        {renderPieceDetail(category, piece, transitionName)}
+      </FadeIn>
     </main>
   );
 }
@@ -84,7 +91,7 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           {category.capabilityLabel} · {statusLabel(piece.status)}
         </p>
-        <h1 className="mt-3 pb-[0.18em] font-display text-[clamp(44px,7vw,112px)] font-black lowercase leading-[0.96] tracking-[-0.045em] text-[var(--ink-0)]">
+        <h1 className="mt-3 pb-[0.18em] font-display text-[clamp(44px,7vw,112px)] font-light lowercase leading-[0.92] tracking-[-0.04em] text-[var(--ink-0)]">
           {category.slug === "websites" && piece.slug === "hammer" ? (
             <Wordmark size="lg" ariaLabel="hammer" className="align-baseline" />
           ) : (
@@ -714,7 +721,7 @@ function BrandGuideLogo({ guide }: { guide: BrandGuideProfile }) {
   }
 
   return (
-    <span className="font-display text-[clamp(58px,8vw,132px)] font-black tracking-[-0.05em]">
+    <span className="font-display text-[clamp(58px,8vw,132px)] font-light tracking-[-0.04em]">
       {guide.title}
     </span>
   );

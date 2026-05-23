@@ -8,6 +8,7 @@ import {
   sampleKiraReply,
   type StoryboardPanel,
 } from "@/lib/demo-samples";
+import { WORDMARK_LETTERS } from "@/components/Wordmark";
 
 type ApiState = {
   loading: boolean;
@@ -510,7 +511,7 @@ export function DotDisciplineGame() {
   const controls: [string, number, (next: number) => void, number, number][] = [
     ["dot x", x, setX, 58, 90],
     ["dot y", y, setY, 66, 94],
-    ["letter gap", gap, setGap, -8, 10],
+    ["dot gap", gap, setGap, -8, 10],
   ];
 
   function lock() {
@@ -538,11 +539,19 @@ export function DotDisciplineGame() {
             <div className="absolute left-[8%] right-[8%] top-[55%] h-[1px] bg-[var(--ink-4)]" />
             <div className="absolute left-[8%] right-[8%] top-[63%] h-[1px] bg-[var(--cinnamon)] opacity-45" />
             <div className="absolute left-1/2 top-1/2 w-[min(88vw,640px)] -translate-x-1/2 -translate-y-1/2 text-center">
-              <div
-                className="relative inline-block font-display text-[clamp(36px,10vw,172px)] font-black lowercase leading-none text-[var(--ink-0)]"
-                style={{ letterSpacing: `${gap}px` }}
-              >
-                hammer
+              <div className="relative inline-block pb-[0.18em]">
+                <span
+                  className="kw text-[clamp(36px,10vw,172px)] leading-[0.84] text-[var(--ink-0)]"
+                  aria-label="hammer wordmark calibration"
+                >
+                  <span className="kw-word" aria-hidden>
+                    {WORDMARK_LETTERS.map((letter, index) => (
+                      <span className="kw-letter-mask" key={`${letter}-${index}`}>
+                        <span className="kw-letter">{letter}</span>
+                      </span>
+                    ))}
+                  </span>
+                </span>
                 <motion.span
                   aria-hidden
                   className="absolute block h-[0.16em] w-[0.16em] -translate-x-[14%] -translate-y-[14%] rounded-full border border-[var(--cinnamon)]"
@@ -552,7 +561,7 @@ export function DotDisciplineGame() {
                 />
                 <motion.span
                   className="absolute block h-[0.115em] w-[0.115em] rounded-full bg-[var(--cinnamon)]"
-                  style={{ left: `${x}%`, top: `${y}%` }}
+                  style={{ left: `calc(${x}% + ${gap}px)`, top: `${y}%` }}
                   animate={reduce ? undefined : { boxShadow: score >= 90 ? "0 0 0 12px rgba(242,142,134,0.18)" : "0 0 0 0 rgba(242,142,134,0)" }}
                   transition={{ duration: reduce ? 0 : 0.35, ease: SOFT }}
                 />
@@ -561,7 +570,7 @@ export function DotDisciplineGame() {
             <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between font-mono uppercase tracking-[0.16em]">
               <span className="text-[10px] text-[var(--ink-2)]">{message}</span>
               <motion.span
-                className="font-display text-[56px] font-black leading-none tracking-[0] text-[var(--ink-0)]"
+                className="font-display text-[56px] font-light leading-none tracking-[-0.04em] text-[var(--ink-0)]"
                 animate={reduce ? undefined : { scale: score >= 90 ? 1.08 : 1 }}
                 transition={{ duration: reduce ? 0 : 0.25, ease: SOFT }}
               >
@@ -585,7 +594,7 @@ export function DotDisciplineGame() {
             ].map(([label, value]) => (
               <div key={label} className="border border-[var(--ink-4)] bg-[var(--cream-0)] p-3">
                 <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--cinnamon)]">{label}</p>
-                <p className="mt-2 font-display text-[28px] font-black leading-none text-[var(--ink-0)]">{value}</p>
+                <p className="mt-2 font-display text-[28px] font-light leading-none tracking-[-0.035em] text-[var(--ink-0)]">{value}</p>
               </div>
             ))}
           </div>
