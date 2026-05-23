@@ -362,29 +362,6 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     ],
   },
   {
-    slug: "coefficient",
-    status: "live Solana dashboard",
-    liveUrl: "https://coefficient.mythx.art",
-    summary:
-      "coefficient.mythx.art is a Solana stake-pool health dashboard: rankings, score breakdowns, validator data, and methodology for decentralization impact.",
-    stack: ["next.js 16", "typescript", "tailwind v4", "turso", "drizzle", "solana rpc", "d3"],
-    facts: [
-      ["site", "live at coefficient.mythx.art"],
-      ["product", "scores multi-validator stake pools on network-health impact"],
-      ["data", "daily indexer from Solana RPC, StakeWiz, Trillium, Marinade, and sandwich lists"],
-      ["production", "AI-built dashboard with scoring, details, compare views, flows, and embeds"],
-    ],
-    shots: [
-      {
-        src: "/work/websites/coefficient/live.png",
-        label: "coefficient.mythx.art",
-        alt: "Coefficient live website screenshot",
-        width: 1440,
-        height: 1000,
-      },
-    ],
-  },
-  {
     slug: "agentify",
     status: "live agent-payment readiness site",
     liveUrl: "https://agentify.nexus",

@@ -34,7 +34,7 @@ structured metadata rather than editorial writing.
 **Note (2026-05-13):** Category pages are gallery-first. Ready work opens in
 detail routes, currently `/work/motion-graphics/reel`,
 `/work/pipelines-tools/pipeline-visualizer`, `/work/agents/kira`,
-`/work/websites/{hammer,kira,opencrawl,coefficient,agentify}`, and
+`/work/websites/{hammer,kira,opencrawl,agentify}`, and
 `/work/brand-systems/{hammer,kira,effigy,agentify}`.
 
 **Note (2026-05-13):** Brand-system detail pages summarize the guide inside

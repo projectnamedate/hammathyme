@@ -43,7 +43,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "pipelines-tools/creative-skills": CreativeSkills,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "interactive-playable/consistency-lab": ConsistencyLab,
-  "interactive-playable/live-render-feed": LiveRenderFeed,
   "interactive-playable/talk-to-character": TalkToCharacter,
   "visual-media/commercial": CommercialSpot,
   "visual-media/short-film": ShortFilm,
@@ -52,7 +51,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "websites/hammathyme": HammerSite,
   "websites/kira": KiraSite,
   "websites/opencrawl": OpenCrawlSite,
-  "websites/coefficient": CoefficientSite,
   "websites/agentify": AgentifySite,
 };
 
@@ -527,22 +525,6 @@ function ConsistencyLab() {
   );
 }
 
-function LiveRenderFeed() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <g transform="translate(26 42)">
-        {[0, 1, 2, 3].map((i) => (
-          <g key={i} transform={`translate(0 ${i * 20})`}>
-            <circle cx="3" cy="3" r="3" fill={i === 0 ? "var(--cinnamon)" : "var(--cream-2)"} />
-            <line x1="14" y1="3" x2={62 - i * 8} y2="3" stroke="var(--cream-0)" strokeWidth="1" />
-          </g>
-        ))}
-      </g>
-      <MonoLabel y={139}>READ ONLY FEED</MonoLabel>
-    </Plate>
-  );
-}
-
 function TalkToCharacter() {
   return (
     <Plate bg="var(--cinnamon)">
@@ -650,21 +632,6 @@ function OpenCrawlSite() {
         <line x1="50" y1="44" x2="62" y2="44" stroke="var(--cream-0)" />
       </Browser>
       <MonoLabel y={139}>OPENCRAWL.GG</MonoLabel>
-    </Plate>
-  );
-}
-
-function CoefficientSite() {
-  return (
-    <Plate>
-      <Browser>
-        <g transform="translate(14 18)" stroke="var(--ink-0)" strokeWidth="1" fill="none">
-          <path d="M 0 36 C 12 10, 24 32, 38 14 S 52 6, 62 28" />
-          <line x1="0" y1="36" x2="62" y2="36" stroke="var(--ink-3)" />
-        </g>
-        <circle cx="66" cy="46" r="3" fill="var(--cinnamon)" />
-      </Browser>
-      <MonoLabel>COEFFICIENT</MonoLabel>
     </Plate>
   );
 }

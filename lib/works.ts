@@ -378,14 +378,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cream-2)",
       },
       {
-        slug: "live-render-feed",
-        title: "live render feed",
-        year: "2026",
-        blurb: "public log of what kira and the cast posted today. read-only.",
-        status: "coming-soon",
-        tint: "var(--bloodlust)",
-      },
-      {
         slug: "talk-to-character",
         title: "talk to a character",
         year: "2026",
@@ -441,7 +433,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "ai-native websites — design, build, and ship. live public work includes agentify.nexus, onlykira.ai, opencrawl.gg, and coefficient.mythx.art.",
+      "ai-native websites — design, build, and ship. live public work includes agentify.nexus, onlykira.ai, and opencrawl.gg.",
     tint: "var(--cream-1)",
     hero: { main: "", italic: "websites" },
     pieces: [
@@ -470,15 +462,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb: "opencrawl.gg — devnet-alpha frontend and brand surface for autonomous crawler tournaments.",
         status: "live",
         tint: "var(--bloodlust)",
-      },
-      {
-        slug: "coefficient",
-        title: "coefficient",
-        year: "2026",
-        client: "mythx",
-        blurb: "coefficient.mythx.art — Solana stake-pool health dashboard and scoring system.",
-        status: "live",
-        tint: "var(--cream-2)",
       },
       {
         slug: "agentify",
@@ -512,7 +495,6 @@ const DETAIL_READY_KEYS = new Set([
   "websites/hammer",
   "websites/kira",
   "websites/opencrawl",
-  "websites/coefficient",
   "websites/agentify",
 ]);
 

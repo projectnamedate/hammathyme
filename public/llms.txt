@@ -20,7 +20,7 @@ Important context:
 - [pipelines + tools](https://hammer.ad/work/pipelines-tools): the tools beneath the work. pipeline visualizer is live; Flux v2 LoRA training and creative skills are planned surfaces.
 - [interactive + playable](https://hammer.ad/work/interactive-playable): planned demos. talk-to-character, prompt-to-storyboard, consistency lab.
 - [visual media](https://hammer.ad/work/visual-media): ai-native film, Hammer soda hero shots, documentary-opener polish, and commercial work.
-- [websites](https://hammer.ad/work/websites): ai-native websites. hammer, agentify.nexus, onlykira.ai, opencrawl.gg, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
+- [websites](https://hammer.ad/work/websites): ai-native websites. hammer, agentify.nexus, onlykira.ai, and opencrawl.gg have Hammer preview pages, then link to the live sites.
 
 ## about
 

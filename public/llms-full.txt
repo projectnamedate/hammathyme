@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: jeff@projectname.date
 location: LA / NY / remote
-last updated: 2026-05-22
+last updated: 2026-05-23
 
 ## summary
 
@@ -42,7 +42,6 @@ The domain appears only in technical URL surfaces.
 - /work/websites/hammer: this Hammer site as a portfolio system.
 - /work/websites/kira: onlykira.ai website preview.
 - /work/websites/opencrawl: opencrawl.gg website preview.
-- /work/websites/coefficient: coefficient.mythx.art website preview.
 - /work/websites/agentify: agentify.nexus website preview.
 - /about: Jeff Hammer bio, experience, clients, education, memberships.
 - /contact: public contact surface for work inquiries.
