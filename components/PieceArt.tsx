@@ -27,6 +27,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "brand-systems/hammer": HammerGuide,
   "brand-systems/kira": KiraGuide,
   "brand-systems/effigy": EffigyGuide,
+  "brand-systems/agentify": AgentifyGuide,
   "agents/kira": KiraAgent,
   "agents/winston": WinstonAgent,
   "agents/bradley": BradleyAgent,
@@ -52,6 +53,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "websites/kira": KiraSite,
   "websites/opencrawl": OpenCrawlSite,
   "websites/coefficient": CoefficientSite,
+  "websites/agentify": AgentifySite,
 };
 
 const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
@@ -216,6 +218,57 @@ function EffigyGuide() {
         <line x1="40" y1="130" x2="80" y2="130" />
       </g>
       <MonoLabel>PROVENANCE BOOK</MonoLabel>
+    </Plate>
+  );
+}
+
+function AgentifyLedgerGate({ x = 30, y = 34, scale = 0.55 }: { x?: number; y?: number; scale?: number }) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale})`} strokeLinecap="round" fill="none">
+      <path d="M22 22 H74" stroke="#E8DFD0" strokeWidth="6" />
+      <path d="M22 22 V78" stroke="#E8DFD0" strokeWidth="6" />
+      <path d="M74 22 V78" stroke="#E8DFD0" strokeWidth="6" />
+      <path d="M4 50 H92" stroke="#8B6CFF" strokeWidth="4" />
+      <circle cx="48" cy="50" r="4.6" fill="#4EC6DA" stroke="none" />
+      <path d="M30 78 H66" stroke="#4EC6DA" strokeWidth="3" opacity="0.55" />
+    </g>
+  );
+}
+
+function AgentifyGuide() {
+  return (
+    <Plate bg="#0C0D16">
+      <rect x="18" y="24" width="84" height="88" fill="#14132A" stroke="rgba(232,223,208,0.22)" />
+      <AgentifyLedgerGate x={35} y={28} scale={0.52} />
+      <text
+        x="60"
+        y="101"
+        textAnchor="middle"
+        fontFamily="var(--font-serif), Georgia, serif"
+        fontStyle="italic"
+        fontSize="21"
+        letterSpacing="-0.9"
+        fill="#E8DFD0"
+      >
+        agentify
+      </text>
+      <line x1="34" y1="107" x2="84" y2="107" stroke="#C7A66A" strokeWidth="1" />
+      <circle cx="88" cy="107" r="2.4" fill="#C7A66A" />
+      <g stroke="#8B6CFF" strokeWidth="0.6" opacity="0.65">
+        <line x1="26" y1="122" x2="94" y2="122" />
+        <line x1="32" y1="130" x2="88" y2="130" />
+      </g>
+      <text
+        x="60"
+        y="140"
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="4.8"
+        letterSpacing="1.2"
+        fill="#E8DFD0"
+      >
+        NOCTURNE LEDGER
+      </text>
     </Plate>
   );
 }
@@ -612,6 +665,54 @@ function CoefficientSite() {
         <circle cx="66" cy="46" r="3" fill="var(--cinnamon)" />
       </Browser>
       <MonoLabel>COEFFICIENT</MonoLabel>
+    </Plate>
+  );
+}
+
+function AgentifySite() {
+  return (
+    <Plate bg="#14132A">
+      <Browser dark>
+        <rect x="0" y="8" width="80" height="54" fill="#0C0D16" />
+        <g opacity="0.9">
+          <path d="M 8 46 C 22 16, 39 10, 54 21 S 69 42, 76 17" fill="none" stroke="#C7A66A" strokeWidth="1.1" />
+          <path d="M 8 50 C 29 36, 48 35, 72 50" fill="none" stroke="#4EC6DA" strokeWidth="0.75" opacity="0.75" />
+        </g>
+        <AgentifyLedgerGate x={10} y={11} scale={0.18} />
+        <text
+          x="28"
+          y="28"
+          fontFamily="var(--font-serif), Georgia, serif"
+          fontStyle="italic"
+          fontSize="10"
+          letterSpacing="-0.4"
+          fill="#E8DFD0"
+        >
+          revenue
+        </text>
+        <text
+          x="28"
+          y="39"
+          fontFamily="var(--font-serif), Georgia, serif"
+          fontStyle="italic"
+          fontSize="10"
+          letterSpacing="-0.4"
+          fill="#E8DFD0"
+        >
+          from agents
+        </text>
+      </Browser>
+      <text
+        x="60"
+        y="139"
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="4.8"
+        letterSpacing="1.2"
+        fill="#E8DFD0"
+      >
+        AGENTIFY.NEXUS
+      </text>
     </Plate>
   );
 }

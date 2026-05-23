@@ -255,7 +255,7 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
       ["model", "gallery-first category routes with detail pages for finished work"],
       ["brand", "Outfit wordmark, warm cream system, cinnamon dot, serif italic accents"],
       ["surfaces", "brand dossiers, reel video, pipeline visualizer, agents, websites"],
-      ["docs", "CLAUDE, brand guide, llms.txt, and public memory kept in sync with code"],
+      ["docs", "AGENTS, brand guide, llms.txt, and public memory kept in sync with code"],
     ],
     shots: [
       {
@@ -381,6 +381,30 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
         alt: "Coefficient live website screenshot",
         width: 1440,
         height: 1000,
+      },
+    ],
+  },
+  {
+    slug: "agentify",
+    status: "live agent-payment readiness site",
+    liveUrl: "https://agentify.nexus",
+    summary:
+      "agentify.nexus is the public proof surface for Agentify: a cinematic agent-payment readiness site with service catalog, free audit path, legal routes, and agent-readable manifests.",
+    stack: ["next.js 15", "webgl2 shaders", "mcp", "llms.txt", "service catalog", "vercel"],
+    facts: [
+      ["offer", "agent-payment readiness audits and integration builds for commerce and B2B teams"],
+      ["brand", "Nocturne Ledger v2: Ledger Gate mark, rail wordmark, dark protocol field"],
+      ["proof", "robots, llms files, well-known manifests, markdown twins, and public MCP route"],
+      ["funnel", "free readiness audit first; paid implementation quoted only after fit is clear"],
+    ],
+    shots: [
+      {
+        src: "/work/websites/agentify/live.jpeg",
+        label: "agentify.nexus",
+        alt: "Agentify live website screenshot",
+        width: 1440,
+        height: 4524,
+        tone: "dark",
       },
     ],
   },
@@ -698,10 +722,49 @@ function BrandGuideLogo({ guide }: { guide: BrandGuideProfile }) {
     );
   }
 
+  if (guide.slug === "agentify") {
+    return <AgentifyWordmark />;
+  }
+
   return (
     <span className="font-display text-[clamp(58px,8vw,132px)] font-black tracking-[-0.05em]">
       {guide.title}
     </span>
+  );
+}
+
+function AgentifyWordmark() {
+  return (
+    <span className="inline-flex flex-wrap items-center gap-4 md:gap-5">
+      <AgentifyLedgerGate className="h-[clamp(54px,6.4vw,104px)] w-auto shrink-0" />
+      <span
+        className="relative inline-block pr-[0.34em] pb-[0.18em] font-serif text-[clamp(70px,8vw,150px)] font-normal italic leading-[0.84] tracking-[-0.055em]"
+        style={{ color: "#0C0D16", fontFamily: '"Instrument Serif", Georgia, serif' }}
+      >
+        <span
+          aria-hidden
+          className="absolute right-[0.05em] bottom-[0.08em] left-[-0.06em] h-[0.018em] bg-[#C7A66A]"
+        />
+        <span
+          aria-hidden
+          className="absolute right-[-0.03em] bottom-[0.045em] size-[0.08em] rounded-full bg-[#C7A66A]"
+        />
+        agentify
+      </span>
+    </span>
+  );
+}
+
+function AgentifyLedgerGate({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden className={className}>
+      <path d="M22 22 H74" stroke="#0C0D16" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <path d="M22 22 V78" stroke="#0C0D16" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <path d="M74 22 V78" stroke="#0C0D16" strokeWidth="6" strokeLinecap="round" fill="none" />
+      <path d="M4 50 H92" stroke="#8B6CFF" strokeWidth="4" strokeLinecap="round" fill="none" />
+      <circle cx="48" cy="50" r="4.6" fill="#4EC6DA" />
+      <path d="M30 78 H66" stroke="#4EC6DA" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.55" />
+    </svg>
   );
 }
 

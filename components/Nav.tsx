@@ -31,7 +31,7 @@ export function Nav() {
               href={l.href}
               data-cursor="link"
               className={
-                "group relative pb-1 transition-colors duration-200 " +
+                "group relative inline-flex min-h-6 items-center pb-1 transition-colors duration-200 " +
                 (active(l.href) ? "text-[var(--cinnamon)]" : "text-[var(--ink-1)] hover:text-[var(--ink-0)]")
               }
             >

@@ -17,8 +17,10 @@ export default function Atrium() {
           ]),
         ]}
       />
-      <h1 className="sr-only">work</h1>
-      <AtriumCanvas />
+      <main>
+        <h1 className="sr-only">work</h1>
+        <AtriumCanvas />
+      </main>
     </>
   );
 }

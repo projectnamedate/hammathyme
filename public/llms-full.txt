@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: jeff@projectname.date
 location: LA / NY / remote
-last updated: 2026-05-21
+last updated: 2026-05-22
 
 ## summary
 
@@ -28,6 +28,7 @@ The domain appears only in technical URL surfaces.
 - /work/brand-systems/hammer: Hammer brand system dossier.
 - /work/brand-systems/kira: Kira autonomous-character brand bible dossier.
 - /work/brand-systems/effigy: Effigy agent-stack brand book dossier.
+- /work/brand-systems/agentify: Agentify agent-payment readiness brand guide dossier.
 - /work/agents: autonomous characters layered over agent systems.
 - /work/agents/kira: Kira autonomous character detail page.
 - /work/motion-graphics: programmatic motion work.
@@ -42,6 +43,7 @@ The domain appears only in technical URL surfaces.
 - /work/websites/kira: onlykira.ai website preview.
 - /work/websites/opencrawl: opencrawl.gg website preview.
 - /work/websites/coefficient: coefficient.mythx.art website preview.
+- /work/websites/agentify: agentify.nexus website preview.
 - /about: Jeff Hammer bio, experience, clients, education, memberships.
 - /contact: public contact surface for work inquiries.
 - /colophon: type, stack, tools, models, build, hosting, and license notes.

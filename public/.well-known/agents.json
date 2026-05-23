@@ -29,6 +29,7 @@
     { "path": "/", "purpose": "entry hall and primary AI Producer landing page" },
     { "path": "/work", "purpose": "portfolio category atrium" },
     { "path": "/work/brand-systems", "purpose": "brand systems portfolio category" },
+    { "path": "/work/brand-systems/agentify", "purpose": "Agentify brand guide dossier" },
     { "path": "/work/agents", "purpose": "autonomous characters portfolio category" },
     { "path": "/work/motion-graphics", "purpose": "motion graphics portfolio category" },
     { "path": "/work/animation", "purpose": "animation portfolio category" },
@@ -36,6 +37,7 @@
     { "path": "/work/interactive-playable", "purpose": "planned interactive demo category" },
     { "path": "/work/visual-media", "purpose": "AI-native film and commercial work category" },
     { "path": "/work/websites", "purpose": "AI-native websites portfolio category" },
+    { "path": "/work/websites/agentify", "purpose": "agentify.nexus website preview" },
     { "path": "/about", "purpose": "Jeff Hammer profile and experience" },
     { "path": "/contact", "purpose": "current public contact surface" },
     { "path": "/colophon", "purpose": "site stack, tools, models, hosting, and license" }

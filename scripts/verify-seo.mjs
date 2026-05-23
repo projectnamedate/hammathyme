@@ -123,6 +123,14 @@ mustContain("app/colophon/page.tsx", [
   "<JsonLd",
 ]);
 
+mustContain("app/design-system/layout.tsx", [
+  "Metadata",
+  "design system · hammer",
+  "index: false",
+  "follow: false",
+  "googleBot",
+]);
+
 mustContain("app/work/[slug]/page.tsx", [
   "buildCategoryMetadata",
   "buildCollectionPageJsonLd",

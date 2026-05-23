@@ -18,23 +18,36 @@ export function RoomWatermark() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 flex items-center justify-end overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-0 hidden items-center justify-end overflow-hidden md:flex"
       style={{ viewTransitionName: "room-watermark" }}
     >
-      <motion.span
+      <motion.svg
+        aria-hidden="true"
+        focusable="false"
         key={room.numeral}
+        role="presentation"
         initial={reduce ? false : { opacity: 0, x: 12 }}
         animate={{ opacity: 0.06, x: 0 }}
         transition={{ duration: 0.9, ease: [0.65, 0, 0.35, 1] }}
-        className="select-none font-serif italic font-normal leading-none text-[var(--ink-0)]"
-        style={{
-          fontSize: "clamp(40vh, 56vh, 80vh)",
-          letterSpacing: "-0.04em",
-          marginRight: "-0.06em",
-        }}
+        className="h-full w-full overflow-visible text-[var(--ink-0)]"
+        preserveAspectRatio="none"
+        viewBox="0 0 100 100"
       >
-        {room.numeral}.
-      </motion.span>
+        <text
+          className="select-none fill-current font-serif italic font-normal leading-none"
+          dominantBaseline="central"
+          dx="0.06em"
+          textAnchor="end"
+          x="100%"
+          y="50%"
+          style={{
+            fontSize: "clamp(40vh, 56vh, 80vh)",
+            letterSpacing: "-0.04em",
+          }}
+        >
+          {room.numeral}.
+        </text>
+      </motion.svg>
     </motion.div>
   );
 }

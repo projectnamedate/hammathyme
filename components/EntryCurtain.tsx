@@ -22,6 +22,7 @@ export function EntryCurtain() {
   useEffect(() => {
     if (reduce) return;
     if (typeof window === "undefined") return;
+    if (window.matchMedia("(max-width: 768px), (pointer: coarse)").matches) return;
     if (sessionStorage.getItem(SESSION_KEY) === "1") return;
     setOpen(true);
     // mark immediately so a quick navigation doesn't refire
@@ -40,9 +41,10 @@ export function EntryCurtain() {
           exit={{ opacity: 0, transition: { duration: 0.12, delay: 0.6 } }}
         >
           <motion.span
-            className="block rounded-full bg-[var(--cinnamon)]"
-            initial={{ width: "260vmax", height: "260vmax" }}
-            animate={{ width: 0, height: 0 }}
+            className="block origin-center rounded-full bg-[var(--cinnamon)]"
+            initial={{ scale: 1 }}
+            animate={{ scale: 0 }}
+            style={{ width: "260vmax", height: "260vmax" }}
             transition={{ duration: 0.7, ease: SHUTTER }}
           />
         </motion.div>

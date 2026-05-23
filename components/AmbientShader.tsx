@@ -15,6 +15,7 @@ precision mediump float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
+uniform float u_mobile;
 
 vec3 cream = vec3(0.980, 0.933, 0.914);
 vec3 rose = vec3(0.949, 0.867, 0.831);
@@ -59,12 +60,14 @@ void main() {
   float body = smoothstep(-0.15, 0.95, ribbons + n * 0.9);
   float glow = smoothstep(0.18, 0.92, noise(q * 3.0 + vec2(-t * 0.6, t)));
 
-  vec3 color = mix(cream, rose, body * 0.72);
-  color = mix(color, cinnamon, glow * 0.34);
-  color = mix(color, deepRose, body * glow * 0.22);
+  float mobileLift = smoothstep(0.0, 1.0, u_mobile);
+  vec3 color = mix(cream, rose, body * mix(0.72, 0.84, mobileLift));
+  color = mix(color, cinnamon, glow * mix(0.34, 0.52, mobileLift));
+  color = mix(color, deepRose, body * glow * mix(0.22, 0.34, mobileLift));
 
   float vignette = 1.0 - smoothstep(0.62, 1.28, length(p));
   float alpha = (0.74 + body * 0.12 + glow * 0.12) * (0.82 + vignette * 0.18);
+  alpha = min(alpha * mix(1.0, 1.12, mobileLift), 0.98);
   gl_FragColor = vec4(color, alpha);
 }
 `;
@@ -127,6 +130,9 @@ export function AmbientShader() {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+    const mobileMedia = window.matchMedia(
+      "(max-width: 768px), (pointer: coarse)",
+    );
 
     const gl = canvas.getContext("webgl", {
       alpha: true,
@@ -136,23 +142,32 @@ export function AmbientShader() {
       premultipliedAlpha: false,
       preserveDrawingBuffer: false,
     });
-    if (!gl) return;
+    if (!gl) {
+      canvas.dataset.ambientShaderState = "fallback";
+      return;
+    }
 
     const program = createProgram(gl);
-    if (!program) return;
+    if (!program) {
+      canvas.dataset.ambientShaderState = "fallback";
+      return;
+    }
 
     const positionLocation = gl.getAttribLocation(program, "a_position");
     const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
     const timeLocation = gl.getUniformLocation(program, "u_time");
+    const mobileLocation = gl.getUniformLocation(program, "u_mobile");
     const positionBuffer = gl.createBuffer();
 
     if (
       positionLocation < 0 ||
       !resolutionLocation ||
       !timeLocation ||
+      !mobileLocation ||
       !positionBuffer
     ) {
       gl.deleteProgram(program);
+      canvas.dataset.ambientShaderState = "fallback";
       return;
     }
 
@@ -171,8 +186,9 @@ export function AmbientShader() {
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.35);
-      const width = Math.max(1, Math.floor(window.innerWidth * dpr));
-      const height = Math.max(1, Math.floor(window.innerHeight * dpr));
+      const bounds = canvas.getBoundingClientRect();
+      const width = Math.max(1, Math.floor(bounds.width * dpr));
+      const height = Math.max(1, Math.floor(bounds.height * dpr));
       if (canvas.width !== width || canvas.height !== height) {
         canvas.width = width;
         canvas.height = height;
@@ -187,6 +203,7 @@ export function AmbientShader() {
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
       gl.uniform1f(timeLocation, reduceMotion ? 18 : (now - start) / 1000);
+      gl.uniform1f(mobileLocation, mobileMedia.matches ? 1 : 0);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
       if (!reduceMotion) {
@@ -196,11 +213,19 @@ export function AmbientShader() {
 
     resize();
     render(start);
+    const resizeObserver =
+      typeof ResizeObserver === "undefined" ? null : new ResizeObserver(resize);
+    resizeObserver?.observe(canvas);
     window.addEventListener("resize", resize, { passive: true });
+    window.visualViewport?.addEventListener("resize", resize, {
+      passive: true,
+    });
 
     return () => {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
+      resizeObserver?.disconnect();
       window.removeEventListener("resize", resize);
+      window.visualViewport?.removeEventListener("resize", resize);
       gl.deleteBuffer(positionBuffer);
       gl.deleteProgram(program);
     };
@@ -211,10 +236,6 @@ export function AmbientShader() {
       aria-hidden
       data-ambient-shader
       className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-90 mix-blend-multiply [filter:saturate(1.12)] motion-reduce:opacity-65"
-      style={{
-        background:
-          "linear-gradient(115deg, rgba(242, 142, 134, 0.10), rgba(250, 238, 233, 0) 34%, rgba(229, 191, 180, 0.16) 68%, rgba(242, 142, 134, 0.08))",
-      }}
     >
       <canvas
         ref={canvasRef}

@@ -89,6 +89,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "#E8EEFF",
       },
+      {
+        slug: "agentify",
+        title: "agentify",
+        year: "2026",
+        client: "agentify",
+        blurb: "agent-payment readiness identity: Ledger Gate mark, rail wordmark, Nocturne Ledger palette, protocol surfaces, and agent-readable proof.",
+        status: "live",
+        tint: "#14132A",
+      },
     ],
     brandGuides: [
       {
@@ -153,6 +162,27 @@ export const CASE_STUDIES: CaseStudy[] = [
         ],
         guideUrl: "/work/brand-guides/effigy/index.html",
         guideLabel: "full Effigy brand guide",
+      },
+      {
+        slug: "agentify",
+        title: "agentify",
+        status: "locked brand guide",
+        source: "Nocturne Ledger v2 guide, brand bible route, live marketing site",
+        description:
+          "Agentify is the identity for agent-payment readiness: a dark protocol surface built around the Ledger Gate mark, an italic rail wordmark, moon-ash copy, violet and ion signal colors, and public proof that the site is readable by agents.",
+        evidence: [
+          "Ledger Gate mark uses two posts, a top crossbar, a ledger cut, and a center node",
+          "the Rail Underline wordmark turns the agent-on-a-rail motif into typography",
+          "the marketing site ships agent-readable files, well-known manifests, and an MCP endpoint as brand proof",
+        ],
+        swatches: [
+          { label: "eclipse", value: "#0C0D16" },
+          { label: "moon ash", value: "#E8DFD0" },
+          { label: "aurora", value: "#8B6CFF" },
+          { label: "dim gold", value: "#C7A66A" },
+        ],
+        guideUrl: "/work/brand-guides/agentify/index.html",
+        guideLabel: "full Agentify brand guide",
       },
     ],
   },
@@ -411,7 +441,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "ai-native websites — design, build, and ship. live public work includes onlykira.ai, opencrawl.gg, and coefficient.mythx.art.",
+      "ai-native websites — design, build, and ship. live public work includes agentify.nexus, onlykira.ai, opencrawl.gg, and coefficient.mythx.art.",
     tint: "var(--cream-1)",
     hero: { main: "", italic: "websites" },
     pieces: [
@@ -450,6 +480,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "var(--cream-2)",
       },
+      {
+        slug: "agentify",
+        title: "agentify",
+        year: "2026",
+        client: "agentify",
+        blurb: "agentify.nexus — public agent-payment readiness site with cinematic shaders, proof surfaces, services, audit path, and agent-readable infrastructure.",
+        status: "live",
+        tint: "#14132A",
+      },
     ],
   },
 ];
@@ -466,6 +505,7 @@ const DETAIL_READY_KEYS = new Set([
   "brand-systems/hammer",
   "brand-systems/kira",
   "brand-systems/effigy",
+  "brand-systems/agentify",
   "agents/kira",
   "motion-graphics/reel",
   "pipelines-tools/pipeline-visualizer",
@@ -473,6 +513,7 @@ const DETAIL_READY_KEYS = new Set([
   "websites/kira",
   "websites/opencrawl",
   "websites/coefficient",
+  "websites/agentify",
 ]);
 
 export function pieceDetailKey(categorySlug: string, pieceSlug: string): string {

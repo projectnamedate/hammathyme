@@ -112,6 +112,24 @@ body {
 a { color: inherit; text-decoration: none; }
 button { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
 
+[data-ambient-shader] {
+  background:
+    linear-gradient(115deg, rgba(242, 142, 134, 0.10), rgba(250, 238, 233, 0) 34%, rgba(229, 191, 180, 0.16) 68%, rgba(242, 142, 134, 0.08));
+}
+
+/* Mobile Safari can flatten fixed blended canvases, so the fallback carries
+   enough brand color to read even when WebGL compositing is conservative. */
+@media (max-width: 768px), (pointer: coarse) {
+  [data-ambient-shader] {
+    opacity: 1;
+    filter: saturate(1.28) contrast(1.04);
+    background:
+      radial-gradient(circle at 78% 24%, rgba(242, 142, 134, 0.26), transparent 28rem),
+      radial-gradient(circle at 14% 76%, rgba(166, 104, 96, 0.16), transparent 24rem),
+      linear-gradient(115deg, rgba(242, 142, 134, 0.14), rgba(250, 238, 233, 0) 32%, rgba(229, 191, 180, 0.22) 72%, rgba(242, 142, 134, 0.12));
+  }
+}
+
 /* Canonical wordmark — cold-open per-letter word + website-aligned period. */
 .kw {
   display: inline-flex;

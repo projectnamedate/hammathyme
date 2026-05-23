@@ -55,7 +55,7 @@ export function Plinth({
       <motion.div
         whileHover={reduce ? undefined : { y: -4 }}
         transition={{ duration: 0.4, ease: [0.65, 0, 0.35, 1] }}
-        className="relative aspect-[3/4] w-full overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)]"
+        className="relative aspect-[3/4] w-full overflow-hidden border border-[rgba(31,7,7,0.18)] bg-[var(--cream-1)] shadow-[0_12px_34px_rgba(31,7,7,0.075)] transition-[border-color,box-shadow] duration-500 group-hover:border-[var(--ink-4)] group-hover:shadow-[0_18px_52px_rgba(31,7,7,0.12)]"
         style={frameStyle}
       >
         {/* Index numeral, gigantic, low-opacity */}
@@ -70,10 +70,19 @@ export function Plinth({
           <div className="relative h-full w-full">{children}</div>
         ) : null}
 
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-100 transition-opacity duration-500 group-hover:opacity-70"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(250, 238, 233, 0.20), rgba(242, 142, 134, 0.08) 52%, rgba(229, 191, 180, 0.18))",
+          }}
+        />
+
         {/* hairline frame */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-2 border border-[var(--ink-3)] opacity-0 transition-opacity duration-500 group-hover:opacity-30"
+          className="pointer-events-none absolute inset-2 border border-[rgba(31,7,7,0.22)] opacity-25 transition-opacity duration-500 group-hover:opacity-40"
         />
       </motion.div>
 

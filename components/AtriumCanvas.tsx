@@ -120,55 +120,61 @@ export function AtriumCanvas() {
     return () => window.removeEventListener("keydown", onKey);
   }, [active, isMobile]);
 
-  if (isMobile) return <AtriumStack active={active} setActive={setActive} />;
-
   const activePiece = CASE_STUDIES[active]!;
 
   return (
-    <section className="relative h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)]">
-      {/* active piece title — locked below nav */}
-      <div className="pointer-events-none absolute left-1/2 top-20 z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center md:top-24">
-        <motion.p
-          key={activePiece.slug}
-          initial={reduce ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: CINEMA }}
-          className="font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
-        >
-          {activePiece.title}
-        </motion.p>
-      </div>
+    <>
+      <section className="relative hidden h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)] md:block">
+        {/* active piece title — locked below nav */}
+        <div className="pointer-events-none absolute left-1/2 top-20 z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center md:top-24">
+          <motion.p
+            key={activePiece.slug}
+            initial={reduce ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: CINEMA }}
+            className="font-display text-[clamp(20px,2.2vw,30px)] font-light lowercase leading-tight tracking-[-0.02em] text-[var(--ink-0)]"
+          >
+            {activePiece.title}
+          </motion.p>
+        </div>
 
-      {/* the wall */}
-      <div className="absolute inset-0 z-10">
-        {CASE_STUDIES.slice(0, POSITIONS.length).map((item, i) => (
-          <Tile
-            key={item.slug}
-            item={item}
-            pos={POSITIONS[i]!}
-            index={i + 1}
-            isActive={i === active}
-            onEnter={() => setActive(i)}
-          />
-        ))}
-      </div>
+        {/* the wall */}
+        <div className="absolute inset-0 z-10">
+          {CASE_STUDIES.slice(0, POSITIONS.length).map((item, i) => (
+            <Tile
+              key={item.slug}
+              item={item}
+              pos={POSITIONS[i]!}
+              index={i + 1}
+              isActive={i === active}
+              onEnter={() => setActive(i)}
+            />
+          ))}
+        </div>
 
-      {/* nav hints + tour indicator — bottom only */}
-      <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-10">
-        <span><kbd className="not-italic text-[var(--ink-1)]">←</kbd> <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step</span>
-        <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
-        <span>hover · click to enter</span>
-        {touring ? (
-          <>
-            <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
-            <span className="flex items-center gap-2 text-[var(--cinnamon)]">
-              <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
-              touring
-            </span>
-          </>
-        ) : null}
+        {/* nav hints + tour indicator — bottom only */}
+        <div className="pointer-events-none absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 items-center gap-6 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)] md:bottom-10">
+          <span>
+            <kbd className="not-italic text-[var(--ink-1)]">←</kbd>{" "}
+            <kbd className="not-italic text-[var(--ink-1)]">→</kbd> step
+          </span>
+          <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+          <span>hover · click to enter</span>
+          {touring ? (
+            <>
+              <span aria-hidden className="block h-3 w-px bg-[var(--ink-4)]" />
+              <span className="flex items-center gap-2 text-[var(--cinnamon)]">
+                <span aria-hidden className="block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--cinnamon)]" />
+                touring
+              </span>
+            </>
+          ) : null}
+        </div>
+      </section>
+      <div className="md:hidden">
+        <AtriumStack active={active} setActive={setActive} />
       </div>
-    </section>
+    </>
   );
 }
 
