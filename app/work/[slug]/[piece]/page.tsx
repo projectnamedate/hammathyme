@@ -5,6 +5,12 @@ import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { Wordmark } from "@/components/Wordmark";
 import {
+  ConsistencyLabDemo,
+  DotDisciplineGame,
+  KiraChatDemo,
+  PromptStoryboardDemo,
+} from "@/components/interactives/InteractiveDemos";
+import {
   findCase,
   findPiece,
   getReadyPieceParams,
@@ -105,6 +111,10 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/pipeline-visualizer") {
     return <PipelineDetail piece={piece} transitionName={transitionName} />;
   }
+  if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
+  if (key === "interactive-playable/consistency-lab") return <ConsistencyLabDemo />;
+  if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
+  if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
   }

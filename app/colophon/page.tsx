@@ -68,6 +68,13 @@ export default function Colophon() {
           <Line k="animation" v="rive" />
         </Field>
 
+        <Field label="interactive demos" col={6}>
+          <Line k="text" v="openrouter · deepseek v4 flash" />
+          <Line k="image" v="fal · flux 2 lora when enabled" />
+          <Line k="budget" v="upstash redis · $1 shared daily cap" />
+          <Line k="fallback" v="public sample mode when capped or unconfigured" />
+        </Field>
+
         <Field label="brand contract" col={6}>
           <Line k="palette" v="warm cream · maroon ink · vinaceous cinnamon" />
           <Line k="motif" v="protected wordmark period · governed display dot" />

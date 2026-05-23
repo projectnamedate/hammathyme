@@ -6,15 +6,23 @@ capabilities: [interactive-playable, pipelines-tools]
 client: hammer studios
 roles: [ai producer, full-stack]
 summary: >
-  planned interactive demos visitors can use directly once built. talk-to-character,
-  prompt-to-storyboard, consistency lab, and live portfolio surfaces. all gated
-  by per-day cost cap.
+  live interactive demos visitors can use directly: prompt-to-storyboard,
+  character consistency, Kira chat, and dot discipline. provider calls share a
+  one-dollar daily cap and fall back to no-spend sample mode.
 hero: null
-status: placeholder
+status: live
 ---
 
-case-study surface is still in production. Interactive demos should open from
-work-piece detail routes or modal-like pages, not from a revived `/lab` route.
+interactive demos open from work-piece detail routes, not from a revived `/lab`
+route.
 
-each demo should explain the tech, the cost cap, and what visitor data is and
-isn't kept.
+live routes:
+
+- `/work/interactive-playable/prompt-to-storyboard`
+- `/work/interactive-playable/consistency-lab`
+- `/work/interactive-playable/talk-to-character`
+- `/work/interactive-playable/dot-discipline`
+
+provider routes enforce the one-dollar shared daily cap before any paid call.
+when keys, Redis, or budget are unavailable, the demos keep working from public
+sample data.

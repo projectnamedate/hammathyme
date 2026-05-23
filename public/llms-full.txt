@@ -36,7 +36,11 @@ The domain appears only in technical URL surfaces.
 - /work/animation: Rive and Remotion animation category. Public work is still in production.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
-- /work/interactive-playable: planned interactive demos.
+- /work/interactive-playable: live interactive and playable demos with a shared one-dollar daily provider cap.
+- /work/interactive-playable/prompt-to-storyboard: capped prompt-to-six-panel-storyboard demo.
+- /work/interactive-playable/consistency-lab: Kira character-consistency board with safe LoRA remix hook and sample refs.
+- /work/interactive-playable/talk-to-character: capped Kira character chat demo.
+- /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
 - /work/visual-media: AI-native film, short-form video, and commercial work.
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.

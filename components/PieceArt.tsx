@@ -44,6 +44,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "interactive-playable/consistency-lab": ConsistencyLab,
   "interactive-playable/talk-to-character": TalkToCharacter,
+  "interactive-playable/dot-discipline": DotDiscipline,
   "visual-media/commercial": CommercialSpot,
   "visual-media/short-film": ShortFilm,
   "visual-media/documentary-opener": DocumentaryOpener,
@@ -535,6 +536,39 @@ function TalkToCharacter() {
         <path d="M 56 68 L 64 76 L 48 68" fill="var(--ink-0)" />
       </g>
       <MonoLabel>CHAT SURFACE</MonoLabel>
+    </Plate>
+  );
+}
+
+function DotDiscipline() {
+  return (
+    <Plate>
+      <g transform="translate(21 66)">
+        <text
+          x="0"
+          y="0"
+          fontFamily="var(--font-display)"
+          fontWeight="900"
+          fontSize="26"
+          letterSpacing="-1.2"
+          fill="var(--ink-0)"
+        >
+          hammer
+        </text>
+        <circle cx="74" cy="-1.8" r="3.2" fill="var(--cinnamon)" />
+        <line x1="2" y1="7" x2="84" y2="7" stroke="var(--ink-4)" strokeWidth="0.8" />
+        <line x1="70" y1="-13" x2="78" y2="-13" stroke="var(--cinnamon)" strokeWidth="1.1" />
+        <line x1="74" y1="-17" x2="74" y2="-9" stroke="var(--cinnamon)" strokeWidth="1.1" />
+      </g>
+      <g transform="translate(28 96)" stroke="var(--ink-3)" strokeWidth="0.8">
+        <line x1="0" y1="0" x2="64" y2="0" />
+        <line x1="0" y1="12" x2="64" y2="12" />
+        <line x1="0" y1="24" x2="64" y2="24" />
+        <circle cx="58" cy="0" r="2.4" fill="var(--cinnamon)" stroke="none" />
+        <circle cx="47" cy="12" r="2.4" fill="var(--ink-0)" stroke="none" />
+        <circle cx="52" cy="24" r="2.4" fill="var(--ink-0)" stroke="none" />
+      </g>
+      <MonoLabel>BRAND GAME</MonoLabel>
     </Plate>
   );
 }

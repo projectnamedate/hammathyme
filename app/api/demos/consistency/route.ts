@@ -1,0 +1,110 @@
+import { NextResponse } from "next/server";
+import { getDemoCache, getProviderKey, reserveDemoSpend, setDemoCache } from "@/lib/demo-guards";
+import { CONSISTENCY_SCENES } from "@/lib/demo-samples";
+
+export const runtime = "nodejs";
+
+type ConsistencyResponse = {
+  imageUrl: string;
+  requestId?: string;
+};
+
+function sceneForId(sceneId: unknown) {
+  return CONSISTENCY_SCENES.find((scene) => scene.id === sceneId) ?? CONSISTENCY_SCENES[0];
+}
+
+export async function POST(request: Request) {
+  const body = (await request.json().catch(() => null)) as { sceneId?: unknown } | null;
+  const scene = sceneForId(body?.sceneId);
+  const cacheInput = { sceneId: scene.id };
+
+  const cached = await getDemoCache<ConsistencyResponse>("consistency", cacheInput);
+  if (cached) {
+    return NextResponse.json({
+      ok: true,
+      sample: false,
+      status: "cached",
+      scene,
+      ...cached,
+      capUsd: 1,
+    });
+  }
+
+  const falKey = getProviderKey("HAMMER_FAL_KEY", "FAL_KEY");
+  const loraUrl = getProviderKey("HAMMER_KIRA_LORA_URL", "KIRA_LORA_URL");
+  if (!falKey || !loraUrl) {
+    return NextResponse.json({
+      ok: true,
+      sample: true,
+      status: "sample: provider setup unavailable",
+      scene,
+      imageUrl: scene.image,
+      capUsd: 1,
+    });
+  }
+
+  const reservation = await reserveDemoSpend(request, {
+    demo: "consistency",
+    estimatedUsd: 0.06,
+    perClientDailyLimit: 2,
+    globalDailyLimit: 10,
+  });
+  if (!reservation.ok) {
+    return NextResponse.json({
+      ok: true,
+      sample: true,
+      status: `sample: ${reservation.reason}`,
+      scene,
+      imageUrl: scene.image,
+      capUsd: reservation.capUsd,
+      spentUsd: reservation.spentUsd,
+    });
+  }
+
+  try {
+    const { fal } = await import("@fal-ai/client");
+    fal.config({ credentials: falKey });
+    const result = await fal.subscribe("fal-ai/flux-2/lora", {
+      input: {
+        prompt: `${scene.prompt}. restrained Hammer portfolio demo, safe for work, no sensual styling, no exposed skin`,
+        image_size: { width: 768, height: 960 },
+        num_inference_steps: 28,
+        guidance_scale: 3.5,
+        num_images: 1,
+        enable_safety_checker: true,
+        loras: [{ path: loraUrl, scale: 1.0 }],
+      },
+      logs: false,
+    });
+
+    const data = result.data as {
+      images?: { url?: string; has_nsfw_concepts?: boolean }[];
+      has_nsfw_concepts?: boolean[];
+    };
+    const image = data.images?.[0];
+    const blocked = image?.has_nsfw_concepts || data.has_nsfw_concepts?.some(Boolean);
+    if (!image?.url || blocked) throw new Error("unsafe or empty image");
+
+    const payload = { imageUrl: image.url, requestId: result.requestId };
+    await setDemoCache("consistency", cacheInput, payload, 60 * 60 * 6);
+    return NextResponse.json({
+      ok: true,
+      sample: false,
+      status: "live",
+      scene,
+      ...payload,
+      capUsd: reservation.capUsd,
+      spentUsd: reservation.spentUsd,
+    });
+  } catch {
+    return NextResponse.json({
+      ok: true,
+      sample: true,
+      status: "sample: provider failed safely",
+      scene,
+      imageUrl: scene.image,
+      capUsd: reservation.capUsd,
+      spentUsd: reservation.spentUsd,
+    });
+  }
+}

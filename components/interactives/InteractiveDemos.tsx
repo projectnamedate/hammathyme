@@ -1,0 +1,635 @@
+"use client";
+
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { FormEvent, useMemo, useState } from "react";
+import {
+  CONSISTENCY_SCENES,
+  SAMPLE_STORYBOARD,
+  sampleKiraReply,
+  type StoryboardPanel,
+} from "@/lib/demo-samples";
+
+type ApiState = {
+  loading: boolean;
+  status: string;
+  sample: boolean;
+};
+
+type ChatMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
+const CONTROL =
+  "border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-1)] transition hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] disabled:cursor-not-allowed disabled:opacity-45";
+
+const INPUT =
+  "w-full border border-[var(--ink-4)] bg-[var(--cream-0)] p-4 font-display text-[18px] font-light leading-[1.35] tracking-[-0.01em] text-[var(--ink-0)] outline-none transition placeholder:text-[var(--ink-3)] focus:border-[var(--cinnamon)]";
+
+const CINEMA = [0.65, 0, 0.35, 1] as const;
+const SOFT = [0.25, 0.1, 0.25, 1] as const;
+
+function statusCopy(state: ApiState) {
+  if (state.loading) return "running";
+  return state.status;
+}
+
+function DemoStatus({ state }: { state: ApiState }) {
+  const reduce = useReducedMotion();
+  return (
+    <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]">
+      <motion.span
+        className="inline-flex h-2 w-2 rounded-full bg-[var(--cinnamon)]"
+        animate={reduce ? undefined : { scale: state.loading ? [1, 1.65, 1] : 1, opacity: state.loading ? [0.55, 1, 0.55] : 1 }}
+        transition={reduce ? undefined : { duration: 0.9, repeat: state.loading ? Infinity : 0, ease: SOFT }}
+      />
+      <span>{statusCopy(state)}</span>
+      <span className="text-[var(--ink-4)]">/</span>
+      <span>$1 daily cap</span>
+    </div>
+  );
+}
+
+function PanelGlyph({ index }: { index: number }) {
+  const reduce = useReducedMotion();
+  const left = 18 + (index % 3) * 7;
+  return (
+    <div className="pointer-events-none absolute inset-3 overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-0)]">
+      <motion.div
+        className="absolute h-16 w-16 rounded-full bg-[var(--cinnamon)] opacity-25"
+        style={{ left: `${left}%`, top: `${10 + (index % 2) * 12}%` }}
+        animate={reduce ? undefined : { scale: [1, 1.12, 1], x: [0, 3 - index, 0] }}
+        transition={reduce ? undefined : { duration: 3.5 + index * 0.2, repeat: Infinity, ease: SOFT }}
+      />
+      <div className="absolute bottom-0 left-0 h-10 w-full bg-[var(--ink-0)] opacity-[0.08]" />
+      <motion.div
+        className="absolute bottom-6 h-[1px] w-24 bg-[var(--ink-1)]"
+        style={{ left: `${12 + index * 3}%`, rotate: `${index % 2 ? -7 : 5}deg` }}
+        animate={reduce ? undefined : { scaleX: [0.78, 1, 0.78] }}
+        transition={reduce ? undefined : { duration: 2.8, repeat: Infinity, delay: index * 0.15, ease: CINEMA }}
+      />
+      <motion.div
+        className="absolute h-8 w-5 bg-[var(--ink-0)]"
+        style={{ left: `${42 + (index % 2) * 18}%`, top: `${34 + (index % 3) * 7}%` }}
+        animate={reduce ? undefined : { y: [0, -3, 0] }}
+        transition={reduce ? undefined : { duration: 2.4, repeat: Infinity, delay: index * 0.2, ease: SOFT }}
+      />
+    </div>
+  );
+}
+
+export function PromptStoryboardDemo() {
+  const reduce = useReducedMotion();
+  const [prompt, setPrompt] = useState("A compact launch film for an AI character who turns crypto noise into one precise daily signal.");
+  const [panels, setPanels] = useState<StoryboardPanel[]>(SAMPLE_STORYBOARD);
+  const [state, setState] = useState<ApiState>({ loading: false, status: "sample board loaded", sample: true });
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (state.loading) return;
+    setState({ loading: true, status: "running", sample: true });
+    try {
+      const response = await fetch("/api/demos/storyboard", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      const data = (await response.json()) as {
+        ok?: boolean;
+        error?: string;
+        panels?: StoryboardPanel[];
+        status?: string;
+        sample?: boolean;
+      };
+      if (!response.ok || !data.ok || !data.panels) throw new Error(data.error || "storyboard failed");
+      setPanels(data.panels);
+      setState({ loading: false, status: data.status ?? "live", sample: Boolean(data.sample) });
+    } catch (error) {
+      setPanels(SAMPLE_STORYBOARD);
+      setState({
+        loading: false,
+        status: error instanceof Error ? error.message : "sample fallback",
+        sample: true,
+      });
+    }
+  }
+
+  return (
+    <section className="mx-auto max-w-[1440px]">
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-[420px_1fr]">
+        <motion.form
+          onSubmit={submit}
+          className="border-y border-[var(--ink-4)] py-6 xl:sticky xl:top-28 xl:self-start"
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.55, ease: CINEMA }}
+        >
+          <DemoStatus state={state} />
+          <label className="mt-5 block font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
+            brief
+          </label>
+          <textarea
+            value={prompt}
+            onChange={(event) => setPrompt(event.target.value)}
+            className={`${INPUT} mt-3 min-h-[172px] resize-none`}
+            maxLength={520}
+            placeholder="write the scene"
+          />
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <button className={CONTROL} data-cursor="link" data-cursor-label="build" disabled={state.loading} type="submit">
+              build board
+            </button>
+            <button
+              className={CONTROL}
+              data-cursor="link"
+              data-cursor-label="load"
+              type="button"
+              onClick={() =>
+                setPrompt("A handmade soda can wakes up on a studio table, learns its brand voice, and becomes a launch poster.")
+              }
+            >
+              soda brief
+            </button>
+          </div>
+        </motion.form>
+
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {panels.map((panel, index) => (
+            <motion.article
+              key={`${panel.id}-${index}`}
+              className="group min-h-[360px] border border-[var(--ink-4)] bg-[var(--cream-1)] p-3 transition hover:border-[var(--cinnamon)] hover:shadow-[0_24px_80px_rgba(31,7,7,0.08)]"
+              initial={reduce ? false : { opacity: 0, y: 24, rotate: index % 2 ? -0.8 : 0.8 }}
+              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              transition={{ duration: reduce ? 0 : 0.62, delay: reduce ? 0 : index * 0.055, ease: CINEMA }}
+              whileHover={reduce ? undefined : { y: -6 }}
+            >
+              <div className="relative aspect-[16/10] overflow-hidden bg-[var(--cream-2)]">
+                <PanelGlyph index={index} />
+                <AnimatePresence>
+                  {state.loading ? (
+                    <motion.div
+                      className="absolute inset-y-0 left-0 w-10 bg-[linear-gradient(90deg,transparent,rgba(242,142,134,0.35),transparent)]"
+                      initial={{ x: "-120%" }}
+                      animate={{ x: "620%" }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 1.1, repeat: Infinity, ease: CINEMA }}
+                    />
+                  ) : null}
+                </AnimatePresence>
+                <span className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-0)]">
+                  {panel.id}
+                </span>
+              </div>
+              <div className="mt-4 grid gap-3">
+                <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">{panel.shot}</p>
+                <p className="font-display text-[22px] font-light leading-[1.14] tracking-[-0.015em] text-[var(--ink-0)]">
+                  {panel.action}
+                </p>
+                <p className="font-mono text-[10px] uppercase leading-[1.55] tracking-[0.12em] text-[var(--ink-2)]">
+                  {panel.camera} / {panel.palette}
+                </p>
+                <p className="border-t border-[var(--ink-4)] pt-3 font-display text-[16px] font-light italic leading-[1.35] tracking-[-0.01em] text-[var(--ink-1)]">
+                  {panel.caption}
+                </p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const LAB_FRAMES = CONSISTENCY_SCENES.slice(0, 6);
+
+export function ConsistencyLabDemo() {
+  const reduce = useReducedMotion();
+  const [selected, setSelected] = useState(CONSISTENCY_SCENES[0]);
+  const [liveImage, setLiveImage] = useState<string | null>(null);
+  const [state, setState] = useState<ApiState>({ loading: false, status: "canonical refs loaded", sample: true });
+
+  async function generate() {
+    if (state.loading) return;
+    setState({ loading: true, status: "running", sample: true });
+    try {
+      const response = await fetch("/api/demos/consistency", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ sceneId: selected.id }),
+      });
+      const data = (await response.json()) as {
+        ok?: boolean;
+        imageUrl?: string;
+        status?: string;
+        sample?: boolean;
+      };
+      if (!response.ok || !data.ok || !data.imageUrl) throw new Error("render failed");
+      setLiveImage(data.imageUrl);
+      setState({ loading: false, status: data.status ?? "live", sample: Boolean(data.sample) });
+    } catch {
+      setLiveImage(selected.image);
+      setState({ loading: false, status: "sample fallback", sample: true });
+    }
+  }
+
+  return (
+    <section className="mx-auto max-w-[1440px]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_380px]">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          {LAB_FRAMES.map((frame, index) => (
+            <motion.button
+              key={`${frame.id}-${index}`}
+              type="button"
+              data-cursor="link"
+              data-cursor-label="select"
+              onClick={() => {
+                setSelected(frame);
+                setLiveImage(null);
+              }}
+              className={`relative overflow-hidden border bg-[var(--cream-1)] p-2 text-left transition ${
+                selected.id === frame.id ? "border-[var(--cinnamon)]" : "border-[var(--ink-4)]"
+              }`}
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0 : 0.6, delay: reduce ? 0 : index * 0.06, ease: CINEMA }}
+              whileHover={reduce ? undefined : { y: -5 }}
+            >
+              <div className="relative overflow-hidden">
+                <motion.img
+                  src={index === 0 && liveImage ? liveImage : frame.image}
+                  alt={`Kira ${frame.label}`}
+                  className="aspect-[3/4] w-full object-cover object-top"
+                  animate={reduce ? undefined : { scale: selected.id === frame.id ? 1.035 : 1 }}
+                  transition={{ duration: reduce ? 0 : 0.55, ease: SOFT }}
+                />
+                <motion.div
+                  className="absolute inset-0 border border-[var(--cream-0)] opacity-0"
+                  animate={reduce ? undefined : { opacity: selected.id === frame.id ? [0.15, 0.45, 0.15] : 0 }}
+                  transition={{ duration: 1.8, repeat: selected.id === frame.id ? Infinity : 0, ease: SOFT }}
+                />
+              </div>
+              <span className="absolute bottom-3 left-3 bg-[var(--cream-0)] px-2 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-1)]">
+                {String(index + 1).padStart(2, "0")} / {frame.shortLabel}
+              </span>
+            </motion.button>
+          ))}
+        </div>
+
+        <motion.aside
+          className="border-y border-[var(--ink-4)] py-6 lg:sticky lg:top-28 lg:self-start"
+          initial={reduce ? false : { opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: reduce ? 0 : 0.6, ease: CINEMA }}
+        >
+          <DemoStatus state={state} />
+          <div className="mt-6 grid grid-cols-2 gap-2">
+            {CONSISTENCY_SCENES.map((scene) => (
+              <button
+                key={scene.id}
+                type="button"
+                data-cursor="link"
+                data-cursor-label="select"
+                onClick={() => {
+                  setSelected(scene);
+                  setLiveImage(null);
+                }}
+                className={`${CONTROL} ${selected.id === scene.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
+              >
+              {scene.shortLabel}
+              </button>
+            ))}
+          </div>
+          <div className="mt-5 overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)] p-3">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={liveImage ?? selected.image}
+                src={liveImage ?? selected.image}
+                alt={`Selected Kira ${selected.label}`}
+                className="aspect-[4/5] w-full object-cover object-top"
+                initial={reduce ? false : { opacity: 0, scale: 1.03 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={reduce ? undefined : { opacity: 0, scale: 0.985 }}
+                transition={{ duration: reduce ? 0 : 0.45, ease: SOFT }}
+              />
+            </AnimatePresence>
+          </div>
+          <button
+            className={`${CONTROL} mt-4 w-full`}
+            data-cursor="link"
+            data-cursor-label="render"
+            type="button"
+            onClick={generate}
+            disabled={state.loading}
+          >
+            render one safe remix
+          </button>
+          <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["identity", "locked"],
+              ["wardrobe", "black blazer"],
+              ["prompt", "safe"],
+              ["mode", state.sample ? "sample" : "live"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--ink-2)]">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </motion.aside>
+      </div>
+    </section>
+  );
+}
+
+export function KiraChatDemo() {
+  const reduce = useReducedMotion();
+  const [input, setInput] = useState("How would you turn a noisy product launch into one clean post?");
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      role: "assistant",
+      content: "Give me a concrete constraint. Vibes are expensive. Edges are useful.",
+    },
+  ]);
+  const [state, setState] = useState<ApiState>({ loading: false, status: "character online", sample: true });
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmed = input.trim();
+    if (!trimmed || state.loading) return;
+    const nextMessages: ChatMessage[] = [...messages, { role: "user", content: trimmed }];
+    setMessages(nextMessages);
+    setInput("");
+    setState({ loading: true, status: "thinking", sample: true });
+    try {
+      const response = await fetch("/api/demos/kira-chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ message: trimmed, messages: nextMessages }),
+      });
+      const data = (await response.json()) as {
+        ok?: boolean;
+        reply?: string;
+        status?: string;
+        sample?: boolean;
+      };
+      if (!response.ok || !data.ok || !data.reply) throw new Error("chat failed");
+      const assistantMessage: ChatMessage = { role: "assistant", content: data.reply };
+      setMessages([...nextMessages, assistantMessage].slice(-7));
+      setState({ loading: false, status: data.status ?? "live", sample: Boolean(data.sample) });
+    } catch {
+      const assistantMessage: ChatMessage = { role: "assistant", content: sampleKiraReply(trimmed) };
+      setMessages([...nextMessages, assistantMessage].slice(-7));
+      setState({ loading: false, status: "sample fallback", sample: true });
+    }
+  }
+
+  return (
+    <section className="mx-auto max-w-[1180px]">
+      <motion.div
+        className="grid min-h-[620px] grid-cols-1 border border-[var(--ink-4)] bg-[var(--cream-1)] lg:grid-cols-[360px_1fr]"
+        initial={reduce ? false : { opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduce ? 0 : 0.65, ease: CINEMA }}
+      >
+        <aside className="border-b border-[var(--ink-4)] p-5 lg:border-b-0 lg:border-r">
+          <DemoStatus state={state} />
+          <div className="mt-8 aspect-[1/1] overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-0)]">
+            <motion.img
+              src="/work/brand-guides/kira/assets/refs/finals/photo/final/cinematic_ai_icons_upres/2_blade_runner_2x.png"
+              alt="Kira cinematic portrait"
+              className="h-full w-full object-cover object-top"
+              animate={reduce ? undefined : { scale: state.loading ? [1, 1.025, 1] : 1 }}
+              transition={reduce ? undefined : { duration: 1.4, repeat: state.loading ? Infinity : 0, ease: SOFT }}
+            />
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            {["voice", "image", "market", "brand"].map((preset) => (
+              <button
+                key={preset}
+                type="button"
+                className={CONTROL}
+                data-cursor="link"
+                data-cursor-label="prompt"
+                onClick={() => setInput(`Give me a ${preset} take in Kira voice.`)}
+              >
+                {preset}
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        <div className="flex min-h-[620px] flex-col">
+          <div className="flex-1 space-y-4 overflow-y-auto p-5 md:p-7">
+            <AnimatePresence initial={false}>
+              {messages.map((message, index) => (
+                <motion.div
+                  key={`${message.role}-${index}-${message.content.slice(0, 12)}`}
+                  className={`max-w-[78%] border border-[var(--ink-4)] p-4 ${
+                    message.role === "user"
+                      ? "ml-auto bg-[var(--ink-0)] text-[var(--cream-0)]"
+                      : "bg-[var(--cream-0)] text-[var(--ink-0)]"
+                  }`}
+                  initial={reduce ? false : { opacity: 0, y: 14, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -8 }}
+                  transition={{ duration: reduce ? 0 : 0.35, ease: SOFT }}
+                >
+                  <p className="font-mono text-[9px] uppercase tracking-[0.18em] opacity-70">{message.role}</p>
+                  <p className="mt-2 font-display text-[19px] font-light leading-[1.35] tracking-[-0.01em]">
+                    {message.content}
+                  </p>
+                </motion.div>
+              ))}
+              {state.loading ? (
+                <motion.div
+                  key="typing"
+                  className="w-fit border border-[var(--ink-4)] bg-[var(--cream-0)] px-4 py-3"
+                  initial={reduce ? false : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -6 }}
+                >
+                  <span className="sr-only">Kira is typing</span>
+                  <span className="flex gap-1">
+                    {[0, 1, 2].map((dot) => (
+                      <motion.span
+                        key={dot}
+                        className="h-1.5 w-1.5 rounded-full bg-[var(--cinnamon)]"
+                        animate={reduce ? undefined : { y: [0, -4, 0], opacity: [0.45, 1, 0.45] }}
+                        transition={reduce ? undefined : { duration: 0.7, repeat: Infinity, delay: dot * 0.12 }}
+                      />
+                    ))}
+                  </span>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+          </div>
+          <form onSubmit={submit} className="border-t border-[var(--ink-4)] p-4 md:flex md:gap-3">
+            <input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              className={`${INPUT} min-h-0 flex-1`}
+              maxLength={420}
+              placeholder="message kira"
+            />
+            <button
+              className={`${CONTROL} mt-3 min-w-[132px] md:mt-0`}
+              data-cursor="link"
+              data-cursor-label="send"
+              type="submit"
+              disabled={state.loading}
+            >
+              send
+            </button>
+          </form>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
+export function DotDisciplineGame() {
+  const reduce = useReducedMotion();
+  const [x, setX] = useState(77);
+  const [y, setY] = useState(80);
+  const [gap, setGap] = useState(1);
+  const [streak, setStreak] = useState(0);
+  const [best, setBest] = useState(0);
+  const [message, setMessage] = useState("align the mark");
+
+  const score = useMemo(() => {
+    const xScore = Math.abs(x - 73.5) * 3.2;
+    const yScore = Math.abs(y - 83.5) * 4.4;
+    const gapScore = Math.abs(gap - -1) * 5.5;
+    return clamp(Math.round(100 - xScore - yScore - gapScore), 0, 100);
+  }, [gap, x, y]);
+  const controls: [string, number, (next: number) => void, number, number][] = [
+    ["dot x", x, setX, 58, 90],
+    ["dot y", y, setY, 66, 94],
+    ["letter gap", gap, setGap, -8, 10],
+  ];
+
+  function lock() {
+    const nextStreak = score >= 90 ? streak + 1 : 0;
+    setStreak(nextStreak);
+    setBest(Math.max(best, score));
+    setMessage(score >= 96 ? "approved" : score >= 90 ? "close enough" : "missed the baseline");
+    if (score >= 90) {
+      setX(68 + Math.random() * 14);
+      setY(77 + Math.random() * 15);
+      setGap(-5 + Math.random() * 10);
+    }
+  }
+
+  return (
+    <section className="mx-auto max-w-[1220px]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
+        <motion.div
+          className="relative overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 md:p-8"
+          initial={reduce ? false : { opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduce ? 0 : 0.65, ease: CINEMA }}
+        >
+          <div className="relative h-[300px] overflow-hidden bg-[var(--cream-0)] md:aspect-[16/9] md:h-auto md:min-h-[320px]">
+            <div className="absolute left-[8%] right-[8%] top-[55%] h-[1px] bg-[var(--ink-4)]" />
+            <div className="absolute left-[8%] right-[8%] top-[63%] h-[1px] bg-[var(--cinnamon)] opacity-45" />
+            <div className="absolute left-1/2 top-1/2 w-[min(88vw,640px)] -translate-x-1/2 -translate-y-1/2 text-center">
+              <div
+                className="relative inline-block font-display text-[clamp(36px,10vw,172px)] font-black lowercase leading-none text-[var(--ink-0)]"
+                style={{ letterSpacing: `${gap}px` }}
+              >
+                hammer
+                <motion.span
+                  aria-hidden
+                  className="absolute block h-[0.16em] w-[0.16em] -translate-x-[14%] -translate-y-[14%] rounded-full border border-[var(--cinnamon)]"
+                  style={{ left: "73.5%", top: "83.5%" }}
+                  animate={reduce ? undefined : { scale: [1, 1.18, 1], opacity: [0.28, 0.72, 0.28] }}
+                  transition={reduce ? undefined : { duration: 1.8, repeat: Infinity, ease: SOFT }}
+                />
+                <motion.span
+                  className="absolute block h-[0.115em] w-[0.115em] rounded-full bg-[var(--cinnamon)]"
+                  style={{ left: `${x}%`, top: `${y}%` }}
+                  animate={reduce ? undefined : { boxShadow: score >= 90 ? "0 0 0 12px rgba(242,142,134,0.18)" : "0 0 0 0 rgba(242,142,134,0)" }}
+                  transition={{ duration: reduce ? 0 : 0.35, ease: SOFT }}
+                />
+              </div>
+            </div>
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between font-mono uppercase tracking-[0.16em]">
+              <span className="text-[10px] text-[var(--ink-2)]">{message}</span>
+              <motion.span
+                className="font-display text-[56px] font-black leading-none tracking-[0] text-[var(--ink-0)]"
+                animate={reduce ? undefined : { scale: score >= 90 ? 1.08 : 1 }}
+                transition={{ duration: reduce ? 0 : 0.25, ease: SOFT }}
+              >
+                {score}
+              </motion.span>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.aside
+          className="border-y border-[var(--ink-4)] py-6"
+          initial={reduce ? false : { opacity: 0, x: 18 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: reduce ? 0 : 0.62, ease: CINEMA }}
+        >
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              ["score", String(score)],
+              ["streak", String(streak)],
+              ["best", String(best)],
+            ].map(([label, value]) => (
+              <div key={label} className="border border-[var(--ink-4)] bg-[var(--cream-0)] p-3">
+                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--cinnamon)]">{label}</p>
+                <p className="mt-2 font-display text-[28px] font-black leading-none text-[var(--ink-0)]">{value}</p>
+              </div>
+            ))}
+          </div>
+
+          {controls.map(([label, value, setter, min, max]) => (
+            <label key={String(label)} className="mt-6 block">
+              <span className="flex justify-between font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]">
+                <span>{label}</span>
+                <span>{Math.round(Number(value))}</span>
+              </span>
+              <input
+                className="mt-3 h-1 w-full accent-[var(--cinnamon)]"
+                type="range"
+                min={Number(min)}
+                max={Number(max)}
+                step="0.1"
+                value={Number(value)}
+                onChange={(event) => setter(Number(event.target.value))}
+              />
+            </label>
+          ))}
+
+          <div className="mt-6 grid grid-cols-2 gap-2">
+            <button className={CONTROL} data-cursor="link" data-cursor-label="lock" type="button" onClick={lock}>
+              lock
+            </button>
+            <button
+              className={CONTROL}
+              data-cursor="link"
+              data-cursor-label="reset"
+              type="button"
+              onClick={() => {
+                setX(77);
+                setY(80);
+                setGap(1);
+                setStreak(0);
+                setMessage("align the mark");
+              }}
+            >
+              reset
+            </button>
+          </div>
+        </motion.aside>
+      </div>
+    </section>
+  );
+}

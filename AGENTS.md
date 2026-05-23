@@ -108,6 +108,20 @@ Live API demos go through `/api/*` routes with edge-middleware rate-limiting
 and a `DAILY_API_BUDGET_USD` env-var hard cap. Demos auto-disable when the cap
 is hit.
 
+Interactive demo provider calls share a one-dollar daily cap. Required runtime
+surface:
+
+- `DAILY_API_BUDGET_USD=1` (values above 1 are clamped to 1 in code)
+- Redis budget store: `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`
+  (or Vercel KV-compatible `KV_REST_API_URL` + `KV_REST_API_TOKEN`)
+- OpenRouter text/chat: `HAMMER_OPENROUTER_API_KEY` or
+  `HAMMER_KIRA_WEB_CHAT_API_KEY`
+- Fal consistency render: `HAMMER_FAL_KEY` + `HAMMER_KIRA_LORA_URL`
+- `HAMMER_DEMOS_ENABLED=0` forces no-spend sample mode
+
+If any paid-provider prerequisite is absent, the public demo stays usable in
+sample mode and does not call the provider.
+
 ## Domain status
 
 - Purchased canonical domain: `hammer.ad`.

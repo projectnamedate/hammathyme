@@ -1,0 +1,98 @@
+import { NextResponse } from "next/server";
+import { getProviderKey, reserveDemoSpend } from "@/lib/demo-guards";
+import { sampleKiraReply } from "@/lib/demo-samples";
+import { clampChatHistory, requireSafeCreativeInput } from "@/lib/demo-safety";
+
+export const runtime = "nodejs";
+
+const KIRA_SYSTEM = `You are Kira, a safe public demo of an autonomous AI character.
+Voice: dry, precise, visually minded, impatient with hype, never explicit.
+Do not provide financial advice, pretend to have live market data, expose private systems, or ask for secrets.
+Answer in 55 words or fewer.`;
+
+export async function POST(request: Request) {
+  const body = (await request.json().catch(() => null)) as {
+    message?: unknown;
+    messages?: unknown;
+  } | null;
+  const safe = requireSafeCreativeInput(body?.message, 420);
+  if (!safe.ok) {
+    return NextResponse.json({ ok: false, error: safe.reason }, { status: 400 });
+  }
+
+  const apiKey = getProviderKey("HAMMER_KIRA_WEB_CHAT_API_KEY", "KIRA_WEB_CHAT_API_KEY", "HAMMER_OPENROUTER_API_KEY", "OPENROUTER_API_KEY");
+  if (!apiKey) {
+    return NextResponse.json({
+      ok: true,
+      sample: true,
+      status: "sample: provider key unavailable",
+      reply: sampleKiraReply(safe.value),
+      capUsd: 1,
+    });
+  }
+
+  const reservation = await reserveDemoSpend(request, {
+    demo: "kira-chat",
+    estimatedUsd: 0.004,
+    perClientDailyLimit: 8,
+    globalDailyLimit: 120,
+  });
+  if (!reservation.ok) {
+    return NextResponse.json({
+      ok: true,
+      sample: true,
+      status: `sample: ${reservation.reason}`,
+      reply: sampleKiraReply(safe.value),
+      capUsd: reservation.capUsd,
+      spentUsd: reservation.spentUsd,
+    });
+  }
+
+  const history = clampChatHistory(body?.messages);
+
+  try {
+    const response = await fetch(process.env.HAMMER_KIRA_WEB_CHAT_BASE_URL ?? "https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${apiKey}`,
+        "http-referer": "https://hammer.ad",
+        "x-title": "Hammer Kira character demo",
+      },
+      body: JSON.stringify({
+        model: process.env.HAMMER_KIRA_CHAT_MODEL ?? "deepseek/deepseek-v4-flash",
+        messages: [
+          { role: "system", content: KIRA_SYSTEM },
+          ...history,
+          { role: "user", content: safe.value },
+        ],
+        max_tokens: 180,
+        temperature: 0.78,
+      }),
+    });
+
+    if (!response.ok) throw new Error("openrouter request failed");
+    const data = (await response.json()) as {
+      choices?: { message?: { content?: string } }[];
+    };
+    const reply = data.choices?.[0]?.message?.content?.replace(/\s+/g, " ").trim();
+    if (!reply) throw new Error("empty character response");
+    return NextResponse.json({
+      ok: true,
+      sample: false,
+      status: "live",
+      reply: reply.slice(0, 520),
+      capUsd: reservation.capUsd,
+      spentUsd: reservation.spentUsd,
+    });
+  } catch {
+    return NextResponse.json({
+      ok: true,
+      sample: true,
+      status: "sample: provider failed safely",
+      reply: sampleKiraReply(safe.value),
+      capUsd: reservation.capUsd,
+      spentUsd: reservation.spentUsd,
+    });
+  }
+}
