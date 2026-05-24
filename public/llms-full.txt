@@ -26,7 +26,7 @@ The domain appears only in technical URL surfaces.
 - /work: atrium with eight portfolio categories.
 - /work/brand-systems: identities built with AI in the loop.
 - /work/brand-systems/hammer: Hammer brand system dossier.
-- /work/brand-systems/kira: Kira autonomous-character brand bible dossier.
+- /work/brand-systems/kira: Kira autonomous-character agent system, brand bible, and website dossier.
 - /work/brand-systems/effigy: Effigy agent-stack brand book dossier.
 - /work/brand-systems/agentify: Agentify agent-payment readiness brand guide dossier. Its full guide opens the canonical live brand bible at https://agentify.nexus/brand-bible.
 - /work/agents: autonomous characters layered over agent systems.

@@ -124,12 +124,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         slug: "kira",
         title: "kira",
-        status: "character bible + website",
-        source: "14-part brand bible, pipeline tokens, onlykira site",
+        status: "agent system + bible + website",
+        source: "14-part brand bible, agent runtime guardrails, onlykira site",
         description:
-          "Kira is a complete autonomous-character brand system, not just a look. The bible defines essence, canon, voice, visual anchors, platform strategy, content recipes, audience, monetization, AI governance, and the website that consumes those tokens and voice rules.",
+          "Kira is an autonomous-character agent system, not just a look. The bible defines canon, voice, visual anchors, content recipes, governance, runtime guardrails, and the website that consumes those rules.",
         evidence: [
           "fourteen-section brand bible with editable markdown source and compiled HTML",
+          "agent voice, reply, media, and disclosure rules shape public behavior",
           "onlykira site imports tokens and runs shipped copy through voice-lint rules",
           "visual pipeline locks character anchors, lenses, lighting, color grades, and caption recipes",
         ],

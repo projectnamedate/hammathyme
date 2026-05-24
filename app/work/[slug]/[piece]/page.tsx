@@ -57,7 +57,7 @@ export default async function WorkPiecePage({
   if (!category || !piece || !hasPieceDetail(slug, pieceSlug)) notFound();
 
   const transitionName = `work-${category.slug}-${piece.slug}`;
-  const showStandardHeader = true;
+  const showStandardHeader = category.slug !== "brand-systems";
 
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-28 pb-16 md:px-24 md:pt-32 md:pb-24">
@@ -77,11 +77,33 @@ export default async function WorkPiecePage({
         <FadeIn duration={0.65} y={18}>
           <DetailHeader category={category} piece={piece} />
         </FadeIn>
-      ) : null}
+      ) : (
+        <FadeIn duration={0.65} y={18}>
+          <DetailMetaBar category={category} piece={piece} />
+        </FadeIn>
+      )}
       <FadeIn delay={showStandardHeader ? 0.08 : 0} duration={0.7} y={24}>
         {renderPieceDetail(category, piece, transitionName)}
       </FadeIn>
     </main>
+  );
+}
+
+function DetailMetaBar({ category, piece }: { category: CaseStudy; piece: Piece }) {
+  return (
+    <header className="mx-auto mb-8 flex max-w-[1440px] items-center justify-between gap-5 border-b border-[var(--ink-4)] pb-5 md:mb-10">
+      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
+        {category.capabilityLabel} · {statusLabel(piece.status)}
+      </p>
+      <ViewLink
+        href={`/work/${category.slug}`}
+        data-cursor="link"
+        data-cursor-label="close"
+        className="w-fit font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+      >
+        close
+      </ViewLink>
+    </header>
   );
 }
 
@@ -973,9 +995,9 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
                   {guide.status}
                 </p>
               </div>
-              <div className="mt-5 pb-[0.18em] lowercase leading-none text-[var(--ink-0)]">
+              <h1 className="mt-5 pb-[0.18em] lowercase leading-none text-[var(--ink-0)]">
                 <BrandGuideLogo guide={guide} />
-              </div>
+              </h1>
             </div>
             <div className="grid w-fit grid-cols-4 gap-1 md:grid-cols-2" aria-label={`${guide.title} color swatches`}>
               {guide.swatches.map((swatch) => (
@@ -1082,11 +1104,11 @@ function AgentifyWordmark() {
       >
         <span
           aria-hidden
-          className="absolute right-[0.05em] bottom-[0.08em] left-[-0.06em] h-[0.018em] bg-[#C7A66A]"
+          className="absolute right-[0.05em] bottom-[-0.035em] left-[-0.06em] h-[0.018em] bg-[#C7A66A]"
         />
         <span
           aria-hidden
-          className="absolute right-[-0.03em] bottom-[0.045em] size-[0.08em] rounded-full bg-[#C7A66A]"
+          className="absolute right-[-0.03em] bottom-[-0.07em] size-[0.08em] rounded-full bg-[#C7A66A]"
         />
         agentify
       </span>
