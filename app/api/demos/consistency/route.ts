@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { getProviderKey, reserveDemoSpend } from "@/lib/demo-guards";
+import {
+  applyDemoVisitorCookie,
+  getProviderKey,
+  reserveDemoSpend,
+  type SpendReservation,
+} from "@/lib/demo-guards";
 import { CONSISTENCY_SCENES } from "@/lib/demo-samples";
 
 export const runtime = "nodejs";
@@ -8,9 +13,10 @@ function sceneForId(sceneId: unknown) {
   return CONSISTENCY_SCENES.find((scene) => scene.id === sceneId) ?? CONSISTENCY_SCENES[0];
 }
 
-function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit) {
+function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit, reservation?: SpendReservation) {
   const headers = new Headers(init?.headers);
   headers.set("cache-control", "no-store");
+  if (reservation) applyDemoVisitorCookie(headers, reservation);
   return NextResponse.json(payload, {
     ...init,
     headers,
@@ -58,7 +64,7 @@ export async function POST(request: Request) {
       imageUrl: scene.image,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
-    });
+    }, undefined, reservation);
   }
 
   try {
@@ -94,7 +100,7 @@ export async function POST(request: Request) {
       ...payload,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
-    });
+    }, undefined, reservation);
   } catch {
     return noStore({
       ok: true,
@@ -104,6 +110,6 @@ export async function POST(request: Request) {
       imageUrl: scene.image,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
-    });
+    }, undefined, reservation);
   }
 }

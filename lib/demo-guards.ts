@@ -1,13 +1,16 @@
 import { Redis } from "@upstash/redis";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 
 const SPEND_UNITS_PER_USD = 10_000;
 const TTL_SECONDS = 60 * 60 * 48;
+const DEMO_VISITOR_COOKIE = "__Host-hammer_demo_visitor";
+const DEMO_VISITOR_MAX_AGE = 60 * 60 * 24 * 90;
 
 const SPEND_LUA = `
 local spent = tonumber(redis.call("GET", KEYS[1]) or "0")
 local global_count = tonumber(redis.call("GET", KEYS[2]) or "0")
-local client_count = tonumber(redis.call("GET", KEYS[3]) or "0")
+local network_count = tonumber(redis.call("GET", KEYS[3]) or "0")
+local visitor_count = tonumber(redis.call("GET", KEYS[4]) or "0")
 local add = tonumber(ARGV[1])
 local budget = tonumber(ARGV[2])
 local global_limit = tonumber(ARGV[3])
@@ -15,22 +18,27 @@ local client_limit = tonumber(ARGV[4])
 local ttl = tonumber(ARGV[5])
 
 if spent + add > budget then
-  return {0, spent, global_count, client_count, 1}
+  return {0, spent, global_count, network_count, 1, visitor_count}
 end
 if global_count + 1 > global_limit then
-  return {0, spent, global_count, client_count, 2}
+  return {0, spent, global_count, network_count, 2, visitor_count}
 end
-if client_count + 1 > client_limit then
-  return {0, spent, global_count, client_count, 3}
+if network_count + 1 > client_limit then
+  return {0, spent, global_count, network_count, 3, visitor_count}
+end
+if visitor_count + 1 > client_limit then
+  return {0, spent, global_count, network_count, 3, visitor_count}
 end
 
 local next_spent = redis.call("INCRBY", KEYS[1], add)
 local next_global = redis.call("INCR", KEYS[2])
-local next_client = redis.call("INCR", KEYS[3])
+local next_network = redis.call("INCR", KEYS[3])
+local next_visitor = redis.call("INCR", KEYS[4])
 redis.call("EXPIRE", KEYS[1], ttl)
 redis.call("EXPIRE", KEYS[2], ttl)
 redis.call("EXPIRE", KEYS[3], ttl)
-return {1, next_spent, next_global, next_client, 0}
+redis.call("EXPIRE", KEYS[4], ttl)
+return {1, next_spent, next_global, next_network, 0, next_visitor}
 `;
 
 let redisClient: Redis | null | undefined;
@@ -79,11 +87,52 @@ function todayKey(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-function clientHash(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "";
-  const ip = request.headers.get("x-real-ip") ?? forwarded;
-  const ua = request.headers.get("user-agent") ?? "unknown";
-  return createHash("sha256").update(`${ip}|${ua}`).digest("hex").slice(0, 24);
+function shortHash(input: string): string {
+  return createHash("sha256").update(input).digest("hex").slice(0, 24);
+}
+
+function forwardedAddress(request: Request): string {
+  const forwarded = request.headers
+    .get("x-forwarded-for")
+    ?.split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+  if (forwarded?.length) return forwarded[forwarded.length - 1] ?? "unknown";
+  return "unknown";
+}
+
+function cookieValue(request: Request, name: string): string | null {
+  const cookie = request.headers.get("cookie");
+  if (!cookie) return null;
+  const pair = cookie
+    .split(";")
+    .map((value) => value.trim())
+    .find((value) => value.startsWith(`${name}=`));
+  if (!pair) return null;
+  const value = pair.slice(name.length + 1);
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return null;
+  }
+}
+
+function visitorCookie(value: string): string {
+  return [
+    `${DEMO_VISITOR_COOKIE}=${encodeURIComponent(value)}`,
+    `Max-Age=${DEMO_VISITOR_MAX_AGE}`,
+    "Path=/",
+    "HttpOnly",
+    "Secure",
+    "SameSite=Lax",
+  ].join("; ");
+}
+
+function demoVisitor(request: Request): { id: string; setCookie?: string } {
+  const existing = cookieValue(request, DEMO_VISITOR_COOKIE);
+  if (existing && /^[A-Za-z0-9_-]{20,80}$/.test(existing)) return { id: existing };
+  const id = randomUUID().replaceAll("-", "");
+  return { id, setCookie: visitorCookie(id) };
 }
 
 function cacheHash(input: unknown): string {
@@ -97,7 +146,12 @@ export type SpendReservation = {
   status: number;
   capUsd: number;
   spentUsd: number;
+  setVisitorCookie?: string;
 };
+
+export function applyDemoVisitorCookie(headers: Headers, reservation: SpendReservation): void {
+  if (reservation.setVisitorCookie) headers.append("set-cookie", reservation.setVisitorCookie);
+}
 
 export async function reserveDemoSpend(
   request: Request,
@@ -126,12 +180,14 @@ export async function reserveDemoSpend(
   }
 
   const date = todayKey();
+  const visitor = demoVisitor(request);
   const add = Math.max(1, Math.ceil(estimatedUsd * SPEND_UNITS_PER_USD));
   const budget = Math.floor(capUsd * SPEND_UNITS_PER_USD);
   const keys = [
     `hammer:demos:spend:${date}`,
     `hammer:demos:global:${demo}:${date}`,
-    `hammer:demos:client:${demo}:${date}:${clientHash(request)}`,
+    `hammer:demos:network:${demo}:${date}:${shortHash(forwardedAddress(request))}`,
+    `hammer:demos:visitor:${demo}:${date}:${shortHash(visitor.id)}`,
   ];
   const args = [add, budget, globalDailyLimit, perClientDailyLimit, TTL_SECONDS];
 
@@ -140,7 +196,17 @@ export async function reserveDemoSpend(
     const values = Array.isArray(result) ? result.map(Number) : [];
     const allowed = values[0] === 1;
     const spentUsd = (values[1] ?? 0) / SPEND_UNITS_PER_USD;
-    if (allowed) return { ok: true, sample: false, reason: "reserved", status: 200, capUsd, spentUsd };
+    if (allowed) {
+      return {
+        ok: true,
+        sample: false,
+        reason: "reserved",
+        status: 200,
+        capUsd,
+        spentUsd,
+        setVisitorCookie: visitor.setCookie,
+      };
+    }
 
     const code = values[4] ?? 0;
     const reason =
@@ -151,9 +217,25 @@ export async function reserveDemoSpend(
           : code === 3
             ? "visitor cap reached"
             : "demo unavailable";
-    return { ok: false, sample: true, reason, status: 200, capUsd, spentUsd };
+    return {
+      ok: false,
+      sample: true,
+      reason,
+      status: 200,
+      capUsd,
+      spentUsd,
+      setVisitorCookie: visitor.setCookie,
+    };
   } catch {
-    return { ok: false, sample: true, reason: "budget check unavailable", status: 200, capUsd, spentUsd: 0 };
+    return {
+      ok: false,
+      sample: true,
+      reason: "budget check unavailable",
+      status: 200,
+      capUsd,
+      spentUsd: 0,
+      setVisitorCookie: visitor.setCookie,
+    };
   }
 }
 

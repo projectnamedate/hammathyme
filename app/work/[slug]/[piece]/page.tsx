@@ -334,11 +334,11 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     status: "live public character site",
     liveUrl: "https://onlykira.ai",
     summary:
-      "onlykira.ai is the public microsite for Kira: a character-first web surface built from the Kira bible, live media language, and AI-native site production.",
+      "onlykira.ai is the public microsite for Kira: an agent-character web surface built from the Kira bible, live media language, and AI-native site production.",
     stack: ["next.js 15", "react 19", "gsap", "lenis", "brand bible", "ai media"],
     facts: [
       ["site", "live at onlykira.ai"],
-      ["role", "public home for the autonomous character brand"],
+      ["role", "public home for the autonomous agent character brand"],
       ["system", "brand tokens, voice rules, mobile feed, disclosure, and provenance surfaces"],
       ["production", "designed and built with AI from the Kira character bible"],
     ],

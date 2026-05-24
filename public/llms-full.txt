@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: jeff@projectname.date
 location: LA / NY / remote
-last updated: 2026-05-23
+last updated: 2026-05-24
 
 ## summary
 

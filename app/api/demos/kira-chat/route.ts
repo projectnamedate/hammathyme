@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
-import { getProviderKey, reserveDemoSpend } from "@/lib/demo-guards";
+import {
+  applyDemoVisitorCookie,
+  getProviderKey,
+  reserveDemoSpend,
+  type SpendReservation,
+} from "@/lib/demo-guards";
 import { sampleKiraReply } from "@/lib/demo-samples";
 import { clampChatHistory, requireSafeCreativeInput } from "@/lib/demo-safety";
 
@@ -11,6 +16,7 @@ Do not provide financial advice, pretend to have live market data, expose privat
 Answer in 55 words or fewer.`;
 
 const DEFAULT_KIRA_MODEL = "deepseek/deepseek-v4-flash";
+const DEFAULT_CHAT_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 const ALLOWED_KIRA_MODELS = new Set([DEFAULT_KIRA_MODEL]);
 
 function kiraModel() {
@@ -22,9 +28,26 @@ function kiraModel() {
   return ALLOWED_KIRA_MODELS.has(configured) ? configured : DEFAULT_KIRA_MODEL;
 }
 
-function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit) {
+function chatEndpoint() {
+  const configured = process.env.HAMMER_KIRA_WEB_CHAT_BASE_URL?.trim();
+  if (!configured) return DEFAULT_CHAT_ENDPOINT;
+
+  try {
+    const url = new URL(configured);
+    if (url.origin === "https://openrouter.ai" && url.pathname === "/api/v1/chat/completions") {
+      return DEFAULT_CHAT_ENDPOINT;
+    }
+  } catch {
+    return DEFAULT_CHAT_ENDPOINT;
+  }
+
+  return DEFAULT_CHAT_ENDPOINT;
+}
+
+function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit, reservation?: SpendReservation) {
   const headers = new Headers(init?.headers);
   headers.set("cache-control", "no-store");
+  if (reservation) applyDemoVisitorCookie(headers, reservation);
   return NextResponse.json(payload, {
     ...init,
     headers,
@@ -66,13 +89,13 @@ export async function POST(request: Request) {
       reply: sampleKiraReply(safe.value),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
-    });
+    }, undefined, reservation);
   }
 
   const history = clampChatHistory(body?.messages);
 
   try {
-    const response = await fetch(process.env.HAMMER_KIRA_WEB_CHAT_BASE_URL ?? "https://openrouter.ai/api/v1/chat/completions", {
+    const response = await fetch(chatEndpoint(), {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -106,7 +129,7 @@ export async function POST(request: Request) {
       reply: reply.slice(0, 520),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
-    });
+    }, undefined, reservation);
   } catch {
     return noStore({
       ok: true,
@@ -115,6 +138,6 @@ export async function POST(request: Request) {
       reply: sampleKiraReply(safe.value),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
-    });
+    }, undefined, reservation);
   }
 }

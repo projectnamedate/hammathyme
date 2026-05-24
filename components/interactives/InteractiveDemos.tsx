@@ -85,7 +85,7 @@ function PanelGlyph({ index }: { index: number }) {
 export function PromptStoryboardDemo() {
   const reduce = useReducedMotion();
   const inputId = "storyboard-brief";
-  const [prompt, setPrompt] = useState("A compact launch film for an AI character who turns crypto noise into one precise daily signal.");
+  const [prompt, setPrompt] = useState("A compact launch film for a founder tool that turns messy product notes into one precise launch plan.");
   const [panels, setPanels] = useState<StoryboardPanel[]>(SAMPLE_STORYBOARD);
   const [storyboardImage, setStoryboardImage] = useState<string | null>(null);
   const [liveUsed, setLiveUsed] = useState(false);

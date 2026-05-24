@@ -52,17 +52,17 @@ export function requireSafeCreativeInput(value: unknown, maxLength = 700): {
 
 export function clampChatHistory(
   messages: unknown,
-): { role: "user" | "assistant"; content: string }[] {
+): { role: "user"; content: string }[] {
   if (!Array.isArray(messages)) return [];
   return messages
     .slice(-8)
     .map((message) => {
       if (!message || typeof message !== "object") return null;
       const record = message as Record<string, unknown>;
-      const role = record.role === "assistant" ? "assistant" : "user";
-      const content = normalizeCreativeInput(record.content, role === "user" ? 500 : 400);
+      if (record.role !== "user") return null;
+      const content = normalizeCreativeInput(record.content, 500);
       if (!content || hasUnsafeCreativeText(content)) return null;
-      return { role, content };
+      return { role: "user" as const, content };
     })
-    .filter((message): message is { role: "user" | "assistant"; content: string } => Boolean(message));
+    .filter((message): message is { role: "user"; content: string } => Boolean(message));
 }

@@ -76,7 +76,8 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "kira",
         year: "2026",
         client: "hammer studios",
-        blurb: "full character bible and website system for an autonomous ai crypto character.",
+        blurb:
+          "agent identity, character bible, runtime guardrails, and website system for an autonomous ai crypto character.",
         status: "live",
         tint: "var(--cream-2)",
       },
@@ -452,7 +453,8 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "kira",
         year: "2026",
         client: "hammer studios",
-        blurb: "onlykira.ai — public microsite for the autonomous character, built with AI and the Kira brand bible.",
+        blurb:
+          "onlykira.ai — public microsite for the autonomous Kira agent character, built with AI and the Kira brand bible.",
         status: "live",
         tint: "var(--cream-2)",
       },
