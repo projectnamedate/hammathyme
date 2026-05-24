@@ -626,10 +626,7 @@ function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string
             preload="metadata"
             poster="/work/motion/audio-reactive/audio-reactive-overlay-poster.png"
           >
-            <source
-              src="/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"
-              type='video/mp4; codecs="avc1.640032, mp4a.40.2"'
-            />
+            <source src="/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4" type="video/mp4" />
           </video>
         </div>
       </div>
