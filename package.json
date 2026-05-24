@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "verify:seo": "node scripts/verify-seo.mjs",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "verify:rive-puppet": "node scripts/verify-rive-puppet-gate.mjs"
   },
   "dependencies": {

@@ -26,6 +26,9 @@ const packageJson = JSON.parse(read("package.json") || "{}");
 if (packageJson.scripts?.["verify:seo"] !== "node scripts/verify-seo.mjs") {
   fail("package.json must expose npm run verify:seo");
 }
+if (packageJson.scripts?.["submit:indexnow"] !== "node scripts/submit-indexnow.mjs") {
+  fail("package.json must expose npm run submit:indexnow");
+}
 
 mustContain("lib/seo.ts", [
   "CANONICAL_ORIGIN",
@@ -159,6 +162,24 @@ const sitemap = mustContain("app/sitemap.ts", [
 ]);
 if (sitemap.includes("new Date()")) {
   fail("app/sitemap.ts must not use request-time new Date() for lastModified");
+}
+
+const indexNowScript = mustContain("scripts/submit-indexnow.mjs", [
+  "https://hammer.ad",
+  "https://api.indexnow.org/indexnow",
+  "keyLocation",
+  "urlList",
+  "INDEXNOW_KEY_PATH",
+]);
+const indexNowKey = indexNowScript.match(/const INDEXNOW_KEY = "([^"]+)"/)?.[1];
+if (!indexNowKey) {
+  fail("scripts/submit-indexnow.mjs must define INDEXNOW_KEY");
+} else {
+  const indexNowKeyFile = `public/${indexNowKey}.txt`;
+  const indexNowKeyText = read(indexNowKeyFile).trim();
+  if (indexNowKeyText !== indexNowKey) {
+    fail(`${indexNowKeyFile} must contain the IndexNow key`);
+  }
 }
 
 if (failures.length) {
