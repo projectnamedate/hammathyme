@@ -70,7 +70,7 @@ export default function Colophon() {
 
         <Field label="interactive demos" col={6}>
           <Line k="text" v="openrouter · deepseek v4 flash" />
-          <Line k="image" v="fal · flux 2 lora when enabled" />
+          <Line k="image" v="fal · nano banana 2 storyboard · flux 2 lora Kira" />
           <Line k="budget" v="upstash redis · $1 shared daily cap" />
           <Line k="fallback" v="public sample mode when capped or unconfigured" />
         </Field>

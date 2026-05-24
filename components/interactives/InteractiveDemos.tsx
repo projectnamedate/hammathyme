@@ -22,10 +22,10 @@ type ChatMessage = {
 };
 
 const CONTROL =
-  "border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-1)] transition hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] disabled:cursor-not-allowed disabled:opacity-45";
+  "border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-1)] transition-[border-color,background-color,color,opacity,transform] duration-300 hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] focus-visible:border-[var(--cinnamon)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-45";
 
 const INPUT =
-  "w-full border border-[var(--ink-4)] bg-[var(--cream-0)] p-4 font-display text-[18px] font-light leading-[1.35] tracking-[-0.01em] text-[var(--ink-0)] outline-none transition placeholder:text-[var(--ink-3)] focus:border-[var(--cinnamon)]";
+  "w-full border border-[var(--ink-4)] bg-[var(--cream-0)] p-4 font-display text-[18px] font-light leading-[1.35] tracking-[-0.01em] text-[var(--ink-0)] outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[var(--ink-3)] focus:border-[var(--cinnamon)] focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]";
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
 const SOFT = [0.25, 0.1, 0.25, 1] as const;
@@ -38,7 +38,10 @@ function statusCopy(state: ApiState) {
 function DemoStatus({ state }: { state: ApiState }) {
   const reduce = useReducedMotion();
   return (
-    <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]">
+    <div
+      className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]"
+      aria-live="polite"
+    >
       <motion.span
         className="inline-flex h-2 w-2 rounded-full bg-[var(--cinnamon)]"
         animate={reduce ? undefined : { scale: state.loading ? [1, 1.65, 1] : 1, opacity: state.loading ? [0.55, 1, 0.55] : 1 }}
@@ -81,13 +84,16 @@ function PanelGlyph({ index }: { index: number }) {
 
 export function PromptStoryboardDemo() {
   const reduce = useReducedMotion();
+  const inputId = "storyboard-brief";
   const [prompt, setPrompt] = useState("A compact launch film for an AI character who turns crypto noise into one precise daily signal.");
   const [panels, setPanels] = useState<StoryboardPanel[]>(SAMPLE_STORYBOARD);
+  const [storyboardImage, setStoryboardImage] = useState<string | null>(null);
+  const [liveUsed, setLiveUsed] = useState(false);
   const [state, setState] = useState<ApiState>({ loading: false, status: "sample board loaded", sample: true });
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (state.loading) return;
+    if (state.loading || liveUsed) return;
     setState({ loading: true, status: "running", sample: true });
     try {
       const response = await fetch("/api/demos/storyboard", {
@@ -99,14 +105,18 @@ export function PromptStoryboardDemo() {
         ok?: boolean;
         error?: string;
         panels?: StoryboardPanel[];
+        imageUrl?: string;
         status?: string;
         sample?: boolean;
       };
       if (!response.ok || !data.ok || !data.panels) throw new Error(data.error || "storyboard failed");
       setPanels(data.panels);
+      setStoryboardImage(data.imageUrl ?? null);
+      if (!data.sample) setLiveUsed(true);
       setState({ loading: false, status: data.status ?? "live", sample: Boolean(data.sample) });
     } catch (error) {
       setPanels(SAMPLE_STORYBOARD);
+      setStoryboardImage(null);
       setState({
         loading: false,
         status: error instanceof Error ? error.message : "sample fallback",
@@ -126,19 +136,22 @@ export function PromptStoryboardDemo() {
           transition={{ duration: reduce ? 0 : 0.55, ease: CINEMA }}
         >
           <DemoStatus state={state} />
-          <label className="mt-5 block font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
+          <label htmlFor={inputId} className="mt-5 block font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
             brief
           </label>
           <textarea
+            id={inputId}
+            name="storyboard-brief"
             value={prompt}
             onChange={(event) => setPrompt(event.target.value)}
             className={`${INPUT} mt-3 min-h-[172px] resize-none`}
             maxLength={520}
-            placeholder="write the scene"
+            autoComplete="off"
+            placeholder="write the scene…"
           />
           <div className="mt-4 grid grid-cols-2 gap-2">
-            <button className={CONTROL} data-cursor="link" data-cursor-label="build" disabled={state.loading} type="submit">
-              build board
+            <button className={CONTROL} data-cursor="link" data-cursor-label="build" disabled={state.loading || liveUsed} type="submit">
+              {liveUsed ? "live used" : "build board"}
             </button>
             <button
               className={CONTROL}
@@ -155,6 +168,51 @@ export function PromptStoryboardDemo() {
         </motion.form>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+          <motion.figure
+            className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-3 md:col-span-2 xl:col-span-3"
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: reduce ? 0 : 0.58, ease: CINEMA }}
+          >
+            <div className="relative aspect-[16/9] overflow-hidden bg-[var(--cream-0)]">
+              {storyboardImage ? (
+                <motion.img
+                  key={storyboardImage}
+                  src={storyboardImage}
+                  alt="Generated six-panel storyboard contact sheet"
+                  className="h-full w-full object-cover"
+                  initial={reduce ? false : { opacity: 0, scale: 1.015 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: reduce ? 0 : 0.5, ease: SOFT }}
+                />
+              ) : (
+                <div className="grid h-full grid-cols-3 grid-rows-2 gap-2 p-3">
+                  {panels.map((panel, index) => (
+                    <div key={`preview-${panel.id}-${index}`} className="relative overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-2)]">
+                      <PanelGlyph index={index} />
+                      <span className="absolute left-3 top-3 font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--ink-0)]">
+                        {panel.id}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <AnimatePresence>
+                {state.loading ? (
+                  <motion.div
+                    className="absolute inset-y-0 left-0 w-14 bg-[linear-gradient(90deg,transparent,rgba(242,142,134,0.38),transparent)]"
+                    initial={{ x: "-120%" }}
+                    animate={{ x: "2200%" }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.2, repeat: Infinity, ease: CINEMA }}
+                  />
+                ) : null}
+              </AnimatePresence>
+            </div>
+            <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+              fal nano banana 2 storyboard sheet when budget store is connected
+            </figcaption>
+          </motion.figure>
           {panels.map((panel, index) => (
             <motion.article
               key={`${panel.id}-${index}`}
@@ -207,10 +265,11 @@ export function ConsistencyLabDemo() {
   const reduce = useReducedMotion();
   const [selected, setSelected] = useState(CONSISTENCY_SCENES[0]);
   const [liveImage, setLiveImage] = useState<string | null>(null);
+  const [liveUsed, setLiveUsed] = useState(false);
   const [state, setState] = useState<ApiState>({ loading: false, status: "canonical refs loaded", sample: true });
 
   async function generate() {
-    if (state.loading) return;
+    if (state.loading || liveUsed) return;
     setState({ loading: true, status: "running", sample: true });
     try {
       const response = await fetch("/api/demos/consistency", {
@@ -226,6 +285,7 @@ export function ConsistencyLabDemo() {
       };
       if (!response.ok || !data.ok || !data.imageUrl) throw new Error("render failed");
       setLiveImage(data.imageUrl);
+      if (!data.sample) setLiveUsed(true);
       setState({ loading: false, status: data.status ?? "live", sample: Boolean(data.sample) });
     } catch {
       setLiveImage(selected.image);
@@ -257,7 +317,7 @@ export function ConsistencyLabDemo() {
             >
               <div className="relative overflow-hidden">
                 <motion.img
-                  src={index === 0 && liveImage ? liveImage : frame.image}
+                  src={frame.id === selected.id && liveImage ? liveImage : frame.image}
                   alt={`Kira ${frame.label}`}
                   className="aspect-[3/4] w-full object-cover object-top"
                   animate={reduce ? undefined : { scale: selected.id === frame.id ? 1.035 : 1 }}
@@ -320,9 +380,9 @@ export function ConsistencyLabDemo() {
             data-cursor-label="render"
             type="button"
             onClick={generate}
-            disabled={state.loading}
+            disabled={state.loading || liveUsed}
           >
-            render one safe remix
+            {liveUsed ? "live render used" : "render one safe remix"}
           </button>
           <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-[var(--ink-4)] pt-4">
             {[
@@ -345,7 +405,9 @@ export function ConsistencyLabDemo() {
 
 export function KiraChatDemo() {
   const reduce = useReducedMotion();
+  const inputId = "kira-chat-message";
   const [input, setInput] = useState("How would you turn a noisy product launch into one clean post?");
+  const [userMessages, setUserMessages] = useState(0);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
@@ -357,10 +419,11 @@ export function KiraChatDemo() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = input.trim();
-    if (!trimmed || state.loading) return;
+    if (!trimmed || state.loading || userMessages >= 4) return;
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: trimmed }];
     setMessages(nextMessages);
     setInput("");
+    setUserMessages((count) => count + 1);
     setState({ loading: true, status: "thinking", sample: true });
     try {
       const response = await fetch("/api/demos/kira-chat", {
@@ -466,21 +529,28 @@ export function KiraChatDemo() {
             </AnimatePresence>
           </div>
           <form onSubmit={submit} className="border-t border-[var(--ink-4)] p-4 md:flex md:gap-3">
+            <label htmlFor={inputId} className="sr-only">
+              message Kira
+            </label>
             <input
+              id={inputId}
+              name="kira-chat-message"
               value={input}
               onChange={(event) => setInput(event.target.value)}
               className={`${INPUT} min-h-0 flex-1`}
               maxLength={420}
-              placeholder="message kira"
+              autoComplete="off"
+              placeholder={userMessages >= 4 ? "message cap reached" : "message kira…"}
+              disabled={userMessages >= 4}
             />
             <button
               className={`${CONTROL} mt-3 min-w-[132px] md:mt-0`}
               data-cursor="link"
               data-cursor-label="send"
               type="submit"
-              disabled={state.loading}
+              disabled={state.loading || userMessages >= 4}
             >
-              send
+              {userMessages >= 4 ? "capped" : "send"}
             </button>
           </form>
         </div>
@@ -493,36 +563,42 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
+const DOT_TARGET = {
+  gap: -9,
+  baseline: 12,
+  size: 171,
+};
+
 export function DotDisciplineGame() {
   const reduce = useReducedMotion();
-  const [x, setX] = useState(77);
-  const [y, setY] = useState(80);
-  const [gap, setGap] = useState(1);
+  const [gap, setGap] = useState(28);
+  const [baseline, setBaseline] = useState(-34);
+  const [size, setSize] = useState(132);
   const [streak, setStreak] = useState(0);
   const [best, setBest] = useState(0);
   const [message, setMessage] = useState("align the mark");
 
   const score = useMemo(() => {
-    const xScore = Math.abs(x - 73.5) * 3.2;
-    const yScore = Math.abs(y - 83.5) * 4.4;
-    const gapScore = Math.abs(gap - -1) * 5.5;
-    return clamp(Math.round(100 - xScore - yScore - gapScore), 0, 100);
-  }, [gap, x, y]);
+    const gapScore = Math.abs(gap - DOT_TARGET.gap) * 0.9;
+    const baselineScore = Math.abs(baseline - DOT_TARGET.baseline) * 0.95;
+    const sizeScore = Math.abs(size - DOT_TARGET.size) * 0.42;
+    return clamp(Math.round(100 - gapScore - baselineScore - sizeScore), 0, 100);
+  }, [baseline, gap, size]);
   const controls: [string, number, (next: number) => void, number, number][] = [
-    ["dot x", x, setX, 58, 90],
-    ["dot y", y, setY, 66, 94],
-    ["dot gap", gap, setGap, -8, 10],
+    ["dot gap", gap, setGap, -60, 44],
+    ["baseline", baseline, setBaseline, -60, 88],
+    ["diameter", size, setSize, 118, 230],
   ];
 
   function lock() {
     const nextStreak = score >= 90 ? streak + 1 : 0;
     setStreak(nextStreak);
     setBest(Math.max(best, score));
-    setMessage(score >= 96 ? "approved" : score >= 90 ? "close enough" : "missed the baseline");
+    setMessage(score >= 98 ? "approved" : score >= 90 ? "near the recipe" : "missed the recipe");
     if (score >= 90) {
-      setX(68 + Math.random() * 14);
-      setY(77 + Math.random() * 15);
-      setGap(-5 + Math.random() * 10);
+      setGap(DOT_TARGET.gap + (Math.random() * 72 - 36));
+      setBaseline(DOT_TARGET.baseline + (Math.random() * 92 - 46));
+      setSize(DOT_TARGET.size + (Math.random() * 92 - 46));
     }
   }
 
@@ -537,7 +613,7 @@ export function DotDisciplineGame() {
         >
           <div className="relative h-[300px] overflow-hidden bg-[var(--cream-0)] md:aspect-[16/9] md:h-auto md:min-h-[320px]">
             <div className="absolute left-[8%] right-[8%] top-[55%] h-[1px] bg-[var(--ink-4)]" />
-            <div className="absolute left-[8%] right-[8%] top-[63%] h-[1px] bg-[var(--cinnamon)] opacity-45" />
+            <div className="absolute left-[8%] right-[8%] top-[62%] h-[1px] bg-[var(--cinnamon)] opacity-45" />
             <div className="absolute left-1/2 top-1/2 w-[min(88vw,640px)] -translate-x-1/2 -translate-y-1/2 text-center">
               <div className="relative inline-block pb-[0.18em]">
                 <span
@@ -551,20 +627,35 @@ export function DotDisciplineGame() {
                       </span>
                     ))}
                   </span>
+                  <span
+                    aria-hidden
+                    className="relative inline-block rounded-full align-baseline"
+                    style={{
+                      width: `${DOT_TARGET.size / 1000}em`,
+                      height: `${DOT_TARGET.size / 1000}em`,
+                      marginLeft: `${DOT_TARGET.gap / 1000}em`,
+                      transform: `translateY(${DOT_TARGET.baseline / 1000}em)`,
+                    }}
+                  >
+                    <motion.span
+                      className="absolute inset-0 rounded-full border border-[var(--cinnamon)]"
+                      animate={reduce ? undefined : { scale: [1, 1.18, 1], opacity: [0.3, 0.82, 0.3] }}
+                      transition={reduce ? undefined : { duration: 1.8, repeat: Infinity, ease: SOFT }}
+                    />
+                    <motion.span
+                      className="absolute rounded-full bg-[var(--cinnamon)]"
+                      style={{
+                        width: `${size / 1000}em`,
+                        height: `${size / 1000}em`,
+                        left: `calc(50% + ${(gap - DOT_TARGET.gap) / 1000}em)`,
+                        top: `calc(50% + ${(baseline - DOT_TARGET.baseline) / 1000}em)`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                      animate={reduce ? undefined : { boxShadow: score >= 90 ? "0 0 0 12px rgba(242,142,134,0.18)" : "0 0 0 0 rgba(242,142,134,0)" }}
+                      transition={{ duration: reduce ? 0 : 0.35, ease: SOFT }}
+                    />
+                  </span>
                 </span>
-                <motion.span
-                  aria-hidden
-                  className="absolute block h-[0.16em] w-[0.16em] -translate-x-[14%] -translate-y-[14%] rounded-full border border-[var(--cinnamon)]"
-                  style={{ left: "73.5%", top: "83.5%" }}
-                  animate={reduce ? undefined : { scale: [1, 1.18, 1], opacity: [0.28, 0.72, 0.28] }}
-                  transition={reduce ? undefined : { duration: 1.8, repeat: Infinity, ease: SOFT }}
-                />
-                <motion.span
-                  className="absolute block h-[0.115em] w-[0.115em] rounded-full bg-[var(--cinnamon)]"
-                  style={{ left: `calc(${x}% + ${gap}px)`, top: `${y}%` }}
-                  animate={reduce ? undefined : { boxShadow: score >= 90 ? "0 0 0 12px rgba(242,142,134,0.18)" : "0 0 0 0 rgba(242,142,134,0)" }}
-                  transition={{ duration: reduce ? 0 : 0.35, ease: SOFT }}
-                />
               </div>
             </div>
             <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between font-mono uppercase tracking-[0.16em]">
@@ -608,6 +699,7 @@ export function DotDisciplineGame() {
               <input
                 className="mt-3 h-1 w-full accent-[var(--cinnamon)]"
                 type="range"
+                name={`dot-${label.replace(/\s+/g, "-")}`}
                 min={Number(min)}
                 max={Number(max)}
                 step="0.1"
@@ -627,9 +719,9 @@ export function DotDisciplineGame() {
               data-cursor-label="reset"
               type="button"
               onClick={() => {
-                setX(77);
-                setY(80);
-                setGap(1);
+                setGap(28);
+                setBaseline(-34);
+                setSize(132);
                 setStreak(0);
                 setMessage("align the mark");
               }}

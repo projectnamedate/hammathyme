@@ -1,39 +1,39 @@
 import { NextResponse } from "next/server";
-import { getDemoCache, getProviderKey, reserveDemoSpend, setDemoCache } from "@/lib/demo-guards";
+import { getProviderKey, reserveDemoSpend } from "@/lib/demo-guards";
 import { CONSISTENCY_SCENES } from "@/lib/demo-samples";
 
 export const runtime = "nodejs";
-
-type ConsistencyResponse = {
-  imageUrl: string;
-  requestId?: string;
-};
 
 function sceneForId(sceneId: unknown) {
   return CONSISTENCY_SCENES.find((scene) => scene.id === sceneId) ?? CONSISTENCY_SCENES[0];
 }
 
+function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit) {
+  const headers = new Headers(init?.headers);
+  headers.set("cache-control", "no-store");
+  return NextResponse.json(payload, {
+    ...init,
+    headers,
+  });
+}
+
+function kiraGuardrailPrompt(scenePrompt: string) {
+  return [
+    scenePrompt,
+    "Kira continuity guardrails: same adult woman identity, same face structure, round black wireframe glasses when visible, black blazer or black turtleneck, dry intelligent expression, editorial portrait lighting.",
+    "Public demo constraints: safe for work, no sensual styling, no exposed skin, no minors, no weapons, no gore, no brand logos, no private UI, no text overlays.",
+    "Portfolio finish: high-end AI producer contact-sheet quality, natural skin texture, restrained cinematic color, consistent character anchors.",
+  ].join(". ");
+}
+
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as { sceneId?: unknown } | null;
   const scene = sceneForId(body?.sceneId);
-  const cacheInput = { sceneId: scene.id };
-
-  const cached = await getDemoCache<ConsistencyResponse>("consistency", cacheInput);
-  if (cached) {
-    return NextResponse.json({
-      ok: true,
-      sample: false,
-      status: "cached",
-      scene,
-      ...cached,
-      capUsd: 1,
-    });
-  }
 
   const falKey = getProviderKey("HAMMER_FAL_KEY", "FAL_KEY");
   const loraUrl = getProviderKey("HAMMER_KIRA_LORA_URL", "KIRA_LORA_URL");
   if (!falKey || !loraUrl) {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: "sample: provider setup unavailable",
@@ -46,11 +46,11 @@ export async function POST(request: Request) {
   const reservation = await reserveDemoSpend(request, {
     demo: "consistency",
     estimatedUsd: 0.06,
-    perClientDailyLimit: 2,
-    globalDailyLimit: 10,
+    perClientDailyLimit: 1,
+    globalDailyLimit: 8,
   });
   if (!reservation.ok) {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: `sample: ${reservation.reason}`,
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
     fal.config({ credentials: falKey });
     const result = await fal.subscribe("fal-ai/flux-2/lora", {
       input: {
-        prompt: `${scene.prompt}. restrained Hammer portfolio demo, safe for work, no sensual styling, no exposed skin`,
+        prompt: kiraGuardrailPrompt(scene.prompt),
         image_size: { width: 768, height: 960 },
         num_inference_steps: 28,
         guidance_scale: 3.5,
@@ -86,8 +86,7 @@ export async function POST(request: Request) {
     if (!image?.url || blocked) throw new Error("unsafe or empty image");
 
     const payload = { imageUrl: image.url, requestId: result.requestId };
-    await setDemoCache("consistency", cacheInput, payload, 60 * 60 * 6);
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: false,
       status: "live",
@@ -97,7 +96,7 @@ export async function POST(request: Request) {
       spentUsd: reservation.spentUsd,
     });
   } catch {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: "sample: provider failed safely",

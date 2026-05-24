@@ -1,124 +1,108 @@
 import { NextResponse } from "next/server";
-import { getDemoCache, getProviderKey, reserveDemoSpend, setDemoCache } from "@/lib/demo-guards";
-import { storyboardFallbackFromPrompt, type StoryboardPanel } from "@/lib/demo-samples";
+import { getProviderKey, reserveDemoSpend } from "@/lib/demo-guards";
+import { storyboardFallbackFromPrompt } from "@/lib/demo-samples";
 import { requireSafeCreativeInput } from "@/lib/demo-safety";
 
 export const runtime = "nodejs";
 
-const STORYBOARD_SYSTEM = `You are a senior AI producer making a safe public portfolio demo.
-Return only JSON: {"panels":[{"id":"01","shot":"...","camera":"...","action":"...","caption":"...","palette":"..."}]}.
-Make exactly six panels. Keep each field under 14 words. No adult, violent, medical, political, or private material.`;
+const STORYBOARD_FAL_MODEL = "fal-ai/nano-banana-2";
 
-type StoryboardPayload = {
-  panels: StoryboardPanel[];
-};
+function storyboardImagePrompt(brief: string) {
+  return [
+    "Create one polished 6-panel storyboard contact sheet for a public AI producer portfolio.",
+    "Layout: clean 3 by 2 grid, cinematic thumbnails, no visible written captions, small unobtrusive panel numbers only.",
+    "Style: warm cream paper, deep maroon ink, restrained vinaceous cinnamon accents, elegant editorial production-board language.",
+    "Every panel should show a distinct shot: establishing frame, insert, process, character/action, payoff, delivery.",
+    "Keep it safe for work. No adult content, violence, gore, weapons, medical claims, politics, logos, or private data.",
+    `Brief: ${brief}`,
+  ].join(" ");
+}
 
-function parseStoryboard(text: string): StoryboardPanel[] | null {
-  try {
-    const parsed = JSON.parse(text) as Partial<StoryboardPayload>;
-    if (!Array.isArray(parsed.panels) || parsed.panels.length !== 6) return null;
-    return parsed.panels.map((panel, index) => ({
-      id: String(panel.id || String(index + 1).padStart(2, "0")).slice(0, 3),
-      shot: String(panel.shot || "shot").slice(0, 80),
-      camera: String(panel.camera || "camera").slice(0, 80),
-      action: String(panel.action || "action").slice(0, 110),
-      caption: String(panel.caption || "caption").slice(0, 110),
-      palette: String(panel.palette || "warm editorial").slice(0, 90),
-    }));
-  } catch {
-    return null;
-  }
+function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit) {
+  const headers = new Headers(init?.headers);
+  headers.set("cache-control", "no-store");
+  return NextResponse.json(payload, {
+    ...init,
+    headers,
+  });
 }
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as { prompt?: unknown } | null;
   const safe = requireSafeCreativeInput(body?.prompt, 520);
   if (!safe.ok) {
-    return NextResponse.json({ ok: false, error: safe.reason }, { status: 400 });
+    return noStore({ ok: false, error: safe.reason }, { status: 400 });
   }
 
-  const cached = await getDemoCache<StoryboardPanel[]>("storyboard", safe.value);
-  if (cached) {
-    return NextResponse.json({
-      ok: true,
-      sample: false,
-      status: "cached",
-      panels: cached,
-      capUsd: 1,
-    });
-  }
-
-  const apiKey = getProviderKey("HAMMER_OPENROUTER_API_KEY", "OPENROUTER_API_KEY");
+  const panels = storyboardFallbackFromPrompt(safe.value);
+  const apiKey = getProviderKey("HAMMER_FAL_KEY", "FAL_KEY");
   if (!apiKey) {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: "sample: provider key unavailable",
-      panels: storyboardFallbackFromPrompt(safe.value),
+      panels,
       capUsd: 1,
     });
   }
 
   const reservation = await reserveDemoSpend(request, {
     demo: "storyboard",
-    estimatedUsd: 0.01,
-    perClientDailyLimit: 6,
-    globalDailyLimit: 60,
+    estimatedUsd: 0.08,
+    perClientDailyLimit: 1,
+    globalDailyLimit: 10,
   });
   if (!reservation.ok) {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: `sample: ${reservation.reason}`,
-      panels: storyboardFallbackFromPrompt(safe.value),
+      panels,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     });
   }
 
   try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${apiKey}`,
-        "http-referer": "https://hammer.ad",
-        "x-title": "Hammer interactive storyboard demo",
+    const { fal } = await import("@fal-ai/client");
+    fal.config({ credentials: apiKey });
+    const result = await fal.subscribe(process.env.HAMMER_STORYBOARD_FAL_MODEL ?? STORYBOARD_FAL_MODEL, {
+      input: {
+        prompt: storyboardImagePrompt(safe.value),
+        num_images: 1,
+        aspect_ratio: "16:9",
+        output_format: "png",
+        resolution: "1K",
+        safety_tolerance: "2",
+        limit_generations: true,
+        enable_web_search: false,
       },
-      body: JSON.stringify({
-        model: process.env.HAMMER_STORYBOARD_MODEL ?? "deepseek/deepseek-v4-flash",
-        messages: [
-          { role: "system", content: STORYBOARD_SYSTEM },
-          { role: "user", content: `Brief: ${safe.value}` },
-        ],
-        max_tokens: 900,
-        temperature: 0.72,
-        response_format: { type: "json_object" },
-      }),
+      logs: false,
     });
 
-    if (!response.ok) throw new Error("openrouter request failed");
-    const data = (await response.json()) as {
-      choices?: { message?: { content?: string } }[];
+    const data = result.data as {
+      images?: { url?: string }[];
+      description?: string;
     };
-    const text = data.choices?.[0]?.message?.content;
-    const panels = text ? parseStoryboard(text) : null;
-    if (!panels) throw new Error("invalid storyboard response");
-    await setDemoCache("storyboard", safe.value, panels);
-    return NextResponse.json({
+    const imageUrl = data.images?.[0]?.url;
+    if (!imageUrl) throw new Error("empty storyboard image");
+    return noStore({
       ok: true,
       sample: false,
       status: "live",
       panels,
+      imageUrl,
+      description: data.description?.slice(0, 500),
+      requestId: result.requestId,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     });
   } catch {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: "sample: provider failed safely",
-      panels: storyboardFallbackFromPrompt(safe.value),
+      panels,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     });

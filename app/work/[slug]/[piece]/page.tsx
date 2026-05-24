@@ -57,7 +57,7 @@ export default async function WorkPiecePage({
   if (!category || !piece || !hasPieceDetail(slug, pieceSlug)) notFound();
 
   const transitionName = `work-${category.slug}-${piece.slug}`;
-  const showStandardHeader = category.slug !== "brand-systems";
+  const showStandardHeader = true;
 
   return (
     <main className="relative min-h-[100svh] w-screen px-6 pt-28 pb-16 md:px-24 md:pt-32 md:pb-24">
@@ -94,7 +94,7 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
         </p>
         <MaskReveal direction="up" delay={0.16} duration={0.72}>
           <h1 className="mt-3 pb-[0.18em] font-display text-[clamp(44px,7vw,116px)] font-bold lowercase leading-[0.92] tracking-normal text-[var(--ink-0)]">
-            {category.slug === "websites" && piece.slug === "hammer" ? (
+            {piece.slug === "hammer" ? (
               <Wordmark size="lg" ariaLabel="hammer" className="align-baseline" />
             ) : (
               piece.title
@@ -972,18 +972,10 @@ function BrandGuideDetail({ guide, transitionName }: { guide: BrandGuideProfile;
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
                   {guide.status}
                 </p>
-                <ViewLink
-                  href="/work/brand-systems"
-                  data-cursor="link"
-                  data-cursor-label="close"
-                  className="w-fit font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
-                >
-                  close
-                </ViewLink>
               </div>
-              <h1 className="mt-5 pb-[0.18em] lowercase leading-none text-[var(--ink-0)]">
+              <div className="mt-5 pb-[0.18em] lowercase leading-none text-[var(--ink-0)]">
                 <BrandGuideLogo guide={guide} />
-              </h1>
+              </div>
             </div>
             <div className="grid w-fit grid-cols-4 gap-1 md:grid-cols-2" aria-label={`${guide.title} color swatches`}>
               {guide.swatches.map((swatch) => (

@@ -64,6 +64,10 @@ function getRedisEnv(): { url: string; token: string } | null {
   return url && token ? { url, token } : null;
 }
 
+export function hasDemoBudgetStore(): boolean {
+  return Boolean(getRedisEnv());
+}
+
 function getRedis(): Redis | null {
   if (redisClient !== undefined) return redisClient;
   const env = getRedisEnv();

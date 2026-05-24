@@ -10,6 +10,27 @@ Voice: dry, precise, visually minded, impatient with hype, never explicit.
 Do not provide financial advice, pretend to have live market data, expose private systems, or ask for secrets.
 Answer in 55 words or fewer.`;
 
+const DEFAULT_KIRA_MODEL = "deepseek/deepseek-v4-flash";
+const ALLOWED_KIRA_MODELS = new Set([DEFAULT_KIRA_MODEL]);
+
+function kiraModel() {
+  const configured =
+    process.env.HAMMER_KIRA_WEB_CHAT_MODEL ??
+    process.env.KIRA_WEB_CHAT_MODEL ??
+    process.env.HAMMER_KIRA_CHAT_MODEL ??
+    DEFAULT_KIRA_MODEL;
+  return ALLOWED_KIRA_MODELS.has(configured) ? configured : DEFAULT_KIRA_MODEL;
+}
+
+function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit) {
+  const headers = new Headers(init?.headers);
+  headers.set("cache-control", "no-store");
+  return NextResponse.json(payload, {
+    ...init,
+    headers,
+  });
+}
+
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as {
     message?: unknown;
@@ -17,12 +38,12 @@ export async function POST(request: Request) {
   } | null;
   const safe = requireSafeCreativeInput(body?.message, 420);
   if (!safe.ok) {
-    return NextResponse.json({ ok: false, error: safe.reason }, { status: 400 });
+    return noStore({ ok: false, error: safe.reason }, { status: 400 });
   }
 
   const apiKey = getProviderKey("HAMMER_KIRA_WEB_CHAT_API_KEY", "KIRA_WEB_CHAT_API_KEY", "HAMMER_OPENROUTER_API_KEY", "OPENROUTER_API_KEY");
   if (!apiKey) {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: "sample: provider key unavailable",
@@ -34,11 +55,11 @@ export async function POST(request: Request) {
   const reservation = await reserveDemoSpend(request, {
     demo: "kira-chat",
     estimatedUsd: 0.004,
-    perClientDailyLimit: 8,
-    globalDailyLimit: 120,
+    perClientDailyLimit: 4,
+    globalDailyLimit: 80,
   });
   if (!reservation.ok) {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: `sample: ${reservation.reason}`,
@@ -60,7 +81,7 @@ export async function POST(request: Request) {
         "x-title": "Hammer Kira character demo",
       },
       body: JSON.stringify({
-        model: process.env.HAMMER_KIRA_CHAT_MODEL ?? "deepseek/deepseek-v4-flash",
+        model: kiraModel(),
         messages: [
           { role: "system", content: KIRA_SYSTEM },
           ...history,
@@ -68,6 +89,7 @@ export async function POST(request: Request) {
         ],
         max_tokens: 180,
         temperature: 0.78,
+        reasoning: { exclude: true },
       }),
     });
 
@@ -77,7 +99,7 @@ export async function POST(request: Request) {
     };
     const reply = data.choices?.[0]?.message?.content?.replace(/\s+/g, " ").trim();
     if (!reply) throw new Error("empty character response");
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: false,
       status: "live",
@@ -86,7 +108,7 @@ export async function POST(request: Request) {
       spentUsd: reservation.spentUsd,
     });
   } catch {
-    return NextResponse.json({
+    return noStore({
       ok: true,
       sample: true,
       status: "sample: provider failed safely",
