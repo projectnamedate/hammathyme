@@ -54,13 +54,13 @@ export function getProviderKey(...names: string[]): string | null {
 
 function getRedisEnv(): { url: string; token: string } | null {
   const url =
-    process.env.UPSTASH_REDIS_REST_URL ??
-    process.env.UPSTASH_REDIS_REST_KV_REST_API_URL ??
-    process.env.KV_REST_API_URL;
+    process.env.UPSTASH_REDIS_REST_URL?.trim() ??
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_URL?.trim() ??
+    process.env.KV_REST_API_URL?.trim();
   const token =
-    process.env.UPSTASH_REDIS_REST_TOKEN ??
-    process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN ??
-    process.env.KV_REST_API_TOKEN;
+    process.env.UPSTASH_REDIS_REST_TOKEN?.trim() ??
+    process.env.UPSTASH_REDIS_REST_KV_REST_API_TOKEN?.trim() ??
+    process.env.KV_REST_API_TOKEN?.trim();
   return url && token ? { url, token } : null;
 }
 
