@@ -33,6 +33,7 @@
     { "path": "/work/brand-systems/agentify", "purpose": "Agentify brand guide dossier linking to https://agentify.nexus/brand-bible" },
     { "path": "/work/agents", "purpose": "autonomous characters portfolio category" },
     { "path": "/work/motion-graphics", "purpose": "motion graphics portfolio category" },
+    { "path": "/work/motion-graphics/audio-reactive-overlays", "purpose": "Remotion tour of audio visualization types driven by analyzed music data" },
     { "path": "/work/animation", "purpose": "animation portfolio category" },
     { "path": "/work/pipelines-tools", "purpose": "pipeline and tooling portfolio category" },
     { "path": "/work/pipelines-tools/prompt-library", "purpose": "public prompt architecture and review-gate walkthrough" },

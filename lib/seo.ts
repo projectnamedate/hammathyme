@@ -389,9 +389,28 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
 }
 
 export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonLdObject | null {
-  if (category.slug !== "motion-graphics" || piece.slug !== "reel") return null;
+  if (category.slug !== "motion-graphics") return null;
 
   const pageUrl = getCanonicalUrl(getPiecePath(category, piece));
+  if (piece.slug === "audio-reactive-overlays") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "Hammer audio-reactive overlays",
+      description:
+        piece.blurb ??
+        "A Remotion tour of audio visualization types driven by analyzed RMS, frequency bands, onset peaks, local BPM, phase scope, and rolling spectrum data.",
+      thumbnailUrl: [getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-poster.png")],
+      uploadDate: "2026-05-24",
+      contentUrl: getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
+  if (piece.slug !== "reel") return null;
+
   return {
     "@type": "VideoObject",
     "@id": `${pageUrl}#video`,

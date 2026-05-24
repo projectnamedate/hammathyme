@@ -17,7 +17,7 @@ the focus* — he has ideas per item.
 | 9 | Rive + Remotion puppet animation reel | animation | candidate 01 character read approved; pending Rive Cadet, T-pose/no-storyboard redesign, rig, animation, export |
 | 10 | Motion graphics reel | motion-graphics | live; final card has no email |
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
-| 12 | Audio-reactive overlays with electronic track | motion-graphics | tomorrow build candidate |
+| 12 | Audio-reactive overlays with electronic track | motion-graphics | live detail page |
 | 13 | Animated short | animation | placeholder |
 | 14 | Prompt library walkthrough | pipelines-tools | live |
 | 15 | Creative skills library | pipelines-tools | live |
@@ -32,7 +32,7 @@ no blog. SEO is carried by portfolio copy, detail pages, /about metadata, and
 structured metadata rather than editorial writing.
 
 **Note (2026-05-13):** Category pages are gallery-first. Ready work opens in
-detail routes, currently `/work/motion-graphics/reel`,
+detail routes, currently `/work/motion-graphics/{reel,audio-reactive-overlays}`,
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`, `/work/agents/kira`,
 `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
 `/work/websites/{hammer,kira,opencrawl,agentify}`, and

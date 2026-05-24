@@ -140,6 +140,9 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   const key = pieceDetailKey(category.slug, piece.slug);
   if (key === "agents/kira") return <KiraAgentDetail transitionName={transitionName} />;
   if (key === "motion-graphics/reel") return <MotionReelDetail transitionName={transitionName} />;
+  if (key === "motion-graphics/audio-reactive-overlays") {
+    return <AudioReactiveOverlayDetail transitionName={transitionName} />;
+  }
   if (key === "pipelines-tools/pipeline-visualizer") {
     return <PipelineDetail piece={piece} transitionName={transitionName} />;
   }
@@ -500,7 +503,7 @@ function WebsiteDetail({ piece, transitionName }: { piece: Piece; transitionName
         {detail.facts.map(([label, value]) => (
           <div key={label} className="border-t border-[var(--ink-4)] pt-4">
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
-            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
+            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-normal text-[var(--ink-1)]">
               {value}
             </p>
           </div>
@@ -587,11 +590,91 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
+function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A 64-second Remotion tour of audio visualization types built from real
+            analysis: RMS envelope, frequency bands, radial spectrum, rolling heat
+            map, phase scope, local BPM, onset peaks, particles, and beat-driven type.
+          </p>
+          <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-5">
+            {AUDIO_REACTIVE_RECEIPTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="Hammer audio-reactive overlays motion graphics video"
+            className="block aspect-video w-full bg-[var(--cream-0)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/motion/audio-reactive/audio-reactive-overlay-poster.png"
+          >
+            <source
+              src="/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"
+              type='video/mp4; codecs="avc1.640032, mp4a.40.2"'
+            />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-4">
+        {AUDIO_REACTIVE_SYSTEMS.map((system) => (
+          <div key={system.label} className="border-t border-[var(--ink-4)] pt-4">
+            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+              {system.label}
+            </p>
+            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
+              {system.copy}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10 border-y border-[var(--ink-4)] py-5">
+        <p className="max-w-[92ch] font-mono text-[10px] uppercase leading-[1.75] tracking-[0.14em] text-[var(--ink-2)]">
+          music:{" "}
+          <a
+            href="https://freemusicarchive.org/music/Loyalty_Freak_Music/ROBOT_DANCE_/Loyalty_Freak_Music_-_ROBOT_DANCE__-_02_High_Technologic_Beat_Explosion/"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+          >
+            High Technologic Beat Explosion
+          </a>{" "}
+          by Loyalty Freak Music. source track listed as CC0 1.0 Universal by{" "}
+          <a
+            href="https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_02_-_High_Technologic_Beat_Explosion.ogg"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+          >
+            Wikimedia Commons
+          </a>
+          . the overlay uses a 64-second excerpt starting at 11.5 seconds.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 const MOTION_REEL_RECEIPTS: [string, string][] = [
   ["role", "ai producer · motion systems · edit"],
   ["tools", "remotion · hyperframes · motion/react · ffmpeg"],
   ["surface", "brand reel · web video · social crops"],
-  ["next", "icm teaser · audio-reactive overlays"],
+  ["next", "icm teaser · social overlay package"],
 ];
 
 const MOTION_REEL_CHAPTERS = [
@@ -609,9 +692,36 @@ const MOTION_REEL_CHAPTERS = [
   },
   {
     label: "sound path",
-    copy: "The next pass adds audio-reactive overlays to an electronic track, with timing data exposed as a production primitive rather than baked into a single edit.",
+    copy: "The audio-reactive overlay now has its own detail page, with timing data exposed as a production primitive rather than baked into a single edit.",
   },
 ] as const;
+
+const AUDIO_REACTIVE_RECEIPTS: [string, string][] = [
+  ["role", "motion design · audio analysis · remotion render"],
+  ["track", "Loyalty Freak Music · CC0 electronic source"],
+  ["analysis", "1536 frames · 200 onset peaks · 95-188 local BPM"],
+  ["delivery", "64s · 1920x1080 · 24fps · h264/aac"],
+];
+
+const AUDIO_REACTIVE_SYSTEMS = [
+  {
+    label: "chaptered tour",
+    copy: "The render moves through eight labeled sections so clients can see the range: waveform, meters, radial spectrum, heat map, phase scope, tempo, particles, and the combined overlay.",
+  },
+  {
+    label: "unique titles",
+    copy: "each section title has its own cinematic build: mask reveal, meter rise, orbit, scan, drawn underline, tempo ticks, and final resolve.",
+  },
+  {
+    label: "real signal",
+    copy: "Sub, low, mid, high, RMS, centroid, local BPM, and onset peaks are analyzed before rendering, then mapped to precise visual systems.",
+  },
+  {
+    label: "brand finish",
+    copy: "The system keeps Hammer's cream surface, maroon ink, cinnamon signal, mono captions, and controlled wordmark dot.",
+  },
+] as const;
+
 
 function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
