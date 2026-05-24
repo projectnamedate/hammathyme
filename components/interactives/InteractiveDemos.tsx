@@ -5,7 +5,10 @@ import { FormEvent, useMemo, useState } from "react";
 import {
   CONSISTENCY_SCENES,
   SAMPLE_STORYBOARD,
+  STORYBOARD_PRESETS,
   sampleKiraReply,
+  type ConsistencyScene,
+  type StoryboardPreset,
   type StoryboardPanel,
 } from "@/lib/demo-samples";
 import { WORDMARK_LETTERS } from "@/components/Wordmark";
@@ -29,6 +32,14 @@ const INPUT =
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
 const SOFT = [0.25, 0.1, 0.25, 1] as const;
+
+const PRESET_BUTTON =
+  "min-h-10 overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 text-left font-mono text-[9px] uppercase leading-[1.25] tracking-[0.12em] text-[var(--ink-1)] transition-[border-color,background-color,color,opacity,transform] duration-300 hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] focus-visible:border-[var(--cinnamon)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]";
+
+function randomDifferent<T>(items: readonly T[], current: T, getId: (item: T) => string): T {
+  const pool = items.filter((item) => getId(item) !== getId(current));
+  return pool[Math.floor(Math.random() * pool.length)] ?? current;
+}
 
 function statusCopy(state: ApiState) {
   if (state.loading) return "running";
@@ -85,11 +96,23 @@ function PanelGlyph({ index }: { index: number }) {
 export function PromptStoryboardDemo() {
   const reduce = useReducedMotion();
   const inputId = "storyboard-brief";
-  const [prompt, setPrompt] = useState("A compact launch film for a founder tool that turns messy product notes into one precise launch plan.");
+  const [preset, setPreset] = useState<StoryboardPreset>(STORYBOARD_PRESETS[0]);
+  const [prompt, setPrompt] = useState(STORYBOARD_PRESETS[0].prompt);
   const [panels, setPanels] = useState<StoryboardPanel[]>(SAMPLE_STORYBOARD);
   const [storyboardImage, setStoryboardImage] = useState<string | null>(null);
   const [liveUsed, setLiveUsed] = useState(false);
   const [state, setState] = useState<ApiState>({ loading: false, status: "sample board loaded", sample: true });
+
+  function loadStoryboardPreset(nextPreset: StoryboardPreset) {
+    setPreset(nextPreset);
+    setPrompt(nextPreset.prompt);
+    setStoryboardImage(null);
+    setState({ loading: false, status: `${nextPreset.genre} brief loaded`, sample: true });
+  }
+
+  function loadRandomStoryboardPreset() {
+    loadStoryboardPreset(randomDifferent(STORYBOARD_PRESETS, preset, (item) => item.id));
+  }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -136,6 +159,14 @@ export function PromptStoryboardDemo() {
           transition={{ duration: reduce ? 0 : 0.55, ease: CINEMA }}
         >
           <DemoStatus state={state} />
+          <div className="mt-5 border-t border-[var(--ink-4)] pt-4">
+            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
+              {preset.genre}
+            </p>
+            <p className="mt-2 font-display text-[22px] font-light leading-[1.18] tracking-[-0.015em] text-[var(--ink-0)]">
+              {preset.title}
+            </p>
+          </div>
           <label htmlFor={inputId} className="mt-5 block font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
             brief
           </label>
@@ -156,14 +187,28 @@ export function PromptStoryboardDemo() {
             <button
               className={CONTROL}
               data-cursor="link"
-              data-cursor-label="load"
+              data-cursor-label="random"
               type="button"
-              onClick={() =>
-                setPrompt("A handmade soda can wakes up on a studio table, learns its brand voice, and becomes a launch poster.")
-              }
+              onClick={loadRandomStoryboardPreset}
             >
-              soda brief
+              random brief
             </button>
+          </div>
+          <div className="mt-4 max-h-[210px] overflow-y-auto border-y border-[var(--ink-4)] py-3 pr-1">
+            <div className="grid grid-cols-2 gap-2">
+              {STORYBOARD_PRESETS.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  data-cursor="link"
+                  data-cursor-label="load"
+                  onClick={() => loadStoryboardPreset(item)}
+                  className={`${PRESET_BUTTON} ${preset.id === item.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
           </div>
         </motion.form>
 
@@ -263,10 +308,20 @@ const LAB_FRAMES = CONSISTENCY_SCENES.slice(0, 6);
 
 export function ConsistencyLabDemo() {
   const reduce = useReducedMotion();
-  const [selected, setSelected] = useState(CONSISTENCY_SCENES[0]);
+  const [selected, setSelected] = useState<ConsistencyScene>(CONSISTENCY_SCENES[0]);
   const [liveImage, setLiveImage] = useState<string | null>(null);
   const [liveUsed, setLiveUsed] = useState(false);
   const [state, setState] = useState<ApiState>({ loading: false, status: "canonical refs loaded", sample: true });
+
+  function loadKiraPreset(scene: ConsistencyScene) {
+    setSelected(scene);
+    setLiveImage(null);
+    setState({ loading: false, status: `${scene.shortLabel} prompt loaded`, sample: true });
+  }
+
+  function loadRandomKiraPreset() {
+    loadKiraPreset(randomDifferent(CONSISTENCY_SCENES, selected, (item) => item.id));
+  }
 
   async function generate() {
     if (state.loading || liveUsed) return;
@@ -303,10 +358,7 @@ export function ConsistencyLabDemo() {
               type="button"
               data-cursor="link"
               data-cursor-label="select"
-              onClick={() => {
-                setSelected(frame);
-                setLiveImage(null);
-              }}
+              onClick={() => loadKiraPreset(frame)}
               className={`relative overflow-hidden border bg-[var(--cream-1)] p-2 text-left transition ${
                 selected.id === frame.id ? "border-[var(--cinnamon)]" : "border-[var(--ink-4)]"
               }`}
@@ -343,20 +395,49 @@ export function ConsistencyLabDemo() {
           transition={{ duration: reduce ? 0 : 0.6, ease: CINEMA }}
         >
           <DemoStatus state={state} />
-          <div className="mt-6 grid grid-cols-2 gap-2">
+          <div className="mt-5 border-t border-[var(--ink-4)] pt-4">
+            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
+              selected prompt
+            </p>
+            <p className="mt-2 font-display text-[24px] font-light leading-[1.1] tracking-[-0.015em] text-[var(--ink-0)]">
+              {selected.label}
+            </p>
+            <p className="mt-2 font-mono text-[10px] uppercase leading-[1.55] tracking-[0.12em] text-[var(--ink-2)]">
+              {selected.description}
+            </p>
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            <button
+              className={CONTROL}
+              data-cursor="link"
+              data-cursor-label="random"
+              type="button"
+              onClick={loadRandomKiraPreset}
+            >
+              random prompt
+            </button>
+            <button
+              className={CONTROL}
+              data-cursor="link"
+              data-cursor-label="render"
+              type="button"
+              onClick={generate}
+              disabled={state.loading || liveUsed}
+            >
+              {liveUsed ? "live used" : "generate"}
+            </button>
+          </div>
+          <div className="mt-5 grid max-h-[240px] grid-cols-2 gap-2 overflow-y-auto border-y border-[var(--ink-4)] py-3 pr-1">
             {CONSISTENCY_SCENES.map((scene) => (
               <button
                 key={scene.id}
                 type="button"
                 data-cursor="link"
                 data-cursor-label="select"
-                onClick={() => {
-                  setSelected(scene);
-                  setLiveImage(null);
-                }}
-                className={`${CONTROL} ${selected.id === scene.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
+                onClick={() => loadKiraPreset(scene)}
+                className={`${PRESET_BUTTON} ${selected.id === scene.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
               >
-              {scene.shortLabel}
+                {scene.shortLabel}
               </button>
             ))}
           </div>
@@ -374,16 +455,6 @@ export function ConsistencyLabDemo() {
               />
             </AnimatePresence>
           </div>
-          <button
-            className={`${CONTROL} mt-4 w-full`}
-            data-cursor="link"
-            data-cursor-label="render"
-            type="button"
-            onClick={generate}
-            disabled={state.loading || liveUsed}
-          >
-            {liveUsed ? "live render used" : "render one safe remix"}
-          </button>
           <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-[var(--ink-4)] pt-4">
             {[
               ["identity", "locked"],

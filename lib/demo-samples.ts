@@ -34,11 +34,11 @@ export const SAMPLE_STORYBOARD: StoryboardPanel[] = [
   },
   {
     id: "04",
-    shot: "character",
+    shot: "subject",
     camera: "medium portrait",
-    action: "the lead turns toward the mark",
-    caption: "continuity locks the face",
-    palette: "skin tone, black jacket, warm glass",
+    action: "the subject turns toward the mark",
+    caption: "the idea becomes legible",
+    palette: "warm skin, dark cloth, cream glass",
   },
   {
     id: "05",
@@ -58,62 +58,284 @@ export const SAMPLE_STORYBOARD: StoryboardPanel[] = [
   },
 ];
 
+export type StoryboardPreset = {
+  id: string;
+  title: string;
+  genre: string;
+  prompt: string;
+};
+
+export const STORYBOARD_PRESETS: StoryboardPreset[] = [
+  {
+    id: "founder-tool",
+    title: "founder tool",
+    genre: "product",
+    prompt: "A compact launch film for a founder tool that turns messy product notes into one precise launch plan.",
+  },
+  {
+    id: "rain-chase",
+    title: "rain chase",
+    genre: "action",
+    prompt: "A rain-slick courier races across rooftops to deliver a glowing data key before sunrise.",
+  },
+  {
+    id: "pastry-rivals",
+    title: "pastry rivals",
+    genre: "romance",
+    prompt: "Two rival pastry chefs fall for each other while building one impossible wedding cake.",
+  },
+  {
+    id: "matchbook-noir",
+    title: "matchbook noir",
+    genre: "noir",
+    prompt: "A tired detective follows a trail of matchbooks through a city of old signs and fog.",
+  },
+  {
+    id: "moon-greenhouse",
+    title: "moon greenhouse",
+    genre: "sci-fi",
+    prompt: "A botanist on a moon greenhouse discovers the first flower that responds to music.",
+  },
+  {
+    id: "answering-fog",
+    title: "answering fog",
+    genre: "suspense",
+    prompt: "A lighthouse keeper realizes the foghorn is answering back from somewhere beyond the rocks.",
+  },
+  {
+    id: "solar-train",
+    title: "solar train",
+    genre: "western",
+    prompt: "A desert mechanic fixes the only solar train before a dust storm shuts down the town.",
+  },
+  {
+    id: "rowing-final",
+    title: "rowing final",
+    genre: "sports",
+    prompt: "An underdog rowing team learns to sync breath and timing before the final race.",
+  },
+  {
+    id: "mirror-gala",
+    title: "mirror gala",
+    genre: "heist",
+    prompt: "A crew swaps a museum replica during a gala using only timing, mirrors, and misdirection.",
+  },
+  {
+    id: "rooftop-mix",
+    title: "rooftop mix",
+    genre: "music",
+    prompt: "A bedroom producer turns one voice memo into a citywide rooftop performance.",
+  },
+  {
+    id: "family-menu",
+    title: "family menu",
+    genre: "documentary",
+    prompt: "A chef rebuilds a family restaurant menu after finding an old notebook.",
+  },
+  {
+    id: "watch-reveal",
+    title: "watch reveal",
+    genre: "luxury",
+    prompt: "A watchmaker reveals a new model through shadows, gears, and one precise hand movement.",
+  },
+  {
+    id: "lisbon-notes",
+    title: "lisbon notes",
+    genre: "travel",
+    prompt: "A solo traveler follows handwritten notes through Lisbon to find a hidden film screening.",
+  },
+  {
+    id: "office-demo",
+    title: "office demo",
+    genre: "comedy",
+    prompt: "A chaotic office team tries to shoot one perfect product demo before the coffee runs out.",
+  },
+  {
+    id: "floating-library",
+    title: "floating library",
+    genre: "fantasy",
+    prompt: "A courier maps a floating library where every book rearranges the city below.",
+  },
+  {
+    id: "night-market-app",
+    title: "night market",
+    genre: "cyberpunk",
+    prompt: "A night-market coder launches a privacy app under rain, signage, and broken billboards.",
+  },
+  {
+    id: "sleep-city",
+    title: "sleep city",
+    genre: "wellness",
+    prompt: "A sleep app launch visualizes a restless city slowly learning to breathe.",
+  },
+  {
+    id: "kitchen-robot",
+    title: "kitchen robot",
+    genre: "game",
+    prompt: "A tiny robot competes in a kitchen obstacle course to prove it can clean anything.",
+  },
+  {
+    id: "repair-jacket",
+    title: "repair jacket",
+    genre: "campaign",
+    prompt: "A sustainable jacket campaign follows one garment from repair table to rainy commute.",
+  },
+  {
+    id: "coffee-ritual",
+    title: "coffee ritual",
+    genre: "commercial",
+    prompt: "A neighborhood coffee brand turns a morning ritual into a warm thirty-second spot.",
+  },
+];
+
 export type ConsistencyScene = {
   id: string;
   label: string;
   shortLabel: string;
+  description: string;
   image: string;
-  prompt: string;
 };
 
 export const CONSISTENCY_SCENES: ConsistencyScene[] = [
   {
-    id: "desk",
+    id: "desk-signal",
     label: "night desk",
     shortLabel: "desk",
+    description: "daylight trading desk with cool monitors behind her",
     image: "/work/agents/kira/ref-desk.png",
-    prompt:
-      "kira_agi_v1 at a quiet crypto desk, black blazer, copper light, safe public portrait, consistent face, editorial photography",
   },
   {
-    id: "brooklyn",
+    id: "brooklyn-glass",
     label: "street glass",
     shortLabel: "street",
+    description: "brooklyn window wall with city glass",
     image: "/work/agents/kira/ref-brooklyn.png",
-    prompt:
-      "kira_agi_v1 by a brooklyn window wall, black blazer, copper reflection, safe public portrait, consistent face, editorial photography",
   },
   {
-    id: "portrait",
+    id: "voice-anchor",
     label: "voice anchor",
     shortLabel: "voice",
+    description: "direct voice-anchor frame with a clean expression",
     image: "/work/agents/kira/ref-serious.png",
-    prompt:
-      "kira_agi_v1 direct portrait, black blazer, dry intelligent expression, safe public portrait, consistent face, editorial photography",
   },
   {
-    id: "studio",
+    id: "studio-card",
     label: "studio card",
     shortLabel: "studio",
+    description: "quiet apartment window corner with plants and monitors",
     image: "/work/agents/kira/ref-head-tilt.png",
-    prompt:
-      "kira_agi_v1 in a warm studio, black blazer, head tilt, safe public portrait, consistent face, editorial photography",
   },
   {
-    id: "neon",
+    id: "rain-street",
     label: "neon street",
     shortLabel: "neon",
+    description: "rain-dark street window with color kept behind her",
     image: "/work/brand-guides/kira/assets/refs/finals/photo/final/cinematic_ai_icons_upres/2_blade_runner_2x.png",
-    prompt:
-      "kira_agi_v1 on a rain-slick neon street, black leather jacket, neutral face light, safe public cinematic frame, consistent face, round black wireframe glasses",
   },
   {
-    id: "diner",
+    id: "diner-light",
     label: "diner light",
     shortLabel: "diner",
+    description: "morning diner booth with chrome trim",
     image: "/work/brand-guides/kira/assets/refs/finals/photo/final/kitchen_morning_POST.jpg",
-    prompt:
-      "kira_agi_v1 in a quiet diner booth, black turtleneck, soft window light, safe public cinematic frame, consistent face, round black wireframe glasses",
+  },
+  {
+    id: "rooftop-close",
+    label: "rooftop close",
+    shortLabel: "roof",
+    description: "covered rooftop under overcast skyline light",
+    image: "/work/agents/kira/ref-brooklyn.png",
+  },
+  {
+    id: "archive-room",
+    label: "archive room",
+    shortLabel: "archive",
+    description: "labeled boxes, laptop, paper trail",
+    image: "/work/agents/kira/ref-serious.png",
+  },
+  {
+    id: "gallery-floor",
+    label: "gallery floor",
+    shortLabel: "gallery",
+    description: "cream corridor and quiet wall text",
+    image: "/work/agents/kira/ref-head-tilt.png",
+  },
+  {
+    id: "phone-nook",
+    label: "phone nook",
+    shortLabel: "nook",
+    description: "co-working phone booth with a closed laptop",
+    image: "/work/agents/kira/ref-desk.png",
+  },
+  {
+    id: "train-shelter",
+    label: "train shelter",
+    shortLabel: "train",
+    description: "soft overcast daylight at a platform shelter",
+    image: "/work/agents/kira/ref-brooklyn.png",
+  },
+  {
+    id: "product-table",
+    label: "product table",
+    shortLabel: "product",
+    description: "mock launch poster and table-top proof",
+    image: "/work/agents/kira/ref-head-tilt.png",
+  },
+  {
+    id: "elevator-lobby",
+    label: "elevator lobby",
+    shortLabel: "lobby",
+    description: "brushed metal lobby with doorway daylight",
+    image: "/work/agents/kira/ref-serious.png",
+  },
+  {
+    id: "hotel-desk",
+    label: "hotel desk",
+    shortLabel: "hotel",
+    description: "notebook, coffee cup, quiet travel desk",
+    image: "/work/brand-guides/kira/assets/refs/finals/photo/final/kitchen_morning_POST.jpg",
+  },
+  {
+    id: "conference-hall",
+    label: "conference hall",
+    shortLabel: "hall",
+    description: "muted crypto conference signage behind her",
+    image: "/work/agents/kira/ref-desk.png",
+  },
+  {
+    id: "server-door",
+    label: "server door",
+    shortLabel: "server",
+    description: "blue rack lights in the background only",
+    image: "/work/brand-guides/kira/assets/refs/finals/photo/final/cinematic_ai_icons_upres/2_blade_runner_2x.png",
+  },
+  {
+    id: "record-aisle",
+    label: "record aisle",
+    shortLabel: "record",
+    description: "album spines and soft window light",
+    image: "/work/agents/kira/ref-brooklyn.png",
+  },
+  {
+    id: "chess-cafe",
+    label: "chess cafe",
+    shortLabel: "chess",
+    description: "quiet cafe window with a chess table",
+    image: "/work/agents/kira/ref-serious.png",
+  },
+  {
+    id: "bookstore-corner",
+    label: "bookstore corner",
+    shortLabel: "books",
+    description: "paperbacks and calm window light",
+    image: "/work/agents/kira/ref-head-tilt.png",
+  },
+  {
+    id: "taxi-window",
+    label: "taxi window",
+    shortLabel: "taxi",
+    description: "overcast daylight through a taxi side window",
+    image: "/work/agents/kira/ref-brooklyn.png",
   },
 ];
 

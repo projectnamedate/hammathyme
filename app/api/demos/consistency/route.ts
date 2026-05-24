@@ -6,6 +6,7 @@ import {
   type SpendReservation,
 } from "@/lib/demo-guards";
 import { CONSISTENCY_SCENES } from "@/lib/demo-samples";
+import { getKiraConsistencyPrompt } from "@/lib/kira-demo-prompts";
 
 export const runtime = "nodejs";
 
@@ -21,15 +22,6 @@ function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseI
     ...init,
     headers,
   });
-}
-
-function kiraGuardrailPrompt(scenePrompt: string) {
-  return [
-    scenePrompt,
-    "Kira continuity guardrails: same adult woman identity, same face structure, round black wireframe glasses when visible, black blazer or black turtleneck, dry intelligent expression, editorial portrait lighting.",
-    "Public demo constraints: safe for work, no sensual styling, no exposed skin, no minors, no weapons, no gore, no brand logos, no private UI, no text overlays.",
-    "Portfolio finish: high-end AI producer contact-sheet quality, natural skin texture, restrained cinematic color, consistent character anchors.",
-  ].join(". ");
 }
 
 export async function POST(request: Request) {
@@ -72,7 +64,7 @@ export async function POST(request: Request) {
     fal.config({ credentials: falKey });
     const result = await fal.subscribe("fal-ai/flux-2/lora", {
       input: {
-        prompt: kiraGuardrailPrompt(scene.prompt),
+        prompt: getKiraConsistencyPrompt(scene.id),
         image_size: { width: 768, height: 960 },
         num_inference_steps: 28,
         guidance_scale: 3.5,
