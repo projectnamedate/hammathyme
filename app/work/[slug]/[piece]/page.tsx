@@ -613,52 +613,58 @@ function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionNam
 const PROMPT_LIBRARY_LAYERS = [
   {
     label: "intake",
-    artifact: "goal card",
-    copy: "turn a loose request into goal, context, constraints, done criteria, and the smallest useful output.",
+    artifact: "production brief",
+    copy: "turn a loose ask into one sharp brief: audience, output, constraints, and proof.",
   },
   {
-    label: "director pass",
-    artifact: "taste lock",
-    copy: "capture voice, visual references, banned defaults, proof points, and what would make the work feel generic.",
+    label: "taste",
+    artifact: "style lock",
+    copy: "protect the visual language before any model gets a chance to flatten it.",
   },
   {
-    label: "model recipe",
+    label: "recipe",
     artifact: "prompt pack",
-    copy: "write reusable prompts with inputs, negative space, aspect rules, seed policy, and fallback instructions.",
+    copy: "shape model behavior with inputs, aspect rules, negative space, and fallback paths.",
   },
   {
-    label: "review gate",
+    label: "gate",
     artifact: "select sheet",
-    copy: "compare outputs against the brief, mark selects, record fixes, and only promote assets that pass.",
+    copy: "score outputs against the brief, mark selects, and stop drift before it spreads.",
   },
   {
     label: "handoff",
-    artifact: "run book",
-    copy: "leave the exact command, file path, prompt family, and acceptance rule for the next operator.",
+    artifact: "operator note",
+    copy: "leave the next producer a clear pickup state, not a mystery folder.",
   },
 ] as const;
 
 const PROMPT_LIBRARY_PACKS = [
-  ["storyboard pack", "scene intent, shot size, camera side, action verb, continuity notes, review marks"],
-  ["character pack", "identity anchors, wardrobe rules, face consistency, public-safe captioning, forbidden drift"],
-  ["motion pack", "timing map, layer roles, easing, codec target, render command, editorial fallback"],
-  ["site pack", "route goal, metadata, agent-readable summary, visual role, deploy and live smoke list"],
+  ["storyboard", "scene intent, shot size, camera side, action verb, continuity marks"],
+  ["character", "identity anchors, wardrobe rules, face consistency, voice guardrails"],
+  ["motion", "timing map, layer roles, easing, render target, editorial fallback"],
+  ["site", "route goal, metadata, agent summary, visual role, live smoke list"],
 ] as const;
 
 const CREATIVE_SKILL_ROWS = [
-  ["color theory", "palette choice, contrast, mood, token fit, and accessibility checks before CSS changes land"],
-  ["kira prompting", "character-safe image, video, caption, and voice rules without leaking private runtime details"],
-  ["video recipes", "HyperFrames-first motion planning, render commands, audio maps, and codec delivery notes"],
-  ["shader direction", "tasteful WebGL or shader-like effects only when the interface needs the extra atmosphere"],
-  ["review workflows", "director-facing contact sheets, approval gates, pickup notes, and no-metadata-first review"],
+  ["color direction", "palette, contrast, atmosphere, token fit, and accessibility before CSS lands"],
+  ["character prompting", "image, video, caption, and voice rules without leaking private runtime details"],
+  ["video recipes", "HyperFrames-first motion planning, audio maps, render targets, and delivery notes"],
+  ["shader taste", "WebGL and shader-like effects only when they earn the interface space"],
+  ["review systems", "contact sheets, approval gates, pickup notes, and visual-first review"],
 ] as const;
 
 const AGENT_STACK_ROWS = [
-  ["director", "taste, approval, corrections"],
-  ["planner", "scope, files, done criteria"],
-  ["skills", "domain rules and recipes"],
-  ["tools", "browser, generators, build, deploy"],
-  ["proof", "diff, validation, live checks"],
+  ["director", "taste and corrections"],
+  ["brief", "scope and proof"],
+  ["skills", "rules and recipes"],
+  ["tools", "generation and build"],
+  ["proof", "validation and live checks"],
+] as const;
+
+const TOOL_RECEIPTS = [
+  ["public", "architecture, proof, outcomes"],
+  ["private", "exact prompts, run config, internal notes"],
+  ["value", "repeatable taste under pressure"],
 ] as const;
 
 function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
@@ -675,31 +681,45 @@ function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transiti
       </div>
 
       <div
-        className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 shadow-[0_24px_80px_rgba(31,7,7,0.06)] md:p-8"
+        className="tool-panel border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:p-8"
         style={frameStyle}
       >
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-x-10">
+        <div className="relative grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-x-10">
           <div className="md:col-span-7">
             <PromptStackDiagram />
           </div>
           <div className="md:col-span-5">
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-              stack contract
+              readable method, protected craft
             </p>
             <p className="mt-4 font-display text-[clamp(22px,2.2vw,40px)] font-light leading-[1.12] tracking-[-0.025em] text-[var(--ink-0)]">
-              The library is organized around repeatable production decisions, not a pile of one-off prompts.
+              The value is not a secret prompt. It is the judgment to frame the ask, reject the drift, and protect the
+              signal.
             </p>
             <p className="mt-5 font-display text-[clamp(15px,1.1vw,18px)] font-light leading-[1.5] tracking-[-0.01em] text-[var(--ink-1)]">
-              Public pages show the shape of the system: where prompts start, what they produce, how outputs are judged,
-              and what gets handed to the next stage. Exact proprietary prompts stay off the site.
+              This page shows the operating shape without exposing the working text. A client can see the discipline.
+              The craft still has to be done.
             </p>
+            <dl className="mt-8 grid grid-cols-1 gap-3">
+              {TOOL_RECEIPTS.map(([label, value]) => (
+                <div key={label} className="grid grid-cols-[86px_1fr] gap-4 border-t border-[var(--ink-4)] pt-3">
+                  <dt className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">{label}</dt>
+                  <dd className="font-mono text-[10px] uppercase leading-[1.6] tracking-[0.12em] text-[var(--ink-2)]">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-5">
         {PROMPT_LIBRARY_LAYERS.map((layer, index) => (
-          <div key={layer.label} className="border-t border-[var(--ink-4)] pt-4">
+          <div
+            key={layer.label}
+            className="tool-lift-card border-t border-[var(--ink-4)] bg-[rgba(250,238,233,0.28)] p-4 pt-4"
+          >
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
               {String(index + 1).padStart(2, "0")} · {layer.label}
             </p>
@@ -715,7 +735,7 @@ function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transiti
 
       <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-4">
         {PROMPT_LIBRARY_PACKS.map(([label, value]) => (
-          <div key={label} className="border border-[var(--ink-4)] bg-[var(--cream-0)] p-5">
+          <div key={label} className="tool-lift-card border border-[var(--ink-4)] bg-[var(--cream-0)] p-5">
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
             <p className="mt-4 font-display text-[clamp(15px,1.08vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
               {value}
@@ -741,19 +761,22 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
       </div>
 
       <div
-        className="grid grid-cols-1 gap-8 border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 shadow-[0_24px_80px_rgba(31,7,7,0.06)] md:grid-cols-12 md:gap-x-10 md:p-8"
+        className="tool-panel grid grid-cols-1 gap-8 border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:grid-cols-12 md:gap-x-10 md:p-8"
         style={frameStyle}
       >
-        <div className="md:col-span-5">
+        <div className="relative md:col-span-5">
           <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
             operating layer
           </p>
           <p className="mt-4 font-display text-[clamp(24px,2.7vw,52px)] font-light leading-[1.05] tracking-[-0.035em] text-[var(--ink-0)]">
-            Skills turn taste into repeatable work.
+            Skills keep taste from resetting at every prompt.
           </p>
           <p className="mt-5 font-display text-[clamp(15px,1.1vw,18px)] font-light leading-[1.5] tracking-[-0.01em] text-[var(--ink-1)]">
             This is the layer between a director's note and a tool call: brand rules, production recipes,
-            verification habits, and review formats that keep outputs from drifting.
+            verification habits, and review formats that keep outputs from going generic.
+          </p>
+          <p className="mt-7 border-l border-[var(--cinnamon)] pl-4 font-display text-[clamp(18px,1.45vw,24px)] font-light leading-[1.28] tracking-[-0.015em] text-[var(--bloodlust)]">
+            It is not automation for its own sake. It is taste with memory.
           </p>
         </div>
         <div className="md:col-span-7">
@@ -763,7 +786,10 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
 
       <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-5">
         {CREATIVE_SKILL_ROWS.map(([label, value]) => (
-          <div key={label} className="border-t border-[var(--ink-4)] pt-4">
+          <div
+            key={label}
+            className="tool-lift-card border-t border-[var(--ink-4)] bg-[rgba(250,238,233,0.28)] p-4 pt-4"
+          >
             <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
             <p className="mt-3 font-display text-[clamp(15px,1.08vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
               {value}
@@ -776,7 +802,7 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
         <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">stack path</p>
         <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-5">
           {AGENT_STACK_ROWS.map(([label, value], index) => (
-            <div key={label} className="min-h-28 border border-[var(--ink-4)] bg-[var(--cream-1)] p-4">
+            <div key={label} className="tool-lift-card min-h-28 border border-[var(--ink-4)] bg-[var(--cream-1)] p-4">
               <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
                 {String(index + 1).padStart(2, "0")} · {label}
               </p>
@@ -794,12 +820,22 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
 function PromptStackDiagram() {
   return (
     <svg viewBox="0 0 720 440" role="img" aria-label="Prompt library stack diagram" className="h-auto w-full">
-      <rect x="1" y="1" width="718" height="438" fill="var(--cream-0)" stroke="var(--ink-4)" />
+      <defs>
+        <linearGradient id="prompt-sheen" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stopColor="var(--cream-0)" />
+          <stop offset="48%" stopColor="var(--cream-2)" stopOpacity="0.34" />
+          <stop offset="100%" stopColor="var(--cream-0)" />
+        </linearGradient>
+      </defs>
+      <rect x="1" y="1" width="718" height="438" fill="url(#prompt-sheen)" stroke="var(--ink-4)" />
+      <rect x="22" y="22" width="676" height="396" fill="none" stroke="var(--ink-4)" strokeDasharray="2 10" opacity="0.72" />
+      <rect className="tool-scanline" x="24" y="34" width="672" height="58" fill="var(--cinnamon)" opacity="0.16" />
       <g fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.8">
         {PROMPT_LIBRARY_LAYERS.map((layer, index) => {
           const y = 52 + index * 72;
+          const delay = `${120 + index * 110}ms`;
           return (
-            <g key={layer.label}>
+            <g key={layer.label} className="tool-flow-card" style={{ "--tool-delay": delay } as CSSProperties}>
               <rect
                 x="42"
                 y={y}
@@ -808,12 +844,27 @@ function PromptStackDiagram() {
                 fill={index === 1 ? "var(--cinnamon)" : "var(--cream-1)"}
                 stroke="var(--ink-3)"
               />
+              <rect x="50" y={y + 8} width="16" height="28" fill="var(--ink-0)" opacity={index === 1 ? 0.14 : 0.06} />
               <text x="60" y={y + 27} fill="var(--ink-0)">
                 {String(index + 1).padStart(2, "0")} / {layer.label}
               </text>
-              <path d={`M 292 ${y + 22} H 392`} stroke="var(--ink-3)" strokeWidth="1.2" />
-              <circle cx="392" cy={y + 22} r="4" fill="var(--cinnamon)" />
+              <path
+                className="tool-flow-line"
+                style={{ "--tool-delay": `${260 + index * 110}ms` } as CSSProperties}
+                d={`M 292 ${y + 22} H 392`}
+                stroke="var(--ink-3)"
+                strokeWidth="1.2"
+              />
+              <circle
+                className="tool-flow-node"
+                style={{ "--tool-delay": `${420 + index * 95}ms` } as CSSProperties}
+                cx="392"
+                cy={y + 22}
+                r="4"
+                fill="var(--cinnamon)"
+              />
               <rect x="422" y={y - 4} width="220" height="52" fill="var(--cream-1)" stroke="var(--ink-4)" />
+              <line x1="438" y1={y + 36} x2="620" y2={y + 36} stroke="var(--ink-4)" strokeWidth="1" />
               <text x="442" y={y + 27} fill="var(--ink-1)">
                 {layer.artifact}
               </text>
@@ -821,7 +872,7 @@ function PromptStackDiagram() {
           );
         })}
       </g>
-      <path d="M 392 74 V 362" stroke="var(--cinnamon)" strokeWidth="1.4" strokeDasharray="5 8" />
+      <path className="tool-orbit-path" d="M 392 74 V 362" stroke="var(--cinnamon)" strokeWidth="1.4" />
       <text
         x="42"
         y="404"
@@ -839,13 +890,23 @@ function PromptStackDiagram() {
 function AgentStackDiagram() {
   return (
     <svg viewBox="0 0 780 440" role="img" aria-label="Creative skills agent stack diagram" className="h-auto w-full">
-      <rect x="1" y="1" width="778" height="438" fill="var(--cream-0)" stroke="var(--ink-4)" />
+      <defs>
+        <radialGradient id="skill-glow" cx="50%" cy="40%" r="62%">
+          <stop offset="0%" stopColor="var(--cinnamon)" stopOpacity="0.22" />
+          <stop offset="45%" stopColor="var(--cream-2)" stopOpacity="0.24" />
+          <stop offset="100%" stopColor="var(--cream-0)" />
+        </radialGradient>
+      </defs>
+      <rect x="1" y="1" width="778" height="438" fill="url(#skill-glow)" stroke="var(--ink-4)" />
+      <path className="tool-orbit-path" d="M 390 52 C 612 52, 720 160, 690 284 C 660 406, 122 402, 90 280 C 58 158, 168 52, 390 52 Z" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" />
+      <rect className="tool-scanline" x="42" y="64" width="696" height="66" fill="var(--cream-0)" opacity="0.28" />
       <g fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.7">
         {AGENT_STACK_ROWS.map(([label], index) => {
           const x = 52 + index * 140;
           const isHot = index === 2;
+          const delay = `${120 + index * 110}ms`;
           return (
-            <g key={label}>
+            <g key={label} className="tool-flow-card" style={{ "--tool-delay": delay } as CSSProperties}>
               <rect
                 x={x}
                 y="120"
@@ -854,19 +915,35 @@ function AgentStackDiagram() {
                 fill={isHot ? "var(--cinnamon)" : "var(--cream-1)"}
                 stroke="var(--ink-3)"
               />
-              <circle cx={x + 54} cy="174" r="20" fill={isHot ? "var(--cream-0)" : "var(--ink-0)"} opacity="0.92" />
+              <rect x={x + 8} y="128" width="92" height="92" fill="none" stroke={isHot ? "var(--cream-0)" : "var(--ink-4)"} opacity="0.65" />
+              <circle
+                className="tool-orbit-node"
+                style={{ "--tool-delay": `${240 + index * 120}ms` } as CSSProperties}
+                cx={x + 54}
+                cy="174"
+                r="20"
+                fill={isHot ? "var(--cream-0)" : "var(--ink-0)"}
+                opacity="0.92"
+              />
+              <circle cx={x + 54} cy="174" r="5" fill={isHot ? "var(--ink-0)" : "var(--cinnamon)"} />
               <text x={x + 54} y="270" textAnchor="middle" fill="var(--ink-1)">
                 {label}
               </text>
               {index < AGENT_STACK_ROWS.length - 1 ? (
-                <path d={`M ${x + 116} 174 H ${x + 132}`} stroke="var(--cinnamon)" strokeWidth="1.4" />
+                <path
+                  className="tool-flow-line"
+                  style={{ "--tool-delay": `${360 + index * 100}ms` } as CSSProperties}
+                  d={`M ${x + 116} 174 H ${x + 132}`}
+                  stroke="var(--cinnamon)"
+                  strokeWidth="1.4"
+                />
               ) : null}
             </g>
           );
         })}
       </g>
       <path d="M 102 326 H 662" stroke="var(--ink-3)" strokeWidth="1" />
-      <path d="M 662 326 C 704 326, 704 66, 102 66 C 70 66, 70 326, 102 326" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" strokeDasharray="5 8" />
+      <path className="tool-orbit-path" d="M 662 326 C 704 326, 704 66, 102 66 C 70 66, 70 326, 102 326" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" />
       <text
         x="52"
         y="372"

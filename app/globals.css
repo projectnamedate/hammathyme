@@ -112,6 +112,102 @@ body {
 a { color: inherit; text-decoration: none; }
 button { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
 
+.tool-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.tool-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, rgba(250, 238, 233, 0.78), rgba(242, 142, 134, 0.12) 34%, rgba(90, 32, 29, 0.05) 68%, rgba(250, 238, 233, 0.70)),
+    repeating-linear-gradient(90deg, rgba(31, 7, 7, 0.035) 0 1px, transparent 1px 44px);
+}
+.tool-panel::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px solid rgba(31, 7, 7, 0.08);
+}
+.tool-lift-card {
+  transform: translateY(0);
+  transition:
+    transform var(--d-standard) var(--ease-cinema),
+    border-color var(--d-standard) var(--ease-cinema),
+    background-color var(--d-standard) var(--ease-cinema);
+}
+.tool-lift-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cinnamon);
+}
+.tool-flow-card,
+.tool-flow-line,
+.tool-flow-node,
+.tool-orbit-path,
+.tool-orbit-node,
+.tool-scanline {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tool-flow-card {
+    animation: tool-rise var(--d-cinematic) var(--ease-spring) both;
+    animation-delay: var(--tool-delay, 0ms);
+  }
+  .tool-flow-line {
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+    animation: tool-draw 900ms var(--ease-cinema) both;
+    animation-delay: var(--tool-delay, 0ms);
+  }
+  .tool-flow-node,
+  .tool-orbit-node {
+    animation: tool-pulse 1600ms var(--ease-soft) infinite;
+    animation-delay: var(--tool-delay, 0ms);
+  }
+  .tool-orbit-path {
+    stroke-dasharray: 7 9;
+    animation: tool-march 18s linear infinite;
+  }
+  .tool-scanline {
+    animation: tool-scan 2400ms var(--ease-cinema) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-lift-card {
+    transition: none;
+  }
+  .tool-lift-card:hover {
+    transform: none;
+  }
+}
+
+@keyframes tool-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes tool-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes tool-pulse {
+  0%, 100% { opacity: 0.72; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.18); }
+}
+@keyframes tool-march {
+  to { stroke-dashoffset: -240; }
+}
+@keyframes tool-scan {
+  0% { transform: translateY(-90%); opacity: 0; }
+  18%, 72% { opacity: 0.32; }
+  100% { transform: translateY(90%); opacity: 0; }
+}
+
 [data-ambient-shader] {
   background:
     linear-gradient(115deg, rgba(242, 142, 134, 0.10), rgba(250, 238, 233, 0) 34%, rgba(229, 191, 180, 0.16) 68%, rgba(242, 142, 134, 0.08));
