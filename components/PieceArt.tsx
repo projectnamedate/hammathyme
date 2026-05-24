@@ -39,7 +39,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "animation/animated-short": AnimatedShort,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/prompt-library": PromptLibrary,
-  "pipelines-tools/flux-v2-lora-training": FluxLoraTraining,
   "pipelines-tools/creative-skills": CreativeSkills,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "interactive-playable/consistency-lab": ConsistencyLab,
@@ -429,30 +428,6 @@ function PromptLibrary() {
         <line x1="18" y1="52" x2="56" y2="52" stroke="var(--ink-3)" strokeWidth="0.8" />
       </g>
       <MonoLabel>PROMPT STACK</MonoLabel>
-    </Plate>
-  );
-}
-
-function FluxLoraTraining() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <g transform="translate(21 38)">
-        <rect x="0" y="0" width="78" height="52" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <rect
-            key={i}
-            x={8 + (i % 3) * 21}
-            y={9 + Math.floor(i / 3) * 18}
-            width="13"
-            height="13"
-            fill={i === 5 ? "var(--cinnamon)" : "var(--ink-0)"}
-            opacity={i === 5 ? 1 : 0.7}
-          />
-        ))}
-        <path d="M 14 72 C 28 58, 50 88, 65 62" fill="none" stroke="var(--cinnamon)" strokeWidth="1.3" />
-        <line x1="8" y1="78" x2="70" y2="78" stroke="var(--cream-0)" strokeWidth="0.8" />
-      </g>
-      <MonoLabel y={139}>FLUX V2 LORA</MonoLabel>
     </Plate>
   );
 }

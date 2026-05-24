@@ -19,8 +19,8 @@ the focus* — he has ideas per item.
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
 | 12 | Audio-reactive overlays with electronic track | motion-graphics | tomorrow build candidate |
 | 13 | Animated short | animation | placeholder |
-| 14 | Flux v2 LoRA training process | pipelines-tools | placeholder |
-| 15 | Creative skills library | pipelines-tools | placeholder |
+| 14 | Prompt library walkthrough | pipelines-tools | live |
+| 15 | Creative skills library | pipelines-tools | live |
 | 16 | Interactive + playable demos | interactive-playable | live detail routes: storyboard, consistency, Kira chat, dot discipline |
 | 17 | Canonical domain wiring: `hammer.ad` | launch | done, live |
 | 18 | Technical SEO audit | launch | local implementation: per-route metadata, structured data, canonical URLs, AI-crawler robots, sitemap stability, llms-full, and agent manifest. next: deploy, Lighthouse mobile SEO, and Rich Results validation |
@@ -33,7 +33,7 @@ structured metadata rather than editorial writing.
 
 **Note (2026-05-13):** Category pages are gallery-first. Ready work opens in
 detail routes, currently `/work/motion-graphics/reel`,
-`/work/pipelines-tools/pipeline-visualizer`, `/work/agents/kira`,
+`/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`, `/work/agents/kira`,
 `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
 `/work/websites/{hammer,kira,opencrawl,agentify}`, and
 `/work/brand-systems/{hammer,kira,effigy,agentify}`.

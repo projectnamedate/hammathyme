@@ -36,6 +36,8 @@ The domain appears only in technical URL surfaces.
 - /work/animation: Rive and Remotion animation category. Public work is still in production.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
+- /work/pipelines-tools/prompt-library: public prompt architecture and review-gate walkthrough.
+- /work/pipelines-tools/creative-skills: reusable creative skill system and agent-stack map.
 - /work/interactive-playable: live interactive and playable demos with a shared one-dollar daily provider cap.
 - /work/interactive-playable/prompt-to-storyboard: capped prompt-to-six-panel-storyboard demo.
 - /work/interactive-playable/consistency-lab: Kira character-consistency board with safe LoRA remix hook and sample refs.

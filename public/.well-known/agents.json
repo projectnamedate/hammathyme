@@ -34,6 +34,8 @@
     { "path": "/work/motion-graphics", "purpose": "motion graphics portfolio category" },
     { "path": "/work/animation", "purpose": "animation portfolio category" },
     { "path": "/work/pipelines-tools", "purpose": "pipeline and tooling portfolio category" },
+    { "path": "/work/pipelines-tools/prompt-library", "purpose": "public prompt architecture and review-gate walkthrough" },
+    { "path": "/work/pipelines-tools/creative-skills", "purpose": "reusable creative skill system and agent-stack map" },
     { "path": "/work/interactive-playable", "purpose": "live capped interactive and playable demo category" },
     { "path": "/work/interactive-playable/prompt-to-storyboard", "purpose": "prompt-to-six-panel-storyboard demo" },
     { "path": "/work/interactive-playable/consistency-lab", "purpose": "Kira character-consistency demo with safe LoRA remix hook" },
