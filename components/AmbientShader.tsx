@@ -127,12 +127,13 @@ export function AmbientShader() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
     const mobileMedia = window.matchMedia(
       "(max-width: 768px), (pointer: coarse)",
     );
+    if (mobileMedia.matches) {
+      canvas.dataset.ambientShaderState = "fallback";
+      return;
+    }
 
     const gl = canvas.getContext("webgl", {
       alpha: true,
@@ -182,8 +183,9 @@ export function AmbientShader() {
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
     gl.disable(gl.DEPTH_TEST);
     gl.clearColor(0, 0, 0, 0);
-    canvas.dataset.ambientShaderState = reduceMotion ? "static" : "animating";
+    canvas.dataset.ambientShaderState = "static";
 
+    let hasRendered = false;
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.35);
       const bounds = canvas.getBoundingClientRect();
@@ -194,25 +196,20 @@ export function AmbientShader() {
         canvas.height = height;
       }
       gl.viewport(0, 0, width, height);
+      if (hasRendered) render();
     };
 
-    let frameId: number | null = null;
-    const start = performance.now();
-
-    const render = (now: number) => {
+    const render = () => {
+      hasRendered = true;
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-      gl.uniform1f(timeLocation, reduceMotion ? 18 : (now - start) / 1000);
-      gl.uniform1f(mobileLocation, mobileMedia.matches ? 1 : 0);
+      gl.uniform1f(timeLocation, 18);
+      gl.uniform1f(mobileLocation, 0);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      if (!reduceMotion) {
-        frameId = window.requestAnimationFrame(render);
-      }
     };
 
     resize();
-    render(start);
+    render();
     const resizeObserver =
       typeof ResizeObserver === "undefined" ? null : new ResizeObserver(resize);
     resizeObserver?.observe(canvas);
@@ -222,7 +219,6 @@ export function AmbientShader() {
     });
 
     return () => {
-      if (frameId !== null) window.cancelAnimationFrame(frameId);
       resizeObserver?.disconnect();
       window.removeEventListener("resize", resize);
       window.visualViewport?.removeEventListener("resize", resize);
@@ -235,7 +231,7 @@ export function AmbientShader() {
     <div
       aria-hidden
       data-ambient-shader
-      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-90 mix-blend-multiply [filter:saturate(1.12)] motion-reduce:opacity-65"
+      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-75 motion-reduce:opacity-60"
     >
       <canvas
         ref={canvasRef}

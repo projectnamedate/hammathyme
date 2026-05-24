@@ -5,6 +5,7 @@ import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { MaskReveal } from "@/components/motion/MaskReveal";
 import {
   ConsistencyLabDemo,
   DotDisciplineGame,
@@ -91,13 +92,15 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
           {category.capabilityLabel} · {statusLabel(piece.status)}
         </p>
-        <h1 className="mt-3 pb-[0.18em] font-display text-[clamp(44px,7vw,112px)] font-light lowercase leading-[0.92] tracking-[-0.04em] text-[var(--ink-0)]">
-          {category.slug === "websites" && piece.slug === "hammer" ? (
-            <Wordmark size="lg" ariaLabel="hammer" className="align-baseline" />
-          ) : (
-            piece.title
-          )}
-        </h1>
+        <MaskReveal direction="up" delay={0.16} duration={0.72}>
+          <h1 className="mt-3 pb-[0.18em] font-display text-[clamp(44px,7vw,116px)] font-bold lowercase leading-[0.92] tracking-normal text-[var(--ink-0)]">
+            {category.slug === "websites" && piece.slug === "hammer" ? (
+              <Wordmark size="lg" ariaLabel="hammer" className="align-baseline" />
+            ) : (
+              piece.title
+            )}
+          </h1>
+        </MaskReveal>
       </div>
       <ViewLink
         href={`/work/${category.slug}`}
@@ -695,10 +698,6 @@ function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transiti
             <p className="mt-4 font-display text-[clamp(22px,2.2vw,40px)] font-light leading-[1.12] tracking-[-0.025em] text-[var(--ink-0)]">
               The value is not a secret prompt. It is the judgment to frame the ask, reject the drift, and protect the
               signal.
-            </p>
-            <p className="mt-5 font-display text-[clamp(15px,1.1vw,18px)] font-light leading-[1.5] tracking-[-0.01em] text-[var(--ink-1)]">
-              This page shows the operating shape without exposing the working text. A client can see the discipline.
-              The craft still has to be done.
             </p>
             <dl className="mt-8 grid grid-cols-1 gap-3">
               {TOOL_RECEIPTS.map(([label, value]) => (

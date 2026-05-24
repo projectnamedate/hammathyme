@@ -167,15 +167,15 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
   }
   .tool-flow-node,
   .tool-orbit-node {
-    animation: tool-pulse 1600ms var(--ease-soft) infinite;
+    animation: tool-pulse 1500ms var(--ease-soft) 2;
     animation-delay: var(--tool-delay, 0ms);
   }
   .tool-orbit-path {
     stroke-dasharray: 7 9;
-    animation: tool-march 18s linear infinite;
+    animation: tool-march 1400ms var(--ease-cinema) both;
   }
   .tool-scanline {
-    animation: tool-scan 2400ms var(--ease-cinema) infinite;
+    animation: tool-scan 1500ms var(--ease-cinema) 1 both;
   }
 }
 
@@ -301,7 +301,7 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 480ms;
+  animation-duration: 260ms;
   animation-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
 }
 
@@ -313,12 +313,12 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
   from { opacity: 1; }
   to { opacity: 0; }
 }
-@keyframes hf-shutter-in {
-  from { clip-path: circle(0% at 50% 50%); }
-  to { clip-path: circle(150% at 50% 50%); }
+@keyframes hf-page-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 ::view-transition-old(root) { animation-name: hf-fade-out; }
-::view-transition-new(root) { animation-name: hf-shutter-in; }
+::view-transition-new(root) { animation-name: hf-page-in; }
 
 /* Editorial chrome elements should crossfade independently rather than slide */
 ::view-transition-old(running-head),
@@ -337,7 +337,7 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
   50% { transform: scaleX(1.003); }
 }
 body[data-idle="1"] .kw {
-  animation: hf-wordmark-breath 6s ease-in-out infinite;
+  animation: hf-wordmark-breath 2400ms ease-in-out 1;
   transform-origin: center;
 }
 
@@ -346,7 +346,7 @@ body[data-idle="1"] .kw {
   0%, 96%, 100% { transform: translateY(0.012em) scale(1); }
   98%           { transform: translateY(0.012em) scale(1.18); }
 }
-body[data-idle="1"] .kw .dot { animation: hf-period-pulse 60s ease-in-out infinite; transform-origin: center; }
+body[data-idle="1"] .kw .dot { animation: hf-period-pulse 1400ms ease-in-out 1; transform-origin: center; }
 
 /* === CardArt micro-motion ===
    Specimens animate one element when their containing SVG has [data-active="1"].
