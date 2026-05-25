@@ -22,6 +22,16 @@ function mustContain(path, needles) {
   return text;
 }
 
+function readJson(path) {
+  const text = read(path);
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    fail(`${path} is not valid JSON: ${error.message}`);
+    return {};
+  }
+}
+
 const packageJson = JSON.parse(read("package.json") || "{}");
 if (packageJson.scripts?.["verify:seo"] !== "node scripts/verify-seo.mjs") {
   fail("package.json must expose npm run verify:seo");
@@ -74,6 +84,38 @@ mustContain("public/.well-known/agents.json", [
   "\"llms-full.txt\"",
   "\"ai_crawlers_allowed\"",
 ]);
+
+const agentsManifest = readJson("public/.well-known/agents.json");
+const worksText = read("lib/works.ts");
+const categorySlugs = [
+  ...worksText.matchAll(/^\s{4}slug: "([a-z0-9-]+)",\n\s{4}title:/gm),
+].map((match) => match[1]);
+const detailBlock = worksText.match(/DETAIL_READY_KEYS = new Set\(\[([\s\S]*?)\]\)/)?.[1] ?? "";
+const detailRoutes = [...detailBlock.matchAll(/"([^"]+)"/g)].map((match) => `/work/${match[1]}`);
+const expectedManifestRoutes = new Set([
+  "/",
+  "/work",
+  "/about",
+  "/contact",
+  "/colophon",
+  ...categorySlugs.map((slug) => `/work/${slug}`),
+  ...detailRoutes,
+]);
+const manifestRoutes = new Set(
+  Array.isArray(agentsManifest.public_routes)
+    ? agentsManifest.public_routes.map((route) => route?.path).filter(Boolean)
+    : [],
+);
+
+if (!Array.isArray(agentsManifest.public_routes)) {
+  fail("public/.well-known/agents.json must expose public_routes");
+}
+
+for (const route of expectedManifestRoutes) {
+  if (!manifestRoutes.has(route)) {
+    fail(`public/.well-known/agents.json is missing public route ${route}`);
+  }
+}
 
 mustContain("public/.well-known/llms.txt", ["https://hammer.ad/llms.txt"]);
 
