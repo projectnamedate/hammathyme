@@ -36,6 +36,9 @@ const SOFT = [0.25, 0.1, 0.25, 1] as const;
 const PRESET_BUTTON =
   "min-h-10 overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 text-left font-mono text-[9px] uppercase leading-[1.25] tracking-[0.12em] text-[var(--ink-1)] transition-[border-color,background-color,color,opacity,transform] duration-300 hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] focus-visible:border-[var(--cinnamon)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]";
 
+const STORYBOARD_QUICK_PRESETS = STORYBOARD_PRESETS.slice(0, 3);
+const CONSISTENCY_QUICK_SCENES = CONSISTENCY_SCENES.slice(0, 3);
+
 function randomDifferent<T>(items: readonly T[], current: T, getId: (item: T) => string): T {
   const pool = items.filter((item) => getId(item) !== getId(current));
   return pool[Math.floor(Math.random() * pool.length)] ?? current;
@@ -194,21 +197,19 @@ export function PromptStoryboardDemo() {
               random brief
             </button>
           </div>
-          <div className="mt-4 max-h-[210px] overflow-y-auto border-y border-[var(--ink-4)] py-3 pr-1">
-            <div className="grid grid-cols-2 gap-2">
-              {STORYBOARD_PRESETS.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  data-cursor="link"
-                  data-cursor-label="load"
-                  onClick={() => loadStoryboardPreset(item)}
-                  className={`${PRESET_BUTTON} ${preset.id === item.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
+          <div className="mt-4 grid grid-cols-3 gap-2 border-t border-[var(--ink-4)] pt-3">
+            {STORYBOARD_QUICK_PRESETS.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                data-cursor="link"
+                data-cursor-label="load"
+                onClick={() => loadStoryboardPreset(item)}
+                className={`${PRESET_BUTTON} ${preset.id === item.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
+              >
+                {item.title}
+              </button>
+            ))}
           </div>
         </motion.form>
 
@@ -261,11 +262,10 @@ export function PromptStoryboardDemo() {
           {panels.map((panel, index) => (
             <motion.article
               key={`${panel.id}-${index}`}
-              className="group min-h-[360px] border border-[var(--ink-4)] bg-[var(--cream-1)] p-3 transition hover:border-[var(--cinnamon)] hover:shadow-[0_24px_80px_rgba(31,7,7,0.08)]"
+              className="group border border-[var(--ink-4)] bg-[var(--cream-1)] p-3 transition hover:border-[var(--cinnamon)]"
               initial={reduce ? false : { opacity: 0, y: 24, rotate: index % 2 ? -0.8 : 0.8 }}
               animate={{ opacity: 1, y: 0, rotate: 0 }}
               transition={{ duration: reduce ? 0 : 0.62, delay: reduce ? 0 : index * 0.055, ease: CINEMA }}
-              whileHover={reduce ? undefined : { y: -6 }}
             >
               <div className="relative aspect-[16/10] overflow-hidden bg-[var(--cream-2)]">
                 <PanelGlyph index={index} />
@@ -284,16 +284,10 @@ export function PromptStoryboardDemo() {
                   {panel.id}
                 </span>
               </div>
-              <div className="mt-4 grid gap-3">
+              <div className="mt-4 grid gap-2">
                 <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">{panel.shot}</p>
-                <p className="font-display text-[22px] font-light leading-[1.14] tracking-[-0.015em] text-[var(--ink-0)]">
+                <p className="font-display text-[20px] font-light leading-[1.16] tracking-[-0.01em] text-[var(--ink-0)]">
                   {panel.action}
-                </p>
-                <p className="font-mono text-[10px] uppercase leading-[1.55] tracking-[0.12em] text-[var(--ink-2)]">
-                  {panel.camera} / {panel.palette}
-                </p>
-                <p className="border-t border-[var(--ink-4)] pt-3 font-display text-[16px] font-light italic leading-[1.35] tracking-[-0.01em] text-[var(--ink-1)]">
-                  {panel.caption}
                 </p>
               </div>
             </motion.article>
@@ -427,8 +421,8 @@ export function ConsistencyLabDemo() {
               {liveUsed ? "live used" : "generate"}
             </button>
           </div>
-          <div className="mt-5 grid max-h-[240px] grid-cols-2 gap-2 overflow-y-auto border-y border-[var(--ink-4)] py-3 pr-1">
-            {CONSISTENCY_SCENES.map((scene) => (
+          <div className="mt-5 grid grid-cols-3 gap-2 border-t border-[var(--ink-4)] pt-3">
+            {CONSISTENCY_QUICK_SCENES.map((scene) => (
               <button
                 key={scene.id}
                 type="button"
@@ -455,19 +449,6 @@ export function ConsistencyLabDemo() {
               />
             </AnimatePresence>
           </div>
-          <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-[var(--ink-4)] pt-4">
-            {[
-              ["identity", "locked"],
-              ["wardrobe", "black blazer"],
-              ["prompt", "safe"],
-              ["mode", state.sample ? "sample" : "live"],
-            ].map(([label, value]) => (
-              <div key={label}>
-                <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--cinnamon)]">{label}</dt>
-                <dd className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--ink-2)]">{value}</dd>
-              </div>
-            ))}
-          </dl>
         </motion.aside>
       </div>
     </section>

@@ -442,7 +442,8 @@ function WebsiteDetail({ piece, transitionName }: { piece: Piece; transitionName
   const detail = WEBSITE_DETAILS.find((item) => item.slug === piece.slug);
   if (!detail) notFound();
 
-  const [hero, ...secondaryShots] = detail.shots;
+  const [hero] = detail.shots;
+  const secondaryShots = detail.shots.slice(1, 4);
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
 
   return (
@@ -476,16 +477,6 @@ function WebsiteDetail({ piece, transitionName }: { piece: Piece; transitionName
           <p className="mt-4 font-display text-[clamp(20px,1.9vw,32px)] font-light leading-[1.22] tracking-[-0.02em] text-[var(--ink-0)]">
             {detail.summary}
           </p>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {detail.stack.map((item) => (
-              <span
-                key={item}
-                className="border border-[var(--ink-4)] px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
           <a
             href={detail.liveUrl}
             target="_blank"
@@ -497,17 +488,6 @@ function WebsiteDetail({ piece, transitionName }: { piece: Piece; transitionName
             visit live site ↗
           </a>
         </aside>
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-4">
-        {detail.facts.map(([label, value]) => (
-          <div key={label} className="border-t border-[var(--ink-4)] pt-4">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
-            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-normal text-[var(--ink-1)]">
-              {value}
-            </p>
-          </div>
-        ))}
       </div>
 
       {secondaryShots.length ? (
@@ -547,18 +527,9 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
             A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion,
             kinetic type, data motion, particles, and early audio-reactive animation tests.
           </p>
-          <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-5">
-            {MOTION_REEL_RECEIPTS.map(([label, value]) => (
-              <div key={label}>
-                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-                  {label}
-                </dt>
-                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.14em] text-[var(--ink-2)]">
-                  {value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+            code-rendered motion · web video · social crops
+          </p>
         </aside>
         <div
           className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
@@ -573,19 +544,6 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
           </video>
         </div>
       </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-4">
-        {MOTION_REEL_CHAPTERS.map((chapter) => (
-          <div key={chapter.label} className="border-t border-[var(--ink-4)] pt-4">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-              {chapter.label}
-            </p>
-            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-              {chapter.copy}
-            </p>
-          </div>
-        ))}
-      </div>
     </section>
   );
 }
@@ -597,22 +555,12 @@ function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            A 64-second Remotion tour of audio visualization types built from real
-            analysis: RMS envelope, frequency bands, radial spectrum, rolling heat
-            map, phase scope, local BPM, onset peaks, particles, and beat-driven type.
+            A 64-second Remotion tour of audio visualization types built from real analysis.
+            Waveform, spectrum, heat map, phase, tempo, particles, and type resolve into one overlay.
           </p>
-          <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-5">
-            {AUDIO_REACTIVE_RECEIPTS.map(([label, value]) => (
-              <div key={label}>
-                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-                  {label}
-                </dt>
-                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.14em] text-[var(--ink-2)]">
-                  {value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+            64s · 1920x1080 · 24fps · h264/aac
+          </p>
         </aside>
         <div
           className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
@@ -631,21 +579,8 @@ function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-4">
-        {AUDIO_REACTIVE_SYSTEMS.map((system) => (
-          <div key={system.label} className="border-t border-[var(--ink-4)] pt-4">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-              {system.label}
-            </p>
-            <p className="mt-3 font-display text-[clamp(15px,1.12vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-              {system.copy}
-            </p>
-          </div>
-        ))}
-      </div>
-
       <div className="mt-10 border-y border-[var(--ink-4)] py-5">
-        <p className="max-w-[92ch] font-mono text-[10px] uppercase leading-[1.75] tracking-[0.14em] text-[var(--ink-2)]">
+        <p className="max-w-[78ch] font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
           music:{" "}
           <a
             href="https://freemusicarchive.org/music/Loyalty_Freak_Music/ROBOT_DANCE_/Loyalty_Freak_Music_-_ROBOT_DANCE__-_02_High_Technologic_Beat_Explosion/"
@@ -660,64 +595,12 @@ function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string
           >
             Wikimedia Commons
           </a>
-          . the overlay uses a 64-second excerpt starting at 11.5 seconds.
+          .
         </p>
       </div>
     </section>
   );
 }
-
-const MOTION_REEL_RECEIPTS: [string, string][] = [
-  ["role", "ai producer · motion systems · edit"],
-  ["tools", "remotion · hyperframes · motion/react · ffmpeg"],
-  ["surface", "brand reel · web video · social crops"],
-  ["next", "icm teaser · social overlay package"],
-];
-
-const MOTION_REEL_CHAPTERS = [
-  {
-    label: "identity motion",
-    copy: "Hammer lockups, kinetic type, and logo timing are rendered from code so the same system can output web, reel, and social variants without hand-timing every pass.",
-  },
-  {
-    label: "generative overlays",
-    copy: "Particles, data sweeps, frame ladders, and editorial transitions are built as reusable motion layers that can sit over AI footage or live-action edits.",
-  },
-  {
-    label: "render discipline",
-    copy: "The reel favors deterministic renders, named assets, codec fallbacks, and browser-safe delivery over one-off exports that are hard to revise.",
-  },
-  {
-    label: "sound path",
-    copy: "The audio-reactive overlay now has its own detail page, with timing data exposed as a production primitive rather than baked into a single edit.",
-  },
-] as const;
-
-const AUDIO_REACTIVE_RECEIPTS: [string, string][] = [
-  ["role", "motion design · audio analysis · remotion render"],
-  ["track", "Loyalty Freak Music · CC0 electronic source"],
-  ["analysis", "1536 frames · 200 onset peaks · 95-188 local BPM"],
-  ["delivery", "64s · 1920x1080 · 24fps · h264/aac"],
-];
-
-const AUDIO_REACTIVE_SYSTEMS = [
-  {
-    label: "chaptered tour",
-    copy: "The render moves through eight labeled sections so clients can see the range: waveform, meters, radial spectrum, heat map, phase scope, tempo, particles, and the combined overlay.",
-  },
-  {
-    label: "unique titles",
-    copy: "each section title has its own cinematic build: mask reveal, meter rise, orbit, scan, drawn underline, tempo ticks, and final resolve.",
-  },
-  {
-    label: "real signal",
-    copy: "Sub, low, mid, high, RMS, centroid, local BPM, and onset peaks are analyzed before rendering, then mapped to precise visual systems.",
-  },
-  {
-    label: "brand finish",
-    copy: "The system keeps Hammer's cream surface, maroon ink, cinnamon signal, mono captions, and controlled wordmark dot.",
-  },
-] as const;
 
 
 function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
@@ -770,33 +653,12 @@ const PROMPT_LIBRARY_LAYERS = [
   },
 ] as const;
 
-const PROMPT_LIBRARY_PACKS = [
-  ["storyboard", "scene intent, shot size, camera side, action verb, continuity marks"],
-  ["character", "identity anchors, wardrobe rules, face consistency, voice guardrails"],
-  ["motion", "timing map, layer roles, easing, render target, editorial fallback"],
-  ["site", "route goal, metadata, agent summary, visual role, live smoke list"],
-] as const;
-
-const CREATIVE_SKILL_ROWS = [
-  ["color direction", "palette, contrast, atmosphere, token fit, and accessibility before CSS lands"],
-  ["character prompting", "image, video, caption, and voice rules without leaking private runtime details"],
-  ["video recipes", "HyperFrames-first motion planning, audio maps, render targets, and delivery notes"],
-  ["shader taste", "WebGL and shader-like effects only when they earn the interface space"],
-  ["review systems", "contact sheets, approval gates, pickup notes, and visual-first review"],
-] as const;
-
 const AGENT_STACK_ROWS = [
   ["director", "taste and corrections"],
   ["brief", "scope and proof"],
   ["skills", "rules and recipes"],
   ["tools", "generation and build"],
   ["proof", "validation and live checks"],
-] as const;
-
-const TOOL_RECEIPTS = [
-  ["public", "architecture, proof, outcomes"],
-  ["private", "exact prompts, run config, internal notes"],
-  ["value", "repeatable taste under pressure"],
 ] as const;
 
 function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
@@ -828,48 +690,11 @@ function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transiti
               The value is not a secret prompt. It is the judgment to frame the ask, reject the drift, and protect the
               signal.
             </p>
-            <dl className="mt-8 grid grid-cols-1 gap-3">
-              {TOOL_RECEIPTS.map(([label, value]) => (
-                <div key={label} className="grid grid-cols-[86px_1fr] gap-4 border-t border-[var(--ink-4)] pt-3">
-                  <dt className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">{label}</dt>
-                  <dd className="font-mono text-[10px] uppercase leading-[1.6] tracking-[0.12em] text-[var(--ink-2)]">
-                    {value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <p className="mt-7 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+              public method · private prompt text withheld · review gates exposed
+            </p>
           </div>
         </div>
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-5">
-        {PROMPT_LIBRARY_LAYERS.map((layer, index) => (
-          <div
-            key={layer.label}
-            className="tool-lift-card border-t border-[var(--ink-4)] bg-[rgba(250,238,233,0.28)] p-4 pt-4"
-          >
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-              {String(index + 1).padStart(2, "0")} · {layer.label}
-            </p>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-2)]">
-              {layer.artifact}
-            </p>
-            <p className="mt-3 font-display text-[clamp(15px,1.08vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-              {layer.copy}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-4">
-        {PROMPT_LIBRARY_PACKS.map(([label, value]) => (
-          <div key={label} className="tool-lift-card border border-[var(--ink-4)] bg-[var(--cream-0)] p-5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
-            <p className="mt-4 font-display text-[clamp(15px,1.08vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-              {value}
-            </p>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -903,42 +728,12 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
             This is the layer between a director's note and a tool call: brand rules, production recipes,
             verification habits, and review formats that keep outputs from going generic.
           </p>
-          <p className="mt-7 border-l border-[var(--cinnamon)] pl-4 font-display text-[clamp(18px,1.45vw,24px)] font-light leading-[1.28] tracking-[-0.015em] text-[var(--bloodlust)]">
-            It is not automation for its own sake. It is taste with memory.
+          <p className="mt-7 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+            taste rules · production recipes · validation habits
           </p>
         </div>
         <div className="md:col-span-7">
           <AgentStackDiagram />
-        </div>
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-5">
-        {CREATIVE_SKILL_ROWS.map(([label, value]) => (
-          <div
-            key={label}
-            className="tool-lift-card border-t border-[var(--ink-4)] bg-[rgba(250,238,233,0.28)] p-4 pt-4"
-          >
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
-            <p className="mt-3 font-display text-[clamp(15px,1.08vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-              {value}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-12 border border-[var(--ink-4)] bg-[var(--cream-0)] p-5 md:p-7">
-        <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">stack path</p>
-        <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-5">
-          {AGENT_STACK_ROWS.map(([label, value], index) => (
-            <div key={label} className="tool-lift-card min-h-28 border border-[var(--ink-4)] bg-[var(--cream-1)] p-4">
-              <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-                {String(index + 1).padStart(2, "0")} · {label}
-              </p>
-              <p className="mt-4 font-display text-[clamp(15px,1.08vw,18px)] font-light leading-[1.35] tracking-[-0.01em] text-[var(--ink-1)]">
-                {value}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

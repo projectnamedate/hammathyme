@@ -9,15 +9,8 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AmbientShader } from "@/components/AmbientShader";
-import { Cursor } from "@/components/Cursor";
 import { FilmGrain } from "@/components/FilmGrain";
 import { Nav } from "@/components/Nav";
-import { RoomWatermark } from "@/components/RoomWatermark";
-import { IdleBreath } from "@/components/IdleBreath";
-import { EntryCurtain } from "@/components/EntryCurtain";
-import { InspectorOverlay } from "@/components/InspectorOverlay";
-import { HermesStatusBar } from "@/components/HermesStatusBar";
-import { MadeWithAITag } from "@/components/MadeWithAITag";
 import { JsonLd } from "@/components/JsonLd";
 import { buildPersonJsonLd, buildWebSiteJsonLd, rootMetadata } from "@/lib/seo";
 import "./globals.css";
@@ -112,16 +105,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* prettier-ignore */}
         <div dangerouslySetInnerHTML={{ __html: `<!--${LLM_NOTE}-->` }} />
         <AmbientShader />
-        <RoomWatermark />
         <FilmGrain />
         <Nav />
-        <MadeWithAITag />
         {children}
-        <Cursor />
-        <IdleBreath />
-        <EntryCurtain />
-        <InspectorOverlay />
-        <HermesStatusBar />
         <Analytics />
         <SpeedInsights />
       </body>

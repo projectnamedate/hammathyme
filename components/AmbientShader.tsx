@@ -231,7 +231,7 @@ export function AmbientShader() {
     <div
       aria-hidden
       data-ambient-shader
-      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-[0.9] mix-blend-multiply [filter:saturate(1.12)] motion-reduce:opacity-[0.65]"
+      className="pointer-events-none fixed inset-0 z-[1] overflow-hidden opacity-[0.45] mix-blend-multiply [filter:saturate(0.82)] motion-reduce:opacity-[0.32]"
     >
       <canvas
         ref={canvasRef}
