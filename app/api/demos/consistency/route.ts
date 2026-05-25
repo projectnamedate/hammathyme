@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   const reservation = await reserveDemoSpend(request, {
     demo: "consistency",
     estimatedUsd: 0.06,
-    perClientDailyLimit: 1,
+    perClientDailyLimit: 4,
     globalDailyLimit: 8,
   });
   if (!reservation.ok) {

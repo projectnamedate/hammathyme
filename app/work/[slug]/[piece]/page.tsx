@@ -821,7 +821,6 @@ function AgentStackDiagram() {
         </radialGradient>
       </defs>
       <rect x="1" y="1" width="778" height="438" fill="url(#skill-glow)" stroke="var(--ink-4)" />
-      <path className="tool-orbit-path" d="M 390 52 C 612 52, 720 160, 690 284 C 660 406, 122 402, 90 280 C 58 158, 168 52, 390 52 Z" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" />
       <rect className="tool-scanline" x="42" y="64" width="696" height="66" fill="var(--cream-0)" opacity="0.28" />
       <g fontFamily="var(--font-mono)" fontSize="10" letterSpacing="1.7">
         {AGENT_STACK_ROWS.map(([label], index) => {
@@ -852,21 +851,10 @@ function AgentStackDiagram() {
               <text x={x + 54} y="270" textAnchor="middle" fill="var(--ink-1)">
                 {label}
               </text>
-              {index < AGENT_STACK_ROWS.length - 1 ? (
-                <path
-                  className="tool-flow-line"
-                  style={{ "--tool-delay": `${360 + index * 100}ms` } as CSSProperties}
-                  d={`M ${x + 116} 174 H ${x + 132}`}
-                  stroke="var(--cinnamon)"
-                  strokeWidth="1.4"
-                />
-              ) : null}
             </g>
           );
         })}
       </g>
-      <path d="M 102 326 H 662" stroke="var(--ink-3)" strokeWidth="1" />
-      <path className="tool-orbit-path" d="M 662 326 C 704 326, 704 66, 102 66 C 70 66, 70 326, 102 326" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" />
       <text
         x="52"
         y="372"

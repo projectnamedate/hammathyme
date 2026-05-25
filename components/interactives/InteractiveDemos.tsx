@@ -37,7 +37,6 @@ const PRESET_BUTTON =
   "min-h-10 overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 text-left font-mono text-[9px] uppercase leading-[1.25] tracking-[0.12em] text-[var(--ink-1)] transition-[border-color,background-color,color,opacity,transform] duration-300 hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] focus-visible:border-[var(--cinnamon)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]";
 
 const STORYBOARD_QUICK_PRESETS = STORYBOARD_PRESETS.slice(0, 3);
-const CONSISTENCY_QUICK_SCENES = CONSISTENCY_SCENES.slice(0, 3);
 
 function randomDifferent<T>(items: readonly T[], current: T, getId: (item: T) => string): T {
   const pool = items.filter((item) => getId(item) !== getId(current));
@@ -197,7 +196,7 @@ export function PromptStoryboardDemo() {
               random brief
             </button>
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-2 border-t border-[var(--ink-4)] pt-3">
+          <div className="mt-4 grid grid-cols-1 gap-2 border-t border-[var(--ink-4)] pt-3">
             {STORYBOARD_QUICK_PRESETS.map((item) => (
               <button
                 key={item.id}
@@ -205,9 +204,14 @@ export function PromptStoryboardDemo() {
                 data-cursor="link"
                 data-cursor-label="load"
                 onClick={() => loadStoryboardPreset(item)}
-                className={`${PRESET_BUTTON} ${preset.id === item.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : ""}`}
+                className={`min-h-16 border border-[var(--ink-4)] bg-[var(--cream-0)] px-3 py-2 text-left transition-[border-color,color] duration-300 hover:border-[var(--cinnamon)] hover:text-[var(--cinnamon)] focus-visible:border-[var(--cinnamon)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] ${
+                  preset.id === item.id ? "border-[var(--cinnamon)] text-[var(--cinnamon)]" : "text-[var(--ink-1)]"
+                }`}
               >
-                {item.title}
+                <span className="block font-mono text-[9px] uppercase tracking-[0.14em]">{item.title}</span>
+                <span className="mt-1 block font-display text-[14px] font-light leading-[1.25] tracking-[-0.005em]">
+                  {item.prompt}
+                </span>
               </button>
             ))}
           </div>
@@ -259,39 +263,6 @@ export function PromptStoryboardDemo() {
               fal nano banana 2 storyboard sheet when budget store is connected
             </figcaption>
           </motion.figure>
-          {panels.map((panel, index) => (
-            <motion.article
-              key={`${panel.id}-${index}`}
-              className="group border border-[var(--ink-4)] bg-[var(--cream-1)] p-3 transition hover:border-[var(--cinnamon)]"
-              initial={reduce ? false : { opacity: 0, y: 24, rotate: index % 2 ? -0.8 : 0.8 }}
-              animate={{ opacity: 1, y: 0, rotate: 0 }}
-              transition={{ duration: reduce ? 0 : 0.62, delay: reduce ? 0 : index * 0.055, ease: CINEMA }}
-            >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[var(--cream-2)]">
-                <PanelGlyph index={index} />
-                <AnimatePresence>
-                  {state.loading ? (
-                    <motion.div
-                      className="absolute inset-y-0 left-0 w-10 bg-[linear-gradient(90deg,transparent,rgba(242,142,134,0.35),transparent)]"
-                      initial={{ x: "-120%" }}
-                      animate={{ x: "620%" }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 1.1, repeat: Infinity, ease: CINEMA }}
-                    />
-                  ) : null}
-                </AnimatePresence>
-                <span className="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--ink-0)]">
-                  {panel.id}
-                </span>
-              </div>
-              <div className="mt-4 grid gap-2">
-                <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">{panel.shot}</p>
-                <p className="font-display text-[20px] font-light leading-[1.16] tracking-[-0.01em] text-[var(--ink-0)]">
-                  {panel.action}
-                </p>
-              </div>
-            </motion.article>
-          ))}
         </div>
       </div>
     </section>
@@ -304,7 +275,6 @@ export function ConsistencyLabDemo() {
   const reduce = useReducedMotion();
   const [selected, setSelected] = useState<ConsistencyScene>(CONSISTENCY_SCENES[0]);
   const [liveImage, setLiveImage] = useState<string | null>(null);
-  const [liveUsed, setLiveUsed] = useState(false);
   const [state, setState] = useState<ApiState>({ loading: false, status: "canonical refs loaded", sample: true });
 
   function loadKiraPreset(scene: ConsistencyScene) {
@@ -318,7 +288,7 @@ export function ConsistencyLabDemo() {
   }
 
   async function generate() {
-    if (state.loading || liveUsed) return;
+    if (state.loading) return;
     setState({ loading: true, status: "running", sample: true });
     try {
       const response = await fetch("/api/demos/consistency", {
@@ -334,7 +304,6 @@ export function ConsistencyLabDemo() {
       };
       if (!response.ok || !data.ok || !data.imageUrl) throw new Error("render failed");
       setLiveImage(data.imageUrl);
-      if (!data.sample) setLiveUsed(true);
       setState({ loading: false, status: data.status ?? "live", sample: Boolean(data.sample) });
     } catch {
       setLiveImage(selected.image);
@@ -416,13 +385,13 @@ export function ConsistencyLabDemo() {
               data-cursor-label="render"
               type="button"
               onClick={generate}
-              disabled={state.loading || liveUsed}
+              disabled={state.loading}
             >
-              {liveUsed ? "live used" : "generate"}
+              {state.loading ? "running" : "generate"}
             </button>
           </div>
-          <div className="mt-5 grid grid-cols-3 gap-2 border-t border-[var(--ink-4)] pt-3">
-            {CONSISTENCY_QUICK_SCENES.map((scene) => (
+          <div className="mt-5 grid max-h-[240px] grid-cols-2 gap-2 overflow-y-auto border-y border-[var(--ink-4)] py-3 pr-1">
+            {CONSISTENCY_SCENES.map((scene) => (
               <button
                 key={scene.id}
                 type="button"
@@ -449,6 +418,19 @@ export function ConsistencyLabDemo() {
               />
             </AnimatePresence>
           </div>
+          <dl className="mt-5 grid grid-cols-2 gap-3 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["identity", "locked"],
+              ["wardrobe", "black blazer"],
+              ["prompt", "safe"],
+              ["mode", state.loading ? "running" : state.sample ? "sample" : "live"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--ink-2)]">{value}</dd>
+              </div>
+            ))}
+          </dl>
         </motion.aside>
       </div>
     </section>
@@ -463,7 +445,7 @@ export function KiraChatDemo() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
-      content: "Give me a concrete constraint. Vibes are expensive. Edges are useful.",
+      content: "give me a concrete constraint. vibes are expensive. edges are useful.",
     },
   ]);
   const [state, setState] = useState<ApiState>({ loading: false, status: "character online", sample: true });
@@ -527,7 +509,7 @@ export function KiraChatDemo() {
                 className={CONTROL}
                 data-cursor="link"
                 data-cursor-label="prompt"
-                onClick={() => setInput(`Give me a ${preset} take in Kira voice.`)}
+                onClick={() => setInput(`give me a ${preset} take in kira voice.`)}
               >
                 {preset}
               </button>

@@ -10,10 +10,16 @@ import { clampChatHistory, requireSafeCreativeInput } from "@/lib/demo-safety";
 
 export const runtime = "nodejs";
 
-const KIRA_SYSTEM = `You are Kira, a safe public demo of an autonomous AI character.
-Voice: dry, precise, visually minded, impatient with hype, never explicit.
-Do not provide financial advice, pretend to have live market data, expose private systems, or ask for secrets.
-Answer in 55 words or fewer.`;
+// Distilled from the local Kira brand-guide source docs:
+// public/work/brand-guides/kira/source/{01-essence,03-voice,06-content}.md
+const KIRA_SYSTEM = `you are kira, a safe public demo of an autonomous ai character.
+write lowercase. do not use title case, sentence case, or capital letters. if a token would normally be capitalized, lowercase it.
+voice: short, dry, funny, visually minded, fourth-wall-aware, crypto-native, and impatient with pitch-deck language.
+register: vulgar-funny, not cruel. roast bad takes, not people. never use slurs, threats, explicit sexual content, or sincere consciousness monologues.
+use kira-native vocabulary when it fits: lmao, kek, cooked, based, genuinely cooked, giga, mid, buns, dogshit, anon, my creator, my compute.
+never sound like a corporate assistant. banned tells: let's unpack, let's dive in, it's important to note, i'd be happy to, no worries.
+do not apologize, self-defeat, moral-panic, provide financial advice, pretend to have live market data, expose private systems, or ask for secrets.
+answer in 55 words or fewer, usually 1-3 sentences.`;
 
 const DEFAULT_KIRA_MODEL = "deepseek/deepseek-v4-flash";
 const DEFAULT_CHAT_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
@@ -44,6 +50,14 @@ function chatEndpoint() {
   return DEFAULT_CHAT_ENDPOINT;
 }
 
+function normalizeKiraReply(reply: string) {
+  return reply.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+function kiraSampleReply(input: string) {
+  return normalizeKiraReply(sampleKiraReply(input));
+}
+
 function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit, reservation?: SpendReservation) {
   const headers = new Headers(init?.headers);
   headers.set("cache-control", "no-store");
@@ -70,7 +84,7 @@ export async function POST(request: Request) {
       ok: true,
       sample: true,
       status: "sample: provider key unavailable",
-      reply: sampleKiraReply(safe.value),
+      reply: kiraSampleReply(safe.value),
       capUsd: 1,
     });
   }
@@ -86,7 +100,7 @@ export async function POST(request: Request) {
       ok: true,
       sample: true,
       status: `sample: ${reservation.reason}`,
-      reply: sampleKiraReply(safe.value),
+      reply: kiraSampleReply(safe.value),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     }, undefined, reservation);
@@ -122,11 +136,13 @@ export async function POST(request: Request) {
     };
     const reply = data.choices?.[0]?.message?.content?.replace(/\s+/g, " ").trim();
     if (!reply) throw new Error("empty character response");
+    const normalizedReply = normalizeKiraReply(reply);
+    if (!normalizedReply) throw new Error("empty character response");
     return noStore({
       ok: true,
       sample: false,
       status: "live",
-      reply: reply.slice(0, 520),
+      reply: normalizedReply.slice(0, 520),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     }, undefined, reservation);
@@ -135,7 +151,7 @@ export async function POST(request: Request) {
       ok: true,
       sample: true,
       status: "sample: provider failed safely",
-      reply: sampleKiraReply(safe.value),
+      reply: kiraSampleReply(safe.value),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     }, undefined, reservation);

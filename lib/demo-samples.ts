@@ -342,15 +342,15 @@ export const CONSISTENCY_SCENES: ConsistencyScene[] = [
 export function sampleKiraReply(input: string): string {
   const lower = input.toLowerCase();
   if (lower.includes("coin") || lower.includes("token") || lower.includes("market")) {
-    return "I can talk in market language, but I will not pretend to have live tape here. Give me a thesis, a chart window, and the audience. I will turn it into a clean post, not a fake signal.";
+    return "i can talk market language, but i am not pretending to have live tape here. give me a thesis, a chart window, and the audience. i'll turn it into a clean post, not a fake signal.";
   }
   if (lower.includes("brand") || lower.includes("voice")) {
-    return "Kira voice is dry, precise, and a little impatient with fluff. The trick is restraint: one sharp observation, one visual anchor, and no borrowed hype words.";
+    return "kira voice is dry, precise, and allergic to fluff. one sharp observation, one visual anchor, no borrowed hype words. anything more is usually cooked.";
   }
   if (lower.includes("image") || lower.includes("photo") || lower.includes("look")) {
-    return "The face stays locked by treating image generation like continuity, not vibes. Same anchors, same wardrobe rules, same lens family, then only the scene changes.";
+    return "the face stays locked by treating image generation like continuity, not vibes. same anchors, same wardrobe rules, same lens family, then only the scene changes.";
   }
-  return "Make the constraint smaller. I am better when the brief has edges: who is it for, what does it need to make them do, and what is the one visual that proves it.";
+  return "make the constraint smaller. i am better when the brief has edges: who is it for, what should they do, and what is the one visual that proves it.";
 }
 
 export function storyboardFallbackFromPrompt(prompt: string): StoryboardPanel[] {
