@@ -23,7 +23,7 @@ the focus* — he has ideas per item.
 | 15 | Creative skills library | pipelines-tools | live |
 | 16 | Interactive + playable demos | interactive-playable | live detail routes: storyboard, consistency, Kira chat, dot discipline |
 | 17 | Canonical domain wiring: `hammer.ad` | launch | done, live |
-| 18 | Technical SEO audit | launch | local implementation: per-route metadata, structured data, canonical URLs, AI-crawler robots, sitemap stability, llms-full, and agent manifest. next: deploy, Lighthouse mobile SEO, and Rich Results validation |
+| 18 | Technical SEO audit | launch | local implementation: per-route metadata, structured data, canonical URLs, AI-crawler robots, sitemap stability, priority sitemap, llms-full, and agent manifest. next: Search Console sitemap submission, URL inspection/indexing requests, Lighthouse mobile SEO, and Rich Results validation |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
@@ -92,6 +92,14 @@ pipeline-config mailto, `public/llms.txt`, and `public/memories/jeff.md`.
 AI crawler rules in robots, stable sitemap dates, `/llms-full.txt`, and
 `/.well-known/agents.json`. Keep these surfaces in sync with route, contact,
 and portfolio-readiness changes.
+
+**Note (2026-05-25):** Search Console showed most Hammer pages as
+`Discovered - currently not indexed` with one `Page with redirect`. Keep the
+full sitemap as the canonical route inventory, and use `/sitemap-priority.xml`
+as the compact Search Console submission/validation set for the highest-value
+HTML pages: `/`, `/about`, `/contact`, `/work`, `/work/agents/kira`,
+`/work/motion-graphics/reel`, `/work/pipelines-tools/pipeline-visualizer`,
+`/work/brand-systems/hammer`, and `/work/websites/hammer`.
 
 **Note (2026-05-24):** Next session should finish the audio-reactive video as
 a real motion piece. The current live page is technically wired, but the video

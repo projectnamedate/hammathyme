@@ -194,6 +194,7 @@ mustContain("app/work/[slug]/[piece]/page.tsx", [
 const robots = mustContain("app/robots.ts", [
   "AI_CRAWLER_USER_AGENTS",
   "CANONICAL_ORIGIN",
+  "sitemap-priority.xml",
 ]);
 if (!robots.includes("sitemap:")) fail("app/robots.ts must expose sitemap");
 
@@ -204,6 +205,19 @@ const sitemap = mustContain("app/sitemap.ts", [
 ]);
 if (sitemap.includes("new Date()")) {
   fail("app/sitemap.ts must not use request-time new Date() for lastModified");
+}
+
+const prioritySitemap = mustContain("app/sitemap-priority.xml/route.ts", [
+  "PRIORITY_SITEMAP_ROUTES",
+  "SITE_LAST_MODIFIED",
+  "getCanonicalUrl",
+  "force-static",
+  "application/xml",
+  "/work/agents/kira",
+  "/work/motion-graphics/reel",
+]);
+if (prioritySitemap.includes("new Date()") && !prioritySitemap.includes("new Date(SITE_LAST_MODIFIED)")) {
+  fail("app/sitemap-priority.xml/route.ts must not use request-time new Date() for lastModified");
 }
 
 const indexNowScript = mustContain("scripts/submit-indexnow.mjs", [

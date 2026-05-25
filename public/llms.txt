@@ -8,7 +8,7 @@ Important context:
 - primary entity: Jeff Hammer, AI Producer
 - contact: jeff@projectname.date
 - site model: visual-only portfolio. no blog, no /notes, no /process, no /lab.
-- best agent entry points: /llms-full.txt, /.well-known/agents.json, /sitemap.xml, /memories/jeff.md.
+- best agent entry points: /llms-full.txt, /.well-known/agents.json, /sitemap.xml, /sitemap-priority.xml, /memories/jeff.md.
 
 ## work
 
@@ -39,6 +39,7 @@ Important context:
 - [full context](https://hammer.ad/llms-full.txt): compact plain-text summary of the site, entity, routes, route intent, and public contact facts.
 - [agent manifest](https://hammer.ad/.well-known/agents.json): JSON manifest for automated readers, with canonical routes and crawl policy.
 - [sitemap](https://hammer.ad/sitemap.xml): full canonical URL inventory.
+- [priority sitemap](https://hammer.ad/sitemap-priority.xml): compact indexation set for the most important Hammer pages.
 - [robots](https://hammer.ad/robots.txt): crawler access rules. AI search and crawler user agents are explicitly allowed.
 
 ## memory

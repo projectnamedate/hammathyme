@@ -12,22 +12,22 @@ const nextConfig = {
       {
         source: "/work/websites/hammathyme",
         destination: "/work/websites/hammer",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/work/brand-guides/agentify",
         destination: "https://agentify.nexus/brand-bible",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/work/brand-guides/agentify/index.html",
         destination: "https://agentify.nexus/brand-bible",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/work/brand-guides/agentify/BRAND_GUIDE.md",
         destination: "https://agentify.nexus/brand-bible",
-        permanent: false,
+        permanent: true,
       },
     ];
   },

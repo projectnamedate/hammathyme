@@ -114,6 +114,7 @@ redirect to the apex host.
 Useful machine-readable resources:
 - https://hammer.ad/robots.txt
 - https://hammer.ad/sitemap.xml
+- https://hammer.ad/sitemap-priority.xml
 - https://hammer.ad/llms.txt
 - https://hammer.ad/llms-full.txt
 - https://hammer.ad/.well-known/agents.json

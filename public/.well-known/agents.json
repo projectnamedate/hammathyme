@@ -13,6 +13,7 @@
     "llms.txt": "https://hammer.ad/llms.txt",
     "llms-full.txt": "https://hammer.ad/llms-full.txt",
     "sitemap": "https://hammer.ad/sitemap.xml",
+    "priority_sitemap": "https://hammer.ad/sitemap-priority.xml",
     "robots": "https://hammer.ad/robots.txt",
     "public_memory": "https://hammer.ad/memories/jeff.md"
   },

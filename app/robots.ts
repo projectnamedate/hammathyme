@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "*", allow: "/" },
       ...AI_CRAWLER_USER_AGENTS.map((userAgent) => ({ userAgent, allow: "/" })),
     ],
-    sitemap: `${CANONICAL_ORIGIN}/sitemap.xml`,
+    sitemap: [`${CANONICAL_ORIGIN}/sitemap.xml`, `${CANONICAL_ORIGIN}/sitemap-priority.xml`],
     host: CANONICAL_ORIGIN,
   };
 }
