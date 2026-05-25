@@ -9,7 +9,10 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AmbientShader } from "@/components/AmbientShader";
+import { Cursor } from "@/components/Cursor";
 import { FilmGrain } from "@/components/FilmGrain";
+import { HermesStatusBar } from "@/components/HermesStatusBar";
+import { InspectorOverlay } from "@/components/InspectorOverlay";
 import { Nav } from "@/components/Nav";
 import { JsonLd } from "@/components/JsonLd";
 import { buildPersonJsonLd, buildWebSiteJsonLd, rootMetadata } from "@/lib/seo";
@@ -108,6 +111,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <FilmGrain />
         <Nav />
         {children}
+        <Cursor />
+        <InspectorOverlay />
+        <HermesStatusBar />
         <Analytics />
         <SpeedInsights />
       </body>

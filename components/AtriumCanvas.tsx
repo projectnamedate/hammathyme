@@ -124,7 +124,7 @@ export function AtriumCanvas() {
 
   return (
     <>
-      <section className="relative hidden h-[100svh] w-screen overflow-hidden bg-[var(--cream-0)] md:block">
+      <section className="relative hidden h-[100svh] w-screen overflow-hidden md:block">
         {/* active piece title — locked below nav */}
         <div className="pointer-events-none absolute left-1/2 top-20 z-30 w-[min(680px,82vw)] -translate-x-1/2 text-center md:top-24">
           <motion.p
@@ -292,7 +292,7 @@ function AtriumStack({
 }) {
   return (
     <section
-      className="hide-scrollbar h-[100svh] w-screen overflow-y-auto overflow-x-hidden bg-[var(--cream-0)]"
+      className="hide-scrollbar h-[100svh] w-screen overflow-y-auto overflow-x-hidden"
       style={{ scrollSnapType: "y mandatory" }}
       onScroll={(e) => {
         const idx = Math.round(e.currentTarget.scrollTop / window.innerHeight);
