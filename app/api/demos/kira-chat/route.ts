@@ -53,7 +53,11 @@ function chatEndpoint() {
 }
 
 function normalizeKiraReply(reply: string) {
-  return reply.replace(/\s+/g, " ").trim().toLowerCase();
+  return reply
+    .replace(/[—–]/g, ", ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase();
 }
 
 function kiraSampleReply(input: string) {
