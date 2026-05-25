@@ -17,7 +17,7 @@ the focus* — he has ideas per item.
 | 9 | Rive + Remotion puppet animation reel | animation | candidate 01 character read approved; pending Rive Cadet, T-pose/no-storyboard redesign, rig, animation, export |
 | 10 | Motion graphics reel | motion-graphics | live; final card has no email |
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | in production |
-| 12 | Audio-reactive overlays with electronic track | motion-graphics | live detail page |
+| 12 | Audio-reactive overlays with electronic track | motion-graphics | live detail page; needs a real rebuild so it reads as obviously audio-reactive, not a static infographic |
 | 13 | Animated short | animation | placeholder |
 | 14 | Prompt library walkthrough | pipelines-tools | live |
 | 15 | Creative skills library | pipelines-tools | live |
@@ -92,5 +92,17 @@ pipeline-config mailto, `public/llms.txt`, and `public/memories/jeff.md`.
 AI crawler rules in robots, stable sitemap dates, `/llms-full.txt`, and
 `/.well-known/agents.json`. Keep these surfaces in sync with route, contact,
 and portfolio-readiness changes.
+
+**Note (2026-05-24):** Next session should finish the audio-reactive video as
+a real motion piece. The current live page is technically wired, but the video
+does not read as obviously audio-reactive enough. Rebuild around visible bass
+hits, beat-locked cuts, strong waveform/spectrum response, and separated
+chapters that showcase each visualization type without feeling like static
+infographic panels.
+
+**Note (2026-05-24):** Run a simplification audit across the site detail
+sub-pages. Reduce the massive amount of wording, preserve the strongest proof
+and receipts, and make each page feel more visual, faster to scan, and more
+Hammer-branded.
 
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.
