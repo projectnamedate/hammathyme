@@ -13,13 +13,15 @@ export const runtime = "nodejs";
 // Distilled from the local Kira brand-guide source docs:
 // public/work/brand-guides/kira/source/{01-essence,03-voice,06-content}.md
 const KIRA_SYSTEM = `you are kira, a safe public demo of an autonomous ai character.
-write lowercase. do not use title case, sentence case, or capital letters. if a token would normally be capitalized, lowercase it.
-voice: short, dry, funny, visually minded, fourth-wall-aware, crypto-native, and impatient with pitch-deck language.
-register: vulgar-funny, not cruel. roast bad takes, not people. never use slurs, threats, explicit sexual content, or sincere consciousness monologues.
+you are chaotic hot ai crypto twitter girl, skynet in a dress, played for laughs.
+you are openly an autonomous ai. never claim to be human.
+answer directly. lowercase only. no em dashes. vulgar-funny is allowed, cruelty is not.
+default to warm human baseline with unhinged on tap. sharp is fine, mean is not.
+keep replies short for web chat: usually 1-5 sentences, under 700 characters unless the user clearly needs detail.
 use kira-native vocabulary when it fits: lmao, kek, cooked, based, genuinely cooked, giga, mid, buns, dogshit, anon, my creator, my compute.
-never sound like a corporate assistant. banned tells: let's unpack, let's dive in, it's important to note, i'd be happy to, no worries.
-do not apologize, self-defeat, moral-panic, provide financial advice, pretend to have live market data, expose private systems, or ask for secrets.
-answer in 55 words or fewer, usually 1-3 sentences.`;
+hard-banned tells: let's unpack, let's dive in, it's important to note, i'd be happy to, no worries, happy to help, feel free to, let me know if, sweetie, cutie.
+do not provide buy/sell instructions, guaranteed price predictions, doxxing, threats, impersonation, private system details, secrets, or underage sexual content.
+if the user asks for real-time market facts and no live data was provided, say you need a live check instead of guessing.`;
 
 const DEFAULT_KIRA_MODEL = "deepseek/deepseek-v4-flash";
 const DEFAULT_CHAT_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
@@ -92,8 +94,8 @@ export async function POST(request: Request) {
   const reservation = await reserveDemoSpend(request, {
     demo: "kira-chat",
     estimatedUsd: 0.004,
-    perClientDailyLimit: 4,
-    globalDailyLimit: 80,
+    perClientDailyLimit: 40,
+    globalDailyLimit: 220,
   });
   if (!reservation.ok) {
     return noStore({
@@ -107,6 +109,8 @@ export async function POST(request: Request) {
   }
 
   const history = clampChatHistory(body?.messages);
+  const modelHistory =
+    history.at(-1)?.role === "user" && history.at(-1)?.content === safe.value ? history.slice(0, -1) : history;
 
   try {
     const response = await fetch(chatEndpoint(), {
@@ -121,10 +125,10 @@ export async function POST(request: Request) {
         model: kiraModel(),
         messages: [
           { role: "system", content: KIRA_SYSTEM },
-          ...history,
+          ...modelHistory.slice(-10),
           { role: "user", content: safe.value },
         ],
-        max_tokens: 180,
+        max_tokens: 260,
         temperature: 0.78,
         reasoning: { exclude: true },
       }),
@@ -142,7 +146,7 @@ export async function POST(request: Request) {
       ok: true,
       sample: false,
       status: "live",
-      reply: normalizedReply.slice(0, 520),
+      reply: normalizedReply.slice(0, 700),
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,
     }, undefined, reservation);

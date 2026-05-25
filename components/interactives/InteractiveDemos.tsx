@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   CONSISTENCY_SCENES,
   SAMPLE_STORYBOARD,
@@ -441,7 +441,7 @@ export function KiraChatDemo() {
   const reduce = useReducedMotion();
   const inputId = "kira-chat-message";
   const [input, setInput] = useState("How would you turn a noisy product launch into one clean post?");
-  const [userMessages, setUserMessages] = useState(0);
+  const logRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "assistant",
@@ -450,20 +450,24 @@ export function KiraChatDemo() {
   ]);
   const [state, setState] = useState<ApiState>({ loading: false, status: "character online", sample: true });
 
+  useEffect(() => {
+    const log = logRef.current;
+    if (log) log.scrollTop = log.scrollHeight;
+  }, [messages, state.loading]);
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = input.trim();
-    if (!trimmed || state.loading || userMessages >= 4) return;
+    if (!trimmed || state.loading) return;
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: trimmed }];
     setMessages(nextMessages);
     setInput("");
-    setUserMessages((count) => count + 1);
     setState({ loading: true, status: "thinking", sample: true });
     try {
       const response = await fetch("/api/demos/kira-chat", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ message: trimmed, messages: nextMessages }),
+        body: JSON.stringify({ message: trimmed, messages }),
       });
       const data = (await response.json()) as {
         ok?: boolean;
@@ -479,6 +483,13 @@ export function KiraChatDemo() {
       const assistantMessage: ChatMessage = { role: "assistant", content: sampleKiraReply(trimmed) };
       setMessages([...nextMessages, assistantMessage].slice(-7));
       setState({ loading: false, status: "sample fallback", sample: true });
+    }
+  }
+
+  function handleInputKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      event.currentTarget.form?.requestSubmit();
     }
   }
 
@@ -518,7 +529,7 @@ export function KiraChatDemo() {
         </aside>
 
         <div className="flex min-h-[620px] flex-col">
-          <div className="flex-1 space-y-4 overflow-y-auto p-5 md:p-7">
+          <div ref={logRef} className="flex-1 space-y-4 overflow-y-auto p-5 md:p-7">
             <AnimatePresence initial={false}>
               {messages.map((message, index) => (
                 <motion.div
@@ -566,25 +577,27 @@ export function KiraChatDemo() {
             <label htmlFor={inputId} className="sr-only">
               message Kira
             </label>
-            <input
+            <textarea
               id={inputId}
               name="kira-chat-message"
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              className={`${INPUT} min-h-0 flex-1`}
-              maxLength={420}
+              onKeyDown={handleInputKeyDown}
+              className={`${INPUT} min-h-16 flex-1 resize-none`}
+              rows={2}
+              maxLength={700}
               autoComplete="off"
-              placeholder={userMessages >= 4 ? "message cap reached" : "message kira…"}
-              disabled={userMessages >= 4}
+              placeholder="message kira…"
+              disabled={state.loading}
             />
             <button
               className={`${CONTROL} mt-3 min-w-[132px] md:mt-0`}
               data-cursor="link"
               data-cursor-label="send"
               type="submit"
-              disabled={state.loading || userMessages >= 4}
+              disabled={state.loading || input.trim().length === 0}
             >
-              {userMessages >= 4 ? "capped" : "send"}
+              {state.loading ? "typing" : "send"}
             </button>
           </form>
         </div>
