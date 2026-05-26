@@ -396,12 +396,12 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
     return {
       "@type": "VideoObject",
       "@id": `${pageUrl}#video`,
-      name: "Hammer audio-reactive overlays",
+      name: "Hammer audio reactive overlays",
       description:
         piece.blurb ??
-        "A Remotion tour of audio visualization types driven by analyzed RMS, frequency bands, onset peaks, local BPM, phase scope, and rolling spectrum data.",
+        "A Remotion overlay driven by energy, band, centroid, and beat analysis.",
       thumbnailUrl: [getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-poster.png")],
-      uploadDate: "2026-05-24",
+      uploadDate: "2026-05-25",
       contentUrl: getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },

@@ -259,9 +259,9 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
       {
         slug: "audio-reactive-overlays",
-        title: "audio-reactive overlays",
+        title: "audio reactive overlays",
         year: "2026",
-        blurb: "a 64-second Remotion tour of audio visualization types driven by analyzed RMS, frequency bands, onset peaks, local BPM, phase scope, and rolling spectrum data.",
+        blurb: "a 64-second Remotion overlay driven by energy, band, centroid, and beat analysis.",
         status: "live",
         tint: "var(--cinnamon)",
       },

@@ -101,12 +101,10 @@ HTML pages: `/`, `/about`, `/contact`, `/work`, `/work/agents/kira`,
 `/work/motion-graphics/reel`, `/work/pipelines-tools/pipeline-visualizer`,
 `/work/brand-systems/hammer`, and `/work/websites/hammer`.
 
-**Note (2026-05-24):** Next session should finish the audio-reactive video as
-a real motion piece. The current live page is technically wired, but the video
-does not read as obviously audio-reactive enough. Rebuild around visible bass
-hits, beat-locked cuts, strong waveform/spectrum response, and separated
-chapters that showcase each visualization type without feeling like static
-infographic panels.
+**Note (2026-05-25):** The audio-reactive video was rebuilt as a designed
+response-overlay piece. The public page now uses the rendered 64s h264 asset
+and poster. Labels avoid fake instrument language, and the final hammer lockup
+was removed.
 
 **Note (2026-05-24):** Run a simplification audit across the site detail
 sub-pages. Reduce the massive amount of wording, preserve the strongest proof

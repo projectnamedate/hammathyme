@@ -33,7 +33,7 @@ The domain appears only in technical URL surfaces.
 - /work/agents/kira: Kira autonomous character detail page.
 - /work/motion-graphics: programmatic motion work.
 - /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
-- /work/motion-graphics/audio-reactive-overlays: Remotion tour of audio visualization types driven by RMS, frequency bands, onset peaks, local BPM, phase scope, and rolling spectrum data.
+- /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
 - /work/animation: Rive and Remotion animation category. Public work is still in production.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.

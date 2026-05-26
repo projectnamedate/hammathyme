@@ -555,8 +555,8 @@ function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            A 64-second Remotion tour of audio visualization types built from real analysis.
-            Waveform, spectrum, heat map, phase, tempo, particles, and type resolve into one overlay.
+            A 64-second Remotion overlay driven by energy, band, centroid, and beat analysis.
+            Designed response layers turn the track into motion graphics without fake instrument readouts.
           </p>
           <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
             64s · 1920x1080 · 24fps · h264/aac
@@ -567,7 +567,7 @@ function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string
           style={frameStyle}
         >
           <video
-            aria-label="Hammer audio-reactive overlays motion graphics video"
+            aria-label="Hammer audio reactive overlays motion graphics video"
             className="block aspect-video w-full bg-[var(--cream-0)]"
             controls
             playsInline
