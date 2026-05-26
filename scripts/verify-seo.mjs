@@ -40,7 +40,7 @@ if (packageJson.scripts?.["submit:indexnow"] !== "node scripts/submit-indexnow.m
   fail("package.json must expose npm run submit:indexnow");
 }
 
-mustContain("lib/seo.ts", [
+const seoText = mustContain("lib/seo.ts", [
   "CANONICAL_ORIGIN",
   "SITE_LAST_MODIFIED",
   "DEFAULT_KEYWORDS",
@@ -60,6 +60,32 @@ mustContain("lib/seo.ts", [
   "buildCreativeWorkJsonLd",
   "buildVideoObjectJsonLd",
 ]);
+
+const isoDateTimePattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:Z|[+-]\d{2}:\d{2})$/;
+const siteLastModified = seoText.match(/SITE_LAST_MODIFIED = "([^"]+)"/)?.[1];
+if (!siteLastModified || !isoDateTimePattern.test(siteLastModified)) {
+  fail("lib/seo.ts SITE_LAST_MODIFIED must be an ISO 8601 date-time with timezone");
+}
+
+const profilePageBlock = seoText.match(/export function buildProfilePageJsonLd\(\): JsonLdObject \{([\s\S]*?)\n\}/)?.[1] ?? "";
+const profileDateCreated = profilePageBlock.match(/dateCreated: "([^"]+)"/)?.[1];
+const profileDateModifiedUsesSiteConstant = profilePageBlock.includes("dateModified: SITE_LAST_MODIFIED");
+if (!profileDateCreated || !isoDateTimePattern.test(profileDateCreated)) {
+  fail("buildProfilePageJsonLd dateCreated must be an ISO 8601 date-time with timezone");
+}
+if (!profileDateModifiedUsesSiteConstant) {
+  const profileDateModified = profilePageBlock.match(/dateModified: "([^"]+)"/)?.[1];
+  if (!profileDateModified || !isoDateTimePattern.test(profileDateModified)) {
+    fail("buildProfilePageJsonLd dateModified must be an ISO 8601 date-time with timezone");
+  }
+}
+
+const videoUploadDates = [...seoText.matchAll(/uploadDate: "([^"]+)"/g)].map((match) => match[1]);
+for (const uploadDate of videoUploadDates) {
+  if (!isoDateTimePattern.test(uploadDate)) {
+    fail(`buildVideoObjectJsonLd uploadDate must be an ISO 8601 date-time with timezone: ${uploadDate}`);
+  }
+}
 
 mustContain("components/JsonLd.tsx", ["application/ld+json", "jsonLd"]);
 

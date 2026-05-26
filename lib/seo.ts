@@ -4,7 +4,7 @@ import type { CaseStudy, Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-05-24";
+export const SITE_LAST_MODIFIED = "2026-05-26T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · ai producer";
 export const DEFAULT_DESCRIPTION =
@@ -279,7 +279,7 @@ export function buildProfilePageJsonLd(): JsonLdObject {
     description: aboutMetadata.description,
     isPartOf: { "@id": WEBSITE_ID },
     mainEntity: { "@id": PERSON_ID },
-    dateCreated: "2026-05-03",
+    dateCreated: "2026-05-03T00:00:00-07:00",
     dateModified: SITE_LAST_MODIFIED,
   };
 }
@@ -401,7 +401,7 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
         piece.blurb ??
         "A Remotion overlay driven by energy, band, centroid, and beat analysis.",
       thumbnailUrl: [getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-poster.png")],
-      uploadDate: "2026-05-25",
+      uploadDate: "2026-05-25T00:00:00-07:00",
       contentUrl: getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
@@ -419,7 +419,7 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       piece.blurb ??
       "A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion, kinetic type, data motion, particles, and early audio-reactive animation tests.",
     thumbnailUrl: [getCanonicalUrl(SOCIAL_IMAGE_PATH)],
-    uploadDate: "2026-05-18",
+    uploadDate: "2026-05-18T00:00:00-07:00",
     contentUrl: getCanonicalUrl("/work/motion/hammer-reel-v3-web-max-h264.mp4"),
     embedUrl: pageUrl,
     creator: { "@id": PERSON_ID },
