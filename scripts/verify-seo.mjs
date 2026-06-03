@@ -54,7 +54,7 @@ const seoText = mustContain("lib/seo.ts", [
   "buildPageMetadata",
   "buildWebSiteJsonLd",
   "buildPersonJsonLd",
-  "buildProfilePageJsonLd",
+  "buildAboutPageJsonLd",
   "buildBreadcrumbJsonLd",
   "buildCollectionPageJsonLd",
   "buildCreativeWorkJsonLd",
@@ -67,16 +67,18 @@ if (!siteLastModified || !isoDateTimePattern.test(siteLastModified)) {
   fail("lib/seo.ts SITE_LAST_MODIFIED must be an ISO 8601 date-time with timezone");
 }
 
-const profilePageBlock = seoText.match(/export function buildProfilePageJsonLd\(\): JsonLdObject \{([\s\S]*?)\n\}/)?.[1] ?? "";
-const profileDateCreated = profilePageBlock.match(/dateCreated: "([^"]+)"/)?.[1];
-const profileDateModifiedUsesSiteConstant = profilePageBlock.includes("dateModified: SITE_LAST_MODIFIED");
-if (!profileDateCreated || !isoDateTimePattern.test(profileDateCreated)) {
-  fail("buildProfilePageJsonLd dateCreated must be an ISO 8601 date-time with timezone");
+const aboutPageBlock = seoText.match(/export function buildAboutPageJsonLd\(\): JsonLdObject \{([\s\S]*?)\n\}/)?.[1] ?? "";
+const aboutDateModifiedUsesSiteConstant = aboutPageBlock.includes("dateModified: SITE_LAST_MODIFIED");
+if (!aboutPageBlock.includes('"@type": "AboutPage"')) {
+  fail("buildAboutPageJsonLd must emit AboutPage schema");
 }
-if (!profileDateModifiedUsesSiteConstant) {
-  const profileDateModified = profilePageBlock.match(/dateModified: "([^"]+)"/)?.[1];
-  if (!profileDateModified || !isoDateTimePattern.test(profileDateModified)) {
-    fail("buildProfilePageJsonLd dateModified must be an ISO 8601 date-time with timezone");
+if (aboutPageBlock.includes("dateCreated")) {
+  fail("buildAboutPageJsonLd must not emit dateCreated");
+}
+if (!aboutDateModifiedUsesSiteConstant) {
+  const aboutDateModified = aboutPageBlock.match(/dateModified: "([^"]+)"/)?.[1];
+  if (!aboutDateModified || !isoDateTimePattern.test(aboutDateModified)) {
+    fail("buildAboutPageJsonLd dateModified must be an ISO 8601 date-time with timezone");
   }
 }
 
@@ -169,7 +171,7 @@ mustContain("components/EntryHall.tsx", ['"use client"', "HeroWordmark"]);
 
 mustContain("app/about/page.tsx", [
   "aboutMetadata",
-  "buildProfilePageJsonLd",
+  "buildAboutPageJsonLd",
   "buildBreadcrumbJsonLd",
   "<JsonLd",
 ]);

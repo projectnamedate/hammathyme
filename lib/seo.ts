@@ -4,7 +4,7 @@ import type { CaseStudy, Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-05-26T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-06-03T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · ai producer";
 export const DEFAULT_DESCRIPTION =
@@ -270,16 +270,16 @@ export function buildHomePageJsonLd(): JsonLdObject {
   };
 }
 
-export function buildProfilePageJsonLd(): JsonLdObject {
+export function buildAboutPageJsonLd(): JsonLdObject {
   return {
-    "@type": "ProfilePage",
-    "@id": `${CANONICAL_ORIGIN}/about#profile`,
+    "@type": "AboutPage",
+    "@id": `${CANONICAL_ORIGIN}/about#webpage`,
     url: getCanonicalUrl("/about"),
     name: "Jeff Hammer - AI Producer",
     description: aboutMetadata.description,
     isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": PERSON_ID },
     mainEntity: { "@id": PERSON_ID },
-    dateCreated: "2026-05-03T00:00:00-07:00",
     dateModified: SITE_LAST_MODIFIED,
   };
 }

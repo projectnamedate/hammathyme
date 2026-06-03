@@ -2,7 +2,7 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { WallPlate } from "@/components/WallPlate";
 import { MaskReveal } from "@/components/motion/MaskReveal";
-import { aboutMetadata, buildBreadcrumbJsonLd, buildProfilePageJsonLd } from "@/lib/seo";
+import { aboutMetadata, buildAboutPageJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = aboutMetadata;
 
@@ -34,7 +34,7 @@ export default function Anteroom() {
     <main className="relative min-h-[100svh] w-screen px-6 pt-32 pb-16 md:px-24 md:pt-40 md:pb-24">
       <JsonLd
         jsonLd={[
-          buildProfilePageJsonLd(),
+          buildAboutPageJsonLd(),
           buildBreadcrumbJsonLd([
             { name: "home", path: "/" },
             { name: "about", path: "/about" },
