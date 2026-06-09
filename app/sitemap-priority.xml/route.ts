@@ -7,6 +7,7 @@ const PRIORITY_SITEMAP_ROUTES = [
   { path: "/work", priority: "0.9", changeFrequency: "weekly" },
   { path: "/work/agents/kira", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/motion-graphics/reel", priority: "0.8", changeFrequency: "monthly" },
+  { path: "/work/motion-graphics/internet-capital-markets", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/pipelines-tools/pipeline-visualizer", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/brand-systems/hammer", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/websites/hammer", priority: "0.8", changeFrequency: "monthly" },

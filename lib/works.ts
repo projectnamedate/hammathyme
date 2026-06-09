@@ -254,7 +254,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "icm teaser",
         year: "2026",
         blurb: "teaser for the film. title treatment and lower-thirds package built with ai-assisted motion design.",
-        status: "in-production",
+        status: "live",
         tint: "var(--cream-2)",
       },
       {
@@ -494,6 +494,7 @@ const DETAIL_READY_KEYS = new Set([
   "brand-systems/agentify",
   "agents/kira",
   "motion-graphics/reel",
+  "motion-graphics/internet-capital-markets",
   "motion-graphics/audio-reactive-overlays",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/prompt-library",

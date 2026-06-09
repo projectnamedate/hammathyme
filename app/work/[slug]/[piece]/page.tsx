@@ -140,6 +140,9 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   const key = pieceDetailKey(category.slug, piece.slug);
   if (key === "agents/kira") return <KiraAgentDetail transitionName={transitionName} />;
   if (key === "motion-graphics/reel") return <MotionReelDetail transitionName={transitionName} />;
+  if (key === "motion-graphics/internet-capital-markets") {
+    return <InternetCapitalMarketsDetail transitionName={transitionName} />;
+  }
   if (key === "motion-graphics/audio-reactive-overlays") {
     return <AudioReactiveOverlayDetail transitionName={transitionName} />;
   }
@@ -541,6 +544,40 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
               src="/work/motion/hammer-reel-v3-web-max-h264.mp4"
               type='video/mp4; codecs="avc1.64002A, mp4a.40.2"'
             />
+          </video>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InternetCapitalMarketsDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            The ICM trailer package puts crypto-market footage, pixel-title cards, lower thirds,
+            and screen inserts into one finished film teaser.
+          </p>
+          <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+            2m 46s · 1920x1080 · 23.976fps · h264/aac
+          </p>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="ICM teaser motion graphics video"
+            className="block aspect-video w-full bg-[var(--cream-0)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/motion/icm/icm-the-movie-trailer-poster.jpg"
+          >
+            <source src="/work/motion/icm/icm-the-movie-trailer-web.mp4" type="video/mp4" />
           </video>
         </div>
       </div>

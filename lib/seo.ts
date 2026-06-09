@@ -4,7 +4,7 @@ import type { CaseStudy, Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-06-03T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-06-09T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · ai producer";
 export const DEFAULT_DESCRIPTION =
@@ -392,6 +392,23 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
   if (category.slug !== "motion-graphics") return null;
 
   const pageUrl = getCanonicalUrl(getPiecePath(category, piece));
+  if (piece.slug === "internet-capital-markets") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "ICM teaser",
+      description:
+        piece.blurb ??
+        "A film teaser package with pixel-title cards, lower thirds, and AI-assisted motion design.",
+      thumbnailUrl: [getCanonicalUrl("/work/motion/icm/icm-the-movie-trailer-poster.jpg")],
+      uploadDate: "2026-06-09T00:00:00-07:00",
+      contentUrl: getCanonicalUrl("/work/motion/icm/icm-the-movie-trailer-web.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
   if (piece.slug === "audio-reactive-overlays") {
     return {
       "@type": "VideoObject",

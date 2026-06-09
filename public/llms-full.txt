@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: jeff@projectname.date
 location: LA / NY / remote
-last updated: 2026-05-24
+last updated: 2026-06-09
 
 ## summary
 
@@ -33,6 +33,7 @@ The domain appears only in technical URL surfaces.
 - /work/agents/kira: Kira autonomous character detail page.
 - /work/motion-graphics: programmatic motion work.
 - /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
+- /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
 - /work/animation: Rive and Remotion animation category. Public work is still in production.
 - /work/pipelines-tools: AI production pipeline and tooling work.

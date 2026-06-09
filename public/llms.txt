@@ -15,7 +15,7 @@ Important context:
 - [atrium](https://hammer.ad/work): 8 portfolio categories. each a collection of pieces.
 - [brand systems](https://hammer.ad/work/brand-systems): identities built with ai in the loop. hammer · kira · effigy · agentify dossiers are live; Kira covers the agent identity, bible, and website. The Agentify dossier links to https://agentify.nexus/brand-bible.
 - [agents](https://hammer.ad/work/agents): autonomous characters layered over agents. kira detail is live at /work/agents/kira.
-- [motion graphics](https://hammer.ad/work/motion-graphics): programmatic motion built in remotion + hyperframes. motion graphics reel and audio reactive overlays are live; icm teaser is in production.
+- [motion graphics](https://hammer.ad/work/motion-graphics): programmatic motion built in remotion + hyperframes. motion graphics reel, icm teaser, and audio reactive overlays are live.
 - [animation](https://hammer.ad/work/animation): puppet rigs, looping social bumpers, and an animated short built with ai-assisted animation + remotion.
 - [pipelines + tools](https://hammer.ad/work/pipelines-tools): the tools beneath the work. pipeline visualizer, prompt library, and creative skills are live detail surfaces.
 - [interactive + playable](https://hammer.ad/work/interactive-playable): live capped demos. prompt-to-storyboard, character consistency, Kira chat, and dot discipline.
