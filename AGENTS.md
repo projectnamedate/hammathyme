@@ -3,6 +3,17 @@
 This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself
 is a portfolio piece.
 
+## Shared Obsidian AgentMemory
+
+Hammer is ported to the shared vault at
+`/Users/hammer/Obsidian/AgentMemory/Projects/hammer-ad/hammer-ad.md`. After
+reading this file, read `/Users/hammer/Obsidian/AgentMemory/AGENTS.md` and the
+Hammer project note before acting. Treat vault notes as durable cross-agent
+memory, not a replacement for repo docs, project files, live site checks,
+Vercel proof, or current repo state. At wrap-up, update the project note and
+append a dated session summary; never store secrets, env values, private
+credentials, provider keys, or live tokens in the vault.
+
 ## Global Codex Defaults
 
 - For underspecified coding tasks, normalize the request into goal, context,
