@@ -7,7 +7,7 @@ the focus* — he has ideas per item.
 | # | piece | category | status |
 |---|---|---|---|
 | 1 | Episodic Kira series (5 eps) | autonomous-characters | placeholder |
-| 2 | Fictional Hammer soda hero-shot commercial | visual-media | placeholder |
+| 2 | Equinox — Question Everything But Yourself campaign spot | visual-media | live |
 | 3 | Hedra avatar of Jeff explaining AI Producer | visual-media | placeholder |
 | 4 | Documentary opener / broadcast cold open | visual-media | placeholder |
 | 5 | Hammer brand build = Case Study #1 | brand-systems | live dossier |
@@ -18,12 +18,13 @@ the focus* — he has ideas per item.
 | 10 | Motion graphics reel | motion-graphics | live; final card has no email |
 | 11 | ICM teaser, lower thirds + title package | motion-graphics | live detail page |
 | 12 | Audio-reactive overlays with electronic track | motion-graphics | live detail page; needs a real rebuild so it reads as obviously audio-reactive, not a static infographic |
-| 13 | Animated short | animation | placeholder |
-| 14 | Prompt library walkthrough | pipelines-tools | live |
-| 15 | Creative skills library | pipelines-tools | live |
-| 16 | Interactive + playable demos | interactive-playable | live detail routes: storyboard, consistency, Kira chat, dot discipline |
-| 17 | Canonical domain wiring: `hammer.ad` | launch | done, live |
-| 18 | Technical SEO audit | launch | local implementation: per-route metadata, structured data, canonical URLs, AI-crawler robots, sitemap stability, priority sitemap, llms-full, and agent manifest. next: Search Console sitemap submission, URL inspection/indexing requests, Lighthouse mobile SEO, and Rich Results validation |
+| 13 | Spring Health motion showcase | motion-graphics | live detail page |
+| 14 | Animated short | animation | placeholder |
+| 15 | Prompt library walkthrough | pipelines-tools | live |
+| 16 | Creative skills library | pipelines-tools | live |
+| 17 | Interactive + playable demos | interactive-playable | live detail routes: storyboard, consistency, Kira chat, dot discipline |
+| 18 | Canonical domain wiring: `hammer.ad` | launch | done, live |
+| 19 | Technical SEO audit | launch | local implementation: per-route metadata, structured data, canonical URLs, AI-crawler robots, sitemap stability, priority sitemap, llms-full, and agent manifest. next: Search Console sitemap submission, URL inspection/indexing requests, Lighthouse mobile SEO, and Rich Results validation |
 
 **Note (2026-05-04):** /notes route + `editorial-writing` capability tag dropped.
 Jeff: "everyone can use ai to write things, its looked down upon. really i am
@@ -32,7 +33,7 @@ no blog. SEO is carried by portfolio copy, detail pages, /about metadata, and
 structured metadata rather than editorial writing.
 
 **Note (2026-05-13):** Category pages are gallery-first. Ready work opens in
-detail routes, currently `/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays}`,
+detail routes, currently `/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays,spring-health}`,
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`, `/work/agents/kira`,
 `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
 `/work/websites/{hammer,kira,opencrawl,agentify}`, and

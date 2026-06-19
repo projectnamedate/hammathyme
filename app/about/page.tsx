@@ -9,8 +9,8 @@ export const metadata = aboutMetadata;
 const TIMELINE = [
   { year: "2015 — 2017", role: "producer",          network: "tribune media" },
   { year: "2018 — 2021", role: "creative producer", network: "discovery inc." },
-  { year: "2021 — 2025", role: "senior producer",   network: "comcast" },
-  { year: "2025 — now",  role: "ai producer",       network: "self" },
+  { year: "2021 — 2024", role: "producer",          network: "comcast" },
+  { year: "2024 — now",  role: "ai producer",       network: "starz entertainment" },
 ];
 
 const CLIENTS = [
@@ -69,8 +69,8 @@ export default function Anteroom() {
             currently
           </p>
           <p className="mt-6 max-w-[44ch] font-display font-light text-[clamp(22px,2vw,28px)] leading-[1.4] tracking-[-0.02em] text-[var(--ink-1)]">
-            producing brand systems, agents, motion graphics, animation,
-            visual media, and websites.
+            ai producer at starz entertainment, building generative production
+            pipelines for motion, media, and marketing work.
           </p>
         </div>
 

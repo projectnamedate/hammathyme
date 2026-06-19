@@ -22,6 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+/test-results/
 
 # env files
 .env*.local
@@ -30,6 +31,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local Codex state
+/.codex/
+/docs/codex-checkpoints/*-precompact.md
 
 # typescript
 *.tsbuildinfo

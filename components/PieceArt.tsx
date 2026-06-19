@@ -34,6 +34,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "motion-graphics/reel": MotionReel,
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
+  "motion-graphics/spring-health": SpringHealthMotion,
   "animation/puppet-rig-character": PuppetRig,
   "animation/looping-social-bumpers": LoopingBumpers,
   "animation/animated-short": AnimatedShort,
@@ -44,7 +45,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/consistency-lab": ConsistencyLab,
   "interactive-playable/talk-to-character": TalkToCharacter,
   "interactive-playable/dot-discipline": DotDiscipline,
-  "visual-media/commercial": CommercialSpot,
+  "visual-media/equinox": EquinoxCampaign,
   "visual-media/short-film": ShortFilm,
   "visual-media/documentary-opener": DocumentaryOpener,
   "websites/hammer": HammerSite,
@@ -61,7 +62,7 @@ const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
   animation: PuppetRig,
   "pipelines-tools": PipelineVisualizerCard,
   "interactive-playable": PromptStoryboard,
-  "visual-media": CommercialSpot,
+  "visual-media": EquinoxCampaign,
   websites: HammerSite,
 };
 
@@ -355,6 +356,29 @@ function AudioReactiveOverlays() {
   );
 }
 
+function SpringHealthMotion() {
+  return (
+    <Plate bg="#01382E">
+      <g transform="translate(22 40)">
+        <rect width="76" height="76" rx="8" fill="#F8F6F2" />
+        <rect x="8" y="8" width="60" height="8" rx="4" fill="#01382E" opacity="0.92" />
+        <rect x="8" y="24" width="48" height="6" rx="3" fill="#007055" opacity="0.42" />
+        <rect x="8" y="38" width="60" height="22" rx="5" fill="#01382E" />
+        <rect x="14" y="44" width="24" height="7" rx="3.5" fill="#8DFF9D" />
+        <line x1="44" y1="46" x2="62" y2="46" stroke="#F8F6F2" strokeWidth="1.2" opacity="0.8" />
+        <line x1="44" y1="53" x2="58" y2="53" stroke="#F8F6F2" strokeWidth="1.2" opacity="0.55" />
+      </g>
+      <g fill="#8DFF9D" opacity="0.9">
+        <circle cx="35" cy="116" r="2.6" />
+        <circle cx="48" cy="116" r="2.6" />
+        <circle cx="61" cy="116" r="2.6" />
+        <rect x="72" y="114" width="20" height="4" rx="2" />
+      </g>
+      <MonoLabel y={136}>SPRING HEALTH</MonoLabel>
+    </Plate>
+  );
+}
+
 function PuppetRig() {
   return (
     <Plate bg="var(--cinnamon)">
@@ -548,19 +572,17 @@ function DotDiscipline() {
   );
 }
 
-function CommercialSpot() {
+function EquinoxCampaign() {
   return (
-    <Plate bg="var(--bloodlust)">
-      <FilmFrame>
-        <rect x="29" y="13" width="26" height="48" rx="7" fill="var(--cream-0)" />
-        <rect x="31" y="17" width="22" height="40" rx="5" fill="var(--cinnamon)" opacity="0.22" />
-        <text x="36" y="43" fontFamily="var(--font-display)" fontSize="16" fontWeight="300" fill="var(--ink-0)">
-          h
-        </text>
-        <circle cx="47" cy="41.4" r="1.8" fill="var(--cinnamon)" />
-        <path d="M 56 20 C 66 21, 70 30, 66 38 S 56 54, 64 60" fill="none" stroke="var(--cream-0)" strokeWidth="1" opacity="0.8" />
+    <Plate bg="var(--cream-1)">
+      <FilmFrame bg="#6F6C70">
+        <rect x="14" y="14" width="56" height="46" fill="#8B878C" />
+        <ellipse cx="42" cy="30" rx="9" ry="12" fill="var(--cream-0)" opacity="0.86" />
+        <path d="M 34 43 C 40 35, 47 35, 53 43 L 58 58 H 29 Z" fill="var(--ink-0)" />
+        <rect x="18" y="35" width="48" height="6" fill="var(--cream-0)" />
+        <rect x="22" y="47" width="40" height="5" fill="var(--cream-0)" />
       </FilmFrame>
-      <MonoLabel y={136}>SODA HERO</MonoLabel>
+      <MonoLabel y={136}>EQUINOX SPOT</MonoLabel>
     </Plate>
   );
 }

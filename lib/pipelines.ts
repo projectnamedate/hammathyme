@@ -43,9 +43,9 @@ const ROW = 200;
 
 export const PIPELINES: Pipeline[] = [
   {
-    slug: "soda-hero-shots",
-    label: "soda hero shots",
-    brief: "fictional Hammer soda · concept to compact cut",
+    slug: "campaign-hero-shots",
+    label: "campaign hero shots",
+    brief: "brand film concept to compact cut",
     totalCost: "≈ $25",
     totalTime: "≈ 50 min",
     finalOutput: "broadcast prores 4444 + h.264 web cut",
@@ -67,7 +67,7 @@ export const PIPELINES: Pipeline[] = [
         cost: "$0.04",
         time: "60s",
         output: "shot-list.md",
-        summary: "hero-shot list: can design, condensation, pour, macro texture, and pack shot.",
+        summary: "hero-shot list: object, talent, movement, macro texture, and end card.",
         x: 320, y: ROW,
       },
       {

@@ -4,11 +4,11 @@ import type { CaseStudy, Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-06-09T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-06-19T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · ai producer";
 export const DEFAULT_DESCRIPTION =
-  "Jeff Hammer is an AI producer with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents, motion graphics, animation, pipelines, visual media, and websites.";
+  "Jeff Hammer is an AI producer at Starz Entertainment with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents, motion graphics, animation, pipelines, visual media, and websites.";
 export const DEFAULT_KEYWORDS = [
   "AI Producer",
   "AI Creative Producer",
@@ -159,7 +159,7 @@ export const homeMetadata = buildPageMetadata({
 export const aboutMetadata = buildPageMetadata({
   title: "about Jeff Hammer, AI producer",
   description:
-    "Jeff Hammer is an AI producer with broadcast, agency, and AI-native production experience across Comcast, Discovery, Tribune Media, and independent Hammer work.",
+    "Jeff Hammer is an AI producer at Starz Entertainment with broadcast, agency, and AI-native production experience across Comcast, Discovery, and Tribune Media.",
   path: "/about",
   openGraphType: "profile",
   keywords: ["Jeff Hammer AI producer", "broadcast producer AI", "creative producer AI"],
@@ -222,6 +222,10 @@ export function buildPersonJsonLd(): JsonLdObject {
     jobTitle: "AI Producer",
     email: "mailto:jeff@projectname.date",
     description: DEFAULT_DESCRIPTION,
+    worksFor: {
+      "@type": "Organization",
+      name: "Starz Entertainment",
+    },
     sameAs: ["https://www.linkedin.com/in/jeff-hammer1985/"],
     knowsAbout: [
       "AI video production",
@@ -389,9 +393,32 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
 }
 
 export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonLdObject | null {
+  const pageUrl = getCanonicalUrl(getPiecePath(category, piece));
+  if (category.slug === "visual-media" && piece.slug === "equinox") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "Equinox Question Everything But Yourself campaign spot",
+      description:
+        piece.blurb ??
+        "A 30-second Equinox campaign spot produced with Angry Gods around AI imagery, uncertainty, and the human body.",
+      thumbnailUrl: [
+        getCanonicalUrl(
+          "/work/visual-media/equinox/equinox-question-everything-but-yourself-poster.jpg",
+        ),
+      ],
+      uploadDate: "2026-06-19T00:00:00-07:00",
+      contentUrl: getCanonicalUrl(
+        "/work/visual-media/equinox/equinox-question-everything-but-yourself.mp4",
+      ),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
   if (category.slug !== "motion-graphics") return null;
 
-  const pageUrl = getCanonicalUrl(getPiecePath(category, piece));
   if (piece.slug === "internet-capital-markets") {
     return {
       "@type": "VideoObject",
@@ -420,6 +447,23 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       thumbnailUrl: [getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-poster.png")],
       uploadDate: "2026-05-25T00:00:00-07:00",
       contentUrl: getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
+  if (piece.slug === "spring-health") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "Spring Health motion showcase",
+      description:
+        piece.blurb ??
+        "A HyperFrames showcase translating Spring Health's brand system, product UI, and care-system story into motion.",
+      thumbnailUrl: [getCanonicalUrl("/work/motion/spring-health/spring-health-showcase-poster.jpg")],
+      uploadDate: "2026-06-19T00:00:00-07:00",
+      contentUrl: getCanonicalUrl("/work/motion/spring-health/spring-health-showcase.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },

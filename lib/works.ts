@@ -265,6 +265,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "var(--cinnamon)",
       },
+      {
+        slug: "spring-health",
+        title: "Spring Health",
+        year: "2026",
+        client: "Spring Health",
+        blurb: "a 51-second HyperFrames showcase translating Spring Health's brand system, product UI, and care-system story into motion.",
+        status: "live",
+        tint: "#01382E",
+      },
     ],
   },
   {
@@ -397,17 +406,19 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "ai-native film, short-form video, and commercial work. veo, runway, kling, seedance — finished to network standards.",
+      "commercial film, ai-native video, and broadcast-grade visual media. live work includes Equinox with Angry Gods.",
     tint: "var(--bloodlust)",
     hero: { main: "visual", italic: "media" },
     pieces: [
       {
-        slug: "commercial",
-        title: "commercial",
+        slug: "equinox",
+        title: "equinox campaign",
         year: "2026",
-        blurb: "hero shots for a fictional Hammer soda product: can design, condensation, pour, macro texture, pack shot, and a compact cut.",
-        status: "in-production",
-        tint: "var(--bloodlust)",
+        client: "Equinox / Angry Gods",
+        blurb:
+          "campaign spot for Equinox with Angry Gods: AI culture chaos against the human body as proof.",
+        status: "live",
+        tint: "var(--cream-1)",
       },
       {
         slug: "short-film",
@@ -496,6 +507,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/reel",
   "motion-graphics/internet-capital-markets",
   "motion-graphics/audio-reactive-overlays",
+  "motion-graphics/spring-health",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/prompt-library",
   "pipelines-tools/creative-skills",
@@ -503,6 +515,7 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/consistency-lab",
   "interactive-playable/talk-to-character",
   "interactive-playable/dot-discipline",
+  "visual-media/equinox",
   "websites/hammer",
   "websites/kira",
   "websites/opencrawl",

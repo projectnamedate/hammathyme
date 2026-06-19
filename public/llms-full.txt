@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: jeff@projectname.date
 location: LA / NY / remote
-last updated: 2026-06-09
+last updated: 2026-06-19
 
 ## summary
 
@@ -35,6 +35,7 @@ The domain appears only in technical URL surfaces.
 - /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
+- /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
 - /work/animation: Rive and Remotion animation category. Public work is still in production.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
@@ -46,6 +47,7 @@ The domain appears only in technical URL surfaces.
 - /work/interactive-playable/talk-to-character: capped DeepSeek V4 Flash Kira character chat demo.
 - /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
 - /work/visual-media: AI-native film, short-form video, and commercial work.
+- /work/visual-media/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.
 - /work/websites/kira: onlykira.ai website preview.
@@ -61,8 +63,8 @@ The domain appears only in technical URL surfaces.
 
 ## entity facts
 
-Jeff Hammer is an AI Producer. Relevant public experience includes Tribune
-Media, Discovery Inc., Comcast, and independent Hammer work. Public client
+Jeff Hammer is an AI Producer at Starz Entertainment. Relevant public
+experience includes Tribune Media, Discovery Inc., Comcast, and Starz. Public client
 names on the site include AutoZone, Cadillac, Columbia, Fox, Hulu, IHG Hotels,
 Lululemon, Nissan, Porsche, Remy Martin, Subaru, Toyota, and Xfinity.
 
