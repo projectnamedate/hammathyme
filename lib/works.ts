@@ -436,22 +436,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cream-1)",
       },
       {
-        slug: "short-film",
-        title: "short film",
-        year: "2026",
-        blurb: "narrative short. ai-native production, broadcast-grade finishing.",
-        status: "in-production",
-        tint: "var(--cream-2)",
-      },
-      {
-        slug: "documentary-opener",
-        title: "documentary opener",
-        year: "2026",
-        blurb: "broadcast-style cold open: ai b-roll, reenactment plates, narration, and atmospherics finished to broadcast.",
-        status: "coming-soon",
-        tint: "var(--cinnamon)",
-      },
-      {
         slug: "animated-short",
         title: "animated short",
         year: "2026",

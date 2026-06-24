@@ -48,8 +48,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/talk-to-character": TalkToCharacter,
   "interactive-playable/dot-discipline": DotDiscipline,
   "film-animation/equinox": EquinoxCampaign,
-  "film-animation/short-film": ShortFilm,
-  "film-animation/documentary-opener": DocumentaryOpener,
   "film-animation/animated-short": AnimatedShort,
   "film-animation/looping-social-bumpers": LoopingBumpers,
   "websites/hammer": HammerSite,
@@ -546,37 +544,6 @@ function EquinoxCampaign() {
         <rect x="22" y="47" width="40" height="5" fill="var(--cream-0)" />
       </FilmFrame>
       <MonoLabel y={136}>EQUINOX SPOT</MonoLabel>
-    </Plate>
-  );
-}
-
-function ShortFilm() {
-  return (
-    <Plate>
-      <FilmFrame bg="var(--cream-0)">
-        <path d="M 18 52 L 38 22 L 52 40 L 62 28 L 72 52 Z" fill="var(--ink-0)" />
-        <circle cx="62" cy="20" r="5" fill="var(--cinnamon)" />
-      </FilmFrame>
-      <MonoLabel>NARRATIVE SHORT</MonoLabel>
-    </Plate>
-  );
-}
-
-function DocumentaryOpener() {
-  return (
-    <Plate bg="var(--cinnamon)">
-      <FilmFrame bg="var(--cream-0)">
-        <rect x="16" y="14" width="52" height="25" fill="var(--ink-0)" />
-        <circle cx="28" cy="26" r="5" fill="var(--cinnamon)" />
-        <path d="M 36 32 L 46 20 L 57 32" fill="none" stroke="var(--cream-0)" strokeWidth="1.1" />
-        <rect x="16" y="48" width="38" height="5" fill="var(--ink-0)" />
-        <rect x="16" y="56" width="28" height="3" fill="var(--ink-3)" />
-        <rect x="50" y="56" width="18" height="3" fill="var(--cinnamon)" />
-      </FilmFrame>
-      <g transform="translate(26 114)">
-        <line x1="0" y1="0" x2="68" y2="0" stroke="var(--cream-0)" strokeWidth="1" opacity="0.9" />
-      </g>
-      <MonoLabel>DOC OPENER</MonoLabel>
     </Plate>
   );
 }
