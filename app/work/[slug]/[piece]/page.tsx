@@ -175,8 +175,8 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
 
 const KIRA_AGENT_FACTS = [
   ["system", "Hermes scheduler, reply queue, voice guards, media policy, and CDP fire path"],
-  ["identity", "persistent face, canonical refs, x profile assets, and a 14-part brand bible"],
-  ["outputs", "scheduled originals, reply campaigns, generated photos, clips, memes, and native GIF lanes"],
+  ["identity", "persistent face, canonical refs, x + tiktok profile assets, and a 14-part brand bible"],
+  ["outputs", "scheduled originals and replies across x and tiktok, generated photos, clips, memes, and native GIF lanes"],
   ["governance", "AI disclosure, C2PA/provenance docs, rate caps, pause flags, and review-first expansion"],
 ];
 
