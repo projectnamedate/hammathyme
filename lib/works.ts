@@ -304,14 +304,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cinnamon)",
       },
       {
-        slug: "generative-asset-library",
-        title: "generative asset library",
-        year: "2026",
-        blurb: "production props generated through meshy, tripo, and rodin apis, auto-retopologized, pbr-textured, and gated on poly budget.",
-        status: "coming-soon",
-        tint: "var(--cream-1)",
-      },
-      {
         slug: "blender-lookdev-pipeline",
         title: "blender look-dev pipeline",
         year: "2026",

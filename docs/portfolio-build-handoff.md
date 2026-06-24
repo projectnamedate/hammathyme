@@ -10,14 +10,14 @@
 
 Hammer is a **solo AI-producer studio** (one operator, Jeff) that ships work by **orchestrating coding agents** (Claude Code / Codex) plus:
 - **cloud GPU rental** (RunPod / Vast.ai, RTX 4090 ~$0.30–0.70/hr),
-- **paid generative APIs** (Meshy / Tripo / Rodin, a few dollars of credits),
+- **paid generative APIs** (image / video / 3D, a few dollars of credits),
 - **free / indie-licensed creative software** (Blender, OpenUSD, ComfyUI, Nerfstudio, Unreal under-$1M, Houdini Apprentice/Indie).
 
 There is **no physical studio, no render farm, and no enterprise software license** (no paid Omniverse Enterprise, no Houdini FX commercial). Every piece must produce a **credible, shippable artifact that renders on a `/work/<slug>/<piece>` detail page** — a video, an interactive web embed, an image/turntable grid, or annotated code + diagrams.
 
 **Honesty rule (load-bearing):** the page copy must not overclaim. Where the research flags a caveat (splats aren't relightable; auto-retopo is quad-*dominant* not artist-grade; a surrogate is only valid in-domain; sensor data may be synthetic), state it plainly. Honest framing reads as competence here.
 
-**Total build budget** for the full vfx set is **~$45** of compute/API; the two twin pieces are **near-zero** cost (CPU + free tiers).
+**Total build budget** for the vfx set is **under ~$10** of compute (mostly cloud GPU hours); the two twin pieces are **near-zero** cost (CPU + free tiers).
 
 ---
 
@@ -55,8 +55,7 @@ Lowest-risk / highest-signal first:
 3. **`vfx-cgi/blender-lookdev-pipeline`** — clearly feasible, pennies. Proves the headless-CLI-agent pattern.
 4. **`agents-digital-twins/sensor-twin-dashboard`** — clearly feasible; design around the synthetic fallback.
 5. **`vfx-cgi/comfyui-production-backend`** — feasible, scoped; highest "real service" credibility.
-6. **`vfx-cgi/generative-asset-library`** — feasible, scoped to a themed prop kit on a paid tier.
-7. **`vfx-cgi/usd-scene-assembly`** — feasible, most time; the interchange showpiece, scope the splat leg.
+6. **`vfx-cgi/usd-scene-assembly`** — feasible, most time; the interchange showpiece, scope the splat leg.
 
 `agents-digital-twins/bradley` is **not in this list** — it's a persona twin that follows Hammer's existing kira-class character pipeline (character bible + LoRA + runtime), no new research needed.
 
@@ -76,17 +75,7 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 - **Gotchas:** splats are **view-captured, not relightable** (don't promise relighting); COLMAP is finicky (Scaniverse/Polycam poses are the reliable fallback); RTX 50-series has CUDA/torch install friction — **use the Docker image + a 4090**; large splats can stall mobile WebGL — keep the MP4 fallback.
 - **Done when:** viewer loads <5s desktop, 30+ FPS, no floaters in frame; compressed ≤~80MB; renders on a second browser/mobile; reproducible from the documented commands.
 
-### 3.2 `vfx-cgi/generative-asset-library` — prompts → REST APIs → retopo/PBR/scale → turntable grid + worker code
-**Verdict: feasible-with-scoping.** Scope to a **themed prop/environment kit (~20 assets)** on a **paid tier**; present topology honestly. ~$20–40 (one month of one provider).
-
-- **Stack:** **Meshy** (`api.meshy.ai/openapi/v2`, meshy-6), **Tripo** (`api.tripo3d.ai/v2/openapi`, v3.1/P1, has `animate_rig`), **Rodin/Hyper3D** (`api.hyper3d.com/api/v2`, best quad output, most permissive license). All `Bearer` auth, async submit/poll, export GLB/FBX/USDZ. Turntables via headless **Blender** (free).
-- **Build:** `prompts.json` → worker (Python/Node) POSTs create-task → polls status → downloads GLB with `enable_pbr` + `topology:quad` + `target_polycount` → **normalize scale** (meshes are unit-less — impose real-world dims via `gltf-transform`/Blender) → optional Tripo `animate_rig` for characters → validate poly count + PBR map presence → headless Blender turntable renders → contact-sheet PNG + per-asset MP4/WebP.
-- **GPU/cost/data:** **no GPU for generation** (hosted API); only Blender turntable uses local/CPU. ~$0.40/asset; **$20–40 for a 20–40 asset kit**. Input = text prompts (+ optional reference images).
-- **Artifact:** **turntable grid** (MP4/WebP loops) as the hero + a live `<model-viewer>`/Three.js GLB viewer for 2–3 picks + **the annotated worker code** (the real differentiator — "I build pipelines, not click a UI").
-- **Gotchas:** "auto-retopo" = **quad-dominant remesh, not clean edge loops** (great for props, hero/rigged needs manual cleanup — say so); meshes are **unit-less** (impose scale); **generate on a paid tier** (free tiers are CC-BY-NC / public — not portfolio-clean); Tripo's API param names drift (verify against live schema); a tight themed 20-asset kit beats 200 generic blobs.
-- **Done when:** worker runs the list unattended with retries; each asset opens in a viewer with correct PBR + sane polys; turntables are consistent; page states topology/scale honestly + shows the code; ≥1 asset round-trips into Blender/engine cleanly.
-
-### 3.3 `vfx-cgi/blender-lookdev-pipeline` — headless bpy material/lighting sweeps → contact sheet
+### 3.2 `vfx-cgi/blender-lookdev-pipeline` — headless bpy material/lighting sweeps → contact sheet
 **Verdict: clearly feasible** (safest of the set). <$1–3.
 
 - **Stack:** **Blender 4.5 LTS** (or 5.1), **Cycles + OptiX** (NOT EEVEE headless), `bpy` PyPI for glue, **Poly Haven** CC0 assets/HDRIs.
@@ -102,7 +91,7 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 - **Gotchas:** **avoid EEVEE headless** (needs display/EGL); driver/CUDA-OptiX mismatch is the #1 failure (verify `nvidia-smi`); use the full `blender` binary for renders, the `bpy` module for glue only; do labels in PIL not in-scene.
 - **Done when:** reproducible from CLI on a fresh box; GPU confirmed active (no CPU fallback); ≥1 turntable + ≥1 sweep grid at 1080p; scripts run unmodified; cost logged.
 
-### 3.4 `vfx-cgi/comfyui-production-backend` — ComfyUI as an API service with a quality gate
+### 3.3 `vfx-cgi/comfyui-production-backend` — ComfyUI as an API service with a quality gate
 **Verdict: feasible-with-scoping** (days; operational not architectural complexity). ~$0.005/delivered image.
 
 - **Stack:** **ComfyUI** (GPL; hosting a network API does NOT trigger distribution obligations); API = `POST /prompt`, `GET /history/{id}`, `GET /view`, WS `/ws`; export workflow via dev-mode **"Save (API format)"** (node-id-keyed — the only format `/prompt` accepts). **Commercial-safe model: FLUX.2 [klein] 4B (Apache-2.0)** or FLUX.1 [schnell] — **avoid [dev]** (non-commercial). Quality gate (free pip): **torchmetrics CLIPScore** (prompt alignment) + **InsightFace ArcFace** cosine (face/identity drift — flag `buffalo_l` as non-commercial) + **LAION aesthetic** / ImageReward.
@@ -112,7 +101,7 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 - **Gotchas:** **licensing has the legal teeth** — ship Apache models; single metrics miss subtle artifacts — **stack signals**; modern models one-shot easy portraits, so frame the gate around **hard prompts** (multi-subject, hands-in-action, embedded text) and **identity consistency** (ArcFace), not "rescuing a broken model"; pin ComfyUI + custom nodes + weights together.
 - **Done when:** API accepts a pinned graph and returns scored images; gate visibly rejects ≥1 bad output and delivers a passing retry; thresholds documented vs a labeled sample; retries bounded; per-image cost logged.
 
-### 3.5 `vfx-cgi/usd-scene-assembly` — one OpenUSD scene composed across tools
+### 3.4 `vfx-cgi/usd-scene-assembly` — one OpenUSD scene composed across tools
 **Verdict: feasible-with-scoping** (most time; two scope cuts). A few $ GPU; cost is time, not money.
 
 - **Stack:** **OpenUSD v26.05** (`usd-core` PyPI wheel — Python API only, no usdview) is the **composition authority**; **usdview/usdrecord** from NVIDIA prebuilt binaries; **Blender 5.1** as asset producer/consumer only (it **flattens composition** — do not let it assemble); **Unreal 5.8** USD Stage Actor (preserves layers/references/variants live; Movie Render Graph + Path Tracer = best free render); splats via the **v26.03 `…GaussianSplat` USD schema** + `py3dgsPlyToUsd.py` (+ build the `hdParticleField` Hydra delegate).
@@ -122,7 +111,7 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 - **Gotchas (scope cuts):** composition round-trips through **usdview/Unreal, NOT Blender** (Blender flattens — Python is the authority); the splat leg needs the `hdParticleField` delegate or an RTX renderer — **if it proves too much, ship {generated asset + UsdSkel character} as the headline and treat the splat env as a stretch layer**; **no MaterialX import** (keep materials simple / rebuild per-tool); Houdini Apprentice taints to `.usdnc` + watermarks — use only to *prove* the round-trip.
 - **Done when:** a single stage assembled programmatically with real references + ≥1 variantSet opens in usdview/Unreal **with composition intact (not flattened)**; ≥1 layer authored in Blender + ≥1 splat-or-generated asset; rendered flythrough; diagram matches the real stage; units/up-axis correct.
 
-### 3.6 `agents-digital-twins/sensor-twin-dashboard` — roll-your-own live twin dashboard
+### 3.5 `agents-digital-twins/sensor-twin-dashboard` — roll-your-own live twin dashboard
 **Verdict: clearly feasible** (feasible-with-scoping on the word "live"). No GPU; ~$0 (+ optional $5–15 hardware).
 
 - **Stack:** **dlt 1.28** (ingest) → **DuckDB 1.5** (store) → **River 0.25** HalfSpaceTrees + EWMA/z-score (anomaly) → **FastAPI + WebSocket** (backend) → **Apache ECharts** (frontend) → deploy backend on **Fly.io / Railway** (NOT Vercel — serverless can't hold WebSockets). Skip TimescaleDB unless the narrative needs "production cloud TSDB."
@@ -133,7 +122,7 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 - **Gotchas:** dlt is **micro-batch, not true streaming** (call it "near-real-time"); **synthetic fallback is mandatory** (public feeds hiccup); label synthetic data as synthetic; the *feed source itself* is the "twinned thing" — that's the honest answer to "no physical asset."
 - **Done when:** updates live or convincingly replays at sub-few-second cadence; ≥1 real external feed wired; anomalies flagged + triggerable on demand; survives feed outage via labeled fallback; code public on a WS-capable host.
 
-### 3.7 `agents-digital-twins/surrogate-model` — interactive ML-surrogate vs physics demo
+### 3.6 `agents-digital-twins/surrogate-model` — interactive ML-surrogate vs physics demo
 **Verdict: clearly feasible** (one scoping discipline). No GPU; $0 (static + ONNX).
 
 - **Stack:** **PyTorch 2.12** (train) → data-gen via **FiPy 4.0** (2D heat equation — recommended) or scipy `solve_ivp` (pendulum) → export **ONNX** → run client-side with **ONNX Runtime Web** (WASM/WebGPU) → deploy static (Vercel/GitHub Pages). **Avoid FEniCSx (install fragility) and CFD (convergence/meshing friction) for v1.** `neuraloperator` FNO is an optional flex, not needed for one slider.
@@ -147,7 +136,6 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 
 ## 4. Confidence caveats (verify at build time)
 - Nerfstudio per-scene GPU-hour at high image counts is extrapolated, not a direct 1000-img/30k-iter benchmark.
-- Tripo's exact API field names came from mirrors/guides (SPA docs) — confirm against the live schema.
 - The `uPlot`-vs-ECharts choice and dlt's "no true streaming" were inferred from absence of a fresh 2026 primary cite — treat as known-good, not freshly verified.
 - Tool versions (Blender 4.5/5.1, OpenUSD 26.05, dlt 1.28, PyTorch 2.12, DuckDB 1.5, River 0.25, ComfyUI cadence) were current as of this session (2026-06-24) — re-check before relying on a specific flag.
 

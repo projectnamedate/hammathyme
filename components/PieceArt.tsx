@@ -37,7 +37,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
   "motion-graphics/spring-health": SpringHealthMotion,
   "vfx-cgi/neural-set-capture": NeuralSetCapture,
-  "vfx-cgi/generative-asset-library": GenerativeAssetLibrary,
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
   "vfx-cgi/comfyui-production-backend": ComfyuiBackend,
   "vfx-cgi/usd-scene-assembly": UsdSceneAssembly,
@@ -64,7 +63,7 @@ const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
   "brand-systems": HammerGuide,
   "agents-digital-twins": KiraAgent,
   "motion-graphics": MotionReel,
-  "vfx-cgi": GenerativeAssetLibrary,
+  "vfx-cgi": NeuralSetCapture,
   "pipelines-tools": PipelineVisualizerCard,
   "interactive-playable": PromptStoryboard,
   "film-animation": EquinoxCampaign,
@@ -668,36 +667,6 @@ function NeuralSetCapture() {
       >
         GAUSSIAN SPLAT
       </text>
-    </Plate>
-  );
-}
-
-function GenerativeAssetLibrary() {
-  const shapes = ["cube", "sphere", "cyl", "cone", "torus", "cube", "sphere", "cyl", "cone"];
-  return (
-    <Plate>
-      <g transform="translate(24 40)">
-        {shapes.map((s, i) => {
-          const x = (i % 3) * 24;
-          const y = Math.floor(i / 3) * 24;
-          const accent = i === 4;
-          const stroke = accent ? "var(--cinnamon)" : "var(--ink-3)";
-          return (
-            <g key={i} transform={`translate(${x} ${y})`}>
-              <rect width="20" height="20" fill="var(--cream-0)" stroke="var(--ink-4)" strokeWidth="0.6" />
-              <g transform="translate(10 10)" stroke={stroke} strokeWidth="0.8" fill="none" strokeLinejoin="round">
-                {s === "cube" && <polygon points="-5,-3 0,-6 5,-3 5,4 0,7 -5,4" />}
-                {s === "sphere" && <circle r="5.5" />}
-                {s === "cyl" && <rect x="-4.5" y="-6" width="9" height="12" rx="4.5" />}
-                {s === "cone" && <polygon points="0,-6 5,6 -5,6" />}
-                {s === "torus" && <circle r="5.5" />}
-                {s === "torus" && <circle r="2.4" />}
-              </g>
-            </g>
-          );
-        })}
-      </g>
-      <MonoLabel>ASSET LIBRARY</MonoLabel>
     </Plate>
   );
 }
