@@ -15,6 +15,36 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/work/animation",
+        destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
+        source: "/work/animation/:piece",
+        destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
+        source: "/work/visual-media",
+        destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
+        source: "/work/visual-media/:piece",
+        destination: "/work/film-animation/:piece",
+        permanent: true,
+      },
+      {
+        source: "/work/agents",
+        destination: "/work/agents-digital-twins",
+        permanent: true,
+      },
+      {
+        source: "/work/agents/:piece",
+        destination: "/work/agents-digital-twins/:piece",
+        permanent: true,
+      },
+      {
         source: "/work/brand-guides/agentify",
         destination: "https://agentify.nexus/brand-bible",
         permanent: true,

@@ -80,51 +80,36 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 04 — animation · keyframe curve + puppet rig joints, centered */
-  animation: () => (
+  /* 04 — vfx + cgi · isometric wireframe cube in a render viewport, centered */
+  "vfx-cgi": () => (
     <g>
       <rect width="100" height="120" fill="var(--cinnamon)" />
       <g transform="translate(14 34)">
         <rect width="72" height="52" fill="var(--ink-0)" />
-        {/* baseline grid */}
-        <g stroke="var(--ink-2)" strokeWidth="0.3" opacity="0.4">
-          <line x1="0" y1="13" x2="72" y2="13" />
-          <line x1="0" y1="26" x2="72" y2="26" />
-          <line x1="0" y1="39" x2="72" y2="39" />
+        {/* render-frame crop brackets */}
+        <g stroke="var(--cream-0)" strokeWidth="0.6" fill="none" opacity="0.7">
+          <path d="M 4 4 h 8 M 4 4 v 8" />
+          <path d="M 68 4 h -8 M 68 4 v 8" />
+          <path d="M 4 48 h 8 M 4 48 v -8" />
+          <path d="M 68 48 h -8 M 68 48 v -8" />
         </g>
-        {/* eased keyframe curve */}
-        <path
-          d="M 4 44 C 22 44, 22 12, 36 26 S 50 44, 68 8"
-          fill="none"
-          stroke="var(--cinnamon)"
-          strokeWidth="1.1"
-        />
-        {[
-          { x: 4, y: 44 },
-          { x: 22, y: 18 },
-          { x: 36, y: 26 },
-          { x: 50, y: 38 },
-          { x: 68, y: 8 },
-        ].map((k, i) => (
-          <g key={i} transform={`translate(${k.x} ${k.y}) rotate(45)`}>
-            <rect x="-2" y="-2" width="4" height="4" fill="var(--cream-0)" />
+        {/* cube — top face filled, wireframe edges */}
+        <g transform="translate(0 0)">
+          <polygon points="22,16 44,16 54,8 32,8" fill="var(--bloodlust)" stroke="var(--cream-0)" strokeWidth="0.7" strokeLinejoin="round" />
+          <g stroke="var(--cream-0)" strokeWidth="0.7" fill="none" strokeLinejoin="round">
+            {/* front face */}
+            <rect x="22" y="16" width="22" height="22" />
+            {/* back face */}
+            <rect x="32" y="8" width="22" height="22" />
+            {/* connectors */}
+            <line x1="22" y1="16" x2="32" y2="8" />
+            <line x1="44" y1="16" x2="54" y2="8" />
+            <line x1="44" y1="38" x2="54" y2="30" />
+            <line x1="22" y1="38" x2="32" y2="30" />
           </g>
-        ))}
-        <g transform="translate(36 26)">
-          <circle className="anim-pulse" r="4" fill="none" stroke="var(--cinnamon)" strokeWidth="0.6" />
         </g>
-        <g transform="translate(58 38)" stroke="var(--cream-2)" strokeWidth="0.5" fill="var(--cream-0)">
-          <line x1="0" y1="-6" x2="0" y2="2" />
-          <line x1="-3" y1="-3" x2="3" y2="-3" />
-          <line x1="0" y1="2" x2="-2" y2="8" />
-          <line x1="0" y1="2" x2="2" y2="8" />
-          <circle cx="0" cy="-7" r="1.4" />
-          <circle cx="-3" cy="-3" r="0.8" />
-          <circle cx="3" cy="-3" r="0.8" />
-          <circle cx="0" cy="2" r="0.8" />
-          <circle cx="-2" cy="8" r="0.8" />
-          <circle cx="2" cy="8" r="0.8" />
-        </g>
+        {/* pulsing vertex */}
+        <circle className="anim-pulse" cx="54" cy="8" r="2.2" fill="var(--cinnamon)" />
       </g>
     </g>
   ),

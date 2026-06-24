@@ -138,7 +138,7 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
 
 function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: string) {
   const key = pieceDetailKey(category.slug, piece.slug);
-  if (key === "agents/kira") return <KiraAgentDetail transitionName={transitionName} />;
+  if (key === "agents-digital-twins/kira") return <KiraAgentDetail transitionName={transitionName} />;
   if (key === "motion-graphics/reel") return <MotionReelDetail transitionName={transitionName} />;
   if (key === "motion-graphics/internet-capital-markets") {
     return <InternetCapitalMarketsDetail transitionName={transitionName} />;
@@ -162,7 +162,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/consistency-lab") return <ConsistencyLabDemo />;
   if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
   if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
-  if (key === "visual-media/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
+  if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
   }

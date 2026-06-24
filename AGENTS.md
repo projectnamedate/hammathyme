@@ -240,23 +240,4 @@ out to the live public site.
 
 Category piece cards use `components/PieceArt.tsx` for Hammer-native SVG plates
 while case studies are still in production. Keep these plates on the Hammer
-token system. Do not mark the animation category live until the Rive MCP
-animation is built with Jeff.
-
-## Rive Puppet Gate
-
-- Before any Rive puppet vector rebuild, rigging, animation, runtime package
-  install, or site integration, run `npm run verify:rive-puppet`.
-- Treat `content/work/rive-puppet-approval-manifest.json` as the source of
-  truth for the current approval state.
-- Do not create `public/work/animation/hammer-puppet-rig.riv` or
-  `public/work/animation/hammer-puppet-rig-poster.png` while the manifest says
-  `approvalStatus: pending`.
-- Do not add the Rive runtime package or `components/RiveCartoonPuppet.tsx`
-  while the manifest says `approvalStatus: pending`.
-- Do not proceed past the approval board until Jeff explicitly approves
-  candidate 01 or candidate 02, or gives design changes to apply first.
-- Current Hammer puppet state: candidate 01's character read is approved, but
-  the production reference must be redesigned into a T-pose with no
-  storyboard/shot-board/clapperboard/clipboard/held prop before any Rive
-  rebuild, rigging, animation, export, or site integration.
+token system.

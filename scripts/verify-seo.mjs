@@ -241,7 +241,7 @@ const prioritySitemap = mustContain("app/sitemap-priority.xml/route.ts", [
   "getCanonicalUrl",
   "force-static",
   "application/xml",
-  "/work/agents/kira",
+  "/work/agents-digital-twins/kira",
   "/work/motion-graphics/reel",
 ]);
 if (prioritySitemap.includes("new Date()") && !prioritySitemap.includes("new Date(SITE_LAST_MODIFIED)")) {

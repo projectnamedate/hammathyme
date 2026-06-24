@@ -28,16 +28,21 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "brand-systems/kira": KiraGuide,
   "brand-systems/effigy": EffigyGuide,
   "brand-systems/agentify": AgentifyGuide,
-  "agents/kira": KiraAgent,
-  "agents/winston": WinstonAgent,
-  "agents/bradley": BradleyAgent,
+  "agents-digital-twins/kira": KiraAgent,
+  "agents-digital-twins/winston": WinstonAgent,
+  "agents-digital-twins/bradley": BradleyAgent,
+  "agents-digital-twins/sensor-twin-dashboard": SensorTwin,
+  "agents-digital-twins/surrogate-model": SurrogateModel,
+  "agents-digital-twins/openusd-twin-scene": OpenUsdTwin,
   "motion-graphics/reel": MotionReel,
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
   "motion-graphics/spring-health": SpringHealthMotion,
-  "animation/puppet-rig-character": PuppetRig,
-  "animation/looping-social-bumpers": LoopingBumpers,
-  "animation/animated-short": AnimatedShort,
+  "vfx-cgi/neural-set-capture": NeuralSetCapture,
+  "vfx-cgi/generative-asset-library": GenerativeAssetLibrary,
+  "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
+  "vfx-cgi/comfyui-production-backend": ComfyuiBackend,
+  "vfx-cgi/usd-scene-assembly": UsdSceneAssembly,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/prompt-library": PromptLibrary,
   "pipelines-tools/creative-skills": CreativeSkills,
@@ -45,9 +50,11 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/consistency-lab": ConsistencyLab,
   "interactive-playable/talk-to-character": TalkToCharacter,
   "interactive-playable/dot-discipline": DotDiscipline,
-  "visual-media/equinox": EquinoxCampaign,
-  "visual-media/short-film": ShortFilm,
-  "visual-media/documentary-opener": DocumentaryOpener,
+  "film-animation/equinox": EquinoxCampaign,
+  "film-animation/short-film": ShortFilm,
+  "film-animation/documentary-opener": DocumentaryOpener,
+  "film-animation/animated-short": AnimatedShort,
+  "film-animation/looping-social-bumpers": LoopingBumpers,
   "websites/hammer": HammerSite,
   "websites/hammathyme": HammerSite,
   "websites/kira": KiraSite,
@@ -57,12 +64,12 @@ const SPECIMENS: Record<string, () => ReactElement> = {
 
 const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
   "brand-systems": HammerGuide,
-  agents: KiraAgent,
+  "agents-digital-twins": KiraAgent,
   "motion-graphics": MotionReel,
-  animation: PuppetRig,
+  "vfx-cgi": GenerativeAssetLibrary,
   "pipelines-tools": PipelineVisualizerCard,
   "interactive-playable": PromptStoryboard,
-  "visual-media": EquinoxCampaign,
+  "film-animation": EquinoxCampaign,
   websites: HammerSite,
 };
 
@@ -379,31 +386,6 @@ function SpringHealthMotion() {
   );
 }
 
-function PuppetRig() {
-  return (
-    <Plate bg="var(--cinnamon)">
-      <g transform="translate(60 76)" stroke="var(--cream-0)" strokeWidth="1" fill="var(--ink-0)">
-        <line x1="0" y1="-28" x2="0" y2="10" />
-        <line x1="-22" y1="-8" x2="22" y2="-8" />
-        <line x1="0" y1="10" x2="-18" y2="36" />
-        <line x1="0" y1="10" x2="18" y2="36" />
-        {[
-          [0, -32],
-          [0, -8],
-          [-22, -8],
-          [22, -8],
-          [0, 10],
-          [-18, 36],
-          [18, 36],
-        ].map(([x, y]) => (
-          <circle key={`${x}-${y}`} cx={x} cy={y} r="4" />
-        ))}
-      </g>
-      <MonoLabel>RIVE RIG</MonoLabel>
-    </Plate>
-  );
-}
-
 function LoopingBumpers() {
   return (
     <Plate>
@@ -614,6 +596,228 @@ function DocumentaryOpener() {
         <line x1="0" y1="0" x2="68" y2="0" stroke="var(--cream-0)" strokeWidth="1" opacity="0.9" />
       </g>
       <MonoLabel>DOC OPENER</MonoLabel>
+    </Plate>
+  );
+}
+
+function SensorTwin() {
+  return (
+    <Plate bg="var(--cream-1)">
+      <g transform="translate(22 44)">
+        <rect width="76" height="64" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
+        <g stroke="var(--ink-4)" strokeWidth="0.4">
+          <line x1="0" y1="21" x2="76" y2="21" />
+          <line x1="0" y1="42" x2="76" y2="42" />
+        </g>
+        {/* live telemetry trace */}
+        <path d="M 4 48 L 16 32 L 28 40 L 40 18 L 52 44 L 64 26 L 72 34" fill="none" stroke="var(--ink-0)" strokeWidth="1" />
+        {/* anomaly flag at the spike */}
+        <circle className="anim-pulse" cx="40" cy="18" r="4" fill="none" stroke="var(--cinnamon)" strokeWidth="1" />
+        <circle cx="40" cy="18" r="1.6" fill="var(--cinnamon)" />
+      </g>
+      {/* sensor row */}
+      <g transform="translate(34 118)" fill="var(--ink-0)">
+        <circle cx="0" cy="0" r="2.2" />
+        <circle cx="14" cy="0" r="2.2" />
+        <circle cx="28" cy="0" r="2.2" />
+        <circle cx="42" cy="0" r="2.2" fill="var(--cinnamon)" />
+      </g>
+      <MonoLabel>LIVE TELEMETRY</MonoLabel>
+    </Plate>
+  );
+}
+
+function SurrogateModel() {
+  return (
+    <Plate bg="var(--cream-2)">
+      <g transform="translate(22 46)">
+        <rect width="76" height="60" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
+        {/* full-fidelity reference (dashed) */}
+        <path d="M 6 50 C 22 8, 38 54, 54 14 S 70 42, 72 22" fill="none" stroke="var(--ink-3)" strokeWidth="1.4" strokeDasharray="2 2" />
+        {/* surrogate approximation */}
+        <path d="M 6 48 C 22 16, 38 48, 54 20 S 70 38, 72 26" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" />
+        {/* training samples */}
+        {[
+          [6, 48],
+          [30, 30],
+          [54, 20],
+          [72, 26],
+        ].map(([x, y]) => (
+          <rect key={`${x}-${y}`} x={x - 1.6} y={y - 1.6} width="3.2" height="3.2" fill="var(--ink-0)" />
+        ))}
+      </g>
+      <MonoLabel>SURROGATE FIT</MonoLabel>
+    </Plate>
+  );
+}
+
+function OpenUsdTwin() {
+  return (
+    <Plate bg="var(--bloodlust)">
+      <g transform="translate(60 80)">
+        {[22, 0, -22].map((oy, i) => (
+          <polygon
+            key={oy}
+            points={`0,${-9 + oy} 34,${oy} 0,${9 + oy} -34,${oy}`}
+            fill={i === 1 ? "var(--cinnamon)" : "none"}
+            fillOpacity={i === 1 ? 0.85 : 1}
+            stroke="var(--cream-0)"
+            strokeWidth="0.9"
+            strokeLinejoin="round"
+          />
+        ))}
+        {/* composition spine */}
+        <line x1="0" y1="-31" x2="0" y2="31" stroke="var(--cream-0)" strokeWidth="0.6" strokeDasharray="1.5 2" />
+      </g>
+      <MonoLabel y={136}>USD LAYERS</MonoLabel>
+    </Plate>
+  );
+}
+
+function NeuralSetCapture() {
+  const splats: [number, number, number, number][] = [
+    [34, 96, 2.2, 0.9],
+    [44, 88, 3.4, 0.8],
+    [52, 92, 1.8, 0.7],
+    [60, 82, 2.8, 0.95],
+    [70, 90, 2.2, 0.6],
+    [80, 84, 3.2, 0.85],
+    [40, 76, 1.6, 0.55],
+    [56, 70, 2.4, 0.9],
+    [66, 74, 1.8, 0.65],
+    [76, 66, 2.6, 0.8],
+    [48, 60, 2.0, 0.7],
+    [62, 56, 1.6, 0.5],
+    [86, 72, 2.0, 0.6],
+    [30, 84, 1.6, 0.5],
+    [72, 52, 1.4, 0.45],
+  ];
+  return (
+    <Plate bg="var(--ink-0)">
+      <line x1="16" y1="100" x2="104" y2="100" stroke="var(--ink-3)" strokeWidth="0.5" />
+      {splats.map(([cx, cy, r, o], i) => (
+        <circle key={i} cx={cx} cy={cy} r={r} fill={i % 4 === 0 ? "var(--cinnamon)" : "var(--cream-1)"} opacity={o} />
+      ))}
+      <text
+        x="60"
+        y="139"
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="4.8"
+        letterSpacing="1.2"
+        fill="var(--cream-1)"
+      >
+        GAUSSIAN SPLAT
+      </text>
+    </Plate>
+  );
+}
+
+function GenerativeAssetLibrary() {
+  const shapes = ["cube", "sphere", "cyl", "cone", "torus", "cube", "sphere", "cyl", "cone"];
+  return (
+    <Plate>
+      <g transform="translate(24 40)">
+        {shapes.map((s, i) => {
+          const x = (i % 3) * 24;
+          const y = Math.floor(i / 3) * 24;
+          const accent = i === 4;
+          const stroke = accent ? "var(--cinnamon)" : "var(--ink-3)";
+          return (
+            <g key={i} transform={`translate(${x} ${y})`}>
+              <rect width="20" height="20" fill="var(--cream-0)" stroke="var(--ink-4)" strokeWidth="0.6" />
+              <g transform="translate(10 10)" stroke={stroke} strokeWidth="0.8" fill="none" strokeLinejoin="round">
+                {s === "cube" && <polygon points="-5,-3 0,-6 5,-3 5,4 0,7 -5,4" />}
+                {s === "sphere" && <circle r="5.5" />}
+                {s === "cyl" && <rect x="-4.5" y="-6" width="9" height="12" rx="4.5" />}
+                {s === "cone" && <polygon points="0,-6 5,6 -5,6" />}
+                {s === "torus" && <circle r="5.5" />}
+                {s === "torus" && <circle r="2.4" />}
+              </g>
+            </g>
+          );
+        })}
+      </g>
+      <MonoLabel>ASSET LIBRARY</MonoLabel>
+    </Plate>
+  );
+}
+
+function BlenderLookdev() {
+  return (
+    <Plate bg="var(--cream-2)">
+      {/* look-dev ball */}
+      <g transform="translate(60 70)">
+        <circle r="26" fill="var(--ink-0)" />
+        <circle cx="-8" cy="-9" r="7" fill="var(--cinnamon)" opacity="0.85" />
+        <path d="M 18 12 A 26 26 0 0 1 -14 22" fill="none" stroke="var(--cream-0)" strokeWidth="0.8" opacity="0.5" />
+      </g>
+      {/* material variant swatches */}
+      <g transform="translate(28 110)">
+        {["var(--ink-0)", "var(--cinnamon)", "var(--bloodlust)", "var(--cream-0)"].map((c, i) => (
+          <rect key={i} x={i * 17} y="0" width="13" height="13" fill={c} stroke="var(--ink-4)" strokeWidth="0.6" />
+        ))}
+      </g>
+      <MonoLabel>LOOK-DEV</MonoLabel>
+    </Plate>
+  );
+}
+
+function ComfyuiBackend() {
+  return (
+    <Plate bg="var(--bloodlust)">
+      <g transform="translate(0 0)">
+        {/* node flow */}
+        <g stroke="var(--cream-0)" strokeWidth="0.7">
+          <line x1="28" y1="60" x2="48" y2="60" />
+          <line x1="60" y1="60" x2="78" y2="60" />
+        </g>
+        <rect x="18" y="52" width="14" height="16" fill="none" stroke="var(--cream-0)" strokeWidth="0.9" />
+        <rect x="46" y="52" width="14" height="16" fill="none" stroke="var(--cream-0)" strokeWidth="0.9" />
+        {/* quality gate diamond */}
+        <g transform="translate(86 60)">
+          <polygon points="0,-12 12,0 0,12 -12,0" fill="var(--cinnamon)" stroke="var(--cream-0)" strokeWidth="0.8" />
+          <path d="M -5 0 L -1 4 L 6 -5" fill="none" stroke="var(--ink-0)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+        {/* rejected sample dropping out */}
+        <circle className="anim-pulse" cx="86" cy="92" r="2.4" fill="none" stroke="var(--cream-0)" strokeWidth="0.7" />
+      </g>
+      <text
+        x="60"
+        y="139"
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="4.8"
+        letterSpacing="1.2"
+        fill="var(--cream-1)"
+      >
+        COMFYUI GATE
+      </text>
+    </Plate>
+  );
+}
+
+function UsdSceneAssembly() {
+  return (
+    <Plate bg="var(--cream-1)">
+      {/* source layers feeding one assembled frame */}
+      <g transform="translate(22 46)">
+        {[0, 1, 2].map((i) => (
+          <g key={i} transform={`translate(0 ${i * 22})`}>
+            <rect width="22" height="16" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.7" />
+            <line x1="22" y1="8" x2="40" y2="30" stroke="var(--ink-3)" strokeWidth="0.6" />
+          </g>
+        ))}
+        {/* assembled USD scene */}
+        <rect x="40" y="14" width="36" height="36" fill="var(--ink-0)" />
+        <g transform="translate(58 32)" stroke="var(--cinnamon)" strokeWidth="0.9" fill="none" strokeLinejoin="round">
+          <polygon points="-9,-4 0,-9 9,-4 9,5 0,10 -9,5" />
+          <line x1="0" y1="-9" x2="0" y2="1" />
+          <line x1="-9" y1="-4" x2="0" y2="1" />
+          <line x1="9" y1="-4" x2="0" y2="1" />
+        </g>
+      </g>
+      <MonoLabel>USD ASSEMBLY</MonoLabel>
     </Plate>
   );
 }

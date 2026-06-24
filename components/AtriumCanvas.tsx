@@ -23,12 +23,12 @@ type Pos = { x: number; y: number; w: number; h: number };
 // for Swiss asymmetry. y leaves a clear title band ~80–144px at the top.
 const POSITIONS: Pos[] = [
   { x:  6, y: 22, w: 18, h: 26 }, // 01 tall — brand systems
-  { x: 28, y: 28, w: 16, h: 20 }, // 02 short — autonomous characters
+  { x: 28, y: 28, w: 16, h: 20 }, // 02 short — agents + digital twins
   { x: 48, y: 22, w: 20, h: 26 }, // 03 tall — motion graphics
-  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — animation
+  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — vfx + cgi
   { x:  6, y: 58, w: 18, h: 20 }, // 05 short — pipelines + tools
   { x: 28, y: 52, w: 16, h: 26 }, // 06 tall — interactive + playable
-  { x: 48, y: 58, w: 20, h: 20 }, // 07 short — visual media
+  { x: 48, y: 58, w: 20, h: 20 }, // 07 short — film + animation
   { x: 72, y: 52, w: 16, h: 26 }, // 08 tall — websites
 ];
 

@@ -394,7 +394,7 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
 
 export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonLdObject | null {
   const pageUrl = getCanonicalUrl(getPiecePath(category, piece));
-  if (category.slug === "visual-media" && piece.slug === "equinox") {
+  if (category.slug === "film-animation" && piece.slug === "equinox") {
     return {
       "@type": "VideoObject",
       "@id": `${pageUrl}#video`,

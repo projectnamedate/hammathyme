@@ -65,7 +65,6 @@ export default function Colophon() {
           <Line k="stills" v="nano banana 2 · midjourney v7" />
           <Line k="video" v="kling 3.0" />
           <Line k="composition" v="remotion · hyperframes" />
-          <Line k="animation" v="rive" />
         </Field>
 
         <Field label="interactive demos" col={6}>
