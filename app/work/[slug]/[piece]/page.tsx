@@ -207,12 +207,12 @@ function KiraAgentDetail({ transitionName }: { transitionName: string }) {
           />
           <div className="grid grid-cols-[96px_1fr] gap-5 border-t border-[var(--ink-4)] p-5 md:grid-cols-[132px_1fr] md:p-7">
             <Image
-              src="/work/agents/kira/avatar.png"
+              src="/work/agents/kira/avatar-hero.jpg"
               alt="Kira avatar"
-              width={700}
-              height={900}
+              width={2688}
+              height={1536}
               sizes="132px"
-              className="aspect-[1/1] w-full border border-[var(--ink-4)] object-cover object-top"
+              className="aspect-[1/1] w-full border border-[var(--ink-4)] object-cover object-center"
             />
             <div className="flex flex-col justify-between gap-6">
               <div>
