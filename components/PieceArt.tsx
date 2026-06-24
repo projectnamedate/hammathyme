@@ -29,11 +29,9 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "brand-systems/effigy": EffigyGuide,
   "brand-systems/agentify": AgentifyGuide,
   "agents-digital-twins/kira": KiraAgent,
-  "agents-digital-twins/winston": WinstonAgent,
   "agents-digital-twins/bradley": BradleyAgent,
   "agents-digital-twins/sensor-twin-dashboard": SensorTwin,
   "agents-digital-twins/surrogate-model": SurrogateModel,
-  "agents-digital-twins/openusd-twin-scene": OpenUsdTwin,
   "motion-graphics/reel": MotionReel,
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
@@ -288,22 +286,6 @@ function KiraAgent() {
       <line x1="36" y1="96" x2="84" y2="96" stroke="var(--ink-2)" strokeWidth="0.7" />
       <line x1="36" y1="106" x2="72" y2="106" stroke="var(--ink-3)" strokeWidth="0.7" />
       <MonoLabel>LIVE AGENT</MonoLabel>
-    </Plate>
-  );
-}
-
-function WinstonAgent() {
-  return (
-    <Plate>
-      <rect x="28" y="44" width="64" height="80" fill="var(--cream-0)" stroke="var(--ink-3)" />
-      <path d="M 40 68 C 48 54, 72 54, 80 68" fill="none" stroke="var(--ink-0)" strokeWidth="2" />
-      <circle cx="48" cy="78" r="2" fill="var(--ink-0)" />
-      <circle cx="72" cy="78" r="2" fill="var(--ink-0)" />
-      <g stroke="var(--ink-3)" strokeWidth="0.7">
-        <line x1="38" y1="101" x2="82" y2="101" />
-        <line x1="38" y1="110" x2="70" y2="110" />
-      </g>
-      <MonoLabel>VOICE SHEET</MonoLabel>
     </Plate>
   );
 }
@@ -647,29 +629,6 @@ function SurrogateModel() {
         ))}
       </g>
       <MonoLabel>SURROGATE FIT</MonoLabel>
-    </Plate>
-  );
-}
-
-function OpenUsdTwin() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <g transform="translate(60 80)">
-        {[22, 0, -22].map((oy, i) => (
-          <polygon
-            key={oy}
-            points={`0,${-9 + oy} 34,${oy} 0,${9 + oy} -34,${oy}`}
-            fill={i === 1 ? "var(--cinnamon)" : "none"}
-            fillOpacity={i === 1 ? 0.85 : 1}
-            stroke="var(--cream-0)"
-            strokeWidth="0.9"
-            strokeLinejoin="round"
-          />
-        ))}
-        {/* composition spine */}
-        <line x1="0" y1="-31" x2="0" y2="31" stroke="var(--cream-0)" strokeWidth="0.6" strokeDasharray="1.5 2" />
-      </g>
-      <MonoLabel y={136}>USD LAYERS</MonoLabel>
     </Plate>
   );
 }
