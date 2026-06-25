@@ -6,7 +6,7 @@ Important context:
 - canonical url: https://hammer.ad
 - public brand: Hammer / hammer, not the domain name
 - primary entity: Jeff Hammer, AI Producer
-- contact: jeff@projectname.date
+- contact: hammer@hammer.ad
 - site model: visual-only portfolio. no blog, no /notes, no /process, no /lab.
 - best agent entry points: /llms-full.txt, /.well-known/agents.json, /sitemap.xml, /sitemap-priority.xml, /memories/jeff.md.
 
@@ -28,7 +28,7 @@ Important context:
 
 ## contact
 
-- [say hi](https://hammer.ad/contact): jeff@projectname.date. taking projects, 48-hour reply.
+- [say hi](https://hammer.ad/contact): hammer@hammer.ad. taking projects, 48-hour reply.
 
 ## colophon
 

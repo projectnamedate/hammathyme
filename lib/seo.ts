@@ -220,7 +220,7 @@ export function buildPersonJsonLd(): JsonLdObject {
     url: getCanonicalUrl("/about"),
     image: getCanonicalUrl(SOCIAL_IMAGE_PATH),
     jobTitle: "AI Producer",
-    email: "mailto:jeff@projectname.date",
+    email: "mailto:hammer@hammer.ad",
     description: DEFAULT_DESCRIPTION,
     worksFor: {
       "@type": "Organization",

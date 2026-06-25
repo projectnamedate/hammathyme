@@ -113,4 +113,12 @@ sub-pages. Reduce the massive amount of wording, preserve the strongest proof
 and receipts, and make each page feel more visual, faster to scan, and more
 Hammer-branded.
 
+**Note (2026-06-25):** Public contact email switched from `jeff@projectname.date`
+to `hammer@hammer.ad`. Namecheap BasicDNS Redirect Email forwards
+`hammer@hammer.ad` → `jeff@projectname.date` (MX `eforward1–5.registrar-servers.com`,
+SPF `include:spf.efwd.registrar-servers.com`). Live-facing surfaces updated:
+`/contact`, `app/layout.tsx` console/LLM note, `lib/seo.ts` JSON-LD, pipeline-config
+mailto, `public/llms.txt`, `public/llms-full.txt`, `public/.well-known/agents.json`,
+`public/memories/jeff.md`. The 2026-05-18 note above is kept as history.
+
 See `~/.claude/projects/-Users-hammer-Desktop-Claude-aiprod/memory/project_portfolio_categories.md` for fuller context.

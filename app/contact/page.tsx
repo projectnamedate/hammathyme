@@ -38,8 +38,8 @@ export default function Vestibule() {
         <aside className="flex flex-col gap-10 md:col-span-5 md:gap-12 md:border-l md:border-[var(--ink-4)] md:pl-12">
           <ContactLine
             label="email"
-            value="jeff@projectname.date"
-            href="mailto:jeff@projectname.date"
+            value="hammer@hammer.ad"
+            href="mailto:hammer@hammer.ad"
             cursor="copy →"
           />
           <ContactLine label="based" value="la · ny · remote" />
@@ -58,7 +58,7 @@ export default function Vestibule() {
           <ContactLine
             label="rate card"
             value="on request"
-            href="mailto:jeff@projectname.date?subject=rate%20card"
+            href="mailto:hammer@hammer.ad?subject=rate%20card"
             cursor="ask →"
           />
         </aside>
