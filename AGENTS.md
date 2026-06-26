@@ -10,9 +10,11 @@ Hammer is ported to the shared vault at
 reading this file, read `/Users/hammer/Obsidian/AgentMemory/AGENTS.md` and the
 Hammer project note before acting. Treat vault notes as durable cross-agent
 memory, not a replacement for repo docs, project files, live site checks,
-Vercel proof, or current repo state. At wrap-up, update the project note and
-append a dated session summary; never store secrets, env values, private
-credentials, provider keys, or live tokens in the vault.
+Vercel proof, or current repo state. At wrap-up, run the **end-session-sweep**
+skill (Codex: `$end-session-sweep`) — it forces the vault session write and runs
+the full per-project closeout: update the project note and append a dated
+session summary. Never store secrets, env values, private credentials, provider
+keys, or live tokens in the vault.
 
 ## Global Codex Defaults
 
@@ -44,8 +46,11 @@ Read these before changing the project:
   should feel.
 - `RESEARCH.md` — May 2026 market refresh. Current model name-drops, hiring
   framing, awwwards refs.
-- `~/.codex/skills/hammer-startup-check/SKILL.md` — resume audit workflow for
-  roadmap, site drift, content state, and deploy truth.
+- `hammer-startup-check` skill — resume audit workflow for roadmap, site drift,
+  content state, and deploy truth. Codex reaches it via the repo symlink
+  `.codex/skills/hammer-startup-check` →
+  `~/.codex/skills.profiles/project/skills/hammer-startup-check/SKILL.md`; Claude
+  Code uses the mirrored `check-hammer` skill. Both read the shared vault first.
 - `~/.codex/memories/MEMORY.md` — prior decisions. Visual taste, kerning
   recipe, portfolio categories, voice rules, roadmap.
 
