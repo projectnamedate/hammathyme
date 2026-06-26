@@ -36,6 +36,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
   "motion-graphics/spring-health": SpringHealthMotion,
+  "vfx-cgi/environment-swap": EnvironmentSwap,
   "vfx-cgi/neural-set-capture": NeuralSetCapture,
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
   "vfx-cgi/comfyui-production-backend": ComfyuiBackend,
@@ -595,6 +596,40 @@ function SurrogateModel() {
         ))}
       </g>
       <MonoLabel>SURROGATE FIT</MonoLabel>
+    </Plate>
+  );
+}
+
+function EnvironmentSwap() {
+  return (
+    <Plate bg="var(--ink-0)">
+      {/* left half: warm desert world */}
+      <rect x="12" y="14" width="48" height="106" fill="#3b2535" />
+      <rect x="12" y="86" width="48" height="34" fill="#6e3f2c" />
+      <circle cx="34" cy="48" r="8" fill="var(--cinnamon)" opacity="0.92" />
+      {/* right half: cool crystal world */}
+      <rect x="60" y="14" width="48" height="106" fill="#0e2742" />
+      <g fill="#4ea7d6" opacity="0.9">
+        <polygon points="71,120 77,66 83,120" />
+        <polygon points="85,120 91,80 97,120" />
+        <polygon points="62,120 67,90 72,120" />
+      </g>
+      {/* swap seam */}
+      <line x1="60" y1="14" x2="60" y2="120" stroke="var(--cinnamon)" strokeWidth="1" opacity="0.85" />
+      {/* preserved first-person dashboard arc */}
+      <path d="M 12 120 Q 60 103 108 120 L 108 146 L 12 146 Z" fill="var(--ink-0)" />
+      <path d="M 12 120 Q 60 103 108 120" fill="none" stroke="var(--ink-3)" strokeWidth="0.8" />
+      <text
+        x="60"
+        y="139"
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="4.8"
+        letterSpacing="1.2"
+        fill="var(--cream-1)"
+      >
+        ENV SWAP
+      </text>
     </Plate>
   );
 }

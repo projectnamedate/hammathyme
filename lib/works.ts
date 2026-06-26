@@ -296,6 +296,15 @@ export const CASE_STUDIES: CaseStudy[] = [
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
       {
+        slug: "environment-swap",
+        title: "environment swap",
+        year: "2026",
+        blurb:
+          "one first-person driving plate relit into many worlds — neon city, alien desert, blue crystal forest, alpine snow — with the real dashboard preserved. a mask-free video-to-video environment swap via Runway Aleph 2.",
+        status: "live",
+        tint: "var(--cinnamon)",
+      },
+      {
         slug: "neural-set-capture",
         title: "neural set capture",
         year: "2026",
@@ -523,6 +532,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/internet-capital-markets",
   "motion-graphics/audio-reactive-overlays",
   "motion-graphics/spring-health",
+  "vfx-cgi/environment-swap",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/prompt-library",
   "pipelines-tools/creative-skills",

@@ -394,6 +394,24 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
 
 export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonLdObject | null {
   const pageUrl = getCanonicalUrl(getPiecePath(category, piece));
+  if (category.slug === "vfx-cgi" && piece.slug === "environment-swap") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "AI environment swap",
+      description:
+        piece.blurb ??
+        "One first-person driving plate relit into many worlds with the real dashboard preserved, via Runway Aleph 2 video-to-video.",
+      thumbnailUrl: [
+        getCanonicalUrl("/work/vfx-cgi/environment-swap/environment-swap-poster.jpg"),
+      ],
+      uploadDate: "2026-06-25T00:00:00-07:00",
+      contentUrl: getCanonicalUrl("/work/vfx-cgi/environment-swap/environment-swap-web.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
   if (category.slug === "film-animation" && piece.slug === "equinox") {
     return {
       "@type": "VideoObject",

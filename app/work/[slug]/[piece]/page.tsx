@@ -162,6 +162,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/consistency-lab") return <ConsistencyLabDemo />;
   if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
   if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
+  if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
@@ -550,6 +551,64 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
             />
           </video>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function EnvironmentSwapDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            one first-person driving plate, many worlds. Aleph keeps the real dashboard, windshield,
+            and forward motion and replaces only the landscape outside the glass.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["technique", "video-to-video environment swap"],
+              ["model", "Runway Aleph 2"],
+              ["plate", "one POV driving shot"],
+              ["format", "5s · 1920x1080 · 24fps · h264"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="AI environment swap: one driving plate relit into neon, alien, crystal, and snow worlds"
+            className="block aspect-video w-full bg-[var(--cream-0)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/vfx-cgi/environment-swap/environment-swap-poster.jpg"
+          >
+            <source src="/work/vfx-cgi/environment-swap/environment-swap-web.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          the swap is prompt-driven and mask-free: name only what changes, keep the foreground. shoot
+          the drive once, deliver it as any location — neon city, alien desert, blue crystal forest, alpine snow.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          plate + edit: hammer · model: runway aleph 2
+        </p>
       </div>
     </section>
   );
