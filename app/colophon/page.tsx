@@ -32,7 +32,7 @@ export default function Colophon() {
         <aside className="flex items-end md:col-span-4">
           <p className="max-w-[40ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
             the back-of-book. typefaces, models, hosting, license. nothing
-            hidden — every tool that touched this site, listed below.
+            hidden: every tool that touched this site, listed below.
           </p>
         </aside>
       </header>

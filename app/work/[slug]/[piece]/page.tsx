@@ -604,7 +604,7 @@ function EnvironmentSwapDetail({ transitionName }: { transitionName: string }) {
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
           the swap is prompt-driven and mask-free: name only what changes, keep the foreground. shoot
-          the drive once, deliver it as any location — neon city, alien desert, blue crystal forest, alpine snow.
+          the drive once, deliver it as any location: neon city, alien desert, blue crystal forest, alpine snow.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           plate + edit: hammer · model: runway aleph 2

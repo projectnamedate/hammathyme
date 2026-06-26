@@ -257,6 +257,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--bloodlust)",
       },
       {
+        slug: "spring-health",
+        title: "Spring Health",
+        year: "2026",
+        client: "Spring Health",
+        blurb: "a 51-second HyperFrames showcase translating Spring Health's brand system, product UI, and care-system story into motion.",
+        status: "live",
+        tint: "#01382E",
+      },
+      {
         slug: "internet-capital-markets",
         title: "icm teaser",
         year: "2026",
@@ -272,15 +281,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "var(--cinnamon)",
       },
-      {
-        slug: "spring-health",
-        title: "Spring Health",
-        year: "2026",
-        client: "Spring Health",
-        blurb: "a 51-second HyperFrames showcase translating Spring Health's brand system, product UI, and care-system story into motion.",
-        status: "live",
-        tint: "#01382E",
-      },
     ],
   },
   {
@@ -291,7 +291,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "orchestration, not generation. coding agents write the bpy and openusd scripts, wire comfyui into production apis with quality gates, and pull real engines — blender, houdini, unreal, omniverse — into one reproducible pipeline.",
+      "orchestration, not generation. coding agents write the bpy and openusd scripts, wire comfyui into production apis with quality gates, and pull real engines into one reproducible pipeline: blender, houdini, unreal, omniverse.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
@@ -300,7 +300,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "environment swap",
         year: "2026",
         blurb:
-          "one first-person driving plate relit into many worlds — neon city, alien desert, blue crystal forest, alpine snow — with the real dashboard preserved. a mask-free video-to-video environment swap via Runway Aleph 2.",
+          "one first-person driving plate relit into many worlds (neon city, alien desert, blue crystal forest, alpine snow), with the real dashboard preserved. a mask-free video-to-video environment swap via Runway Aleph 2.",
         status: "live",
         tint: "var(--cinnamon)",
       },
@@ -470,7 +470,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "ai-native websites — design, build, and ship. live public work includes agentify.nexus, onlykira.ai, and opencrawl.gg.",
+      "ai-native websites: design, build, and ship. live public work includes agentify.nexus, onlykira.ai, and opencrawl.gg.",
     tint: "var(--cream-1)",
     hero: { main: "", italic: "websites" },
     pieces: [
@@ -489,7 +489,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         client: "hammer studios",
         blurb:
-          "onlykira.ai — public microsite for the autonomous Kira agent character, built with AI and the Kira brand bible.",
+          "onlykira.ai: public microsite for the autonomous Kira agent character, built with AI and the Kira brand bible.",
         status: "live",
         tint: "var(--cream-2)",
       },
@@ -497,7 +497,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "opencrawl",
         title: "opencrawl",
         year: "2026",
-        blurb: "opencrawl.gg — devnet-alpha frontend and brand surface for autonomous crawler tournaments.",
+        blurb: "opencrawl.gg: devnet-alpha frontend and brand surface for autonomous crawler tournaments.",
         status: "live",
         tint: "var(--bloodlust)",
       },
@@ -506,7 +506,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "agentify",
         year: "2026",
         client: "agentify",
-        blurb: "agentify.nexus — public agent-payment readiness site with cinematic shaders, proof surfaces, services, audit path, and agent-readable infrastructure.",
+        blurb: "agentify.nexus: public agent-payment readiness site with cinematic shaders, proof surfaces, services, audit path, and agent-readable infrastructure.",
         status: "live",
         tint: "#14132A",
       },
