@@ -36,6 +36,10 @@ yarn-error.log*
 /.codex/
 /docs/codex-checkpoints/*-precompact.md
 
+# local production media and scratch folders
+/environment-swap/
+/scratchpad/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
