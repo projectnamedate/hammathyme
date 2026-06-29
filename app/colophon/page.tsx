@@ -62,14 +62,14 @@ export default function Colophon() {
 
         <Field label="production stack" col={6}>
           <Line k="orchestration" v="hermes agent · nous research" />
-          <Line k="stills" v="nano banana 2 · midjourney v7" />
-          <Line k="video" v="kling 3.0" />
+          <Line k="stills" v="nano banana 2 · gpt image · midjourney v7" />
+          <Line k="video" v="kling · seedance · runway" />
           <Line k="composition" v="remotion · hyperframes" />
         </Field>
 
         <Field label="interactive demos" col={6}>
           <Line k="text" v="openrouter · deepseek v4 flash" />
-          <Line k="image" v="fal storyboard sheets · flux 2 lora Kira consistency" />
+          <Line k="image" v="nano banana 2 storyboards · flux 2 lora for Kira" />
           <Line k="budget" v="upstash redis · $1 shared daily cap" />
           <Line k="fallback" v="public sample mode when capped or unconfigured" />
         </Field>

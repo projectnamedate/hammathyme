@@ -363,7 +363,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "prompt-library",
         title: "prompt library",
         year: "2026",
-        blurb: "the public shape of Hammer's prompt system: briefs, taste locks, model recipes, review gates, and handoff notes.",
+        blurb: "the public shape of Hammer's prompt system: briefs, taste locks, tool recipes, review gates, and handoff notes.",
         status: "live",
         tint: "var(--cream-2)",
       },

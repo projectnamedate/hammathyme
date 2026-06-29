@@ -46,7 +46,7 @@ export const PIPELINES: Pipeline[] = [
     slug: "campaign-hero-shots",
     label: "campaign hero shots",
     brief: "brand film concept to compact cut",
-    totalCost: "≈ $25",
+    totalCost: "≈ $10–25",
     totalTime: "≈ 50 min",
     finalOutput: "broadcast prores 4444 + h.264 web cut",
     nodes: [
@@ -73,21 +73,21 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "moodboard",
         label: "mood board",
-        tool: "fal flux pro 1.1",
-        cost: "$0.40",
+        tool: "gpt image · nb2",
+        cost: "$1–3",
         time: "2 min",
         output: "8 stills · 1024²",
-        summary: "look refs at three lighting states. picks one for veo seed.",
+        summary: "look refs and keyframes for lighting, texture, camera, and talent read.",
         x: 540, y: ROW,
       },
       {
-        id: "veo",
+        id: "video",
         label: "generation",
-        tool: "google veo 3.1",
-        cost: "$24",
+        tool: "kling · seedance · runway",
+        cost: "$8–22",
         time: "18 min",
-        output: "12 takes · 1080p",
-        summary: "12 candidate takes from one shot description + seed image.",
+        output: "candidate takes · 1080p",
+        summary: "short motion passes from the selected keyframe and shot direction.",
         x: 760, y: ROW,
       },
       {
@@ -103,8 +103,8 @@ export const PIPELINES: Pipeline[] = [
     edges: [
       { from: "brief", to: "script" },
       { from: "script", to: "moodboard" },
-      { from: "moodboard", to: "veo" },
-      { from: "veo", to: "grade" },
+      { from: "moodboard", to: "video" },
+      { from: "video", to: "grade" },
     ],
   },
   {
@@ -118,11 +118,11 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "design",
         label: "character design",
-        tool: "claude opus + flux",
+        tool: "claude opus + nb2 / gpt image",
         cost: "$0.50",
         time: "10 min",
         output: "bio + key art",
-        summary: "name, voice, look, posting rules. one short charter doc.",
+        summary: "name, voice, look, posting rules, and first identity boards.",
         x: 100, y: ROW,
       },
       {
@@ -146,11 +146,11 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "post",
         label: "post generator",
-        tool: "claude haiku + flux + lora",
+        tool: "caption model + flux 2 lora",
         cost: "$0.08 / post",
         time: "90s",
         output: "image + caption",
-        summary: "writes copy on the topic, generates image with the lora.",
+        summary: "writes the caption and renders Kira through the locked identity lane.",
         x: 760, y: ROW,
       },
       {
