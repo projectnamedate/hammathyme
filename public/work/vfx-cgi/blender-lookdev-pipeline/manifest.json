@@ -1,0 +1,39 @@
+{
+  "tool": "Blender",
+  "version": "5.1.0",
+  "source_asset": "public/work/vfx-cgi/blender-lookdev-pipeline/source-asset.glb",
+  "outputs": [
+    "public/work/vfx-cgi/blender-lookdev-pipeline/variant-01-cinnamon.png",
+    "public/work/vfx-cgi/blender-lookdev-pipeline/variant-02-graphite.png",
+    "public/work/vfx-cgi/blender-lookdev-pipeline/variant-03-cream.png",
+    "public/work/vfx-cgi/blender-lookdev-pipeline/variant-04-bloodlust.png",
+    "public/work/vfx-cgi/blender-lookdev-pipeline/variant-05-chrome.png",
+    "public/work/vfx-cgi/blender-lookdev-pipeline/variant-06-clay.png"
+  ],
+  "variants": [
+    {
+      "slug": "variant-01-cinnamon",
+      "label": "cinnamon ceramic"
+    },
+    {
+      "slug": "variant-02-graphite",
+      "label": "graphite metal"
+    },
+    {
+      "slug": "variant-03-cream",
+      "label": "warm cream"
+    },
+    {
+      "slug": "variant-04-bloodlust",
+      "label": "bloodlust lacquer"
+    },
+    {
+      "slug": "variant-05-chrome",
+      "label": "polished chrome"
+    },
+    {
+      "slug": "variant-06-clay",
+      "label": "production clay"
+    }
+  ]
+}

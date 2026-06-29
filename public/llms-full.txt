@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: hammer@hammer.ad
 location: LA / NY / remote
-last updated: 2026-06-19
+last updated: 2026-06-29
 
 ## summary
 
@@ -29,14 +29,16 @@ The domain appears only in technical URL surfaces.
 - /work/brand-systems/kira: Kira autonomous-character agent system, brand bible, and website dossier.
 - /work/brand-systems/effigy: Effigy agent-stack brand book dossier.
 - /work/brand-systems/agentify: Agentify agent-payment readiness brand guide dossier. Its full guide opens the canonical live brand bible at https://agentify.nexus/brand-bible.
-- /work/agents: autonomous characters layered over agent systems.
-- /work/agents/kira: Kira autonomous character detail page.
+- /work/agents-digital-twins: autonomous characters layered over agent systems and sensor-fed system twins.
+- /work/agents-digital-twins/kira: Kira autonomous character detail page.
 - /work/motion-graphics: programmatic motion work.
 - /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
 - /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
-- /work/animation: Rive and Remotion animation category. Public work is still in production.
+- /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, OpenUSD, and related tools.
+- /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
+- /work/vfx-cgi/blender-lookdev-pipeline: headless Blender look-development pipeline with imported GLB asset, material and lighting sweep, and rendered contact sheet.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
 - /work/pipelines-tools/prompt-library: public prompt architecture and review-gate walkthrough.
@@ -46,8 +48,8 @@ The domain appears only in technical URL surfaces.
 - /work/interactive-playable/consistency-lab: capped Kira character-consistency board with safe LoRA remix hook and sample refs.
 - /work/interactive-playable/talk-to-character: capped DeepSeek V4 Flash Kira character chat demo.
 - /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
-- /work/visual-media: AI-native film, short-form video, and commercial work.
-- /work/visual-media/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
+- /work/film-animation: AI-native film, commercial video, shorts, and rigged character animation.
+- /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.
 - /work/websites/kira: onlykira.ai website preview.
@@ -70,12 +72,12 @@ Lululemon, Nissan, Porsche, Remy Martin, Subaru, Toyota, and Xfinity.
 
 Primary work categories:
 - brand systems
-- agents
+- agents + digital twins
 - motion graphics
-- animation
+- vfx + cgi
 - pipelines + tools
 - interactive + playable
-- visual media
+- film + animation
 - websites
 
 Key positioning terms:
@@ -86,6 +88,8 @@ Key positioning terms:
 - autonomous AI characters
 - AI motion graphics
 - AI video pipeline producer
+- Blender look-development pipeline
+- VFX and CGI pipeline producer
 - AI-native websites
 
 ## agent interpretation rules
@@ -106,7 +110,7 @@ Email: hammer@hammer.ad
 Availability: taking projects, 48-hour reply
 Work modes: full-time, part-time, contract, project work
 Primary fit: AI pipelines, brand systems, motion graphics, autonomous
-characters, websites, and broadcast-grade production.
+characters, vfx + cgi, websites, and broadcast-grade production.
 
 ## crawl and retrieval
 

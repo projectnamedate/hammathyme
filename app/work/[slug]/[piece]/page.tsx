@@ -163,6 +163,9 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
   if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
+  if (key === "vfx-cgi/blender-lookdev-pipeline") {
+    return <BlenderLookdevDetail transitionName={transitionName} />;
+  }
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
@@ -608,6 +611,115 @@ function EnvironmentSwapDetail({ transitionName }: { transitionName: string }) {
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           plate + edit: hammer · model: runway aleph 2
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const BLENDER_LOOKDEV_VARIANTS = [
+  {
+    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-01-cinnamon.png",
+    label: "cinnamon ceramic",
+    alt: "Blender look-dev render with cinnamon ceramic material",
+  },
+  {
+    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-02-graphite.png",
+    label: "graphite metal",
+    alt: "Blender look-dev render with graphite metal material",
+  },
+  {
+    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-03-cream.png",
+    label: "warm cream",
+    alt: "Blender look-dev render with warm cream material",
+  },
+  {
+    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-04-bloodlust.png",
+    label: "bloodlust lacquer",
+    alt: "Blender look-dev render with bloodlust lacquer material",
+  },
+  {
+    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-05-chrome.png",
+    label: "polished chrome",
+    alt: "Blender look-dev render with polished chrome material",
+  },
+  {
+    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-06-clay.png",
+    label: "production clay",
+    alt: "Blender look-dev render with production clay material",
+  },
+];
+
+function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            one imported asset, six material reads. the script clears the scene, imports the glb,
+            assigns each look, lights it, and renders proof frames in headless Blender.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["tool", "Blender 5.1 background python"],
+              ["asset", "generated glb, imported per run"],
+              ["output", "six 1280x720 renders plus contact sheet"],
+              ["finish", "ffmpeg tile sheet and static web assets"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <Image
+            src="/work/vfx-cgi/blender-lookdev-pipeline/blender-lookdev-contact-sheet.jpg"
+            alt="Blender look-dev contact sheet with six material and lighting variants"
+            width={2016}
+            height={792}
+            priority
+            sizes="(min-width: 768px) 75vw, 100vw"
+            className="block aspect-[28/11] w-full bg-[var(--cream-0)] object-cover"
+          />
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+        {BLENDER_LOOKDEV_VARIANTS.map((variant) => (
+          <figure key={variant.src} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
+            <Image
+              src={variant.src}
+              alt={variant.alt}
+              width={1280}
+              height={720}
+              sizes="(min-width: 768px) 33vw, 50vw"
+              className="aspect-video w-full object-cover"
+            />
+            <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+              {variant.label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          the point is the pipeline, not the object. the same script can swap the asset, look table,
+          camera, or lighting rig and rebuild the sheet without manual scene work.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          bpy script: scripts/render-blender-lookdev.py · render: local Blender 5.1
         </p>
       </div>
     </section>

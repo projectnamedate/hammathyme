@@ -8,7 +8,7 @@
     "url": "https://hammer.ad/about",
     "contact": "mailto:hammer@hammer.ad"
   },
-  "summary": "Hammer is Jeff Hammer's visual-only AI producer portfolio: brand systems, autonomous characters, motion graphics, animation, pipelines, interactive demos, visual media, and websites.",
+  "summary": "Hammer is Jeff Hammer's visual-only AI producer portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
   "agent_entry_points": {
     "llms.txt": "https://hammer.ad/llms.txt",
     "llms-full.txt": "https://hammer.ad/llms-full.txt",
@@ -42,6 +42,8 @@
     { "path": "/work/motion-graphics/audio-reactive-overlays", "purpose": "Remotion audio-visualization overlay driven by analyzed music data" },
     { "path": "/work/motion-graphics/spring-health", "purpose": "Spring Health HyperFrames motion showcase reel" },
     { "path": "/work/vfx-cgi", "purpose": "vfx and cgi portfolio category: coding agents orchestrating Blender, Houdini, ComfyUI, and OpenUSD pipelines" },
+    { "path": "/work/vfx-cgi/environment-swap", "purpose": "Runway Aleph 2 environment-swap case study: one driving plate relit into multiple worlds while preserving the real dashboard" },
+    { "path": "/work/vfx-cgi/blender-lookdev-pipeline", "purpose": "headless Blender look-development pipeline with imported GLB asset, material and lighting sweep, and rendered contact sheet" },
     { "path": "/work/pipelines-tools", "purpose": "pipeline and tooling portfolio category" },
     { "path": "/work/pipelines-tools/pipeline-visualizer", "purpose": "interactive node-graph of Hammer production pipelines" },
     { "path": "/work/pipelines-tools/prompt-library", "purpose": "public prompt architecture and review-gate walkthrough" },

@@ -4,11 +4,11 @@ import type { CaseStudy, Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-06-19T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-06-29T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · ai producer";
 export const DEFAULT_DESCRIPTION =
-  "Jeff Hammer is an AI producer at Starz Entertainment with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents, motion graphics, animation, pipelines, visual media, and websites.";
+  "Jeff Hammer is an AI producer at Starz Entertainment with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.";
 export const DEFAULT_KEYWORDS = [
   "AI Producer",
   "AI Creative Producer",
@@ -150,7 +150,7 @@ export const rootMetadata: Metadata = {
 export const homeMetadata = buildPageMetadata({
   title: SITE_TITLE,
   description:
-    "Hammer is Jeff Hammer's AI producer portfolio: brand systems, autonomous characters, motion graphics, animation, pipelines, visual media, and websites.",
+    "Hammer is Jeff Hammer's AI producer portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.",
   path: "/",
   absoluteTitle: true,
   keywords: ["hire AI producer", "AI producer Los Angeles", "AI producer New York"],
@@ -176,7 +176,7 @@ export const contactMetadata = buildPageMetadata({
 export const workMetadata = buildPageMetadata({
   title: "AI producer portfolio work",
   description:
-    "Explore Hammer's AI producer portfolio across brand systems, agents, motion graphics, animation, pipelines, interactive demos, visual media, and websites.",
+    "Explore Hammer's AI producer portfolio across brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
   path: "/work",
   keywords: ["AI producer portfolio", "AI creative producer portfolio", "AI video portfolio"],
 });

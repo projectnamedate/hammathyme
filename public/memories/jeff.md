@@ -7,8 +7,8 @@
 § brand: warm cream paper · maroon ink · vinaceous cinnamon period. the period after "hammer" is the brand mark. light only. hates dark mode.
 § wordmark recipe: hybrid. use the Motion Reel cold-open per-letter Outfit Black "hammer" construction with the approved visual rhythm, plus the current website baseline placement for the controlled circular cinnamon period. do not force mathematically equal ink-box spacing.
 § voice rule: avoid producer slang ("get the cut, hit the deadline, deliver to spec"). prefer 2-beat parallel claims over 3-beat industry triplets.
-§ 8 work categories (slug = title = label): brand-systems · agents · motion-graphics · animation · pipelines-tools · interactive-playable · visual-media · websites.
-§ ready work opens in detail routes: brand dossiers · agents/kira · motion reel/icm/audio-reactive/spring-health · pipelines/tools · interactive demos · visual-media/equinox · websites/hammer/kira/opencrawl/agentify.
+§ 8 work categories (slug = title = label): brand-systems · agents-digital-twins · motion-graphics · vfx-cgi · pipelines-tools · interactive-playable · film-animation · websites.
+§ ready work opens in detail routes: brand dossiers · agents-digital-twins/kira · motion reel/icm/audio-reactive/spring-health · vfx-cgi/environment-swap and vfx-cgi/blender-lookdev-pipeline · pipelines/tools · interactive demos · film-animation/equinox · websites/hammer/kira/opencrawl/agentify.
 § artifact rule: videos, brand guides, brand books, and pipeline visuals usually live inside Hammer; Agentify links to the canonical live brand bible at https://agentify.nexus/brand-bible. Website pieces show a Hammer summary/preview first, then link out to the public site.
 § recipe principle: show competence, not turnkey. public surface = receipts; gated surface = configs.
 § time estimates run ~10× higher than reality. divide instinct by 10.

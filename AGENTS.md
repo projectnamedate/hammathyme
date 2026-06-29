@@ -210,16 +210,17 @@ SPEC.md              historical phase-1 spec
 8 categories, each with a slug that matches the URL and the popup title:
 
 1. brand-systems
-2. agents
+2. agents-digital-twins
 3. motion-graphics
-4. animation
+4. vfx-cgi
 5. pipelines-tools
 6. interactive-playable
-7. visual-media
+7. film-animation
 8. websites
 
 Internal capability tag for category 2 is `autonomous-characters`; it drives
-CardArt specimens, but the slug, label, and popup title are all `agents`.
+CardArt specimens. The slug and popup title are `agents-digital-twins`; the
+label is `agents + digital twins`.
 
 The site is visual-only. `/notes` was dropped 2026-05-04 because Jeff is a
 visual AI producer. `/process` was dropped 2026-05-08 because every project is
@@ -230,9 +231,12 @@ metadata, and structured data, not a blog.
 Each category is a collection with multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
-`/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays}`,
+`/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays,spring-health}`,
+`/work/vfx-cgi/{environment-swap,blender-lookdev-pipeline}`,
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`,
-`/work/agents/kira`, `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
+`/work/agents-digital-twins/kira`,
+`/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
+`/work/film-animation/equinox`,
 `/work/websites/{hammer,kira,opencrawl,agentify}`, and
 `/work/brand-systems/{hammer,kira,effigy,agentify}`.
 

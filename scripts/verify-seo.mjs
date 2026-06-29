@@ -103,7 +103,7 @@ mustContain("public/llms-full.txt", [
   "Jeff Hammer",
   "AI Producer",
   "visual-only",
-  "jeff@projectname.date",
+  "hammer@hammer.ad",
 ]);
 
 mustContain("public/.well-known/agents.json", [

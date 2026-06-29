@@ -316,8 +316,9 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "blender-lookdev-pipeline",
         title: "blender look-dev pipeline",
         year: "2026",
-        blurb: "a headless blender pipeline: agent-written bpy imports an asset, sweeps materials and lighting, and renders variant contact sheets.",
-        status: "coming-soon",
+        blurb:
+          "a headless Blender 5.1 pipeline: agent-written bpy imports a glb asset, sweeps six material and lighting looks, and renders a contact sheet.",
+        status: "live",
         tint: "var(--cream-2)",
       },
       {
@@ -533,6 +534,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/audio-reactive-overlays",
   "motion-graphics/spring-health",
   "vfx-cgi/environment-swap",
+  "vfx-cgi/blender-lookdev-pipeline",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/prompt-library",
   "pipelines-tools/creative-skills",
