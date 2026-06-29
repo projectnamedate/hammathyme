@@ -371,7 +371,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "creative-skills",
         title: "creative skills",
         year: "2026",
-        blurb: "the reusable operating layer: color direction, character prompting, video recipes, shader taste, and review systems.",
+        blurb: "the reusable operating layer: startup checks, end session sweeps, color theory, character prompting, and review systems.",
         status: "live",
         tint: "var(--cream-1)",
       },

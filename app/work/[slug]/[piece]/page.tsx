@@ -992,6 +992,24 @@ const AGENT_STACK_ROWS = [
   ["proof", "validation and live checks"],
 ] as const;
 
+const CREATIVE_SKILL_ROWS = [
+  {
+    name: "startup check",
+    mode: "open",
+    copy: "starts from vault, repo, backlog, and live truth before edits.",
+  },
+  {
+    name: "end session sweep",
+    mode: "close",
+    copy: "records commit, deploy, validation, open state, and next pickup.",
+  },
+  {
+    name: "color theory",
+    mode: "taste",
+    copy: "keeps palette, contrast, mood, and grade decisions intentional.",
+  },
+] as const;
+
 function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
   return (
@@ -1059,8 +1077,34 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
             This is the layer between a director's note and a tool call: brand rules, production recipes,
             verification habits, and review formats that keep outputs from going generic.
           </p>
+          <div className="mt-7 border-y border-[var(--ink-4)]">
+            {CREATIVE_SKILL_ROWS.map((skill, index) => (
+              <div
+                key={skill.name}
+                className={
+                  "grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 py-4 " +
+                  (index === 0 ? "" : "border-t border-[var(--ink-4)]")
+                }
+              >
+                <p className="font-display text-[24px] font-light tabular-nums leading-none tracking-[-0.04em] text-[var(--ink-3)]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <div>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                    {skill.mode}
+                  </p>
+                  <p className="mt-2 font-display text-[clamp(17px,1.4vw,24px)] font-light lowercase leading-[1.1] tracking-[-0.02em] text-[var(--ink-0)]">
+                    {skill.name}
+                  </p>
+                  <p className="mt-2 max-w-[32ch] font-display text-[clamp(14px,1vw,16px)] font-light leading-[1.45] tracking-[-0.005em] text-[var(--ink-1)]">
+                    {skill.copy}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
           <p className="mt-7 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-            taste rules · production recipes · validation habits
+            startup · closeout · color decisions
           </p>
         </div>
         <div className="md:col-span-7">
