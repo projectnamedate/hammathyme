@@ -38,7 +38,7 @@ The domain appears only in technical URL surfaces.
 - /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
 - /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, OpenUSD, and related tools.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
-- /work/vfx-cgi/blender-lookdev-pipeline: headless Blender look-development pipeline with imported GLB asset, material and lighting sweep, and rendered contact sheet.
+- /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
 - /work/pipelines-tools/prompt-library: public prompt architecture and review-gate walkthrough.

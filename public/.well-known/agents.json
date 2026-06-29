@@ -43,7 +43,7 @@
     { "path": "/work/motion-graphics/spring-health", "purpose": "Spring Health HyperFrames motion showcase reel" },
     { "path": "/work/vfx-cgi", "purpose": "vfx and cgi portfolio category: coding agents orchestrating Blender, Houdini, ComfyUI, and OpenUSD pipelines" },
     { "path": "/work/vfx-cgi/environment-swap", "purpose": "Runway Aleph 2 environment-swap case study: one driving plate relit into multiple worlds while preserving the real dashboard" },
-    { "path": "/work/vfx-cgi/blender-lookdev-pipeline", "purpose": "headless Blender look-development pipeline with imported GLB asset, material and lighting sweep, and rendered contact sheet" },
+    { "path": "/work/vfx-cgi/blender-lookdev-pipeline", "purpose": "Blender look-development board with six material studies and a rendered contact sheet" },
     { "path": "/work/pipelines-tools", "purpose": "pipeline and tooling portfolio category" },
     { "path": "/work/pipelines-tools/pipeline-visualizer", "purpose": "interactive node-graph of Hammer production pipelines" },
     { "path": "/work/pipelines-tools/prompt-library", "purpose": "public prompt architecture and review-gate walkthrough" },

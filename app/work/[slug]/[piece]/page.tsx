@@ -657,15 +657,15 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            one imported asset, six material reads. the script clears the scene, imports the glb,
-            assigns each look, lights it, and renders proof frames in headless Blender.
+            one sculptural form, six material reads. ceramic, graphite, cream, lacquer, chrome,
+            and clay stay comparable under one clean studio frame.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["tool", "Blender 5.1 background python"],
-              ["asset", "generated glb, imported per run"],
-              ["output", "six 1280x720 renders plus contact sheet"],
-              ["finish", "ffmpeg tile sheet and static web assets"],
+              ["tool", "Blender 5.1"],
+              ["source", "single glb form"],
+              ["output", "six material studies"],
+              ["finish", "rendered contact sheet"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -715,11 +715,11 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          the point is the pipeline, not the object. the same script can swap the asset, look table,
-          camera, or lighting rig and rebuild the sheet without manual scene work.
+          the board is built for direction: same silhouette, same frame, different finishes. compare
+          surface, weight, and read at a glance.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          bpy script: scripts/render-blender-lookdev.py · render: local Blender 5.1
+          render: blender 5.1 · output: six-look contact sheet
         </p>
       </div>
     </section>

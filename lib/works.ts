@@ -305,21 +305,21 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cinnamon)",
       },
       {
+        slug: "blender-lookdev-pipeline",
+        title: "blender look-dev pipeline",
+        year: "2026",
+        blurb:
+          "one sculptural form through six material moods: cinnamon ceramic, graphite metal, warm cream, bloodlust lacquer, chrome, and clay, finished as a look-dev contact sheet.",
+        status: "live",
+        tint: "var(--cream-2)",
+      },
+      {
         slug: "neural-set-capture",
         title: "neural set capture",
         year: "2026",
         blurb: "a real location reconstructed as a gaussian splat, cleaned, and dropped into a shot as a final-pixel backdrop via nerfstudio.",
         status: "coming-soon",
         tint: "var(--cinnamon)",
-      },
-      {
-        slug: "blender-lookdev-pipeline",
-        title: "blender look-dev pipeline",
-        year: "2026",
-        blurb:
-          "a headless Blender 5.1 pipeline: agent-written bpy imports a glb asset, sweeps six material and lighting looks, and renders a contact sheet.",
-        status: "live",
-        tint: "var(--cream-2)",
       },
       {
         slug: "comfyui-production-backend",
