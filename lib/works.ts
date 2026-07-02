@@ -323,10 +323,10 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
       {
         slug: "comfyui-production-backend",
-        title: "comfyui render gate",
+        title: "comfyui outfit morph",
         year: "2026",
         blurb:
-          "a Modal/ComfyUI preflight for AIVFX: graph hash, custom-node lock, visible UI rule, and a hard stop before unpinned paid renders.",
+          "the real ComfyUI graph behind an AIVFX outfit morph: Wan VACE conditioning, mask control, sampler, decode, MP4 review, and PNG frame export.",
         status: "live",
         tint: "var(--bloodlust)",
       },

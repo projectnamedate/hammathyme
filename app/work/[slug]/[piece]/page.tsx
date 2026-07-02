@@ -730,36 +730,37 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
 }
 
 const COMFY_GATE_FACTS = [
-  ["item", "Modal/ComfyUI render preflight"],
-  ["graph", "smoke_empty_image.json"],
-  ["runtime", "visible Modal UI required"],
-  ["state", "paid render blocked until node pins land"],
+  ["item", "Wan VACE outfit morph"],
+  ["workflow", "single-plate outfit morph"],
+  ["nodes", "18 ComfyUI API nodes"],
+  ["output", "review MP4 + PNG frames"],
 ] as const;
 
 const COMFY_GATE_STEPS = [
   {
-    label: "graph",
-    value: "hash",
-    body: "the model-free smoke workflow is checked before any render lane opens.",
+    label: "vace",
+    value: "motion",
+    body: "WanVaceToVideo takes the control clip and wardrobe mask for the morph.",
   },
   {
-    label: "nodes",
-    value: "lock",
-    body: "custom nodes are compared against the Modal bootstrap and production lock.",
+    label: "prompt",
+    value: "style",
+    body: "positive and negative prompts lock identity, wardrobe behavior, and motion.",
   },
   {
-    label: "runtime",
-    value: "ui",
-    body: "paid work must run from the visible Modal ComfyUI surface.",
+    label: "sample",
+    value: "32",
+    body: "KSampler runs uni_pc/simple at cfg 6 with the approved morph seed.",
   },
   {
-    label: "review",
-    value: "gate",
-    body: "24fps, PNG frames, blank-frame rejects, and visual approval are required.",
+    label: "output",
+    value: "frames",
+    body: "the graph saves a review MP4 and PNG frames for the high-bitrate master.",
   },
 ] as const;
 
-const COMFY_GATE_PROOF_URL = "/work/vfx-cgi/comfyui-production-backend/gate-proof.json";
+const COMFY_WORKFLOW_URL =
+  "/work/vfx-cgi/comfyui-production-backend/outfit-morph-comfyui-workflow.json";
 
 function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
@@ -768,12 +769,12 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-4">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            a render preflight for AIVFX's Modal ComfyUI lane. It checks the graph,
-            the custom-node stack, and the review rules before GPU work starts.
+            the ComfyUI graph behind an AIVFX outfit morph. It wires a Wan VACE
+            control clip, wardrobe mask, text conditioning, sampler, decode, and frame export.
           </p>
           <p className="mt-5 font-display text-[clamp(15px,1.1vw,18px)] font-light leading-[1.5] tracking-normal text-[var(--ink-1)]">
-            This is not a rendered shot yet. It is the gate that keeps paid renders
-            from starting on a floating stack.
+            download the workflow JSON and open the node chain: LoadVideo to
+            WanVaceToVideo to KSampler to VAEDecode to SaveVideo and SaveImage.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {COMFY_GATE_FACTS.map(([label, value]) => (
@@ -790,9 +791,9 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
           <a
             className="mt-6 inline-flex w-full items-center justify-center border border-[var(--ink-3)] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-1)] transition-colors duration-200 hover:bg-[var(--ink-1)] hover:text-[var(--cream-0)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--cinnamon)]"
             download
-            href={COMFY_GATE_PROOF_URL}
+            href={COMFY_WORKFLOW_URL}
           >
-            download receipt json
+            download workflow json
           </a>
         </aside>
 
@@ -806,10 +807,10 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
 
           <div className="relative">
             <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
-              aivfx modal lane
+              wan vace workflow
             </p>
             <p className="mt-4 max-w-[18ch] font-display text-[clamp(34px,5.2vw,78px)] font-light lowercase leading-[0.94] tracking-normal">
-              graph in. drift out.
+              morph graph.
             </p>
           </div>
 
@@ -839,15 +840,16 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          the page shows the production rule, not a finished render. No Modal app was launched,
-          no model was downloaded, and no GPU output is claimed.
+          this is the actual outfit-morph workflow JSON from AIVFX:
+          18 ComfyUI API nodes for Wan VACE, control/mask loading, sampling,
+          decoding, MP4 review, and PNG frame export.
         </p>
         <a
           className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] underline decoration-[var(--cinnamon)] underline-offset-4 transition-colors duration-200 hover:text-[var(--ink-1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--cinnamon)] md:col-span-5"
           download
-          href={COMFY_GATE_PROOF_URL}
+          href={COMFY_WORKFLOW_URL}
         >
-          receipt: /work/vfx-cgi/comfyui-production-backend/gate-proof.json
+          workflow json: /work/vfx-cgi/comfyui-production-backend/outfit-morph-comfyui-workflow.json
         </a>
       </div>
     </section>
@@ -857,7 +859,7 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
 function ComfyGateDiagram() {
   return (
     <svg
-      aria-label="ComfyUI render gate diagram"
+      aria-label="ComfyUI outfit morph graph"
       className="mt-6 block aspect-[16/7] w-full overflow-visible"
       role="img"
       viewBox="0 0 960 420"
@@ -895,10 +897,12 @@ function ComfyGateDiagram() {
         strokeWidth="1.5"
       />
       {[
-        { x: 86, y: 156, label: "graph", value: "api json" },
-        { x: 330, y: 96, label: "nodes", value: "lock" },
-        { x: 574, y: 180, label: "modal", value: "visible ui" },
-        { x: 778, y: 122, label: "render", value: "closed" },
+        { x: 46, y: 166, label: "load", value: "video" },
+        { x: 194, y: 96, label: "mask", value: "wardrobe" },
+        { x: 342, y: 166, label: "vace", value: "wan" },
+        { x: 490, y: 96, label: "sample", value: "32 steps" },
+        { x: 638, y: 166, label: "decode", value: "frames" },
+        { x: 786, y: 96, label: "save", value: "mp4 + png" },
       ].map((node, index) => (
         <g
           key={node.label}
@@ -908,14 +912,14 @@ function ComfyGateDiagram() {
           <rect
             x={node.x}
             y={node.y}
-            width="142"
+            width="126"
             height="96"
             fill="rgba(250,238,233,0.08)"
             stroke="rgba(250,238,233,0.34)"
           />
           <circle
             className="tool-flow-node"
-            cx={node.x + 118}
+            cx={node.x + 102}
             cy={node.y + 24}
             fill="var(--cinnamon)"
             r="7"
@@ -925,8 +929,8 @@ function ComfyGateDiagram() {
             y={node.y + 33}
             fill="var(--cinnamon)"
             fontFamily="var(--font-mono)"
-            fontSize="12"
-            letterSpacing="3"
+            fontSize="10"
+            letterSpacing="2"
           >
             {node.label}
           </text>
@@ -935,7 +939,7 @@ function ComfyGateDiagram() {
             y={node.y + 70}
             fill="var(--cream-0)"
             fontFamily="var(--font-display)"
-            fontSize="24"
+            fontSize="20"
           >
             {node.value}
           </text>
@@ -948,10 +952,10 @@ function ComfyGateDiagram() {
           y="34"
           fill="var(--cream-1)"
           fontFamily="var(--font-mono)"
-          fontSize="12"
-          letterSpacing="3"
+          fontSize="11"
+          letterSpacing="2"
         >
-          paid gpu run waits for pinned commits, smoke pass, and visual approval
+          outfit morph api workflow: 18 nodes · 1088 square · 121 frames · 24fps
         </text>
       </g>
     </svg>
