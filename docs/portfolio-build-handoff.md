@@ -2,7 +2,7 @@
 
 **For:** the coding agent that will actually build these portfolio pieces.
 **From:** the 2026-06-24 restructure session. Deep-researched, feasibility-graded, and scoped for how Hammer actually works.
-**Status:** all pieces below are scaffolded in `lib/works.ts` as `coming-soon`. None has a detail page yet. This doc is the spec to build them.
+**Status update 2026-07-02:** this is now a historical build spec plus backlog guide. `vfx-cgi/environment-swap`, `vfx-cgi/blender-lookdev-pipeline`, and `vfx-cgi/comfyui-production-backend` are live detail routes. See `docs/AGENT_HANDOFF.md` for the current ComfyUI Gate handoff before acting.
 
 ---
 
@@ -93,6 +93,8 @@ Each verdict: **clearly feasible** / **feasible-with-scoping**. Costs are per fi
 
 ### 3.3 `vfx-cgi/comfyui-production-backend` — ComfyUI as an API service with a quality gate
 **Verdict: feasible-with-scoping** (days; operational not architectural complexity). ~$0.005/delivered image.
+
+**As built 2026-07-02:** the live Hammer route is a no-spend proof page, not a live ComfyUI render endpoint. It exposes `public/work/vfx-cgi/comfyui-production-backend/gate-proof.json`, a receipt generated from the AIVFX repo by `python3 -m genvfx.cli comfy-gate --write`. No Modal app was launched, no model was downloaded, no provider spend happened, and no rendered visual exists for this item yet. If the operator asks for a stronger downloadable artifact, build a real workflow/proof bundle from AIVFX after `check-aivfx` and explicit approval.
 
 - **Stack:** **ComfyUI** (GPL; hosting a network API does NOT trigger distribution obligations); API = `POST /prompt`, `GET /history/{id}`, `GET /view`, WS `/ws`; export workflow via dev-mode **"Save (API format)"** (node-id-keyed — the only format `/prompt` accepts). **Commercial-safe model: FLUX.2 [klein] 4B (Apache-2.0)** or FLUX.1 [schnell] — **avoid [dev]** (non-commercial). Quality gate (free pip): **torchmetrics CLIPScore** (prompt alignment) + **InsightFace ArcFace** cosine (face/identity drift — flag `buffalo_l` as non-commercial) + **LAION aesthetic** / ImageReward.
 - **Build:** build the workflow in the UI → Save (API format) → commit JSON (version pin) → deploy on **RunPod Serverless `worker-comfyui`** (queue + warm pool) or **Modal** → orchestrator submits graph, polls/listens, fetches via `/view` → quality gate stacks CLIP + ArcFace + aesthetic, each with a threshold → reject → resubmit new seed, **cap retries ~3** → log every attempt + score for the before/after demo.
