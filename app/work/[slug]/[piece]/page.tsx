@@ -166,6 +166,9 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "vfx-cgi/blender-lookdev-pipeline") {
     return <BlenderLookdevDetail transitionName={transitionName} />;
   }
+  if (key === "vfx-cgi/comfyui-production-backend") {
+    return <ComfyuiGateDetail transitionName={transitionName} />;
+  }
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
@@ -720,6 +723,123 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           render: blender 5.1 · output: six-look contact sheet
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const COMFY_GATE_FACTS = [
+  ["runtime", "Modal ui · aivfx-comfyui"],
+  ["graph", "smoke_empty_image · dc628ddf1db2a2f6"],
+  ["nodes", "9 modal · 15 staged"],
+  ["paid gate", "closed until 9 commits are pinned"],
+];
+
+const COMFY_GATE_CHECKS = [
+  ["drift check", "compares Modal bootstrap nodes with the broader provision manifest before a production image changes."],
+  ["graph contract", "records the proof graph path, hash, expected outputs, and required node types."],
+  ["quality gate", "keeps 24fps video rules, PNG-frame review, blank-frame rejection, and frozen-frame rejection in one manifest."],
+];
+
+function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            the artifact is the gate around the renderer. a ComfyUI job is not portfolio work until
+            the graph, nodes, output rules, and review path all match.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {COMFY_GATE_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--bloodlust)] p-5 text-[var(--cream-0)] shadow-[0_24px_80px_rgba(31,7,7,0.09)] md:col-span-9 md:p-7"
+          style={frameStyle}
+        >
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {["custom nodes", "smoke graph", "quality gate"].map((label, index) => (
+              <div key={label} className="border border-[rgba(250,238,233,0.24)] bg-[rgba(250,238,233,0.06)] p-4">
+                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  0{index + 1}
+                </p>
+                <p className="mt-8 font-display text-[clamp(22px,2.6vw,42px)] font-light lowercase leading-[1] tracking-normal">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 grid grid-cols-[1fr_44px_1fr_44px_1fr] items-center gap-2 md:gap-4">
+            {["modal", "check", "reject"].map((label, index) => (
+              <div key={label} className="contents">
+                <div className="border border-[rgba(250,238,233,0.28)] bg-[rgba(250,238,233,0.08)] px-3 py-5 text-center">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--cream-1)]">
+                    {label}
+                  </p>
+                </div>
+                {index < 2 ? (
+                  <div className="h-px bg-[rgba(250,238,233,0.45)]">
+                    <span className="block h-2 w-2 translate-x-[34px] translate-y-[-3px] rotate-45 bg-[var(--cinnamon)] md:translate-x-[38px]" />
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-3 border-t border-[rgba(250,238,233,0.22)] pt-5 md:grid-cols-4">
+            {[
+              ["website proof", "pass"],
+              ["paid render", "closed"],
+              ["modal launch", "approval"],
+              ["visual reuse", "approval"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
+                  {label}
+                </p>
+                <p className="mt-2 font-display text-[24px] font-light lowercase leading-none tracking-normal text-[var(--cream-0)]">
+                  {value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {COMFY_GATE_CHECKS.map(([label, body]) => (
+          <article key={label} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-5">
+            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+              {label}
+            </p>
+            <p className="mt-5 font-display text-[clamp(18px,1.4vw,24px)] font-light lowercase leading-[1.35] tracking-normal text-[var(--ink-1)]">
+              {body}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          no gpu render was launched for this proof. the public receipt is the control layer that
+          keeps future ComfyUI output from slipping past review.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          source: aivfx · check: genvfx comfy-gate · state: no spend
         </p>
       </div>
     </section>

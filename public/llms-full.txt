@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: AI Producer
 contact: hammer@hammer.ad
 location: LA / NY / remote
-last updated: 2026-06-29
+last updated: 2026-07-02
 
 ## summary
 
@@ -39,6 +39,7 @@ The domain appears only in technical URL surfaces.
 - /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, OpenUSD, and related tools.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
+- /work/vfx-cgi/comfyui-production-backend: Modal ComfyUI production gate with node drift checks, graph hash, smoke probes, and quality rejection rules.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
 - /work/pipelines-tools/prompt-library: public prompt architecture and review-gate walkthrough.

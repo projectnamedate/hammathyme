@@ -323,10 +323,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
       {
         slug: "comfyui-production-backend",
-        title: "comfyui backend",
+        title: "comfyui gate",
         year: "2026",
-        blurb: "a comfyui workflow deployed as a real api service: warm workers, version-pinned graph json, and a quality gate that rejects the bad frames.",
-        status: "coming-soon",
+        blurb:
+          "a modal comfyui backend gate: node drift checks, graph hashes, smoke probes, and quality rules that stop bad frames before review.",
+        status: "live",
         tint: "var(--bloodlust)",
       },
       {
@@ -535,6 +536,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/spring-health",
   "vfx-cgi/environment-swap",
   "vfx-cgi/blender-lookdev-pipeline",
+  "vfx-cgi/comfyui-production-backend",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/prompt-library",
   "pipelines-tools/creative-skills",

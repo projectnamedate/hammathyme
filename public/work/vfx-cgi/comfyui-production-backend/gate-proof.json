@@ -1,0 +1,32 @@
+{
+  "proof_id": "comfyui-production-backend",
+  "title": "ComfyUI Gate",
+  "verified_at": "2026-07-02T00:00:00-07:00",
+  "source_repo": "/Users/hammer/Desktop/vibe/aivfx",
+  "source_command": "python3 -m genvfx.cli comfy-gate --write",
+  "spend_state": "no_modal_launch_no_model_download_no_provider_call",
+  "graph": {
+    "path": "graphs/smoke_empty_image.json",
+    "hash": "dc628ddf1db2a2f6",
+    "format": "api",
+    "required_node_types": ["EmptyImage", "SaveImage"]
+  },
+  "node_drift": {
+    "modal_bootstrap": 9,
+    "provision_only": 15,
+    "production_candidate": 9,
+    "registry_only": 1
+  },
+  "status": {
+    "ok_for_website_proof": true,
+    "ok_for_paid_render": false,
+    "paid_render_blocker": "9 production Modal node rows still need exact commit pins"
+  },
+  "quality_gate": {
+    "video_fps": 24,
+    "requires_png_frames": true,
+    "rejects_blank_frames": true,
+    "rejects_frozen_frames": true,
+    "visual_approval_required": true
+  }
+}
