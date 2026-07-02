@@ -730,17 +730,19 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
 }
 
 const COMFY_GATE_FACTS = [
-  ["runtime", "Modal ui · aivfx-comfyui"],
-  ["graph", "smoke_empty_image · dc628ddf1db2a2f6"],
-  ["nodes", "9 modal · 15 staged"],
-  ["paid gate", "closed until 9 commits are pinned"],
+  ["proof file", "gate-proof.json"],
+  ["command", "python3 -m genvfx.cli comfy-gate --write"],
+  ["graph hash", "dc628ddf1db2a2f6"],
+  ["render status", "blocked: 9 node commits missing"],
 ];
 
 const COMFY_GATE_CHECKS = [
-  ["drift check", "compares Modal bootstrap nodes with the broader provision manifest before a production image changes."],
-  ["graph contract", "records the proof graph path, hash, expected outputs, and required node types."],
-  ["quality gate", "keeps 24fps video rules, PNG-frame review, blank-frame rejection, and frozen-frame rejection in one manifest."],
+  ["node list", "Modal bootstrap repos are compared with provision/nodes.yaml and custom_nodes.lock.md."],
+  ["graph file", "graphs/smoke_empty_image.json is hashed and checked for EmptyImage and SaveImage."],
+  ["output rules", "24fps, PNG frames, blank-frame reject, frozen-frame reject, and visual approval required."],
 ];
+
+const COMFY_GATE_PROOF_URL = "/work/vfx-cgi/comfyui-production-backend/gate-proof.json";
 
 function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
@@ -749,8 +751,8 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            the artifact is the gate around the renderer. a ComfyUI job is not portfolio work until
-            the graph, nodes, output rules, and review path all match.
+            download the receipt. it names the repo command, graph hash, node counts, and the
+            reason a paid render is still blocked.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {COMFY_GATE_FACTS.map(([label, value]) => (
@@ -764,6 +766,13 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
               </div>
             ))}
           </dl>
+          <a
+            className="mt-6 inline-flex w-full items-center justify-center border border-[var(--ink-3)] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-1)] transition-colors duration-200 hover:bg-[var(--ink-1)] hover:text-[var(--cream-0)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--cinnamon)]"
+            download
+            href={COMFY_GATE_PROOF_URL}
+          >
+            download proof json
+          </a>
         </aside>
 
         <div
@@ -771,7 +780,7 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
           style={frameStyle}
         >
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {["custom nodes", "smoke graph", "quality gate"].map((label, index) => (
+            {["node lock", "graph hash", "proof json"].map((label, index) => (
               <div key={label} className="border border-[rgba(250,238,233,0.24)] bg-[rgba(250,238,233,0.06)] p-4">
                 <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
                   0{index + 1}
@@ -783,8 +792,18 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
             ))}
           </div>
 
-          <div className="mt-6 grid grid-cols-[1fr_44px_1fr_44px_1fr] items-center gap-2 md:gap-4">
-            {["modal", "check", "reject"].map((label, index) => (
+          <div className="mt-6 grid grid-cols-3 gap-2 md:hidden">
+            {["repo", "report", "blocked"].map((label) => (
+              <div key={label} className="border border-[rgba(250,238,233,0.28)] bg-[rgba(250,238,233,0.08)] px-2 py-4 text-center">
+                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--cream-1)]">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6 hidden grid-cols-[1fr_44px_1fr_44px_1fr] items-center gap-4 md:grid">
+            {["repo", "report", "blocked"].map((label, index) => (
               <div key={label} className="contents">
                 <div className="border border-[rgba(250,238,233,0.28)] bg-[rgba(250,238,233,0.08)] px-3 py-5 text-center">
                   <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--cream-1)]">
@@ -802,10 +821,10 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
 
           <div className="mt-6 grid grid-cols-1 gap-3 border-t border-[rgba(250,238,233,0.22)] pt-5 md:grid-cols-4">
             {[
-              ["website proof", "pass"],
+              ["proof json", "download"],
               ["paid render", "closed"],
-              ["modal launch", "approval"],
-              ["visual reuse", "approval"],
+              ["modal launch", "not run"],
+              ["visual output", "none"],
             ].map(([label, value]) => (
               <div key={label}>
                 <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
@@ -835,12 +854,16 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          no gpu render was launched for this proof. the public receipt is the control layer that
-          keeps future ComfyUI output from slipping past review.
+          no gpu render was launched. the file is the receipt: it was written from the AIVFX repo,
+          records the graph hash, and says the paid render is blocked until the node commits are pinned.
         </p>
-        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          source: aivfx · check: genvfx comfy-gate · state: no spend
-        </p>
+        <a
+          className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] underline decoration-[var(--cinnamon)] underline-offset-4 transition-colors duration-200 hover:text-[var(--ink-1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--cinnamon)] md:col-span-5"
+          download
+          href={COMFY_GATE_PROOF_URL}
+        >
+          download /work/vfx-cgi/comfyui-production-backend/gate-proof.json
+        </a>
       </div>
     </section>
   );

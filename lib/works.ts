@@ -326,7 +326,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "comfyui gate",
         year: "2026",
         blurb:
-          "a modal comfyui backend gate: node drift checks, graph hashes, smoke probes, and quality rules that stop bad frames before review.",
+          "a downloadable proof file from the AIVFX repo: Modal node counts, graph hash, render block status, and the exact command that wrote the receipt.",
         status: "live",
         tint: "var(--bloodlust)",
       },
