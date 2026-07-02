@@ -45,7 +45,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {String(idx + 1).padStart(2, "0")} · {c.capabilityLabel}
           </p>
           <MaskReveal direction="up" delay={0.3}>
-            <h1 className="mt-6 pb-[0.16em] font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.92] tracking-[-0.04em] text-[var(--ink-0)]">
+            <h1 className="mt-6 pb-[0.28em] font-display text-[clamp(56px,11vw,200px)] font-light lowercase leading-[0.92] tracking-[-0.04em] text-[var(--ink-0)]">
               {c.hero.main ? (
                 <>
                   {c.hero.main}
