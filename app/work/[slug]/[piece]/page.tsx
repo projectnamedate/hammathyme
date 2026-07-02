@@ -809,8 +809,8 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
             <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
               wan vace workflow
             </p>
-            <p className="mt-4 max-w-[18ch] font-display text-[clamp(34px,5.2vw,78px)] font-light lowercase leading-[0.94] tracking-normal">
-              morph graph.
+            <p className="mt-4 max-w-[20ch] font-display text-[clamp(28px,3.8vw,52px)] font-light lowercase leading-[1.02] tracking-normal">
+              outfit morph workflow
             </p>
           </div>
 
@@ -857,12 +857,30 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
 }
 
 function ComfyGateDiagram() {
+  const nodes = [
+    { x: 42, y: 82, w: 138, label: "control", value: "video", meta: "LoadVideo" },
+    { x: 42, y: 242, w: 138, label: "wardrobe", value: "mask", meta: "ImageToMask" },
+    { x: 230, y: 58, w: 154, label: "prompt", value: "style", meta: "CLIPTextEncode" },
+    { x: 230, y: 190, w: 154, label: "wan", value: "vace", meta: "WanVaceToVideo" },
+    { x: 442, y: 190, w: 138, label: "sample", value: "32 steps", meta: "KSampler" },
+    { x: 596, y: 190, w: 138, label: "decode", value: "frames", meta: "VAEDecode" },
+    { x: 750, y: 190, w: 138, label: "save", value: "mp4/png", meta: "SaveVideo / SaveImage" },
+  ] as const;
+  const connectors = [
+    { d: "M180 124 H206 V222 H230", delay: "0ms" },
+    { d: "M180 284 H206 V238 H230", delay: "90ms" },
+    { d: "M307 142 V190", delay: "180ms" },
+    { d: "M384 232 H442", delay: "270ms" },
+    { d: "M580 232 H596", delay: "360ms" },
+    { d: "M734 232 H750", delay: "450ms" },
+  ] as const;
+
   return (
     <svg
       aria-label="ComfyUI outfit morph graph"
-      className="mt-6 block aspect-[16/7] w-full overflow-visible"
+      className="mt-6 block aspect-[16/7.5] w-full overflow-visible"
       role="img"
-      viewBox="0 0 960 420"
+      viewBox="0 0 920 430"
     >
       <defs>
         <linearGradient id="comfyGateRail" x1="0" x2="1" y1="0" y2="0">
@@ -874,36 +892,46 @@ function ComfyGateDiagram() {
       <rect
         x="1"
         y="1"
-        width="958"
-        height="418"
+        width="918"
+        height="428"
         fill="rgba(15,3,3,0.18)"
         stroke="rgba(250,238,233,0.16)"
       />
-      <path
-        className="tool-flow-line"
-        d="M160 222 C260 120 370 120 470 222 S680 324 800 222"
-        fill="none"
-        stroke="url(#comfyGateRail)"
-        strokeLinecap="round"
-        strokeWidth="3"
-      />
-      <path
-        className="tool-orbit-path"
-        d="M190 222 C295 155 365 155 470 222 S655 288 770 222"
-        fill="none"
-        opacity="0.46"
-        stroke="rgba(250,238,233,0.42)"
-        strokeLinecap="round"
-        strokeWidth="1.5"
-      />
-      {[
-        { x: 46, y: 166, label: "load", value: "video" },
-        { x: 194, y: 96, label: "mask", value: "wardrobe" },
-        { x: 342, y: 166, label: "vace", value: "wan" },
-        { x: 490, y: 96, label: "sample", value: "32 steps" },
-        { x: 638, y: 166, label: "decode", value: "frames" },
-        { x: 786, y: 96, label: "save", value: "mp4 + png" },
-      ].map((node, index) => (
+      <g opacity="0.34">
+        {Array.from({ length: 9 }).map((_, index) => (
+          <path
+            key={`v-${index}`}
+            d={`M${64 + index * 96} 42 V330`}
+            fill="none"
+            stroke="rgba(250,238,233,0.15)"
+            strokeWidth="1"
+          />
+        ))}
+        {Array.from({ length: 4 }).map((_, index) => (
+          <path
+            key={`h-${index}`}
+            d={`M30 ${78 + index * 72} H890`}
+            fill="none"
+            stroke="rgba(250,238,233,0.12)"
+            strokeWidth="1"
+          />
+        ))}
+      </g>
+      {connectors.map((connector) => (
+        <path
+          key={connector.d}
+          className="tool-flow-line"
+          d={connector.d}
+          fill="none"
+          pathLength="180"
+          stroke="url(#comfyGateRail)"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="3"
+          style={{ "--tool-delay": connector.delay } as CSSProperties}
+        />
+      ))}
+      {nodes.map((node, index) => (
         <g
           key={node.label}
           className="tool-flow-card"
@@ -912,21 +940,21 @@ function ComfyGateDiagram() {
           <rect
             x={node.x}
             y={node.y}
-            width="126"
-            height="96"
+            width={node.w}
+            height="84"
             fill="rgba(250,238,233,0.08)"
-            stroke="rgba(250,238,233,0.34)"
+            stroke="rgba(250,238,233,0.36)"
           />
           <circle
             className="tool-flow-node"
-            cx={node.x + 102}
-            cy={node.y + 24}
+            cx={node.x + node.w - 24}
+            cy={node.y + 22}
             fill="var(--cinnamon)"
-            r="7"
+            r="6"
           />
           <text
             x={node.x + 16}
-            y={node.y + 33}
+            y={node.y + 28}
             fill="var(--cinnamon)"
             fontFamily="var(--font-mono)"
             fontSize="10"
@@ -936,26 +964,36 @@ function ComfyGateDiagram() {
           </text>
           <text
             x={node.x + 16}
-            y={node.y + 70}
+            y={node.y + 55}
             fill="var(--cream-0)"
             fontFamily="var(--font-display)"
-            fontSize="20"
+            fontSize="25"
           >
             {node.value}
           </text>
+          <text
+            x={node.x + 16}
+            y={node.y + 74}
+            fill="rgba(250,238,233,0.62)"
+            fontFamily="var(--font-mono)"
+            fontSize="8.5"
+            letterSpacing="1.4"
+          >
+            {node.meta}
+          </text>
         </g>
       ))}
-      <g transform="translate(94 314)">
-        <rect width="772" height="54" fill="rgba(250,238,233,0.05)" stroke="rgba(250,238,233,0.22)" />
+      <g transform="translate(42 346)">
+        <rect width="836" height="48" fill="rgba(250,238,233,0.05)" stroke="rgba(250,238,233,0.22)" />
         <text
           x="22"
-          y="34"
+          y="31"
           fill="var(--cream-1)"
           fontFamily="var(--font-mono)"
           fontSize="11"
           letterSpacing="2"
         >
-          outfit morph api workflow: 18 nodes · 1088 square · 121 frames · 24fps
+          outfit morph api workflow · 18 nodes · 1088 square · 121 frames · 24fps
         </text>
       </g>
     </svg>

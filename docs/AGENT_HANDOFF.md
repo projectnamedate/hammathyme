@@ -21,12 +21,10 @@ AIVFX state:
 - Branch: `portfolio-projects-setup`
 - Local-only HEAD at time of this handoff: `1345da6 Complete ComfyUI Gate checkpoint`
 - AIVFX was not pushed.
-- No Modal app was launched.
-- No model was downloaded.
-- No paid GPU/provider call was made.
-- Paid render remains blocked until 9 production node commits are pinned and Jeff explicitly approves runtime/spend.
+- Treat any AIVFX runtime, model download, or paid GPU/provider work as approval-gated.
+- Do not turn those internal gates into public copy for this Hammer portfolio item.
 
-If Jeff asks for "the actual ComfyUI file," the next honest improvement is to create a downloadable workflow/proof bundle from AIVFX, not to rewrite copy. Start in AIVFX with `check-aivfx`, pin the production node rows, and only then export/commit a real workflow artifact after approval.
+If Jeff asks for "the actual ComfyUI file," the next honest improvement is to create a downloadable workflow bundle from AIVFX, not to rewrite copy. Start in AIVFX with `check-aivfx`, pin the production node rows, and only then export/commit a real workflow artifact after approval.
 
 ## Files Touched In Hammer
 - `app/work/[slug]/[piece]/page.tsx` - ComfyUI outfit morph detail renderer and download link.
