@@ -730,17 +730,34 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
 }
 
 const COMFY_GATE_FACTS = [
-  ["proof file", "gate-proof.json"],
-  ["command", "python3 -m genvfx.cli comfy-gate --write"],
-  ["graph hash", "dc628ddf1db2a2f6"],
-  ["render status", "blocked: 9 node commits missing"],
-];
+  ["item", "Modal/ComfyUI render preflight"],
+  ["graph", "smoke_empty_image.json"],
+  ["runtime", "visible Modal UI required"],
+  ["state", "paid render blocked until node pins land"],
+] as const;
 
-const COMFY_GATE_CHECKS = [
-  ["node list", "Modal bootstrap repos are compared with provision/nodes.yaml and custom_nodes.lock.md."],
-  ["graph file", "graphs/smoke_empty_image.json is hashed and checked for EmptyImage and SaveImage."],
-  ["output rules", "24fps, PNG frames, blank-frame reject, frozen-frame reject, and visual approval required."],
-];
+const COMFY_GATE_STEPS = [
+  {
+    label: "graph",
+    value: "hash",
+    body: "the model-free smoke workflow is checked before any render lane opens.",
+  },
+  {
+    label: "nodes",
+    value: "lock",
+    body: "custom nodes are compared against the Modal bootstrap and production lock.",
+  },
+  {
+    label: "runtime",
+    value: "ui",
+    body: "paid work must run from the visible Modal ComfyUI surface.",
+  },
+  {
+    label: "review",
+    value: "gate",
+    body: "24fps, PNG frames, blank-frame rejects, and visual approval are required.",
+  },
+] as const;
 
 const COMFY_GATE_PROOF_URL = "/work/vfx-cgi/comfyui-production-backend/gate-proof.json";
 
@@ -749,10 +766,14 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
   return (
     <section className="mx-auto max-w-[1320px]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
-        <aside className="md:col-span-3">
+        <aside className="md:col-span-4">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            download the receipt. it names the repo command, graph hash, node counts, and the
-            reason a paid render is still blocked.
+            a render preflight for AIVFX's Modal ComfyUI lane. It checks the graph,
+            the custom-node stack, and the review rules before GPU work starts.
+          </p>
+          <p className="mt-5 font-display text-[clamp(15px,1.1vw,18px)] font-light leading-[1.5] tracking-normal text-[var(--ink-1)]">
+            This is not a rendered shot yet. It is the gate that keeps paid renders
+            from starting on a floating stack.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {COMFY_GATE_FACTS.map(([label, value]) => (
@@ -771,67 +792,44 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
             download
             href={COMFY_GATE_PROOF_URL}
           >
-            download proof json
+            download receipt json
           </a>
         </aside>
 
         <div
-          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--bloodlust)] p-5 text-[var(--cream-0)] shadow-[0_24px_80px_rgba(31,7,7,0.09)] md:col-span-9 md:p-7"
+          className="tool-panel relative overflow-hidden border border-[var(--ink-3)] bg-[var(--bloodlust)] p-5 text-[var(--cream-0)] shadow-[0_24px_80px_rgba(31,7,7,0.09)] md:col-span-8 md:p-7"
           style={frameStyle}
         >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {["node lock", "graph hash", "proof json"].map((label, index) => (
-              <div key={label} className="border border-[rgba(250,238,233,0.24)] bg-[rgba(250,238,233,0.06)] p-4">
-                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-                  0{index + 1}
-                </p>
-                <p className="mt-8 font-display text-[clamp(22px,2.6vw,42px)] font-light lowercase leading-[1] tracking-normal">
-                  {label}
-                </p>
-              </div>
-            ))}
+          <div className="pointer-events-none absolute inset-0 opacity-30">
+            <div className="tool-scanline absolute left-0 top-0 h-24 w-full bg-[linear-gradient(180deg,rgba(242,142,134,0),rgba(242,142,134,0.42),rgba(242,142,134,0))]" />
           </div>
 
-          <div className="mt-6 grid grid-cols-3 gap-2 md:hidden">
-            {["repo", "report", "blocked"].map((label) => (
-              <div key={label} className="border border-[rgba(250,238,233,0.28)] bg-[rgba(250,238,233,0.08)] px-2 py-4 text-center">
-                <p className="font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--cream-1)]">
-                  {label}
-                </p>
-              </div>
-            ))}
+          <div className="relative">
+            <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-[var(--cinnamon)]">
+              aivfx modal lane
+            </p>
+            <p className="mt-4 max-w-[18ch] font-display text-[clamp(34px,5.2vw,78px)] font-light lowercase leading-[0.94] tracking-normal">
+              graph in. drift out.
+            </p>
           </div>
 
-          <div className="mt-6 hidden grid-cols-[1fr_44px_1fr_44px_1fr] items-center gap-4 md:grid">
-            {["repo", "report", "blocked"].map((label, index) => (
-              <div key={label} className="contents">
-                <div className="border border-[rgba(250,238,233,0.28)] bg-[rgba(250,238,233,0.08)] px-3 py-5 text-center">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--cream-1)]">
-                    {label}
-                  </p>
-                </div>
-                {index < 2 ? (
-                  <div className="h-px bg-[rgba(250,238,233,0.45)]">
-                    <span className="block h-2 w-2 translate-x-[34px] translate-y-[-3px] rotate-45 bg-[var(--cinnamon)] md:translate-x-[38px]" />
-                  </div>
-                ) : null}
-              </div>
-            ))}
-          </div>
+          <ComfyGateDiagram />
 
-          <div className="mt-6 grid grid-cols-1 gap-3 border-t border-[rgba(250,238,233,0.22)] pt-5 md:grid-cols-4">
-            {[
-              ["proof json", "download"],
-              ["paid render", "closed"],
-              ["modal launch", "not run"],
-              ["visual output", "none"],
-            ].map(([label, value]) => (
-              <div key={label}>
+          <div className="mt-6 grid grid-cols-2 gap-3 border-t border-[rgba(250,238,233,0.22)] pt-5 md:grid-cols-4">
+            {COMFY_GATE_STEPS.map((step, index) => (
+              <div
+                key={step.label}
+                className="tool-flow-card min-h-[128px] border border-[rgba(250,238,233,0.24)] bg-[rgba(250,238,233,0.06)] p-3"
+                style={{ "--tool-delay": `${index * 90}ms` } as CSSProperties}
+              >
                 <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
-                  {label}
+                  {step.label}
                 </p>
-                <p className="mt-2 font-display text-[24px] font-light lowercase leading-none tracking-normal text-[var(--cream-0)]">
-                  {value}
+                <p className="mt-5 font-display text-[clamp(22px,2.2vw,34px)] font-light lowercase leading-none tracking-normal">
+                  {step.value}
+                </p>
+                <p className="mt-4 font-display text-[13px] font-light leading-[1.35] tracking-normal text-[var(--cream-1)]">
+                  {step.body}
                 </p>
               </div>
             ))}
@@ -839,33 +837,124 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {COMFY_GATE_CHECKS.map(([label, body]) => (
-          <article key={label} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-              {label}
-            </p>
-            <p className="mt-5 font-display text-[clamp(18px,1.4vw,24px)] font-light lowercase leading-[1.35] tracking-normal text-[var(--ink-1)]">
-              {body}
-            </p>
-          </article>
-        ))}
-      </div>
-
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          no gpu render was launched. the file is the receipt: it was written from the AIVFX repo,
-          records the graph hash, and says the paid render is blocked until the node commits are pinned.
+          the page shows the production rule, not a finished render. No Modal app was launched,
+          no model was downloaded, and no GPU output is claimed.
         </p>
         <a
           className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] underline decoration-[var(--cinnamon)] underline-offset-4 transition-colors duration-200 hover:text-[var(--ink-1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--cinnamon)] md:col-span-5"
           download
           href={COMFY_GATE_PROOF_URL}
         >
-          download /work/vfx-cgi/comfyui-production-backend/gate-proof.json
+          receipt: /work/vfx-cgi/comfyui-production-backend/gate-proof.json
         </a>
       </div>
     </section>
+  );
+}
+
+function ComfyGateDiagram() {
+  return (
+    <svg
+      aria-label="ComfyUI render gate diagram"
+      className="mt-6 block aspect-[16/7] w-full overflow-visible"
+      role="img"
+      viewBox="0 0 960 420"
+    >
+      <defs>
+        <linearGradient id="comfyGateRail" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stopColor="rgba(250,238,233,0.24)" />
+          <stop offset="48%" stopColor="var(--cinnamon)" />
+          <stop offset="100%" stopColor="rgba(250,238,233,0.36)" />
+        </linearGradient>
+      </defs>
+      <rect
+        x="1"
+        y="1"
+        width="958"
+        height="418"
+        fill="rgba(15,3,3,0.18)"
+        stroke="rgba(250,238,233,0.16)"
+      />
+      <path
+        className="tool-flow-line"
+        d="M160 222 C260 120 370 120 470 222 S680 324 800 222"
+        fill="none"
+        stroke="url(#comfyGateRail)"
+        strokeLinecap="round"
+        strokeWidth="3"
+      />
+      <path
+        className="tool-orbit-path"
+        d="M190 222 C295 155 365 155 470 222 S655 288 770 222"
+        fill="none"
+        opacity="0.46"
+        stroke="rgba(250,238,233,0.42)"
+        strokeLinecap="round"
+        strokeWidth="1.5"
+      />
+      {[
+        { x: 86, y: 156, label: "graph", value: "api json" },
+        { x: 330, y: 96, label: "nodes", value: "lock" },
+        { x: 574, y: 180, label: "modal", value: "visible ui" },
+        { x: 778, y: 122, label: "render", value: "closed" },
+      ].map((node, index) => (
+        <g
+          key={node.label}
+          className="tool-flow-card"
+          style={{ "--tool-delay": `${index * 110}ms` } as CSSProperties}
+        >
+          <rect
+            x={node.x}
+            y={node.y}
+            width="142"
+            height="96"
+            fill="rgba(250,238,233,0.08)"
+            stroke="rgba(250,238,233,0.34)"
+          />
+          <circle
+            className="tool-flow-node"
+            cx={node.x + 118}
+            cy={node.y + 24}
+            fill="var(--cinnamon)"
+            r="7"
+          />
+          <text
+            x={node.x + 16}
+            y={node.y + 33}
+            fill="var(--cinnamon)"
+            fontFamily="var(--font-mono)"
+            fontSize="12"
+            letterSpacing="3"
+          >
+            {node.label}
+          </text>
+          <text
+            x={node.x + 16}
+            y={node.y + 70}
+            fill="var(--cream-0)"
+            fontFamily="var(--font-display)"
+            fontSize="24"
+          >
+            {node.value}
+          </text>
+        </g>
+      ))}
+      <g transform="translate(94 314)">
+        <rect width="772" height="54" fill="rgba(250,238,233,0.05)" stroke="rgba(250,238,233,0.22)" />
+        <text
+          x="22"
+          y="34"
+          fill="var(--cream-1)"
+          fontFamily="var(--font-mono)"
+          fontSize="12"
+          letterSpacing="3"
+        >
+          paid gpu run waits for pinned commits, smoke pass, and visual approval
+        </text>
+      </g>
+    </svg>
   );
 }
 

@@ -39,7 +39,7 @@ The domain appears only in technical URL surfaces.
 - /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, OpenUSD, and related tools.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
-- /work/vfx-cgi/comfyui-production-backend: ComfyUI Gate page with downloadable proof JSON, AIVFX command, graph hash, node counts, and paid-render block status.
+- /work/vfx-cgi/comfyui-production-backend: ComfyUI render gate page showing the AIVFX Modal preflight, graph hash, custom-node lock status, visible UI rule, and downloadable receipt JSON. It does not claim a finished GPU render.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
 - /work/pipelines-tools/prompt-library: public prompt architecture and review-gate walkthrough.

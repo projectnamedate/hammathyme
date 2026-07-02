@@ -1,17 +1,20 @@
 # Hammer Agent Handoff - 2026-07-02
 
 ## Status
-Hammer is clean and live after the ComfyUI Gate work. The latest public site-change commit before this handoff is `8c455ad Tighten ComfyUI gate proof page` on `main`, pushed to `origin/main`. Production deploy `dpl_FJ1DFMt8hphdSMbrQrVm8buk1iXw` reached Ready and is aliased to `https://hammer.ad`.
+Hammer was clean and live after the first ComfyUI Gate work. The latest public site-change commit before this handoff was `8c455ad Tighten ComfyUI gate proof page` on `main`, pushed to `origin/main`. Production deploy `dpl_FJ1DFMt8hphdSMbrQrVm8buk1iXw` reached Ready and is aliased to `https://hammer.ad`.
+
+2026-07-02 follow-up: Jeff correctly flagged that the page read like operational proof, not a portfolio item. The honest framing is now **comfyui render gate**: a Modal/ComfyUI preflight for AIVFX that hashes the smoke graph, checks the custom-node lock, requires visible Modal UI execution before paid work, and blocks unpinned paid renders.
 
 ## What Shipped
 - Live route: `https://hammer.ad/work/vfx-cgi/comfyui-production-backend`
 - Downloadable public proof file: `https://hammer.ad/work/vfx-cgi/comfyui-production-backend/gate-proof.json`
-- The page now says exactly what exists: AIVFX repo command, graph hash, node counts, paid-render block status, and no GPU render.
-- The vague "control layer" language was removed after Jeff called it out.
+- The page should say what the portfolio item is: a render gate/preflight for the AIVFX Modal ComfyUI lane.
+- Keep the JSON receipt downloadable, but do not make proof vocabulary the page's main story.
+- Keep the boundary visible: no GPU render, no Modal launch, no model download, no provider spend.
 - Machine-readable surfaces were updated: `public/llms.txt`, `public/llms-full.txt`, and `public/.well-known/agents.json`.
 
 ## Critical Boundary
-The downloadable file is a proof JSON receipt, not a rendered ComfyUI output and not a full ComfyUI workflow bundle. Do not imply Modal/ComfyUI was launched.
+The downloadable file is a receipt JSON, not a rendered ComfyUI output and not a full ComfyUI workflow bundle. Do not imply Modal/ComfyUI was launched.
 
 AIVFX state:
 - AIVFX repo path: `/Users/hammer/Desktop/vibe/aivfx`
@@ -43,7 +46,7 @@ If Jeff asks for "the actual ComfyUI file," the next honest improvement is to cr
 1. Read `AGENTS.md`, the vault note, this handoff, and run the Hammer startup check.
 2. Verify `git status --porcelain=v1 -b` before editing.
 3. If changing public routes or copy, update `lib/works.ts`, SEO/sitemap surfaces, `llms.txt`, `llms-full.txt`, and `agents.json` together.
-4. Keep the ComfyUI page blunt: file exists, render not run, paid render blocked. Do not add broad AI marketing language.
+4. Keep the ComfyUI page honest and portfolio-readable: render gate first, receipt second, no finished-output claim.
 
 ## Open Items
 - Optional: run a web performance check for the new route if Jeff asks.

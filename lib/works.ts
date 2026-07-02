@@ -323,10 +323,10 @@ export const CASE_STUDIES: CaseStudy[] = [
       },
       {
         slug: "comfyui-production-backend",
-        title: "comfyui gate",
+        title: "comfyui render gate",
         year: "2026",
         blurb:
-          "a downloadable proof file from the AIVFX repo: Modal node counts, graph hash, render block status, and the exact command that wrote the receipt.",
+          "a Modal/ComfyUI preflight for AIVFX: graph hash, custom-node lock, visible UI rule, and a hard stop before unpinned paid renders.",
         status: "live",
         tint: "var(--bloodlust)",
       },
