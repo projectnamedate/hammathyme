@@ -19,10 +19,3 @@ export function startTransition(updateDom: () => void | Promise<void>) {
     updateDom();
   }
 }
-
-export function supportsViewTransitions(): boolean {
-  return (
-    typeof document !== "undefined" &&
-    typeof document.startViewTransition === "function"
-  );
-}

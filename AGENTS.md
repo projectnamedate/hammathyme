@@ -174,7 +174,7 @@ sample mode and does not call the provider.
 /work/[category]     category index: editorial header + pieces grid
 /work/[category]/[piece]
                      detail view for ready pieces
-/about               anteroom: bio, experience timeline, clients, education, memberships
+/about               anteroom: bio, currently, selected clients, agencies (no resume: employer timeline, education, and memberships were removed 2026-07-16)
 /contact             vestibule: poster split layout, contact lines, status indicator
 ```
 

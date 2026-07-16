@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { track } from "@vercel/analytics";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   CONSISTENCY_SCENES,
@@ -119,6 +120,7 @@ export function PromptStoryboardDemo() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (state.loading || liveUsed) return;
+    track("demo_run", { demo: "storyboard" });
     setState({ loading: true, status: "running", sample: true });
     try {
       const response = await fetch("/api/demos/storyboard", {
@@ -289,6 +291,7 @@ export function ConsistencyLabDemo() {
 
   async function generate() {
     if (state.loading) return;
+    track("demo_run", { demo: "consistency" });
     setState({ loading: true, status: "running", sample: true });
     try {
       const response = await fetch("/api/demos/consistency", {
@@ -462,6 +465,7 @@ export function KiraChatDemo() {
     const nextMessages: ChatMessage[] = [...messages, { role: "user", content: trimmed }];
     setMessages(nextMessages);
     setInput("");
+    track("demo_run", { demo: "kira-chat" });
     setState({ loading: true, status: "thinking", sample: true });
     try {
       const response = await fetch("/api/demos/kira-chat", {

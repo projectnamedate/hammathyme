@@ -21,7 +21,7 @@ same PR as any token change.
 - **Deep accent:** `#5A201D` (Polished Bloodlust) — hover/pressed states only.
 - **Surface mode:** light, warm cream washed with rose. Dark mode not in scope.
 - **Wordmark direction:** canonical recipe is a hybrid. Use the Motion Reel `01 - cold open` per-letter Outfit Black construction for the `hammer` lettering, preserve its approved visual rhythm, and use the current website period placement for the controlled circular mark. Do not replace the lettering with a native `.kw` text run.
-- **Characters at launch:** Kira is the canonical autonomous-character source; the public agents case study is live at `/work/agents/kira`.
+- **Characters at launch:** Kira is the canonical autonomous-character source; the public agents case study is live at `/work/agents-digital-twins/kira`.
 
 ## 2. Color tokens
 

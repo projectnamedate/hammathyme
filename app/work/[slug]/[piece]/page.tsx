@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { JsonLd } from "@/components/JsonLd";
+import { TrackedLink } from "@/components/TrackedLink";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { Wordmark } from "@/components/Wordmark";
@@ -788,13 +789,15 @@ function ComfyuiGateDetail({ transitionName }: { transitionName: string }) {
               </div>
             ))}
           </dl>
-          <a
+          <TrackedLink
+            event="workflow_download"
+            data={{ piece: "comfyui-production-backend" }}
             className="mt-6 inline-flex w-full items-center justify-center border border-[var(--ink-3)] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--ink-1)] transition-colors duration-200 hover:bg-[var(--ink-1)] hover:text-[var(--cream-0)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--cinnamon)]"
             download
             href={COMFY_WORKFLOW_URL}
           >
             download workflow json
-          </a>
+          </TrackedLink>
         </aside>
 
         <div

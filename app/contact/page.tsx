@@ -1,4 +1,5 @@
 import { JsonLd } from "@/components/JsonLd";
+import { TrackedLink } from "@/components/TrackedLink";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { buildBreadcrumbJsonLd, buildContactPageJsonLd, contactMetadata } from "@/lib/seo";
 
@@ -87,14 +88,16 @@ function ContactLine({
         {label}
       </p>
       {href ? (
-        <a
+        <TrackedLink
+          event="contact_click"
+          data={{ label }}
           href={href}
           data-cursor="link"
           data-cursor-label={cursor}
           className={`${valueClass} underline decoration-[var(--ink-3)] underline-offset-8 transition-colors hover:text-[var(--cinnamon)]`}
         >
           {value}
-        </a>
+        </TrackedLink>
       ) : (
         <p className={valueClass}>{value}</p>
       )}
