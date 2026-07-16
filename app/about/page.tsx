@@ -1,32 +1,26 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { WallPlate } from "@/components/WallPlate";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import { aboutMetadata, buildAboutPageJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = aboutMetadata;
 
-const TIMELINE = [
-  { year: "2015 — 2017", role: "producer",          network: "tribune media" },
-  { year: "2018 — 2021", role: "creative producer", network: "discovery inc." },
-  { year: "2021 — 2024", role: "producer",          network: "comcast" },
-  { year: "2024 — now",  role: "ai producer",       network: "starz entertainment" },
-];
-
 const CLIENTS = [
-  "autozone",
   "cadillac",
-  "columbia",
+  "columbia pictures",
+  "equinox",
   "fox",
-  "hulu",
   "ihg hotels",
   "lululemon",
-  "nissan",
   "porsche",
   "rémy martin",
-  "subaru",
-  "toyota",
-  "xfinity",
+];
+
+const AGENCIES = [
+  "angry gods",
+  "chandelier creative",
+  "pg & co",
+  "conscious minds",
 ];
 
 export default function Anteroom() {
@@ -62,7 +56,7 @@ export default function Anteroom() {
         </aside>
       </header>
 
-      {/* body — currently + timeline */}
+      {/* body — currently */}
       <section className="grid w-full grid-cols-1 gap-16 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-7">
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
@@ -73,28 +67,9 @@ export default function Anteroom() {
             media, and marketing work.
           </p>
         </div>
-
-        <aside className="md:col-span-5">
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-            experience
-          </p>
-          <ol className="mt-6 flex flex-col gap-8 border-l border-[var(--ink-4)] pl-6">
-            {TIMELINE.map((t, i) => (
-              <li key={`${t.year}-${t.network}`}>
-                <WallPlate
-                  index={i + 1}
-                  title={t.role}
-                  year={t.year}
-                  client={t.network}
-                  className="!gap-2"
-                />
-              </li>
-            ))}
-          </ol>
-        </aside>
       </section>
 
-      {/* meta footer — clients · education · memberships */}
+      {/* meta footer — clients · agencies */}
       <section className="mt-24 grid grid-cols-1 gap-12 border-t border-[var(--ink-4)] pt-12 md:mt-32 md:grid-cols-12 md:gap-x-12">
         <div className="md:col-span-7">
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
@@ -112,26 +87,20 @@ export default function Anteroom() {
           </ul>
         </div>
 
-        <div className="md:col-span-5 grid grid-cols-2 gap-8">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-              education
-            </p>
-            <ul className="mt-4 flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-1)]">
-              <li>ma film theory</li>
-              <li>ba film production</li>
-              <li className="text-[var(--ink-3)]">the new school · 2007–2013</li>
-            </ul>
-          </div>
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
-              memberships
-            </p>
-            <ul className="mt-4 flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-1)]">
-              <li>pga member</li>
-              <li>aicp member</li>
-            </ul>
-          </div>
+        <div className="md:col-span-5">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)]">
+            agencies
+          </p>
+          <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-1)]">
+            {AGENCIES.map((a, i) => (
+              <li key={a} className="flex items-center gap-5">
+                <span>{a}</span>
+                {i < AGENCIES.length - 1 ? (
+                  <span aria-hidden className="text-[var(--ink-3)]">·</span>
+                ) : null}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

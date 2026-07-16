@@ -61,7 +61,7 @@
     { "path": "/work/websites/kira", "purpose": "onlykira.ai website preview and public site context" },
     { "path": "/work/websites/opencrawl", "purpose": "opencrawl.gg website preview and public site context" },
     { "path": "/work/websites/agentify", "purpose": "agentify.nexus website preview" },
-    { "path": "/about", "purpose": "Jeff Hammer profile and experience" },
+    { "path": "/about", "purpose": "Jeff Hammer profile" },
     { "path": "/contact", "purpose": "current public contact surface" },
     { "path": "/colophon", "purpose": "site stack, tools, models, hosting, and license" }
   ],

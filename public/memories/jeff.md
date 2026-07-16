@@ -1,7 +1,7 @@
-[93% - 2,035/2,200 chars]
+[105% - 2,306/2,200 chars]
 
 § jeff hammer · ai producer · la / ny / remote · https://hammer.ad · hammer@hammer.ad.
-§ ten-plus years on broadcast and agency pipelines. tribune media → discovery → comcast → starz entertainment. current role: ai producer at Starz Entertainment.
+§ ten-plus years on broadcast and agency pipelines. now: ai producer, building generative production pipelines.
 § stack: claude code · codex · opus 4.7 · gpt-5.5 · hermes agent · nano banana 2 · gpt image · midjourney · kling · seedance · runway · remotion · hyperframes · rive.
 § visual-only producer. no /notes. no blog. case-study copy carries the seo, not editorial writing. (rejected 2026-05-04: "everyone can use ai to write things, its looked down upon.")
 § brand: warm cream paper · maroon ink · vinaceous cinnamon period. the period after "hammer" is the brand mark. light only. hates dark mode.

@@ -4,11 +4,11 @@ import type { CaseStudy, Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-07-02T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-07-16T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · ai producer";
 export const DEFAULT_DESCRIPTION =
-  "Jeff Hammer is an AI producer at Starz Entertainment with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.";
+  "Jeff Hammer is an AI producer with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.";
 export const DEFAULT_KEYWORDS = [
   "AI Producer",
   "AI Creative Producer",
@@ -159,7 +159,7 @@ export const homeMetadata = buildPageMetadata({
 export const aboutMetadata = buildPageMetadata({
   title: "about Jeff Hammer, AI producer",
   description:
-    "Jeff Hammer is an AI producer at Starz Entertainment with broadcast, agency, and AI-native production experience across Comcast, Discovery, and Tribune Media.",
+    "Jeff Hammer is an AI producer with ten-plus years of broadcast, agency, and AI-native production experience.",
   path: "/about",
   openGraphType: "profile",
   keywords: ["Jeff Hammer AI producer", "broadcast producer AI", "creative producer AI"],
@@ -222,10 +222,6 @@ export function buildPersonJsonLd(): JsonLdObject {
     jobTitle: "AI Producer",
     email: "mailto:hammer@hammer.ad",
     description: DEFAULT_DESCRIPTION,
-    worksFor: {
-      "@type": "Organization",
-      name: "Starz Entertainment",
-    },
     sameAs: ["https://www.linkedin.com/in/jeff-hammer1985/"],
     knowsAbout: [
       "AI video production",
