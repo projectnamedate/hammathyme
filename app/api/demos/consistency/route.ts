@@ -1,10 +1,4 @@
-import { NextResponse } from "next/server";
-import {
-  applyDemoVisitorCookie,
-  getProviderKey,
-  reserveDemoSpend,
-  type SpendReservation,
-} from "@/lib/demo-guards";
+import { getProviderKey, noStore, reserveDemoSpend } from "@/lib/demo-guards";
 import { CONSISTENCY_SCENES } from "@/lib/demo-samples";
 import { getKiraConsistencyPrompt } from "@/lib/kira-demo-prompts";
 
@@ -12,16 +6,6 @@ export const runtime = "nodejs";
 
 function sceneForId(sceneId: unknown) {
   return CONSISTENCY_SCENES.find((scene) => scene.id === sceneId) ?? CONSISTENCY_SCENES[0];
-}
-
-function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit, reservation?: SpendReservation) {
-  const headers = new Headers(init?.headers);
-  headers.set("cache-control", "no-store");
-  if (reservation) applyDemoVisitorCookie(headers, reservation);
-  return NextResponse.json(payload, {
-    ...init,
-    headers,
-  });
 }
 
 export async function POST(request: Request) {

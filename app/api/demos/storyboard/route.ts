@@ -1,10 +1,4 @@
-import { NextResponse } from "next/server";
-import {
-  applyDemoVisitorCookie,
-  getProviderKey,
-  reserveDemoSpend,
-  type SpendReservation,
-} from "@/lib/demo-guards";
+import { getProviderKey, noStore, reserveDemoSpend } from "@/lib/demo-guards";
 import { storyboardFallbackFromPrompt } from "@/lib/demo-samples";
 import { requireSafeCreativeInput } from "@/lib/demo-safety";
 
@@ -28,16 +22,6 @@ function storyboardImagePrompt(brief: string) {
     "Keep it safe for work. No adult content, violence, gore, weapons, medical claims, politics, logos, or private data.",
     `Brief: ${brief}`,
   ].join(" ");
-}
-
-function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit, reservation?: SpendReservation) {
-  const headers = new Headers(init?.headers);
-  headers.set("cache-control", "no-store");
-  if (reservation) applyDemoVisitorCookie(headers, reservation);
-  return NextResponse.json(payload, {
-    ...init,
-    headers,
-  });
 }
 
 export async function POST(request: Request) {

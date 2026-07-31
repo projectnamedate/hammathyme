@@ -2,9 +2,7 @@ import {
   Geist,
   Geist_Mono,
   Instrument_Serif,
-  JetBrains_Mono,
   Outfit,
-  Playfair_Display,
 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -47,28 +45,11 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "800"],
-  display: "swap",
-  variable: "--font-jetbrains-mono",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  weight: "800",
-  style: "italic",
-  display: "swap",
-  variable: "--font-playfair-display",
-});
-
 const FONT_VARIABLES = [
   outfit.variable,
   geist.variable,
   geistMono.variable,
   instrumentSerif.variable,
-  jetBrainsMono.variable,
-  playfairDisplay.variable,
 ].join(" ");
 
 export const metadata = rootMetadata;

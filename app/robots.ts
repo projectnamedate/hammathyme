@@ -4,7 +4,7 @@ import { AI_CRAWLER_USER_AGENTS, CANONICAL_ORIGIN } from "@/lib/seo";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/" },
+      { userAgent: "*", allow: "/", disallow: "/api/" },
       ...AI_CRAWLER_USER_AGENTS.map((userAgent) => ({ userAgent, allow: "/" })),
     ],
     sitemap: [`${CANONICAL_ORIGIN}/sitemap.xml`, `${CANONICAL_ORIGIN}/sitemap-priority.xml`],

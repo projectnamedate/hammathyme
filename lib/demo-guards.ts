@@ -1,4 +1,5 @@
 import { Redis } from "@upstash/redis";
+import { NextResponse } from "next/server";
 import { createHash, randomUUID } from "node:crypto";
 
 const SPEND_UNITS_PER_USD = 10_000;
@@ -151,6 +152,16 @@ export type SpendReservation = {
 
 export function applyDemoVisitorCookie(headers: Headers, reservation: SpendReservation): void {
   if (reservation.setVisitorCookie) headers.append("set-cookie", reservation.setVisitorCookie);
+}
+
+export function noStore<T extends Record<string, unknown>>(payload: T, init?: ResponseInit, reservation?: SpendReservation) {
+  const headers = new Headers(init?.headers);
+  headers.set("cache-control", "no-store");
+  if (reservation) applyDemoVisitorCookie(headers, reservation);
+  return NextResponse.json(payload, {
+    ...init,
+    headers,
+  });
 }
 
 export async function reserveDemoSpend(

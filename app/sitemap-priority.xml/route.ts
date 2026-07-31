@@ -1,7 +1,7 @@
 import { SITE_LAST_MODIFIED, getCanonicalUrl } from "@/lib/seo";
 
 const PRIORITY_SITEMAP_ROUTES = [
-  { path: "/", priority: "1.0", changeFrequency: "weekly" },
+  { path: "/", priority: "1.0", changeFrequency: "monthly" },
   { path: "/about", priority: "0.9", changeFrequency: "monthly" },
   { path: "/contact", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work", priority: "0.9", changeFrequency: "weekly" },
@@ -11,6 +11,7 @@ const PRIORITY_SITEMAP_ROUTES = [
   { path: "/work/motion-graphics/spring-health", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/vfx-cgi/blender-lookdev-pipeline", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/vfx-cgi/comfyui-production-backend", priority: "0.8", changeFrequency: "monthly" },
+  { path: "/work/vfx-cgi/environment-swap", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/film-animation/equinox", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/pipelines-tools/pipeline-visualizer", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/brand-systems/hammer", priority: "0.8", changeFrequency: "monthly" },

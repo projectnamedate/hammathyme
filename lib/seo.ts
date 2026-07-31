@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { CaseStudy, Piece } from "@/lib/works";
+import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 
 export type JsonLdObject = Record<string, unknown>;
 
@@ -223,6 +223,7 @@ export function buildPersonJsonLd(): JsonLdObject {
     email: "mailto:hammer@hammer.ad",
     description: DEFAULT_DESCRIPTION,
     sameAs: ["https://www.linkedin.com/in/jeff-hammer1985/"],
+    areaServed: ["Los Angeles", "New York", "Remote"],
     knowsAbout: [
       "AI video production",
       "AI creative production",
@@ -343,10 +344,9 @@ export function buildCollectionPageJsonLd(category: CaseStudy): JsonLdObject {
     mainEntity: {
       "@type": "ItemList",
       itemListElement: category.pieces.map((piece, index) => {
-        const url =
-          piece.status === "live"
-            ? getCanonicalUrl(getPiecePath(category, piece))
-            : getCanonicalUrl(`/work/${category.slug}#${piece.slug}`);
+        const url = hasPieceDetail(category.slug, piece.slug)
+          ? getCanonicalUrl(getPiecePath(category, piece))
+          : getCanonicalUrl(`/work/${category.slug}#${piece.slug}`);
         return {
           "@type": "ListItem",
           position: index + 1,
@@ -418,12 +418,12 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
         "A 30-second Equinox campaign spot produced with Angry Gods around AI imagery, uncertainty, and the human body.",
       thumbnailUrl: [
         getCanonicalUrl(
-          "/work/visual-media/equinox/equinox-question-everything-but-yourself-poster.jpg",
+          "/work/film-animation/equinox/equinox-question-everything-but-yourself-poster.jpg",
         ),
       ],
       uploadDate: "2026-06-19T00:00:00-07:00",
       contentUrl: getCanonicalUrl(
-        "/work/visual-media/equinox/equinox-question-everything-but-yourself.mp4",
+        "/work/film-animation/equinox/equinox-question-everything-but-yourself.mp4",
       ),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },

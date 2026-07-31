@@ -451,6 +451,38 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
       },
     ],
   },
+  {
+    slug: "coefficient",
+    status: "live stake-pool health dashboard",
+    liveUrl: "https://coefficient.mythx.art",
+    summary:
+      "coefficient.mythx.art is a Solana stake-pool health dashboard built under the Mythx label: Nakamoto coefficient tracking, a 15-pool scorecard, validator reach and overlap views, and a daily cron indexer.",
+    stack: ["next.js", "turso", "daily cron indexer", "solana stake-pool data"],
+    facts: [
+      ["product", "nakamoto coefficient tracker and stake-pool scorecard across 15 solana pools"],
+      ["views", "pool scorecards, validator reach, and stake overlap"],
+      ["data", "daily cron indexer writes fresh snapshots to turso"],
+      ["label", "designed and built by Jeff Hammer under the mythx label"],
+    ],
+    shots: [
+      {
+        src: "/work/websites/coefficient/live.jpeg",
+        label: "coefficient.mythx.art",
+        alt: "coefficient.mythx.art stake pool scorecard home screenshot",
+        width: 1200,
+        height: 862,
+        tone: "dark",
+      },
+      {
+        src: "/work/websites/coefficient/reach.jpeg",
+        label: "pool reach",
+        alt: "coefficient.mythx.art stake pool reach and validator overlap view screenshot",
+        width: 1200,
+        height: 862,
+        tone: "dark",
+      },
+    ],
+  },
 ];
 
 function WebsiteDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
@@ -1041,10 +1073,10 @@ function EquinoxCampaignDetail({ transitionName }: { transitionName: string }) {
             controls
             playsInline
             preload="metadata"
-            poster="/work/visual-media/equinox/equinox-question-everything-but-yourself-poster.jpg"
+            poster="/work/film-animation/equinox/equinox-question-everything-but-yourself-poster.jpg"
           >
             <source
-              src="/work/visual-media/equinox/equinox-question-everything-but-yourself.mp4"
+              src="/work/film-animation/equinox/equinox-question-everything-but-yourself.mp4"
               type="video/mp4"
             />
           </video>
@@ -1604,7 +1636,7 @@ function BrandGuideLogo({ guide }: { guide: BrandGuideProfile }) {
     return (
       <span
         className="block font-serif text-[clamp(74px,9vw,156px)] font-normal italic leading-[0.86] tracking-[-0.06em]"
-        style={{ color: "#0F0F0F", fontFamily: '"Playfair Display", "Instrument Serif", Georgia, serif' }}
+        style={{ color: "#0F0F0F", fontFamily: '"Instrument Serif", Georgia, serif' }}
       >
         kira
       </span>
@@ -1617,7 +1649,7 @@ function BrandGuideLogo({ guide }: { guide: BrandGuideProfile }) {
         <EffigyLogomark className="h-[clamp(70px,9vw,150px)] w-auto shrink-0" />
         <span
           className="font-mono text-[clamp(58px,7vw,132px)] font-black leading-[0.82] tracking-[-0.065em]"
-          style={{ color: "#0A1230", fontFamily: '"JetBrains Mono", "Geist Mono", ui-monospace, monospace' }}
+          style={{ color: "#0A1230", fontFamily: '"Geist Mono", ui-monospace, monospace' }}
         >
           effigy
         </span>

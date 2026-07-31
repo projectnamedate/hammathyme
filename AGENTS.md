@@ -195,8 +195,8 @@ the demo or case-study surface exists.
                      detail routes for ready pieces; modal-like page pattern
 /components          UI: AtriumCanvas, CardArt, PipelineVisualizer, Plinth, etc.
 /components/motion   FadeIn, MaskReveal, ScrollReveal, SplitText, StaggerChildren
-/content/work        category-index MDX; one per category, slug matches lib/works.ts
-/lib                 works.ts, pipelines.ts, rooms.ts, view-transitions.ts, seo.ts
+/content/work        _backlog.md only; category content lives in lib/works.ts
+/lib                 works.ts, pipelines.ts, view-transitions.ts, seo.ts
 /public/brand        compiled wordmark, icon, grain
 /brand               source design assets
 AGENTS.md            canonical agent instructions
