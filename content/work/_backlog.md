@@ -33,13 +33,13 @@ are kept as history and may use pre-rename names.
 
 ## Live inventory (for orientation, 2026-07-16)
 
-24 live detail routes across the 8 categories; the authoritative list is
+25 live detail routes across the 8 categories; the authoritative list is
 `DETAIL_READY_KEYS` in `lib/works.ts`. Highlights per category: brand dossiers
 (hammer/kira/effigy/agentify), `agents-digital-twins/kira`, motion graphics
 (reel, ICM teaser, audio-reactive, Spring Health), vfx-cgi (environment-swap,
 blender-lookdev-pipeline, comfyui-production-backend outfit morph),
 pipelines-tools (visualizer, prompt library, creative skills), the four
-interactive demos, `film-animation/equinox`, and the four website previews.
+interactive demos, `film-animation/equinox`, and the five website previews.
 
 ## Historical notes
 

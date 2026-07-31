@@ -56,6 +56,7 @@ The domain appears only in technical URL surfaces.
 - /work/websites/kira: onlykira.ai website preview.
 - /work/websites/opencrawl: opencrawl.gg website preview.
 - /work/websites/agentify: agentify.nexus website preview.
+- /work/websites/coefficient: coefficient.mythx.art solana stake-pool health dashboard preview.
 - /about: Jeff Hammer bio, selected clients, and agencies.
 - /contact: public contact surface for work inquiries.
 - /colophon: type, stack, tools, models, build, hosting, and license notes.

@@ -8,7 +8,7 @@
 § wordmark recipe: hybrid. use the Motion Reel cold-open per-letter Outfit Black "hammer" construction with the approved visual rhythm, plus the current website baseline placement for the controlled circular cinnamon period. do not force mathematically equal ink-box spacing.
 § voice rule: avoid producer slang ("get the cut, hit the deadline, deliver to spec"). prefer 2-beat parallel claims over 3-beat industry triplets.
 § 8 work categories (slug = title = label): brand-systems · agents-digital-twins · motion-graphics · vfx-cgi · pipelines-tools · interactive-playable · film-animation · websites.
-§ ready work opens in detail routes: 24 live across the 8 categories. the full route list lives in /llms-full.txt and /sitemap.xml.
+§ ready work opens in detail routes: 25 live across the 8 categories. the full route list lives in /llms-full.txt and /sitemap.xml.
 § artifact rule: videos, brand guides, brand books, and pipeline visuals usually live inside Hammer; Agentify links to the canonical live brand bible at https://agentify.nexus/brand-bible. Website pieces show a Hammer summary/preview first, then link out to the public site.
 § recipe principle: show competence, not turnkey. public surface = portfolio description plus receipts; gated surface = configs and paid runtime.
 § time estimates run ~10× higher than reality. divide instinct by 10.

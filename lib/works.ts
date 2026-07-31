@@ -512,6 +512,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "#14132A",
       },
+      {
+        slug: "coefficient",
+        title: "coefficient",
+        year: "2026",
+        client: "mythx",
+        blurb: "coefficient.mythx.art: solana stake-pool health dashboard — nakamoto coefficient tracking, pool scorecards, and validator reach, indexed daily.",
+        status: "live",
+        tint: "#161A2B",
+      },
     ],
   },
 ];
@@ -549,6 +558,7 @@ const DETAIL_READY_KEYS = new Set([
   "websites/kira",
   "websites/opencrawl",
   "websites/agentify",
+  "websites/coefficient",
 ]);
 
 export function pieceDetailKey(categorySlug: string, pieceSlug: string): string {

@@ -20,7 +20,7 @@ Important context:
 - [pipelines + tools](https://hammer.ad/work/pipelines-tools): the tools beneath the work. pipeline visualizer, prompt library, and creative skills are live detail surfaces.
 - [interactive + playable](https://hammer.ad/work/interactive-playable): live capped demos. prompt-to-storyboard, character consistency, Kira chat, and dot discipline.
 - [film + animation](https://hammer.ad/work/film-animation): commercial film and ai-native video. Equinox campaign detail is live at /work/film-animation/equinox.
-- [websites](https://hammer.ad/work/websites): ai-native websites. hammer, agentify.nexus, onlykira.ai, and opencrawl.gg have Hammer preview pages, then link to the live sites.
+- [websites](https://hammer.ad/work/websites): ai-native websites. hammer, agentify.nexus, onlykira.ai, opencrawl.gg, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
 
 ## about
 
