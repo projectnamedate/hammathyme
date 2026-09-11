@@ -5,6 +5,11 @@ import type { ReactNode } from "react";
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
 
+// The revealed clip expands past the box on every side: a lingering
+// inset(0%) would clip glyph ink (italic descenders, swashes) that
+// overflows the wrapper.
+const VISIBLE_CLIP = "inset(-15% -15% -30% -15%)";
+
 type Props = {
   children: ReactNode;
   /** "up" slides content up from below a horizontal mask. "right" wipes left → right. */
@@ -29,7 +34,7 @@ export function MaskReveal({
     direction === "up"
       ? { clipPath: "inset(0% 0% 100% 0%)" }
       : { clipPath: "inset(0% 100% 0% 0%)" };
-  const visible = { clipPath: "inset(0% 0% 0% 0%)" };
+  const visible = { clipPath: VISIBLE_CLIP };
 
   return (
     <motion.div

@@ -1,6 +1,6 @@
 # AGENTS.md — hammer
 
-This is Jeff Hammer's portfolio site. AI Producer positioning. The site itself
+This is Jeff Hammer's portfolio site. Creative Technologist positioning. The site itself
 is a portfolio piece.
 
 ## Shared Obsidian AgentMemory
@@ -165,6 +165,12 @@ sample mode and does not call the provider.
   rule.
 - For SPA fetches: WebFetch first, Playwright fallback if content is empty or
   JS-rendered.
+- The Artlist × Sony pitch is permanently do-not-publish (operator rule
+  2026-09-10). Do not surface it in any page, asset, metadata, or
+  agent-readable file.
+- Do not put current-employer information on any public site surface
+  (operator rule 2026-09-10). The about page, metadata, JSON-LD, and
+  agent-readable files carry role and craft only, never an employer name.
 
 ## Routes
 
@@ -225,7 +231,7 @@ CardArt specimens. The slug and popup title are `agents-digital-twins`; the
 label is `agents + digital twins`.
 
 The site is visual-only. `/notes` was dropped 2026-05-04 because Jeff is a
-visual AI producer. `/process` was dropped 2026-05-08 because every project is
+visual creative technologist. `/process` was dropped 2026-05-08 because every project is
 different. `/lab` was dropped 2026-05-08 because it overlapped the
 `pipelines-tools` category. SEO is carried by case-study copy, `/about`
 metadata, and structured data, not a blog.
@@ -233,7 +239,7 @@ metadata, and structured data, not a blog.
 Each category is a collection with multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
-`/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays,spring-health}`,
+`/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays,spring-health,spotify-titles}`,
 `/work/vfx-cgi/{environment-swap,blender-lookdev-pipeline,comfyui-production-backend}`,
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`,
 `/work/agents-digital-twins/kira`,

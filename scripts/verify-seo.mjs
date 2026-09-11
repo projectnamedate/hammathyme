@@ -101,7 +101,7 @@ mustContain("public/llms-full.txt", [
   "# hammer agent context",
   "canonical url: https://hammer.ad",
   "Jeff Hammer",
-  "AI Producer",
+  "Creative Technologist",
   "visual-only",
   "hammer@hammer.ad",
 ]);

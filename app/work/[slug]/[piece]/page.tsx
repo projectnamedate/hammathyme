@@ -150,6 +150,9 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "motion-graphics/spring-health") {
     return <SpringHealthDetail transitionName={transitionName} />;
   }
+  if (key === "motion-graphics/spotify-titles") {
+    return <SpotifyTitlesDetail transitionName={transitionName} />;
+  }
   if (key === "pipelines-tools/pipeline-visualizer") {
     return <PipelineDetail piece={piece} transitionName={transitionName} />;
   }
@@ -171,6 +174,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
     return <ComfyuiGateDetail transitionName={transitionName} />;
   }
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
+  if (key === "film-animation/the-applicant") return <TheApplicantDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
   }
@@ -246,9 +250,9 @@ function KiraAgentDetail({ transitionName }: { transitionName: string }) {
 
         <aside className="md:col-span-4">
           <p className="font-display text-[clamp(18px,1.45vw,24px)] font-light lowercase leading-[1.42] tracking-[-0.015em] text-[var(--ink-1)]">
-            This page pulls the finished Kira identity assets into the agents category and keeps the
-            operational story separate from the brand bible. No keys, private queues, or live controls
-            are exposed here.
+            Kira operates as a live autonomous character: persistent identity, scheduled posts,
+            and replies under a written media policy. The full identity system lives in the brand
+            guide dossier.
           </p>
           <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-5">
             <div>
@@ -582,7 +586,7 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
           className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
           style={frameStyle}
         >
-          <video className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata">
+          <video aria-label="Hammer motion graphics reel" className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata">
             <source src="/work/motion/hammer-reel-v3-web-hq-10bit-hevc.mp4" type='video/mp4; codecs="hvc1"' />
             <source
               src="/work/motion/hammer-reel-v3-web-max-h264.mp4"
@@ -1096,6 +1100,65 @@ function EquinoxCampaignDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
+function TheApplicantDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            In a near-future where the only way to get a job is to win one, an applicant in a
+            cheap interview suit fights the jobs themselves in a televised arena. Six Seedance
+            shots cut from locked GPT Image 2 frames.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["production", "studioly pipeline · driven via kimi code"],
+              ["models", "gpt image 2 stills · seedance 2.0 video via evolink"],
+              ["format", "60s · 1280x720 · 24fps · h264/aac"],
+              ["source", "studioly"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="The Applicant, a one-minute AI-native short film"
+            className="block aspect-video w-full bg-[var(--cream-0)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/film-animation/the-applicant/the-applicant-poster.jpg"
+          >
+            <source src="/work/film-animation/the-applicant/the-applicant-web.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          concept, screenplay, shot list, locked frames, takes, and editorial all ran inside
+          one versioned pipeline. about six dollars of generation spend.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          production: hammer · pipeline: studioly
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function InternetCapitalMarketsDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
   return (
@@ -1242,6 +1305,62 @@ function SpringHealthDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
+
+function SpotifyTitlesDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A Spotify title sequence generated in a single text-to-video pass. Kinetic type,
+            an album-wall flythrough, and the sound-wave end card, with display type holding
+            razor sharp at 2k.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["type", "spec title study · not a spotify commission"],
+              ["system", "minimax h3 (hailuo 3.0) via evolink · text-to-video"],
+              ["sound", "native model audio · sound design, no music"],
+              ["format", "12s · 2560x1440 · 24fps · h264/aac"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="Spotify kinetic title sequence generated with MiniMax H3"
+            className="block aspect-video w-full bg-[var(--cream-0)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/motion/spotify-titles/spotify-titles-poster.jpg"
+          >
+            <source src="/work/motion/spotify-titles/spotify-titles-h3.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 border-y border-[var(--ink-4)] py-5">
+        <p className="max-w-[78ch] font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+          spec study · not commissioned by spotify · generated with minimax h3 (hailuo 3.0)
+          via evolink · one pass, no keyframes, native 24fps
+        </p>
+      </div>
+    </section>
+  );
+}
 
 function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };

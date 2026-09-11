@@ -22,7 +22,7 @@ are kept as history and may use pre-rename names.
 | 6 | Animated short | film-animation | coming-soon card |
 | 7 | Looping social bumpers | film-animation | coming-soon card |
 | 8 | Episodic Kira series (5 eps) | agents-digital-twins | idea, no card |
-| 9 | Hedra avatar of Jeff explaining AI Producer | film-animation | idea, no card |
+| 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |
 | 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
 | 11 | 90-second broadcast-grade short | film-animation | idea, no card |
 | 12 | AI sound design reel | film-animation (audio sub-cat?) | idea, no card |
@@ -30,16 +30,18 @@ are kept as history and may use pre-rename names.
 | 14 | Rive + Remotion puppet animation reel | film-animation | HARD-GATED: candidate 01 character read approved, but production model must be redesigned into a clean T-pose with no storyboard/shot-board or held prop, then approved, before any rig/animation/`.riv`/runtime work. Run `npm run verify:rive-puppet` first; manifest is `approvalStatus: pending` |
 | 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
 | 16 | Runnable ComfyUI workflow bundle | vfx-cgi | optional: bundle input media + model/custom-node notes so the public outfit-morph workflow JSON runs out of the box (see `docs/AGENT_HANDOFF.md`) |
+| 17 | Runway Solaris generative interface piece | interactive-playable | idea, no card: Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
 
-## Live inventory (for orientation, 2026-07-16)
+## Live inventory (for orientation, 2026-08-29)
 
-25 live detail routes across the 8 categories; the authoritative list is
+27 live detail routes across the 8 categories; the authoritative list is
 `DETAIL_READY_KEYS` in `lib/works.ts`. Highlights per category: brand dossiers
 (hammer/kira/effigy/agentify), `agents-digital-twins/kira`, motion graphics
-(reel, ICM teaser, audio-reactive, Spring Health), vfx-cgi (environment-swap,
+(reel, ICM teaser, audio-reactive, Spring Health, spotify titles), vfx-cgi (environment-swap,
 blender-lookdev-pipeline, comfyui-production-backend outfit morph),
 pipelines-tools (visualizer, prompt library, creative skills), the four
-interactive demos, `film-animation/equinox`, and the five website previews.
+interactive demos, `film-animation/equinox` + `film-animation/the-applicant`,
+and the five website previews.
 
 ## Historical notes
 

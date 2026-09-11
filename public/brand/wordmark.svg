@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 480" role="img" aria-label="hammer — Direction B — The Producer (recommended)">
-  <title>hammer — Direction B — The Producer</title>
-  <desc>Lowercase wordmark in Outfit Black with a small mono caption "ai producer" beneath, separated by a cinnamon pip.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 480" role="img" aria-label="hammer — Direction B — The Technologist (recommended)">
+  <title>hammer — Direction B — The Technologist</title>
+  <desc>Lowercase wordmark in Outfit Black with a small mono caption "creative technologist" beneath, separated by a cinnamon pip.</desc>
   <defs>
     <style type="text/css"><![CDATA[
       @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&amp;family=Geist+Mono:wght@400;500&amp;display=swap');
@@ -22,17 +22,17 @@
   <text class="meta ink-2" x="80" y="48">hammer · brand guide</text>
   <rect x="1140" y="34" width="120" height="20" fill="#5A201D" />
   <text class="badge" fill="#FAEEE9" x="1200" y="48" text-anchor="middle">★ recommended</text>
-  <text class="meta ink-2" x="1320" y="48" text-anchor="end">B · the producer</text>
+  <text class="meta ink-2" x="1320" y="48" text-anchor="end">B · the technologist</text>
 
   <!-- Main lowercase wordmark -->
   <text class="wm ink" x="700" y="280" font-size="232" text-anchor="middle">h<tspan dx="-1">a</tspan><tspan dx="-10">m</tspan><tspan dx="-7">m</tspan><tspan dx="0">e</tspan><tspan dx="-2">r</tspan><tspan class="cin" dx="2" dy="-10">.</tspan></text>
 
   <!-- mono caption with cinnamon pip -->
-  <text class="cap ink-1" x="640" y="332" text-anchor="end">ai</text>
+  <text class="cap ink-1" x="640" y="332" text-anchor="end">creative</text>
   <circle class="cin" cx="700" cy="326" r="4" />
-  <text class="cap ink-1" x="760" y="332">producer</text>
+  <text class="cap ink-1" x="760" y="332">technologist</text>
 
   <line x1="80" y1="416" x2="1320" y2="416" stroke="#1F0707" stroke-width="1" opacity="0.18" />
-  <text class="lab ink-3" x="80" y="448">name + caption · locks ai · producer keyword</text>
+  <text class="lab ink-3" x="80" y="448">name + caption · locks creative · technologist keyword</text>
   <text class="lab ink-3" x="1320" y="448" text-anchor="end">wordmark · v 3.0</text>
 </svg>

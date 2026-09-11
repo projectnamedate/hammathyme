@@ -264,7 +264,7 @@ export default function DesignSystem() {
               year="2026"
               medium="brand systems"
               client="self"
-              role="ai producer"
+              role="creative technologist"
             />
           </Specimen>
           <Specimen label="<Figure>">

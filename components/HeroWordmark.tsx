@@ -22,7 +22,7 @@ function fireHermes(e: React.MouseEvent) {
  * approved website baseline placement.
  */
 export function HeroWordmark({
-  ariaLabel = "hammer · ai producer",
+  ariaLabel = "hammer · creative technologist",
   baseDelay = 0.65,
 }: {
   ariaLabel?: string;
@@ -41,7 +41,12 @@ export function HeroWordmark({
             </span>
           ))}
         </span>
-        <span className="dot cursor-pointer" onClick={fireHermes} aria-hidden />
+        <button
+          type="button"
+          className="dot dot-trigger cursor-pointer"
+          onClick={fireHermes}
+          aria-label="open status bar"
+        />
       </span>
     );
   }
@@ -70,10 +75,11 @@ export function HeroWordmark({
           </span>
         ))}
       </span>
-      <motion.span
-        className="inline-block cursor-pointer"
+      <motion.button
+        type="button"
+        className="dot-trigger inline-block cursor-pointer"
         onClick={fireHermes}
-        aria-hidden
+        aria-label="open status bar"
         style={{ transformOrigin: "center center" }}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -84,7 +90,7 @@ export function HeroWordmark({
         }}
       >
         <span className="dot" aria-hidden />
-      </motion.span>
+      </motion.button>
     </span>
   );
 }

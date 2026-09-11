@@ -269,6 +269,20 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
   flex: 0 0 auto;
 }
 
+/* The period is a button; reset UA chrome so it renders exactly like the span. */
+.dot-trigger {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  line-height: inherit;
+}
+.dot-trigger:focus-visible {
+  outline: 2px solid var(--cinnamon);
+  outline-offset: 4px;
+}
+
 .display-period {
   display: inline-block;
   width: 0.15em;

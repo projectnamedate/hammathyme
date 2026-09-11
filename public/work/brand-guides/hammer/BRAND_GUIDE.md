@@ -11,7 +11,7 @@ same PR as any token change.
 
 ## 1. Locked decisions
 
-- **Tagline:** hammer. ai producer.
+- **Tagline:** hammer. creative technologist.
 - **Wordmark case:** lowercase only.
 - **Display:** Outfit (free Google Fonts, weights 200–900) — Futura-direct geometric sans, Black 900 for the wordmark.
 - **Body:** Geist (Vercel, free) — premium humanist grotesque.

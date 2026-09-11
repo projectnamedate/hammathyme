@@ -3,14 +3,14 @@
 canonical url: https://hammer.ad
 public brand: Hammer / hammer
 primary entity: Jeff Hammer
-role: AI Producer
+role: Creative Technologist
 contact: hammer@hammer.ad
 location: LA / NY / remote
-last updated: 2026-07-16
+last updated: 2026-09-10
 
 ## summary
 
-Hammer is Jeff Hammer's AI producer portfolio. Jeff has ten-plus years on
+Hammer is Jeff Hammer's creative technologist portfolio. Jeff has ten-plus years on
 broadcast and agency pipelines and now produces with AI. The site is a
 visual-only portfolio. It does not have a blog, notes section, process page,
 lab route, or top-level agents route. SEO and agent understanding should come
@@ -22,7 +22,7 @@ The domain appears only in technical URL surfaces.
 
 ## route map
 
-- /: entry hall. Primary query target: Jeff Hammer AI Producer.
+- /: entry hall. Primary query target: Jeff Hammer Creative Technologist.
 - /work: atrium with eight portfolio categories.
 - /work/brand-systems: identities built with AI in the loop.
 - /work/brand-systems/hammer: Hammer brand system dossier.
@@ -36,6 +36,7 @@ The domain appears only in technical URL surfaces.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
 - /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
+- /work/motion-graphics/spotify-titles: kinetic Spotify title sequence generated in one MiniMax H3 text-to-video pass. Spec study, not a commission.
 - /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, OpenUSD, and related tools.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
@@ -51,6 +52,7 @@ The domain appears only in technical URL surfaces.
 - /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
 - /work/film-animation: AI-native film, commercial video, shorts, and rigged character animation.
 - /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
+- /work/film-animation/the-applicant: one-minute AI-native short produced end-to-end through the Studioly pipeline (GPT Image 2 locked frames, Seedance 2.0 takes, native audio).
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.
 - /work/websites/kira: onlykira.ai website preview.
@@ -67,8 +69,9 @@ The domain appears only in technical URL surfaces.
 
 ## entity facts
 
-Jeff Hammer is an AI Producer with ten-plus years of broadcast and agency
-production experience. Public client names on the site include Cadillac,
+Jeff Hammer is a Creative Technologist with ten-plus years of broadcast and agency
+production experience.
+Public client names on the site include Cadillac,
 Columbia Pictures, Equinox, Fox, IHG Hotels, Lululemon, Porsche, and Remy
 Martin. Public agency names include Angry Gods, Chandelier Creative, PG & Co,
 and Conscious Minds.
@@ -84,9 +87,9 @@ Primary work categories:
 - websites
 
 Key positioning terms:
+- Creative Technologist
+- Creative Technologist portfolio
 - AI Producer
-- AI Creative Producer
-- AI Video Producer
 - AI producer portfolio
 - autonomous AI characters
 - AI motion graphics

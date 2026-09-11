@@ -4,11 +4,11 @@
   "brand_name": "Hammer",
   "primary_entity": {
     "name": "Jeff Hammer",
-    "role": "AI Producer",
+    "role": "Creative Technologist",
     "url": "https://hammer.ad/about",
     "contact": "mailto:hammer@hammer.ad"
   },
-  "summary": "Hammer is Jeff Hammer's visual-only AI producer portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
+  "summary": "Hammer is Jeff Hammer's visual-only creative technologist portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
   "agent_entry_points": {
     "llms.txt": "https://hammer.ad/llms.txt",
     "llms-full.txt": "https://hammer.ad/llms-full.txt",
@@ -27,7 +27,7 @@
     "CCBot"
   ],
   "public_routes": [
-    { "path": "/", "purpose": "entry hall and primary AI Producer landing page" },
+    { "path": "/", "purpose": "entry hall and primary creative technologist landing page" },
     { "path": "/work", "purpose": "portfolio category atrium" },
     { "path": "/work/brand-systems", "purpose": "brand systems portfolio category" },
     { "path": "/work/brand-systems/hammer", "purpose": "Hammer studio identity and brand-system dossier" },
@@ -41,6 +41,7 @@
     { "path": "/work/motion-graphics/internet-capital-markets", "purpose": "ICM film teaser with title cards, lower thirds, and screen inserts" },
     { "path": "/work/motion-graphics/audio-reactive-overlays", "purpose": "Remotion audio-visualization overlay driven by analyzed music data" },
     { "path": "/work/motion-graphics/spring-health", "purpose": "Spring Health HyperFrames motion showcase reel" },
+    { "path": "/work/motion-graphics/spotify-titles", "purpose": "kinetic Spotify title sequence generated in one MiniMax H3 text-to-video pass; spec study, not a commission" },
     { "path": "/work/vfx-cgi", "purpose": "vfx and cgi portfolio category: coding agents orchestrating Blender, Houdini, ComfyUI, and OpenUSD pipelines" },
     { "path": "/work/vfx-cgi/environment-swap", "purpose": "Runway Aleph 2 environment-swap case study: one driving plate relit into multiple worlds while preserving the real dashboard" },
     { "path": "/work/vfx-cgi/blender-lookdev-pipeline", "purpose": "Blender look-development board with six material studies and a rendered contact sheet" },
@@ -56,6 +57,7 @@
     { "path": "/work/interactive-playable/dot-discipline", "purpose": "Hammer brand-guide wordmark mini game" },
     { "path": "/work/film-animation", "purpose": "film and animation portfolio category: AI-native commercial film, shorts, and rigged character animation" },
     { "path": "/work/film-animation/equinox", "purpose": "Equinox Question Everything But Yourself campaign spot with Angry Gods" },
+    { "path": "/work/film-animation/the-applicant", "purpose": "The Applicant one-minute AI-native short film produced end-to-end through the Studioly pipeline: GPT Image 2 locked frames, Seedance 2.0 takes, native audio" },
     { "path": "/work/websites", "purpose": "AI-native websites portfolio category" },
     { "path": "/work/websites/hammer", "purpose": "Hammer portfolio website case study" },
     { "path": "/work/websites/kira", "purpose": "onlykira.ai website preview and public site context" },

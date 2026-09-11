@@ -36,10 +36,11 @@ export function Wordmark({ className, ariaLabel = "hammer · home", size = "md" 
           </span>
         ))}
       </span>
-      <span
-        className="dot cursor-pointer"
+      <button
+        type="button"
+        className="dot dot-trigger cursor-pointer"
         onClick={fireHermes}
-        aria-hidden
+        aria-label="open status bar"
       />
     </span>
   );

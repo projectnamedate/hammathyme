@@ -8,7 +8,7 @@ const STORYBOARD_FAL_MODEL = "fal-ai/nano-banana-2";
 
 function storyboardImagePrompt(brief: string) {
   return [
-    "Create one polished 6-panel storyboard contact sheet for a public AI producer portfolio.",
+    "Create one polished 6-panel storyboard contact sheet for a public creative technologist portfolio.",
     "Layout: clean 3 by 2 grid, cinematic thumbnails, no visible written captions, small unobtrusive panel numbers only.",
     "Style: warm cream paper, deep maroon ink, restrained vinaceous cinnamon accents, elegant editorial production-board language.",
     "Every panel should show a distinct shot: establishing frame, insert, process, character/action, payoff, delivery.",

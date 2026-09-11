@@ -4,17 +4,17 @@ import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-07-16T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-09-10T00:00:00-07:00";
 export const SITE_NAME = "hammer";
-export const SITE_TITLE = "hammer · ai producer";
+export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =
-  "Jeff Hammer is an AI producer with ten-plus years on broadcast and agency pipelines, now producing brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.";
+  "Jeff Hammer is a creative technologist with ten-plus years on broadcast and agency pipelines. He produces brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.";
 export const DEFAULT_KEYWORDS = [
-  "AI Producer",
-  "AI Creative Producer",
-  "AI Video Producer",
+  "Creative Technologist",
+  "Creative Technologist portfolio",
   "Jeff Hammer",
-  "Hammer AI Producer",
+  "Hammer creative technologist",
+  "AI Producer",
   "AI producer portfolio",
   "autonomous AI characters",
   "AI motion graphics",
@@ -100,7 +100,7 @@ export function buildPageMetadata({
           url: socialImageUrl,
           width: 1200,
           height: 630,
-          alt: "Hammer AI producer portfolio social card",
+          alt: "Hammer creative technologist portfolio social card",
         },
       ],
     },
@@ -150,35 +150,35 @@ export const rootMetadata: Metadata = {
 export const homeMetadata = buildPageMetadata({
   title: SITE_TITLE,
   description:
-    "Hammer is Jeff Hammer's AI producer portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.",
+    "Hammer is Jeff Hammer's creative technologist portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.",
   path: "/",
   absoluteTitle: true,
-  keywords: ["hire AI producer", "AI producer Los Angeles", "AI producer New York"],
+  keywords: ["hire creative technologist", "hire AI producer", "creative technologist Los Angeles"],
 });
 
 export const aboutMetadata = buildPageMetadata({
-  title: "about Jeff Hammer, AI producer",
+  title: "about Jeff Hammer, creative technologist",
   description:
-    "Jeff Hammer is an AI producer with ten-plus years of broadcast, agency, and AI-native production experience.",
+    "Jeff Hammer is a creative technologist with ten-plus years of broadcast, agency, and AI-native production experience.",
   path: "/about",
   openGraphType: "profile",
-  keywords: ["Jeff Hammer AI producer", "broadcast producer AI", "creative producer AI"],
+  keywords: ["Jeff Hammer creative technologist", "broadcast producer AI", "creative producer AI"],
 });
 
 export const contactMetadata = buildPageMetadata({
   title: "contact Jeff Hammer",
   description:
-    "Contact Jeff Hammer for AI producer work across AI pipelines, brand systems, motion graphics, autonomous characters, and broadcast-grade production.",
+    "Contact Jeff Hammer for creative technology work across AI pipelines, brand systems, motion graphics, autonomous characters, and broadcast-grade production.",
   path: "/contact",
-  keywords: ["hire AI producer", "AI producer freelance", "AI producer contact"],
+  keywords: ["hire creative technologist", "AI producer freelance", "creative technologist contact"],
 });
 
 export const workMetadata = buildPageMetadata({
-  title: "AI producer portfolio work",
+  title: "creative technologist portfolio work",
   description:
-    "Explore Hammer's AI producer portfolio across brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
+    "Explore Hammer's creative technologist portfolio across brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
   path: "/work",
-  keywords: ["AI producer portfolio", "AI creative producer portfolio", "AI video portfolio"],
+  keywords: ["creative technologist portfolio", "AI producer portfolio", "AI video portfolio"],
 });
 
 export const colophonMetadata = buildPageMetadata({
@@ -186,28 +186,28 @@ export const colophonMetadata = buildPageMetadata({
   description:
     "The Hammer colophon documents the typefaces, build stack, AI models, hosting, source-readable docs, and production materials behind the portfolio site.",
   path: "/colophon",
-  keywords: ["Hammer portfolio stack", "AI producer site build", "Next.js portfolio"],
+  keywords: ["Hammer portfolio stack", "creative technologist site build", "Next.js portfolio"],
 });
 
 export function buildCategoryMetadata(category: CaseStudy): Metadata {
   return buildPageMetadata({
-    title: `${category.title} AI producer work`,
+    title: `${category.title} creative technologist work`,
     description: `${category.summary} Hammer portfolio category for ${category.capabilityLabel} work.`,
     path: `/work/${category.slug}`,
-    keywords: [category.title, category.capabilityLabel, category.capability, "AI producer case studies"],
+    keywords: [category.title, category.capabilityLabel, category.capability, "creative technologist case studies"],
   });
 }
 
 export function buildPieceMetadata(category: CaseStudy, piece: Piece): Metadata {
   const description =
     piece.blurb ??
-    `${piece.title} is part of Hammer's ${category.title} portfolio category for AI producer work.`;
+    `${piece.title} is part of Hammer's ${category.title} portfolio category for creative technologist work.`;
 
   return buildPageMetadata({
     title: `${piece.title} · ${category.title}`,
     description,
     path: getPiecePath(category, piece),
-    keywords: [piece.title, category.title, category.capabilityLabel, "AI producer case study"],
+    keywords: [piece.title, category.title, category.capabilityLabel, "creative technologist case study"],
   });
 }
 
@@ -219,7 +219,7 @@ export function buildPersonJsonLd(): JsonLdObject {
     alternateName: ["Hammer", "hammer"],
     url: getCanonicalUrl("/about"),
     image: getCanonicalUrl(SOCIAL_IMAGE_PATH),
-    jobTitle: "AI Producer",
+    jobTitle: "Creative Technologist",
     email: "mailto:hammer@hammer.ad",
     description: DEFAULT_DESCRIPTION,
     sameAs: ["https://www.linkedin.com/in/jeff-hammer1985/"],
@@ -276,7 +276,7 @@ export function buildAboutPageJsonLd(): JsonLdObject {
     "@type": "AboutPage",
     "@id": `${CANONICAL_ORIGIN}/about#webpage`,
     url: getCanonicalUrl("/about"),
-    name: "Jeff Hammer - AI Producer",
+    name: "Jeff Hammer - Creative Technologist",
     description: aboutMetadata.description,
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": PERSON_ID },
@@ -315,7 +315,7 @@ export function buildWorkIndexJsonLd(categories: CaseStudy[]): JsonLdObject {
     "@type": "CollectionPage",
     "@id": `${CANONICAL_ORIGIN}/work#collection`,
     url: getCanonicalUrl("/work"),
-    name: "Hammer AI producer portfolio work",
+    name: "Hammer creative technologist portfolio work",
     description: workMetadata.description,
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": PERSON_ID },
@@ -363,7 +363,7 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
   const url = getCanonicalUrl(getPiecePath(category, piece));
   const description =
     piece.blurb ??
-    `${piece.title} is part of Hammer's ${category.title} portfolio category for AI producer work.`;
+    `${piece.title} is part of Hammer's ${category.title} portfolio category for creative technologist work.`;
 
   return {
     "@type": "CreativeWork",
@@ -375,7 +375,6 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
     genre: category.capabilityLabel,
     creativeWorkStatus: piece.status,
     inLanguage: "en-US",
-    datePublished: "2026-05-13",
     dateModified: SITE_LAST_MODIFIED,
     creator: { "@id": PERSON_ID },
     author: { "@id": PERSON_ID },
@@ -384,7 +383,7 @@ export function buildCreativeWorkJsonLd(category: CaseStudy, piece: Piece): Json
       "@id": `${CANONICAL_ORIGIN}/work/${category.slug}#collection`,
       name: category.title,
     },
-    keywords: [piece.title, category.title, category.capabilityLabel, "AI producer"],
+    keywords: [piece.title, category.title, category.capabilityLabel, "creative technologist"],
   };
 }
 
@@ -425,6 +424,25 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       contentUrl: getCanonicalUrl(
         "/work/film-animation/equinox/equinox-question-everything-but-yourself.mp4",
       ),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
+  if (category.slug === "film-animation" && piece.slug === "the-applicant") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "The Applicant: AI-native short film",
+      description:
+        piece.blurb ??
+        "A one-minute AI-native short made end-to-end through the Studioly pipeline: locked GPT Image 2 frames, Seedance 2.0 takes, native crowd audio.",
+      thumbnailUrl: [
+        getCanonicalUrl("/work/film-animation/the-applicant/the-applicant-poster.jpg"),
+      ],
+      uploadDate: "2026-08-26T00:00:00-07:00",
+      contentUrl: getCanonicalUrl("/work/film-animation/the-applicant/the-applicant-web.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },
@@ -478,6 +496,23 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       thumbnailUrl: [getCanonicalUrl("/work/motion/spring-health/spring-health-showcase-poster.jpg")],
       uploadDate: "2026-06-19T00:00:00-07:00",
       contentUrl: getCanonicalUrl("/work/motion/spring-health/spring-health-showcase.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
+  if (piece.slug === "spotify-titles") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "Spotify titles: kinetic title sequence",
+      description:
+        piece.blurb ??
+        "A kinetic title sequence for Spotify generated in one text-to-video pass with MiniMax H3.",
+      thumbnailUrl: [getCanonicalUrl("/work/motion/spotify-titles/spotify-titles-poster.jpg")],
+      uploadDate: "2026-08-03T00:00:00-07:00",
+      contentUrl: getCanonicalUrl("/work/motion/spotify-titles/spotify-titles-h3.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },

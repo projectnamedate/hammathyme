@@ -1,11 +1,11 @@
 # hammer
 
-> ai producer. ten-plus years on broadcast and agency pipelines, now producing with ai. la · ny · remote. brand systems, agents + digital twins, motion graphics, vfx + cgi, pipelines, interactive demos, film + animation, websites.
+> creative technologist. ten-plus years on broadcast and agency pipelines, now producing with ai. la · ny · remote. brand systems, agents + digital twins, motion graphics, vfx + cgi, pipelines, interactive demos, film + animation, websites.
 
 Important context:
 - canonical url: https://hammer.ad
 - public brand: Hammer / hammer, not the domain name
-- primary entity: Jeff Hammer, AI Producer
+- primary entity: Jeff Hammer, Creative Technologist
 - contact: hammer@hammer.ad
 - site model: visual-only portfolio. no blog, no /notes, no /process, no /lab.
 - best agent entry points: /llms-full.txt, /.well-known/agents.json, /sitemap.xml, /sitemap-priority.xml, /memories/jeff.md.
@@ -15,11 +15,11 @@ Important context:
 - [atrium](https://hammer.ad/work): 8 portfolio categories. each a collection of pieces.
 - [brand systems](https://hammer.ad/work/brand-systems): identities built with ai in the loop. hammer · kira · effigy · agentify dossiers are live; Kira covers the agent identity, bible, and website. The Agentify dossier links to https://agentify.nexus/brand-bible.
 - [agents + digital twins](https://hammer.ad/work/agents-digital-twins): autonomous characters and sensor-fed system twins. Kira detail is live at /work/agents-digital-twins/kira.
-- [motion graphics](https://hammer.ad/work/motion-graphics): programmatic motion built in remotion + hyperframes. motion graphics reel, icm teaser, audio reactive overlays, and Spring Health showcase are live.
+- [motion graphics](https://hammer.ad/work/motion-graphics): programmatic motion built in remotion + hyperframes. motion graphics reel, icm teaser, audio reactive overlays, Spring Health showcase, and a Minimax H3 spotify title study are live.
 - [vfx + cgi](https://hammer.ad/work/vfx-cgi): Blender, ComfyUI, OpenUSD, and environment transformation pipelines. environment swap, blender look-dev pipeline, and ComfyUI outfit morph are live; the ComfyUI route includes a downloadable workflow JSON from the AIVFX outfit morph graph.
 - [pipelines + tools](https://hammer.ad/work/pipelines-tools): the tools beneath the work. pipeline visualizer, prompt library, and creative skills are live detail surfaces.
 - [interactive + playable](https://hammer.ad/work/interactive-playable): live capped demos. prompt-to-storyboard, character consistency, Kira chat, and dot discipline.
-- [film + animation](https://hammer.ad/work/film-animation): commercial film and ai-native video. Equinox campaign detail is live at /work/film-animation/equinox.
+- [film + animation](https://hammer.ad/work/film-animation): commercial film and ai-native video. Equinox campaign detail is live at /work/film-animation/equinox; the applicant, a one-minute ai-native short via the studioly pipeline, is live at /work/film-animation/the-applicant.
 - [websites](https://hammer.ad/work/websites): ai-native websites. hammer, agentify.nexus, onlykira.ai, opencrawl.gg, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
 
 ## about

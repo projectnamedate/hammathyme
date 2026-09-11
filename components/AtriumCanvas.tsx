@@ -269,10 +269,7 @@ function Tile({
             }
           />
           <span
-            className={
-              "font-mono text-[9px] uppercase tracking-[0.22em] transition-colors duration-500 " +
-              (isActive ? "text-[var(--ink-2)]" : "text-[var(--ink-2)]")
-            }
+            className="font-mono text-[9px] uppercase tracking-[0.22em] transition-colors duration-500 text-[var(--ink-2)]"
           >
             {item.capabilityLabel}
           </span>

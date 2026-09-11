@@ -50,7 +50,7 @@ export function HammerSocialImage() {
           color: "#6E2C27",
         }}
       >
-        jeff hammer / ai producer
+        jeff hammer / creative technologist
       </div>
       <div
         style={{

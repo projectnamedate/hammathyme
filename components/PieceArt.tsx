@@ -36,6 +36,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
   "motion-graphics/spring-health": SpringHealthMotion,
+  "motion-graphics/spotify-titles": SpotifyTitles,
   "vfx-cgi/environment-swap": EnvironmentSwap,
   "vfx-cgi/neural-set-capture": NeuralSetCapture,
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
@@ -49,10 +50,10 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/talk-to-character": TalkToCharacter,
   "interactive-playable/dot-discipline": DotDiscipline,
   "film-animation/equinox": EquinoxCampaign,
+  "film-animation/the-applicant": TheApplicant,
   "film-animation/animated-short": AnimatedShort,
   "film-animation/looping-social-bumpers": LoopingBumpers,
   "websites/hammer": HammerSite,
-  "websites/hammathyme": HammerSite,
   "websites/kira": KiraSite,
   "websites/opencrawl": OpenCrawlSite,
   "websites/agentify": AgentifySite,
@@ -85,7 +86,7 @@ function Plate({
   );
 }
 
-function MonoLabel({ children, y = 139 }: { children: string; y?: number }) {
+function MonoLabel({ children, y = 139, fill = "var(--ink-2)" }: { children: string; y?: number; fill?: string }) {
   return (
     <text
       x="60"
@@ -94,7 +95,7 @@ function MonoLabel({ children, y = 139 }: { children: string; y?: number }) {
       fontFamily="var(--font-mono)"
       fontSize="4.8"
       letterSpacing="1.2"
-      fill="var(--ink-2)"
+      fill={fill}
     >
       {children}
     </text>
@@ -366,6 +367,37 @@ function SpringHealthMotion() {
   );
 }
 
+function SpotifyTitles() {
+  return (
+    <Plate bg="#121212">
+      <g transform="translate(21 30)">
+        {["#E1338C", "#F59B23", "#3D8BFF", "#8D67AB", "#1DB954"].map((fill, i) => (
+          <rect key={i} x={i * 16.5} y={i % 2 === 0 ? 0 : 4} width="13" height="13" rx="2.5" fill={fill} opacity="0.85" />
+        ))}
+      </g>
+      <g transform="translate(60 86)">
+        <circle r="19" fill="#1DB954" />
+        <g fill="none" stroke="#121212" strokeLinecap="round">
+          <path d="M -10 -6 Q 0 -10.5 10 -6" strokeWidth="2.1" />
+          <path d="M -11 0 Q 0 -4.5 11 0" strokeWidth="2.4" />
+          <path d="M -8.5 6 Q 0 2 8.5 6" strokeWidth="2.6" />
+        </g>
+      </g>
+      <text
+        x="60"
+        y="139"
+        textAnchor="middle"
+        fontFamily="var(--font-mono)"
+        fontSize="4.8"
+        letterSpacing="1.2"
+        fill="#1DB954"
+      >
+        SPOTIFY TITLES
+      </text>
+    </Plate>
+  );
+}
+
 function LoopingBumpers() {
   return (
     <Plate>
@@ -545,6 +577,68 @@ function EquinoxCampaign() {
         <rect x="22" y="47" width="40" height="5" fill="var(--cream-0)" />
       </FilmFrame>
       <MonoLabel y={136}>EQUINOX SPOT</MonoLabel>
+    </Plate>
+  );
+}
+
+function TheApplicant() {
+  return (
+    <Plate bg="var(--ink-deepest)">
+      {/* arena crowd haze */}
+      <g fill="var(--cream-1)" opacity="0.5">
+        {Array.from({ length: 14 }).map((_, i) => (
+          <circle key={i} cx={18 + (i % 7) * 13} cy={24 + Math.floor(i / 7) * 6} r="0.9" />
+        ))}
+      </g>
+      {/* jumbotron */}
+      <g transform="translate(24 42)">
+        <rect width="72" height="44" fill="var(--ink-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
+        <rect x="3" y="3" width="66" height="38" fill="none" stroke="var(--ink-3)" strokeWidth="0.4" opacity="0.7" />
+        <text
+          x="36"
+          y="18"
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="4.6"
+          letterSpacing="1"
+          fill="var(--cream-1)"
+        >
+          POSITIONS FILLED:
+        </text>
+        <text
+          x="36"
+          y="33"
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="9"
+          letterSpacing="1"
+          fill="var(--cream-0)"
+        >
+          1
+        </text>
+      </g>
+      {/* hired stamp */}
+      <g transform="translate(60 106) rotate(-7)">
+        <rect x="-19" y="-7.5" width="38" height="15" fill="none" stroke="var(--cinnamon)" strokeWidth="1.1" />
+        <text
+          x="0"
+          y="3.2"
+          textAnchor="middle"
+          fontFamily="var(--font-mono)"
+          fontSize="6.4"
+          letterSpacing="1.6"
+          fill="var(--cinnamon)"
+        >
+          HIRED
+        </text>
+      </g>
+      {/* floor scatter */}
+      <g stroke="var(--cream-1)" strokeWidth="0.5" opacity="0.4">
+        <line x1="30" y1="126" x2="38" y2="126" />
+        <line x1="52" y1="131" x2="63" y2="131" />
+        <line x1="74" y1="125" x2="81" y2="125" />
+      </g>
+      <MonoLabel y={139} fill="var(--cream-1)">THE APPLICANT</MonoLabel>
     </Plate>
   );
 }

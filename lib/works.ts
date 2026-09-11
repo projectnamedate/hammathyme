@@ -171,7 +171,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "locked brand guide",
         source: "Nocturne Ledger v2 guide, brand bible route, live marketing site",
         description:
-          "Agentify is the identity for agent-payment readiness: a dark protocol surface built around the Ledger Gate mark, an italic rail wordmark, moon-ash copy, violet and ion signal colors, and public proof that the site is readable by agents.",
+          "Agentify is the identity for agent-payment readiness. The surface is dark protocol, built around the Ledger Gate mark, an italic rail wordmark, moon-ash copy, and violet and ion signal colors. The site carries public proof that agents can read it.",
         evidence: [
           "Ledger Gate mark uses two posts, a top crossbar, a ledger cut, and a center node",
           "the Rail Underline wordmark turns the agent-on-a-rail motif into typography",
@@ -196,7 +196,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "a living virtual replica driven by autonomous ai. one end twins a person or brand into a 24/7 agent that markets and onboards; the other twins a physical asset or system with live sensor data to monitor, simulate, and predict.",
+      "a living virtual replica driven by autonomous ai. one end twins a person or brand into a 24/7 agent that markets and onboards. the other twins a physical asset or system with live sensor data to monitor, simulate, and predict.",
     tint: "var(--cream-2)",
     hero: { main: "agents +", italic: "digital twins" },
     pieces: [
@@ -205,7 +205,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "kira",
         year: "feb 2026",
         client: "hammer studios",
-        blurb: "the first kira-class autonomous character: persistent face, brand bible, scheduled posts, replies, media policy, and runtime guardrails.",
+        blurb: "the first Kira-class autonomous character: persistent face, brand bible, scheduled posts, replies, media policy, and runtime guardrails.",
         status: "live",
         tint: "var(--cream-2)",
       },
@@ -266,10 +266,19 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "#01382E",
       },
       {
+        slug: "spotify-titles",
+        title: "spotify titles",
+        year: "2026",
+        blurb:
+          "a kinetic title sequence for Spotify: 'music for everyone' and 'listening is everything' set in motion. one text-to-video pass via MiniMax H3, native sound.",
+        status: "live",
+        tint: "var(--cinnamon)",
+      },
+      {
         slug: "internet-capital-markets",
         title: "icm teaser",
         year: "2026",
-        blurb: "teaser for the film. title treatment and lower-thirds package built with ai-assisted motion design.",
+        blurb: "teaser for the ICM film. title treatment and lower-thirds package built with ai-assisted motion design.",
         status: "live",
         tint: "var(--cream-2)",
       },
@@ -291,7 +300,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "orchestration, not generation. coding agents write the bpy and openusd scripts, wire comfyui into production apis with quality gates, and pull real engines into one reproducible pipeline: blender, houdini, unreal, omniverse.",
+      "orchestration, not generation. coding agents write the bpy and openusd scripts and wire comfyui into production apis with quality gates. they pull real engines into one reproducible pipeline: blender, houdini, unreal, omniverse.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
@@ -432,7 +441,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "narrative film and character animation, ai-native end to end. commercial spots, shorts, documentary work, and short-form animated pieces. live work includes Equinox with Angry Gods.",
+      "narrative film and character animation, ai-native end to end. commercial spots, shorts, documentary work, and short-form animated pieces. live work includes Equinox with Angry Gods and the applicant, a one-minute ai-native short.",
     tint: "var(--bloodlust)",
     hero: { main: "film", italic: "+ animation" },
     pieces: [
@@ -445,6 +454,16 @@ export const CASE_STUDIES: CaseStudy[] = [
           "campaign spot for Equinox with Angry Gods: AI culture chaos against the human body as proof.",
         status: "live",
         tint: "var(--cream-1)",
+      },
+      {
+        slug: "the-applicant",
+        title: "the applicant",
+        year: "2026",
+        client: "studioly",
+        blurb:
+          "a one-minute ai-native short made end-to-end through the Studioly pipeline: locked GPT Image 2 frames, Seedance 2.0 takes, native crowd audio.",
+        status: "live",
+        tint: "var(--cinnamon)",
       },
       {
         slug: "animated-short",
@@ -517,7 +536,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "coefficient",
         year: "2026",
         client: "mythx",
-        blurb: "coefficient.mythx.art: solana stake-pool health dashboard — nakamoto coefficient tracking, pool scorecards, and validator reach, indexed daily.",
+        blurb: "coefficient.mythx.art: solana stake-pool health dashboard: nakamoto coefficient tracking, pool scorecards, and validator reach, indexed daily.",
         status: "live",
         tint: "#161A2B",
       },
@@ -543,6 +562,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/internet-capital-markets",
   "motion-graphics/audio-reactive-overlays",
   "motion-graphics/spring-health",
+  "motion-graphics/spotify-titles",
   "vfx-cgi/environment-swap",
   "vfx-cgi/blender-lookdev-pipeline",
   "vfx-cgi/comfyui-production-backend",
@@ -554,6 +574,7 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/talk-to-character",
   "interactive-playable/dot-discipline",
   "film-animation/equinox",
+  "film-animation/the-applicant",
   "websites/hammer",
   "websites/kira",
   "websites/opencrawl",
