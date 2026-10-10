@@ -36,7 +36,7 @@ The domain appears only in technical URL surfaces.
 - /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
 - /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
 - /work/motion-graphics/spotify-titles: kinetic Spotify title sequence generated in one MiniMax H3 text-to-video pass. Spec study, not a commission.
-- /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, OpenUSD, and related tools.
+- /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, Runway Aleph 2, Hunyuan 3D, and gaussian splatting.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled and rendered in Blender 5.1, trained with Brush, and viewed with Spark.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.

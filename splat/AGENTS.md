@@ -17,7 +17,9 @@ gaussian splat for `hammer.ad/work/vfx-cgi/neural-set-capture`.
 4. Blender 5.1 assembles the street and renders posed views
    (`scripts/build_street.py`, `scripts/render_views.py`) into `dataset/`
    (nerfstudio `transforms.json` + `points3d.ply` seed).
-5. Brush (built from source in `~/src/brush`; `scripts/train.sh`) trains the splat into `splats/`.
+5. Brush trains the splat into `splats/` (`scripts/train.sh`). Brush is an external
+   Rust tool, not vendored: `scripts/setup_brush.sh` clones and builds the pinned
+   commit into `~/src/brush` (override with `BRUSH_DIR`).
 6. SuperSplat cleanup, then `@playcanvas/splat-transform` to `.sog` for the web
    (Spark viewer on the site).
 

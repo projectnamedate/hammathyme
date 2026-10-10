@@ -262,7 +262,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "orchestration, not generation. coding agents write the bpy and openusd scripts and wire comfyui into production apis with quality gates. they pull real engines into one reproducible pipeline: blender, houdini, unreal, omniverse.",
+      "orchestration, not generation. coding agents write the blender scripts, wire comfyui and runway into repeatable pipelines, and train gaussian splats from sets built with hunyuan 3d.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
