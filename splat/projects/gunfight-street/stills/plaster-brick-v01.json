@@ -1,0 +1,10 @@
+{
+  "id": "plaster-brick-v01",
+  "model": "gpt-image-2.5-sunburst",
+  "size": "4:3",
+  "refs": [
+    "projects/gunfight-street/refs/gunfight-t013.2.jpg"
+  ],
+  "prompt": "Image 1 is a frame from our film and is the authority for this building's design and weathering: the single-storey building with cracked off-white lime plaster on the left of Image 1. Recreate it as a freestanding single-storey building: thick walls of off-white lime plaster over red-brown brick, the plaster fallen away in large irregular patches that expose the brick, one small deep-set window with a plain wooden frame, one plank door, a flat roof with a low stepped parapet, an empty wooden beam bracket for a sign.\nFraming: one single image (not a collage, not a reference sheet) of only this building, seen in a three-quarter front view from slightly above eye level, the whole building in frame from its foundation to its roofline with clear margin on every side. It fills most of the frame.\nSetting: it stands alone on a plain, seamless light-grey studio backdrop with a matching grey floor. No street, no dirt road, no sky, no hills, no other buildings, no people, no animals, no vehicles, no props other than those named above.\nLight: soft, even, neutral studio light from the front, no harsh shadows, no sunset glow, no warm cast, no light coming from inside windows. Glass reads as dark, slightly reflective panes.\nMaterials are physical and real: chalky lime plaster with hairline cracks and crumbling edges, soft red-brown brick, dust in the recesses, sun-greyed wooden frames. Photographic realism, natural colour, full-bleed image filling the whole frame; no film border, no caption, no watermark, no text, no lettering, no logos; any sign board is blank wood. Not an illustration, not a painting, no HDR, no sharpening.",
+  "requestId": "task-unified-1791612752-cgqkbj7w"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "low-store-v01",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "front": "projects/gunfight-street/stills/low-store-v01.png",
+  "input": {
+    "input_image_url": "projects/gunfight-street/stills/low-store-v01.png",
+    "enable_pbr": true,
+    "face_count": 500000
+  },
+  "seed": null,
+  "requestId": "01a12472-f1e5-7ce0-aab6-1a4100ca9565",
+  "seconds": 241
+}

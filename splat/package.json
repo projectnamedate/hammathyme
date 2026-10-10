@@ -1,0 +1,17 @@
+{
+  "name": "splat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@fal-ai/client": "^1.10.1",
+    "@playcanvas/splat-transform": "^3.10.1"
+  }
+}

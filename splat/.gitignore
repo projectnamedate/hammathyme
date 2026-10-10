@@ -1,0 +1,24 @@
+# media, meshes, splats and renders stay on disk (no media on GitHub)
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.mp4
+*.mov
+*.glb
+*.gltf
+*.fbx
+*.obj
+*.mtl
+*.usdz
+*.ply
+*.splat
+*.spz
+*.sog
+*.blend
+*.blend1
+*.exr
+node_modules/
+.DS_Store
+projects/*/dataset/
+projects/*/renders/
