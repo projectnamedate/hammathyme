@@ -16,7 +16,6 @@ are kept as history and may use pre-rename names.
 |---|---|---|---|
 | 1 | Bradley persona digital twin | agents-digital-twins | in-production in `lib/works.ts`; likeness locked, LoRA training next |
 | 2 | Live sensor twin dashboard | agents-digital-twins | coming-soon card |
-| 4 | Neural set capture (gaussian splat) | vfx-cgi | **next big project, own repo** (decided 2026-10-09). in-production card; deep research picks capture source, trainer, and web viewer; ships alongside the gunfight |
 | 6 | Animated short | film-animation | coming-soon card |
 | 8 | Episodic Kira series (5 eps) | agents-digital-twins | idea, no card |
 | 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |

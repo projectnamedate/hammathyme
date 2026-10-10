@@ -288,8 +288,8 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "neural-set-capture",
         title: "neural set capture",
         year: "2026",
-        blurb: "a full set reconstructed as a gaussian splat, cleaned, and dropped into a shot as a final-pixel backdrop.",
-        status: "in-production",
+        blurb: "the gunfight's main street rebuilt from film frames with Hunyuan 3D, assembled in Blender, and trained into a gaussian splat you can orbit.",
+        status: "live",
         tint: "var(--cinnamon)",
       },
       {
@@ -511,6 +511,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/spring-health",
   "motion-graphics/spotify-titles",
   "vfx-cgi/environment-swap",
+  "vfx-cgi/neural-set-capture",
   "vfx-cgi/blender-lookdev-pipeline",
   "vfx-cgi/comfyui-production-backend",
   "pipelines-tools/pipeline-visualizer",

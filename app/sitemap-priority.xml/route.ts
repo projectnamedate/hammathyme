@@ -13,6 +13,7 @@ const PRIORITY_SITEMAP_ROUTES = [
   { path: "/work/vfx-cgi/comfyui-production-backend", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/vfx-cgi/environment-swap", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/film-animation/equinox", priority: "0.8", changeFrequency: "monthly" },
+  { path: "/work/vfx-cgi/neural-set-capture", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/film-animation/the-gunfight", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/film-animation/the-applicant", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/pipelines-tools/pipeline-visualizer", priority: "0.8", changeFrequency: "monthly" },

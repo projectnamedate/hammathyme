@@ -240,7 +240,7 @@ Each category is a collection with multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays,spring-health,spotify-titles}`,
-`/work/vfx-cgi/{environment-swap,blender-lookdev-pipeline,comfyui-production-backend}`,
+`/work/vfx-cgi/{environment-swap,neural-set-capture,blender-lookdev-pipeline,comfyui-production-backend}`,
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`,
 `/work/agents-digital-twins/kira`,
 `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,

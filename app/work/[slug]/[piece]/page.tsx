@@ -4,6 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { TrackedLink } from "@/components/TrackedLink";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
+import { SplatViewer } from "@/components/SplatViewer";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
@@ -167,6 +168,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
   if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
+  if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/blender-lookdev-pipeline") {
     return <BlenderLookdevDetail transitionName={transitionName} />;
   }
@@ -634,6 +636,83 @@ const BLENDER_LOOKDEV_VARIANTS = [
     alt: "Blender look-dev render with production clay material",
   },
 ];
+
+const SPLAT_DIR = "/work/vfx-cgi/neural-set-capture";
+// Opening view matches the poster: training view 200, converted from the Blender Z-up frame.
+const CAMERA: [number, number, number] = [40.65, 20, 13.47];
+const TARGET: [number, number, number] = [10.16, 1.5, 1.35];
+
+const SPLAT_STEPS = [
+  { src: `${SPLAT_DIR}/step-1-film-frame.jpg`, label: "01 · film frame", alt: "The green saloon in a frame from The Gunfight" },
+  { src: `${SPLAT_DIR}/step-2-isolated-still.jpg`, label: "02 · isolated still", alt: "The saloon isolated on a grey backdrop as a GPT Image 2.5 still" },
+  { src: `${SPLAT_DIR}/step-3-hunyuan-mesh.jpg`, label: "03 · hunyuan 3d mesh", alt: "The saloon as a textured Hunyuan 3D mesh render" },
+  { src: `${SPLAT_DIR}/step-4-splat.jpg`, label: "04 · gaussian splat", alt: "The rebuilt main street rendered from the trained gaussian splat" },
+];
+
+function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            the main street from the gunfight, rebuilt as a 3D set and trained into a gaussian
+            splat you can walk around.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["source", "frames from the gunfight"],
+              ["assets", "gpt image 2.5 stills · hunyuan 3d 3.1 meshes"],
+              ["set", "blender 5.1 · 234 posed renders"],
+              ["splat", "brush on apple silicon · sog via splat-transform"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <SplatViewer
+            src={`${SPLAT_DIR}/gunfight-street.sog`}
+            poster={`${SPLAT_DIR}/gunfight-street-poster.jpg`}
+            posterAlt="The rebuilt gunfight main street as a gaussian splat at golden hour"
+            camera={CAMERA}
+            target={TARGET}
+            fov={35.1}
+          />
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+        {SPLAT_STEPS.map((step) => (
+          <figure key={step.src} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
+            <Image
+              src={step.src}
+              alt={step.alt}
+              width={1280}
+              height={720}
+              sizes="(min-width: 768px) 25vw, 50vw"
+              className="aspect-video w-full object-cover"
+            />
+            <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+              {step.label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
