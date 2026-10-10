@@ -1,0 +1,474 @@
+00:00.225  blend            | Read blend: "/Users/hammer/Desktop/vibe/hammer-ad/splat/projects/gunfight-street/scenes/street-v06.blend"
+00:05.775  render           | Saved: 'dataset/street-v06/images/view_0000.png'
+VIEW 1/234
+00:10.218  render           | Saved: 'dataset/street-v06/images/view_0001.png'
+VIEW 2/234
+00:17.036  render           | Saved: 'dataset/street-v06/images/view_0002.png'
+VIEW 3/234
+00:21.284  render           | Saved: 'dataset/street-v06/images/view_0003.png'
+VIEW 4/234
+00:26.297  render           | Saved: 'dataset/street-v06/images/view_0004.png'
+VIEW 5/234
+00:30.356  render           | Saved: 'dataset/street-v06/images/view_0005.png'
+VIEW 6/234
+00:34.589  render           | Saved: 'dataset/street-v06/images/view_0006.png'
+VIEW 7/234
+00:38.587  render           | Saved: 'dataset/street-v06/images/view_0007.png'
+VIEW 8/234
+00:42.666  render           | Saved: 'dataset/street-v06/images/view_0008.png'
+VIEW 9/234
+00:46.843  render           | Saved: 'dataset/street-v06/images/view_0009.png'
+VIEW 10/234
+00:51.155  render           | Saved: 'dataset/street-v06/images/view_0010.png'
+VIEW 11/234
+00:55.031  render           | Saved: 'dataset/street-v06/images/view_0011.png'
+VIEW 12/234
+00:59.434  render           | Saved: 'dataset/street-v06/images/view_0012.png'
+VIEW 13/234
+01:03.876  render           | Saved: 'dataset/street-v06/images/view_0013.png'
+VIEW 14/234
+01:08.009  render           | Saved: 'dataset/street-v06/images/view_0014.png'
+VIEW 15/234
+01:11.966  render           | Saved: 'dataset/street-v06/images/view_0015.png'
+VIEW 16/234
+01:16.030  render           | Saved: 'dataset/street-v06/images/view_0016.png'
+VIEW 17/234
+01:21.294  render           | Saved: 'dataset/street-v06/images/view_0017.png'
+VIEW 18/234
+01:25.476  render           | Saved: 'dataset/street-v06/images/view_0018.png'
+VIEW 19/234
+01:29.384  render           | Saved: 'dataset/street-v06/images/view_0019.png'
+VIEW 20/234
+01:33.718  render           | Saved: 'dataset/street-v06/images/view_0020.png'
+VIEW 21/234
+01:37.702  render           | Saved: 'dataset/street-v06/images/view_0021.png'
+VIEW 22/234
+01:41.787  render           | Saved: 'dataset/street-v06/images/view_0022.png'
+VIEW 23/234
+01:45.806  render           | Saved: 'dataset/street-v06/images/view_0023.png'
+VIEW 24/234
+01:49.830  render           | Saved: 'dataset/street-v06/images/view_0024.png'
+VIEW 25/234
+01:54.798  render           | Saved: 'dataset/street-v06/images/view_0025.png'
+VIEW 26/234
+01:58.769  render           | Saved: 'dataset/street-v06/images/view_0026.png'
+VIEW 27/234
+02:02.707  render           | Saved: 'dataset/street-v06/images/view_0027.png'
+VIEW 28/234
+02:07.225  render           | Saved: 'dataset/street-v06/images/view_0028.png'
+VIEW 29/234
+02:11.354  render           | Saved: 'dataset/street-v06/images/view_0029.png'
+VIEW 30/234
+02:18.694  render           | Saved: 'dataset/street-v06/images/view_0030.png'
+VIEW 31/234
+02:22.701  render           | Saved: 'dataset/street-v06/images/view_0031.png'
+VIEW 32/234
+02:26.818  render           | Saved: 'dataset/street-v06/images/view_0032.png'
+VIEW 33/234
+02:30.938  render           | Saved: 'dataset/street-v06/images/view_0033.png'
+VIEW 34/234
+02:35.035  render           | Saved: 'dataset/street-v06/images/view_0034.png'
+VIEW 35/234
+02:39.192  render           | Saved: 'dataset/street-v06/images/view_0035.png'
+VIEW 36/234
+02:43.641  render           | Saved: 'dataset/street-v06/images/view_0036.png'
+VIEW 37/234
+02:47.488  render           | Saved: 'dataset/street-v06/images/view_0037.png'
+VIEW 38/234
+02:51.369  render           | Saved: 'dataset/street-v06/images/view_0038.png'
+VIEW 39/234
+02:55.253  render           | Saved: 'dataset/street-v06/images/view_0039.png'
+VIEW 40/234
+02:59.413  render           | Saved: 'dataset/street-v06/images/view_0040.png'
+VIEW 41/234
+03:03.754  render           | Saved: 'dataset/street-v06/images/view_0041.png'
+VIEW 42/234
+03:07.745  render           | Saved: 'dataset/street-v06/images/view_0042.png'
+VIEW 43/234
+03:15.212  render           | Saved: 'dataset/street-v06/images/view_0043.png'
+VIEW 44/234
+03:20.090  render           | Saved: 'dataset/street-v06/images/view_0044.png'
+VIEW 45/234
+03:26.574  render           | Saved: 'dataset/street-v06/images/view_0045.png'
+VIEW 46/234
+03:30.595  render           | Saved: 'dataset/street-v06/images/view_0046.png'
+VIEW 47/234
+03:34.532  render           | Saved: 'dataset/street-v06/images/view_0047.png'
+VIEW 48/234
+03:38.768  render           | Saved: 'dataset/street-v06/images/view_0048.png'
+VIEW 49/234
+03:43.101  render           | Saved: 'dataset/street-v06/images/view_0049.png'
+VIEW 50/234
+03:47.047  render           | Saved: 'dataset/street-v06/images/view_0050.png'
+VIEW 51/234
+03:51.104  render           | Saved: 'dataset/street-v06/images/view_0051.png'
+VIEW 52/234
+03:55.767  render           | Saved: 'dataset/street-v06/images/view_0052.png'
+VIEW 53/234
+03:59.678  render           | Saved: 'dataset/street-v06/images/view_0053.png'
+VIEW 54/234
+04:04.681  render           | Saved: 'dataset/street-v06/images/view_0054.png'
+VIEW 55/234
+04:08.841  render           | Saved: 'dataset/street-v06/images/view_0055.png'
+VIEW 56/234
+04:13.068  render           | Saved: 'dataset/street-v06/images/view_0056.png'
+VIEW 57/234
+04:17.319  render           | Saved: 'dataset/street-v06/images/view_0057.png'
+VIEW 58/234
+04:21.110  render           | Saved: 'dataset/street-v06/images/view_0058.png'
+VIEW 59/234
+04:26.335  render           | Saved: 'dataset/street-v06/images/view_0059.png'
+VIEW 60/234
+04:31.885  render           | Saved: 'dataset/street-v06/images/view_0060.png'
+VIEW 61/234
+04:39.267  render           | Saved: 'dataset/street-v06/images/view_0061.png'
+VIEW 62/234
+04:43.654  render           | Saved: 'dataset/street-v06/images/view_0062.png'
+VIEW 63/234
+04:51.418  render           | Saved: 'dataset/street-v06/images/view_0063.png'
+VIEW 64/234
+04:56.334  render           | Saved: 'dataset/street-v06/images/view_0064.png'
+VIEW 65/234
+05:00.395  render           | Saved: 'dataset/street-v06/images/view_0065.png'
+VIEW 66/234
+05:04.224  render           | Saved: 'dataset/street-v06/images/view_0066.png'
+VIEW 67/234
+05:08.509  render           | Saved: 'dataset/street-v06/images/view_0067.png'
+VIEW 68/234
+05:13.064  render           | Saved: 'dataset/street-v06/images/view_0068.png'
+VIEW 69/234
+05:17.163  render           | Saved: 'dataset/street-v06/images/view_0069.png'
+VIEW 70/234
+05:21.056  render           | Saved: 'dataset/street-v06/images/view_0070.png'
+VIEW 71/234
+05:29.043  render           | Saved: 'dataset/street-v06/images/view_0071.png'
+VIEW 72/234
+05:32.971  render           | Saved: 'dataset/street-v06/images/view_0072.png'
+VIEW 73/234
+05:36.907  render           | Saved: 'dataset/street-v06/images/view_0073.png'
+VIEW 74/234
+05:40.824  render           | Saved: 'dataset/street-v06/images/view_0074.png'
+VIEW 75/234
+05:44.946  render           | Saved: 'dataset/street-v06/images/view_0075.png'
+VIEW 76/234
+05:49.718  render           | Saved: 'dataset/street-v06/images/view_0076.png'
+VIEW 77/234
+05:53.596  render           | Saved: 'dataset/street-v06/images/view_0077.png'
+VIEW 78/234
+05:57.250  render           | Saved: 'dataset/street-v06/images/view_0078.png'
+VIEW 79/234
+06:01.717  render           | Saved: 'dataset/street-v06/images/view_0079.png'
+VIEW 80/234
+06:05.509  render           | Saved: 'dataset/street-v06/images/view_0080.png'
+VIEW 81/234
+06:09.275  render           | Saved: 'dataset/street-v06/images/view_0081.png'
+VIEW 82/234
+06:13.185  render           | Saved: 'dataset/street-v06/images/view_0082.png'
+VIEW 83/234
+06:18.564  render           | Saved: 'dataset/street-v06/images/view_0083.png'
+VIEW 84/234
+06:23.091  render           | Saved: 'dataset/street-v06/images/view_0084.png'
+VIEW 85/234
+06:27.173  render           | Saved: 'dataset/street-v06/images/view_0085.png'
+VIEW 86/234
+06:30.779  render           | Saved: 'dataset/street-v06/images/view_0086.png'
+VIEW 87/234
+06:35.117  render           | Saved: 'dataset/street-v06/images/view_0087.png'
+VIEW 88/234
+06:39.362  render           | Saved: 'dataset/street-v06/images/view_0088.png'
+VIEW 89/234
+06:42.859  render           | Saved: 'dataset/street-v06/images/view_0089.png'
+VIEW 90/234
+06:46.625  render           | Saved: 'dataset/street-v06/images/view_0090.png'
+VIEW 91/234
+06:51.000  render           | Saved: 'dataset/street-v06/images/view_0091.png'
+VIEW 92/234
+06:54.974  render           | Saved: 'dataset/street-v06/images/view_0092.png'
+VIEW 93/234
+06:58.862  render           | Saved: 'dataset/street-v06/images/view_0093.png'
+VIEW 94/234
+07:02.685  render           | Saved: 'dataset/street-v06/images/view_0094.png'
+VIEW 95/234
+07:07.217  render           | Saved: 'dataset/street-v06/images/view_0095.png'
+VIEW 96/234
+07:10.923  render           | Saved: 'dataset/street-v06/images/view_0096.png'
+VIEW 97/234
+07:14.483  render           | Saved: 'dataset/street-v06/images/view_0097.png'
+VIEW 98/234
+07:18.364  render           | Saved: 'dataset/street-v06/images/view_0098.png'
+VIEW 99/234
+07:23.680  render           | Saved: 'dataset/street-v06/images/view_0099.png'
+VIEW 100/234
+07:28.543  render           | Saved: 'dataset/street-v06/images/view_0100.png'
+VIEW 101/234
+07:33.504  render           | Saved: 'dataset/street-v06/images/view_0101.png'
+VIEW 102/234
+07:37.652  render           | Saved: 'dataset/street-v06/images/view_0102.png'
+VIEW 103/234
+07:46.113  render           | Saved: 'dataset/street-v06/images/view_0103.png'
+VIEW 104/234
+07:49.811  render           | Saved: 'dataset/street-v06/images/view_0104.png'
+VIEW 105/234
+07:53.410  render           | Saved: 'dataset/street-v06/images/view_0105.png'
+VIEW 106/234
+07:57.156  render           | Saved: 'dataset/street-v06/images/view_0106.png'
+VIEW 107/234
+08:01.554  render           | Saved: 'dataset/street-v06/images/view_0107.png'
+VIEW 108/234
+08:08.879  render           | Saved: 'dataset/street-v06/images/view_0108.png'
+VIEW 109/234
+08:12.574  render           | Saved: 'dataset/street-v06/images/view_0109.png'
+VIEW 110/234
+08:16.369  render           | Saved: 'dataset/street-v06/images/view_0110.png'
+VIEW 111/234
+08:20.555  render           | Saved: 'dataset/street-v06/images/view_0111.png'
+VIEW 112/234
+08:25.749  render           | Saved: 'dataset/street-v06/images/view_0112.png'
+VIEW 113/234
+08:31.100  render           | Saved: 'dataset/street-v06/images/view_0113.png'
+VIEW 114/234
+08:41.894  render           | Saved: 'dataset/street-v06/images/view_0114.png'
+VIEW 115/234
+08:47.064  render           | Saved: 'dataset/street-v06/images/view_0115.png'
+VIEW 116/234
+08:52.519  render           | Saved: 'dataset/street-v06/images/view_0116.png'
+VIEW 117/234
+08:58.046  render           | Saved: 'dataset/street-v06/images/view_0117.png'
+VIEW 118/234
+09:03.327  render           | Saved: 'dataset/street-v06/images/view_0118.png'
+VIEW 119/234
+09:08.222  render           | Saved: 'dataset/street-v06/images/view_0119.png'
+VIEW 120/234
+09:13.733  render           | Saved: 'dataset/street-v06/images/view_0120.png'
+VIEW 121/234
+09:18.862  render           | Saved: 'dataset/street-v06/images/view_0121.png'
+VIEW 122/234
+09:24.375  render           | Saved: 'dataset/street-v06/images/view_0122.png'
+VIEW 123/234
+09:29.279  render           | Saved: 'dataset/street-v06/images/view_0123.png'
+VIEW 124/234
+09:34.422  render           | Saved: 'dataset/street-v06/images/view_0124.png'
+VIEW 125/234
+09:40.272  render           | Saved: 'dataset/street-v06/images/view_0125.png'
+VIEW 126/234
+09:44.950  render           | Saved: 'dataset/street-v06/images/view_0126.png'
+VIEW 127/234
+09:49.948  render           | Saved: 'dataset/street-v06/images/view_0127.png'
+VIEW 128/234
+09:54.883  render           | Saved: 'dataset/street-v06/images/view_0128.png'
+VIEW 129/234
+09:59.759  render           | Saved: 'dataset/street-v06/images/view_0129.png'
+VIEW 130/234
+10:10.596  render           | Saved: 'dataset/street-v06/images/view_0130.png'
+VIEW 131/234
+10:16.127  render           | Saved: 'dataset/street-v06/images/view_0131.png'
+VIEW 132/234
+10:21.165  render           | Saved: 'dataset/street-v06/images/view_0132.png'
+VIEW 133/234
+10:26.264  render           | Saved: 'dataset/street-v06/images/view_0133.png'
+VIEW 134/234
+10:31.441  render           | Saved: 'dataset/street-v06/images/view_0134.png'
+VIEW 135/234
+10:36.485  render           | Saved: 'dataset/street-v06/images/view_0135.png'
+VIEW 136/234
+10:41.393  render           | Saved: 'dataset/street-v06/images/view_0136.png'
+VIEW 137/234
+10:46.237  render           | Saved: 'dataset/street-v06/images/view_0137.png'
+VIEW 138/234
+10:51.175  render           | Saved: 'dataset/street-v06/images/view_0138.png'
+VIEW 139/234
+10:56.547  render           | Saved: 'dataset/street-v06/images/view_0139.png'
+VIEW 140/234
+11:01.841  render           | Saved: 'dataset/street-v06/images/view_0140.png'
+VIEW 141/234
+11:07.141  render           | Saved: 'dataset/street-v06/images/view_0141.png'
+VIEW 142/234
+11:12.237  render           | Saved: 'dataset/street-v06/images/view_0142.png'
+VIEW 143/234
+11:17.778  render           | Saved: 'dataset/street-v06/images/view_0143.png'
+VIEW 144/234
+11:28.901  render           | Saved: 'dataset/street-v06/images/view_0144.png'
+VIEW 145/234
+11:39.808  render           | Saved: 'dataset/street-v06/images/view_0145.png'
+VIEW 146/234
+11:45.482  render           | Saved: 'dataset/street-v06/images/view_0146.png'
+VIEW 147/234
+11:57.749  render           | Saved: 'dataset/street-v06/images/view_0147.png'
+VIEW 148/234
+12:05.030  render           | Saved: 'dataset/street-v06/images/view_0148.png'
+VIEW 149/234
+12:11.069  render           | Saved: 'dataset/street-v06/images/view_0149.png'
+VIEW 150/234
+12:17.089  render           | Saved: 'dataset/street-v06/images/view_0150.png'
+VIEW 151/234
+12:23.356  render           | Saved: 'dataset/street-v06/images/view_0151.png'
+VIEW 152/234
+12:29.209  render           | Saved: 'dataset/street-v06/images/view_0152.png'
+VIEW 153/234
+12:35.068  render           | Saved: 'dataset/street-v06/images/view_0153.png'
+VIEW 154/234
+12:39.758  render           | Saved: 'dataset/street-v06/images/view_0154.png'
+VIEW 155/234
+12:44.948  render           | Saved: 'dataset/street-v06/images/view_0155.png'
+VIEW 156/234
+12:50.234  render           | Saved: 'dataset/street-v06/images/view_0156.png'
+VIEW 157/234
+12:55.800  render           | Saved: 'dataset/street-v06/images/view_0157.png'
+VIEW 158/234
+13:01.860  render           | Saved: 'dataset/street-v06/images/view_0158.png'
+VIEW 159/234
+13:07.850  render           | Saved: 'dataset/street-v06/images/view_0159.png'
+VIEW 160/234
+13:13.791  render           | Saved: 'dataset/street-v06/images/view_0160.png'
+VIEW 161/234
+13:19.796  render           | Saved: 'dataset/street-v06/images/view_0161.png'
+VIEW 162/234
+13:25.117  render           | Saved: 'dataset/street-v06/images/view_0162.png'
+VIEW 163/234
+13:30.674  render           | Saved: 'dataset/street-v06/images/view_0163.png'
+VIEW 164/234
+13:43.127  render           | Saved: 'dataset/street-v06/images/view_0164.png'
+VIEW 165/234
+13:54.830  render           | Saved: 'dataset/street-v06/images/view_0165.png'
+VIEW 166/234
+14:01.040  render           | Saved: 'dataset/street-v06/images/view_0166.png'
+VIEW 167/234
+14:12.285  render           | Saved: 'dataset/street-v06/images/view_0167.png'
+VIEW 168/234
+14:18.178  render           | Saved: 'dataset/street-v06/images/view_0168.png'
+VIEW 169/234
+14:24.119  render           | Saved: 'dataset/street-v06/images/view_0169.png'
+VIEW 170/234
+14:29.640  render           | Saved: 'dataset/street-v06/images/view_0170.png'
+VIEW 171/234
+14:41.632  render           | Saved: 'dataset/street-v06/images/view_0171.png'
+VIEW 172/234
+14:47.631  render           | Saved: 'dataset/street-v06/images/view_0172.png'
+VIEW 173/234
+14:53.305  render           | Saved: 'dataset/street-v06/images/view_0173.png'
+VIEW 174/234
+14:59.578  render           | Saved: 'dataset/street-v06/images/view_0174.png'
+VIEW 175/234
+15:05.093  render           | Saved: 'dataset/street-v06/images/view_0175.png'
+VIEW 176/234
+15:10.861  render           | Saved: 'dataset/street-v06/images/view_0176.png'
+VIEW 177/234
+15:16.546  render           | Saved: 'dataset/street-v06/images/view_0177.png'
+VIEW 178/234
+15:22.133  render           | Saved: 'dataset/street-v06/images/view_0178.png'
+VIEW 179/234
+15:27.508  render           | Saved: 'dataset/street-v06/images/view_0179.png'
+VIEW 180/234
+15:33.055  render           | Saved: 'dataset/street-v06/images/view_0180.png'
+VIEW 181/234
+15:42.946  render           | Saved: 'dataset/street-v06/images/view_0181.png'
+VIEW 182/234
+15:48.808  render           | Saved: 'dataset/street-v06/images/view_0182.png'
+VIEW 183/234
+15:54.454  render           | Saved: 'dataset/street-v06/images/view_0183.png'
+VIEW 184/234
+16:00.368  render           | Saved: 'dataset/street-v06/images/view_0184.png'
+VIEW 185/234
+16:06.038  render           | Saved: 'dataset/street-v06/images/view_0185.png'
+VIEW 186/234
+16:11.910  render           | Saved: 'dataset/street-v06/images/view_0186.png'
+VIEW 187/234
+16:17.635  render           | Saved: 'dataset/street-v06/images/view_0187.png'
+VIEW 188/234
+16:24.924  render           | Saved: 'dataset/street-v06/images/view_0188.png'
+VIEW 189/234
+16:30.379  render           | Saved: 'dataset/street-v06/images/view_0189.png'
+VIEW 190/234
+16:36.037  render           | Saved: 'dataset/street-v06/images/view_0190.png'
+VIEW 191/234
+16:41.903  render           | Saved: 'dataset/street-v06/images/view_0191.png'
+VIEW 192/234
+16:48.206  render           | Saved: 'dataset/street-v06/images/view_0192.png'
+VIEW 193/234
+16:53.987  render           | Saved: 'dataset/street-v06/images/view_0193.png'
+VIEW 194/234
+16:59.673  render           | Saved: 'dataset/street-v06/images/view_0194.png'
+VIEW 195/234
+17:08.847  render           | Saved: 'dataset/street-v06/images/view_0195.png'
+VIEW 196/234
+17:14.215  render           | Saved: 'dataset/street-v06/images/view_0196.png'
+VIEW 197/234
+17:19.570  render           | Saved: 'dataset/street-v06/images/view_0197.png'
+VIEW 198/234
+17:24.843  render           | Saved: 'dataset/street-v06/images/view_0198.png'
+VIEW 199/234
+17:31.110  render           | Saved: 'dataset/street-v06/images/view_0199.png'
+VIEW 200/234
+17:36.687  render           | Saved: 'dataset/street-v06/images/view_0200.png'
+VIEW 201/234
+17:42.456  render           | Saved: 'dataset/street-v06/images/view_0201.png'
+VIEW 202/234
+17:47.903  render           | Saved: 'dataset/street-v06/images/view_0202.png'
+VIEW 203/234
+17:53.181  render           | Saved: 'dataset/street-v06/images/view_0203.png'
+VIEW 204/234
+17:58.535  render           | Saved: 'dataset/street-v06/images/view_0204.png'
+VIEW 205/234
+18:03.904  render           | Saved: 'dataset/street-v06/images/view_0205.png'
+VIEW 206/234
+18:09.268  render           | Saved: 'dataset/street-v06/images/view_0206.png'
+VIEW 207/234
+18:15.027  render           | Saved: 'dataset/street-v06/images/view_0207.png'
+VIEW 208/234
+18:20.366  render           | Saved: 'dataset/street-v06/images/view_0208.png'
+VIEW 209/234
+18:25.879  render           | Saved: 'dataset/street-v06/images/view_0209.png'
+VIEW 210/234
+18:31.425  render           | Saved: 'dataset/street-v06/images/view_0210.png'
+VIEW 211/234
+18:36.985  render           | Saved: 'dataset/street-v06/images/view_0211.png'
+VIEW 212/234
+18:42.493  render           | Saved: 'dataset/street-v06/images/view_0212.png'
+VIEW 213/234
+18:48.039  render           | Saved: 'dataset/street-v06/images/view_0213.png'
+VIEW 214/234
+18:53.439  render           | Saved: 'dataset/street-v06/images/view_0214.png'
+VIEW 215/234
+18:58.967  render           | Saved: 'dataset/street-v06/images/view_0215.png'
+VIEW 216/234
+19:04.424  render           | Saved: 'dataset/street-v06/images/view_0216.png'
+VIEW 217/234
+19:09.953  render           | Saved: 'dataset/street-v06/images/view_0217.png'
+VIEW 218/234
+19:15.970  render           | Saved: 'dataset/street-v06/images/view_0218.png'
+VIEW 219/234
+19:23.444  render           | Saved: 'dataset/street-v06/images/view_0219.png'
+VIEW 220/234
+19:34.503  render           | Saved: 'dataset/street-v06/images/view_0220.png'
+VIEW 221/234
+19:40.208  render           | Saved: 'dataset/street-v06/images/view_0221.png'
+VIEW 222/234
+19:45.843  render           | Saved: 'dataset/street-v06/images/view_0222.png'
+VIEW 223/234
+19:52.549  render           | Saved: 'dataset/street-v06/images/view_0223.png'
+VIEW 224/234
+19:58.119  render           | Saved: 'dataset/street-v06/images/view_0224.png'
+VIEW 225/234
+20:03.647  render           | Saved: 'dataset/street-v06/images/view_0225.png'
+VIEW 226/234
+20:09.087  render           | Saved: 'dataset/street-v06/images/view_0226.png'
+VIEW 227/234
+20:14.730  render           | Saved: 'dataset/street-v06/images/view_0227.png'
+VIEW 228/234
+20:20.348  render           | Saved: 'dataset/street-v06/images/view_0228.png'
+VIEW 229/234
+20:25.810  render           | Saved: 'dataset/street-v06/images/view_0229.png'
+VIEW 230/234
+20:31.650  render           | Saved: 'dataset/street-v06/images/view_0230.png'
+VIEW 231/234
+20:37.145  render           | Saved: 'dataset/street-v06/images/view_0231.png'
+VIEW 232/234
+20:42.533  render           | Saved: 'dataset/street-v06/images/view_0232.png'
+VIEW 233/234
+20:48.089  render           | Saved: 'dataset/street-v06/images/view_0233.png'
+VIEW 234/234
+POINTS 498775
+DONE 234 views
+Blender 5.1.0 (hash adfe2921d5f3 built 2026-03-17 01:48:20)
+
+Blender quit

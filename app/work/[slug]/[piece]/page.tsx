@@ -646,7 +646,7 @@ const SPLAT_STEPS = [
   { src: `${SPLAT_DIR}/step-1-film-frame.jpg`, label: "01 · film frame", alt: "The green saloon in a frame from The Gunfight" },
   { src: `${SPLAT_DIR}/step-2-isolated-still.jpg`, label: "02 · isolated still", alt: "The saloon isolated on a grey backdrop as a GPT Image 2.5 still" },
   { src: `${SPLAT_DIR}/step-3-hunyuan-mesh.jpg`, label: "03 · hunyuan 3d mesh", alt: "The saloon as a textured Hunyuan 3D mesh render" },
-  { src: `${SPLAT_DIR}/step-4-splat.jpg`, label: "04 · gaussian splat", alt: "The rebuilt main street rendered from the trained gaussian splat" },
+  { src: `${SPLAT_DIR}/step-4-splat-v02.jpg`, label: "04 · gaussian splat", alt: "The rebuilt main street rendered from the trained gaussian splat" },
 ];
 
 function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) {
@@ -683,8 +683,8 @@ function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) 
           style={frameStyle}
         >
           <SplatViewer
-            src={`${SPLAT_DIR}/gunfight-street.sog`}
-            poster={`${SPLAT_DIR}/gunfight-street-poster.jpg`}
+            src={`${SPLAT_DIR}/gunfight-street-v02.sog`}
+            poster={`${SPLAT_DIR}/gunfight-street-poster-v02.jpg`}
             posterAlt="The rebuilt gunfight main street as a gaussian splat at golden hour"
             camera={CAMERA}
             target={TARGET}
