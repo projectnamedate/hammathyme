@@ -1,0 +1,13 @@
+{
+  "id": "plaster-brick-v01",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "front": "projects/gunfight-street/stills/plaster-brick-v01.png",
+  "input": {
+    "input_image_url": "projects/gunfight-street/stills/plaster-brick-v01.png",
+    "enable_pbr": true,
+    "face_count": 500000
+  },
+  "seed": null,
+  "requestId": "01a12477-640a-7d41-9fe3-35b4a06355fd",
+  "seconds": 229
+}

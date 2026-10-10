@@ -1,0 +1,43 @@
+00:00.293  blend            | Read blend: "/Users/hammer/Desktop/vibe/splat/projects/gunfight-street/scenes/street-v05.blend"
+00:05.701  render           | Saved: 'dataset/street-v05/images/view_0000.png'
+[INFO ] services.locationservice ...............: Not adding link to MakeHuman user data, since neither explicit path nor auto-discovery is set in preferences.
+[INFO ] mpfb.init ..............................: Build info 20260722
+[INFO ] mpfb.init ..............................: MPFB initialization has finished.
+VIEW 1/234
+00:10.613  render           | Saved: 'dataset/street-v05/images/view_0001.png'
+VIEW 2/234
+00:15.340  render           | Saved: 'dataset/street-v05/images/view_0002.png'
+VIEW 3/234
+00:19.813  render           | Saved: 'dataset/street-v05/images/view_0003.png'
+VIEW 4/234
+00:25.888  render           | Saved: 'dataset/street-v05/images/view_0004.png'
+VIEW 5/234
+00:32.071  render           | Saved: 'dataset/street-v05/images/view_0005.png'
+VIEW 6/234
+00:39.767  render           | Saved: 'dataset/street-v05/images/view_0006.png'
+VIEW 7/234
+00:47.971  render           | Saved: 'dataset/street-v05/images/view_0007.png'
+VIEW 8/234
+00:56.533  render           | Saved: 'dataset/street-v05/images/view_0008.png'
+VIEW 9/234
+01:07.931  render           | Saved: 'dataset/street-v05/images/view_0009.png'
+VIEW 10/234
+01:19.830  render           | Saved: 'dataset/street-v05/images/view_0010.png'
+VIEW 11/234
+01:29.555  render           | Saved: 'dataset/street-v05/images/view_0011.png'
+VIEW 12/234
+01:40.078  render           | Saved: 'dataset/street-v05/images/view_0012.png'
+VIEW 13/234
+01:54.222  render           | Saved: 'dataset/street-v05/images/view_0013.png'
+VIEW 14/234
+02:04.380  render           | Saved: 'dataset/street-v05/images/view_0014.png'
+VIEW 15/234
+02:12.292  render           | Saved: 'dataset/street-v05/images/view_0015.png'
+VIEW 16/234
+02:21.170  render           | Saved: 'dataset/street-v05/images/view_0016.png'
+VIEW 17/234
+02:29.087  render           | Saved: 'dataset/street-v05/images/view_0017.png'
+VIEW 18/234
+Blender 5.1.0 (hash adfe2921d5f3 built 2026-03-17 01:48:20)
+Writing: /var/folders/md/9ty3ycsn2_7b54qs3f3rwbxr0000gn/T/street-v05.crash.txt
+Writing: /var/folders/md/9ty3ycsn2_7b54qs3f3rwbxr0000gn/T/street-v05.crash.txt

@@ -1,0 +1,13 @@
+{
+  "id": "tall-timber-front-v01",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "front": "projects/gunfight-street/stills/tall-timber-front-v01.png",
+  "input": {
+    "input_image_url": "projects/gunfight-street/stills/tall-timber-front-v01.png",
+    "enable_pbr": true,
+    "face_count": 500000
+  },
+  "seed": null,
+  "requestId": "01a12472-e82d-7aa2-83b4-a23c30992bb2",
+  "seconds": 232
+}

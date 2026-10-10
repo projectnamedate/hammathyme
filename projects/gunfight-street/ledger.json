@@ -1,0 +1,298 @@
+{
+  "events": [
+    {
+      "id": "saloon-green-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612655-1wclfell",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.3754,
+          "usd": 0.08,
+          "cny": 0.538
+        },
+        "credits_used": 5.3754,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 392,
+        "total_tokens": 3753
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t013.2.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/saloon-green.md",
+      "recordedAt": "2026-10-10T06:12:21.855Z"
+    },
+    {
+      "id": "timber-two-storey-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612752-gnk5n6ta",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.3708,
+          "usd": 0.079,
+          "cny": 0.538
+        },
+        "credits_used": 5.3708,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 377,
+        "total_tokens": 3738
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t002.5.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/timber-two-storey.md",
+      "recordedAt": "2026-10-10T06:13:58.871Z"
+    },
+    {
+      "id": "low-store-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612752-lanr4ry1",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.3635,
+          "usd": 0.079,
+          "cny": 0.537
+        },
+        "credits_used": 5.3635,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 353,
+        "total_tokens": 3714
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t023.5.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/low-store.md",
+      "recordedAt": "2026-10-10T06:13:59.250Z"
+    },
+    {
+      "id": "plaster-brick-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612752-cgqkbj7w",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.3711,
+          "usd": 0.079,
+          "cny": 0.538
+        },
+        "credits_used": 5.3711,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 378,
+        "total_tokens": 3739
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t013.2.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/plaster-brick.md",
+      "recordedAt": "2026-10-10T06:14:05.142Z"
+    },
+    {
+      "id": "trough-rail-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612752-za1wbq4h",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.3622,
+          "usd": 0.079,
+          "cny": 0.537
+        },
+        "credits_used": 5.3622,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 349,
+        "total_tokens": 3710
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t002.5.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/trough-rail.md",
+      "recordedAt": "2026-10-10T06:14:05.150Z"
+    },
+    {
+      "id": "water-tower-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612752-wv4a7g25",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.357,
+          "usd": 0.079,
+          "cny": 0.536
+        },
+        "credits_used": 5.357,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 332,
+        "total_tokens": 3693
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t009.0.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/water-tower.md",
+      "recordedAt": "2026-10-10T06:14:05.223Z"
+    },
+    {
+      "id": "parapet-front-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1791612752-kj2ypw4o",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 5.3696,
+          "usd": 0.079,
+          "cny": 0.537
+        },
+        "credits_used": 5.3696,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 680,
+        "image_output_tokens": 2681,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 373,
+        "total_tokens": 3734
+      },
+      "refs": [
+        "projects/gunfight-street/refs/gunfight-t002.5.jpg"
+      ],
+      "prompt": "projects/gunfight-street/prompts/parapet-front.md",
+      "recordedAt": "2026-10-10T06:14:05.404Z"
+    },
+    {
+      "id": "trough-rail-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12472-e980-7a22-a13b-dc0129fa974d",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/trough-rail-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:17:31.029Z"
+    },
+    {
+      "id": "water-tower-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12472-e219-78f2-884a-0cec57826a21",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/water-tower-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:17:51.560Z"
+    },
+    {
+      "id": "tall-timber-front-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12472-e82d-7aa2-83b4-a23c30992bb2",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/tall-timber-front-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:18:15.595Z"
+    },
+    {
+      "id": "low-store-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12472-f1e5-7ce0-aab6-1a4100ca9565",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/low-store-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:18:21.398Z"
+    },
+    {
+      "id": "saloon-green-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12472-e379-7be3-8281-9e54faf28cec",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/saloon-green-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:18:50.883Z"
+    },
+    {
+      "id": "parapet-front-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12473-0490-7632-a8b4-7525f34e89a0",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/parapet-front-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:18:51.378Z"
+    },
+    {
+      "id": "timber-two-storey-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12473-0194-7933-b2eb-232863d05ff1",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/timber-two-storey-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:18:56.031Z"
+    },
+    {
+      "id": "plaster-brick-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a12477-640a-7d41-9fe3-35b4a06355fd",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "projects/gunfight-street/stills/plaster-brick-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-10T06:23:09.181Z"
+    }
+  ]
+}

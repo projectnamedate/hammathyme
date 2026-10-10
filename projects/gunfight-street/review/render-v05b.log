@@ -1,0 +1,28 @@
+00:00.469  blend            | Read blend: "/Users/hammer/Desktop/vibe/splat/projects/gunfight-street/scenes/street-v05.blend"
+[INFO ] services.locationservice ...............: Not adding link to MakeHuman user data, since neither explicit path nor auto-discovery is set in preferences.
+[INFO ] mpfb.init ..............................: Build info 20260722
+[INFO ] mpfb.init ..............................: MPFB initialization has finished.
+VIEW 1/234
+VIEW 2/234
+VIEW 3/234
+VIEW 4/234
+VIEW 5/234
+VIEW 6/234
+VIEW 7/234
+VIEW 8/234
+VIEW 9/234
+VIEW 10/234
+VIEW 11/234
+VIEW 12/234
+VIEW 13/234
+VIEW 14/234
+VIEW 15/234
+VIEW 16/234
+VIEW 17/234
+VIEW 18/234
+00:10.038  render           | Saved: 'dataset/street-v05/images/view_0018.png'
+VIEW 19/234
+00:15.894  render           | Saved: 'dataset/street-v05/images/view_0019.png'
+VIEW 20/234
+00:22.502  render           | Saved: 'dataset/street-v05/images/view_0020.png'
+VIEW 21/234
