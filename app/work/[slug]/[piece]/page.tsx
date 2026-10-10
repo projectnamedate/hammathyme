@@ -174,6 +174,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
     return <ComfyuiGateDetail transitionName={transitionName} />;
   }
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
+  if (key === "film-animation/the-gunfight") return <TheGunfightDetail transitionName={transitionName} />;
   if (key === "film-animation/the-applicant") return <TheApplicantDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
@@ -1038,6 +1039,64 @@ function EquinoxCampaignDetail({ transitionName }: { transitionName: string }) {
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           source: Angry Gods
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function TheGunfightDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            Two old gunfighters meet on an empty main street at golden hour. The draw does not go
+            the way the genre promises.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["production", "studioly pipeline · blender previz refs"],
+              ["models", "nano banana 2.1 + midjourney stills · seedance 2.5 video · suno score"],
+              ["format", "92s · 1920x808 · 2.39:1 · 24fps · h264/aac"],
+              ["source", "studioly"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="The Gunfight, a western comedy short film"
+            className="block aspect-[1920/808] w-full bg-[var(--ink-deepest)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/film-animation/the-gunfight/the-gunfight-poster.jpg"
+          >
+            <source src="/work/film-animation/the-gunfight/the-gunfight-web.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          43 shots cut from Seedance 2.5 reference-to-video takes, then finished with a 35mm print
+          look and real 250D grain. about two hundred dollars of generation spend.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          production: hammer · pipeline: studioly
         </p>
       </div>
     </section>

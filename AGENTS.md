@@ -244,7 +244,7 @@ case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`,
 `/work/agents-digital-twins/kira`,
 `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
-`/work/film-animation/{equinox,the-applicant}`,
+`/work/film-animation/{equinox,the-gunfight,the-applicant}`,
 `/work/websites/{hammer,kira,agentify,coefficient}`, and
 `/work/brand-systems/{hammer,kira,agentify}`.
 

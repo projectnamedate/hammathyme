@@ -430,6 +430,26 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
     };
   }
 
+  if (category.slug === "film-animation" && piece.slug === "the-gunfight") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "The Gunfight: AI-native western comedy short",
+      description:
+        piece.blurb ??
+        "A 92-second western comedy short made through the Studioly pipeline with Seedance 2.5 takes and a 35mm print look.",
+      thumbnailUrl: [
+        getCanonicalUrl("/work/film-animation/the-gunfight/the-gunfight-poster.jpg"),
+      ],
+      uploadDate: "2026-10-09T00:00:00-07:00",
+      duration: "PT1M32S",
+      contentUrl: getCanonicalUrl("/work/film-animation/the-gunfight/the-gunfight-web.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
   if (category.slug === "film-animation" && piece.slug === "the-applicant") {
     return {
       "@type": "VideoObject",

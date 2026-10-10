@@ -21,6 +21,7 @@ const AGENCIES = [
   "chandelier creative",
   "pg & co",
   "conscious minds",
+  "look",
 ];
 
 export default function Anteroom() {

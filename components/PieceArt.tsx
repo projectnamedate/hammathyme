@@ -47,6 +47,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/talk-to-character": TalkToCharacter,
   "interactive-playable/dot-discipline": DotDiscipline,
   "film-animation/equinox": EquinoxCampaign,
+  "film-animation/the-gunfight": TheGunfight,
   "film-animation/the-applicant": TheApplicant,
   "film-animation/animated-short": AnimatedShort,
   "websites/hammer": HammerSite,
@@ -524,6 +525,29 @@ function EquinoxCampaign() {
         <rect x="22" y="47" width="40" height="5" fill="var(--cream-0)" />
       </FilmFrame>
       <MonoLabel y={136}>EQUINOX SPOT</MonoLabel>
+    </Plate>
+  );
+}
+
+function TheGunfight() {
+  return (
+    <Plate bg="var(--bloodlust)">
+      <FilmFrame bg="#C98B5E">
+        <circle cx="42" cy="34" r="9" fill="var(--cream-0)" opacity="0.9" />
+        <g fill="var(--ink-deepest)">
+          <rect x="8" y="30" width="16" height="22" />
+          <rect x="26" y="34" width="12" height="18" />
+          <rect x="48" y="32" width="12" height="20" />
+          <rect x="62" y="26" width="14" height="26" />
+        </g>
+        <rect x="8" y="52" width="68" height="16" fill="#8A5A3C" />
+        <g fill="var(--ink-0)">
+          <rect x="15" y="44" width="3" height="11" />
+          <rect x="66" y="44" width="3" height="11" />
+        </g>
+        <circle cx="42" cy="58" r="3.4" fill="none" stroke="var(--ink-0)" strokeWidth="0.8" />
+      </FilmFrame>
+      <MonoLabel y={136} fill="var(--cream-1)">THE GUNFIGHT</MonoLabel>
     </Plate>
   );
 }

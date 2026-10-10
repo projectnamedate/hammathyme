@@ -19,12 +19,12 @@ Important context:
 - [vfx + cgi](https://hammer.ad/work/vfx-cgi): Blender, ComfyUI, OpenUSD, and environment transformation pipelines. environment swap, blender look-dev pipeline, and ComfyUI outfit morph are live; the ComfyUI route includes a downloadable workflow JSON from the AIVFX outfit morph graph.
 - [pipelines + tools](https://hammer.ad/work/pipelines-tools): the tools beneath the work. pipeline visualizer, prompt library, and creative skills are live detail surfaces.
 - [interactive + playable](https://hammer.ad/work/interactive-playable): live capped demos. prompt-to-storyboard, character consistency, Kira chat, and dot discipline.
-- [film + animation](https://hammer.ad/work/film-animation): commercial film and ai-native video. Equinox campaign detail is live at /work/film-animation/equinox; the applicant, a one-minute ai-native short via the studioly pipeline, is live at /work/film-animation/the-applicant.
+- [film + animation](https://hammer.ad/work/film-animation): commercial film and ai-native video. Equinox campaign detail is live at /work/film-animation/equinox; the gunfight, a 92-second western comedy short made with Seedance 2.5, is live at /work/film-animation/the-gunfight; the applicant, a one-minute ai-native short via the studioly pipeline, is live at /work/film-animation/the-applicant.
 - [websites](https://hammer.ad/work/websites): ai-native websites. hammer, agentify.nexus, onlykira.ai, and coefficient.mythx.art have Hammer preview pages, then link to the live sites.
 
 ## about
 
-- [bio](https://hammer.ad/about): jeff hammer. ten-plus years on broadcast and agency pipelines, now producing with ai. clients include cadillac, columbia pictures, equinox, fox, ihg hotels, lululemon, porsche, rémy martin. agencies include angry gods, chandelier creative, pg & co, conscious minds.
+- [bio](https://hammer.ad/about): jeff hammer. ten-plus years on broadcast and agency pipelines, now producing with ai. clients include cadillac, columbia pictures, equinox, fox, ihg hotels, lululemon, porsche, rémy martin. agencies include angry gods, chandelier creative, pg & co, conscious minds, look.
 
 ## contact
 

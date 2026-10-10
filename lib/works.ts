@@ -395,7 +395,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "narrative film and character animation, ai-native end to end. commercial spots, shorts, documentary work, and short-form animated pieces. live work includes Equinox with Angry Gods and the applicant, a one-minute ai-native short.",
+      "narrative film and character animation, ai-native end to end. commercial spots, shorts, documentary work, and short-form animated pieces. live work includes Equinox with Angry Gods, the gunfight, a western comedy short, and the applicant, a one-minute ai-native short.",
     tint: "var(--bloodlust)",
     hero: { main: "film", italic: "+ animation" },
     pieces: [
@@ -408,6 +408,16 @@ export const CASE_STUDIES: CaseStudy[] = [
           "campaign spot for Equinox with Angry Gods: AI culture chaos against the human body as proof.",
         status: "live",
         tint: "var(--cream-1)",
+      },
+      {
+        slug: "the-gunfight",
+        title: "the gunfight",
+        year: "2026",
+        client: "studioly",
+        blurb:
+          "a 92-second western comedy short: two old gunfighters, one empty street, and a draw nobody saw coming. Seedance 2.5 takes on a 35mm print look.",
+        status: "live",
+        tint: "var(--bloodlust)",
       },
       {
         slug: "the-applicant",
@@ -511,6 +521,7 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/talk-to-character",
   "interactive-playable/dot-discipline",
   "film-animation/equinox",
+  "film-animation/the-gunfight",
   "film-animation/the-applicant",
   "websites/hammer",
   "websites/kira",

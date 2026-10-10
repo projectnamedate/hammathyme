@@ -51,6 +51,7 @@ The domain appears only in technical URL surfaces.
 - /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
 - /work/film-animation: AI-native film, commercial video, shorts, and rigged character animation.
 - /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
+- /work/film-animation/the-gunfight: 92-second AI-native western comedy short produced through the Studioly pipeline (Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look).
 - /work/film-animation/the-applicant: one-minute AI-native short produced end-to-end through the Studioly pipeline (GPT Image 2 locked frames, Seedance 2.0 takes, native audio).
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.
@@ -72,7 +73,7 @@ production experience.
 Public client names on the site include Cadillac,
 Columbia Pictures, Equinox, Fox, IHG Hotels, Lululemon, Porsche, and Remy
 Martin. Public agency names include Angry Gods, Chandelier Creative, PG & Co,
-and Conscious Minds.
+Conscious Minds, and Look.
 
 Primary work categories:
 - brand systems
