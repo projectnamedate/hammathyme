@@ -16,11 +16,8 @@ are kept as history and may use pre-rename names.
 |---|---|---|---|
 | 1 | Bradley persona digital twin | agents-digital-twins | in-production in `lib/works.ts`; likeness locked, LoRA training next |
 | 2 | Live sensor twin dashboard | agents-digital-twins | coming-soon card |
-| 3 | Surrogate model | agents-digital-twins | coming-soon card |
-| 4 | Neural set capture | vfx-cgi | coming-soon card |
-| 5 | OpenUSD scene assembly | vfx-cgi | coming-soon card |
+| 4 | Neural set capture (gaussian splat) | vfx-cgi | **next big project, own repo** (decided 2026-10-09). in-production card; deep research picks capture source, trainer, and web viewer; ships alongside the gunfight |
 | 6 | Animated short | film-animation | coming-soon card |
-| 7 | Looping social bumpers | film-animation | coming-soon card |
 | 8 | Episodic Kira series (5 eps) | agents-digital-twins | idea, no card |
 | 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |
 | 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
@@ -32,16 +29,16 @@ are kept as history and may use pre-rename names.
 | 16 | Runnable ComfyUI workflow bundle | vfx-cgi | optional: bundle input media + model/custom-node notes so the public outfit-morph workflow JSON runs out of the box (see `docs/AGENT_HANDOFF.md`) |
 | 17 | Runway Solaris generative interface piece | interactive-playable | idea, no card: Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
 
-## Live inventory (for orientation, 2026-08-29)
+## Live inventory (for orientation, 2026-10-09)
 
-27 live detail routes across the 8 categories; the authoritative list is
+25 live detail routes across the 8 categories; the authoritative list is
 `DETAIL_READY_KEYS` in `lib/works.ts`. Highlights per category: brand dossiers
-(hammer/kira/effigy/agentify), `agents-digital-twins/kira`, motion graphics
+(hammer/kira/agentify), `agents-digital-twins/kira`, motion graphics
 (reel, ICM teaser, audio-reactive, Spring Health, spotify titles), vfx-cgi (environment-swap,
 blender-lookdev-pipeline, comfyui-production-backend outfit morph),
 pipelines-tools (visualizer, prompt library, creative skills), the four
 interactive demos, `film-animation/equinox` + `film-animation/the-applicant`,
-and the five website previews.
+and the four website previews (hammer, kira, agentify, coefficient).
 
 ## Historical notes
 

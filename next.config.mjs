@@ -71,6 +71,21 @@ const nextConfig = {
         destination: "https://agentify.nexus/brand-bible",
         permanent: true,
       },
+      {
+        source: "/work/brand-systems/effigy",
+        destination: "/work/brand-systems",
+        permanent: true,
+      },
+      {
+        source: "/work/brand-guides/effigy/:path*",
+        destination: "/work/brand-systems",
+        permanent: true,
+      },
+      {
+        source: "/work/websites/opencrawl",
+        destination: "/work/websites",
+        permanent: true,
+      },
     ];
   },
   turbopack: {

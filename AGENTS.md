@@ -244,9 +244,9 @@ case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`,
 `/work/agents-digital-twins/kira`,
 `/work/interactive-playable/{prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
-`/work/film-animation/equinox`,
-`/work/websites/{hammer,kira,opencrawl,agentify}`, and
-`/work/brand-systems/{hammer,kira,effigy,agentify}`.
+`/work/film-animation/{equinox,the-applicant}`,
+`/work/websites/{hammer,kira,agentify,coefficient}`, and
+`/work/brand-systems/{hammer,kira,agentify}`.
 
 Portfolio artifact rule: most finished artifacts live inside Hammer as the
 portfolio illustration itself, including videos, brand guides, brand books, and

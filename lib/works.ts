@@ -82,15 +82,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cream-2)",
       },
       {
-        slug: "effigy",
-        title: "effigy",
-        year: "2026",
-        client: "effigy",
-        blurb: "master brand book for a runtime-agnostic, compliance-first stack for autonomous agents.",
-        status: "live",
-        tint: "#E8EEFF",
-      },
-      {
         slug: "agentify",
         title: "agentify",
         year: "2026",
@@ -143,27 +134,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         ],
         guideUrl: "/work/brand-guides/kira/index.html",
         guideLabel: "full Kira brand bible",
-      },
-      {
-        slug: "effigy",
-        title: "effigy",
-        status: "master brand book",
-        source: "brand book, logo directions, logomark system",
-        description:
-          "Effigy is the identity for a runtime-agnostic, compliance-first stack for autonomous agents. The guide covers positioning, voice, visual language, a split-cast mark, lowercase mono wordmark, product applications, C2PA/provenance, and brand governance.",
-        evidence: [
-          "split-cast logomark encodes source, cast, assembled parts, and provenance",
-          "narwhal grey and veiling-twilight palette with Inter Tight and JetBrains Mono",
-          "voice rules ship as readable SOUL documents and structured JSON for agent outputs",
-        ],
-        swatches: [
-          { label: "field", value: "#F5F7FF" },
-          { label: "ink", value: "#0A1230" },
-          { label: "narwhal", value: "#78A7FF" },
-          { label: "pale", value: "#A8C4FF" },
-        ],
-        guideUrl: "/work/brand-guides/effigy/index.html",
-        guideLabel: "full Effigy brand guide",
       },
       {
         slug: "agentify",
@@ -225,14 +195,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb: "a roll-your-own twin: live device telemetry streamed to a time-series store, with real-time state and anomaly flags on a dashboard.",
         status: "coming-soon",
         tint: "var(--cream-1)",
-      },
-      {
-        slug: "surrogate-model",
-        title: "surrogate model",
-        year: "2026",
-        blurb: "an ml surrogate that predicts a system in real time, standing in for a slow fea/cfd solve so the twin runs what-if instantly.",
-        status: "coming-soon",
-        tint: "var(--cream-2)",
       },
     ],
   },
@@ -326,8 +288,8 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "neural-set-capture",
         title: "neural set capture",
         year: "2026",
-        blurb: "a real location reconstructed as a gaussian splat, cleaned, and dropped into a shot as a final-pixel backdrop via nerfstudio.",
-        status: "coming-soon",
+        blurb: "a full set reconstructed as a gaussian splat, cleaned, and dropped into a shot as a final-pixel backdrop.",
+        status: "in-production",
         tint: "var(--cinnamon)",
       },
       {
@@ -338,14 +300,6 @@ export const CASE_STUDIES: CaseStudy[] = [
           "the real ComfyUI graph behind an AIVFX outfit morph: Wan VACE conditioning, mask control, sampler, decode, MP4 review, and PNG frame export.",
         status: "live",
         tint: "var(--bloodlust)",
-      },
-      {
-        slug: "usd-scene-assembly",
-        title: "openusd scene assembly",
-        year: "2026",
-        blurb: "one usd scene composed from a splat environment, generated assets, and a mocap character, round-tripped across blender, houdini, and unreal.",
-        status: "coming-soon",
-        tint: "var(--cream-1)",
       },
     ],
   },
@@ -473,14 +427,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "coming-soon",
         tint: "var(--bloodlust)",
       },
-      {
-        slug: "looping-social-bumpers",
-        title: "looping social bumpers",
-        year: "2026",
-        blurb: "short looping animations sized for instagram, tiktok, x. brand-tunable.",
-        status: "coming-soon",
-        tint: "var(--cream-1)",
-      },
     ],
   },
   {
@@ -491,7 +437,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "ai-native websites: design, build, and ship. live public work includes agentify.nexus, onlykira.ai, and opencrawl.gg.",
+      "ai-native websites: design, build, and ship. live public work includes agentify.nexus, onlykira.ai, and coefficient.mythx.art.",
     tint: "var(--cream-1)",
     hero: { main: "", italic: "websites" },
     pieces: [
@@ -513,14 +459,6 @@ export const CASE_STUDIES: CaseStudy[] = [
           "onlykira.ai: public microsite for the autonomous Kira agent character, built with AI and the Kira brand bible.",
         status: "live",
         tint: "var(--cream-2)",
-      },
-      {
-        slug: "opencrawl",
-        title: "opencrawl",
-        year: "2026",
-        blurb: "opencrawl.gg: devnet-alpha frontend and brand surface for autonomous crawler tournaments.",
-        status: "live",
-        tint: "var(--bloodlust)",
       },
       {
         slug: "agentify",
@@ -555,7 +493,6 @@ export function findPiece(categorySlug: string, pieceSlug: string): Piece | unde
 const DETAIL_READY_KEYS = new Set([
   "brand-systems/hammer",
   "brand-systems/kira",
-  "brand-systems/effigy",
   "brand-systems/agentify",
   "agents-digital-twins/kira",
   "motion-graphics/reel",
@@ -577,7 +514,6 @@ const DETAIL_READY_KEYS = new Set([
   "film-animation/the-applicant",
   "websites/hammer",
   "websites/kira",
-  "websites/opencrawl",
   "websites/agentify",
   "websites/coefficient",
 ]);

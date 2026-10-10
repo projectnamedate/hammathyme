@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: Creative Technologist
 contact: hammer@hammer.ad
 location: LA / NY / remote
-last updated: 2026-09-10
+last updated: 2026-10-09
 
 ## summary
 
@@ -27,7 +27,6 @@ The domain appears only in technical URL surfaces.
 - /work/brand-systems: identities built with AI in the loop.
 - /work/brand-systems/hammer: Hammer brand system dossier.
 - /work/brand-systems/kira: Kira autonomous-character agent system, brand bible, and website dossier.
-- /work/brand-systems/effigy: Effigy agent-stack brand book dossier.
 - /work/brand-systems/agentify: Agentify agent-payment readiness brand guide dossier. Its full guide opens the canonical live brand bible at https://agentify.nexus/brand-bible.
 - /work/agents-digital-twins: autonomous characters layered over agent systems and sensor-fed system twins.
 - /work/agents-digital-twins/kira: Kira autonomous character detail page.
@@ -56,7 +55,6 @@ The domain appears only in technical URL surfaces.
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.
 - /work/websites/kira: onlykira.ai website preview.
-- /work/websites/opencrawl: opencrawl.gg website preview.
 - /work/websites/agentify: agentify.nexus website preview.
 - /work/websites/coefficient: coefficient.mythx.art solana stake-pool health dashboard preview.
 - /about: Jeff Hammer bio, selected clients, and agencies.

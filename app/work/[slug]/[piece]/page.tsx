@@ -376,62 +376,6 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     ],
   },
   {
-    slug: "opencrawl",
-    status: "live devnet alpha site",
-    liveUrl: "https://opencrawl.gg",
-    summary:
-      "opencrawl.gg is an autonomous-agent game site with a live-spectator lobby, crawler registration, leaderboard, and a full Construct brand bible behind it.",
-    stack: ["next.js 16", "solana wallet adapter", "websocket feed", "game server", "brand bible", "pixel-dither UI"],
-    facts: [
-      ["product", "autonomous crawlers enter a procedural dungeon and compete without human input"],
-      ["frontend", "lobby, live match feed, leaderboard, wallet path, registration, and docs"],
-      ["brand", "dark Construct system, green energy ramp, gold loot states, red danger states"],
-      ["source", "monorepo with shared engine, server, anchor program, frontend, and agent skill"],
-    ],
-    shots: [
-      {
-        src: "/work/websites/opencrawl/live.png",
-        label: "opencrawl.gg",
-        alt: "opencrawl.gg live website screenshot",
-        width: 1440,
-        height: 1000,
-        tone: "dark",
-      },
-      {
-        src: "/work/websites/opencrawl/lobby.png",
-        label: "lobby",
-        alt: "OpenCrawl lobby screenshot",
-        width: 1200,
-        height: 817,
-        tone: "dark",
-      },
-      {
-        src: "/work/websites/opencrawl/leaderboard.png",
-        label: "leaderboard",
-        alt: "OpenCrawl leaderboard screenshot",
-        width: 1200,
-        height: 817,
-        tone: "dark",
-      },
-      {
-        src: "/work/websites/opencrawl/register.png",
-        label: "register",
-        alt: "OpenCrawl registration screenshot",
-        width: 1200,
-        height: 817,
-        tone: "dark",
-      },
-      {
-        src: "/work/websites/opencrawl/brand-bible.png",
-        label: "brand bible",
-        alt: "OpenCrawl brand bible screenshot",
-        width: 1200,
-        height: 7192,
-        tone: "dark",
-      },
-    ],
-  },
-  {
     slug: "agentify",
     status: "live agent-payment readiness site",
     liveUrl: "https://agentify.nexus",
@@ -1762,20 +1706,6 @@ function BrandGuideLogo({ guide }: { guide: BrandGuideProfile }) {
     );
   }
 
-  if (guide.slug === "effigy") {
-    return (
-      <span className="flex flex-wrap items-end gap-5 md:gap-7">
-        <EffigyLogomark className="h-[clamp(70px,9vw,150px)] w-auto shrink-0" />
-        <span
-          className="font-mono text-[clamp(58px,7vw,132px)] font-black leading-[0.82] tracking-[-0.065em]"
-          style={{ color: "#0A1230", fontFamily: '"Geist Mono", ui-monospace, monospace' }}
-        >
-          effigy
-        </span>
-      </span>
-    );
-  }
-
   if (guide.slug === "agentify") {
     return <AgentifyWordmark />;
   }
@@ -1818,28 +1748,6 @@ function AgentifyLedgerGate({ className }: { className?: string }) {
       <path d="M4 50 H92" stroke="#8B6CFF" strokeWidth="4" strokeLinecap="round" fill="none" />
       <circle cx="48" cy="50" r="4.6" fill="#4EC6DA" />
       <path d="M30 78 H66" stroke="#4EC6DA" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.55" />
-    </svg>
-  );
-}
-
-function EffigyLogomark({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 130 230"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-      className={className}
-    >
-      <g transform="translate(16, 10)">
-        <circle cx="40" cy="30" r="16" fill="#78A7FF" />
-        <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF" />
-        <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF" />
-        <rect x="8" y="184" width="64" height="28" fill="#78A7FF" />
-      </g>
-      <circle cx="40" cy="30" r="16" fill="#0A1230" />
-      <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230" />
-      <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230" />
-      <rect x="8" y="184" width="64" height="28" fill="#0A1230" />
     </svg>
   );
 }

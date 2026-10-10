@@ -26,12 +26,10 @@ export function PieceArt({ category, piece }: Props) {
 const SPECIMENS: Record<string, () => ReactElement> = {
   "brand-systems/hammer": HammerGuide,
   "brand-systems/kira": KiraGuide,
-  "brand-systems/effigy": EffigyGuide,
   "brand-systems/agentify": AgentifyGuide,
   "agents-digital-twins/kira": KiraAgent,
   "agents-digital-twins/bradley": BradleyAgent,
   "agents-digital-twins/sensor-twin-dashboard": SensorTwin,
-  "agents-digital-twins/surrogate-model": SurrogateModel,
   "motion-graphics/reel": MotionReel,
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
@@ -41,7 +39,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "vfx-cgi/neural-set-capture": NeuralSetCapture,
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
   "vfx-cgi/comfyui-production-backend": ComfyuiBackend,
-  "vfx-cgi/usd-scene-assembly": UsdSceneAssembly,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/prompt-library": PromptLibrary,
   "pipelines-tools/creative-skills": CreativeSkills,
@@ -52,11 +49,10 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-applicant": TheApplicant,
   "film-animation/animated-short": AnimatedShort,
-  "film-animation/looping-social-bumpers": LoopingBumpers,
   "websites/hammer": HammerSite,
   "websites/kira": KiraSite,
-  "websites/opencrawl": OpenCrawlSite,
   "websites/agentify": AgentifySite,
+  "websites/coefficient": CoefficientSite,
 };
 
 const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
@@ -185,42 +181,6 @@ function KiraGuide() {
         <line x1="26" y1="128" x2="91" y2="128" />
       </g>
       <MonoLabel>CHARACTER BIBLE</MonoLabel>
-    </Plate>
-  );
-}
-
-function EffigyGuide() {
-  return (
-    <Plate bg="#E8EEFF">
-      <g transform="translate(42 28) scale(0.32)">
-        <g transform="translate(16, 10)">
-          <circle cx="40" cy="30" r="16" fill="#78A7FF" />
-          <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#78A7FF" />
-          <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#78A7FF" />
-          <rect x="8" y="184" width="64" height="28" fill="#78A7FF" />
-        </g>
-        <circle cx="40" cy="30" r="16" fill="#0A1230" />
-        <path d="M 34 50 L 46 50 L 48 58 L 32 58 Z" fill="#0A1230" />
-        <path d="M 24 58 L 56 58 L 66 180 L 14 180 Z" fill="#0A1230" />
-        <rect x="8" y="184" width="64" height="28" fill="#0A1230" />
-      </g>
-      <text
-        x="60"
-        y="112"
-        textAnchor="middle"
-        fontFamily="var(--font-geist-mono), ui-monospace, monospace"
-        fontWeight="800"
-        fontSize="13"
-        letterSpacing="-0.85"
-        fill="#0A1230"
-      >
-        effigy
-      </text>
-      <g stroke="#0A1230" strokeWidth="0.8" opacity="0.75">
-        <line x1="32" y1="121" x2="88" y2="121" />
-        <line x1="40" y1="130" x2="80" y2="130" />
-      </g>
-      <MonoLabel>PROVENANCE BOOK</MonoLabel>
     </Plate>
   );
 }
@@ -394,19 +354,6 @@ function SpotifyTitles() {
       >
         SPOTIFY TITLES
       </text>
-    </Plate>
-  );
-}
-
-function LoopingBumpers() {
-  return (
-    <Plate>
-      <g transform="translate(60 76)">
-        <circle r="32" fill="none" stroke="var(--ink-3)" strokeWidth="0.8" />
-        <path d="M -26 -4 C -14 -28, 18 -28, 28 -2 S 14 32, -14 22" fill="none" stroke="var(--ink-0)" strokeWidth="1.4" />
-        <polygon points="30,-2 20,-8 22,5" fill="var(--cinnamon)" />
-      </g>
-      <MonoLabel>LOOP KIT</MonoLabel>
     </Plate>
   );
 }
@@ -670,30 +617,6 @@ function SensorTwin() {
   );
 }
 
-function SurrogateModel() {
-  return (
-    <Plate bg="var(--cream-2)">
-      <g transform="translate(22 46)">
-        <rect width="76" height="60" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
-        {/* full-fidelity reference (dashed) */}
-        <path d="M 6 50 C 22 8, 38 54, 54 14 S 70 42, 72 22" fill="none" stroke="var(--ink-3)" strokeWidth="1.4" strokeDasharray="2 2" />
-        {/* surrogate approximation */}
-        <path d="M 6 48 C 22 16, 38 48, 54 20 S 70 38, 72 26" fill="none" stroke="var(--cinnamon)" strokeWidth="1.2" />
-        {/* training samples */}
-        {[
-          [6, 48],
-          [30, 30],
-          [54, 20],
-          [72, 26],
-        ].map(([x, y]) => (
-          <rect key={`${x}-${y}`} x={x - 1.6} y={y - 1.6} width="3.2" height="3.2" fill="var(--ink-0)" />
-        ))}
-      </g>
-      <MonoLabel>SURROGATE FIT</MonoLabel>
-    </Plate>
-  );
-}
-
 function EnvironmentSwap() {
   return (
     <Plate bg="var(--ink-0)">
@@ -821,31 +744,6 @@ function ComfyuiBackend() {
   );
 }
 
-function UsdSceneAssembly() {
-  return (
-    <Plate bg="var(--cream-1)">
-      {/* source layers feeding one assembled frame */}
-      <g transform="translate(22 46)">
-        {[0, 1, 2].map((i) => (
-          <g key={i} transform={`translate(0 ${i * 22})`}>
-            <rect width="22" height="16" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.7" />
-            <line x1="22" y1="8" x2="40" y2="30" stroke="var(--ink-3)" strokeWidth="0.6" />
-          </g>
-        ))}
-        {/* assembled USD scene */}
-        <rect x="40" y="14" width="36" height="36" fill="var(--ink-0)" />
-        <g transform="translate(58 32)" stroke="var(--cinnamon)" strokeWidth="0.9" fill="none" strokeLinejoin="round">
-          <polygon points="-9,-4 0,-9 9,-4 9,5 0,10 -9,5" />
-          <line x1="0" y1="-9" x2="0" y2="1" />
-          <line x1="-9" y1="-4" x2="0" y2="1" />
-          <line x1="9" y1="-4" x2="0" y2="1" />
-        </g>
-      </g>
-      <MonoLabel>USD ASSEMBLY</MonoLabel>
-    </Plate>
-  );
-}
-
 function HammerSite() {
   return (
     <Plate>
@@ -873,24 +771,6 @@ function KiraSite() {
         <rect x="12" y="52" width="54" height="4" fill="var(--cream-0)" />
       </Browser>
       <MonoLabel>ONLYKIRA.AI</MonoLabel>
-    </Plate>
-  );
-}
-
-function OpenCrawlSite() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <Browser dark>
-        <g fill="var(--cinnamon)">
-          <rect x="14" y="18" width="8" height="8" />
-          <rect x="24" y="28" width="8" height="8" />
-          <rect x="34" y="38" width="8" height="8" />
-        </g>
-        <line x1="50" y1="20" x2="66" y2="20" stroke="var(--cream-0)" />
-        <line x1="50" y1="32" x2="70" y2="32" stroke="var(--cream-0)" />
-        <line x1="50" y1="44" x2="62" y2="44" stroke="var(--cream-0)" />
-      </Browser>
-      <MonoLabel y={139}>OPENCRAWL.GG</MonoLabel>
     </Plate>
   );
 }
@@ -939,6 +819,27 @@ function AgentifySite() {
       >
         AGENTIFY.NEXUS
       </text>
+    </Plate>
+  );
+}
+
+function CoefficientSite() {
+  return (
+    <Plate bg="#161A2B">
+      <Browser dark>
+        <rect x="0" y="8" width="80" height="54" fill="#0E1120" />
+        <g fill="var(--cream-0)" opacity="0.85">
+          <rect x="10" y="16" width="26" height="3" />
+          <rect x="10" y="22" width="16" height="2" opacity="0.5" />
+        </g>
+        <g transform="translate(10 54)">
+          {[14, 22, 9, 28, 18, 24, 12].map((h, i) => (
+            <rect key={i} x={i * 9} y={-h} width="5" height={h} fill={i === 3 ? "var(--cinnamon)" : "var(--cream-1)"} opacity={i === 3 ? 1 : 0.55} />
+          ))}
+        </g>
+        <line x1="10" y1="54.5" x2="70" y2="54.5" stroke="var(--ink-3)" strokeWidth="0.5" />
+      </Browser>
+      <MonoLabel y={139} fill="var(--cream-1)">COEFFICIENT.MYTHX.ART</MonoLabel>
     </Plate>
   );
 }
