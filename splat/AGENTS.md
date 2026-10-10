@@ -1,6 +1,9 @@
 # AGENTS.md: splat
 
-Gaussian-splat lab for Hammer portfolio pieces. The first project is
+Gaussian-splat pipeline for Hammer portfolio pieces, living inside the hammer-ad
+repo at `splat/` (moved from `~/Desktop/vibe/splat` 2026-10-10, history kept via
+`git subtree`). It is excluded from the site's lint, typecheck and Vercel build.
+The shipped web asset goes to `public/work/vfx-cgi/neural-set-capture/`. The first project is
 `projects/gunfight-street`: the main street from the short film The Gunfight
 (`studioly/projects/the-gunfight`), rebuilt as a 3D set and trained into a
 gaussian splat for `hammer.ad/work/vfx-cgi/neural-set-capture`.
@@ -14,7 +17,7 @@ gaussian splat for `hammer.ad/work/vfx-cgi/neural-set-capture`.
 4. Blender 5.1 assembles the street and renders posed views
    (`scripts/build_street.py`, `scripts/render_views.py`) into `dataset/`
    (nerfstudio `transforms.json` + `points3d.ply` seed).
-5. Brush (built from source in `~/src/brush`) trains the splat into `splats/`.
+5. Brush (built from source in `~/src/brush`; `scripts/train.sh`) trains the splat into `splats/`.
 6. SuperSplat cleanup, then `@playcanvas/splat-transform` to `.sog` for the web
    (Spark viewer on the site).
 

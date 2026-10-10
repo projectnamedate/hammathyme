@@ -47,6 +47,64 @@ HEIGHTS = {
     "low-store": 4.6, "tall-timber-front": 7.5, "trough-rail": 1.2, "water-tower": 11.0,
 }
 src = {name: load(name) for name in HEIGHTS}
+
+
+def cap_roof(mesh):
+    """Hunyuan returned the saloon as an open shell; close it with a plank roof just under the lowest wall top."""
+    import numpy as np
+    co = np.array([v.co[:] for v in mesh.data.vertices])
+    z0, z1 = co[:, 2].min(), co[:, 2].max()
+    up = co[co[:, 2] > z0 + 0.75 * (z1 - z0)]
+    x0, x1, y0, y1 = up[:, 0].min(), up[:, 0].max(), up[:, 1].min(), up[:, 1].max()
+    band = 0.012
+    tops = [
+        np.percentile(up[up[:, 0] < x0 + band][:, 2], 99), np.percentile(up[up[:, 0] > x1 - band][:, 2], 99),
+        np.percentile(up[up[:, 1] < y0 + band][:, 2], 99), np.percentile(up[up[:, 1] > y1 - band][:, 2], 99),
+    ]
+    z = min(tops) - 0.008
+    inset = 0.004
+    bm = bmesh.new()
+    verts = [bm.verts.new(p) for p in ((x0 + inset, y0 + inset, z), (x1 - inset, y0 + inset, z), (x1 - inset, y1 - inset, z), (x0 + inset, y1 - inset, z))]
+    bm.faces.new(verts)
+    roof_me = bpy.data.meshes.new("saloon_roof")
+    bm.to_mesh(roof_me)
+    bm.free()
+
+    mat = bpy.data.materials.new("saloon_roof")
+    mat.use_nodes = True
+    nt = mat.node_tree
+    bsdf = nt.nodes["Principled BSDF"]
+    bsdf.inputs["Roughness"].default_value = 0.95
+    coord = nt.nodes.new("ShaderNodeTexCoord")
+    planks = nt.nodes.new("ShaderNodeTexWave")
+    planks.inputs["Scale"].default_value = 18.0
+    planks.inputs["Distortion"].default_value = 1.5
+    nt.links.new(coord.outputs["Object"], planks.inputs["Vector"])
+    grain = nt.nodes.new("ShaderNodeTexNoise")
+    grain.inputs["Scale"].default_value = 60.0
+    nt.links.new(coord.outputs["Object"], grain.inputs["Vector"])
+    mixf = nt.nodes.new("ShaderNodeMath")
+    mixf.operation = "MULTIPLY"
+    nt.links.new(planks.outputs["Fac"], mixf.inputs[0])
+    nt.links.new(grain.outputs["Fac"], mixf.inputs[1])
+    ramp = nt.nodes.new("ShaderNodeValToRGB")
+    ramp.color_ramp.elements[0].color = (0.16, 0.13, 0.11, 1)
+    ramp.color_ramp.elements[1].color = (0.42, 0.37, 0.31, 1)
+    nt.links.new(mixf.outputs["Value"], ramp.inputs["Fac"])
+    nt.links.new(ramp.outputs["Color"], bsdf.inputs["Base Color"])
+    roof_me.materials.append(mat)
+
+    roof = bpy.data.objects.new("saloon_roof", roof_me)
+    lib.objects.link(roof)
+    bpy.ops.object.select_all(action="DESELECT")
+    roof.select_set(True)
+    mesh.select_set(True)
+    bpy.context.view_layer.objects.active = mesh
+    bpy.ops.object.join()
+    print("ROOF CAP z", round(float(z), 4), "of", round(float(z1), 4))
+
+
+cap_roof(src["saloon-green"])
 lib.hide_render = True
 bpy.context.view_layer.layer_collection.children["library"].exclude = True
 

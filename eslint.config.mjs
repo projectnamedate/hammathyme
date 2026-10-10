@@ -16,6 +16,7 @@ export default [
       ".playwright-mcp/**",
       ".vercel/**",
       "node_modules/**",
+      "splat/**",
       "tsconfig.tsbuildinfo",
     ],
   },
