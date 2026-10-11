@@ -3386,6 +3386,8 @@ function tick(now) {
     const dir = Math.sign(state.step.goal - state.frames);
     const next = state.frames + dir * dt * 0.75;
     state.frames = dir > 0 ? Math.min(next, state.step.goal) : Math.max(next, state.step.goal);
+    // Moving at its own pace the step's speed is exact, so the readout's digit holds still.
+    state.step.pace = state.frames === next && !jumped ? dir * 0.75 : null;
     if (state.frames === state.step.goal) {
       state.step = state.step.queue.length ? { cycle: null, goal: null, dir: state.step.queue[0], queue: state.step.queue.slice(1) } : null;
       state.inchedAt = state.clock;
@@ -3414,7 +3416,10 @@ function tick(now) {
     // Waiting for the run-down, the film moves at the motor's speed; stepping, at the step's.
     // The tick the run-down lands, the step's own pace takes over, so the readout never shows
     // "stopped" between the two.
-    hand.rate = state.step.cycle === null ? motor.x || 0.75 * state.step.dir : hand.rate + (rate - hand.rate) * (1 - Math.exp(-dt / 0.15));
+    hand.rate =
+      state.step.cycle === null
+        ? motor.x || (ready && !calm ? 0.75 * state.step.dir : 0)
+        : state.step.pace ?? hand.rate + (rate - hand.rate) * (1 - Math.exp(-dt / 0.15));
     state.fps = hand.rate;
   } else {
     hand.rate = 0;
@@ -3793,7 +3798,7 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
 return teardown;
 
 }
