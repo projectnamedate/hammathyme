@@ -65,7 +65,7 @@ const D = {
 
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
-  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -152] },
+  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -140] },
   movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [10, 150, 112] },
   lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
@@ -161,7 +161,7 @@ record(A.slab(BASE, -BASE_H, BASE_H, { name: "stand.base", ground: true }, 8));
   back.push(S(k.slabOf(STRIP, 0, 0.6, P, 3), { tone: "lo", crease: "none" }));
   const t = k.topTicks(STRIP.x + 4, STRIP.x + STRIP.w - 4, 5, 5, STRIP.y, 0.6, [2, 3.8], P);
   back.push(Ln(t.minor, { tone: "lo" }), Ln(t.major, { tone: "mid" }));
-  const LABEL = { x: 250, y: BASE.y + BASE.d - 44, w: 54, d: 20, r: 1.4 };
+  const LABEL = { x: 172, y: BASE.y + BASE.d - 44, w: 54, d: 20, r: 1.4 };
   back.push(S(k.slabOf(LABEL, 0, 0.8, P, 3), { tone: "lo", crease: "none" }));
   back.push(Ln(k.planOutline(k.insetPlan(LABEL, 1.8), 0.8, P, 3), { tone: "faint" }));
   back.push(Ln([34, 24, 29].map((w, i) => k.lineOnTop([LABEL.x + 6, LABEL.y + 5 + i * 4.6], [LABEL.x + 6 + w, LABEL.y + 5 + i * 4.6], 0.8, P)).join(""), { tone: "lo", free: true }));
@@ -254,7 +254,10 @@ for (const [id, s] of Object.entries(SPROCKETS)) {
   disc("head", `head.sprocket.${id}`, F, DRUM.y0, DRUM.y1, s.r, { tone: "hi" }, { inner: Ln(G.arcOf(F, DRUM.y0 + 3.4, s.r, P) + G.arcOf(F, DRUM.y1 - 3.4, s.r, P), { tone: "faint" }), extra: teeth + faceRing(F, DRUM.y1, s.r - 2.2) });
   const capR = id === "inter" ? 4.2 : 5.6;
   const capTo = id === "inter" ? F1 + 2 : F1 + 3;
-  disc("head", `head.hub.${id}`, F, DRUM.y1, capTo, capR, { tone: "mid" }, { extra: screwOn(F, capTo, capR * 0.55, 3) });
+  // The cap's screws turn with the sprocket, so they sit in the cap's own plane and turn with the teeth.
+  const screws = [0, 1, 2].map((n) => `<circle cx="${(capR * 0.55 * Math.cos((n / 3) * TAU)).toFixed(2)}" cy="${(capR * 0.55 * Math.sin((n / 3) * TAU)).toFixed(2)}" r="0.55"/>`).join("");
+  const capScrews = `<g data-part="screws-${id}" transform="${planeMatrix([s.x, capTo + 0.02, s.z], [1, 0, 0], [0, 0, -1])}"><g data-turn="front" transform="rotate(${((-turn * 180) / Math.PI).toFixed(2)})"><g class="iso-dots" data-tone="mid">${screws}</g></g></g>`;
+  disc("head", `head.hub.${id}`, F, DRUM.y1, capTo, capR, { tone: "mid" }, { extra: capScrews });
 }
 
 // gate: aperture plate on the lamp side, the film, the pressure door on the lens side
@@ -313,7 +316,7 @@ box("head", "head.gearbox", [GB.x0, GB.y0, GB.z0], [GB.x1, GB.y1, GB.z1], { tone
   disc("head", "head.gearbox.sightglass", glass, GB.y1, GB.y1 + 1.6, 4.2, { tone: "lo" }, { extra: faceRing(glass, GB.y1 + 1.6, 2.6) });
   disc("head", "head.gearbox.filler", FZ(24, 14), GB.z1, GB.z1 + 3, 3.2, { tone: "mid" }, { extra: Ln(k.lineOnTop([21.6, 14], [26.4, 14], GB.z1 + 3, P), { tone: "lo", free: true }) });
 }
-const GW = { a: 28, slot: 7.2, hub: 4.2, pin: 3.2, clear: 0.4, relief: 12, reliefAt: 1.0 };
+const GW = { a: 28, slot: 7.2, hub: 4.2, pin: 3.2, clear: 0.4, relief: 28.7, reliefAt: Math.SQRT2 };
 GW.c = GW.a * Math.SQRT2;
 GW.lock = GW.a - GW.slot / 2;
 GW.rim = GW.a;
@@ -325,6 +328,33 @@ GW.y0 = 76;
 GW.y1 = 80;
 GW.dy0 = 70;
 D.geneva = GW;
+// The locking disc's relief has to let the cross's arms swing through it during every pull-down:
+// sweep the whole cycle and fail the build if any point of the cross enters the disc.
+{
+  const inside = (p, poly) => {
+    let hit = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const [xi, zi] = poly[i];
+      const [xj, zj] = poly[j];
+      if (zi > p[1] !== zj > p[1] && p[0] < ((xj - xi) * (p[1] - zi)) / (zj - zi) + xi) hit = !hit;
+    }
+    return hit;
+  };
+  let worst = 0;
+  let at = 0;
+  for (let n = 0; n <= 400; n++) {
+    const c = n / 400;
+    const lock = PARTS.lockContour((3 * Math.PI) / 4 + TAU * c);
+    const cross = PARTS.crossContour((-Math.PI / 2) * M.intermittentOf(c)).map(([x, v]) => [x + GW.x - GW.dx, -v]);
+    for (const p of cross) {
+      if (!inside(p, lock)) continue;
+      const depth = Math.min(...lock.map((q) => Math.hypot(q[0] - p[0], q[1] - p[1])));
+      if (depth > worst) [worst, at] = [depth, c];
+    }
+  }
+  if (process.env.PJ_GENEVA) console.log(`geneva sweep: deepest ${worst.toFixed(2)} mm at c ${at.toFixed(3)}`);
+  if (worst > 0.05) throw new Error(`the Geneva cross cuts ${worst.toFixed(2)} mm into the locking disc at c ${at.toFixed(3)}`);
+}
 {
   const SF = FY(GW.x, GW.z);
   disc("head", "head.shaft.inter", SF, F1 + 2, GW.y0, 3.5, { tone: "mid" });
@@ -334,7 +364,11 @@ D.geneva = GW;
   const XF = FX(AY, SH.z);
   disc("head", "head.shaft.shutter.seal", XF, GB.x1, GB.x1 + 1.4, 6.5, { tone: "lo" });
   disc("head", "head.shaft.shutter", XF, GB.x1 + 1.4, 100, 3.5, { tone: "mid" });
-  disc("head", "head.pulley.shutter", XF, 100, 108, 12, { tone: "mid" }, { inner: Ln(G.arcOf(XF, 104, 12, P), { tone: "lo" }), extra: screwOn(XF, 100, 8, 4) });
+  // The pulley's screws turn with the shutter shaft: drawn in the pulley face's plane, in the
+  // shutter's own frame, and turned with it.
+  const pulleyScrews = [0, 1, 2, 3].map((n) => `<circle cx="${(8 * Math.cos((n / 4) * TAU)).toFixed(2)}" cy="${(8 * Math.sin((n / 4) * TAU)).toFixed(2)}" r="0.6"/>`).join("");
+  const pulleyFace = `<g data-part="screws-pulley" transform="${planeMatrix([99.98, AY, SH.z], [0, 1, 0], [0, 0, -1])}"><g data-turn="front" transform="rotate(${(360 * (REST_C - 0.125)).toFixed(2)})"><g class="iso-dots" data-tone="mid">${pulleyScrews}</g></g></g>`;
+  disc("head", "head.pulley.shutter", XF, 100, 108, 12, { tone: "mid" }, { inner: Ln(G.arcOf(XF, 104, 12, P), { tone: "lo" }), extra: pulleyFace });
   disc("head", "head.shaft.shutter.end", XF, 108, SH.x0 - 1.4, 3.5, { tone: "mid" });
 }
 // the movement: crank and locking disc on the driver, the Geneva wheel, the outboard bridge
@@ -359,7 +393,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   const MF = FX(MY, MZ);
   const ribs = k.fadedSvg(G.ribsOf(MF, 30, 76, 28, 40, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" });
   turned("head", "head.motor", MF, [[14, 0], [14, 22], [16, 25, 1], [22, 25], [22, 28], [84, 28], [84, 25], [90, 22, 1], [92, 14], [92, 0]], { tone: "mid" }, { extra: ribs });
-  // Rear face: a fan cover of closed slots round a small reduction box for the hand crank,
+  // Rear face: a fan cover of closed slots round a small reduction box for the inching knob,
   // which turns once every eight frames (two turns a second at 16 fps).
   const grille = FX(MY, MZ);
   const slots = Array.from({ length: 12 }, (_, n) => {
@@ -370,23 +404,16 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
     return k.pathOf(pts.map(([r, w]) => at([13.95, MY + r * Math.cos(a) - w * Math.sin(a), MZ + r * Math.sin(a) + w * Math.cos(a)])), true);
   }).join("");
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
-  const HC = { o: [2, MY, MZ], arm: 15, t: 2.4, handle: 11 };
-  // The handle sweeps a full circle round the motor axis; whatever its angle, its tip must stay
-  // clear of the hold-back sprocket's teeth, which sit just beyond the crank on the head side.
-  {
-    const hold = SPROCKETS.hold;
-    const tipX = HC.o[0] - HC.handle;
-    const reach = Math.hypot(tipX - hold.x, 0) - (hold.r + 1.2);
-    if (reach < 1) throw new Error(`hand-crank handle comes within ${reach.toFixed(2)} mm of the hold-back sprocket's teeth`);
-  }
+  // A knurled inching knob on the reduction box's shaft: small enough that, whatever its angle,
+  // it stays inside the motor's end on the page and never reaches the hold-back sprocket.
+  const HC = { o: [2, MY, MZ], r: 8, t: 2.4 };
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
   disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10, 4, P, { all: true }), { size: 0.5 }) });
   disc("head", "head.crank.shaft", G.frameAlong([6, MY, MZ], [-1, 0, 0]), 0, 1.6, 3, { tone: "lo" });
-  const armDef = PARTS.handCrankDef();
-  put("head", "head.crank.arm", [HC.o[0] + 1, MY + HC.arm / 2, MZ], `<g data-part="handcrank">${PARTS.plateSvg(armDef, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), armDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.arm" }))]);
-  put("head", "head.crank.handle", [HC.o[0] - HC.handle / 2, MY + HC.arm, MZ], `<g data-part="handle">${PARTS.handleSvg()}</g>`, [record(A.disc(G.frameAlong([HC.o[0], MY + HC.arm, MZ], [-1, 0, 0]), 0, HC.handle, 3.6, { name: "head.crank.handle" }))], { bias: 0.2 });
+  const knobDef = PARTS.handCrankDef();
+  put("head", "head.crank.knob", [HC.o[0] + 1, MY, MZ], `<g data-part="handcrank">${PARTS.plateSvg(knobDef, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), knobDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.knob" }))]);
   disc("head", "head.motor.shaft", MF, 92, 100, 3, { tone: "mid" });
   disc("head", "head.pulley.motor", MF, 100, 108, 7, { tone: "mid" }, { inner: Ln(G.arcOf(MF, 104, 7, P), { tone: "lo" }) });
   box("head", "head.motor.foot", [26, 0, MZ - 10], [80, MY - 28, MZ + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
@@ -457,11 +484,11 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
 
 // ---- a film can on the bench ----
 {
-  const CF = FZ(300, 98);
+  const CF = FZ(300, 86);
   disc("stand", "stand.can", CF, 0, 13, 62, { tone: "mid" }, { inner: Ln(G.arcOf(CF, 4, 62, P), { tone: "faint" }) });
   disc("stand", "stand.can.lid", CF, 13, 17, 64, { tone: "mid" }, { bevel: 0.6, extra: Ln(G.circleOf(CF, 17, 50, P, 96), { tone: "faint" }) });
-  const LBL = { x: 280, y: 74, w: 40, d: 16, r: 1 };
-  put("stand", "stand.can.label", [300, 82, 17.1], S(k.slabOf(LBL, 17, 0.4, P, 2), { tone: "lo", crease: "none" }) + Ln([30, 22].map((w, i) => k.lineOnTop([LBL.x + 4, LBL.y + 5 + i * 5], [LBL.x + 4 + w, LBL.y + 5 + i * 5], 17.4, P)).join(""), { tone: "lo", free: true }), [record(A.slab(LBL, 17, 0.4, { name: "stand.can.label" }, 2))], { bias: 0.1 });
+  const LBL = { x: 280, y: 62, w: 40, d: 16, r: 1 };
+  put("stand", "stand.can.label", [300, 70, 17.1], S(k.slabOf(LBL, 17, 0.4, P, 2), { tone: "lo", crease: "none" }) + Ln([30, 22].map((w, i) => k.lineOnTop([LBL.x + 4, LBL.y + 5 + i * 5], [LBL.x + 4 + w, LBL.y + 5 + i * 5], 17.4, P)).join(""), { tone: "lo", free: true }), [record(A.slab(LBL, 17, 0.4, { name: "stand.can.label" }, 2))], { bias: 0.1 });
 }
 
 // ================================================================== lamp house on its stand

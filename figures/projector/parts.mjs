@@ -389,33 +389,18 @@ export function makeParts(k, G, P, D) {
     return `translate(${(b[0] - a[0]).toFixed(2)} ${(b[1] - a[1]).toFixed(2)})`;
   }
 
-  // ---- the hand crank: an arm in the plane of the motor's rear face, a handle at its end ----
+  // ---- the inching knob on the motor's rear face ----
+  // The inching knob: knurled round its rim, with an index mark so its turning shows.
   function handCrankDef() {
     const H = D.handCrank;
-    const pts = [];
-    for (let i = 0; i <= 14; i++) {
-      const t = Math.PI / 2 + (i / 14) * Math.PI;
-      pts.push([6 * Math.cos(t), 6 * Math.sin(t)]);
-    }
-    for (let i = 0; i <= 14; i++) {
-      const t = -Math.PI / 2 + (i / 14) * Math.PI;
-      pts.push([H.arm + 4.4 * Math.cos(t), 4.4 * Math.sin(t)]);
-    }
-    return { id: "handcrank", contours: [pts], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="1.1"/></g>` };
+    const rim = Array.from({ length: 120 }, (_, i) => {
+      const t = (i / 120) * TAU;
+      const r = H.r - 0.35 + 0.35 * Math.cos(30 * t);
+      return [r * Math.cos(t), r * Math.sin(t)];
+    });
+    return { id: "handcrank", contours: [rim], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="1.1"/><circle cx="${f1(H.r - 2.4)}" cy="0" r="1"/></g><path class="iso-line" data-tone="faint" d="${poly(circlePts(0, 0, H.r - 1.4, 48))}"/>` };
   }
-  function handleSvg() {
-    const H = D.handCrank;
-    const F = G.frameAlong([H.o[0], H.o[1] + H.arm, H.o[2]], [-1, 0, 0]);
-    const L = H.handle;
-    return k.solidSvg(G.solidOf([[0, 2], [2.6, 2], [2.6, 3.2, 1], [L - 3, 3.6, 1], [L - 0.8, 2.9, 1], [L, 0]], F, P, { smooth: true }), { tone: "hi" });
-  }
-  function handleShift(deg) {
-    const H = D.handCrank;
-    const a = (deg * Math.PI) / 180;
-    const rest = at([H.o[0], H.o[1] + H.arm, H.o[2]]);
-    const now = at([H.o[0], H.o[1] + H.arm * Math.cos(a), H.o[2] - H.arm * Math.sin(a)]);
-    return `translate(${(now[0] - rest[0]).toFixed(2)} ${(now[1] - rest[1]).toFixed(2)})`;
-  }
+
 
   // ---- shutter: n blades, each a quarter turn plus the beam crossing ----
   function bladeContours(turn, blades) {
@@ -542,5 +527,5 @@ export function makeParts(k, G, P, D) {
     return `<rect class="pj-film-face" x="${f1(-w)}" y="${f1(-FL * 2)}" width="${f1(w * 2)}" height="${f1(FL * 4)}"/>${frames.join("")}`;
   }
 
-  return { handCrankDef, handleSvg, handleShift, crossContour, lockContour, planeMatrix, tangent, angleOf, arc, straight, lengthOf, join, loopOf, ribbonSvg, marks, plateSvg, plateTurn, crossDef, crankDef, lockDef, pinSvg, pinShift, shutterDefs, teethSvg, flangeDef, leaderSvg, gateFrameSvg, circlePts, poly, line, depth };
+  return { handCrankDef, crossContour, lockContour, planeMatrix, tangent, angleOf, arc, straight, lengthOf, join, loopOf, ribbonSvg, marks, plateSvg, plateTurn, crossDef, crankDef, lockDef, pinSvg, pinShift, shutterDefs, teethSvg, flangeDef, leaderSvg, gateFrameSvg, circlePts, poly, line, depth };
 }

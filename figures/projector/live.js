@@ -280,13 +280,13 @@ const DEFS = { crank2: parts.handCrankDef(), cross: parts.crossDef(), crank: par
 const groups = {
   shutter: part("shutter"),
   pin: part("pin"),
-  handle: part("handle"),
   loopU: part("loop-U"),
   loopL: part("loop-L"),
   gate: part("gate-frame"),
   picture: part("picture"),
   ammeter: part("ammeter"),
-  teeth: Object.fromEntries(Object.keys(D.sprockets).map((id) => [id, part(`teeth-${id}`)?.querySelector('[data-turn="front"]')])),
+  pulleyScrews: part("screws-pulley")?.querySelector('[data-turn="front"]'),
+  teeth: Object.fromEntries(Object.keys(D.sprockets).map((id) => [id, [part(`teeth-${id}`), part(`screws-${id}`)].map((g) => g?.querySelector('[data-turn="front"]')).filter(Boolean)])),
 };
 const plates = { crank2: plateEl("handcrank"), cross: plateEl("cross"), crank: plateEl("crank"), lock: plateEl("lock"), feed: plateEl("flange-feed"), take: plateEl("flange-take"), feedFar: plateEl("flange-feed-far"), takeFar: plateEl("flange-take-far") };
 let shutterBlades = 2;
@@ -313,10 +313,10 @@ function draw(f0, f1, calm) {
   if (key !== drawnKey) {
     drawnKey = key;
     const deg = 180 / Math.PI;
-    // At rest (half a frame in) the hand crank sits where the build drew and audited it.
+    // The inching knob turns once every eight frames; at rest (half a frame in) it sits where the
+    // build drew and audited it.
     const crankDeg = -360 * (c - 0.5) * D.crankRatio;
     turn(plates.crank2, DEFS.crank2, crankDeg);
-    groups.handle?.setAttribute("transform", parts.handleShift(crankDeg));
     turn(plates.cross, DEFS.cross, 90 * i);
     turn(plates.crank, DEFS.crank, -360 * c);
     turn(plates.lock, DEFS.lock, -360 * c);
@@ -328,10 +328,10 @@ function draw(f0, f1, calm) {
       shutterPlates = shutterDefs.map((def) => plateEl(def.id));
     }
     shutterDefs.forEach((def, n) => turn(shutterPlates[n], def, 360 * (c - 0.125)));
+    groups.pulleyScrews?.setAttribute("transform", `rotate(${(360 * (c - 0.125)).toFixed(2)})`);
     // Four teeth to a frame, exactly, so the teeth keep step with the perforations.
-    groups.teeth.feed?.setAttribute("transform", `rotate(${(-c * (360 * 4) / S.feed.teeth).toFixed(2)})`);
-    groups.teeth.inter?.setAttribute("transform", `rotate(${(i * (360 * 4) / S.inter.teeth).toFixed(2)})`);
-    groups.teeth.hold?.setAttribute("transform", `rotate(${(-c * (360 * 4) / S.hold.teeth).toFixed(2)})`);
+    const sprocketDeg = { feed: (-c * (360 * 4)) / S.feed.teeth, inter: (i * (360 * 4)) / S.inter.teeth, hold: (-c * (360 * 4)) / S.hold.teeth };
+    for (const [id, els] of Object.entries(groups.teeth)) for (const el of els) el.setAttribute("transform", `rotate(${sprocketDeg[id].toFixed(2)})`);
     for (const id of ["feed", "take"]) {
       const a = ((c * FL) / D.reels[id].pack) * deg;
       turn(plates[id], DEFS[id], a);
@@ -370,7 +370,7 @@ function draw(f0, f1, calm) {
   const mean = M.lightShare(state.blades);
   const raw = f1 !== f0 ? M.screenLight(Math.min(f0, f1), Math.max(f0, f1), state.blades) : M.shutterOpen(((f1 % 1) + 1) % 1, state.blades);
   const hz = M.flickerHz(Math.abs(state.fps), state.blades);
-  const fuse = calm && !state.crank && !state.step && state.target > 0 ? 1 : ease(30, 52, hz);
+  const fuse = calm && !state.crank && !state.step && state.target > 3.05 ? 1 : ease(30, 52, hz);
   // While the tour plays by itself, flicker faster than three flashes a second is shown at a
   // third of its depth, so an unasked-for screen never flashes hard; slower blinks, and
   // everything the reader chooses, show in full.
@@ -567,7 +567,10 @@ function idleText() {
   // Black leader passes no light, whatever the shutter is doing; nor does a lamp still coming up.
   const black = leaderOf(Math.floor(M.intermittentOf(state.frames) + 1e-9)).number === 0;
   if (black) text = text.replace("light on screen", "black leader, no picture").replace(/\d+% light$/, "black leader");
-  else if (state.beam < 0.5 && !still.matches) text = text.replace("light on screen", "lamp coming up").replace(/\d+% light$/, "lamp coming up");
+  else if (state.beam < 0.5 && !still.matches) {
+    const rising = state.lamp > 0.5 ? "fire shutter opening" : "lamp coming up";
+    text = text.replace("light on screen", rising).replace(/\d+% light$/, rising);
+  }
   return text;
 }
 const motor = { x: 0, v: 0 };
@@ -960,6 +963,7 @@ if (D.resume) {
   touring = r.touring && !still.matches;
   tourClock = r.tourClock;
   tourStep = r.tourStep;
+  tourSay = (touring && TOUR[tourStep]?.say) || "";
   state.apart = r.apart;
   state.armed = r.armed;
   for (const id of IDS) {
@@ -969,6 +973,7 @@ if (D.resume) {
   if (r.apart && !r.armed) motor.x = 0;
   settled = !springsMoving();
   if (r.selected) select(r.selected, { demo: r.demo });
+  if (r.demoAge !== null && state.demo) state.demoAt = -r.demoAge;
   // The reader turned sound on with a click earlier, so the page may start audio again.
   if (r.sound) {
     audio = startAudio();
@@ -995,5 +1000,5 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
 return teardown;
