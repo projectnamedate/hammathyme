@@ -442,7 +442,7 @@ export function makeParts(k, G, P, D) {
       .join("");
     return [
       { id: "shutter", contours: [...shapes, bore], plane, tone: "mid", face: 1, extra: `<path class="iso-line" data-tone="faint" d="${ribs}"/>` },
-      { id: "shutter-hub", contours: [hub, bore], plane: { ...plane, o: [SH.x0 - 1.4, SH.y, SH.z], back: [1.4, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid">${rivets.map(([u, v]) => `<circle cx="${f1(u)}" cy="${f1(v)}" r="0.65"/>`).join("")}</g>` },
+      { id: "shutter-hub", contours: [hub, bore], plane: { ...plane, o: [SH.x0 - 1.4, SH.y, SH.z], back: [1.4, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid">${rivets.map(([u, v]) => `<circle cx="${f1(u)}" cy="${f1(v)}" r="0.95"/>`).join("")}</g>` },
     ];
   }
 
@@ -460,8 +460,9 @@ export function makeParts(k, G, P, D) {
   }
 
   // ---- spokes and windows of a reel flange ----
-  function flangeDef(id, reel) {
-    const plane = { o: [reel.x, reel.y1, reel.z], ex: [1, 0, 0], ey: [0, 0, -1], back: [0, -1.6, 0] };
+  // far: the flange on the head's side, windowed like the near one and turning with it
+  function flangeDef(id, reel, { far = false } = {}) {
+    const plane = { o: [reel.x, far ? reel.y0 + 1.6 : reel.y1, reel.z], ex: [1, 0, 0], ey: [0, 0, -1], back: [0, -1.6, 0] };
     const rim = circlePts(0, 0, reel.r, 120);
     const windows = [];
     for (let w = 0; w < 4; w++) {
@@ -479,7 +480,7 @@ export function makeParts(k, G, P, D) {
     const bore = circlePts(0, 0, reel.hub - 3, 24);
     bore.hole = true;
     const ring = circlePts(0, 0, reel.r - 3.2, 96);
-    return { id: `flange-${id}`, contours: [rim, ...windows, bore], plane, tone: "mid", extra: `<path class="iso-line" data-tone="faint" d="${poly(ring)}"/>` };
+    return { id: `flange-${id}${far ? "-far" : ""}`, contours: [rim, ...windows, bore], plane, tone: far ? "lo" : "mid", extra: `<path class="iso-line" data-tone="faint" d="${poly(ring)}"/>` };
   }
 
   // ---- the SMPTE universal leader frame, drawn in a face plane (u right, v down) ----

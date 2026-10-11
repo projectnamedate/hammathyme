@@ -40,7 +40,6 @@
 }
 
 .pj-host {
-  container: pj / inline-size;
   --anatomy-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
@@ -60,6 +59,11 @@
 .pj .iso-figure,
 .pj.iso-figure {
   margin-top: 0;
+}
+
+/* The controls' layout follows the card's own width, not the viewport's. */
+.pj.iso-figure {
+  container: pj / inline-size;
 }
 
 .pj .iso-plate {
@@ -447,6 +451,11 @@
 
   .pj-stage:focus-visible {
     outline-offset: -2px;
+  }
+
+  /* On a narrow card the parts would get too small; the drawing's own air takes the zoom. */
+  .pj-stage {
+    transform: scale(1.15);
   }
 
 }

@@ -278,7 +278,7 @@ const plateEl = (id) => {
   const el = stage.querySelector(`[data-plate="${id}"]`);
   return el && { back: el.querySelector('[data-turn="back"]'), walls: [...el.querySelectorAll('[data-turn="wall"]')], front: el.querySelector('[data-turn="front"]'), conn: el.querySelector('[data-turn="conn"]') };
 };
-const DEFS = { crank2: parts.handCrankDef(), cross: parts.crossDef(), crank: parts.crankDef(), lock: parts.lockDef(), feed: parts.flangeDef("feed", D.reels.feed), take: parts.flangeDef("take", D.reels.take) };
+const DEFS = { crank2: parts.handCrankDef(), cross: parts.crossDef(), crank: parts.crankDef(), lock: parts.lockDef(), feed: parts.flangeDef("feed", D.reels.feed), take: parts.flangeDef("take", D.reels.take), feedFar: parts.flangeDef("feed", D.reels.feed, { far: true }), takeFar: parts.flangeDef("take", D.reels.take, { far: true }) };
 const groups = {
   shutter: part("shutter"),
   pin: part("pin"),
@@ -290,7 +290,7 @@ const groups = {
   ammeter: part("ammeter"),
   teeth: Object.fromEntries(Object.keys(D.sprockets).map((id) => [id, part(`teeth-${id}`)?.querySelector('[data-turn="front"]')])),
 };
-const plates = { crank2: plateEl("handcrank"), cross: plateEl("cross"), crank: plateEl("crank"), lock: plateEl("lock"), feed: plateEl("flange-feed"), take: plateEl("flange-take") };
+const plates = { crank2: plateEl("handcrank"), cross: plateEl("cross"), crank: plateEl("crank"), lock: plateEl("lock"), feed: plateEl("flange-feed"), take: plateEl("flange-take"), feedFar: plateEl("flange-feed-far"), takeFar: plateEl("flange-take-far") };
 let shutterBlades = 2;
 let shutterDefs = parts.shutterDefs(shutterBlades);
 let shutterPlates = shutterDefs.map((def) => plateEl(def.id));
@@ -333,8 +333,11 @@ function draw(f0, f1, calm) {
     groups.teeth.feed?.setAttribute("transform", `rotate(${(-c * (360 * 4) / S.feed.teeth).toFixed(2)})`);
     groups.teeth.inter?.setAttribute("transform", `rotate(${(i * (360 * 4) / S.inter.teeth).toFixed(2)})`);
     groups.teeth.hold?.setAttribute("transform", `rotate(${(-c * (360 * 4) / S.hold.teeth).toFixed(2)})`);
-    turn(plates.feed, DEFS.feed, ((c * FL) / D.reels.feed.pack) * deg);
-    turn(plates.take, DEFS.take, ((c * FL) / D.reels.take.pack) * deg);
+    for (const id of ["feed", "take"]) {
+      const a = ((c * FL) / D.reels[id].pack) * deg;
+      turn(plates[id], DEFS[id], a);
+      turn(plates[`${id}Far`], DEFS[`${id}Far`], a);
+    }
     for (const run of runs) {
       const marks = parts.marks(run.pts, run.m0 - (run.drive === "c" ? c : i) * FL, { wrap: run.wrap, centre: run.centre });
       run.holes?.setAttribute("d", marks.holes);

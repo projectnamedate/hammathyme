@@ -36,7 +36,7 @@ const P = k.fitProjection(
   [...k.boxCorners(BASE, -BASE_H - FOOT_H, 0), [-24, 50, 852], [-104, 10, 760], [SCREEN_X, -98, 600], [SCREEN_X, 153, 600], [-330, 85, 600], [SH.x0, 153, SH.z]],
   W,
   H,
-  { pad: 28, azimuth: AZIMUTH, elevation: ELEVATION },
+  { pad: 90, azimuth: AZIMUTH, elevation: ELEVATION },
 );
 const V = G.viewOf(P);
 const KS = G.scaleOf(P);
@@ -71,7 +71,7 @@ const PIECES = {
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
   rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 46, 0] },
   lampcore: { name: "lamp", say: "xenon lamp · its mirror focuses the arc on the gate", move: [0, 0, 0] },
-  lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [0, 0, 205] },
+  lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [-30, 0, 205] },
   film: { name: "film path", say: "film path · steady at the sprockets, stepped at the gate", move: [0, 0, 0] },
   reels: { name: "reels", say: "reels · 90 ft of film a minute at 24 fps", move: [0, 0, 0] },
   head: { name: "Head", say: "", move: [0, 0, 0] },
@@ -172,7 +172,7 @@ record(A.slab(BASE, -BASE_H, BASE_H, { name: "stand.base", ground: true }, 8));
 const SCR = { y0: -98, y1: 153, z0: 410, z1: 590 };
 const screenBack = [];
 for (const y of [SCR.y0 - 8, SCR.y1 + 8]) {
-  screenBack.push({ d: G.dot3([SCREEN_X + 4, y, 0], V), svg: S(k.slabOf({ x: SCREEN_X - 22, y: y - 9, w: 52, d: 18, r: 3 }, 0, 5, P, 3, 0.4), { tone: "lo" }) });
+  screenBack.push({ d: G.dot3([SCREEN_X + 4, y, 0], V), svg: S(k.slabOf({ x: SCREEN_X - 22, y: y - 9, w: 52, d: 18, r: 3 }, 0, 5, P, 3, 0.4), { tone: "lo" }) + Dots([at([SCREEN_X - 15, y, 5.02]), at([SCREEN_X + 23, y, 5.02])], { size: 0.55 }) });
   screenBack.push({ d: G.dot3([SCREEN_X + 4, y, 100], V), svg: S(k.cylinder(SCREEN_X + 4, y, 4.5, 5, SCR.z1 + 6 - 5, P, 24), { tone: "mid" }) + Ln(k.sideArc(SCREEN_X + 4, y, 4.5, 300, P, 16), { tone: "faint" }) });
   screenBack.push({ d: G.dot3([SCREEN_X + 4, y, SCR.z1 + 7], V) + 0.1, svg: S(k.cylinder(SCREEN_X + 4, y, 5.5, SCR.z1 + 6, 3, P, 24, 0.3), { tone: "mid" }) });
   for (const z of [SCR.z0 + 20, SCR.z1 - 20]) screenBack.push({ d: G.dot3([SCREEN_X + 4, y, z], V) + 0.2, svg: S(k.cylinder(SCREEN_X + 4, y, 6, z - 4, 8, P, 24, 0.3), { tone: "mid" }) });
@@ -402,6 +402,13 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   box("head", "head.nameplate", [plate.x0, 0, plate.z0], [plate.x1, 0.8, plate.z1], { tone: "lo" }, { r: 0.6, steps: 2, bevel: 0 });
   const rules = [24, 17, 21].map((w, i) => path3([[plate.x0 + 4, 0.82, plate.z1 - 5 - i * 4], [plate.x0 + 4 + w, 0.82, plate.z1 - 5 - i * 4]])).join("");
   put("head", "head.nameplate.rules", [plate.x0 + 14, 0.85, plate.z0 + 9], Ln(rules, { tone: "lo", free: true }) + Dots([at([plate.x1 - 2.6, 0.82, plate.z0 + 2.6]), at([plate.x1 - 2.6, 0.82, plate.z1 - 2.6])], { size: 0.45 }), [record(A.box([plate.x0, 0.8, plate.z0], [plate.x1, 0.85, plate.z1], { name: "head.nameplate.rules" }))], { bias: 0.05 });
+  // the threading diagram every projector carries on its side: the film's path past two
+  // sprockets and the gate
+  const chart = { x0: -96, x1: -64, z0: 494, z1: 540 };
+  box("head", "head.chart", [chart.x0, 0, chart.z0], [chart.x1, 0.8, chart.z1], { tone: "lo" }, { r: 0.6, steps: 2, bevel: 0 });
+  const ring = (cx, cz, r) => path3(Array.from({ length: 17 }, (_, n) => [cx + r * Math.cos((n / 16) * TAU), 0.82, cz + r * Math.sin((n / 16) * TAU)]));
+  const threading = path3([[-90, 0.82, 535], [-84, 0.82, 527], [-79, 0.82, 527], [-75, 0.82, 522], [-75, 0.82, 508], [-79, 0.82, 504], [-84, 0.82, 504], [-90, 0.82, 498]]);
+  put("head", "head.chart.lines", [-80, 0.85, 517], Ln(ring(-84, 527, 2.6) + ring(-84, 504, 2.6) + threading + path3([[-73, 0.82, 518], [-73, 0.82, 512]]), { tone: "lo", free: true }) + Dots([at([chart.x0 + 2.4, 0.82, chart.z1 - 2.4]), at([chart.x1 - 2.4, 0.82, chart.z0 + 2.4])], { size: 0.45 }), [record(A.box([chart.x0, 0.8, chart.z0], [chart.x1, 0.85, chart.z1], { name: "head.chart.lines" }))]);
   const KF = FY(-80, 470);
   disc("head", "head.framing.boss", KF, 0, 3, 6.5, { tone: "lo" });
   disc("head", "head.framing.knob", KF, 3, 10, 8, { tone: "mid" }, { extra: k.fadedSvg(G.ribsOf(KF, 3, 10, 8, 32, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) + Ln(path3([[-80, 10.05, 466], [-80, 10.05, 474]]), { tone: "lo", free: true }) });
@@ -496,8 +503,15 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
     [record(A.box([-268, LH.y1 + 2.4, ZA - 4], [-222, LH.y1 + 2.5, ZA + 20], { name: "lamp.port" }))],
     { bias: 0.2 },
   );
+  for (const [n, z] of [[0, door.z0 + 14], [1, door.z1 - 34]]) disc("lamp", `lamp.door.hinge.${n}`, FZ(door.x0 - 2, LH.y1 + 2), z, z + 20, 2, { tone: "mid" });
   const HF = FY(door.x1 - 10, (door.z0 + door.z1) / 2);
   disc("lamp", "lamp.door.handle", HF, LH.y1 + 2.4, LH.y1 + 7, 2.6, { tone: "mid" });
+  {
+    const rp = { y0: 0, y1: 56, z0: 522, z1: 546 };
+    box("lamp", "lamp.rating", [LH.x0 - 0.8, rp.y0, rp.z0], [LH.x0, rp.y1, rp.z1], { tone: "lo" }, { r: 0.6, steps: 2, bevel: 0 });
+    const rules = [36, 26, 30].map((w, i) => path3([[LH.x0 - 0.82, rp.y0 + 5, rp.z1 - 6 - i * 5], [LH.x0 - 0.82, rp.y0 + 5 + w, rp.z1 - 6 - i * 5]])).join("");
+    put("lamp", "lamp.rating.rules", [LH.x0 - 0.85, 28, 534], Ln(rules, { tone: "lo", free: true }), [record(A.box([LH.x0 - 0.85, rp.y0, rp.z0], [LH.x0 - 0.8, rp.y1, rp.z1], { name: "lamp.rating.rules" }))]);
+  }
   for (const [y, z] of [[2, 470], [53, 470]]) {
     const AF = G.frameAlong([LH.x0, y, z], [-1, 0, 0]);
     disc("lamp", "lamp.adjust.boss", AF, 0, 2.4, 6, { tone: "lo" });
@@ -566,7 +580,7 @@ for (const [id, reel] of Object.entries(REELS)) {
   disc(id === "feed" ? "head" : "stand", `${id === "feed" ? "head" : "stand"}.spindle.${id}`, F, from, 6, 5.2, { tone: "mid" });
   reel.y0 = 6;
   reel.y1 = F1 + 4.6;
-  disc("reels", `reels.${id}.far`, F, reel.y0, reel.y0 + 1.6, reel.r, { tone: "lo" }, { extra: faceRing(F, reel.y0 + 1.6, reel.r - 3.2) });
+  put("reels", `reels.${id}.far`, [reel.x, reel.y0 + 0.8, reel.z], `<g data-part="flange-${id}-far">${PARTS.plateSvg(PARTS.flangeDef(id, reel, { far: true }), ((REST_C * M.FRAME_LENGTH) / reel.pack) * (180 / Math.PI))}</g>`, [record(A.disc(F, reel.y0, reel.y0 + 1.6, reel.r, { name: `reels.${id}.far` }))]);
   disc("reels", `reels.${id}.core`, F, reel.y0 + 1.6, F0, reel.hub, { tone: "mid" });
   disc("reels", `reels.${id}.core`, F, F1, reel.y1 - 1.6, reel.hub, { tone: "mid" });
   const rings = Array.from({ length: 5 }, (_, i) => G.circleOf(F, F1, reel.hub + 4 + ((reel.pack - reel.hub - 6) * (i + 1)) / 6, P, 72)).join("");
