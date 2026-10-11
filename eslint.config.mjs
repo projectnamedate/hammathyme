@@ -17,6 +17,8 @@ export default [
       ".vercel/**",
       "node_modules/**",
       "splat/**",
+      "figures/**",
+      "components/figures/projector/projector.live.js",
       "tsconfig.tsbuildinfo",
     ],
   },

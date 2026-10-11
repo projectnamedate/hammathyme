@@ -349,10 +349,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos visitors can use directly: storyboard prompts, character consistency, Kira chat, and a brand-guide mini game. provider calls share a $1 daily cap.",
+      "live demos visitors can use directly: a 35mm projector you can crank and take apart, storyboard prompts, character consistency, Kira chat, and a brand-guide mini game. provider calls share a $1 daily cap.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [
+      {
+        slug: "35mm-projector",
+        title: "35mm projector",
+        year: "2026",
+        blurb: "a working 35mm projector drawn in code: crank it, click a part to watch it work, take it apart.",
+        status: "live",
+        tint: "var(--cream-1)",
+      },
       {
         slug: "prompt-to-storyboard",
         title: "prompt -> storyboard",
@@ -517,6 +525,7 @@ const DETAIL_READY_KEYS = new Set([
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/prompt-library",
   "pipelines-tools/creative-skills",
+  "interactive-playable/35mm-projector",
   "interactive-playable/prompt-to-storyboard",
   "interactive-playable/consistency-lab",
   "interactive-playable/talk-to-character",

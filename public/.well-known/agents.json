@@ -51,6 +51,7 @@
     { "path": "/work/pipelines-tools/prompt-library", "purpose": "public prompt architecture and review-gate walkthrough" },
     { "path": "/work/pipelines-tools/creative-skills", "purpose": "reusable creative skill system and agent-stack map" },
     { "path": "/work/interactive-playable", "purpose": "live capped interactive and playable demo category" },
+    { "path": "/work/interactive-playable/35mm-projector", "purpose": "interactive 35mm projector anatomy figure; no provider calls" },
     { "path": "/work/interactive-playable/prompt-to-storyboard", "purpose": "capped Fal Nano Banana 2 prompt-to-six-panel-storyboard demo" },
     { "path": "/work/interactive-playable/consistency-lab", "purpose": "capped Kira character-consistency demo with safe LoRA remix hook" },
     { "path": "/work/interactive-playable/talk-to-character", "purpose": "capped DeepSeek V4 Flash Kira character chat demo" },

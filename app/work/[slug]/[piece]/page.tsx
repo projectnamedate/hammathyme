@@ -5,6 +5,7 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { SplatViewer } from "@/components/SplatViewer";
+import { ProjectorFigure } from "@/components/figures/projector/ProjectorFigure";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
@@ -163,6 +164,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/creative-skills") {
     return <CreativeSkillsDetail piece={piece} transitionName={transitionName} />;
   }
+  if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "interactive-playable/consistency-lab") return <ConsistencyLabDemo />;
   if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
@@ -186,6 +188,67 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
     if (guide) return <BrandGuideDetail guide={guide} transitionName={transitionName} />;
   }
   notFound();
+}
+
+const PROJECTOR_FACTS = [
+  ["mechanism", "4-slot geneva cross · 90° pull-down · front shutter, 1 to 3 blades"],
+  ["film", "35mm · 4 perf · 0.825 × 0.602 in aperture · smpte universal leader"],
+  ["built with", "anatomy skill · claude code · svg · webgl beam · web audio"],
+  ["sources", "smpte st 139, st 195, st 242 · us patent 6,183,087"],
+];
+
+function ProjectorDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A 35mm projector, threaded and running. A Geneva cross pulls each frame into the
+            gate and holds it still while the shutter flashes it twice.
+          </p>
+          <p className="mt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+            drag to crank · click a part to watch it work · take it apart
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {PROJECTOR_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div className="relative md:col-span-9" style={frameStyle}>
+          <ProjectorFigure />
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          drawn in code with anatomy, a skill that explains an idea by building it as a working
+          machine. every number on the card comes from the model that moves the parts.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          figure: hammer · kit:{" "}
+          <TrackedLink
+            event="outbound_click"
+            data={{ piece: "35mm-projector", target: "anatomy" }}
+            href="https://github.com/wheresryan22/anatomy"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+            data-cursor="link"
+            data-cursor-label="open"
+          >
+            anatomy by wheresryan22 (mit)
+          </TrackedLink>
+        </p>
+      </div>
+    </section>
+  );
 }
 
 const KIRA_AGENT_FACTS = [

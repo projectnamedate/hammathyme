@@ -57,3 +57,6 @@ next-env.d.ts
 
 # logs
 /tmp/measure-server.log
+
+# standalone previews written by figures/projector/build.mjs
+figures/projector/*.html

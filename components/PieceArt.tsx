@@ -42,6 +42,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/prompt-library": PromptLibrary,
   "pipelines-tools/creative-skills": CreativeSkills,
+  "interactive-playable/35mm-projector": ProjectorAnatomy,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "interactive-playable/consistency-lab": ConsistencyLab,
   "interactive-playable/talk-to-character": TalkToCharacter,
@@ -425,6 +426,67 @@ function CreativeSkills() {
         ))}
       </g>
       <MonoLabel>CREATIVE SKILLS</MonoLabel>
+    </Plate>
+  );
+}
+
+// A four-slot Geneva wheel: slots at 45° + 90°·k, locking arcs centred a·√2 out between them.
+function genevaPath(cx: number, cy: number, a: number, half: number) {
+  const pts: string[] = [];
+  const c = a * Math.SQRT2;
+  const inner = c - a;
+  const lock = a - half;
+  const at = (x: number, y: number) => pts.push(`${(cx + x).toFixed(2)} ${(cy - y).toFixed(2)}`);
+  for (let q = 0; q < 4; q++) {
+    const slot = Math.PI / 4 + (q * Math.PI) / 2;
+    const cs = Math.cos(slot);
+    const sn = Math.sin(slot);
+    const rot = (u: number, v: number) => at(u * cs - v * sn, u * sn + v * cs);
+    rot(a, -half);
+    rot(inner, -half);
+    for (let i = 1; i < 8; i++) {
+      const t = (i / 8) * Math.PI;
+      rot(inner - half * Math.sin(t), -half * Math.cos(t));
+    }
+    rot(inner, half);
+    rot(a, half);
+    const mid = slot + Math.PI / 4;
+    const mx = c * Math.cos(mid);
+    const my = c * Math.sin(mid);
+    const start = Math.atan2(a * sn + half * cs - my, a * cs - half * sn - mx);
+    let end = start - Math.PI / 2;
+    end = Math.atan2(Math.sin(end), Math.cos(end));
+    let span = end - start;
+    while (span > 0) span -= Math.PI * 2;
+    for (let i = 1; i < 10; i++) at(mx + lock * Math.cos(start + (span * i) / 10), my + lock * Math.sin(start + (span * i) / 10));
+  }
+  return `M${pts.join("L")}Z`;
+}
+
+const GENEVA = genevaPath(70, 74, 19, 2.6);
+
+function ProjectorAnatomy() {
+  return (
+    <Plate>
+      <g stroke="var(--ink-3)" strokeWidth="0.7">
+        <rect x="22" y="22" width="16" height="104" fill="var(--cream-0)" />
+        {Array.from({ length: 13 }, (_, i) => (
+          <g key={i}>
+            <rect x="24.2" y={25 + i * 8} width="2.4" height="3.2" fill="var(--ink-4)" stroke="none" />
+            <rect x="33.4" y={25 + i * 8} width="2.4" height="3.2" fill="var(--ink-4)" stroke="none" />
+          </g>
+        ))}
+        {[0, 1, 2, 3].map((i) => (
+          <line key={i} x1="22" y1={22 + i * 32} x2="38" y2={22 + i * 32} />
+        ))}
+        <rect x="27" y="57" width="6" height="18" fill="var(--ink-0)" stroke="none" />
+        <circle cx="96.9" cy="74" r="17" fill="var(--cream-0)" />
+        <path d={GENEVA} fill="var(--cinnamon)" stroke="var(--bloodlust)" />
+        <circle cx="70" cy="74" r="3.4" fill="var(--cream-0)" />
+        <circle cx="83.4" cy="60.6" r="2.4" fill="var(--ink-0)" stroke="none" />
+        <circle cx="96.9" cy="74" r="2" fill="var(--ink-2)" stroke="none" />
+      </g>
+      <MonoLabel>GENEVA · 24 FPS</MonoLabel>
     </Plate>
   );
 }
