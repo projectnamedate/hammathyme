@@ -114,8 +114,8 @@
   --pj-chip-on: #ffffff14;
   --pj-screen-dark: #0c0c0c;
   --pj-screen-lit: #e9e7e1;
-  --pj-frame-bg: #9a9a96;
-  --pj-sweep: #6c6c69;
+  --pj-frame-bg: #cfcdc6;
+  --pj-sweep: #a3a19b;
   --pj-ink: #1a1a1a;
   --pj-port-off: #121212;
   --pj-port-on: #ffb35c;
@@ -272,28 +272,19 @@
   fill: var(--pj-sweep);
 }
 
+/* Leader is printed dark on a pale field, so it reads the same in both themes. */
 .pj-ring,
 .pj-cross {
   fill: none;
-  stroke: var(--pj-screen-lit);
-  stroke-width: 1.4px;
+  stroke: var(--pj-ink);
+  stroke-width: 0.8px;
   vector-effect: non-scaling-stroke;
 }
 
-[data-theme="light"] .pj-ring,
-[data-theme="light"] .pj-cross {
-  stroke: var(--pj-ink);
-  stroke-width: 0.8px;
-}
-
 .pj-number {
-  fill: var(--pj-screen-lit);
+  fill: var(--pj-ink);
   font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
-}
-
-[data-theme="light"] .pj-number {
-  fill: var(--pj-ink);
 }
 
 /* the beam as light: a tint and its edges, as bright as the screen */
@@ -566,9 +557,6 @@
     outline-offset: -2px;
   }
 
-  .pj .iso-plate-corner[data-corner="title"] {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

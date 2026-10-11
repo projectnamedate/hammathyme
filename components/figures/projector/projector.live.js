@@ -2682,9 +2682,11 @@ function makeParts(k, G, P, D) {
   }
 
   // ---- the SMPTE universal leader frame, drawn in a face plane (u right, v down) ----
-  function leaderSvg(frame, w, h, { mirror = false } = {}) {
+  // small: the frame as seen in the gate, a few pixels across, where the number would only
+  // read as a stray glyph; rings and cross alone say "leader".
+  function leaderSvg(frame, w, h, { mirror = false, small = false } = {}) {
     const n = frame.number;
-    const r0 = Math.min(w, h) * 0.42;
+    const r0 = Math.min(w, h) * (small ? 0.3 : 0.42);
     const r1 = r0 * 0.82;
     const sweep = frame.sweep;
     let wedge = "";
@@ -2696,7 +2698,7 @@ function makeParts(k, G, P, D) {
     }
     const flip = mirror ? ` transform="scale(-1 -1)"` : "";
     const art = n
-      ? `<g${flip}><clipPath id="pj-clip-${D.uid}-${mirror ? "m" : "s"}"><rect x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/></clipPath><g clip-path="url(#pj-clip-${D.uid}-${mirror ? "m" : "s"})">${wedge}</g><circle class="pj-ring" r="${f1(r0)}"/><circle class="pj-ring" r="${f1(r1)}"/><path class="pj-cross" d="M${f1(-w / 2)} 0H${f1(w / 2)}M0 ${f1(-h / 2)}V${f1(h / 2)}"/><text class="pj-number" x="0" y="${f1(r1 * 0.36)}" font-size="${f1(r1 * 1.05)}" text-anchor="middle">${n}</text></g>`
+      ? `<g${flip}><clipPath id="pj-clip-${D.uid}-${mirror ? "m" : "s"}"><rect x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/></clipPath><g clip-path="url(#pj-clip-${D.uid}-${mirror ? "m" : "s"})">${wedge}</g><circle class="pj-ring" r="${f1(r0)}"/><circle class="pj-ring" r="${f1(r1)}"/><path class="pj-cross" d="M${f1(-w / 2)} 0H${f1(w / 2)}M0 ${f1(-h / 2)}V${f1(h / 2)}"/>${small ? "" : `<text class="pj-number" x="0" y="${f1(r1 * 0.36)}" font-size="${f1(r1 * 1.05)}" text-anchor="middle">${n}</text>`}</g>`
       : "";
     return `<rect class="${n ? "pj-frame-bg" : "pj-frame-black"}" x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/>${art}`;
   }
@@ -2710,7 +2712,7 @@ function makeParts(k, G, P, D) {
     const w = D.win.w;
     const frames = [-1, 0, 1].map((j) => {
       const v = (slide - j) * FL;
-      return `<g transform="translate(0 ${v.toFixed(2)})"><g transform="rotate(180)">${leaderSvg(leaderAt(n + j), w + 0.5, FL - 1.2)}</g><path class="pj-frameline" d="M${f1(-w)} ${f1(FL / 2)}H${f1(w)}"/></g>`;
+      return `<g transform="translate(0 ${v.toFixed(2)})"><g transform="rotate(180)">${leaderSvg(leaderAt(n + j), w + 0.5, FL - 1.2, { small: true })}</g><path class="pj-frameline" d="M${f1(-w)} ${f1(FL / 2)}H${f1(w)}"/></g>`;
     });
     return `<rect class="pj-film-face" x="${f1(-w)}" y="${f1(-FL * 2)}" width="${f1(w * 2)}" height="${f1(FL * 4)}"/>${frames.join("")}`;
   }
@@ -2840,7 +2842,7 @@ function setApart(on) {
   if (state.apart === on && !state.armed) return;
   state.apart = on;
   state.step = null;
-  if (state.crank) endDrag();
+  if (state.crank) letGo();
   if (on) {
     state.inched = false;
     if (Math.abs(state.fps) > 0.05) {

@@ -120,7 +120,7 @@ function setApart(on) {
   if (state.apart === on && !state.armed) return;
   state.apart = on;
   state.step = null;
-  if (state.crank) endDrag();
+  if (state.crank) letGo();
   if (on) {
     state.inched = false;
     if (Math.abs(state.fps) > 0.05) {
