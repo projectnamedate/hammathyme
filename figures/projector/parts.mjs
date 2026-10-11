@@ -394,17 +394,13 @@ export function makeParts(k, G, P, D) {
   }
 
   // ---- the inching knob on the motor's rear face ----
-  // The inching knob: a plain round knob, knurled across its face rim, with a radial index line
-  // so its turning shows.
+  // The inching knob: a plain round knob with a radial index line so its turning shows; its
+  // knurl is drawn on the rim band by the build.
   function handCrankDef() {
     const H = D.handCrank;
-    const rim = circlePts(0, 0, H.r, 64);
-    const knurl = Array.from({ length: 24 }, (_, i) => {
-      const t = (i / 24) * TAU;
-      return line([[(H.r - 1.3) * Math.cos(t), (H.r - 1.3) * Math.sin(t)], [H.r * Math.cos(t), H.r * Math.sin(t)]]);
-    }).join("");
-    return { id: "handcrank", contours: [rim], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<path class="iso-line" data-tone="faint" d="${knurl}"/><path class="iso-line" data-tone="hi" d="${line([[1.2, 0], [H.r - 1.6, 0]])}"/><g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="0.9"/></g>` };
+    return { id: "handcrank", contours: [circlePts(0, 0, H.r, 64)], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<path class="iso-line" data-tone="hi" d="${line([[1.1, 0], [H.r - 1.2, 0]])}"/><g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="0.8"/></g>` };
   }
+
 
 
 

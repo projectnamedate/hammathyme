@@ -499,8 +499,8 @@ let tourStep = -1;
 let leaderShift = 0;
 const leaderOf = (n) => M.leaderAt(n + leaderShift);
 let tourSay = "";
-let hovering = false;
-let focused = false;
+let hovering = stage.matches(":hover");
+let focused = root.contains(document.activeElement);
 function stepTour(dt) {
   if (hovering || focused) return;
   tourClock += dt;
@@ -605,7 +605,7 @@ function tick(now) {
     motor.x = 0;
     motor.v = 0;
     if (state.step.cycle === null) state.step.cycle = stepCycle(state.frames, state.step.dir);
-    state.step.goal = state.step.cycle + M.openPhase(state.blades);
+    state.step.goal = stepGoal(state.step, state.frames);
     if (calm) {
       state.frames = state.step.goal;
       jumped = true;
@@ -736,6 +736,13 @@ bladeButtons.forEach((b) =>
 );
 // One step brings the next (or the last) frame into the gate and ends at the instant the
 // shutter is most open, so it shows lit on the screen. Presses queue.
+// The step's goal is a shutter gap in the frame the step brings in: the first one ahead of the
+// film in the step's direction, so a blade change part-way never sends the film back.
+function stepGoal(step, from) {
+  const gaps = Array.from({ length: state.blades }, (_, k) => step.cycle + 0.125 + (k + 0.5) / state.blades);
+  const ahead = step.dir > 0 ? gaps.filter((g) => g >= from - 1e-9) : gaps.filter((g) => g <= from + 1e-9).reverse();
+  return ahead[0] ?? (step.dir > 0 ? Math.max(from, step.cycle + M.openPhase(state.blades)) : Math.min(from, step.cycle + M.openPhase(state.blades)));
+}
 function stepCycle(from, dir) {
   const n = Math.floor(M.intermittentOf(from) + 1e-6);
   return dir > 0 ? n : n - 2;
@@ -972,7 +979,7 @@ if (D.resume) {
     Object.assign(piece[id], { x: q.x, v: q.v, target: q.target, pending: q.pending && { value: q.pending.value, at: q.pending.in } });
   }
   if (r.apart && !r.armed) motor.x = 0;
-  settled = !springsMoving();
+  settled = !springsMoving() && !r.armed;
   if (r.selected) select(r.selected, { demo: r.demo });
   if (r.demoAge !== null && state.demo) state.demoAt = -r.demoAge;
   // The reader turned sound on with a click earlier, so the page may start audio again.

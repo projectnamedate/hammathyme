@@ -292,11 +292,11 @@ const AP = { x0: -5, x1: -0.15 };
 }
 // A guide roller on the aperture plate's top edge leads the film square into the gate.
 {
-  const GF = FY(-3.6, GATE.z1 + 3.4);
+  const GF = FY(-3.6, GATE.z1 + 3.7);
+  disc("head", "head.gate.guide.axle", GF, 0, F0 - 0.6, 1.2, { tone: "lo" });
   disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 0.6, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 - 1, 3.4, P), { tone: "faint" }) });
-  disc("head", "head.gate.guide.axle", GF, F1 + 0.6, F1 + 3, 1.2, { tone: "lo" });
 }
-box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "mid" }, { r: 0.8, steps: 2, bevel: 0.3, extra: Ln(path3([[-0.02, AY - WIN.w / 2 - 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA + WIN.h / 2 + 1], [-0.02, AY - WIN.w / 2 - 1, ZA + WIN.h / 2 + 1]], true), { tone: "lo" }) + Ln(path3([[-0.02, AY - 12, GATE.z0 + 8], [-0.02, AY - 12, GATE.z1 - 8]]) + path3([[-0.02, AY + 12, GATE.z0 + 8], [-0.02, AY + 12, GATE.z1 - 8]]), { tone: "faint", free: true }) });
+box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "mid" }, { r: 0.8, steps: 2, bevel: 0.3, extra: Ln(path3([[-0.02, AY - WIN.w / 2 - 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA + WIN.h / 2 + 1], [-0.02, AY - WIN.w / 2 - 1, ZA + WIN.h / 2 + 1]], true), { tone: "lo" }) + Ln([-1, 1].map((sd) => path3([[-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z0 + 4], [-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z1 - 4]])).join(""), { tone: "faint" }) });
 {
   const KF = FY(4.5, ZA + 22);
   disc("gate", "gate.latch", KF, F1 + 6, F1 + 10, 3.4, { tone: "mid" }, { extra: k.fadedSvg(G.ribsOf(KF, F1 + 6, F1 + 10, 3.4, 18, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) });
@@ -308,10 +308,10 @@ box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone
   const LF = FX(AY, ZA);
   box("head", "head.lens.bracket", [24, 0, ZA - 10], [38, AY - 24 + 0.0, ZA + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
   const collar = record(A.ring(LF, 24, 38, LENS.r, 24, { name: "lens.collar" }));
-  put("lens", "lens.collar", [31, AY, ZA], S(G.ringBand(24, 38, LENS.r, 24, LF, P), { tone: "mid" }) + screwOn(LF, 24, 21, 6), [collar], { bias: 0.3 });
+  put("lens", "lens.collar", [31, AY, ZA], S(G.ringBand(24, 38, LENS.r, 24, LF, P), { tone: "mid" }) + screwOn(LF, 24, 21, 6) + Ln(G.circleOf(LF, 23.98, 13, P, 64), { tone: "lo" }) + Ln(G.circleOf(LF, 23.98, 10, P, 64), { tone: "faint" }), [collar], { bias: 0.3 });
   const knurl = k.fadedSvg(G.ribsOf(LF, 62, 78, LENS.r + 1.2, 64, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" });
   turned("lens", "lens.mount", LF, [[LENS.x0, LENS.r], [24, LENS.r]], { tone: "mid" }, { inner: Ln(G.arcOf(LF, 18, LENS.r, P), { tone: "faint" }) });
-  turned("lens", "lens.barrel", LF, [[38, LENS.r], [62, LENS.r], [62, LENS.r + 1.2], [78, LENS.r + 1.2], [78, LENS.r], [96, LENS.r], [96, LENS.r + 0.6], [LENS.x1, LENS.r + 0.6]], { tone: "mid" }, { extra: knurl + Ln(G.circleOf(LF, 38, 15, P, 64), { tone: "lo" }) + Ln(G.circleOf(LF, 38, 12, P, 64), { tone: "faint" }), inner: Ln(G.arcOf(LF, 50, LENS.r, P) + G.arcOf(LF, 88, LENS.r, P), { tone: "faint" }) });
+  turned("lens", "lens.barrel", LF, [[38, LENS.r], [62, LENS.r], [62, LENS.r + 1.2], [78, LENS.r + 1.2], [78, LENS.r], [96, LENS.r], [96, LENS.r + 0.6], [LENS.x1, LENS.r + 0.6]], { tone: "mid" }, { extra: knurl, inner: Ln(G.arcOf(LF, 50, LENS.r, P) + G.arcOf(LF, 88, LENS.r, P), { tone: "faint" }) });
 }
 
 // gearbox, the shaft out to the shutter, the driver shaft out to the movement
@@ -412,14 +412,14 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
   // A knurled inching knob on the reduction box's shaft: small enough that, whatever its angle,
   // it stays inside the motor's end on the page and never reaches the hold-back sprocket.
-  const HC = { o: [2, MY, MZ], r: 6.5, t: 2.4 };
+  const HC = { o: [2, MY, MZ], r: 5, t: 2.4 };
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
   disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10, 4, P, { all: true }), { size: 0.5 }) });
   disc("head", "head.crank.shaft", G.frameAlong([6, MY, MZ], [-1, 0, 0]), 0, 1.6, 3, { tone: "lo" });
   const knobDef = PARTS.handCrankDef();
-  put("head", "head.crank.knob", [HC.o[0] + 1, MY, MZ], `<g data-part="handcrank">${PARTS.plateSvg(knobDef, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), knobDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.knob" }))]);
+  put("head", "head.crank.knob", [HC.o[0] + 1, MY, MZ], `<g data-part="handcrank">${PARTS.plateSvg(knobDef, 0)}</g>` + k.fadedSvg(G.ribsOf(G.frameAlong([HC.o[0], MY, MZ], [1, 0, 0]), 0, HC.t, HC.r, 24, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }), [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), knobDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.knob" }))]);
   disc("head", "head.motor.shaft", MF, 92, 100, 3, { tone: "mid" });
   disc("head", "head.pulley.motor", MF, 100, 108, 7, { tone: "mid" }, { inner: Ln(G.arcOf(MF, 104, 7, P), { tone: "lo" }) });
   box("head", "head.motor.foot", [26, 0, MZ - 10], [80, MY - 28, MZ + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
@@ -468,18 +468,19 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   box("stand", "stand.switch", [-6, -14, 214], [26, -9, 262], { tone: "mid" }, { r: 1.2, steps: 2, bevel: 0.4, extra: Dots([[-2, 218], [22, 218], [-2, 258], [22, 258]].map(([x, z]) => at([x, -8.98, z])), { size: 0.45 }) });
   disc("stand", "stand.switch.toggle.base", FY(10, 246), -9, -7, 4, { tone: "lo" });
   disc("stand", "stand.switch.toggle", G.frameAlong([10, -7, 246], G.unit3([0, 1, 0.45])), 0, 9, 1.2, { tone: "mid" });
-  put("stand", "stand.switch.pilot", [10, -8.9, 226], `<g class="pj-pilot">${S(G.disc(-9, -7.4, 3, FY(10, 226), P, { steps: 24 }), { tone: "lo" })}</g>`, [record(A.disc(FY(10, 226), -9, -7.4, 3, { name: "stand.switch.pilot" }))], { bias: 0.1 });
+  put("stand", "stand.switch.pilot", [7.5, -8.9, 226], `<g class="pj-pilot">${S(G.disc(-9, -7.4, 3, FY(7.5, 226), P, { steps: 24 }), { tone: "lo" })}</g>`, [record(A.disc(FY(7.5, 226), -9, -7.4, 3, { name: "stand.switch.pilot" }))], { bias: 0.1 });
 }
 // ---- a tape splicer on the bench: a channel with register pins, a hinged blade ----
 {
-  const SP = { x: 70, y: 96, w: 92, d: 34 };
+  const SP = { x: 70, y: 96, w: 92, d: 40 };
   box("stand", "stand.splicer", [SP.x, SP.y, 0], [SP.x + SP.w, SP.y + SP.d, 9], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6, extra: Dots([[SP.x + 4, SP.y + 4], [SP.x + SP.w - 4, SP.y + 4], [SP.x + 4, SP.y + SP.d - 4], [SP.x + SP.w - 4, SP.y + SP.d - 4]].map(([x, y]) => at([x, y, 9])), { size: 0.45 }) });
   const CH0 = SP.y + (SP.d - M.FILM.width) / 2;
-  put("stand", "stand.splicer.channel", [SP.x + SP.w / 2, CH0 + 17, 9.02], Ln(k.planOutline({ x: SP.x + 3, y: CH0, w: SP.w - 6, d: M.FILM.width, r: 0.6 }, 9.02, P, 2), { tone: "lo" }) + Dots(Array.from({ length: 14 }, (_, n) => at([SP.x + 10 + n * M.FILM.pitch * 1.4, CH0 + 3.4, 9.02])), { size: 0.4, tone: "mid" }), [record(A.box([SP.x + 3, CH0, 9], [SP.x + SP.w - 3, CH0 + M.FILM.width, 9.05], { name: "stand.splicer.channel" }))], { bias: 0.05 });
+  const PERFS = Array.from({ length: Math.floor((SP.w - 12) / M.FILM.pitch) + 1 }, (_, n) => SP.x + 6 + n * M.FILM.pitch);
+  put("stand", "stand.splicer.channel", [SP.x + SP.w / 2, CH0 + 17, 9.02], Ln(k.planOutline({ x: SP.x + 3, y: CH0, w: SP.w - 6, d: M.FILM.width, r: 0.6 }, 9.02, P, 2), { tone: "lo" }) + Dots(PERFS.flatMap((x) => [at([x, CH0 + 3.4, 9.02]), at([x, CH0 + M.FILM.width - 3.4, 9.02])]), { size: 0.4, tone: "mid" }), [record(A.box([SP.x + 3, CH0, 9], [SP.x + SP.w - 3, CH0 + M.FILM.width, 9.05], { name: "stand.splicer.channel" }))], { bias: 0.05 });
   box("stand", "stand.splicer.leader", [SP.x + 6, CH0 + 0.4, 9.05], [SP.x + 52, CH0 + M.FILM.width - 0.4, 9.3], { tone: "mid" }, { r: 0.3, steps: 2, bevel: 0 });
   // register pins through the leader's perforations, both edges
-  for (const [n, x] of [SP.x + 12, SP.x + 24, SP.x + 36, SP.x + 48].entries()) {
-    for (const [m, y] of [CH0 + 2.4, CH0 + M.FILM.width - 2.4].entries()) disc("stand", `stand.splicer.pin.${n}.${m}`, FZ(x, y), 9.3, 10.6, 0.75, { tone: "mid" });
+  for (const [n, x] of [PERFS[2], PERFS[6]].entries()) {
+    for (const [m, y] of [CH0 + 3.4, CH0 + M.FILM.width - 3.4].entries()) disc("stand", `stand.splicer.pin.${n}.${m}`, FZ(x, y), 9.3, 10.6, 0.75, { tone: "mid" });
   }
   box("stand", "stand.splicer.hinge", [SP.x + 60, SP.y + SP.d - 3, 9], [SP.x + 84, SP.y + SP.d, 14], { tone: "lo" }, { r: 0.6, steps: 2 });
   box("stand", "stand.splicer.blade", [SP.x + 60, SP.y + 4, 14], [SP.x + 84, SP.y + SP.d, 17], { tone: "mid" }, { r: 1, steps: 2, bevel: 0.4 });
@@ -748,7 +749,7 @@ for (const roller of ROLLERS) {
 // Apart, the feed roller comes off its axle and away from the film, not straight out across the
 // upper loop as the other two can.
 {
-  const feedRoller = [-30, 96, 0];
+  const feedRoller = [-70, 110, 0];
   for (const item of R.items) {
     if (!item.name.startsWith("rollers.feed")) continue;
     item.move = feedRoller;
@@ -807,7 +808,7 @@ Object.assign(D, {
 
 const backSvg = k.figureSvg({ width: W, height: H, label: LABEL_TEXT, body: back, className: "pj-back" });
 const frontSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="iso-svg pj-front" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="pj-machine">${groups.join("")}</g></svg>`;
-const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="dot" aria-label="${PIECES[id].name}"><span class="pj-num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
+const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="dot"><span class="pj-num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
 const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
