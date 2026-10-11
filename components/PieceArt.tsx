@@ -468,18 +468,18 @@ const GENEVA = genevaPath(64, 82, 18, 2.5);
 function ProjectorAnatomy() {
   return (
     <Plate>
-      <g stroke="var(--ink-3)" strokeWidth="0.9">
+      <g stroke="var(--ink-3)" strokeWidth="1">
         <rect x="24" y="44" width="15" height="80" fill="var(--cream-0)" />
         {Array.from({ length: 10 }, (_, i) => (
           <g key={i}>
-            <rect x="26" y={47 + i * 8} width="2.2" height="3" fill="var(--ink-4)" stroke="none" />
-            <rect x="34.8" y={47 + i * 8} width="2.2" height="3" fill="var(--ink-4)" stroke="none" />
+            <rect x="26" y={46.5 + i * 8} width="2.2" height="3" fill="var(--ink-4)" stroke="none" />
+            <rect x="34.8" y={46.5 + i * 8} width="2.2" height="3" fill="var(--ink-4)" stroke="none" />
           </g>
         ))}
-        {[0, 1, 2, 3].map((i) => (
-          <line key={i} x1="24" y1={52 + i * 24} x2="39" y2={52 + i * 24} />
+        {[0, 1, 2].map((i) => (
+          <line key={i} x1="24" y1={44 + 32 + i * 32 - 32} x2="39" y2={44 + 32 + i * 32 - 32} />
         ))}
-        <rect x="28.8" y="70" width="5.4" height="16" fill="var(--ink-0)" stroke="none" />
+        <rect x="28.8" y="80" width="5.4" height="24" fill="var(--ink-0)" stroke="none" />
         <circle cx="89.5" cy="82" r="15.5" fill="var(--cream-0)" />
         <path d={GENEVA} fill="var(--cinnamon)" stroke="var(--ink-1)" />
         <circle cx="64" cy="82" r="3.2" fill="var(--cream-0)" />

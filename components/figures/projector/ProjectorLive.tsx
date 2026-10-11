@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-type Mount = (root: HTMLElement, data: Record<string, unknown>) => () => void;
+type Unmount = (() => void) & { snapshot?: () => Record<string, unknown> };
+type Mount = (root: HTMLElement, data: Record<string, unknown>) => Unmount;
 
 export function ProjectorLive() {
   const anchor = useRef<HTMLSpanElement>(null);
@@ -19,22 +20,24 @@ export function ProjectorLive() {
       host.dataset.theme = dark.matches ? "dark" : "light";
     };
     theme();
-    let unmount = () => {};
+    let unmount: Unmount = () => {};
     let cancelled = false;
     let timer = 0;
     let idle = 0;
+    let fallback = 0;
     let markup = "";
     let mount: Mount | null = null;
     let data: Record<string, unknown> = {};
 
     // Every mount starts from fresh drawing markup, so a theme change mid-use never inherits
-    // parts left apart or turned by the run before.
+    // parts left apart or turned by the run before; what the reader chose carries over.
     const start = () => {
       if (!mount) return;
+      const resume = unmount.snapshot?.();
       unmount();
       theme();
       stage.innerHTML = markup;
-      unmount = mount(root, data);
+      unmount = mount(root, resume ? { ...data, resume } : data);
     };
     const load = async () => {
       const [{ PROJECTOR_STAGE }, live] = await Promise.all([import("./projector.stage"), import("./projector.live")]);
@@ -47,11 +50,12 @@ export function ProjectorLive() {
     const onTheme = () => (mount ? start() : theme());
     dark.addEventListener("change", onTheme);
 
-    // Load the drawing once the page has settled and the figure is close, so its 645 KB chunk
-    // never competes with the page's first paint; the page's intro animations finish about a
-    // second after load.
+    // Load the drawing once the page has settled and the figure is close, so its chunk of
+    // several hundred KB never competes with the page's first paint; the page's intro
+    // animations finish about a second after load.
     const go = () => {
-      idle = typeof window.requestIdleCallback === "function" ? window.requestIdleCallback(() => void load(), { timeout: 1200 }) : window.setTimeout(() => void load(), 200);
+      if (typeof window.requestIdleCallback === "function") idle = window.requestIdleCallback(() => void load(), { timeout: 1200 });
+      else fallback = window.setTimeout(() => void load(), 200);
     };
     const later = () => {
       timer = window.setTimeout(go, 1400);
@@ -72,8 +76,8 @@ export function ProjectorLive() {
       near.disconnect();
       window.removeEventListener("load", later);
       window.clearTimeout(timer);
-      if (typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
-      window.clearTimeout(idle);
+      if (idle && typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
+      window.clearTimeout(fallback);
       dark.removeEventListener("change", onTheme);
       unmount();
     };

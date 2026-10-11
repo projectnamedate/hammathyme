@@ -62,31 +62,40 @@ export function makeParts(k, G, P, D) {
   }
   const join = (...runs) => runs.reduce((all, run) => (all.length ? [...all, ...run.slice(1)] : [...run]), []);
 
-  // A loop is a cubic from p0 (heading t0) to p1 (heading t1) whose arms are solved so the
-  // curve holds exactly the film the sprockets have fed it.
-  function bezier(p0, t0, p1, t1, arm, n = 28) {
-    const c0 = [p0[0] + t0[0] * arm, p0[1] + t0[1] * arm];
-    const c1 = [p1[0] - t1[0] * arm, p1[1] - t1[1] * arm];
-    const pts = [];
-    for (let i = 0; i <= n; i++) {
+  // A loop runs from p0 (heading t0) out to an apex beside the chord, then on to p1 (heading
+  // t1): two cubics meeting square to the chord. The apex's distance is solved so the curve holds
+  // exactly the film the sprockets have fed it; the bend never folds into a crease.
+  function cubic(a, ta, b, tb, arm, n, pts) {
+    const c0 = [a[0] + ta[0] * arm, a[1] + ta[1] * arm];
+    const c1 = [b[0] - tb[0] * arm, b[1] - tb[1] * arm];
+    for (let i = pts.length ? 1 : 0; i <= n; i++) {
       const t = i / n;
       const s = 1 - t;
       pts.push([
-        s * s * s * p0[0] + 3 * s * s * t * c0[0] + 3 * s * t * t * c1[0] + t * t * t * p1[0],
-        s * s * s * p0[1] + 3 * s * s * t * c0[1] + 3 * s * t * t * c1[1] + t * t * t * p1[1],
+        s * s * s * a[0] + 3 * s * s * t * c0[0] + 3 * s * t * t * c1[0] + t * t * t * b[0],
+        s * s * s * a[1] + 3 * s * s * t * c0[1] + 3 * s * t * t * c1[1] + t * t * t * b[1],
       ]);
     }
     return pts;
   }
+  function bulge(spec, h, n) {
+    const { p0, t0, p1, t1 } = spec;
+    const span = Math.hypot(p1[0] - p0[0], p1[1] - p0[1]);
+    const d = [(p1[0] - p0[0]) / span, (p1[1] - p0[1]) / span];
+    const side = -d[1] * t0[0] + d[0] * t0[1] < 0 ? -1 : 1;
+    const apex = [(p0[0] + p1[0]) / 2 - d[1] * side * h, (p0[1] + p1[1]) / 2 + d[0] * side * h];
+    const pts = cubic(p0, t0, apex, d, 0.55 * Math.hypot(apex[0] - p0[0], apex[1] - p0[1]), n, []);
+    return cubic(apex, d, p1, t1, 0.55 * Math.hypot(p1[0] - apex[0], p1[1] - apex[1]), n, pts);
+  }
   function loopOf(spec, length) {
     let lo = 0;
-    let hi = 400;
+    let hi = 300;
     for (let i = 0; i < 30; i++) {
       const mid = (lo + hi) / 2;
-      if (lengthOf(bezier(spec.p0, spec.t0, spec.p1, spec.t1, mid, 18)) < length) lo = mid;
+      if (lengthOf(bulge(spec, mid, 10)) < length) lo = mid;
       else hi = mid;
     }
-    return bezier(spec.p0, spec.t0, spec.p1, spec.t1, (lo + hi) / 2);
+    return bulge(spec, (lo + hi) / 2, 14);
   }
 
   // ---- the film as a ribbon ----
@@ -252,7 +261,8 @@ export function makeParts(k, G, P, D) {
     const face = def.contours.map(poly).join("");
     const t = plateTurn(def, deg);
     const tone = def.tone ?? "hi";
-    const faceClass = faceTone === 4 ? `class="iso-top"` : `class="iso-shade" data-shade="${faceTone}"`;
+    const shownTone = def.face ?? faceTone;
+    const faceClass = shownTone === 4 ? `class="iso-top"` : `class="iso-shade" data-shade="${shownTone}"`;
     return `<g class="iso-solid pj-plate" data-plate="${def.id}" transform="${m}"><g data-turn="back" transform="${t.back}"><path class="iso-fill" fill-rule="evenodd" d="${face}"/><path class="iso-shade" data-shade="${def.wall ?? 1}" fill-rule="evenodd" d="${face}"/><path class="iso-line iso-edge" data-tone="${tone}" d="${face}"/></g><path class="iso-line iso-edge" data-tone="${tone}" data-turn="conn" d="${t.conn}"/><g data-turn="front" transform="${t.front}"><path class="iso-fill" fill-rule="evenodd" d="${face}"/><path ${faceClass} fill-rule="evenodd" d="${face}"/>${def.extra ?? ""}<path class="iso-line iso-edge" data-tone="${tone}" d="${face}"/></g></g>`;
   }
 
@@ -360,18 +370,18 @@ export function makeParts(k, G, P, D) {
     const pts = [];
     for (let i = 0; i <= 14; i++) {
       const t = Math.PI / 2 + (i / 14) * Math.PI;
-      pts.push([5 * Math.cos(t), 5 * Math.sin(t)]);
+      pts.push([6 * Math.cos(t), 6 * Math.sin(t)]);
     }
     for (let i = 0; i <= 14; i++) {
       const t = -Math.PI / 2 + (i / 14) * Math.PI;
-      pts.push([H.arm + 3.4 * Math.cos(t), 3.4 * Math.sin(t)]);
+      pts.push([H.arm + 4.4 * Math.cos(t), 4.4 * Math.sin(t)]);
     }
     return { id: "handcrank", contours: [pts], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="1.1"/></g>` };
   }
   function handleSvg() {
     const H = D.handCrank;
     const F = G.frameAlong([H.o[0], H.o[1] + H.arm, H.o[2]], [-1, 0, 0]);
-    return k.solidSvg(G.solidOf([[0, 1.6], [2, 1.6], [2, 2.6, 1], [9, 2.8, 1], [11, 2.2, 1], [11.6, 0]], F, P, { smooth: true }), { tone: "hi" });
+    return k.solidSvg(G.solidOf([[0, 2], [2.6, 2], [2.6, 3.2, 1], [12, 3.6, 1], [15, 2.9, 1], [16, 0]], F, P, { smooth: true }), { tone: "hi" });
   }
   function handleShift(deg) {
     const H = D.handCrank;
@@ -426,7 +436,7 @@ export function makeParts(k, G, P, D) {
       })
       .join("");
     return [
-      { id: "shutter", contours: [...shapes, bore], plane, tone: "mid", extra: `<path class="iso-line" data-tone="faint" d="${ribs}"/>` },
+      { id: "shutter", contours: [...shapes, bore], plane, tone: "mid", face: 1, extra: `<path class="iso-line" data-tone="faint" d="${ribs}"/>` },
       { id: "shutter-hub", contours: [hub, bore], plane: { ...plane, o: [SH.x0 - 1.4, SH.y, SH.z], back: [1.4, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid">${rivets.map(([u, v]) => `<circle cx="${f1(u)}" cy="${f1(v)}" r="0.65"/>`).join("")}</g>` },
     ];
   }
@@ -484,7 +494,7 @@ export function makeParts(k, G, P, D) {
     const art = n
       ? `<g${flip}><clipPath id="pj-clip-${D.uid}-${mirror ? "m" : "s"}"><rect x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/></clipPath><g clip-path="url(#pj-clip-${D.uid}-${mirror ? "m" : "s"})">${wedge}</g><circle class="pj-ring" r="${f1(r0)}"/><circle class="pj-ring" r="${f1(r1)}"/><path class="pj-cross" d="M${f1(-w / 2)} 0H${f1(w / 2)}M0 ${f1(-h / 2)}V${f1(h / 2)}"/><text class="pj-number" x="0" y="${f1(r1 * 0.36)}" font-size="${f1(r1 * 1.05)}" text-anchor="middle">${n}</text></g>`
       : "";
-    return `<rect class="pj-frame-bg" x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/>${art}`;
+    return `<rect class="${n ? "pj-frame-bg" : "pj-frame-black"}" x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/>${art}`;
   }
 
   // The gate as the lamp sees it through the aperture: the leader upside down, frame n

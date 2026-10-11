@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as k from "../anatomy-kit/kit/iso-kit.mjs";
 import * as G from "../anatomy-kit/kit/lathe.mjs";
-import { tubePieces, tubeSvg } from "../anatomy-kit/kit/tube.mjs";
+import { tubePieces, tubeSvg, crossingsOf } from "../anatomy-kit/kit/tube.mjs";
 import * as A from "../anatomy-kit/kit/audit.mjs";
 import { glCamera } from "../anatomy-kit/kit/gl.mjs";
 import { kitScript, glScript } from "../anatomy-kit/scripts/inline-kit.mjs";
@@ -65,13 +65,13 @@ const D = {
 
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
-  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [96, 0, 0] },
+  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [72, 0, 0] },
   movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [0, 88, 46] },
   lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
   rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 46, 0] },
   lampcore: { name: "lamp", say: "xenon lamp · its mirror focuses the arc on the gate", move: [0, 0, 0] },
-  lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [0, 0, 150] },
+  lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [0, 0, 205] },
   film: { name: "film path", say: "film path · steady at the sprockets, stepped at the gate", move: [0, 0, 0] },
   reels: { name: "reels", say: "reels · 90 ft of film a minute at 24 fps", move: [0, 0, 0] },
   head: { name: "Head", say: "", move: [0, 0, 0] },
@@ -184,6 +184,24 @@ screenBack.push({ d: G.dot3([SCREEN_X + 4, AY, (SCR.z0 + SCR.z1) / 2], V), svg: 
 for (const y of [SCR.y0, SCR.y1]) screenBack.push({ d: G.dot3([SCREEN_X + 4, y, 500], V) + 0.3, svg: S(k.slabOf({ x: SCREEN_X + 1, y: y + (y < 0 ? -4.2 : 0), w: 6, d: 4.2, r: 0.6 }, SCR.z0 + 14, 12, P, 2), { tone: "lo" }) + S(k.slabOf({ x: SCREEN_X + 1, y: y + (y < 0 ? -4.2 : 0), w: 6, d: 4.2, r: 0.6 }, SCR.z1 - 26, 12, P, 2), { tone: "lo" }) });
 record(A.slab(frameSlab, SCR.z0, SCR.z1 - SCR.z0, { name: "stand.screen.frame" }, 3));
 screenBack.sort((a, b) => a.d - b.d);
+back.push(...screenBack.map((entry) => entry.svg));
+// The picture face, as the camera sees it: u along +y, v down (−z); the build checks it is not mirrored.
+const FACE_U = [0, 1, 0];
+{
+  const o = at([SCREEN_X, AY, ZA]);
+  const u = at(G.add3([SCREEN_X, AY, ZA], FACE_U));
+  const v = at([SCREEN_X, AY, ZA - 1]);
+  if ((u[0] - o[0]) * (v[1] - o[1]) - (u[1] - o[1]) * (v[0] - o[0]) <= 0) throw new Error("the screen's face plane mirrors the picture");
+}
+const SCREEN_M = planeMatrix([SCREEN_X - 0.05, AY, ZA], FACE_U, [0, 0, -1]);
+const maskW = SCR.y1 - SCR.y0 - 12;
+const maskH = SCR.z1 - SCR.z0 - 12;
+back.push(
+  `<g class="pj-screen" transform="${SCREEN_M}"><rect class="pj-mask" x="${(-maskW / 2).toFixed(1)}" y="${(-maskH / 2).toFixed(1)}" width="${maskW.toFixed(1)}" height="${maskH.toFixed(1)}" rx="1.5"/><rect class="pj-surface" x="${(-PIC.w / 2 - 4).toFixed(1)}" y="${(-PIC.h / 2 - 4).toFixed(1)}" width="${(PIC.w + 8).toFixed(1)}" height="${(PIC.h + 8).toFixed(1)}"/><g class="pj-picture" data-part="picture">${PARTS.leaderSvg(M.leaderAt(Math.floor(REST_I)), PIC.w, PIC.h)}</g><rect class="pj-picture-edge" x="${(-PIC.w / 2).toFixed(1)}" y="${(-PIC.h / 2).toFixed(1)}" width="${PIC.w.toFixed(1)}" height="${PIC.h.toFixed(1)}"/><rect class="pj-surface-edge" x="${(-PIC.w / 2 - 4).toFixed(1)}" y="${(-PIC.h / 2 - 4).toFixed(1)}" width="${(PIC.w + 8).toFixed(1)}" height="${(PIC.h + 8).toFixed(1)}"/></g>`,
+);
+
+// The beam is nearer the viewer than the screen's frame and posts, so it lies over them and
+// ends on the stroked edge of the picture it makes.
 {
   const pupil = Array.from({ length: 48 }, (_, n) => at([LENS.x1, AY + LENS.pupil * Math.cos((n / 48) * TAU), ZA + LENS.pupil * Math.sin((n / 48) * TAU)]));
   const corners = [[1, 1], [-1, 1], [-1, -1], [1, -1]].map(([sy, sz]) => [SCREEN_X - 0.1, AY + (sy * PIC.w) / 2, ZA + (sz * PIC.h) / 2]);
@@ -196,21 +214,6 @@ screenBack.sort((a, b) => a.d - b.d);
   });
   back.push(`<g class="pj-light-beam" data-part="light-beam"><path class="pj-beam-fill" d="${k.pathOf(hull, true)}"/><path class="iso-line pj-beam-edge" data-tone="faint" d="${edges.join("")}"/></g>`);
 }
-back.push(...screenBack.map((entry) => entry.svg));
-// The picture face, seen from the projector: u to the audience's right (−y), v down (−z).
-const FACE_U = [0, 1, 0];
-{
-  const o = at([SCREEN_X, AY, ZA]);
-  const u = at(G.add3([SCREEN_X, AY, ZA], FACE_U));
-  const v = at([SCREEN_X, AY, ZA - 1]);
-  if ((u[0] - o[0]) * (v[1] - o[1]) - (u[1] - o[1]) * (v[0] - o[0]) <= 0) throw new Error("the screen's face plane mirrors the picture");
-}
-const SCREEN_M = planeMatrix([SCREEN_X - 0.05, AY, ZA], FACE_U, [0, 0, -1]);
-const maskW = SCR.y1 - SCR.y0 - 12;
-const maskH = SCR.z1 - SCR.z0 - 12;
-back.push(
-  `<g class="pj-screen" transform="${SCREEN_M}"><rect class="pj-mask" x="${(-maskW / 2).toFixed(1)}" y="${(-maskH / 2).toFixed(1)}" width="${maskW.toFixed(1)}" height="${maskH.toFixed(1)}" rx="1.5"/><rect class="pj-surface" x="${(-PIC.w / 2 - 4).toFixed(1)}" y="${(-PIC.h / 2 - 4).toFixed(1)}" width="${(PIC.w + 8).toFixed(1)}" height="${(PIC.h + 8).toFixed(1)}"/><g class="pj-picture" data-part="picture">${PARTS.leaderSvg(M.leaderAt(Math.floor(REST_I)), PIC.w, PIC.h)}</g><rect class="pj-surface-edge" x="${(-PIC.w / 2 - 4).toFixed(1)}" y="${(-PIC.h / 2 - 4).toFixed(1)}" width="${(PIC.w + 8).toFixed(1)}" height="${(PIC.h + 8).toFixed(1)}"/></g>`,
-);
 
 // ---- pedestal ----
 box("stand", "stand.pedestal.foot", [-112, -106, 0], [64, 12, 8], { tone: "lo" }, { r: 6, steps: 6, bevel: 0.8, extra: Dots([[-104, -98], [56, -98], [-104, 4], [56, 4]].map(([x, y]) => at([x, y, 8])), { size: 0.55 }) });
@@ -361,20 +364,20 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   const slots = Array.from({ length: 12 }, (_, n) => {
     const a = (n / 12) * TAU;
     const pts = [];
-    for (let j = 0; j <= 6; j++) pts.push([12.5 + 8 * (j / 6), -0.9]);
-    for (let j = 6; j >= 0; j--) pts.push([12.5 + 8 * (j / 6), 0.9]);
+    for (let j = 0; j <= 6; j++) pts.push([14.5 + 6.5 * (j / 6), -0.9]);
+    for (let j = 6; j >= 0; j--) pts.push([14.5 + 6.5 * (j / 6), 0.9]);
     return k.pathOf(pts.map(([r, w]) => at([13.95, MY + r * Math.cos(a) - w * Math.sin(a), MZ + r * Math.sin(a) + w * Math.cos(a)])), true);
   }).join("");
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
-  const HC = { o: [4, MY, MZ], arm: 17, t: 2 };
+  const HC = { o: [2, MY, MZ], arm: 24, t: 2.4 };
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
-  disc("head", "head.crank.box", boxF, 0, 6, 9.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 6, 7.4, 4, P, { all: true }), { size: 0.45 }) });
-  disc("head", "head.crank.shaft", G.frameAlong([8, MY, MZ], [-1, 0, 0]), 0, 2, 2.4, { tone: "lo" });
+  disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10, 4, P, { all: true }), { size: 0.5 }) });
+  disc("head", "head.crank.shaft", G.frameAlong([6, MY, MZ], [-1, 0, 0]), 0, 1.6, 3, { tone: "lo" });
   const armDef = PARTS.handCrankDef();
   put("head", "head.crank.arm", [HC.o[0] + 1, MY + HC.arm / 2, MZ], `<g data-part="handcrank">${PARTS.plateSvg(armDef, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), armDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.arm" }))]);
-  put("head", "head.crank.handle", [HC.o[0] - 6, MY + HC.arm, MZ], `<g data-part="handle">${PARTS.handleSvg()}</g>`, [record(A.disc(G.frameAlong([HC.o[0], MY + HC.arm, MZ], [-1, 0, 0]), 0, 11.6, 2.8, { name: "head.crank.handle" }))], { bias: 0.2 });
+  put("head", "head.crank.handle", [HC.o[0] - 6, MY + HC.arm, MZ], `<g data-part="handle">${PARTS.handleSvg()}</g>`, [record(A.disc(G.frameAlong([HC.o[0], MY + HC.arm, MZ], [-1, 0, 0]), 0, 16, 3.6, { name: "head.crank.handle" }))], { bias: 0.2 });
   disc("head", "head.motor.shaft", MF, 92, 100, 3, { tone: "mid" });
   disc("head", "head.pulley.motor", MF, 100, 108, 7, { tone: "mid" }, { inner: Ln(G.arcOf(MF, 104, 7, P), { tone: "lo" }) });
   box("head", "head.motor.foot", [26, 0, MZ - 10], [80, 2, MZ + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
@@ -418,6 +421,18 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   disc("stand", "stand.switch.toggle", G.frameAlong([10, -7, 246], G.unit3([0, 1, 0.45])), 0, 9, 1.2, { tone: "hi" });
   put("stand", "stand.switch.pilot", [10, -8.9, 226], `<g class="pj-pilot">${S(G.disc(-9, -7.4, 3, FY(10, 226), P, { steps: 24 }), { tone: "hi" })}</g>`, [record(A.disc(FY(10, 226), -9, -7.4, 3, { name: "stand.switch.pilot" }))], { bias: 0.1 });
 }
+// ---- a tape splicer on the bench: a channel with register pins, a hinged blade ----
+{
+  const SP = { x: 70, y: 96, w: 92, d: 34 };
+  box("stand", "stand.splicer", [SP.x, SP.y, 0], [SP.x + SP.w, SP.y + SP.d, 9], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6, extra: Dots([[SP.x + 4, SP.y + 4], [SP.x + SP.w - 4, SP.y + 4], [SP.x + 4, SP.y + SP.d - 4], [SP.x + SP.w - 4, SP.y + SP.d - 4]].map(([x, y]) => at([x, y, 9])), { size: 0.45 }) });
+  const CH0 = SP.y + (SP.d - M.FILM.width) / 2;
+  put("stand", "stand.splicer.channel", [SP.x + SP.w / 2, CH0 + 17, 9.02], Ln(k.planOutline({ x: SP.x + 3, y: CH0, w: SP.w - 6, d: M.FILM.width, r: 0.6 }, 9.02, P, 2), { tone: "lo" }) + Dots(Array.from({ length: 14 }, (_, n) => at([SP.x + 10 + n * M.FILM.pitch * 1.4, CH0 + 3.4, 9.02])), { size: 0.4, tone: "mid" }), [record(A.box([SP.x + 3, CH0, 9], [SP.x + SP.w - 3, CH0 + M.FILM.width, 9.05], { name: "stand.splicer.channel" }))], { bias: 0.05 });
+  box("stand", "stand.splicer.leader", [SP.x + 6, CH0 + 0.4, 9.05], [SP.x + 52, CH0 + M.FILM.width - 0.4, 9.3], { tone: "hi" }, { r: 0.3, steps: 2, bevel: 0 });
+  box("stand", "stand.splicer.hinge", [SP.x + 60, SP.y + SP.d - 3, 9], [SP.x + 84, SP.y + SP.d, 14], { tone: "lo" }, { r: 0.6, steps: 2 });
+  box("stand", "stand.splicer.blade", [SP.x + 60, SP.y + 4, 14], [SP.x + 84, SP.y + SP.d, 17], { tone: "mid" }, { r: 1, steps: 2, bevel: 0.4 });
+  disc("stand", "stand.splicer.knob", FZ(SP.x + 72, SP.y + 10), 17, 21, 3.2, { tone: "hi" });
+}
+
 // ---- a film can on the bench ----
 {
   const CF = FZ(300, 108);
@@ -470,7 +485,7 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
     "lamp",
     "lamp.port",
     [-245, LH.y1 + 2.45, ZA + 8],
-    `<g transform="${portM}"><rect class="pj-bezel" x="-23" y="-12" width="46" height="24" rx="3"/><rect class="iso-line" data-tone="mid" x="-23" y="-12" width="46" height="24" rx="3" fill="none"/><rect class="pj-port-wall" x="-15.6" y="-6.4" width="31" height="13" rx="2"/><rect class="pj-port" data-part="port" x="-14.6" y="-5.4" width="30" height="12" rx="1.6"/><path class="pj-port-glare" d="M-9 5.6L-3 -4.4L0 -4.4L-6 5.6Z"/><rect class="iso-line" data-tone="lo" x="-15.6" y="-6.4" width="31" height="13" rx="2" fill="none"/><g class="iso-dots" data-tone="mid">${portScrews}</g></g>`,
+    `<g transform="${portM}" data-part="port"><rect class="pj-bezel" x="-23" y="-12" width="46" height="24" rx="3"/><rect class="iso-line" data-tone="mid" x="-23" y="-12" width="46" height="24" rx="3" fill="none"/><rect class="pj-port-wall" x="-15.6" y="-6.4" width="31" height="13" rx="2"/><rect class="pj-port" x="-14.6" y="-5.4" width="30" height="12" rx="1.6"/><ellipse class="pj-port-core" cx="0.6" cy="0.4" rx="7" ry="2.8"/><path class="pj-port-glare" d="M-9 5.6L-3 -4.4L0 -4.4L-6 5.6Z"/><rect class="iso-line" data-tone="lo" x="-15.6" y="-6.4" width="31" height="13" rx="2" fill="none"/><g class="iso-dots" data-tone="mid">${portScrews}</g></g>`,
     [record(A.box([-268, LH.y1 + 2.4, ZA - 4], [-222, LH.y1 + 2.5, ZA + 20], { name: "lamp.port" }))],
     { bias: 0.2 },
   );
@@ -516,12 +531,18 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
   const GL = FZ(-296, 100);
   disc("stand", "stand.rectifier.gland", GL, RB.z1, RB.z1 + 6, 4.2, { tone: "lo" });
   const route = G.fillet([[-296, 100, RB.z1 + 6], [-296, 100, 86], [-261, AY, 86], [-261, AY, 360]], 12, 10, { P, tube: 2.2 });
-  R.route("stand.cable.lamp", route, 2.2, { piece: "stand", move: [0, 0, 0], limp: true, rims: [4.2, 2.2], touch: ["stand.lamp.clamp*"] });
-  tubePieces(route, 2.2, P, { maxLength: 18, spacing: 1.2 }).forEach((piece, index) => put("stand", `stand.cable.lamp:${index}`, piece.mid, tubeSvg(piece, { tone: "mid" }), [A.tube(piece.points, piece.radii)], { bias: 0.05 }));
-  // a band round the post at each clip, with a lug out to the cable
-  for (const z of [160, 280]) {
+  // A band round the post at each clip, a lug, and a P-clip that wraps the cable; the cable
+  // is cut where the clip wraps it so each piece ends on a face of the clip.
+  const CLIPS = [160, 280];
+  const gaps = CLIPS.flatMap((z) => crossingsOf(route, [-261, AY, z], [0, 0, 1], 4).map((at) => [at - 2, at + 2]));
+  R.route("stand.cable.lamp", route, 2.2, { piece: "stand", move: [0, 0, 0], limp: true, rims: [4.2, 2.2], gaps, touch: ["stand.lamp.clamp*", "stand.cable.lamp.clip*"] });
+  tubePieces(route, 2.2, P, { maxLength: 18, spacing: 1.2, gaps }).forEach((piece, index) => put("stand", `stand.cable.lamp:${index}`, piece.mid, tubeSvg(piece, { tone: "mid" }), [A.tube(piece.points, piece.radii)], { bias: 0.05 }));
+  for (const z of CLIPS) {
     disc("stand", "stand.lamp.clamp", FZ(-245, AY), z - 2, z + 2, 10.8, { tone: "lo" });
-    box("stand", "stand.lamp.clamp.lug", [-258.8, AY - 2.2, z - 2], [-255.6, AY + 2.2, z + 2], { tone: "lo" }, { r: 0.4, steps: 2 });
+    box("stand", "stand.lamp.clamp.lug", [-257.6, AY - 2, z - 2], [-255.6, AY + 2, z + 2], { tone: "lo" }, { r: 0.4, steps: 2 });
+    const CF3 = FZ(-261, AY);
+    const clip = record(A.ring(CF3, z - 2, z + 2, 2.2, 3.6, { name: "stand.cable.lamp.clip", owner: "stand.cable.lamp" }));
+    put("stand", "stand.cable.lamp.clip", [-261, AY, z], S(G.ringBand(z - 2, z + 2, 2.2, 3.6, CF3, P), { tone: "mid" }), [clip], { bias: 0.1 });
   }
 }
 
@@ -551,7 +572,7 @@ for (const [id, reel] of Object.entries(REELS)) {
 D.reels = REELS;
 
 // ================================================================== the threaded film path
-const C = (s, sense) => ({ c: [s.x, s.z], r: s.r + 0.075, sense });
+const C = (s, sense) => ({ c: [s.x, s.z], r: Math.max(s.r + 0.075, (s.teeth * M.FILM.pitch) / TAU), sense });
 const packFeed = { c: [REELS.feed.x, REELS.feed.z], r: REELS.feed.pack, sense: -1 };
 const packTake = { c: [REELS.take.x, REELS.take.z], r: REELS.take.pack, sense: -1 };
 const S1 = C(SPROCKETS.feed, 1);
@@ -567,12 +588,13 @@ const U_EXIT = (7 * Math.PI) / 4;
 runs.push({ id: "a2", drive: "c", pts: PARTS.arc(S1, ang(S1.c, t1.pb), U_EXIT, 1.5), wrap: 1, centre: S1.c });
 const loopU = { p0: [S1.c[0] + S1.r * Math.cos(U_EXIT), S1.c[1] + S1.r * Math.sin(U_EXIT)], t0: [-Math.sin(U_EXIT), Math.cos(U_EXIT)], p1: [0, 552], t1: [0, -1] };
 runs.push({ id: "b1", drive: "i", pts: PARTS.straight([0, 552], [0, SI.c[1]], 2) });
-runs.push({ id: "b2", drive: "i", pts: PARTS.arc(SI, 0, -Math.PI / 2, 1.2), wrap: 1, centre: SI.c });
-const loopL = { p0: [SI.c[0], SI.c[1] - SI.r], t0: [-1, 0], p1: [S2.c[0] - S2.r, S2.c[1]], t1: [0, -1] };
+const L_EXIT = -Math.PI / 3;
+runs.push({ id: "b2", drive: "i", pts: PARTS.arc(SI, 0, L_EXIT, 1.2), wrap: 1, centre: SI.c });
+const loopL = { p0: [SI.c[0] + SI.r * Math.cos(L_EXIT), SI.c[1] + SI.r * Math.sin(L_EXIT)], t0: [Math.sin(L_EXIT), -Math.cos(L_EXIT)], p1: [S2.c[0] - S2.r, S2.c[1]], t1: [0, -1] };
 runs.push({ id: "c1", drive: "c", pts: PARTS.arc(S2, Math.PI, ang(S2.c, t3.pa), 1.5), wrap: 1, centre: S2.c });
 runs.push({ id: "c2", drive: "c", pts: PARTS.straight(t3.pa, t3.pb, 3) });
 const L0U = 125;
-const L0L = 125;
+const L0L = 110;
 // Each run's film coordinate at its start, along the path at rest.
 let along = 0;
 const startOf = {};
@@ -642,7 +664,7 @@ for (const [id, loop] of Object.entries(D.loops)) {
 // pad rollers: an arm on a stud for each sprocket, the roller holding the film to the teeth
 const ROLLERS = [
   { id: "feed", s: SPROCKETS.feed, angle: (200 * Math.PI) / 180, r: 4.5, pivot: [-84, 632] },
-  { id: "inter", s: SPROCKETS.inter, angle: -Math.PI / 4, r: 3.5, pivot: [8, 404] },
+  { id: "inter", s: SPROCKETS.inter, angle: -Math.PI / 6, r: 3.5, pivot: [8, 404] },
   { id: "hold", s: SPROCKETS.hold, angle: (Math.PI + ((ang(S2.c, t3.pa) % TAU) + TAU) % TAU) / 2, r: 4.5, pivot: [-70, 326] },
 ];
 for (const roller of ROLLERS) {
@@ -706,16 +728,16 @@ Object.assign(D, {
 
 const backSvg = k.figureSvg({ width: W, height: H, label: LABEL_TEXT, body: back, className: "pj-back" });
 const frontSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="iso-svg pj-front" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="pj-machine">${groups.join("")}</g></svg>`;
-const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}"><span class="pj-num">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
+const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="link" data-cursor-label="show"><span class="pj-num">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
 const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
-const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}">${l}</button>`).join("");
-const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}">${n}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart>take apart</button><button type="button" class="pj-chip" data-sound aria-pressed="false">sound</button></span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="link" data-cursor-label="${v === "0" ? "stop" : `${v} fps`}" aria-label="${v === "0" ? "stop" : `${v} frames a second`}">${l}</button>`).join("");
+const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="link" data-cursor-label="${n} blade${n === 1 ? "" : "s"}" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="link" data-cursor-label="one frame" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="link" data-cursor-label="apart">take apart</button><button type="button" class="pj-chip" data-sound data-cursor="link" data-cursor-label="sound" aria-pressed="false">sound</button></span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
-const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" aria-label="35mm projector. Drag sideways or use the arrow keys to change the speed; B changes the shutter blades; period steps one frame; space takes it apart; click a part to see it work.">`;
+const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
 const caption =
-  "A Geneva cross on the intermittent sprocket's shaft makes a quarter turn while its driver's pin is in a slot: four perforations, one frame, in 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down and the others cut the still frame, so two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";
+  "A Geneva cross on the intermittent sprocket's shaft makes a quarter turn: four perforations, one frame. It turns only while the driver's pin is in a slot, 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down and the others cut the still frame. So two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";
 const plateWith = (inner) => `<figure class="iso-figure pj"><div class="iso-plate">${corners}${inner}${controls}</div><figcaption class="iso-legend"><span class="pj-parts">${partButtons}</span><span class="iso-caption">${caption}</span></figcaption></figure>`;
 const plate = plateWith(stage);
 const shell = plateWith(`${stageOpen}</div>`);
@@ -723,7 +745,7 @@ const shell = plateWith(`${stageOpen}</div>`);
 const CSS = readFileSync(join(HERE, "projector.css"), "utf8");
 const latheSource = readFileSync(join(HERE, "..", "anatomy-kit", "kit", "lathe.mjs"), "utf8").replace(/^import .*$/m, "").replace(/^export /gm, "");
 const latheScript = `const G = (() => {${latheSource}\nreturn { viewOf, scaleOf, frameAlong, frameOf, pointOf, disc, circleOf, arcOf, dot3, add3, sub3, mul3, unit3, cross3, len3, lightOf, toneOf, dotsOf };})();\n`;
-const modelScript = `const M = (() => {${readFileSync(join(HERE, "model.mjs"), "utf8").replace(/^export /gm, "")}\nreturn { FRAME_LENGTH, crossOf, intermittentOf, shutterOpen, lightShare, flickerHz, screenLight, leaderAt, readoutOf, feetPerMinute, LEADER, SOUND_FPS };})();\n`;
+const modelScript = `const M = (() => {${readFileSync(join(HERE, "model.mjs"), "utf8").replace(/^export /gm, "")}\nreturn { FRAME_LENGTH, crossOf, intermittentOf, shutterOpen, lightShare, flickerHz, screenLight, leaderAt, readoutOf, phaseOf, openPhase, feetPerMinute, LEADER, SOUND_FPS };})();\n`;
 const partsScript = readFileSync(join(HERE, "parts.mjs"), "utf8").replace(/^export /gm, "");
 const liveBody = readFileSync(join(HERE, "live.js"), "utf8");
 // The live code is one function body, so it runs the same on the standalone page and in Next.
@@ -748,7 +770,7 @@ writeFileSync(join(SITE, "projector.shell.ts"), `// ${NOTE}\nexport const PROJEC
 writeFileSync(join(SITE, "projector.stage.ts"), `// ${NOTE}\nexport const PROJECTOR_STAGE = ${JSON.stringify(STAGE_INNER)};\n`);
 writeFileSync(join(SITE, "projector.css"), `/* ${NOTE} */\n${k.ISO_CSS}\n${CSS}`);
 writeFileSync(join(SITE, "projector.live.js"), `// ${NOTE}\n/* eslint-disable */\nexport const PROJECTOR_DATA = ${DATA_JSON};\nexport ${MOUNT}\n`);
-writeFileSync(join(SITE, "projector.live.d.ts"), `// ${NOTE}\nexport declare const PROJECTOR_DATA: Record<string, unknown>;\nexport declare function mountProjector(root: HTMLElement, data: Record<string, unknown>): () => void;\n`);
+writeFileSync(join(SITE, "projector.live.d.ts"), `// ${NOTE}\nexport declare const PROJECTOR_DATA: Record<string, unknown>;\nexport declare function mountProjector(root: HTMLElement, data: Record<string, unknown>): (() => void) & { snapshot: () => Record<string, unknown> };\n`);
 console.log("wrote", name, `${(page.length / 1024).toFixed(0)} KB`, `${R.items.length} items`, `scale ${KS.toFixed(3)}`);
 
 A.auditOrExit(R, P, {});

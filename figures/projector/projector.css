@@ -9,6 +9,7 @@
   --pj-ink: #1a1a1a;
   --pj-port-off: #121212;
   --pj-port-on: #ffb35c;
+  --pj-port-core: #fff4dd;
   --pj-glass-on: #fff1d9;
   --pj-film-face: #c8c3b6;
   --pj-mask: #070707;
@@ -27,7 +28,8 @@
   --pj-screen-lit: #fdfdfb;
   --pj-ink: #26262a;
   --pj-port-off: #8a8a8f;
-  --pj-port-on: #c9925a;
+  --pj-port-on: #e0821e;
+  --pj-port-core: #fde7bd;
   --pj-glass-on: #f3e2c4;
   --pj-film-face: #e3dccb;
   --pj-mask: #8f8f93;
@@ -123,6 +125,14 @@
   fill: color-mix(in srgb, var(--pj-screen-lit) calc(var(--pj-light) * 100%), var(--pj-screen-dark));
 }
 
+.pj-picture-edge {
+  fill: none;
+  stroke: var(--anatomy-lo);
+  stroke-width: 0.5px;
+  vector-effect: non-scaling-stroke;
+  opacity: calc(0.35 + 0.65 * var(--pj-light));
+}
+
 .pj-surface-edge {
   fill: none;
   stroke: var(--anatomy-lo);
@@ -136,6 +146,10 @@
 
 .pj-frame-bg {
   fill: var(--pj-frame-bg);
+}
+
+.pj-frame-black {
+  fill: #141414;
 }
 
 .pj-sweep {
@@ -231,6 +245,11 @@
 /* lamp */
 .pj-port {
   fill: color-mix(in srgb, var(--pj-port-on) calc(var(--pj-lamp) * 100%), var(--pj-port-off));
+}
+
+.pj-port-core {
+  fill: var(--pj-port-core);
+  opacity: calc(var(--pj-lamp) * 0.9);
 }
 
 .pj-glass {
@@ -358,6 +377,7 @@
 }
 
 .pj-part {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif !important;
   display: inline-flex;
   align-items: baseline;
   gap: 7px;
@@ -409,12 +429,25 @@
     font-size: 9.5px;
   }
 
+  .pj .iso-plate {
+    padding-top: 64px;
+  }
+
   .pj .iso-plate-corner[data-corner="readout"] {
     top: 22px;
     bottom: auto;
-    right: 12px;
-    max-width: calc(100% - 80px);
+    left: 0;
+    right: 0;
+    max-width: none;
+    text-align: left;
     font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .pj-stage:focus-visible {
+    outline-offset: -2px;
   }
 
   .pj .iso-plate-corner[data-corner="title"] {

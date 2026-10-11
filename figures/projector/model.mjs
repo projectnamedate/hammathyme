@@ -111,11 +111,20 @@ export function smoothstep(a, b, x) {
   return t * t * (3 - 2 * t);
 }
 
+// The middle of the first gap between blades after the pull-down: the instant a still frame
+// is most open to the light.
+export function openPhase(blades) {
+  return PULLDOWN / 2 + 1 / (2 * blades);
+}
+
 // What the gate is doing at this instant of the frame, for the readout at hand speeds.
 export function phaseOf(frames, blades) {
   const phase = fract(frames);
   if (phase < PULLDOWN) return "pull-down, blade over the beam";
-  return shutterOpen(phase, blades) > 0.5 ? "frame still, light on screen" : "frame still, blade over the beam";
+  const open = shutterOpen(phase, blades);
+  if (open > 0.5) return "frame still, light on screen";
+  if (open > 0.02) return "frame still, a blade half across";
+  return "frame still, blade over the beam";
 }
 
 export function readoutOf(fps, blades, frames = 0) {
@@ -128,5 +137,5 @@ export function readoutOf(fps, blades, frames = 0) {
   const f = speed >= 9.95 ? shown.toFixed(0) : shown.toFixed(1);
   if (speed <= 3.05) return `${back}${f} fps · ${phaseOf(frames, blades)}`;
   const hz = flickerHz(shown, blades);
-  return `${back}${f} fps · ${hz >= 9.95 ? hz.toFixed(0) : hz.toFixed(1)} Hz · ${light}`;
+  return `${back}${f} fps · ${speed >= 9.95 ? hz.toFixed(0) : hz.toFixed(1)} Hz · ${light}`;
 }
