@@ -205,13 +205,14 @@ back.push(
 {
   const pupil = Array.from({ length: 48 }, (_, n) => at([LENS.x1, AY + LENS.pupil * Math.cos((n / 48) * TAU), ZA + LENS.pupil * Math.sin((n / 48) * TAU)]));
   const corners = [[1, 1], [-1, 1], [-1, -1], [1, -1]].map(([sy, sz]) => [SCREEN_X - 0.1, AY + (sy * PIC.w) / 2, ZA + (sz * PIC.h) / 2]);
-  const hull = G.hullOf([...pupil, ...corners.map(at)]);
-  const edges = corners.map(([x, y, z]) => {
-    const dy = y - AY;
-    const dz = z - ZA;
-    const r = Math.hypot(dy, dz);
-    return k.pathOf([at([LENS.x1, AY + (LENS.pupil * dy) / r, ZA + (LENS.pupil * dz) / r]), at([x, y, z])]);
+  const ends = corners.map(at);
+  const hull = G.hullOf([...pupil, ...ends]);
+  const isEnd = (p) => ends.some((q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < 1e-6);
+  const edges = hull.flatMap((p, n) => {
+    const q = hull[(n + 1) % hull.length];
+    return isEnd(p) !== isEnd(q) ? [k.pathOf([p, q])] : [];
   });
+  if (edges.length !== 2) throw new Error(`the beam's outline should have 2 lens-to-picture edges, found ${edges.length}`);
   back.push(`<g class="pj-light-beam" data-part="light-beam"><path class="pj-beam-fill" d="${k.pathOf(hull, true)}"/><path class="iso-line pj-beam-edge" data-tone="faint" d="${edges.join("")}"/></g>`);
 }
 
@@ -572,7 +573,7 @@ for (const [id, reel] of Object.entries(REELS)) {
 D.reels = REELS;
 
 // ================================================================== the threaded film path
-const C = (s, sense) => ({ c: [s.x, s.z], r: Math.max(s.r + 0.075, (s.teeth * M.FILM.pitch) / TAU), sense });
+const C = (s, sense) => ({ c: [s.x, s.z], r: (s.teeth * M.FILM.pitch) / TAU, sense });
 const packFeed = { c: [REELS.feed.x, REELS.feed.z], r: REELS.feed.pack, sense: -1 };
 const packTake = { c: [REELS.take.x, REELS.take.z], r: REELS.take.pack, sense: -1 };
 const S1 = C(SPROCKETS.feed, 1);
@@ -728,11 +729,11 @@ Object.assign(D, {
 
 const backSvg = k.figureSvg({ width: W, height: H, label: LABEL_TEXT, body: back, className: "pj-back" });
 const frontSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="iso-svg pj-front" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="pj-machine">${groups.join("")}</g></svg>`;
-const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="link" data-cursor-label="show"><span class="pj-num">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
+const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="dot"><span class="pj-num">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
 const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
-const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="link" data-cursor-label="${v === "0" ? "stop" : `${v} fps`}" aria-label="${v === "0" ? "stop" : `${v} frames a second`}">${l}</button>`).join("");
-const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="link" data-cursor-label="${n} blade${n === 1 ? "" : "s"}" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="link" data-cursor-label="one frame" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="link" data-cursor-label="apart">take apart</button><button type="button" class="pj-chip" data-sound data-cursor="link" data-cursor-label="sound" aria-pressed="false">sound</button></span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
+const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
 const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
@@ -768,8 +769,9 @@ mkdirSync(SITE, { recursive: true });
 const NOTE = "Generated by figures/projector/build.mjs. Rebuild with `node figures/projector/build.mjs`.";
 writeFileSync(join(SITE, "projector.shell.ts"), `// ${NOTE}\nexport const PROJECTOR_SHELL = ${JSON.stringify(shell)};\n`);
 writeFileSync(join(SITE, "projector.stage.ts"), `// ${NOTE}\nexport const PROJECTOR_STAGE = ${JSON.stringify(STAGE_INNER)};\n`);
-writeFileSync(join(SITE, "projector.css"), `/* ${NOTE} */\n${k.ISO_CSS}\n${CSS}`);
-writeFileSync(join(SITE, "projector.live.js"), `// ${NOTE}\n/* eslint-disable */\nexport const PROJECTOR_DATA = ${DATA_JSON};\nexport ${MOUNT}\n`);
+const LICENSE = "/*! Drawn with the Anatomy kit (github.com/wheresryan22/anatomy), MIT License, Copyright (c) 2026 Ryan. */";
+writeFileSync(join(SITE, "projector.css"), `/* ${NOTE} */\n${LICENSE}\n${k.ISO_CSS}\n${CSS}`);
+writeFileSync(join(SITE, "projector.live.js"), `// ${NOTE}\n${LICENSE}\n/* eslint-disable */\nexport const PROJECTOR_DATA = ${DATA_JSON};\nexport ${MOUNT}\n`);
 writeFileSync(join(SITE, "projector.live.d.ts"), `// ${NOTE}\nexport declare const PROJECTOR_DATA: Record<string, unknown>;\nexport declare function mountProjector(root: HTMLElement, data: Record<string, unknown>): (() => void) & { snapshot: () => Record<string, unknown> };\n`);
 console.log("wrote", name, `${(page.length / 1024).toFixed(0)} KB`, `${R.items.length} items`, `scale ${KS.toFixed(3)}`);
 

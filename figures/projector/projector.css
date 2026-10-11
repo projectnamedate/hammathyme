@@ -43,6 +43,12 @@
   --anatomy-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
 
+/* In dark the kit's face tones sit on the card's own value; the shutter is sheet metal, so its
+   face is lifted to read as a solid disc rather than a wire outline. */
+.pj-host[data-theme="dark"] [data-plate="shutter"] [data-turn="front"] > .iso-shade {
+  fill: #202020;
+}
+
 .pj-host[data-theme="dark"] .pj .iso-legend {
   margin-top: 0;
   padding: 14px 16px 16px;

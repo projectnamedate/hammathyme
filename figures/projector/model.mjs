@@ -117,14 +117,19 @@ export function openPhase(blades) {
   return PULLDOWN / 2 + 1 / (2 * blades);
 }
 
-// What the gate is doing at this instant of the frame, for the readout at hand speeds.
+// What the gate is doing at this instant of the frame, for the readout at hand speeds. Each
+// blade's window is worded whole, so the words change only as often as the light does.
 export function phaseOf(frames, blades) {
   const phase = fract(frames);
-  if (phase < PULLDOWN) return "pull-down, blade over the beam";
-  const open = shutterOpen(phase, blades);
-  if (open > 0.5) return "frame still, light on screen";
-  if (open > 0.02) return "frame still, a blade half across";
-  return "frame still, blade over the beam";
+  const edge = BLADE / 2 + CROSSING / 2;
+  for (let k = 0; k < blades; k++) {
+    const d = Math.abs(fract(phase - (PULLDOWN / 2 + k / blades) + 0.5) - 0.5);
+    if (d < edge) {
+      const blade = blades === 1 ? "blade" : `blade ${k + 1}`;
+      return k === 0 ? `pull-down, ${blade} over the beam` : `frame still, ${blade} over the beam`;
+    }
+  }
+  return "frame still, light on screen";
 }
 
 export function readoutOf(fps, blades, frames = 0) {

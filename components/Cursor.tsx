@@ -6,6 +6,7 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 const DOT = 6;
 const RING_BASE = 18;
 const RING_HOVER = 84;
+const RING_SMALL = 30;
 
 /**
  * Curator's cursor.
@@ -15,6 +16,8 @@ const RING_HOVER = 84;
  *   • on interactive elements the ring expands into a labeled lozenge
  *     ("view →", "enter", "play", "read") — no magnetic snap (per research,
  *     snap reads template-y).
+ *   • data-cursor="dot" keeps a small ink ring instead, for controls packed too tight for
+ *     the lozenge to leave their neighbours readable.
  *
  * Hidden on coarse-pointer / reduced-motion.
  */
@@ -22,6 +25,7 @@ export function Cursor() {
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
+  const [small, setSmall] = useState(false);
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -56,10 +60,13 @@ export function Cursor() {
       if (interactive !== lastTarget.current) {
         lastTarget.current = interactive;
         if (interactive) {
+          const dot = interactive.dataset.cursor === "dot";
           setHovering(true);
-          setLabel(interactive.dataset.cursorLabel ?? "view →");
+          setSmall(dot);
+          setLabel(dot ? null : (interactive.dataset.cursorLabel ?? "view →"));
         } else {
           setHovering(false);
+          setSmall(false);
           setLabel(null);
         }
       }
@@ -103,13 +110,13 @@ export function Cursor() {
         <motion.div
           initial={false}
           animate={{
-            width: hovering ? RING_HOVER : RING_BASE,
-            height: hovering ? 28 : RING_BASE,
-            borderRadius: hovering ? 999 : 999,
-            backgroundColor: hovering ? "var(--ink-0)" : "rgba(0,0,0,0)",
+            width: hovering ? (small ? RING_SMALL : RING_HOVER) : RING_BASE,
+            height: hovering ? (small ? RING_SMALL : 28) : RING_BASE,
+            borderRadius: 999,
+            backgroundColor: hovering && !small ? "var(--ink-0)" : "rgba(0,0,0,0)",
             color: hovering ? "var(--cream-0)" : "var(--bloodlust)",
             borderColor: hovering ? "var(--ink-0)" : "var(--bloodlust)",
-            paddingInline: hovering ? 14 : 0,
+            paddingInline: hovering && !small ? 14 : 0,
           }}
           transition={{ duration: 0.32, ease: [0.65, 0, 0.35, 1] }}
           className="flex items-center justify-center whitespace-nowrap border font-mono text-[10px] uppercase tracking-[0.22em]"

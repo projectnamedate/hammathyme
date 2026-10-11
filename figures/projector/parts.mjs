@@ -252,9 +252,14 @@ export function makeParts(k, G, P, D) {
     }
     return out.join("");
   }
+  // The side wall between the back and front faces is a stack of wall-toned copies, close
+  // enough that no gap shows: it covers the back outline wherever the wall stands in front.
+  const wallSteps = (L) => Math.max(1, Math.ceil(Math.hypot(L[0], L[1]) / 0.6));
   function plateTurn(def, deg) {
     const { L } = planeInfo(def.plane);
-    return { back: `translate(${L[0].toFixed(3)} ${L[1].toFixed(3)}) rotate(${deg.toFixed(2)})`, front: `rotate(${deg.toFixed(2)})`, conn: connectors(def, deg) };
+    const at = (t) => `translate(${(L[0] * t).toFixed(3)} ${(L[1] * t).toFixed(3)}) rotate(${deg.toFixed(2)})`;
+    const n = wallSteps(L);
+    return { back: at(1), walls: Array.from({ length: n - 1 }, (_, k) => at(1 - (k + 1) / n)), front: `rotate(${deg.toFixed(2)})`, conn: connectors(def, deg) };
   }
   function plateSvg(def, deg = 0) {
     const { m, faceTone } = planeInfo(def.plane);
@@ -263,7 +268,7 @@ export function makeParts(k, G, P, D) {
     const tone = def.tone ?? "hi";
     const shownTone = def.face ?? faceTone;
     const faceClass = shownTone === 4 ? `class="iso-top"` : `class="iso-shade" data-shade="${shownTone}"`;
-    return `<g class="iso-solid pj-plate" data-plate="${def.id}" transform="${m}"><g data-turn="back" transform="${t.back}"><path class="iso-fill" fill-rule="evenodd" d="${face}"/><path class="iso-shade" data-shade="${def.wall ?? 1}" fill-rule="evenodd" d="${face}"/><path class="iso-line iso-edge" data-tone="${tone}" d="${face}"/></g><path class="iso-line iso-edge" data-tone="${tone}" data-turn="conn" d="${t.conn}"/><g data-turn="front" transform="${t.front}"><path class="iso-fill" fill-rule="evenodd" d="${face}"/><path ${faceClass} fill-rule="evenodd" d="${face}"/>${def.extra ?? ""}<path class="iso-line iso-edge" data-tone="${tone}" d="${face}"/></g></g>`;
+    return `<g class="iso-solid pj-plate" data-plate="${def.id}" transform="${m}"><g data-turn="back" transform="${t.back}"><path class="iso-fill" fill-rule="evenodd" d="${face}"/><path class="iso-shade" data-shade="${def.wall ?? 1}" fill-rule="evenodd" d="${face}"/><path class="iso-line iso-edge" data-tone="${tone}" d="${face}"/></g>${t.walls.length ? `<defs><path id="pj-wall-${def.id}" fill-rule="evenodd" d="${face}"/></defs>` : ""}${t.walls.map((w) => `<use href="#pj-wall-${def.id}" class="iso-shade" data-shade="${def.wall ?? 1}" data-turn="wall" transform="${w}"/>`).join("")}<path class="iso-line iso-edge" data-tone="${tone}" data-turn="conn" d="${t.conn}"/><g data-turn="front" transform="${t.front}"><path class="iso-fill" fill-rule="evenodd" d="${face}"/><path ${faceClass} fill-rule="evenodd" d="${face}"/>${def.extra ?? ""}<path class="iso-line iso-edge" data-tone="${tone}" d="${face}"/></g></g>`;
   }
 
   // ---- the Geneva wheel: four slots, four locking arcs ----
