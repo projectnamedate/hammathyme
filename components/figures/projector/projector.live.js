@@ -2473,14 +2473,14 @@ function makeParts(k, G, P, D) {
   }
   // The side wall between the back and front faces is a stack of wall-toned copies, close
   // enough that no gap shows: it covers the back outline wherever the wall stands in front.
-  const wallSteps = (L) => Math.max(1, Math.ceil(Math.hypot(L[0], L[1]) / 0.35));
+  const wallSteps = (L, step = 0.35) => Math.max(1, Math.ceil(Math.hypot(L[0], L[1]) / step));
   function plateTurn(def, turnDeg) {
     // Browsers keep an SVG rotate angle as a 32-bit float, so a long run's growing angle would
     // lose its fine steps; only the angle within one turn is written.
     const deg = ((turnDeg % 360) + 360) % 360;
     const { L } = planeInfo(def.plane);
     const at = (t) => `translate(${(L[0] * t).toFixed(3)} ${(L[1] * t).toFixed(3)}) rotate(${deg.toFixed(2)})`;
-    const n = wallSteps(L);
+    const n = wallSteps(L, def.wallStep);
     return { back: at(1), walls: Array.from({ length: n - 1 }, (_, k) => at(1 - (k + 1) / n)), front: `rotate(${deg.toFixed(2)})`, conn: connectors(def, deg) };
   }
   function plateSvg(def, deg = 0) {
@@ -2538,7 +2538,8 @@ function makeParts(k, G, P, D) {
       return [(GW.hub + 6) * Math.cos(t), -(GW.hub + 6) * Math.sin(t)];
     });
     const extra = `<path class="iso-line" data-tone="lo" d="${poly(ring)}"/><path class="iso-line" data-tone="mid" d="${poly(nut)}"/><g class="iso-dots" data-tone="mid">${dotsAt.map(([u, v]) => `<circle cx="${f1(u)}" cy="${f1(v)}" r="0.7"/>`).join("")}</g>`;
-    return { id: "cross", contours: [crossContour(0)], plane: { o: [GW.x, GW.y1, GW.z], ex: [1, 0, 0], ey: [0, 0, -1], back: [0, -(GW.y1 - GW.y0), 0] }, tone: "mid", extra };
+    // The cross's fork tips turn edge-on as it indexes; finer wall steps keep them solid there.
+    return { id: "cross", wallStep: 0.18, contours: [crossContour(0)], plane: { o: [GW.x, GW.y1, GW.z], ex: [1, 0, 0], ey: [0, 0, -1], back: [0, -(GW.y1 - GW.y0), 0] }, tone: "mid", extra };
   }
   function circlePts(cu, cv, r, n) {
     return Array.from({ length: n }, (_, i) => [cu + r * Math.cos((i / n) * TAU), cv + r * Math.sin((i / n) * TAU)]);
