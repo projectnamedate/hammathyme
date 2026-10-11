@@ -66,7 +66,7 @@ const D = {
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
   shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -136] },
-  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [0, 120, 0] },
+  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [0, 130, 70] },
   lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
   rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 46, 0] },
@@ -370,7 +370,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
     return k.pathOf(pts.map(([r, w]) => at([13.95, MY + r * Math.cos(a) - w * Math.sin(a), MZ + r * Math.sin(a) + w * Math.cos(a)])), true);
   }).join("");
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
-  const HC = { o: [2, MY, MZ], arm: 24, t: 2.4 };
+  const HC = { o: [2, MY, MZ], arm: 21, t: 2.4 };
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);

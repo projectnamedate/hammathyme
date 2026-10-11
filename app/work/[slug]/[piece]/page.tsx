@@ -240,8 +240,18 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
             data-cursor="link"
             data-cursor-label="open"
           >
-            anatomy by wheresryan22 (mit)
-          </TrackedLink>
+            anatomy by wheresryan22
+          </TrackedLink>{" "}
+          (
+          <a
+            href="/licenses/anatomy.txt"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+            data-cursor="link"
+            data-cursor-label="read"
+          >
+            mit
+          </a>
+          )
         </p>
       </div>
     </section>

@@ -17,7 +17,8 @@ const RING_SMALL = 30;
  *     ("view →", "enter", "play", "read") — no magnetic snap (per research,
  *     snap reads template-y).
  *   • data-cursor="dot" keeps a small ink ring instead, for controls packed too tight for
- *     the lozenge to leave their neighbours readable.
+ *     the lozenge to leave their neighbours readable; inside a dark-theme figure the ring
+ *     and dot turn cream so the pointer never vanishes.
  *
  * Hidden on coarse-pointer / reduced-motion.
  */
@@ -26,6 +27,7 @@ export function Cursor() {
   const [hovering, setHovering] = useState(false);
   const [label, setLabel] = useState<string | null>(null);
   const [small, setSmall] = useState(false);
+  const [onDark, setOnDark] = useState(false);
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -63,10 +65,12 @@ export function Cursor() {
           const dot = interactive.dataset.cursor === "dot";
           setHovering(true);
           setSmall(dot);
+          setOnDark(interactive.closest("[data-theme]")?.getAttribute("data-theme") === "dark");
           setLabel(dot ? null : (interactive.dataset.cursorLabel ?? "view →"));
         } else {
           setHovering(false);
           setSmall(false);
+          setOnDark(false);
           setLabel(null);
         }
       }
@@ -96,7 +100,7 @@ export function Cursor() {
         className="pointer-events-none fixed left-0 top-0 z-[60]"
       >
         <span
-          className="block rounded-full bg-[var(--ink-0)] mix-blend-difference"
+          className={`block rounded-full mix-blend-difference ${onDark ? "bg-[var(--cream-0)]" : "bg-[var(--ink-0)]"}`}
           style={{ width: DOT, height: DOT }}
         />
       </motion.div>
@@ -115,7 +119,7 @@ export function Cursor() {
             borderRadius: 999,
             backgroundColor: hovering && !small ? "var(--ink-0)" : "rgba(0,0,0,0)",
             color: hovering ? "var(--cream-0)" : "var(--bloodlust)",
-            borderColor: hovering ? "var(--ink-0)" : "var(--bloodlust)",
+            borderColor: hovering ? (small && onDark ? "var(--cream-0)" : "var(--ink-0)") : "var(--bloodlust)",
             paddingInline: hovering && !small ? 14 : 0,
           }}
           transition={{ duration: 0.32, ease: [0.65, 0, 0.35, 1] }}
