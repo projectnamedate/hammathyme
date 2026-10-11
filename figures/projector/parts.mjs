@@ -406,7 +406,8 @@ export function makeParts(k, G, P, D) {
   function handleSvg() {
     const H = D.handCrank;
     const F = G.frameAlong([H.o[0], H.o[1] + H.arm, H.o[2]], [-1, 0, 0]);
-    return k.solidSvg(G.solidOf([[0, 2], [2.6, 2], [2.6, 3.2, 1], [12, 3.6, 1], [15, 2.9, 1], [16, 0]], F, P, { smooth: true }), { tone: "hi" });
+    const L = H.handle;
+    return k.solidSvg(G.solidOf([[0, 2], [2.6, 2], [2.6, 3.2, 1], [L - 3, 3.6, 1], [L - 0.8, 2.9, 1], [L, 0]], F, P, { smooth: true }), { tone: "hi" });
   }
   function handleShift(deg) {
     const H = D.handCrank;

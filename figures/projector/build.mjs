@@ -65,8 +65,8 @@ const D = {
 
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
-  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -136] },
-  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [10, 150, 82] },
+  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -152] },
+  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [10, 150, 112] },
   lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
   rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 96, 0] },
@@ -370,7 +370,15 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
     return k.pathOf(pts.map(([r, w]) => at([13.95, MY + r * Math.cos(a) - w * Math.sin(a), MZ + r * Math.sin(a) + w * Math.cos(a)])), true);
   }).join("");
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
-  const HC = { o: [2, MY, MZ], arm: 15, t: 2.4 };
+  const HC = { o: [2, MY, MZ], arm: 15, t: 2.4, handle: 11 };
+  // The handle sweeps a full circle round the motor axis; whatever its angle, its tip must stay
+  // clear of the hold-back sprocket's teeth, which sit just beyond the crank on the head side.
+  {
+    const hold = SPROCKETS.hold;
+    const tipX = HC.o[0] - HC.handle;
+    const reach = Math.hypot(tipX - hold.x, 0) - (hold.r + 1.2);
+    if (reach < 1) throw new Error(`hand-crank handle comes within ${reach.toFixed(2)} mm of the hold-back sprocket's teeth`);
+  }
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
@@ -378,7 +386,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   disc("head", "head.crank.shaft", G.frameAlong([6, MY, MZ], [-1, 0, 0]), 0, 1.6, 3, { tone: "lo" });
   const armDef = PARTS.handCrankDef();
   put("head", "head.crank.arm", [HC.o[0] + 1, MY + HC.arm / 2, MZ], `<g data-part="handcrank">${PARTS.plateSvg(armDef, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), armDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.arm" }))]);
-  put("head", "head.crank.handle", [HC.o[0] - 6, MY + HC.arm, MZ], `<g data-part="handle">${PARTS.handleSvg()}</g>`, [record(A.disc(G.frameAlong([HC.o[0], MY + HC.arm, MZ], [-1, 0, 0]), 0, 16, 3.6, { name: "head.crank.handle" }))], { bias: 0.2 });
+  put("head", "head.crank.handle", [HC.o[0] - HC.handle / 2, MY + HC.arm, MZ], `<g data-part="handle">${PARTS.handleSvg()}</g>`, [record(A.disc(G.frameAlong([HC.o[0], MY + HC.arm, MZ], [-1, 0, 0]), 0, HC.handle, 3.6, { name: "head.crank.handle" }))], { bias: 0.2 });
   disc("head", "head.motor.shaft", MF, 92, 100, 3, { tone: "mid" });
   disc("head", "head.pulley.motor", MF, 100, 108, 7, { tone: "mid" }, { inner: Ln(G.arcOf(MF, 104, 7, P), { tone: "lo" }) });
   box("head", "head.motor.foot", [26, 0, MZ - 10], [80, MY - 28, MZ + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
@@ -449,11 +457,11 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
 
 // ---- a film can on the bench ----
 {
-  const CF = FZ(300, 108);
+  const CF = FZ(300, 98);
   disc("stand", "stand.can", CF, 0, 13, 62, { tone: "mid" }, { inner: Ln(G.arcOf(CF, 4, 62, P), { tone: "faint" }) });
   disc("stand", "stand.can.lid", CF, 13, 17, 64, { tone: "mid" }, { bevel: 0.6, extra: Ln(G.circleOf(CF, 17, 50, P, 96), { tone: "faint" }) });
-  const LBL = { x: 280, y: 84, w: 40, d: 16, r: 1 };
-  put("stand", "stand.can.label", [300, 92, 17.1], S(k.slabOf(LBL, 17, 0.4, P, 2), { tone: "lo", crease: "none" }) + Ln([30, 22].map((w, i) => k.lineOnTop([LBL.x + 4, LBL.y + 5 + i * 5], [LBL.x + 4 + w, LBL.y + 5 + i * 5], 17.4, P)).join(""), { tone: "lo", free: true }), [record(A.slab(LBL, 17, 0.4, { name: "stand.can.label" }, 2))], { bias: 0.1 });
+  const LBL = { x: 280, y: 74, w: 40, d: 16, r: 1 };
+  put("stand", "stand.can.label", [300, 82, 17.1], S(k.slabOf(LBL, 17, 0.4, P, 2), { tone: "lo", crease: "none" }) + Ln([30, 22].map((w, i) => k.lineOnTop([LBL.x + 4, LBL.y + 5 + i * 5], [LBL.x + 4 + w, LBL.y + 5 + i * 5], 17.4, P)).join(""), { tone: "lo", free: true }), [record(A.slab(LBL, 17, 0.4, { name: "stand.can.label" }, 2))], { bias: 0.1 });
 }
 
 // ================================================================== lamp house on its stand
@@ -760,7 +768,7 @@ const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
 const caption =
   "A Geneva cross on the intermittent sprocket's shaft makes a quarter turn: four perforations, one frame. It turns only while the driver's pin is in a slot, 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down and the others cut the still frame. So two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";
-const plateWith = (inner) => `<figure class="iso-figure pj"><div class="iso-plate">${corners}${inner}${controls}</div><figcaption class="iso-legend"><span class="pj-parts">${partButtons}</span><span class="iso-caption">${caption}</span></figcaption></figure>`;
+const plateWith = (inner) => `<figure class="iso-figure pj" aria-label="35mm projector"><div class="iso-plate">${corners}${inner}${controls}</div><figcaption class="iso-legend"><span class="pj-parts">${partButtons}</span><span class="iso-caption">${caption}</span></figcaption></figure>`;
 const plate = plateWith(stage);
 const shell = plateWith(`${stageOpen}</div>`);
 

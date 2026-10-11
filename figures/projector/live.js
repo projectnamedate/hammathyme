@@ -137,7 +137,7 @@ function setApart(on) {
   run();
 }
 function steerSpring(s, dt, calm) {
-  if (s.pending && state.clock >= s.pending.at) {
+  if (s.pending && (calm || state.clock >= s.pending.at)) {
     s.target = s.pending.value;
     s.pending = null;
   }
@@ -519,8 +519,13 @@ function stepTour(dt) {
   // Every running beat is shorter than the numbered leader, so starting each at the 8 keeps
   // its flicker on picture rather than on the black tail.
   if (s.speed >= 16) {
-    leaderShift = -Math.floor(M.intermittentOf(state.frames) + 1e-9);
-    shownFrame = -1;
+    const now = Math.floor(M.intermittentOf(state.frames) + 1e-9);
+    const left = M.LEADER.pop - leaderOf(now).frame;
+    const needs = s.speed * (TOUR[index + 1].at - s.at);
+    if (leaderOf(now).number === 0 || needs > left) {
+      leaderShift = -now;
+      shownFrame = -1;
+    }
   }
   if (s.apart !== undefined) {
     select(null);
@@ -562,7 +567,7 @@ function idleText() {
   // Black leader passes no light, whatever the shutter is doing; nor does a lamp still coming up.
   const black = leaderOf(Math.floor(M.intermittentOf(state.frames) + 1e-9)).number === 0;
   if (black) text = text.replace("light on screen", "black leader, no picture").replace(/\d+% light$/, "black leader");
-  else if (state.beam < 0.5 && !still.matches) text = text.replace("light on screen", "lamp coming up");
+  else if (state.beam < 0.5 && !still.matches) text = text.replace("light on screen", "lamp coming up").replace(/\d+% light$/, "lamp coming up");
   return text;
 }
 const motor = { x: 0, v: 0 };
@@ -854,6 +859,10 @@ listen(stage, "pointerup", (event) => {
   if (!grab || grab.id !== event.pointerId) return;
   if (grab.dragging) return letGo();
   if (state.crank) letGo();
+  if (Math.hypot(event.clientX - grab.x, event.clientY - grab.y) > 10) {
+    grab = null;
+    return;
+  }
   takeOver();
   const id = grab.piece;
   grab = null;
@@ -950,6 +959,7 @@ if (D.resume) {
   }
   touring = r.touring && !still.matches;
   tourClock = r.tourClock;
+  tourStep = r.tourStep;
   state.apart = r.apart;
   state.armed = r.armed;
   for (const id of IDS) {
@@ -985,5 +995,5 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, touring, tourClock, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
 return teardown;
