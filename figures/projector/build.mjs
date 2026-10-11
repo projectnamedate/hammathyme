@@ -66,10 +66,10 @@ const D = {
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
   shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -136] },
-  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [0, 130, 70] },
+  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [10, 150, 70] },
   lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
-  rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 46, 0] },
+  rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 72, 0] },
   lampcore: { name: "lamp", say: "xenon lamp · its mirror focuses the arc on the gate", move: [0, 0, 0] },
   lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [-30, 0, 205] },
   film: { name: "film path", say: "film path · steady at the sprockets, stepped at the gate", move: [0, 0, 0] },
@@ -427,7 +427,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   box("stand", "stand.switch", [-6, -14, 214], [26, -9, 262], { tone: "mid" }, { r: 1.2, steps: 2, bevel: 0.4, extra: Dots([[-2, 218], [22, 218], [-2, 258], [22, 258]].map(([x, z]) => at([x, -8.98, z])), { size: 0.45 }) });
   disc("stand", "stand.switch.toggle.base", FY(10, 246), -9, -7, 4, { tone: "lo" });
   disc("stand", "stand.switch.toggle", G.frameAlong([10, -7, 246], G.unit3([0, 1, 0.45])), 0, 9, 1.2, { tone: "mid" });
-  put("stand", "stand.switch.pilot", [10, -8.9, 226], `<g class="pj-pilot">${S(G.disc(-9, -7.4, 3, FY(10, 226), P, { steps: 24 }), { tone: "hi" })}</g>`, [record(A.disc(FY(10, 226), -9, -7.4, 3, { name: "stand.switch.pilot" }))], { bias: 0.1 });
+  put("stand", "stand.switch.pilot", [10, -8.9, 226], `<g class="pj-pilot">${S(G.disc(-9, -7.4, 3, FY(10, 226), P, { steps: 24 }), { tone: "lo" })}</g>`, [record(A.disc(FY(10, 226), -9, -7.4, 3, { name: "stand.switch.pilot" }))], { bias: 0.1 });
 }
 // ---- a tape splicer on the bench: a channel with register pins, a hinged blade ----
 {
@@ -508,7 +508,7 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
   disc("lamp", "lamp.door.handle", HF, LH.y1 + 2.4, LH.y1 + 7, 2.6, { tone: "mid" });
   {
     const rp = { y0: 0, y1: 56, z0: 522, z1: 546 };
-    box("lamp", "lamp.rating", [LH.x0 - 0.8, rp.y0, rp.z0], [LH.x0, rp.y1, rp.z1], { tone: "lo" }, { r: 0.6, steps: 2, bevel: 0 });
+    box("lamp", "lamp.rating", [LH.x0 - 0.8, rp.y0, rp.z0], [LH.x0, rp.y1, rp.z1], { tone: "lo" }, { r: 0.6, steps: 2, bevel: 0, extra: Dots([[rp.y0 + 2.6, rp.z0 + 2.6], [rp.y1 - 2.6, rp.z1 - 2.6]].map(([y, z]) => at([LH.x0 - 0.82, y, z])), { size: 0.45 }) });
     const rules = [36, 26, 30].map((w, i) => path3([[LH.x0 - 0.82, rp.y0 + 5, rp.z1 - 6 - i * 5], [LH.x0 - 0.82, rp.y0 + 5 + w, rp.z1 - 6 - i * 5]])).join("");
     put("lamp", "lamp.rating.rules", [LH.x0 - 0.85, 28, 534], Ln(rules, { tone: "lo", free: true }), [record(A.box([LH.x0 - 0.85, rp.y0, rp.z0], [LH.x0 - 0.8, rp.y1, rp.z1], { name: "lamp.rating.rules" }))]);
   }
@@ -604,8 +604,9 @@ const t3 = PARTS.tangent(S2, packTake);
 const runs = [];
 const ang = PARTS.angleOf;
 runs.push({ id: "a1", drive: "c", pts: PARTS.straight(t1.pa, t1.pb, 3) });
-// The film leaves the feed sprocket rising, so the upper loop arches over into the gate.
-const U_EXIT = (7 * Math.PI) / 4;
+// The film leaves the feed sprocket rising on its far side, so the upper loop arches over into
+// the gate and the arriving and departing strands stay apart, with teeth between them.
+const U_EXIT = Math.PI / 18;
 runs.push({ id: "a2", drive: "c", pts: PARTS.arc(S1, ang(S1.c, t1.pb), U_EXIT, 1.5), wrap: 1, centre: S1.c });
 const loopU = { p0: [S1.c[0] + S1.r * Math.cos(U_EXIT), S1.c[1] + S1.r * Math.sin(U_EXIT)], t0: [-Math.sin(U_EXIT), Math.cos(U_EXIT)], p1: [0, 552], t1: [0, -1] };
 runs.push({ id: "b1", drive: "i", pts: PARTS.straight([0, 552], [0, SI.c[1]], 2) });

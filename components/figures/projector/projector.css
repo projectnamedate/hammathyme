@@ -554,9 +554,8 @@
     max-width: none;
     text-align: left;
     font-size: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.35;
+    white-space: normal;
   }
 
   .pj-stage:focus-visible {
@@ -564,7 +563,8 @@
   }
 
   /* On a narrow card the parts would get too small; the drawing's own air takes the zoom. */
-  .pj-stage {
+  .pj-stage > svg,
+  .pj-stage > canvas {
     transform: scale(1.15);
   }
 

@@ -17,8 +17,8 @@ const RING_SMALL = 30;
  *     ("view →", "enter", "play", "read") — no magnetic snap (per research,
  *     snap reads template-y).
  *   • data-cursor="dot" keeps a small ink ring instead, for controls packed too tight for
- *     the lozenge to leave their neighbours readable; inside a dark-theme figure the ring
- *     and dot turn cream so the pointer never vanishes.
+ *     the lozenge to leave their neighbours readable.
+ *   • inside a dark-theme figure the dot and ring turn cream, so the pointer never vanishes.
  *
  * Hidden on coarse-pointer / reduced-motion.
  */
@@ -51,11 +51,16 @@ export function Cursor() {
   useEffect(() => {
     if (!enabled) return;
 
+    // Inside a dark-theme figure the ink dot and ring would vanish, so both turn cream there;
+    // checked on every move and on a theme change, not only when the target changes.
+    const darkAt = (el: Element | null) => el?.closest("[data-theme]")?.getAttribute("data-theme") === "dark";
+
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
 
       const el = (e.target as HTMLElement | null) ?? null;
+      setOnDark(darkAt(el));
       const interactive =
         el?.closest<HTMLElement>('a, button, [role="button"], [data-cursor]') ?? null;
 
@@ -65,12 +70,10 @@ export function Cursor() {
           const dot = interactive.dataset.cursor === "dot";
           setHovering(true);
           setSmall(dot);
-          setOnDark(interactive.closest("[data-theme]")?.getAttribute("data-theme") === "dark");
           setLabel(dot ? null : (interactive.dataset.cursorLabel ?? "view →"));
         } else {
           setHovering(false);
           setSmall(false);
-          setOnDark(false);
           setLabel(null);
         }
       }
@@ -81,11 +84,17 @@ export function Cursor() {
       y.set(-200);
     };
 
+    // The figure flips its theme a frame after the media query does.
+    const scheme = window.matchMedia("(prefers-color-scheme: dark)");
+    const onScheme = () => requestAnimationFrame(() => setOnDark(darkAt(document.elementFromPoint(x.get(), y.get()))));
+
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseleave", onLeave);
+    scheme.addEventListener("change", onScheme);
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeave);
+      scheme.removeEventListener("change", onScheme);
     };
   }, [enabled, x, y]);
 
@@ -118,8 +127,8 @@ export function Cursor() {
             height: hovering ? (small ? RING_SMALL : 28) : RING_BASE,
             borderRadius: 999,
             backgroundColor: hovering && !small ? "var(--ink-0)" : "rgba(0,0,0,0)",
-            color: hovering ? "var(--cream-0)" : "var(--bloodlust)",
-            borderColor: hovering ? (small && onDark ? "var(--cream-0)" : "var(--ink-0)") : "var(--bloodlust)",
+            color: hovering || onDark ? "var(--cream-0)" : "var(--bloodlust)",
+            borderColor: onDark && (small || !hovering) ? "var(--cream-0)" : hovering ? "var(--ink-0)" : "var(--bloodlust)",
             paddingInline: hovering && !small ? 14 : 0,
           }}
           transition={{ duration: 0.32, ease: [0.65, 0, 0.35, 1] }}

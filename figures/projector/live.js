@@ -50,6 +50,7 @@ const state = {
   blades: 2,
   apart: false,
   armed: false,
+  park: null,
   selected: null,
   demo: null,
   crank: null,
@@ -73,7 +74,7 @@ let lastPop = -1;
 let settled = true;
 
 const MOVERS = IDS.filter((id) => D.pieces[id] && nodes.some((node) => node.piece === id && (node.m[0] || node.m[1] || node.m[2])));
-const springsMoving = () => IDS.some((id) => Math.abs(piece[id].x - piece[id].target) > 0.002 || piece[id].pending);
+const springsMoving = () => IDS.some((id) => piece[id].x !== piece[id].target || piece[id].pending);
 // The machine may only turn when every part is home: nothing runs while it is apart or on
 // its way back together.
 const home = () => !state.apart && !IDS.some((id) => piece[id].x !== 0 || piece[id].target !== 0 || piece[id].pending);
@@ -122,13 +123,9 @@ function setApart(on) {
   if (state.crank) letGo();
   if (on) {
     state.inched = false;
-    if (Math.abs(state.fps) > 0.05) {
-      state.armed = true;
-      announce("stopping the motor, then taking it apart");
-    } else {
-      scheduleApart(true);
-      announce("taking apart");
-    }
+    state.armed = true;
+    state.park = null;
+    announce(Math.abs(state.fps) > 0.05 ? "stopping the motor, then taking it apart" : "taking apart");
   } else {
     state.armed = false;
     scheduleApart(false);
@@ -154,7 +151,8 @@ function steerSpring(s, dt, calm) {
     s.v += ((s.target - s.x) * SPRING.stiffness - s.v * SPRING.damping) * h;
     s.x += s.v * h;
   }
-  if (Math.abs(s.target - s.x) < 2e-4 && Math.abs(s.v) < 2e-4) {
+  // Within a third of a pixel of home the part is home.
+  if (Math.abs(s.target - s.x) < 2e-3 && Math.abs(s.v) < 2e-3) {
     s.x = s.target;
     s.v = 0;
     return s.pending !== null;
@@ -350,24 +348,24 @@ function draw(f0, f1, calm) {
       const marks = parts.marks(pts, loop.m0 - (loop.drive === "c" ? c : i) * FL, {});
       group.innerHTML = `${parts.ribbonSvg(pts, { tone: "hi", loop: true })}<path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/>`;
     }
-    groups.gate.innerHTML = parts.gateFrameSvg(i, M.leaderAt);
+    groups.gate.innerHTML = parts.gateFrameSvg(i, leaderOf);
   }
   // The picture shows the frame that is sitting in the gate; light reaches it only while
   // the shutter is open and the dowser is up.
   const n = Math.floor(i + 1e-9);
   if (n !== shownFrame) {
     shownFrame = n;
-    groups.picture.innerHTML = parts.leaderSvg(M.leaderAt(n), D.pic.w, D.pic.h);
+    groups.picture.innerHTML = parts.leaderSvg(leaderOf(n), D.pic.w, D.pic.h);
     if (audio) {
       audio.tick(clamp(state.fps / 24, 0.25, 1));
-      if (M.leaderAt(n).pop && n !== lastPop && state.lamp > 0.5) {
+      if (leaderOf(n).pop && n !== lastPop && state.lamp > 0.5) {
         lastPop = n;
         audio.pop();
       }
     }
   }
   // Black leader passes no light.
-  const clear = M.leaderAt(n).number === 0 ? 0.04 : 1;
+  const clear = leaderOf(n).number === 0 ? 0.04 : 1;
   const mean = M.lightShare(state.blades);
   const raw = f1 !== f0 ? M.screenLight(Math.min(f0, f1), Math.max(f0, f1), state.blades) : M.shutterOpen(((f1 % 1) + 1) % 1, state.blades);
   const hz = M.flickerHz(Math.abs(state.fps), state.blades);
@@ -493,6 +491,10 @@ const TOUR = [
   { at: 36.5, end: true },
 ];
 let tourStep = -1;
+// Added to the frame number when choosing which leader frame to show, so the tour can start
+// the countdown again from 8 while the machine keeps turning continuously.
+let leaderShift = 0;
+const leaderOf = (n) => M.leaderAt(n + leaderShift);
 let tourSay = "";
 let hovering = false;
 let focused = false;
@@ -504,8 +506,8 @@ function stepTour(dt) {
   if (TOUR[index].end) {
     tourClock = 0;
     index = 0;
-    const n = Math.floor(state.frames);
-    state.frames += (Math.ceil(n / M.LEADER.frames) * M.LEADER.frames || M.LEADER.frames) - n;
+    leaderShift = -Math.floor(M.intermittentOf(state.frames) + 1e-9);
+    shownFrame = -1;
   }
   if (index === tourStep) return;
   tourStep = index;
@@ -550,8 +552,8 @@ function idleText() {
   if (state.inched && !state.crank && !state.step && Math.abs(state.fps) < 0.05 && state.clock - state.inchedAt > FIRE) return "stopped · fire shutter down";
   const text = M.readoutOf(state.fps, state.blades, state.frames);
   // Black leader passes no light, whatever the shutter is doing.
-  const black = M.leaderAt(Math.floor(M.intermittentOf(state.frames) + 1e-9)).number === 0;
-  return black ? text.replace("light on screen", "black leader, no picture") : text;
+  const black = leaderOf(Math.floor(M.intermittentOf(state.frames) + 1e-9)).number === 0;
+  return black ? text.replace("light on screen", "black leader, no picture").replace(/\d+% light$/, "black leader") : text;
 }
 const motor = { x: 0, v: 0 };
 const lampState = { x: 0, v: 0 };
@@ -593,7 +595,7 @@ function tick(now) {
     }
     moving = true;
   } else {
-    const target = ready && !state.crank && !state.step ? state.target : 0;
+    const target = ready && !state.crank && !state.step && (state.lamp > 0.5 || calm) ? state.target : 0;
     // A waiting step brakes hard; otherwise the machine runs up and down at its own pace.
     const pace = state.step ? 0.12 : Math.abs(target) > Math.abs(motor.x) ? 0.7 : 0.45;
     moving = settle(motor, target, dt, pace, calm) || moving;
@@ -608,16 +610,28 @@ function tick(now) {
   }
   if (jumped) f0 = state.frames;
   const rate = (state.frames - f0) / dt;
-  if (state.crank || state.step) {
+  if (state.crank) {
+    hand.rate = (state.crank.goal - state.frames) / 0.12;
+    state.fps = hand.rate;
+  } else if (state.step) {
     hand.rate += (rate - hand.rate) * (1 - Math.exp(-dt / 0.15));
     state.fps = hand.rate;
   } else {
     hand.rate = 0;
     state.fps = motor.x;
   }
+  // Stopped, the mechanism is inched round to its rest pose (the cross locked, the pin across
+  // from it, the blades where they were drawn) before anything comes off.
   if (state.armed && Math.abs(state.fps) < 0.05) {
-    state.armed = false;
-    scheduleApart(true);
+    if (state.park === null) state.park = Math.ceil(state.frames - 0.5 - 1e-6) + 0.5;
+    if (calm) state.frames = state.park;
+    state.frames = Math.min(state.park, state.frames + dt * 1.5);
+    moving = true;
+    if (state.frames === state.park) {
+      state.armed = false;
+      state.park = null;
+      scheduleApart(true);
+    }
   }
   // The lamp is up while the film moves; stopped, it stays lit for a look at the frame, then
   // the fire shutter drops, as it does on a real projector, before the frame can scorch.
@@ -717,7 +731,7 @@ function stepFrame(dir = 1) {
   if (state.apart) setApart(false);
   if (state.step) state.step.queue.push(dir);
   else {
-    hand.rate = motor.x;
+    hand.rate = still.matches ? 0 : motor.x;
     state.step = { cycle: null, goal: null, dir, queue: [] };
   }
   markButtons();
@@ -757,7 +771,7 @@ function pieceAt(event) {
 }
 let grab = null;
 listen(stage, "pointerdown", (event) => {
-  if (event.button !== 0) return;
+  if (event.button !== 0 || (grab && grab.dragging)) return;
   grab = { x: event.clientX, y: event.clientY, id: event.pointerId, dragging: false, piece: pieceAt(event) };
 });
 listen(stage, "pointermove", (event) => {
@@ -812,6 +826,7 @@ const letGo = () => {
 listen(stage, "pointerup", (event) => {
   if (!grab || grab.id !== event.pointerId) return;
   if (grab.dragging) return letGo();
+  if (state.crank) letGo();
   takeOver();
   const id = grab.piece;
   grab = null;
@@ -866,6 +881,19 @@ listen(stage, "focus", () => {
 const narrow = matchMedia("(hover: none), (max-width: 640px)");
 const wording = () => (narrow.matches ? "drag to crank · tap a part" : "drag to crank · click a part");
 hint.textContent = wording();
+listen(narrow, "change", () => {
+  if (!state.crank) hint.textContent = wording();
+});
+// Reduced motion switched on mid-visit: the tour stops and the machine is shown as a still.
+listen(still, "change", () => {
+  if (!still.matches) return;
+  touring = false;
+  tourSay = "";
+  motor.x = state.target;
+  pose();
+  drawnKey = "";
+  run();
+});
 
 // A remount after a theme change carries on from what the reader had chosen.
 stage.removeAttribute("data-focus");
@@ -878,9 +906,16 @@ if (D.resume) {
   motor.x = still.matches ? r.chosen : r.fps;
   lampState.x = r.lamp;
   fireState.x = r.beam;
+  leaderShift = r.leaderShift;
+  state.inched = r.inched;
+  state.inchedAt = -r.inchedAge;
+  if (r.step) state.step = { cycle: r.step.cycle, goal: null, dir: r.step.dir, queue: r.step.queue };
   touring = r.touring && !still.matches;
   tourClock = r.tourClock;
-  if (r.apart) {
+  if (r.armed) {
+    state.apart = true;
+    state.armed = true;
+  } else if (r.apart) {
     state.apart = true;
     for (const id of IDS) piece[id].x = piece[id].target = 1;
     motor.x = 0;
@@ -912,5 +947,5 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: Math.max(0, state.fps), touring, tourClock, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: Math.max(0, state.fps), touring, tourClock, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed });
 return teardown;
