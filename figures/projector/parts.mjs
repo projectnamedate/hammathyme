@@ -145,18 +145,37 @@ export function makeParts(k, G, P, D) {
       return `<g class="iso-solid pj-film" data-seamless=""><path class="iso-fill" d="${faces.map((f) => poly(f.quad)).join("")}"/>${shades}${buckets[4].length ? `<path class="iso-top" d="${buckets[4].join("")}"/>` : ""}<path class="iso-line iso-edge" data-tone="${tone}" d="${edges}"/></g>`;
     }
     // A loop can cross itself on screen, so faces go back to front, each with its own two
-    // edge segments, and a nearer face covers a farther face's edges.
+    // edge segments, and a nearer face covers a farther face's edges. A face's edges wait for
+    // the fills of the faces next to it along the film, so where the ribbon turns edge-on and
+    // its thin faces overlap, none of them paints over its neighbours' strokes.
     const sorted = [...faces].sort((a, b) => a.d - b.d);
-    const body = sorted
-      .map((f) => {
-        const cls = f.tone >= 4 ? `class="iso-top"` : `class="iso-shade" data-shade="${f.tone}"`;
-        const [a, b, c, d] = f.quad;
-        const ends = [];
-        if (f.i === 0 && options.caps) ends.push(line([a, d]));
-        if (f.i === pts.length - 2 && options.caps) ends.push(line([b, c]));
-        return `<path ${cls} d="${poly(f.quad)}"/><path class="iso-line iso-edge" data-tone="${tone}" d="${line([a, b])}${line([d, c])}${ends.join("")}"/>`;
-      })
-      .join("");
+    const present = new Set(faces.map((f) => f.i));
+    const filled = new Set();
+    const waiting = new Map();
+    const parts = [];
+    const edgesOf = (f) => {
+      const [a, b, c, d] = f.quad;
+      const ends = [];
+      if (f.i === 0 && options.caps) ends.push(line([a, d]));
+      if (f.i === pts.length - 2 && options.caps) ends.push(line([b, c]));
+      return `<path class="iso-line iso-edge" data-tone="${tone}" d="${line([a, b])}${line([d, c])}${ends.join("")}"/>`;
+    };
+    const NEAR = [-3, -2, -1, 1, 2, 3];
+    const ready = (i) => NEAR.every((k) => !present.has(i + k) || filled.has(i + k));
+    for (const f of sorted) {
+      const cls = f.tone >= 4 ? `class="iso-top"` : `class="iso-shade" data-shade="${f.tone}"`;
+      parts.push(`<path ${cls} d="${poly(f.quad)}"/>`);
+      filled.add(f.i);
+      waiting.set(f.i, f);
+      for (const i of [f.i, ...NEAR.map((k) => f.i + k)]) {
+        const w = waiting.get(i);
+        if (w && ready(i)) {
+          parts.push(edgesOf(w));
+          waiting.delete(i);
+        }
+      }
+    }
+    const body = parts.join("");
     return `<g class="iso-solid pj-film" data-seamless=""${options.lit ? " data-lit" : ""}>${body}</g>`;
   }
 
@@ -180,7 +199,8 @@ export function makeParts(k, G, P, D) {
         if (G.dot3(n, mid) < 0) n = G.mul3(n, -1);
       }
       const facing = G.dot3(n, V);
-      const visible = wrap ? facing > 0.05 : Math.abs(facing) > 0.05;
+      // Nearly edge-on, a hole is a sliver that would only sit on the film's edge stroke.
+      const visible = wrap ? facing > 0.05 : Math.abs(facing) > 0.2;
       if (visible) {
         const ma = m0 + s;
         const mb = ma + len;

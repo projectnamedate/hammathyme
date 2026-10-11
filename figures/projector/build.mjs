@@ -66,10 +66,10 @@ const D = {
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
   shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [12, 0, -136] },
-  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [10, 150, 70] },
+  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [10, 150, 82] },
   lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
   gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
-  rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 72, 0] },
+  rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 96, 0] },
   lampcore: { name: "lamp", say: "xenon lamp · its mirror focuses the arc on the gate", move: [0, 0, 0] },
   lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [-30, 0, 205] },
   film: { name: "film path", say: "film path · steady at the sprockets, stepped at the gate", move: [0, 0, 0] },
@@ -370,7 +370,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
     return k.pathOf(pts.map(([r, w]) => at([13.95, MY + r * Math.cos(a) - w * Math.sin(a), MZ + r * Math.sin(a) + w * Math.cos(a)])), true);
   }).join("");
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
-  const HC = { o: [2, MY, MZ], arm: 21, t: 2.4 };
+  const HC = { o: [2, MY, MZ], arm: 15, t: 2.4 };
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
@@ -750,7 +750,7 @@ Object.assign(D, {
 
 const backSvg = k.figureSvg({ width: W, height: H, label: LABEL_TEXT, body: back, className: "pj-back" });
 const frontSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="iso-svg pj-front" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="pj-machine">${groups.join("")}</g></svg>`;
-const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="dot"><span class="pj-num">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
+const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}" data-cursor="dot" aria-label="${PIECES[id].name}"><span class="pj-num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
 const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");

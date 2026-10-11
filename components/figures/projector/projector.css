@@ -329,6 +329,12 @@
   opacity: calc(0.35 + 0.65 * var(--pj-lamp));
 }
 
+/* On the light card a paler frame alone barely shows the lamp; lit, it warms like the port. */
+[data-theme="light"] .pj-gate-frame .pj-frame-bg,
+[data-theme="light"] .pj-gate-frame .pj-film-face {
+  fill: color-mix(in srgb, var(--pj-glass-on) calc(var(--pj-lamp) * 100%), var(--pj-frame-bg));
+}
+
 .pj-frameline {
   stroke: var(--pj-ink);
   stroke-width: 1.2;
