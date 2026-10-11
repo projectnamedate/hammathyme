@@ -88,6 +88,8 @@ function put(piece, name, ref, svg, shapes = [], { bias = 0, attrs = "", key } =
 }
 
 const PARTS = makeParts(k, G, P, D);
+D.knurls = {};
+const knurlSvg = (q, phase) => k.fadedSvg(G.ribsOf(q.F, q.s0, q.s1, q.r, q.n, P, { phase, fade: [0.1, 0.55], seams: true }), { tone: "lo" });
 // The drawing rests half a frame in: the cross locked, the pin across from it.
 const REST_C = 0.5;
 const REST_I = M.intermittentOf(REST_C);
@@ -294,7 +296,7 @@ const AP = { x0: -5, x1: -0.15 };
 {
   const GF = FY(-3.6, GATE.z1 + 3.7);
   disc("head", "head.gate.guide.axle", GF, 0, F0 - 0.6, 1.2, { tone: "lo" });
-  disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 0.6, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 - 1, 3.4, P), { tone: "faint" }) });
+  disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 2, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 - 1, 3.4, P), { tone: "faint" }) });
 }
 box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "mid" }, { r: 0.8, steps: 2, bevel: 0.3, extra: Ln(path3([[-0.02, AY - WIN.w / 2 - 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA + WIN.h / 2 + 1], [-0.02, AY - WIN.w / 2 - 1, ZA + WIN.h / 2 + 1]], true), { tone: "lo" }) + Ln([-1, 1].map((sd) => path3([[-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z0 + 4], [-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z1 - 4]])).join(""), { tone: "faint" }) });
 {
@@ -308,9 +310,9 @@ box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone
   const LF = FX(AY, ZA);
   box("head", "head.lens.bracket", [24, 0, ZA - 10], [38, AY - 24 + 0.0, ZA + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
   const collar = record(A.ring(LF, 24, 38, LENS.r, 24, { name: "lens.collar" }));
-  put("lens", "lens.collar", [31, AY, ZA], S(G.ringBand(24, 38, LENS.r, 24, LF, P), { tone: "mid" }) + screwOn(LF, 24, 21, 6) + Ln(G.circleOf(LF, 23.98, 13, P, 64), { tone: "lo" }) + Ln(G.circleOf(LF, 23.98, 10, P, 64), { tone: "faint" }), [collar], { bias: 0.3 });
+  put("lens", "lens.collar", [31, AY, ZA], S(G.ringBand(24, 38, LENS.r, 24, LF, P), { tone: "mid" }) + screwOn(LF, 24, 21, 6), [collar], { bias: 0.3 });
   const knurl = k.fadedSvg(G.ribsOf(LF, 62, 78, LENS.r + 1.2, 64, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" });
-  turned("lens", "lens.mount", LF, [[LENS.x0, LENS.r], [24, LENS.r]], { tone: "mid" }, { inner: Ln(G.arcOf(LF, 18, LENS.r, P), { tone: "faint" }) });
+  turned("lens", "lens.mount", LF, [[LENS.x0, LENS.r], [24, LENS.r]], { tone: "mid" }, { inner: Ln(G.arcOf(LF, 18, LENS.r, P), { tone: "faint" }), extra: Ln(G.circleOf(LF, LENS.x0 - 0.02, 13, P, 64), { tone: "lo" }) + Ln(G.circleOf(LF, LENS.x0 - 0.02, 10, P, 64), { tone: "faint" }) });
   turned("lens", "lens.barrel", LF, [[38, LENS.r], [62, LENS.r], [62, LENS.r + 1.2], [78, LENS.r + 1.2], [78, LENS.r], [96, LENS.r], [96, LENS.r + 0.6], [LENS.x1, LENS.r + 0.6]], { tone: "mid" }, { extra: knurl, inner: Ln(G.arcOf(LF, 50, LENS.r, P) + G.arcOf(LF, 88, LENS.r, P), { tone: "faint" }) });
 }
 
@@ -416,10 +418,13 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
-  disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10, 4, P, { all: true }), { size: 0.5 }) });
+  disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10.8, 4, P, { all: true, phase: Math.PI / 4 }), { size: 0.5 }) });
   disc("head", "head.crank.shaft", G.frameAlong([6, MY, MZ], [-1, 0, 0]), 0, 1.6, 3, { tone: "lo" });
+  // The knurls on the knob and on the take-up clutch turn with them: drawn round their axis at
+  // a phase the page sets each frame.
+  D.knurls.handcrank = { F: G.frameAlong([HC.o[0], MY, MZ], [1, 0, 0]), s0: 0, s1: HC.t, r: HC.r, n: 24 };
   const knobDef = PARTS.handCrankDef();
-  put("head", "head.crank.knob", [HC.o[0] + 1, MY, MZ], `<g data-part="handcrank">${PARTS.plateSvg(knobDef, 0)}</g>` + k.fadedSvg(G.ribsOf(G.frameAlong([HC.o[0], MY, MZ], [1, 0, 0]), 0, HC.t, HC.r, 24, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }), [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), knobDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.knob" }))]);
+  put("head", "head.crank.knob", [HC.o[0] + 1, MY, MZ], `<g data-part="handcrank">${PARTS.plateSvg(knobDef, 0)}</g><g data-part="knurl-handcrank">${knurlSvg(D.knurls.handcrank, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), knobDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.knob" }))]);
   disc("head", "head.motor.shaft", MF, 92, 100, 3, { tone: "mid" });
   disc("head", "head.pulley.motor", MF, 100, 108, 7, { tone: "mid" }, { inner: Ln(G.arcOf(MF, 104, 7, P), { tone: "lo" }) });
   box("head", "head.motor.foot", [26, 0, MZ - 10], [80, MY - 28, MZ + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
@@ -475,9 +480,9 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   const SP = { x: 70, y: 96, w: 92, d: 40 };
   box("stand", "stand.splicer", [SP.x, SP.y, 0], [SP.x + SP.w, SP.y + SP.d, 9], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6, extra: Dots([[SP.x + 4, SP.y + 4], [SP.x + SP.w - 4, SP.y + 4], [SP.x + 4, SP.y + SP.d - 4], [SP.x + SP.w - 4, SP.y + SP.d - 4]].map(([x, y]) => at([x, y, 9])), { size: 0.45 }) });
   const CH0 = SP.y + (SP.d - M.FILM.width) / 2;
-  const PERFS = Array.from({ length: Math.floor((SP.w - 12) / M.FILM.pitch) + 1 }, (_, n) => SP.x + 6 + n * M.FILM.pitch);
+  const PERFS = Array.from({ length: Math.floor((SP.w - 12) / M.FILM.pitch) }, (_, n) => SP.x + 6 + M.FILM.pitch / 2 + n * M.FILM.pitch);
   put("stand", "stand.splicer.channel", [SP.x + SP.w / 2, CH0 + 17, 9.02], Ln(k.planOutline({ x: SP.x + 3, y: CH0, w: SP.w - 6, d: M.FILM.width, r: 0.6 }, 9.02, P, 2), { tone: "lo" }) + Dots(PERFS.flatMap((x) => [at([x, CH0 + 3.4, 9.02]), at([x, CH0 + M.FILM.width - 3.4, 9.02])]), { size: 0.4, tone: "mid" }), [record(A.box([SP.x + 3, CH0, 9], [SP.x + SP.w - 3, CH0 + M.FILM.width, 9.05], { name: "stand.splicer.channel" }))], { bias: 0.05 });
-  box("stand", "stand.splicer.leader", [SP.x + 6, CH0 + 0.4, 9.05], [SP.x + 52, CH0 + M.FILM.width - 0.4, 9.3], { tone: "mid" }, { r: 0.3, steps: 2, bevel: 0 });
+  box("stand", "stand.splicer.leader", [SP.x + 6, CH0 + 0.4, 9.05], [SP.x + 52, CH0 + M.FILM.width - 0.4, 9.3], { tone: "mid" }, { r: 0.3, steps: 2, bevel: 0, extra: k.dotsSvg(PERFS.filter((x) => x < SP.x + 51).flatMap((x) => [at([x, CH0 + 3.4, 9.32]), at([x, CH0 + M.FILM.width - 3.4, 9.32])]), { size: 0.55, tone: "lo" }) });
   // register pins through the leader's perforations, both edges
   for (const [n, x] of [PERFS[2], PERFS[6]].entries()) {
     for (const [m, y] of [CH0 + 3.4, CH0 + M.FILM.width - 3.4].entries()) disc("stand", `stand.splicer.pin.${n}.${m}`, FZ(x, y), 9.3, 10.6, 0.75, { tone: "mid" });
@@ -634,7 +639,11 @@ for (const [id, reel] of Object.entries(REELS)) {
   put("reels", `reels.${id}.near`, [reel.x, reel.y1 - 0.8, reel.z], `<g data-part="flange-${id}">${PARTS.plateSvg(PARTS.flangeDef(id, reel), ((REST_C * M.FRAME_LENGTH) / reel.pack) * (180 / Math.PI))}</g>`, [record(A.disc(F, reel.y1 - 1.6, reel.y1, reel.r, { name: `reels.${id}.near` }))], { bias: 0.4 });
   disc("reels", `reels.${id}.nut`, F, reel.y1, reel.y1 + 4, 6.2, { tone: "mid" }, { steps: 6, extra: Dots([at([reel.x, reel.y1 + 4.02, reel.z])], { size: 0.9, tone: "lo" }) });
   // The take-up spindle turns through a friction clutch, so the reel can wind slower as it fills.
-  if (id === "take") disc("reels", "reels.take.clutch", F, reel.y1 + 4, reel.y1 + 7.4, 9.5, { tone: "mid" }, { bevel: 0.3, extra: k.fadedSvg(G.ribsOf(F, reel.y1 + 4, reel.y1 + 7.4, 9.5, 36, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) });
+  if (id === "take") {
+    D.knurls.clutch = { F, s0: reel.y1 + 4, s1: reel.y1 + 7.4, r: 9.5, n: 36 };
+    const rest = -((REST_C * M.FRAME_LENGTH) / reel.pack);
+    disc("reels", "reels.take.clutch", F, reel.y1 + 4, reel.y1 + 7.4, 9.5, { tone: "mid" }, { bevel: 0.3, extra: `<g data-part="knurl-clutch">${knurlSvg(D.knurls.clutch, rest)}</g>` });
+  }
 }
 D.reels = REELS;
 
@@ -749,7 +758,7 @@ for (const roller of ROLLERS) {
 // Apart, the feed roller comes off its axle and away from the film, not straight out across the
 // upper loop as the other two can.
 {
-  const feedRoller = [-70, 110, 0];
+  const feedRoller = [-78, 110, 0];
   for (const item of R.items) {
     if (!item.name.startsWith("rollers.feed")) continue;
     item.move = feedRoller;
@@ -824,7 +833,7 @@ const shell = plateWith(`${stageOpen}</div>`);
 
 const CSS = readFileSync(join(HERE, "projector.css"), "utf8");
 const latheSource = readFileSync(join(HERE, "..", "anatomy-kit", "kit", "lathe.mjs"), "utf8").replace(/^import .*$/m, "").replace(/^export /gm, "");
-const latheScript = `const G = (() => {${latheSource}\nreturn { viewOf, scaleOf, frameAlong, frameOf, pointOf, disc, circleOf, arcOf, dot3, add3, sub3, mul3, unit3, cross3, len3, lightOf, toneOf, dotsOf };})();\n`;
+const latheScript = `const G = (() => {${latheSource}\nreturn { viewOf, scaleOf, frameAlong, frameOf, pointOf, disc, circleOf, arcOf, dot3, add3, sub3, mul3, unit3, cross3, len3, lightOf, toneOf, dotsOf, ribsOf };})();\n`;
 const modelScript = `const M = (() => {${readFileSync(join(HERE, "model.mjs"), "utf8").replace(/^export /gm, "")}\nreturn { FRAME_LENGTH, crossOf, intermittentOf, shutterOpen, lightShare, flickerHz, screenLight, leaderAt, readoutOf, phaseOf, openPhase, feetPerMinute, LEADER, SOUND_FPS };})();\n`;
 const partsScript = readFileSync(join(HERE, "parts.mjs"), "utf8").replace(/^export /gm, "");
 const liveBody = readFileSync(join(HERE, "live.js"), "utf8");

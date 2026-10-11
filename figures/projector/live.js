@@ -91,7 +91,7 @@ function announce(text) {
 function describe() {
   const fps = Math.round(state.target);
   const speed = state.crank ? "cranking by hand" : fps ? `${fps} frame${fps === 1 ? "" : "s"} a second` : "stopped";
-  const text = state.selected ? D.pieces[state.selected].say : state.apart ? `apart · ${MOVERS.length} assemblies` : `${speed}, ${state.blades} shutter blade${state.blades === 1 ? "" : "s"}`;
+  const text = state.armed ? "stopping, then taking apart" : state.selected ? D.pieces[state.selected].say : state.apart ? `apart · ${MOVERS.length} assemblies` : `${speed}, ${state.blades} shutter blade${state.blades === 1 ? "" : "s"}`;
   stage.setAttribute("aria-description", text);
 }
 
@@ -286,6 +286,7 @@ const groups = {
   picture: part("picture"),
   ammeter: part("ammeter"),
   pulleyScrews: part("screws-pulley")?.querySelector('[data-turn="front"]'),
+  knurls: { handcrank: part("knurl-handcrank"), clutch: part("knurl-clutch") },
   teeth: Object.fromEntries(Object.keys(D.sprockets).map((id) => [id, [part(`teeth-${id}`), part(`screws-${id}`)].map((g) => g?.querySelector('[data-turn="front"]')).filter(Boolean)])),
 };
 const plates = { crank2: plateEl("handcrank"), cross: plateEl("cross"), crank: plateEl("crank"), lock: plateEl("lock"), feed: plateEl("flange-feed"), take: plateEl("flange-take"), feedFar: plateEl("flange-feed-far"), takeFar: plateEl("flange-take-far") };
@@ -293,6 +294,14 @@ let shutterBlades = 2;
 let shutterDefs = parts.shutterDefs(shutterBlades);
 let shutterPlates = shutterDefs.map((def) => plateEl(def.id));
 const turnOf = (deg) => ((deg % 360) + 360) % 360;
+// The knurl's ribs repeat every rib, so only the phase within one rib matters.
+function knurl(id, phase) {
+  const el = groups.knurls[id];
+  const q = D.knurls[id];
+  if (!el || !q) return;
+  const pitch = TAU / q.n;
+  el.innerHTML = K.fadedSvg(G.ribsOf(q.F, q.s0, q.s1, q.r, q.n, D.P, { phase: ((phase % pitch) + pitch) % pitch, fade: [0.1, 0.55], seams: true }), { tone: "lo" });
+}
 function turn(el, def, deg) {
   if (!el) return;
   const t = parts.plateTurn(def, deg);
@@ -318,6 +327,7 @@ function draw(f0, f1, calm) {
     // build drew and audited it.
     const crankDeg = -360 * (c - 0.5) * D.crankRatio;
     turn(plates.crank2, DEFS.crank2, crankDeg);
+    knurl("handcrank", -crankDeg * (Math.PI / 180));
     turn(plates.cross, DEFS.cross, 90 * i);
     turn(plates.crank, DEFS.crank, -360 * c);
     turn(plates.lock, DEFS.lock, -360 * c);
@@ -337,6 +347,7 @@ function draw(f0, f1, calm) {
       const a = ((c * FL) / D.reels[id].pack) * deg;
       turn(plates[id], DEFS[id], a);
       turn(plates[`${id}Far`], DEFS[`${id}Far`], a);
+      if (id === "take") knurl("clutch", -a * (Math.PI / 180));
     }
     for (const run of runs) {
       const marks = parts.marks(run.pts, run.m0 - (run.drive === "c" ? c : i) * FL, { wrap: run.wrap, centre: run.centre });
@@ -655,6 +666,7 @@ function tick(now) {
       state.armed = false;
       state.park = null;
       scheduleApart(true);
+      describe();
     }
   }
   // The lamp is up while the film moves; stopped, it stays lit for a look at the frame, then
@@ -959,6 +971,7 @@ if (D.resume) {
   state.target = r.chosen;
   state.blades = r.blades;
   motor.x = still.matches ? r.chosen : r.fps;
+  state.fps = motor.x;
   lampState.x = r.lamp;
   fireState.x = r.beam;
   leaderShift = r.leaderShift;
