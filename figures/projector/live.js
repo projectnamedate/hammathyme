@@ -83,16 +83,34 @@ function say(text) {
   if (text !== lastText) {
     lastText = text;
     readout.textContent = text;
+    describe();
   }
 }
 function announce(text) {
   if (!touring) live.textContent = text;
 }
+let shownDescription = "";
 function describe() {
   const fps = Math.round(state.target);
   const speed = state.crank ? "cranking by hand" : fps ? `${fps} frame${fps === 1 ? "" : "s"} a second` : "stopped";
-  const text = state.armed ? "stopping, then taking apart" : state.selected ? D.pieces[state.selected].say : state.apart ? `apart · ${MOVERS.length} assemblies` : `${speed}, ${state.blades} shutter blade${state.blades === 1 ? "" : "s"}`;
-  stage.setAttribute("aria-description", text);
+  const moving = springsMoving();
+  const text = state.armed
+    ? Math.abs(state.fps) > 0.05
+      ? "stopping, then taking apart"
+      : "taking apart"
+    : moving
+      ? state.apart
+        ? "taking apart"
+        : "putting together"
+      : state.selected
+        ? D.pieces[state.selected].say
+        : state.apart
+          ? `apart · ${MOVERS.length} assemblies`
+          : `${speed}, ${state.blades} shutter blade${state.blades === 1 ? "" : "s"}`;
+  if (text !== shownDescription) {
+    shownDescription = text;
+    stage.setAttribute("aria-description", text);
+  }
 }
 
 function press(button, on) {
@@ -127,8 +145,17 @@ function setApart(on) {
     state.park = null;
     announce(Math.abs(state.fps) > 0.05 ? "stopping the motor, then taking it apart" : "taking apart");
   } else {
+    const nothingMoved = state.armed && !springsMoving() && IDS.every((id) => piece[id].x === 0);
     state.armed = false;
+    state.park = null;
     scheduleApart(false);
+    if (nothingMoved) {
+      settled = true;
+      markButtons();
+      describe();
+      run();
+      return;
+    }
     announce("putting together");
   }
   settled = false;
@@ -974,12 +1001,15 @@ if (D.resume) {
   state.fps = motor.x;
   lampState.x = r.lamp;
   fireState.x = r.beam;
+  state.lamp = r.lamp;
+  state.beam = Math.min(r.beam, r.lamp);
   leaderShift = r.leaderShift;
   state.inched = r.inched;
   state.inchedAt = -r.inchedAge;
   if (r.step) {
     state.step = { cycle: r.step.cycle, goal: null, dir: r.step.dir, queue: r.step.queue };
-    motor.x = 0;
+    if (r.step.cycle !== null) motor.x = 0;
+    hand.rate = r.fps;
   }
   touring = r.touring && !still.matches;
   tourClock = r.tourClock;

@@ -296,7 +296,7 @@ const AP = { x0: -5, x1: -0.15 };
 {
   const GF = FY(-3.6, GATE.z1 + 3.7);
   disc("head", "head.gate.guide.axle", GF, 0, F0 - 0.6, 1.2, { tone: "lo" });
-  disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 2, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 - 1, 3.4, P), { tone: "faint" }) });
+  disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 4, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 + 2.4, 3.4, P), { tone: "faint" }) });
 }
 box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "mid" }, { r: 0.8, steps: 2, bevel: 0.3, extra: Ln(path3([[-0.02, AY - WIN.w / 2 - 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA + WIN.h / 2 + 1], [-0.02, AY - WIN.w / 2 - 1, ZA + WIN.h / 2 + 1]], true), { tone: "lo" }) + Ln([-1, 1].map((sd) => path3([[-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z0 + 4], [-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z1 - 4]])).join(""), { tone: "faint" }) });
 {
@@ -418,7 +418,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
-  disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10.8, 4, P, { all: true, phase: Math.PI / 4 }), { size: 0.5 }) });
+  disc("head", "head.crank.box", boxF, 0, 8, 12.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 8, 10.8, 4, P, { all: true, phase: Math.PI / 12 }), { size: 0.5 }) });
   disc("head", "head.crank.shaft", G.frameAlong([6, MY, MZ], [-1, 0, 0]), 0, 1.6, 3, { tone: "lo" });
   // The knurls on the knob and on the take-up clutch turn with them: drawn round their axis at
   // a phase the page sets each frame.
@@ -478,11 +478,12 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
 // ---- a tape splicer on the bench: a channel with register pins, a hinged blade ----
 {
   const SP = { x: 70, y: 96, w: 92, d: 40 };
-  box("stand", "stand.splicer", [SP.x, SP.y, 0], [SP.x + SP.w, SP.y + SP.d, 9], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6, extra: Dots([[SP.x + 4, SP.y + 4], [SP.x + SP.w - 4, SP.y + 4], [SP.x + 4, SP.y + SP.d - 4], [SP.x + SP.w - 4, SP.y + SP.d - 4]].map(([x, y]) => at([x, y, 9])), { size: 0.45 }) });
+  box("stand", "stand.splicer", [SP.x, SP.y, 0], [SP.x + SP.w, SP.y + SP.d, 9], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6 });
   const CH0 = SP.y + (SP.d - M.FILM.width) / 2;
   const PERFS = Array.from({ length: Math.floor((SP.w - 12) / M.FILM.pitch) }, (_, n) => SP.x + 6 + M.FILM.pitch / 2 + n * M.FILM.pitch);
   put("stand", "stand.splicer.channel", [SP.x + SP.w / 2, CH0 + 17, 9.02], Ln(k.planOutline({ x: SP.x + 3, y: CH0, w: SP.w - 6, d: M.FILM.width, r: 0.6 }, 9.02, P, 2), { tone: "lo" }) + Dots(PERFS.flatMap((x) => [at([x, CH0 + 3.4, 9.02]), at([x, CH0 + M.FILM.width - 3.4, 9.02])]), { size: 0.4, tone: "mid" }), [record(A.box([SP.x + 3, CH0, 9], [SP.x + SP.w - 3, CH0 + M.FILM.width, 9.05], { name: "stand.splicer.channel" }))], { bias: 0.05 });
-  box("stand", "stand.splicer.leader", [SP.x + 6, CH0 + 0.4, 9.05], [SP.x + 52, CH0 + M.FILM.width - 0.4, 9.3], { tone: "mid" }, { r: 0.3, steps: 2, bevel: 0, extra: k.dotsSvg(PERFS.filter((x) => x < SP.x + 51).flatMap((x) => [at([x, CH0 + 3.4, 9.32]), at([x, CH0 + M.FILM.width - 3.4, 9.32])]), { size: 0.55, tone: "lo" }) });
+  const LEAD = { x0: SP.x + 6, x1: SP.x + 6 + 9 * M.FILM.pitch };
+  box("stand", "stand.splicer.leader", [LEAD.x0, CH0 + 0.4, 9.05], [LEAD.x1, CH0 + M.FILM.width - 0.4, 9.3], { tone: "mid" }, { r: 0.3, steps: 2, bevel: 0, extra: k.dotsSvg(PERFS.filter((x) => x < LEAD.x1).flatMap((x) => [at([x, CH0 + 3.4, 9.32]), at([x, CH0 + M.FILM.width - 3.4, 9.32])]), { size: 0.55, tone: "lo" }) });
   // register pins through the leader's perforations, both edges
   for (const [n, x] of [PERFS[2], PERFS[6]].entries()) {
     for (const [m, y] of [CH0 + 3.4, CH0 + M.FILM.width - 3.4].entries()) disc("stand", `stand.splicer.pin.${n}.${m}`, FZ(x, y), 9.3, 10.6, 0.75, { tone: "mid" });
@@ -783,7 +784,7 @@ const groups = R.items.map((item, index) => {
 });
 
 const LABEL_TEXT =
-  "A 35 mm film projector on a bench, threaded and running: a lamp house on its stand throws light through the gate, where a Geneva cross on an outboard shaft pulls the film down one frame at a time. A two-bladed shutter spins in front of the lens, and a small screen at the far end shows the countdown leader. Feed and take-up reels sit above and below the head, and the film loops between steady sprockets and the stepping one.";
+  "A 35mm film projector on a bench, threaded and running. A lamp house on its stand throws light through the gate. A Geneva cross pulls the film down one frame at a time. A shutter spins in front of the lens, and a small screen shows the countdown leader. Feed and take-up reels sit above and below the head. The film loops between steady sprockets and the stepping one.";
 
 const unit = (vector) => {
   const o = at([0, 0, 0]);
