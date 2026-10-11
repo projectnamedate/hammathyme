@@ -296,7 +296,7 @@ const AP = { x0: -5, x1: -0.15 };
 {
   const GF = FY(-3.6, GATE.z1 + 3.7);
   disc("head", "head.gate.guide.axle", GF, 0, F0 - 0.6, 1.2, { tone: "lo" });
-  disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 4, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 + 2.4, 3.4, P), { tone: "faint" }) });
+  disc("head", "head.gate.guide", GF, F0 - 0.6, F1 + 4, 3.4, { tone: "mid" }, { inner: Ln(G.arcOf(GF, F0 + 1, 3.4, P) + G.arcOf(GF, F1 - 1, 3.4, P), { tone: "faint" }) });
 }
 box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "mid" }, { r: 0.8, steps: 2, bevel: 0.3, extra: Ln(path3([[-0.02, AY - WIN.w / 2 - 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA - WIN.h / 2 - 1], [-0.02, AY + WIN.w / 2 + 1, ZA + WIN.h / 2 + 1], [-0.02, AY - WIN.w / 2 - 1, ZA + WIN.h / 2 + 1]], true), { tone: "lo" }) + Ln([-1, 1].map((sd) => path3([[-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z0 + 4], [-0.02, AY + sd * (WIN.w / 2 + 3), GATE.z1 - 4]])).join(""), { tone: "faint" }) });
 {
