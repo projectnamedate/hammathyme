@@ -275,7 +275,10 @@ export function makeParts(k, G, P, D) {
   // The side wall between the back and front faces is a stack of wall-toned copies, close
   // enough that no gap shows: it covers the back outline wherever the wall stands in front.
   const wallSteps = (L) => Math.max(1, Math.ceil(Math.hypot(L[0], L[1]) / 0.35));
-  function plateTurn(def, deg) {
+  function plateTurn(def, turnDeg) {
+    // Browsers keep an SVG rotate angle as a 32-bit float, so a long run's growing angle would
+    // lose its fine steps; only the angle within one turn is written.
+    const deg = ((turnDeg % 360) + 360) % 360;
     const { L } = planeInfo(def.plane);
     const at = (t) => `translate(${(L[0] * t).toFixed(3)} ${(L[1] * t).toFixed(3)}) rotate(${deg.toFixed(2)})`;
     const n = wallSteps(L);
@@ -390,16 +393,18 @@ export function makeParts(k, G, P, D) {
   }
 
   // ---- the inching knob on the motor's rear face ----
-  // The inching knob: knurled round its rim, with an index mark so its turning shows.
+  // The inching knob: a plain round knob, knurled across its face rim, with a radial index line
+  // so its turning shows.
   function handCrankDef() {
     const H = D.handCrank;
-    const rim = Array.from({ length: 120 }, (_, i) => {
-      const t = (i / 120) * TAU;
-      const r = H.r - 0.35 + 0.35 * Math.cos(30 * t);
-      return [r * Math.cos(t), r * Math.sin(t)];
-    });
-    return { id: "handcrank", contours: [rim], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="1.1"/><circle cx="${f1(H.r - 2.4)}" cy="0" r="1"/></g><path class="iso-line" data-tone="faint" d="${poly(circlePts(0, 0, H.r - 1.4, 48))}"/>` };
+    const rim = circlePts(0, 0, H.r, 64);
+    const knurl = Array.from({ length: 24 }, (_, i) => {
+      const t = (i / 24) * TAU;
+      return line([[(H.r - 1.3) * Math.cos(t), (H.r - 1.3) * Math.sin(t)], [H.r * Math.cos(t), H.r * Math.sin(t)]]);
+    }).join("");
+    return { id: "handcrank", contours: [rim], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<path class="iso-line" data-tone="faint" d="${knurl}"/><path class="iso-line" data-tone="hi" d="${line([[1.2, 0], [H.r - 1.6, 0]])}"/><g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="0.9"/></g>` };
   }
+
 
 
   // ---- shutter: n blades, each a quarter turn plus the beam crossing ----
@@ -428,11 +433,11 @@ export function makeParts(k, G, P, D) {
     const SH = D.shutter;
     const plane = { o: [SH.x0, SH.y, SH.z], ex: [0, 1, 0], ey: [0, 0, -1], back: [SH.x1 - SH.x0, 0, 0] };
     const { blades: shapes, hub } = bladeContours(0, blades);
-    const bore = circlePts(0, 0, 2.6, 18);
+    const bore = circlePts(0, 0, 3.6, 18);
     bore.hole = true;
     const rivets = shapes.flatMap((_, b) => {
       const centre = (b / blades) * TAU;
-      return [-0.18, 0.18].map((da) => [(SH.hub + 3) * Math.sin(centre + da), -(SH.hub + 3) * Math.cos(centre + da)]);
+      return [-0.18, 0.18].map((da) => [(SH.hub - 3.5) * Math.sin(centre + da), -(SH.hub - 3.5) * Math.cos(centre + da)]);
     });
     const half = ((D.blade + D.crossing) / 2) * TAU;
     const ribs = shapes

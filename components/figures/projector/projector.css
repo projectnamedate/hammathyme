@@ -370,6 +370,12 @@
   opacity: calc(var(--pj-lamp) * 0.9);
 }
 
+/* the pilot lamp on the motor switch glows while the lamp is up */
+.pj-pilot .iso-top,
+.pj-pilot .iso-shade {
+  fill: color-mix(in srgb, var(--pj-port-on) calc(var(--pj-lamp) * 100%), var(--anatomy-shade-1));
+}
+
 .pj-glass {
   fill: color-mix(in srgb, var(--pj-glass-on) calc(var(--pj-lamp) * 100%), var(--anatomy-shade-1));
 }

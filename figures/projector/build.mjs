@@ -406,7 +406,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
   // A knurled inching knob on the reduction box's shaft: small enough that, whatever its angle,
   // it stays inside the motor's end on the page and never reaches the hold-back sprocket.
-  const HC = { o: [2, MY, MZ], r: 8, t: 2.4 };
+  const HC = { o: [2, MY, MZ], r: 6.5, t: 2.4 };
   D.handCrank = HC;
   D.crankRatio = 1 / 8;
   const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);

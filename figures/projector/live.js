@@ -292,6 +292,7 @@ const plates = { crank2: plateEl("handcrank"), cross: plateEl("cross"), crank: p
 let shutterBlades = 2;
 let shutterDefs = parts.shutterDefs(shutterBlades);
 let shutterPlates = shutterDefs.map((def) => plateEl(def.id));
+const turnOf = (deg) => ((deg % 360) + 360) % 360;
 function turn(el, def, deg) {
   if (!el) return;
   const t = parts.plateTurn(def, deg);
@@ -301,7 +302,7 @@ function turn(el, def, deg) {
   el.conn.setAttribute("d", t.conn);
 }
 const S = D.sprockets;
-const lit = { screen: stage.querySelector(".pj-screen"), beam: part("light-beam"), lamp: [part("port"), part("condenser")], gate: part("gate-frame") };
+const lit = { screen: stage.querySelector(".pj-screen"), beam: part("light-beam"), lamp: [part("port"), part("condenser"), stage.querySelector(".pj-pilot")], gate: part("gate-frame") };
 let shownLight = "";
 let shownLamp = "";
 let shownGate = "";
@@ -328,10 +329,10 @@ function draw(f0, f1, calm) {
       shutterPlates = shutterDefs.map((def) => plateEl(def.id));
     }
     shutterDefs.forEach((def, n) => turn(shutterPlates[n], def, 360 * (c - 0.125)));
-    groups.pulleyScrews?.setAttribute("transform", `rotate(${(360 * (c - 0.125)).toFixed(2)})`);
+    groups.pulleyScrews?.setAttribute("transform", `rotate(${turnOf(360 * (c - 0.125)).toFixed(2)})`);
     // Four teeth to a frame, exactly, so the teeth keep step with the perforations.
     const sprocketDeg = { feed: (-c * (360 * 4)) / S.feed.teeth, inter: (i * (360 * 4)) / S.inter.teeth, hold: (-c * (360 * 4)) / S.hold.teeth };
-    for (const [id, els] of Object.entries(groups.teeth)) for (const el of els) el.setAttribute("transform", `rotate(${sprocketDeg[id].toFixed(2)})`);
+    for (const [id, els] of Object.entries(groups.teeth)) for (const el of els) el.setAttribute("transform", `rotate(${turnOf(sprocketDeg[id]).toFixed(2)})`);
     for (const id of ["feed", "take"]) {
       const a = ((c * FL) / D.reels[id].pack) * deg;
       turn(plates[id], DEFS[id], a);
