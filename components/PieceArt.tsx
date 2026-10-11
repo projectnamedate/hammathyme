@@ -463,28 +463,28 @@ function genevaPath(cx: number, cy: number, a: number, half: number) {
   return `M${pts.join("L")}Z`;
 }
 
-const GENEVA = genevaPath(70, 74, 19, 2.6);
+const GENEVA = genevaPath(64, 82, 18, 2.5);
 
 function ProjectorAnatomy() {
   return (
     <Plate>
-      <g stroke="var(--ink-3)" strokeWidth="0.7">
-        <rect x="22" y="22" width="16" height="104" fill="var(--cream-0)" />
-        {Array.from({ length: 13 }, (_, i) => (
+      <g stroke="var(--ink-3)" strokeWidth="0.9">
+        <rect x="24" y="44" width="15" height="80" fill="var(--cream-0)" />
+        {Array.from({ length: 10 }, (_, i) => (
           <g key={i}>
-            <rect x="24.2" y={25 + i * 8} width="2.4" height="3.2" fill="var(--ink-4)" stroke="none" />
-            <rect x="33.4" y={25 + i * 8} width="2.4" height="3.2" fill="var(--ink-4)" stroke="none" />
+            <rect x="26" y={47 + i * 8} width="2.2" height="3" fill="var(--ink-4)" stroke="none" />
+            <rect x="34.8" y={47 + i * 8} width="2.2" height="3" fill="var(--ink-4)" stroke="none" />
           </g>
         ))}
         {[0, 1, 2, 3].map((i) => (
-          <line key={i} x1="22" y1={22 + i * 32} x2="38" y2={22 + i * 32} />
+          <line key={i} x1="24" y1={52 + i * 24} x2="39" y2={52 + i * 24} />
         ))}
-        <rect x="27" y="57" width="6" height="18" fill="var(--ink-0)" stroke="none" />
-        <circle cx="96.9" cy="74" r="17" fill="var(--cream-0)" />
-        <path d={GENEVA} fill="var(--cinnamon)" stroke="var(--bloodlust)" />
-        <circle cx="70" cy="74" r="3.4" fill="var(--cream-0)" />
-        <circle cx="83.4" cy="60.6" r="2.4" fill="var(--ink-0)" stroke="none" />
-        <circle cx="96.9" cy="74" r="2" fill="var(--ink-2)" stroke="none" />
+        <rect x="28.8" y="70" width="5.4" height="16" fill="var(--ink-0)" stroke="none" />
+        <circle cx="89.5" cy="82" r="15.5" fill="var(--cream-0)" />
+        <path d={GENEVA} fill="var(--cinnamon)" stroke="var(--ink-1)" />
+        <circle cx="64" cy="82" r="3.2" fill="var(--cream-0)" />
+        <circle cx="76.7" cy="69.3" r="2.3" fill="var(--ink-0)" stroke="none" />
+        <circle cx="89.5" cy="82" r="1.9" fill="var(--ink-2)" stroke="none" />
       </g>
       <MonoLabel>GENEVA · 24 FPS</MonoLabel>
     </Plate>

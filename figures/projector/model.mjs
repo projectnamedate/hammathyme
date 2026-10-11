@@ -57,13 +57,15 @@ export function intermittentOf(frames) {
   return whole + crossOf(frames - whole);
 }
 
-// This machine's front shutter: the beam passes 100 from the shutter axis and is 35.5 wide
-// there (the lens's 28 exit pupil spreading toward a 176 × 128 picture 276 away).
+// This machine's front shutter: the beam's centre passes 100 from the shutter axis, and the
+// beam is 35.5 wide and 33 tall there (the lens's 28 exit pupil spreading toward a 176 × 128
+// picture 276 away). A blade edge has fully crossed it once it clears the beam's corners
+// nearest the axis, 17.75 across and 83.5 out.
 // Blade 0 is centred on the pull-down; the others are spaced evenly round the disc and are
 // as wide. A blade edge takes CROSSING of a turn to sweep across the beam, so each blade is
 // that much wider than the pull-down and the film never moves in the light.
-export const SHUTTER = { beamOffset: 100, beamRadius: 17.75 };
-export const CROSSING = (2 * Math.atan(SHUTTER.beamRadius / SHUTTER.beamOffset)) / (2 * Math.PI);
+export const SHUTTER = { beamOffset: 100, beamHalfY: 17.75, beamHalfZ: 16.5 };
+export const CROSSING = (2 * Math.atan(SHUTTER.beamHalfY / (SHUTTER.beamOffset - SHUTTER.beamHalfZ))) / (2 * Math.PI);
 export function shutterOpen(phase, blades) {
   let covered = 0;
   for (let k = 0; k < blades; k++) {
@@ -109,10 +111,22 @@ export function smoothstep(a, b, x) {
   return t * t * (3 - 2 * t);
 }
 
-export function readoutOf(fps, blades) {
+// What the gate is doing at this instant of the frame, for the readout at hand speeds.
+export function phaseOf(frames, blades) {
+  const phase = fract(frames);
+  if (phase < PULLDOWN) return "pull-down, blade over the beam";
+  return shutterOpen(phase, blades) > 0.5 ? "frame still, light on screen" : "frame still, blade over the beam";
+}
+
+export function readoutOf(fps, blades, frames = 0) {
   const light = `${Math.round(lightShare(blades) * 100)}% light`;
-  if (fps < 0.05) return `stopped · ${blades} blade${blades === 1 ? "" : "s"} · ${light}`;
-  const f = fps >= 9.95 ? fps.toFixed(0) : fps.toFixed(1);
-  const hz = flickerHz(fps, blades);
-  return `${f} fps · ${hz >= 9.95 ? hz.toFixed(0) : hz.toFixed(1)} Hz · ${light}`;
+  const speed = Math.abs(fps);
+  if (speed < 0.05) return `stopped · ${blades} blade${blades === 1 ? "" : "s"}`;
+  const back = fps < 0 ? "backwards · " : "";
+  // The rate shown is the one the flicker is worked out from, so the two always agree.
+  const shown = speed >= 9.95 ? Math.round(speed) : Math.round(speed * 10) / 10;
+  const f = speed >= 9.95 ? shown.toFixed(0) : shown.toFixed(1);
+  if (speed <= 3.05) return `${back}${f} fps · ${phaseOf(frames, blades)}`;
+  const hz = flickerHz(shown, blades);
+  return `${back}${f} fps · ${hz >= 9.95 ? hz.toFixed(0) : hz.toFixed(1)} Hz · ${light}`;
 }

@@ -33,7 +33,7 @@ const LENS = { x0: 12, x1: 104, r: 18, pupil: 14 };
 const SH = { x0: 118, x1: 120, y: AY, z: ZA - M.SHUTTER.beamOffset, r: 126, hub: 30 };
 
 const P = k.fitProjection(
-  [...k.boxCorners(BASE, -BASE_H - FOOT_H, 0), [-24, 50, 815], [-104, 10, 760], [SCREEN_X, -98, 600], [SCREEN_X, 153, 600], [-330, 85, 600], [SH.x0, 153, SH.z]],
+  [...k.boxCorners(BASE, -BASE_H - FOOT_H, 0), [-24, 50, 852], [-104, 10, 760], [SCREEN_X, -98, 600], [SCREEN_X, 153, 600], [-330, 85, 600], [SH.x0, 153, SH.z]],
   W,
   H,
   { pad: 28, azimuth: AZIMUTH, elevation: ELEVATION },
@@ -58,24 +58,26 @@ const D = {
 // The shutter's beam numbers in the model must be this drawing's beam.
 {
   const t = (SH.x0 - LENS.x1) / (SCREEN_X - LENS.x1);
-  const half = LENS.pupil + (PIC.w / 2 - LENS.pupil) * t;
-  if (Math.abs(half - M.SHUTTER.beamRadius) > 0.25 || Math.abs(ZA - SH.z - M.SHUTTER.beamOffset) > 1e-9) throw new Error(`shutter beam ${half.toFixed(2)} ≠ model ${M.SHUTTER.beamRadius}`);
+  const halfY = LENS.pupil + (PIC.w / 2 - LENS.pupil) * t;
+  const halfZ = LENS.pupil + (PIC.h / 2 - LENS.pupil) * t;
+  if (Math.abs(halfY - M.SHUTTER.beamHalfY) > 0.25 || Math.abs(halfZ - M.SHUTTER.beamHalfZ) > 0.25 || Math.abs(ZA - SH.z - M.SHUTTER.beamOffset) > 1e-9) throw new Error(`shutter beam ${halfY.toFixed(2)} × ${halfZ.toFixed(2)} ≠ model ${M.SHUTTER.beamHalfY} × ${M.SHUTTER.beamHalfZ}`);
 }
 
 // ---- explode: assemblies and their real directions off the machine ----
 const PIECES = {
-  shutter: { name: "Shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [150, 0, 0] },
-  movement: { name: "Geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [0, 88, 0] },
-  lens: { name: "Lens", say: "lens · throws the frame 276 mm to the screen", move: [70, 0, 0] },
-  gate: { name: "Gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
-  rollers: { name: "Pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 46, 0] },
-  lamp: { name: "Lamp house", say: "lamp house · the light, focused on the aperture", move: [0, 0, 96] },
-  film: { name: "Film path", say: "film path · steady at the sprockets, stepped at the gate", move: [0, 0, 0] },
-  reels: { name: "Reels", say: "reels · 1,000 ft feeds 11 minutes at 24 fps", move: [0, 0, 0] },
+  shutter: { name: "shutter", say: "shutter · one turn a frame, a blade over every pull-down", move: [96, 0, 0] },
+  movement: { name: "geneva movement", say: "geneva cross · a quarter turn a frame, still for the rest", move: [0, 88, 46] },
+  lens: { name: "lens", say: "lens · turns the upside-down frame upright on the screen", move: [64, 0, 0] },
+  gate: { name: "gate", say: "gate · pads hold the frame flat in the aperture", move: [0, 56, 0] },
+  rollers: { name: "pad rollers", say: "pad rollers · keep the film on the sprocket teeth", move: [0, 46, 0] },
+  lampcore: { name: "lamp", say: "xenon lamp · its mirror focuses the arc on the gate", move: [0, 0, 0] },
+  lamp: { name: "lamp house", say: "lamp house · lifts off the lamp and its mirror", move: [0, 0, 150] },
+  film: { name: "film path", say: "film path · steady at the sprockets, stepped at the gate", move: [0, 0, 0] },
+  reels: { name: "reels", say: "reels · 90 ft of film a minute at 24 fps", move: [0, 0, 0] },
   head: { name: "Head", say: "", move: [0, 0, 0] },
   stand: { name: "Stand", say: "", move: [0, 0, 0] },
 };
-const STAGGER = ["shutter", "movement", "lens", "gate", "rollers", "lamp", "film", "reels", "head", "stand"];
+const STAGGER = ["shutter", "movement", "lens", "gate", "rollers", "lamp", "lampcore", "film", "reels", "head", "stand"];
 const SPRING = { stagger: 0.04, stiffness: 64, damping: 14.2, substeps: 4 };
 const ORDER = ["lamp", "gate", "film", "movement", "shutter", "lens", "rollers", "reels"];
 
@@ -182,9 +184,28 @@ screenBack.push({ d: G.dot3([SCREEN_X + 4, AY, (SCR.z0 + SCR.z1) / 2], V), svg: 
 for (const y of [SCR.y0, SCR.y1]) screenBack.push({ d: G.dot3([SCREEN_X + 4, y, 500], V) + 0.3, svg: S(k.slabOf({ x: SCREEN_X + 1, y: y + (y < 0 ? -4.2 : 0), w: 6, d: 4.2, r: 0.6 }, SCR.z0 + 14, 12, P, 2), { tone: "lo" }) + S(k.slabOf({ x: SCREEN_X + 1, y: y + (y < 0 ? -4.2 : 0), w: 6, d: 4.2, r: 0.6 }, SCR.z1 - 26, 12, P, 2), { tone: "lo" }) });
 record(A.slab(frameSlab, SCR.z0, SCR.z1 - SCR.z0, { name: "stand.screen.frame" }, 3));
 screenBack.sort((a, b) => a.d - b.d);
+{
+  const pupil = Array.from({ length: 48 }, (_, n) => at([LENS.x1, AY + LENS.pupil * Math.cos((n / 48) * TAU), ZA + LENS.pupil * Math.sin((n / 48) * TAU)]));
+  const corners = [[1, 1], [-1, 1], [-1, -1], [1, -1]].map(([sy, sz]) => [SCREEN_X - 0.1, AY + (sy * PIC.w) / 2, ZA + (sz * PIC.h) / 2]);
+  const hull = G.hullOf([...pupil, ...corners.map(at)]);
+  const edges = corners.map(([x, y, z]) => {
+    const dy = y - AY;
+    const dz = z - ZA;
+    const r = Math.hypot(dy, dz);
+    return k.pathOf([at([LENS.x1, AY + (LENS.pupil * dy) / r, ZA + (LENS.pupil * dz) / r]), at([x, y, z])]);
+  });
+  back.push(`<g class="pj-light-beam" data-part="light-beam"><path class="pj-beam-fill" d="${k.pathOf(hull, true)}"/><path class="iso-line pj-beam-edge" data-tone="faint" d="${edges.join("")}"/></g>`);
+}
 back.push(...screenBack.map((entry) => entry.svg));
 // The picture face, seen from the projector: u to the audience's right (−y), v down (−z).
-const SCREEN_M = planeMatrix([SCREEN_X - 0.05, AY, ZA], [0, -1, 0], [0, 0, -1]);
+const FACE_U = [0, 1, 0];
+{
+  const o = at([SCREEN_X, AY, ZA]);
+  const u = at(G.add3([SCREEN_X, AY, ZA], FACE_U));
+  const v = at([SCREEN_X, AY, ZA - 1]);
+  if ((u[0] - o[0]) * (v[1] - o[1]) - (u[1] - o[1]) * (v[0] - o[0]) <= 0) throw new Error("the screen's face plane mirrors the picture");
+}
+const SCREEN_M = planeMatrix([SCREEN_X - 0.05, AY, ZA], FACE_U, [0, 0, -1]);
 const maskW = SCR.y1 - SCR.y0 - 12;
 const maskH = SCR.z1 - SCR.z0 - 12;
 back.push(
@@ -198,6 +219,13 @@ box("stand", "stand.pedestal.saddle", [-100, -96, 300], [60, 0, 316], { tone: "l
 {
   const KF = FY(-20, 308);
   disc("stand", "stand.tilt.knob", KF, 0, 6, 6, { tone: "hi" }, { extra: Ln(k.pathOf([at([-23.5, 6.05, 308]), at([-16.5, 6.05, 308])]), { tone: "lo", free: true }) + k.fadedSvg(G.ribsOf(KF, 0, 6, 6, 28, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) });
+}
+
+{
+  const door = { y0: -80, y1: -24, z0: 70, z1: 250 };
+  box("stand", "stand.pedestal.door", [-82.4, door.y0, door.z0], [-80, door.y1, door.z1], { tone: "mid" }, { r: 2, steps: 3, bevel: 0.4, extra: Dots([[door.y0 + 5, door.z0 + 5], [door.y1 - 5, door.z0 + 5], [door.y0 + 5, door.z1 - 5], [door.y1 - 5, door.z1 - 5]].map(([y, z]) => at([-82.42, y, z])), { size: 0.5 }) });
+  disc("stand", "stand.pedestal.door.handle", G.frameAlong([-82.4, -52, 170], [-1, 0, 0]), 0, 5, 2.6, { tone: "mid" });
+  put("stand", "stand.pedestal.door.vents", [-82.42, -52, 222], Ln(Array.from({ length: 4 }, (_, i) => path3([[-82.42, -68, 212 + i * 7], [-82.42, -36, 212 + i * 7], [-82.42, -36, 215 + i * 7], [-82.42, -68, 215 + i * 7]], true)).join(""), { tone: "lo" }), [record(A.box([-82.5, -68, 212], [-82.4, -36, 236], { name: "stand.pedestal.door.vents" }))], { bias: 0.05 });
 }
 
 // ================================================================== head
@@ -232,21 +260,21 @@ const AP = { x0: -5, x1: -0.15 };
 {
   const shape = record(A.slab({ x: AP.x0, y: 0, w: AP.x1 - AP.x0, d: 52, r: 0.6 }, GATE.z0, GATE.z1 - GATE.z0, { name: "head.aperture" }, 2));
   // The plate's lamp-side face with the aperture cut in it, and the window's walls.
-  const faceM = planeMatrix([AP.x0 - 0.02, AY, ZA], [0, -1, 0], [0, 0, -1]);
+  const faceM = planeMatrix([AP.x0 - 0.02, AY, ZA], FACE_U, [0, 0, -1]);
   const winRect = `M${(-WIN.w / 2).toFixed(2)} ${(-WIN.h / 2).toFixed(2)}H${(WIN.w / 2).toFixed(2)}V${(WIN.h / 2).toFixed(2)}H${(-WIN.w / 2).toFixed(2)}Z`;
   const walls = [];
-  const corner = (u, v, x) => [x, AY - u, ZA - v];
+  const corner = (u, v, x) => [x, AY + u, ZA - v];
   const edges = [
     [[-WIN.w / 2, -WIN.h / 2], [WIN.w / 2, -WIN.h / 2], [0, 0, -1]],
-    [[WIN.w / 2, -WIN.h / 2], [WIN.w / 2, WIN.h / 2], [0, 1, 0]],
+    [[WIN.w / 2, -WIN.h / 2], [WIN.w / 2, WIN.h / 2], [0, -1, 0]],
     [[WIN.w / 2, WIN.h / 2], [-WIN.w / 2, WIN.h / 2], [0, 0, 1]],
-    [[-WIN.w / 2, WIN.h / 2], [-WIN.w / 2, -WIN.h / 2], [0, -1, 0]],
+    [[-WIN.w / 2, WIN.h / 2], [-WIN.w / 2, -WIN.h / 2], [0, 1, 0]],
   ];
   for (const [a, b, n] of edges) {
     if (G.dot3(n, V) <= 0) continue;
     walls.push(`<path class="iso-shade" data-shade="${Math.min(3, G.toneOf(n, P))}" d="${path3([corner(a[0], a[1], AP.x0), corner(b[0], b[1], AP.x0), corner(b[0], b[1], AP.x1), corner(a[0], a[1], AP.x1)], true)}"/>`);
   }
-  const filmM = planeMatrix([0 - 0.1, AY, ZA], [0, -1, 0], [0, 0, -1]);
+  const filmM = planeMatrix([0 - 0.1, AY, ZA], FACE_U, [0, 0, -1]);
   const winClip = path3([corner(-WIN.w / 2, -WIN.h / 2, AP.x0), corner(WIN.w / 2, -WIN.h / 2, AP.x0), corner(WIN.w / 2, WIN.h / 2, AP.x0), corner(-WIN.w / 2, WIN.h / 2, AP.x0)], true);
   const backClip = path3([corner(-WIN.w / 2, -WIN.h / 2, -0.1), corner(WIN.w / 2, -WIN.h / 2, -0.1), corner(WIN.w / 2, WIN.h / 2, -0.1), corner(-WIN.w / 2, WIN.h / 2, -0.1)], true);
   const win = `<clipPath id="pj-win"><path d="${winClip}"/></clipPath><clipPath id="pj-win-back"><path d="${backClip}"/></clipPath><g clip-path="url(#pj-win)"><g clip-path="url(#pj-win-back)"><g transform="${filmM}"><g class="pj-gate-frame" data-part="gate-frame">${PARTS.gateFrameSvg(REST_I, M.leaderAt)}</g></g></g>${walls.join("")}</g>`;
@@ -255,7 +283,7 @@ const AP = { x0: -5, x1: -0.15 };
   const screws = Dots([[6, GATE.z0 + 5], [46, GATE.z0 + 5], [6, GATE.z1 - 5], [46, GATE.z1 - 5]].map(([y, z]) => at([AP.x0 - 0.02, y, z])), { size: 0.5 });
   put("head", "head.aperture", [AP.x0, 26, ZA], plate + `<path class="pj-void" d="${winClip}"/>` + win + cut + screws, [shape], { bias: 0.4 });
 }
-box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "hi" }, { r: 0.8, steps: 2, bevel: 0.3 });
+box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone: "mid" }, { r: 0.8, steps: 2, bevel: 0.3 });
 {
   const KF = FY(4.5, ZA + 22);
   disc("gate", "gate.latch", KF, F1 + 6, F1 + 10, 3.4, { tone: "hi" }, { extra: k.fadedSvg(G.ribsOf(KF, F1 + 6, F1 + 10, 3.4, 18, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) });
@@ -269,8 +297,8 @@ box("gate", "gate.door", [0.0, 6, GATE.z0 + 4], [9, F1 + 6, GATE.z1 - 4], { tone
   const collar = record(A.ring(LF, 24, 38, LENS.r, 24, { name: "lens.collar" }));
   put("lens", "lens.collar", [31, AY, ZA], S(G.ringBand(24, 38, LENS.r, 24, LF, P), { tone: "mid" }) + screwOn(LF, 24, 21, 6), [collar], { bias: 0.3 });
   const knurl = k.fadedSvg(G.ribsOf(LF, 62, 78, LENS.r + 1.2, 64, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" });
-  turned("lens", "lens.mount", LF, [[LENS.x0, LENS.r], [24, LENS.r]], { tone: "hi" }, { inner: Ln(G.arcOf(LF, 18, LENS.r, P), { tone: "faint" }) });
-  turned("lens", "lens.barrel", LF, [[38, LENS.r], [62, LENS.r], [62, LENS.r + 1.2], [78, LENS.r + 1.2], [78, LENS.r], [96, LENS.r], [96, LENS.r + 0.6], [LENS.x1, LENS.r + 0.6]], { tone: "hi" }, { extra: knurl, inner: Ln(G.arcOf(LF, 50, LENS.r, P) + G.arcOf(LF, 88, LENS.r, P), { tone: "faint" }) });
+  turned("lens", "lens.mount", LF, [[LENS.x0, LENS.r], [24, LENS.r]], { tone: "mid" }, { inner: Ln(G.arcOf(LF, 18, LENS.r, P), { tone: "faint" }) });
+  turned("lens", "lens.barrel", LF, [[38, LENS.r], [62, LENS.r], [62, LENS.r + 1.2], [78, LENS.r + 1.2], [78, LENS.r], [96, LENS.r], [96, LENS.r + 0.6], [LENS.x1, LENS.r + 0.6]], { tone: "mid" }, { extra: knurl, inner: Ln(G.arcOf(LF, 50, LENS.r, P) + G.arcOf(LF, 88, LENS.r, P), { tone: "faint" }) });
 }
 
 // gearbox, the shaft out to the shutter, the driver shaft out to the movement
@@ -327,8 +355,26 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
   const MF = FX(MY, MZ);
   const ribs = k.fadedSvg(G.ribsOf(MF, 30, 76, 30, 40, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" });
   turned("head", "head.motor", MF, [[14, 0], [14, 22], [16, 26, 1], [22, 26], [22, 30], [84, 30], [84, 26], [90, 22, 1], [92, 14], [92, 0]], { tone: "mid" }, { extra: ribs });
+  // Rear face: a fan cover of closed slots round a small reduction box for the hand crank,
+  // which turns once every eight frames (two turns a second at 16 fps).
   const grille = FX(MY, MZ);
-  put("head", "head.motor.grille", [13.9, MY, MZ], Ln([8, 12, 16, 20].map((r) => G.circleOf(grille, 13.95, r, P, 48)).join(""), { tone: "lo" }) + Dots([at([13.9, MY, MZ])], { size: 1.1, tone: "hi" }), [record(A.disc(grille, 13.8, 14, 21, { name: "head.motor.grille" }))], { bias: 0.1 });
+  const slots = Array.from({ length: 12 }, (_, n) => {
+    const a = (n / 12) * TAU;
+    const pts = [];
+    for (let j = 0; j <= 6; j++) pts.push([12.5 + 8 * (j / 6), -0.9]);
+    for (let j = 6; j >= 0; j--) pts.push([12.5 + 8 * (j / 6), 0.9]);
+    return k.pathOf(pts.map(([r, w]) => at([13.95, MY + r * Math.cos(a) - w * Math.sin(a), MZ + r * Math.sin(a) + w * Math.cos(a)])), true);
+  }).join("");
+  put("head", "head.motor.grille", [13.9, MY, MZ], Ln(slots + G.circleOf(grille, 13.95, 22.5, P, 64), { tone: "lo" }), [record(A.disc(grille, 13.8, 14, 23, { name: "head.motor.grille" }))], { bias: 0.1 });
+  const HC = { o: [4, MY, MZ], arm: 17, t: 2 };
+  D.handCrank = HC;
+  D.crankRatio = 1 / 8;
+  const boxF = G.frameAlong([14, MY, MZ], [-1, 0, 0]);
+  disc("head", "head.crank.box", boxF, 0, 6, 9.5, { tone: "mid" }, { bevel: 0.4, extra: Dots(G.dotsOf(boxF, 6, 7.4, 4, P, { all: true }), { size: 0.45 }) });
+  disc("head", "head.crank.shaft", G.frameAlong([8, MY, MZ], [-1, 0, 0]), 0, 2, 2.4, { tone: "lo" });
+  const armDef = PARTS.handCrankDef();
+  put("head", "head.crank.arm", [HC.o[0] + 1, MY + HC.arm / 2, MZ], `<g data-part="handcrank">${PARTS.plateSvg(armDef, 0)}</g>`, [record(A.prism(G.frameOf([0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]), armDef.contours[0].map(([u, v]) => [MY + u, MZ - v]), HC.o[0], HC.o[0] + HC.t, { name: "head.crank.arm" }))]);
+  put("head", "head.crank.handle", [HC.o[0] - 6, MY + HC.arm, MZ], `<g data-part="handle">${PARTS.handleSvg()}</g>`, [record(A.disc(G.frameAlong([HC.o[0], MY + HC.arm, MZ], [-1, 0, 0]), 0, 11.6, 2.8, { name: "head.crank.handle" }))], { bias: 0.2 });
   disc("head", "head.motor.shaft", MF, 92, 100, 3, { tone: "mid" });
   disc("head", "head.pulley.motor", MF, 100, 108, 7, { tone: "mid" }, { inner: Ln(G.arcOf(MF, 104, 7, P), { tone: "lo" }) });
   box("head", "head.motor.foot", [26, 0, MZ - 10], [80, 2, MZ + 10], { tone: "lo" }, { r: 0.6, steps: 2 });
@@ -361,7 +407,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
     disc("head", "head.oilcup.lid", OF, 647, 649, 4, { tone: "hi" }, { bevel: 0.3 });
   }
   const door = { y0: -76, y1: -20, z0: 380, z1: 600 };
-  box("head", "head.door", [-92.4, door.y0, door.z0], [-90, door.y1, door.z1], { tone: "hi" }, { r: 2, steps: 3, bevel: 0.4, extra: Dots([[door.y0 + 5, door.z0 + 5], [door.y1 - 5, door.z0 + 5], [door.y0 + 5, door.z1 - 5], [door.y1 - 5, door.z1 - 5]].map(([y, z]) => at([-92.42, y, z])), { size: 0.5 }) });
+  box("head", "head.door", [-92.4, door.y0, door.z0], [-90, door.y1, door.z1], { tone: "mid" }, { r: 2, steps: 3, bevel: 0.4, extra: Dots([[door.y0 + 5, door.z0 + 5], [door.y1 - 5, door.z0 + 5], [door.y0 + 5, door.z1 - 5], [door.y1 - 5, door.z1 - 5]].map(([y, z]) => at([-92.42, y, z])), { size: 0.5 }) });
   disc("head", "head.door.handle", G.frameAlong([-92.4, -48, 490], [-1, 0, 0]), 0, 5, 2.6, { tone: "mid" });
   put("head", "head.door.vents", [-92.42, -48, 560], Ln(Array.from({ length: 5 }, (_, i) => path3([[-92.42, -64, 548 + i * 6], [-92.42, -32, 548 + i * 6], [-92.42, -32, 550.6 + i * 6], [-92.42, -64, 550.6 + i * 6]], true)).join(""), { tone: "lo" }), [record(A.box([-92.5, -64, 548], [-92.4, -32, 575], { name: "head.door.vents" }))], { bias: 0.05 });
 }
@@ -376,7 +422,7 @@ put("shutter", "shutter.disc", [(SH.x0 + SH.x1) / 2, SH.y, SH.z], `<g data-part=
 {
   const CF = FZ(300, 108);
   disc("stand", "stand.can", CF, 0, 13, 62, { tone: "mid" }, { inner: Ln(G.arcOf(CF, 4, 62, P), { tone: "faint" }) });
-  disc("stand", "stand.can.lid", CF, 13, 17, 64, { tone: "hi" }, { bevel: 0.6, extra: Ln(G.circleOf(CF, 17, 50, P, 96), { tone: "faint" }) });
+  disc("stand", "stand.can.lid", CF, 13, 17, 64, { tone: "mid" }, { bevel: 0.6, extra: Ln(G.circleOf(CF, 17, 50, P, 96), { tone: "faint" }) });
   const LBL = { x: 280, y: 84, w: 40, d: 16, r: 1 };
   put("stand", "stand.can.label", [300, 92, 17.1], S(k.slabOf(LBL, 17, 0.4, P, 2), { tone: "lo", crease: "none" }) + Ln([30, 22].map((w, i) => k.lineOnTop([LBL.x + 4, LBL.y + 5 + i * 5], [LBL.x + 4 + w, LBL.y + 5 + i * 5], 17.4, P)).join(""), { tone: "lo", free: true }), [record(A.slab(LBL, 17, 0.4, { name: "stand.can.label" }, 2))], { bias: 0.1 });
 }
@@ -389,20 +435,45 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
   const col = FZ(-245, AY);
   disc("stand", "stand.lamp.collar", col, 6, 16, 14, { tone: "lo" });
   for (const [z0, z1] of [[16, 158], [162, 278], [282, 400]]) disc("stand", "stand.lamp.column", col, z0, z1, 10, { tone: "mid" });
-  box("stand", "stand.lamp.saddle", [-300, -20, 400], [-190, 75, 420], { tone: "lo" }, { r: 3, steps: 3, bevel: 0.6 });
-  box("stand", "stand.lamp.junction", [-262, AY + 10, 360], [-228, AY + 24, 392], { tone: "mid" }, { r: 1.2, steps: 2, extra: Dots([at([-258, AY + 24, 388]), at([-232, AY + 24, 364])], { size: 0.45 }) });
-  box("lamp", "lamp.body", [LH.x0, LH.y0, LH.z0], [LH.x1, LH.y1, LH.z1], { tone: "mid" }, {
-    r: 10,
-    steps: 8,
-    bevel: 1,
-    inner: Ln(k.sideSeam(LHplan, LH.z0 + 14, P, 8) + k.sideSeam(LHplan, LH.z1 - 12, P, 8), { tone: "faint" }),
-    extra: Ln(Array.from({ length: 9 }, (_, i) => k.planOutline({ x: LH.x0 + 22 + i * 15, y: LH.y0 + 22, w: 6, d: LH.y1 - LH.y0 - 44, r: 3 }, LH.z1, P, 3)).join(""), { tone: "lo" }),
-  });
+  box("stand", "stand.lamp.saddle", [LH.x0 - 2, LH.y0 - 2, 404], [LH.x1 + 2, LH.y1 + 2, 420], { tone: "lo" }, { r: 10, steps: 8, bevel: 0.6, extra: Dots([[LH.x0 + 4, LH.y1 - 2], [LH.x1 - 4, LH.y1 - 2]].map(([x, y]) => at([x, y + 3.98, 412])), { size: 0.5 }) });
+  box("stand", "stand.lamp.junction", [-269, AY - 8, 360], [-255, AY + 8, 394], { tone: "mid" }, { r: 0.2, steps: 2, extra: Dots([at([-269.02, AY - 5, 390]), at([-269.02, AY + 5, 364])], { size: 0.45 }) });
+  // The house is a shell with no floor: it sits on the saddle and lifts off the lamp.
+  const T = 2;
+  const walls = [
+    A.box([LH.x0, LH.y0, LH.z0], [LH.x0 + T, LH.y1, LH.z1], { name: "lamp.body", owner: "lamp.body" }),
+    A.box([LH.x1 - T, LH.y0, LH.z0], [LH.x1, LH.y1, LH.z1], { name: "lamp.body", owner: "lamp.body" }),
+    A.box([LH.x0, LH.y0, LH.z0], [LH.x1, LH.y0 + T, LH.z1], { name: "lamp.body", owner: "lamp.body" }),
+    A.box([LH.x0, LH.y1 - T, LH.z0], [LH.x1, LH.y1, LH.z1], { name: "lamp.body", owner: "lamp.body" }),
+    A.box([LH.x0, LH.y0, LH.z1 - T], [LH.x1, LH.y1, LH.z1], { name: "lamp.body", owner: "lamp.body" }),
+  ].map(record);
+  const vents = Ln(Array.from({ length: 9 }, (_, i) => k.planOutline({ x: LH.x0 + 22 + i * 15, y: LH.y0 + 22, w: 6, d: LH.y1 - LH.y0 - 44, r: 3 }, LH.z1, P, 3)).join(""), { tone: "lo" });
+  put("lamp", "lamp.body", [(LH.x0 + LH.x1) / 2, (LH.y0 + LH.y1) / 2, (LH.z0 + LH.z1) / 2], S(k.slabOf(LHplan, LH.z0, LH.z1 - LH.z0, P, 8, 1), { tone: "mid", inner: Ln(k.sideSeam(LHplan, LH.z0 + 14, P, 8) + k.sideSeam(LHplan, LH.z1 - 12, P, 8), { tone: "faint" }) }) + vents, walls);
+  // inside: the mirror focuses the arc on the gate; the bulb runs along the axis
+  {
+    const LF = FX(AY, ZA);
+    const mirror = [[-318, 8], [-312, 30, 1], [-304, 44, 1], [-296, 52, 1], [-290, 54], [-290, 51], [-296, 49, 1], [-304, 41, 1], [-312, 27, 1], [-316, 8]];
+    const mirrorShape = record(A.lathe(LF, mirror, { name: "lampcore.mirror" }));
+    put("lampcore", "lampcore.mirror", [-302, AY, ZA], S(G.lathe(mirror, LF, P, { smooth: true }), { tone: "mid" }), [mirrorShape]);
+    box("lampcore", "lampcore.mirror.post", [-296, AY - 7, 420], [-288, AY + 7, ZA - 54], { tone: "lo" }, { r: 0.8, steps: 2 });
+    turned("lampcore", "lampcore.socket", LF, [[-326, 4.6], [-318, 4.6], [-318, 3.2], [-316, 3.2]], { tone: "lo" });
+    box("lampcore", "lampcore.socket.post", [-326, AY - 3, 420], [-320, AY + 3, ZA - 4.6], { tone: "lo" }, { r: 0.6, steps: 2 });
+    const bulb = (s) => (s < -300 ? 2.6 : s > -278 ? 2.6 : 2.6 + 6.6 * Math.sin(((s + 300) / 22) * Math.PI));
+    turned("lampcore", "lampcore.bulb", LF, [[-316, 2.6], ...Array.from({ length: 23 }, (_, n) => [-300 + n, bulb(-300 + n), 1]), [-268, 2.6], [-268, 4], [-264, 4]], { tone: "hi" }, { smooth: { slope: (s) => (s < -300 || s > -278 ? 0 : 6.6 * (Math.PI / 22) * Math.cos(((s + 300) / 22) * Math.PI)) } });
+    box("lampcore", "lampcore.bulb.post", [-268, AY - 2, 420], [-264, AY + 2, ZA - 4], { tone: "lo" }, { r: 0.4, steps: 2 });
+  }
   // door with a dark viewing glass on the operator side
   const door = { x0: LH.x0 + 34, x1: LH.x1 - 28, z0: LH.z0 + 26, z1: LH.z1 - 26 };
-  box("lamp", "lamp.door", [door.x0, LH.y1, door.z0], [door.x1, LH.y1 + 2.4, door.z1], { tone: "hi" }, { r: 3, steps: 3, bevel: 0.4, extra: Dots([[door.x0 + 5, door.z0 + 5], [door.x1 - 5, door.z0 + 5], [door.x0 + 5, door.z1 - 5], [door.x1 - 5, door.z1 - 5]].map(([x, z]) => at([x, LH.y1 + 2.42, z])), { size: 0.5 }) });
+  box("lamp", "lamp.door", [door.x0, LH.y1, door.z0], [door.x1, LH.y1 + 2.4, door.z1], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.4, extra: Dots([[door.x0 + 5, door.z0 + 5], [door.x1 - 5, door.z0 + 5], [door.x0 + 5, door.z1 - 5], [door.x1 - 5, door.z1 - 5]].map(([x, z]) => at([x, LH.y1 + 2.42, z])), { size: 0.5 }) });
   const portM = planeMatrix([-245, LH.y1 + 2.42, ZA + 8], [1, 0, 0], [0, 0, -1]);
-  put("lamp", "lamp.port", [-245, LH.y1 + 2.45, ZA + 8], `<g transform="${portM}"><rect class="pj-port" data-part="port" x="-22" y="-10" width="44" height="20" rx="3"/><rect class="iso-line" data-tone="lo" x="-22" y="-10" width="44" height="20" rx="3" fill="none"/></g>`, [record(A.box([-267, LH.y1 + 2.4, ZA - 2], [-223, LH.y1 + 2.5, ZA + 18], { name: "lamp.port" }))], { bias: 0.2 });
+  const portScrews = [[-19, -9], [19, -9], [-19, 9], [19, 9]].map(([u, v]) => `<circle cx="${u}" cy="${v}" r="0.8"/>`).join("");
+  put(
+    "lamp",
+    "lamp.port",
+    [-245, LH.y1 + 2.45, ZA + 8],
+    `<g transform="${portM}"><rect class="pj-bezel" x="-23" y="-12" width="46" height="24" rx="3"/><rect class="iso-line" data-tone="mid" x="-23" y="-12" width="46" height="24" rx="3" fill="none"/><rect class="pj-port-wall" x="-15.6" y="-6.4" width="31" height="13" rx="2"/><rect class="pj-port" data-part="port" x="-14.6" y="-5.4" width="30" height="12" rx="1.6"/><path class="pj-port-glare" d="M-9 5.6L-3 -4.4L0 -4.4L-6 5.6Z"/><rect class="iso-line" data-tone="lo" x="-15.6" y="-6.4" width="31" height="13" rx="2" fill="none"/><g class="iso-dots" data-tone="mid">${portScrews}</g></g>`,
+    [record(A.box([-268, LH.y1 + 2.4, ZA - 4], [-222, LH.y1 + 2.5, ZA + 20], { name: "lamp.port" }))],
+    { bias: 0.2 },
+  );
   const HF = FY(door.x1 - 10, (door.z0 + door.z1) / 2);
   disc("lamp", "lamp.door.handle", HF, LH.y1 + 2.4, LH.y1 + 7, 2.6, { tone: "hi" });
   for (const [y, z] of [[2, 470], [53, 470]]) {
@@ -413,14 +484,14 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
   // chimney with a cap
   const CH = FZ(-212, AY);
   disc("lamp", "lamp.chimney", CH, LH.z1, LH.z1 + 46, 15, { tone: "mid" }, { inner: Ln(G.arcOf(CH, LH.z1 + 14, 15, P), { tone: "faint" }) });
-  disc("lamp", "lamp.chimney.cap", CH, LH.z1 + 52, LH.z1 + 56, 22, { tone: "hi" }, { bevel: 0.4 });
+  disc("lamp", "lamp.chimney.cap", CH, LH.z1 + 52, LH.z1 + 56, 22, { tone: "mid" }, { bevel: 0.4 });
   for (const t of [0, 1, 2, 3]) {
     const a = (t / 4) * TAU + Math.PI / 4;
     disc("lamp", "lamp.chimney.stay", FZ(-212 + 13 * Math.cos(a), AY + 13 * Math.sin(a)), LH.z1 + 46, LH.z1 + 52, 1.2, { tone: "lo" });
   }
   // condenser tube at the front
   const CF = FX(AY, ZA);
-  turned("lamp", "lamp.condenser", CF, [[LH.x1, 34], [LH.x1 + 6, 34], [LH.x1 + 6, 30], [LH.x1 + 18, 30], [LH.x1 + 18, 32], [LH.x1 + 22, 32]], { tone: "hi" }, { extra: screwOn(CF, LH.x1 + 22, 27, 8, { size: 0.45, tone: "mid" }) });
+  turned("lamp", "lamp.condenser", CF, [[LH.x1, 34], [LH.x1 + 6, 34], [LH.x1 + 6, 30], [LH.x1 + 18, 30], [LH.x1 + 18, 32], [LH.x1 + 22, 32]], { tone: "mid" }, { extra: screwOn(CF, LH.x1 + 22, 27, 8, { size: 0.45, tone: "mid" }) });
   const glassPts = Array.from({ length: 64 }, (_, n) => at(G.pointOf(CF, LH.x1 + 22.05, 25, (n / 64) * TAU)));
   put("lamp", "lamp.condenser.glass", [LH.x1 + 22.05, AY, ZA], `<path class="pj-glass" data-part="condenser" d="${k.pathOf(glassPts, true)}"/>` + Ln(k.pathOf([...glassPts, glassPts[0]]), { tone: "lo" }), [record(A.disc(CF, LH.x1 + 22, LH.x1 + 22.1, 25, { name: "lamp.condenser.glass" }))], { bias: 0.1 });
 }
@@ -444,22 +515,26 @@ const LH = { x0: -330, x1: -160, y0: -30, y1: 85, z0: 420, z1: 585 };
   disc("stand", "stand.rectifier.knob", KF, RB.y1, RB.y1 + 5, 5, { tone: "hi" }, { extra: k.fadedSvg(G.ribsOf(KF, RB.y1, RB.y1 + 5, 5, 24, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) + Ln(k.pathOf([at([-296, RB.y1 + 5.05, 24]), at([-296, RB.y1 + 5.05, 28.6])]), { tone: "hi", free: "end" }) });
   const GL = FZ(-296, 100);
   disc("stand", "stand.rectifier.gland", GL, RB.z1, RB.z1 + 6, 4.2, { tone: "lo" });
-  const route = G.fillet([[-296, 100, RB.z1 + 6], [-296, 100, 92], [-296, 52, 92], [-258.5, 52, 92], [-258.5, 52, 220], [-258.5, AY + 17, 330], [-258.5, AY + 17, 360]], 12, 10, { P, tube: 2.2 });
-  R.route("stand.cable.lamp", route, 2.2, { piece: "stand", move: [0, 0, 0], limp: true, rims: [4.2, 2.2] });
+  const route = G.fillet([[-296, 100, RB.z1 + 6], [-296, 100, 86], [-261, AY, 86], [-261, AY, 360]], 12, 10, { P, tube: 2.2 });
+  R.route("stand.cable.lamp", route, 2.2, { piece: "stand", move: [0, 0, 0], limp: true, rims: [4.2, 2.2], touch: ["stand.lamp.clamp*"] });
   tubePieces(route, 2.2, P, { maxLength: 18, spacing: 1.2 }).forEach((piece, index) => put("stand", `stand.cable.lamp:${index}`, piece.mid, tubeSvg(piece, { tone: "mid" }), [A.tube(piece.points, piece.radii)], { bias: 0.05 }));
-  for (const z of [160, 280]) disc("stand", "stand.lamp.clamp", FZ(-245, AY), z - 2, z + 2, 10.8, { tone: "lo" });
+  // a band round the post at each clip, with a lug out to the cable
+  for (const z of [160, 280]) {
+    disc("stand", "stand.lamp.clamp", FZ(-245, AY), z - 2, z + 2, 10.8, { tone: "lo" });
+    box("stand", "stand.lamp.clamp.lug", [-258.8, AY - 2.2, z - 2], [-255.6, AY + 2.2, z + 2], { tone: "lo" }, { r: 0.4, steps: 2 });
+  }
 }
 
 // ================================================================== reels on their arms
 const REELS = {
-  feed: { x: -24, z: 735, pack: 62, r: 80, hub: 14, sense: -1 },
+  feed: { x: -24, z: 772, pack: 62, r: 80, hub: 14, sense: -1 },
   take: { x: -24, z: 175, pack: 48, r: 80, hub: 14, sense: -1 },
 };
-box("head", "head.reel.arm", [-34, -44, 640], [-14, -16, 745], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6 });
+box("head", "head.reel.arm", [-38, -12, 640], [-10, 4, 782], { tone: "mid" }, { r: 3, steps: 3, bevel: 0.6, inner: Ln(k.sideSeam({ x: -38, y: -12, w: 28, d: 16, r: 3 }, 652, P, 3), { tone: "faint" }), extra: Dots([at([-34, 4.02, 646]), at([-14, 4.02, 646])], { size: 0.5 }) });
 box("stand", "stand.reel.arm", [-34, -14, 160], [-14, -8, 190], { tone: "lo" }, { r: 1.2, steps: 2 });
 for (const [id, reel] of Object.entries(REELS)) {
   const F = FY(reel.x, reel.z);
-  const from = id === "feed" ? -16 : -8;
+  const from = id === "feed" ? 4 : -8;
   disc(id === "feed" ? "head" : "stand", `${id === "feed" ? "head" : "stand"}.spindle.${id}`, F, from, 6, 5.2, { tone: "mid" });
   reel.y0 = 6;
   reel.y1 = F1 + 4.6;
@@ -467,9 +542,11 @@ for (const [id, reel] of Object.entries(REELS)) {
   disc("reels", `reels.${id}.core`, F, reel.y0 + 1.6, F0, reel.hub, { tone: "mid" });
   disc("reels", `reels.${id}.core`, F, F1, reel.y1 - 1.6, reel.hub, { tone: "mid" });
   const rings = Array.from({ length: 5 }, (_, i) => G.circleOf(F, F1, reel.hub + 4 + ((reel.pack - reel.hub - 6) * (i + 1)) / 6, P, 72)).join("");
-  disc("reels", `reels.${id}.pack`, F, F0, F1, reel.pack, { tone: "hi" }, { extra: Ln(rings, { tone: "faint" }) });
+  disc("reels", `reels.${id}.pack`, F, F0, F1, reel.pack, { tone: "mid" }, { extra: Ln(rings, { tone: "faint" }) });
   put("reels", `reels.${id}.near`, [reel.x, reel.y1 - 0.8, reel.z], `<g data-part="flange-${id}">${PARTS.plateSvg(PARTS.flangeDef(id, reel), ((REST_C * M.FRAME_LENGTH) / reel.pack) * (180 / Math.PI))}</g>`, [record(A.disc(F, reel.y1 - 1.6, reel.y1, reel.r, { name: `reels.${id}.near` }))], { bias: 0.4 });
   disc("reels", `reels.${id}.nut`, F, reel.y1, reel.y1 + 4, 6.2, { tone: "hi" }, { steps: 6, extra: Dots([at([reel.x, reel.y1 + 4.02, reel.z])], { size: 0.9, tone: "lo" }) });
+  // The take-up spindle turns through a friction clutch, so the reel can wind slower as it fills.
+  if (id === "take") disc("reels", "reels.take.clutch", F, reel.y1 + 4, reel.y1 + 7.4, 9.5, { tone: "mid" }, { bevel: 0.3, extra: k.fadedSvg(G.ribsOf(F, reel.y1 + 4, reel.y1 + 7.4, 9.5, 36, P, { fade: [0.1, 0.55], seams: true }), { tone: "lo" }) });
 }
 D.reels = REELS;
 
@@ -485,14 +562,16 @@ const t3 = PARTS.tangent(S2, packTake);
 const runs = [];
 const ang = PARTS.angleOf;
 runs.push({ id: "a1", drive: "c", pts: PARTS.straight(t1.pa, t1.pb, 3) });
-runs.push({ id: "a2", drive: "c", pts: PARTS.arc(S1, ang(S1.c, t1.pb), (3 * Math.PI) / 2, 1.5), wrap: 1, centre: S1.c });
-const loopU = { p0: [S1.c[0], S1.c[1] - S1.r], t0: [1, 0], p1: [0, 552], t1: [0, -1] };
+// The film leaves the feed sprocket rising, so the upper loop arches over into the gate.
+const U_EXIT = (7 * Math.PI) / 4;
+runs.push({ id: "a2", drive: "c", pts: PARTS.arc(S1, ang(S1.c, t1.pb), U_EXIT, 1.5), wrap: 1, centre: S1.c });
+const loopU = { p0: [S1.c[0] + S1.r * Math.cos(U_EXIT), S1.c[1] + S1.r * Math.sin(U_EXIT)], t0: [-Math.sin(U_EXIT), Math.cos(U_EXIT)], p1: [0, 552], t1: [0, -1] };
 runs.push({ id: "b1", drive: "i", pts: PARTS.straight([0, 552], [0, SI.c[1]], 2) });
 runs.push({ id: "b2", drive: "i", pts: PARTS.arc(SI, 0, -Math.PI / 2, 1.2), wrap: 1, centre: SI.c });
 const loopL = { p0: [SI.c[0], SI.c[1] - SI.r], t0: [-1, 0], p1: [S2.c[0] - S2.r, S2.c[1]], t1: [0, -1] };
 runs.push({ id: "c1", drive: "c", pts: PARTS.arc(S2, Math.PI, ang(S2.c, t3.pa), 1.5), wrap: 1, centre: S2.c });
 runs.push({ id: "c2", drive: "c", pts: PARTS.straight(t3.pa, t3.pb, 3) });
-const L0U = 110;
+const L0U = 125;
 const L0L = 125;
 // Each run's film coordinate at its start, along the path at rest.
 let along = 0;
@@ -628,15 +707,15 @@ Object.assign(D, {
 const backSvg = k.figureSvg({ width: W, height: H, label: LABEL_TEXT, body: back, className: "pj-back" });
 const frontSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="iso-svg pj-front" viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="pj-machine">${groups.join("")}</g></svg>`;
 const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-part" data-part="${id}"><span class="pj-num">${String(index + 1).padStart(2, "0")}</span>${PIECES[id].name}</button>`).join("");
-const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35 mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
+const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}">${n}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart>take apart</button><button type="button" class="pj-chip" data-sound aria-pressed="false">sound</button></span><span class="pj-hint">Drag sideways to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart>take apart</button><button type="button" class="pj-chip" data-sound aria-pressed="false">sound</button></span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
-const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" aria-label="35 mm projector. Drag sideways or use the arrow keys to change the speed; B changes the shutter blades; period steps one frame; space takes it apart; click a part to see it work.">`;
+const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" aria-label="35mm projector. Drag sideways or use the arrow keys to change the speed; B changes the shutter blades; period steps one frame; space takes it apart; click a part to see it work.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
 const caption =
-  "A Geneva cross on the intermittent sprocket's shaft turns a quarter turn, four perforations or one frame, while its driver's pin is in a slot: 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down, the others interrupt the still frame, so two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";
+  "A Geneva cross on the intermittent sprocket's shaft makes a quarter turn while its driver's pin is in a slot: four perforations, one frame, in 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down and the others cut the still frame, so two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";
 const plateWith = (inner) => `<figure class="iso-figure pj"><div class="iso-plate">${corners}${inner}${controls}</div><figcaption class="iso-legend"><span class="pj-parts">${partButtons}</span><span class="iso-caption">${caption}</span></figcaption></figure>`;
 const plate = plateWith(stage);
 const shell = plateWith(`${stageOpen}</div>`);
@@ -653,7 +732,7 @@ const LIVE = `${kitScript()}\n${glScript()}\n${latheScript}${modelScript}${parts
 const DATA_JSON = JSON.stringify(D);
 const MOUNT = `function mountProjector(root, D) {\n${LIVE}\n}`;
 const page = k.pageHtml({
-  title: "35 mm projector",
+  title: "35mm projector",
   theme: THEME,
   body: `<style>${CSS}</style>${plate}`,
   script: `${MOUNT}\nwindow.__projector = mountProjector(document.querySelector(".pj"), ${DATA_JSON});`,

@@ -301,7 +301,7 @@ export function makeParts(k, G, P, D) {
       return [(GW.hub + 6) * Math.cos(t), -(GW.hub + 6) * Math.sin(t)];
     });
     const extra = `<path class="iso-line" data-tone="lo" d="${poly(ring)}"/><path class="iso-line" data-tone="mid" d="${poly(nut)}"/><g class="iso-dots" data-tone="mid">${dotsAt.map(([u, v]) => `<circle cx="${f1(u)}" cy="${f1(v)}" r="0.7"/>`).join("")}</g>`;
-    return { id: "cross", contours: [crossContour(0)], plane: { o: [GW.x, GW.y1, GW.z], ex: [1, 0, 0], ey: [0, 0, -1], back: [0, -(GW.y1 - GW.y0), 0] }, tone: "hi", extra };
+    return { id: "cross", contours: [crossContour(0)], plane: { o: [GW.x, GW.y1, GW.z], ex: [1, 0, 0], ey: [0, 0, -1], back: [0, -(GW.y1 - GW.y0), 0] }, tone: "mid", extra };
   }
   function circlePts(cu, cv, r, n) {
     return Array.from({ length: n }, (_, i) => [cu + r * Math.cos((i / n) * TAU), cv + r * Math.sin((i / n) * TAU)]);
@@ -354,6 +354,33 @@ export function makeParts(k, G, P, D) {
     return `translate(${(b[0] - a[0]).toFixed(2)} ${(b[1] - a[1]).toFixed(2)})`;
   }
 
+  // ---- the hand crank: an arm in the plane of the motor's rear face, a handle at its end ----
+  function handCrankDef() {
+    const H = D.handCrank;
+    const pts = [];
+    for (let i = 0; i <= 14; i++) {
+      const t = Math.PI / 2 + (i / 14) * Math.PI;
+      pts.push([5 * Math.cos(t), 5 * Math.sin(t)]);
+    }
+    for (let i = 0; i <= 14; i++) {
+      const t = -Math.PI / 2 + (i / 14) * Math.PI;
+      pts.push([H.arm + 3.4 * Math.cos(t), 3.4 * Math.sin(t)]);
+    }
+    return { id: "handcrank", contours: [pts], plane: { o: H.o, ex: [0, 1, 0], ey: [0, 0, -1], back: [H.t, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid"><circle cx="0" cy="0" r="1.1"/></g>` };
+  }
+  function handleSvg() {
+    const H = D.handCrank;
+    const F = G.frameAlong([H.o[0], H.o[1] + H.arm, H.o[2]], [-1, 0, 0]);
+    return k.solidSvg(G.solidOf([[0, 1.6], [2, 1.6], [2, 2.6, 1], [9, 2.8, 1], [11, 2.2, 1], [11.6, 0]], F, P, { smooth: true }), { tone: "hi" });
+  }
+  function handleShift(deg) {
+    const H = D.handCrank;
+    const a = (deg * Math.PI) / 180;
+    const rest = at([H.o[0], H.o[1] + H.arm, H.o[2]]);
+    const now = at([H.o[0], H.o[1] + H.arm * Math.cos(a), H.o[2] - H.arm * Math.sin(a)]);
+    return `translate(${(now[0] - rest[0]).toFixed(2)} ${(now[1] - rest[1]).toFixed(2)})`;
+  }
+
   // ---- shutter: n blades, each a quarter turn plus the beam crossing ----
   function bladeContours(turn, blades) {
     const SH = D.shutter;
@@ -399,7 +426,7 @@ export function makeParts(k, G, P, D) {
       })
       .join("");
     return [
-      { id: "shutter", contours: [...shapes, bore], plane, tone: "hi", extra: `<path class="iso-line" data-tone="faint" d="${ribs}"/>` },
+      { id: "shutter", contours: [...shapes, bore], plane, tone: "mid", extra: `<path class="iso-line" data-tone="faint" d="${ribs}"/>` },
       { id: "shutter-hub", contours: [hub, bore], plane: { ...plane, o: [SH.x0 - 1.4, SH.y, SH.z], back: [1.4, 0, 0] }, tone: "mid", extra: `<g class="iso-dots" data-tone="mid">${rivets.map(([u, v]) => `<circle cx="${f1(u)}" cy="${f1(v)}" r="0.65"/>`).join("")}</g>` },
     ];
   }
@@ -474,5 +501,5 @@ export function makeParts(k, G, P, D) {
     return `<rect class="pj-film-face" x="${f1(-w)}" y="${f1(-FL * 2)}" width="${f1(w * 2)}" height="${f1(FL * 4)}"/>${frames.join("")}`;
   }
 
-  return { crossContour, lockContour, planeMatrix, tangent, angleOf, arc, straight, lengthOf, join, loopOf, ribbonSvg, marks, plateSvg, plateTurn, crossDef, crankDef, lockDef, pinSvg, pinShift, shutterDefs, teethSvg, flangeDef, leaderSvg, gateFrameSvg, circlePts, poly, line, depth };
+  return { handCrankDef, handleSvg, handleShift, crossContour, lockContour, planeMatrix, tangent, angleOf, arc, straight, lengthOf, join, loopOf, ribbonSvg, marks, plateSvg, plateTurn, crossDef, crankDef, lockDef, pinSvg, pinShift, shutterDefs, teethSvg, flangeDef, leaderSvg, gateFrameSvg, circlePts, poly, line, depth };
 }

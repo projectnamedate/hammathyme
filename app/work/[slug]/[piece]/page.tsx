@@ -194,7 +194,7 @@ const PROJECTOR_FACTS = [
   ["mechanism", "4-slot geneva cross · 90° pull-down · front shutter, 1 to 3 blades"],
   ["film", "35mm · 4 perf · 0.825 × 0.602 in aperture · smpte universal leader"],
   ["built with", "anatomy skill · claude code · svg · webgl beam · web audio"],
-  ["sources", "smpte st 139, st 195, st 242 · us patent 6,183,087"],
+  ["sources", "smpte st 139, st 195, st 242, st 55 · us patent 6,183,087"],
 ];
 
 function ProjectorDetail({ transitionName }: { transitionName: string }) {
@@ -206,9 +206,6 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
             A 35mm projector, threaded and running. A Geneva cross pulls each frame into the
             gate and holds it still while the shutter flashes it twice.
-          </p>
-          <p className="mt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-            drag to crank · click a part to watch it work · take it apart
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {PROJECTOR_FACTS.map(([label, value]) => (
@@ -229,7 +226,7 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
           drawn in code with anatomy, a skill that explains an idea by building it as a working
-          machine. every number on the card comes from the model that moves the parts.
+          machine. the readout comes from the same model that moves the parts.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           figure: hammer · kit:{" "}

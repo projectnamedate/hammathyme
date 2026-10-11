@@ -11,6 +11,9 @@
   --pj-port-on: #ffb35c;
   --pj-glass-on: #fff1d9;
   --pj-film-face: #c8c3b6;
+  --pj-mask: #070707;
+  --pj-beam: #fff3dc;
+  --pj-beam-share: 0;
   --pj-light: 0;
   --pj-lamp: 0;
 }
@@ -22,13 +25,32 @@
   --pj-chip-on: #0000000d;
   --pj-screen-dark: #b9b9b5;
   --pj-screen-lit: #fdfdfb;
-  --pj-frame-bg: #c9c9c5;
-  --pj-sweep: #a9a9a5;
   --pj-ink: #26262a;
   --pj-port-off: #8a8a8f;
   --pj-port-on: #c9925a;
   --pj-glass-on: #f3e2c4;
   --pj-film-face: #e3dccb;
+  --pj-mask: #8f8f93;
+  --pj-frame-bg: #e6e5e0;
+  --pj-sweep: #cfcec8;
+  --pj-beam: #f1e6cf;
+  --pj-beam-share: 0.55;
+}
+
+.pj-host {
+  --anatomy-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+.pj-host[data-theme="dark"] .pj .iso-legend {
+  margin-top: 0;
+  padding: 14px 16px 16px;
+  background: var(--anatomy-card);
+  box-shadow: 0 0 0 1px var(--anatomy-mid);
+}
+
+.pj .iso-figure,
+.pj.iso-figure {
+  margin-top: 0;
 }
 
 .pj .iso-plate {
@@ -91,7 +113,7 @@
 
 /* screen and picture */
 .pj-mask {
-  fill: var(--anatomy-shade-0);
+  fill: var(--pj-mask);
   stroke: var(--anatomy-lo);
   stroke-width: 0.5px;
   vector-effect: non-scaling-stroke;
@@ -142,6 +164,34 @@
 
 [data-theme="light"] .pj-number {
   fill: var(--pj-ink);
+}
+
+/* the beam as light: a tint and its edges, as bright as the screen */
+.pj-beam-fill {
+  fill: var(--pj-beam);
+  opacity: calc(var(--pj-light) * var(--pj-beam-share));
+}
+
+.pj-beam-edge {
+  opacity: var(--pj-light);
+}
+
+.pj-stage[data-gl] .pj-beam-fill {
+  opacity: calc(var(--pj-light) * var(--pj-beam-share) * 0.6);
+}
+
+/* lamp-house arc viewer */
+.pj-bezel {
+  fill: var(--anatomy-shade-3);
+}
+
+.pj-port-wall {
+  fill: var(--anatomy-shade-0);
+}
+
+.pj-port-glare {
+  fill: #ffffff;
+  opacity: 0.18;
 }
 
 /* the frame in the gate, lit from the lamp */
@@ -272,12 +322,16 @@
 }
 
 .pj-chip:hover,
-.pj-chip:focus-visible,
 .pj-chip[data-on],
 .pj-chip[aria-pressed="true"] {
   color: var(--anatomy-strong);
   background: var(--pj-chip-on);
-  outline: none;
+}
+
+.pj-chip:focus-visible,
+.pj-part:focus-visible {
+  outline: 2px solid var(--anatomy-strong);
+  outline-offset: 2px;
 }
 
 .pj-hint {
@@ -319,11 +373,9 @@
 }
 
 .pj-part:hover,
-.pj-part:focus-visible,
 .pj-part[data-on] {
   color: var(--anatomy-strong);
   background: var(--pj-chip-on);
-  outline: none;
 }
 
 .pj-num {

@@ -50,21 +50,27 @@ const state = {
   demo: null,
   crank: null,
   step: null,
+  steps: 0,
+  inched: false,
   lamp: 0,
   light: 0,
   clock: 0,
 };
 let touring = !still.matches;
 let tourClock = 0;
-let idleTimer = 0;
 let visible = false;
 let frame = 0;
 let last = 0;
 let shownFrame = -1;
 let lastText = "";
 let lastPop = -1;
+let settled = true;
 
 const MOVERS = IDS.filter((id) => D.pieces[id] && nodes.some((node) => node.piece === id && (node.m[0] || node.m[1] || node.m[2])));
+const springsMoving = () => IDS.some((id) => Math.abs(piece[id].x - piece[id].target) > 0.002 || piece[id].pending);
+// The machine may only turn when every part is home: nothing runs while it is apart or on
+// its way back together.
+const home = () => !state.apart && !IDS.some((id) => piece[id].x !== 0 || piece[id].target !== 0 || piece[id].pending);
 
 function say(text) {
   if (text !== lastText) {
@@ -80,11 +86,17 @@ function describe() {
   stage.setAttribute("aria-description", text);
 }
 
+function press(button, on) {
+  if (on) button.setAttribute("data-on", "");
+  else button.removeAttribute("data-on");
+  button.setAttribute("aria-pressed", on ? "true" : "false");
+}
 function markButtons() {
-  speedButtons.forEach((b) => (Number(b.dataset.speed) === state.chosen && !state.demo ? b.setAttribute("data-on", "") : b.removeAttribute("data-on")));
-  bladeButtons.forEach((b) => (Number(b.dataset.blades) === state.blades ? b.setAttribute("data-on", "") : b.removeAttribute("data-on")));
+  speedButtons.forEach((b) => press(b, Number(b.dataset.speed) === state.chosen && !state.demo));
+  bladeButtons.forEach((b) => press(b, Number(b.dataset.blades) === state.blades));
   apartButton.textContent = state.apart ? "put together" : "take apart";
-  partButtons.forEach((b) => (b.dataset.part === state.selected ? b.setAttribute("data-on", "") : b.removeAttribute("data-on")));
+  apartButton.setAttribute("aria-pressed", state.apart ? "true" : "false");
+  partButtons.forEach((b) => press(b, b.dataset.part === state.selected));
 }
 
 // ---- explode ----
@@ -99,18 +111,24 @@ function scheduleApart(on) {
 function setApart(on) {
   if (state.apart === on && !state.armed) return;
   state.apart = on;
+  state.step = null;
+  state.steps = 0;
+  state.crank = null;
   if (on) {
-    if (state.fps > 0.05) {
+    state.inched = false;
+    if (Math.abs(state.fps) > 0.05) {
       state.armed = true;
-      state.target = 0;
-      announce("stopping the motor");
-    } else scheduleApart(true);
-    announce("taking apart");
+      announce("stopping the motor, then taking it apart");
+    } else {
+      scheduleApart(true);
+      announce("taking apart");
+    }
   } else {
     state.armed = false;
     scheduleApart(false);
     announce("putting together");
   }
+  settled = false;
   markButtons();
   describe();
   run();
@@ -179,7 +197,8 @@ function select(id, { demo = false } = {}) {
   if (id) stage.setAttribute("data-focus", "");
   else stage.removeAttribute("data-focus");
   state.demo = demo && id && !state.apart ? id : null;
-  state.target = state.apart ? 0 : state.demo ? DEMOS[id].fps : state.chosen;
+  if (state.demo) state.inched = false;
+  state.target = state.demo ? DEMOS[id].fps : state.chosen;
   markButtons();
   describe();
   if (id) announce(D.pieces[id].say);
@@ -251,10 +270,11 @@ const plateEl = (id) => {
   const el = stage.querySelector(`[data-plate="${id}"]`);
   return el && { back: el.querySelector('[data-turn="back"]'), front: el.querySelector('[data-turn="front"]'), conn: el.querySelector('[data-turn="conn"]') };
 };
-const DEFS = { cross: parts.crossDef(), crank: parts.crankDef(), lock: parts.lockDef(), feed: parts.flangeDef("feed", D.reels.feed), take: parts.flangeDef("take", D.reels.take) };
+const DEFS = { crank2: parts.handCrankDef(), cross: parts.crossDef(), crank: parts.crankDef(), lock: parts.lockDef(), feed: parts.flangeDef("feed", D.reels.feed), take: parts.flangeDef("take", D.reels.take) };
 const groups = {
   shutter: part("shutter"),
   pin: part("pin"),
+  handle: part("handle"),
   loopU: part("loop-U"),
   loopL: part("loop-L"),
   gate: part("gate-frame"),
@@ -262,7 +282,7 @@ const groups = {
   ammeter: part("ammeter"),
   teeth: Object.fromEntries(Object.keys(D.sprockets).map((id) => [id, part(`teeth-${id}`)?.querySelector('[data-turn="front"]')])),
 };
-const plates = { cross: plateEl("cross"), crank: plateEl("crank"), lock: plateEl("lock"), feed: plateEl("flange-feed"), take: plateEl("flange-take") };
+const plates = { crank2: plateEl("handcrank"), cross: plateEl("cross"), crank: plateEl("crank"), lock: plateEl("lock"), feed: plateEl("flange-feed"), take: plateEl("flange-take") };
 let shutterBlades = 2;
 let shutterDefs = parts.shutterDefs(shutterBlades);
 let shutterPlates = shutterDefs.map((def) => plateEl(def.id));
@@ -274,7 +294,7 @@ function turn(el, def, deg) {
   el.conn.setAttribute("d", t.conn);
 }
 const S = D.sprockets;
-const lit = { screen: stage.querySelector(".pj-screen"), lamp: [part("gate-frame"), part("port"), part("condenser")] };
+const lit = { screen: stage.querySelector(".pj-screen"), beam: part("light-beam"), lamp: [part("gate-frame"), part("port"), part("condenser")] };
 let shownLight = "";
 let shownLamp = "";
 let drawnKey = "";
@@ -285,6 +305,9 @@ function draw(f0, f1, calm) {
   if (key !== drawnKey) {
     drawnKey = key;
     const deg = 180 / Math.PI;
+    const crankDeg = -360 * c * D.crankRatio;
+    turn(plates.crank2, DEFS.crank2, crankDeg);
+    groups.handle?.setAttribute("transform", parts.handleShift(crankDeg));
     turn(plates.cross, DEFS.cross, 90 * i);
     turn(plates.crank, DEFS.crank, -360 * c);
     turn(plates.lock, DEFS.lock, -360 * c);
@@ -296,9 +319,10 @@ function draw(f0, f1, calm) {
       shutterPlates = shutterDefs.map((def) => plateEl(def.id));
     }
     shutterDefs.forEach((def, n) => turn(shutterPlates[n], def, 360 * (c - 0.125)));
-    groups.teeth.feed?.setAttribute("transform", `rotate(${(-((c * FL) / S.feed.r) * deg).toFixed(2)})`);
-    groups.teeth.inter?.setAttribute("transform", `rotate(${(((i * FL) / S.inter.r) * deg).toFixed(2)})`);
-    groups.teeth.hold?.setAttribute("transform", `rotate(${(-((c * FL) / S.hold.r) * deg).toFixed(2)})`);
+    // Four teeth to a frame, exactly, so the teeth keep step with the perforations.
+    groups.teeth.feed?.setAttribute("transform", `rotate(${(-c * (360 * 4) / S.feed.teeth).toFixed(2)})`);
+    groups.teeth.inter?.setAttribute("transform", `rotate(${(i * (360 * 4) / S.inter.teeth).toFixed(2)})`);
+    groups.teeth.hold?.setAttribute("transform", `rotate(${(-c * (360 * 4) / S.hold.teeth).toFixed(2)})`);
     turn(plates.feed, DEFS.feed, ((c * FL) / D.reels.feed.pack) * deg);
     turn(plates.take, DEFS.take, ((c * FL) / D.reels.take.pack) * deg);
     for (const run of runs) {
@@ -329,18 +353,21 @@ function draw(f0, f1, calm) {
       }
     }
   }
+  // Black leader passes no light.
+  const clear = M.leaderAt(n).number === 0 ? 0.04 : 1;
   const mean = M.lightShare(state.blades);
-  const raw = f1 > f0 ? M.screenLight(f0, f1, state.blades) : M.shutterOpen(((f1 % 1) + 1) % 1, state.blades);
-  const hz = M.flickerHz(state.fps, state.blades);
-  const fuse = calm ? 1 : ease(30, 52, hz);
+  const raw = f1 !== f0 ? M.screenLight(Math.min(f0, f1), Math.max(f0, f1), state.blades) : M.shutterOpen(((f1 % 1) + 1) % 1, state.blades);
+  const hz = M.flickerHz(Math.abs(state.fps), state.blades);
+  const fuse = calm && !state.crank && !state.step ? 1 : ease(30, 52, hz);
   const seen = mean + (raw - mean) * (1 - fuse);
-  state.light = state.lamp * Math.pow(clamp(seen / M.lightShare(1), 0, 1), 0.6);
+  state.light = state.lamp * clear * Math.pow(clamp(seen / M.lightShare(1), 0, 1), 0.6);
   // Only the few elements that glow carry these, so a change restyles them alone.
   const light = state.light.toFixed(3);
   const lamp = state.lamp.toFixed(3);
   if (light !== shownLight) {
     shownLight = light;
     lit.screen?.style.setProperty("--pj-light", light);
+    lit.beam?.style.setProperty("--pj-light", light);
   }
   if (lamp !== shownLamp) {
     shownLamp = lamp;
@@ -429,31 +456,26 @@ void main(){
   };
 })();
 
-// ---- the idle tour ----
+// ---- the idle tour: it runs until the reader first touches the figure, then never again ----
 const TOUR = [
   { at: 0, speed: 1, part: "movement" },
-  { at: 5.5, speed: 3, part: "film" },
-  { at: 10, speed: 24, part: null },
-  { at: 14, speed: 24, part: null, blades: 1 },
-  { at: 17.5, speed: 24, part: null, blades: 3 },
-  { at: 21, speed: 24, part: null, blades: 2 },
-  { at: 24, apart: true },
-  { at: 31, apart: false },
-  { at: 36, end: true },
+  { at: 6, speed: 3, part: "film" },
+  { at: 11, speed: 24, part: null, blades: 2 },
+  { at: 15, speed: 24, part: null, blades: 1 },
+  { at: 18.5, speed: 16, part: null, blades: 3 },
+  { at: 22.5, speed: 24, part: null, blades: 2 },
+  { at: 24.5, apart: true },
+  { at: 31.5, apart: false },
+  { at: 36.5, end: true },
 ];
 let tourStep = -1;
-function tourAt(time) {
-  let index = 0;
-  for (let i = 0; i < TOUR.length; i++) if (time >= TOUR[i].at) index = i;
-  return index;
-}
 function stepTour(dt) {
   tourClock += dt;
-  let index = tourAt(tourClock);
+  let index = 0;
+  for (let i = 0; i < TOUR.length; i++) if (tourClock >= TOUR[i].at) index = i;
   if (TOUR[index].end) {
     tourClock = 0;
     index = 0;
-    tourStep = -1;
   }
   if (index === tourStep) return;
   tourStep = index;
@@ -464,40 +486,27 @@ function stepTour(dt) {
     setApart(s.apart);
     return;
   }
-  if (s.speed !== undefined) {
-    state.chosen = s.speed;
-    if (s.part) select(s.part, { demo: true });
-    else select(null);
-  }
+  state.chosen = s.speed;
+  if (s.part) select(s.part, { demo: true });
+  else select(null);
   markButtons();
 }
-function quietTour() {
+function takeOver() {
   touring = false;
-  clearTimeout(idleTimer);
-  idleTimer = setTimeout(() => {
-    if (state.crank || state.step) return quietTour();
-    touring = !still.matches;
-    tourClock = 0;
-    tourStep = -1;
-    if (touring) {
-      if (state.apart) setApart(false);
-      run();
-    }
-  }, 9000);
 }
 
 // ---- the frame loop ----
 function idleText() {
-  const moving = IDS.some((id) => Math.abs(piece[id].x - piece[id].target) > 0.002 || piece[id].pending);
   if (state.armed) return "stopping · then taking apart";
-  if (moving) return state.apart ? "taking apart" : "putting together";
+  if (springsMoving()) return state.apart ? "taking apart" : "putting together";
   if (state.apart && !state.selected) return `apart · ${MOVERS.length} assemblies · click one`;
-  if (state.selected && (state.apart || state.demo)) return state.demo ? DEMOS[state.selected].text : D.pieces[state.selected].say;
-  if (state.selected) return D.pieces[state.selected].say;
-  return M.readoutOf(state.fps, state.blades);
+  if (state.selected && state.demo && Math.abs(state.fps - state.target) < 0.05 && state.target > 3.05) return DEMOS[state.selected].text;
+  if (state.selected && !state.demo) return D.pieces[state.selected].say;
+  return M.readoutOf(state.fps, state.blades, state.frames);
 }
 const motor = { x: 0, v: 0 };
 const lampState = { x: 0, v: 0 };
+const hand = { rate: 0 };
 function tick(now) {
   const dt = last ? Math.min((now - last) / 1000, 1 / 30) : 1 / 60;
   last = now;
@@ -506,41 +515,58 @@ function tick(now) {
   if (touring) stepTour(dt);
   const f0 = state.frames;
   let moving = false;
-  if (state.crank) {
-    const share = clamp(state.crank.pending, -0.5, 0.5);
-    state.crank.pending -= share;
-    state.frames += Math.max(0, share);
-    state.fps = Math.max(0, share / dt);
+  const ready = home();
+  if (state.crank && ready) {
+    // The hand sets where the film should be; the mechanism follows it closely.
+    const follow = 1 - Math.exp(-dt / 0.12);
+    state.frames += (state.crank.goal - state.frames) * follow;
     motor.x = 0;
     motor.v = 0;
     moving = true;
-  } else if (state.step) {
-    state.step.t += dt;
-    const t = clamp(state.step.t / state.step.length, 0, 1);
-    state.frames = state.step.from + t;
-    state.fps = 1 / state.step.length;
-    if (t >= 1) {
-      state.step = null;
-      state.fps = 0;
-    }
+  } else if (state.step && ready) {
+    const dir = Math.sign(state.step.goal - state.frames);
+    const next = state.frames + dir * dt * 0.75;
+    state.frames = dir > 0 ? Math.min(next, state.step.goal) : Math.max(next, state.step.goal);
+    if (state.frames === state.step.goal) state.step = null;
     moving = true;
   } else {
-    moving = settle(motor, state.target, dt, state.target > motor.x ? 0.7 : 0.45, calm) || moving;
-    state.fps = Math.max(0, motor.x);
-    state.frames += state.fps * dt;
+    const target = ready && !state.crank && !state.step ? state.target : 0;
+    moving = settle(motor, target, dt, target > motor.x ? 0.7 : 0.45, calm) || moving;
+    // Under reduced motion the parts stay where they are; the readout and the screen show the
+    // chosen speed as a steady picture.
+    if (!calm) state.frames += Math.max(0, motor.x) * dt;
   }
-  if (state.armed && state.fps < 0.05) {
+  const rate = (state.frames - f0) / dt;
+  if (state.crank || state.step) {
+    hand.rate += (rate - hand.rate) * (1 - Math.exp(-dt / 0.15));
+    state.fps = hand.rate;
+  } else {
+    hand.rate = 0;
+    state.fps = Math.max(0, motor.x);
+  }
+  if (state.step === null && state.steps > 0 && ready) {
+    state.steps = 0;
+  }
+  if (state.armed && Math.abs(state.fps) < 0.05) {
     state.armed = false;
     scheduleApart(true);
   }
-  const lampOn = !state.apart && (state.fps > 0.3 || state.crank || state.step) ? 1 : 0;
+  const running = Math.abs(state.fps) > 0.3 || state.crank || state.step || state.inched;
+  const lampOn = !state.apart && ready && running ? 1 : 0;
   moving = settle(lampState, lampOn, dt, 0.18, calm) || moving;
   state.lamp = clamp(lampState.x, 0, 1);
-  for (const id of IDS) if (steerSpring(piece[id], dt, calm)) moving = true;
-  if (state.fps > 1e-4) moving = true;
+  let springs = false;
+  for (const id of IDS) if (steerSpring(piece[id], dt, calm)) springs = true;
+  if (springs) moving = true;
+  if (!springs && !settled && !state.armed) {
+    settled = true;
+    announce(state.apart ? `taken apart: ${MOVERS.length} assemblies` : "put together");
+  }
+  if (!calm && Math.abs(state.fps) > 1e-4) moving = true;
+  if (Math.abs(hand.rate) > 1e-3) moving = true;
   draw(f0, state.frames, calm);
   place();
-  if (audio) audio.hum(state.fps);
+  if (audio) audio.hum(visible && !document.hidden ? Math.abs(state.fps) : 0);
   say(idleText());
   frame = visible && (moving || touring) ? requestAnimationFrame(tick) : 0;
 }
@@ -554,22 +580,28 @@ const observer = new IntersectionObserver(
   (entries) => {
     visible = entries[entries.length - 1].isIntersecting;
     if (visible) run();
+    else if (audio) audio.hum(0);
   },
   { rootMargin: "120px 0px" },
 );
 observer.observe(stage);
+listen(document, "visibilitychange", () => {
+  if (!audio) return;
+  if (document.hidden) audio.ctx.suspend();
+  else audio.ctx.resume();
+});
 
 // ---- input ----
-function takeOver() {
-  quietTour();
-}
 function setSpeed(fps) {
   takeOver();
   state.step = null;
-  if (state.apart) setApart(false);
+  state.steps = 0;
+  state.inched = false;
   state.chosen = fps;
   select(null);
+  if (state.apart) setApart(false);
   announce(fps ? `${fps} frames a second` : "stopped");
+  run();
 }
 speedButtons.forEach((b) => listen(b, "click", () => setSpeed(Number(b.dataset.speed))));
 bladeButtons.forEach((b) =>
@@ -583,21 +615,25 @@ bladeButtons.forEach((b) =>
     run();
   }),
 );
-function stepFrame() {
+// A step ends on the next instant the shutter is open with the frame still, so the frame it
+// brings in is lit on the screen. Presses queue.
+const OPEN = 0.375;
+function stepFrame(dir = 1) {
   takeOver();
-  if (state.apart) return;
-  select(null);
+  if (state.selected) select(null);
   state.chosen = 0;
   state.target = 0;
-  motor.x = 0;
-  motor.v = 0;
-  const from = state.step ? state.step.from + 1 : Math.floor(state.frames + 1e-6);
-  state.frames = Math.max(state.frames, from);
-  state.step = { from: state.frames, t: 0, length: 1.4 };
+  state.inched = true;
+  if (state.apart) setApart(false);
+  const from = state.step ? state.step.goal : state.frames;
+  const k = dir > 0 ? Math.floor(from - OPEN + 1e-6) + 1 : Math.ceil(from - OPEN - 1e-6) - 1;
+  state.step = { goal: k + OPEN };
+  state.steps += 1;
   markButtons();
+  announce(dir > 0 ? "one frame on" : "one frame back");
   run();
 }
-listen(stepButton, "click", stepFrame);
+listen(stepButton, "click", () => stepFrame(1));
 listen(apartButton, "click", () => {
   takeOver();
   select(null);
@@ -618,7 +654,7 @@ partButtons.forEach((b) =>
     takeOver();
     const id = b.dataset.part;
     if (state.selected === id) select(null);
-    else select(id, { demo: true });
+    else select(id, { demo: !state.apart });
   }),
 );
 
@@ -627,70 +663,78 @@ function pieceAt(event) {
   const item = hit && hit.closest ? hit.closest(".it") : null;
   return item && stage.contains(item) ? item.dataset.piece : null;
 }
-let press = null;
+let grab = null;
 listen(stage, "pointerdown", (event) => {
   if (event.button !== 0) return;
-  press = { x: event.clientX, y: event.clientY, id: event.pointerId, dragging: false, piece: pieceAt(event) };
+  grab = { x: event.clientX, y: event.clientY, id: event.pointerId, dragging: false, piece: pieceAt(event) };
 });
 listen(stage, "pointermove", (event) => {
-  if (!press || press.id !== event.pointerId) return;
-  const dx = event.clientX - press.x;
-  if (!press.dragging && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(event.clientY - press.y)) {
-    press.dragging = true;
-    press.lastX = event.clientX;
+  if (!grab || grab.id !== event.pointerId) return;
+  const dx = event.clientX - grab.x;
+  if (!grab.dragging && Math.abs(dx) > 6 && Math.abs(dx) > Math.abs(event.clientY - grab.y)) {
+    grab.dragging = true;
+    grab.lastX = event.clientX;
     takeOver();
+    if (state.selected) select(null);
+    state.chosen = 0;
+    state.target = 0;
+    state.step = null;
+    state.inched = true;
     if (state.apart) setApart(false);
-    select(null);
-    state.crank = { pending: 0 };
+    state.crank = { goal: state.frames };
+    markButtons();
     try {
       stage.setPointerCapture(event.pointerId);
     } catch {}
-    hint.textContent = "cranking by hand";
+    hint.textContent = "cranking by hand · left runs it backwards";
   }
-  if (press.dragging) {
+  if (grab.dragging) {
     const scale = 1 / Math.max(28, stage.clientWidth / 26);
-    state.crank.pending += Math.max(0, event.clientX - press.lastX) * scale;
-    press.lastX = event.clientX;
+    if (home()) state.crank.goal += (event.clientX - grab.lastX) * scale;
+    else state.crank.goal = state.frames;
+    grab.lastX = event.clientX;
     run();
   }
 });
-const release = (event) => {
-  if (!press || press.id !== event.pointerId) return;
-  if (press.dragging) {
-    state.crank = null;
-    motor.x = 0;
-    motor.v = 0;
-    hint.textContent = wording();
-    run();
-  } else {
-    takeOver();
-    const id = press.piece;
-    if (!id || id === "stand" || id === "head") select(null);
-    else if (state.selected === id) select(null);
-    else select(id, { demo: !state.apart });
-  }
-  press = null;
-};
-listen(stage, "pointerup", release);
-listen(stage, "pointercancel", () => {
-  if (press && press.dragging) state.crank = null;
-  press = null;
+const letGo = () => {
+  if (state.crank) state.step = { goal: state.crank.goal };
+  state.crank = null;
+  hint.textContent = wording();
+  grab = null;
   run();
+};
+listen(stage, "pointerup", (event) => {
+  if (!grab || grab.id !== event.pointerId) return;
+  if (grab.dragging) return letGo();
+  takeOver();
+  const id = grab.piece;
+  grab = null;
+  if (!id || id === "stand" || id === "head") select(null);
+  else if (state.selected === id) select(null);
+  else select(id, { demo: !state.apart });
 });
+listen(stage, "pointercancel", () => {
+  if (grab && grab.dragging) letGo();
+  grab = null;
+});
+const shownSpeed = () => (state.demo ? DEMOS[state.demo].fps : state.chosen);
 listen(stage, "keydown", (event) => {
-  const index = SPEEDS.indexOf(state.chosen);
+  const now = shownSpeed();
   if (event.key === "ArrowRight" || event.key === "ArrowUp") {
     event.preventDefault();
-    setSpeed(SPEEDS[Math.min(SPEEDS.length - 1, (index < 0 ? 0 : index) + 1)]);
+    setSpeed(SPEEDS.find((v) => v > now + 0.01) ?? SPEEDS[SPEEDS.length - 1]);
   } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
     event.preventDefault();
-    setSpeed(SPEEDS[Math.max(0, (index < 0 ? 0 : index) - 1)]);
+    setSpeed([...SPEEDS].reverse().find((v) => v < now - 0.01) ?? 0);
   } else if (event.key === "b" || event.key === "B") {
     event.preventDefault();
-    bladeButtons[(state.blades % 3)].click();
-  } else if (event.key === "." || event.key === ",") {
+    bladeButtons[state.blades % 3].click();
+  } else if (event.key === ".") {
     event.preventDefault();
-    stepFrame();
+    stepFrame(1);
+  } else if (event.key === ",") {
+    event.preventDefault();
+    stepFrame(-1);
   } else if (event.key === " ") {
     event.preventDefault();
     takeOver();
@@ -705,14 +749,12 @@ listen(stage, "keydown", (event) => {
 listen(stage, "focus", () => describe());
 
 const narrow = matchMedia("(hover: none), (max-width: 640px)");
-const wording = () => (narrow.matches ? "Drag to crank · tap a part" : "Drag sideways to crank · click a part");
+const wording = () => (narrow.matches ? "drag to crank · tap a part" : "drag to crank · click a part");
 hint.textContent = wording();
 
 if (still.matches) {
   touring = false;
-  state.chosen = 24;
-  state.target = 24;
-  motor.x = 24;
+  motor.x = state.target;
 }
 markButtons();
 describe();
@@ -723,7 +765,6 @@ say(idleText());
 return () => {
   if (frame) cancelAnimationFrame(frame);
   frame = 0;
-  clearTimeout(idleTimer);
   observer.disconnect();
   cleanups.forEach((fn) => fn());
   if (audio) audio.close();

@@ -349,7 +349,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos visitors can use directly: a 35mm projector you can crank and take apart, storyboard prompts, character consistency, Kira chat, and a brand-guide mini game. provider calls share a $1 daily cap.",
+      "live demos: a 35mm projector you can crank and take apart, storyboard prompts, character consistency, Kira chat, and a brand-guide mini game. provider calls share a $1 daily cap.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [
