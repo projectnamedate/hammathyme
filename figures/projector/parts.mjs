@@ -485,8 +485,8 @@ export function makeParts(k, G, P, D) {
 
   // ---- the SMPTE universal leader frame, drawn in a face plane (u right, v down) ----
   // small: the frame as seen in the gate, a few pixels across and cut by the aperture's
-  // walls, where a number or cross would only read as a stray glyph; one small ring says
-  // "leader" and stays whole inside the window.
+  // walls, where any mark would only read as a stray glyph; the frame shows as its tone,
+  // pale for a picture frame, dark for black leader.
   function leaderSvg(frame, w, h, { mirror = false, small = false } = {}) {
     const n = frame.number;
     const r0 = Math.min(w, h) * 0.42;
@@ -500,7 +500,7 @@ export function makeParts(k, G, P, D) {
       wedge = `<path class="pj-sweep" d="M0 0L0 ${f1(-R)}A${f1(R)} ${f1(R)} 0 ${big} 1 ${f1(R * Math.cos(a1))} ${f1(R * Math.sin(a1))}Z"/>`;
     }
     const flip = mirror ? ` transform="scale(-1 -1)"` : "";
-    if (small) return `<rect class="${n ? "pj-frame-bg" : "pj-frame-black"}" x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/>${n ? `<circle class="pj-ring" r="${f1(Math.min(w, h) * 0.2)}"/>` : ""}`;
+    if (small) return `<rect class="${n ? "pj-frame-bg" : "pj-frame-black"}" x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/>`;
     const art = n
       ? `<g${flip}><clipPath id="pj-clip-${D.uid}-${mirror ? "m" : "s"}"><rect x="${f1(-w / 2)}" y="${f1(-h / 2)}" width="${f1(w)}" height="${f1(h)}"/></clipPath><g clip-path="url(#pj-clip-${D.uid}-${mirror ? "m" : "s"})">${wedge}</g><circle class="pj-ring" r="${f1(r0)}"/><circle class="pj-ring" r="${f1(r1)}"/><path class="pj-cross" d="M${f1(-w / 2)} 0H${f1(w / 2)}M0 ${f1(-h / 2)}V${f1(h / 2)}"/><text class="pj-number" x="0" y="${f1(r1 * 0.36)}" font-size="${f1(r1 * 1.05)}" text-anchor="middle">${n}</text></g>`
       : "";

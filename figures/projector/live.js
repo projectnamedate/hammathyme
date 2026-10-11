@@ -313,7 +313,8 @@ function draw(f0, f1, calm) {
   if (key !== drawnKey) {
     drawnKey = key;
     const deg = 180 / Math.PI;
-    const crankDeg = -360 * c * D.crankRatio;
+    // At rest (half a frame in) the hand crank sits where the build drew and audited it.
+    const crankDeg = -360 * (c - 0.5) * D.crankRatio;
     turn(plates.crank2, DEFS.crank2, crankDeg);
     groups.handle?.setAttribute("transform", parts.handleShift(crankDeg));
     turn(plates.cross, DEFS.cross, 90 * i);
