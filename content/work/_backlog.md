@@ -26,7 +26,6 @@ are kept as history and may use pre-rename names.
 | 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
 | 11 | 90-second broadcast-grade short | film-animation | idea, no card |
 | 12 | AI sound design reel | film-animation (audio sub-cat?) | idea, no card |
-| 14 | Rive + Remotion puppet animation reel | film-animation | HARD-GATED: candidate 01 character read approved, but production model must be redesigned into a clean T-pose with no storyboard/shot-board or held prop, then approved, before any rig/animation/`.riv`/runtime work. Run `npm run verify:rive-puppet` first; manifest is `approvalStatus: pending` |
 | 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
 | 17 | Runway Solaris generative interface piece | interactive-playable | idea, no card: Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
 
