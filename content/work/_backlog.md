@@ -14,7 +14,7 @@ are kept as history and may use pre-rename names.
 
 | # | piece | category | status |
 |---|---|---|---|
-| 18 | Replace comfyui outfit morph with Blender work | vfx-cgi | Jeff 2026-10-11: the outfit morph page is only a graph + JSON; swap it for a Blender piece |
+| 18 | New Blender piece to replace the blender look-dev pipeline | vfx-cgi | Jeff 2026-10-11: look-dev now sits last on vfx + cgi; swap it for stronger Blender work when one exists. The comfyui outfit morph was deleted the same day |
 | 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |
 | 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
 | 11 | 90-second broadcast-grade short | film-animation | idea, no card |
@@ -25,16 +25,16 @@ are kept as history and may use pre-rename names.
 
 ## Live inventory (for orientation, 2026-10-11)
 
-23 live detail routes across the 7 categories; the authoritative list is
+22 live detail routes across the 7 categories; the authoritative list is
 `DETAIL_READY_KEYS` in `lib/works.ts`. Per category: film (equinox, the
 gunfight, code animation), vfx-cgi (environment swap, neural set capture,
-blender look-dev, comfyui outfit morph), motion graphics (reel, ICM teaser,
-Spring Health, spotify titles), brand dossiers (hammer/kira/agentify), the four
+blender look-dev), motion graphics (ICM teaser, reel, Spring Health, spotify
+titles), brand dossiers (hammer/kira/agentify), the four
 website previews (hammer, kira, agentify, coefficient), interactive (35mm
 projector, prompt to storyboard, dot discipline), pipelines (visualizer,
 creative skills).
 
-Removed 2026-10-11: the applicant, animated short placeholder, audio reactive
+Removed 2026-10-11: comfyui outfit morph, the applicant, animated short placeholder, audio reactive
 overlays, prompt library, consistency lab, and talk to a character (each 308s
 to its category), plus the whole agents + digital twins category (kira detail,
 bradley, live sensor twin), which 308s to /work.

@@ -28,14 +28,13 @@ The domain appears only in technical URL surfaces.
 - /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
 - /work/film-animation/the-gunfight: 92-second AI-native western comedy short produced through the Studioly pipeline (Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look).
 - /work/film-animation/code-animation: five short films drawn entirely in code, sound included, as one 85-second reel cut back to back and as single films. Lanes: p5.brush painted 2D, a GPU painter, fframes, and three.js with a paint pass.
-- /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, Runway Aleph 2, Hunyuan 3D, and gaussian splatting.
+- /work/vfx-cgi: VFX and CGI production pipelines using Blender, Runway Aleph 2, Hunyuan 3D, and gaussian splatting.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled and rendered in Blender 5.1, trained with Brush, and viewed with Spark.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
-- /work/vfx-cgi/comfyui-production-backend: ComfyUI outfit morph page showing the AIVFX Wan VACE graph: control video, wardrobe mask, prompt conditioning, sampler, decode, MP4 review, PNG frame export, and downloadable workflow JSON.
 - /work/motion-graphics: programmatic motion work.
-- /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
+- /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
 - /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
 - /work/motion-graphics/spotify-titles: kinetic Spotify title sequence generated in one MiniMax H3 text-to-video pass. Spec study, not a commission.
 - /work/brand-systems: identities built with AI in the loop.

@@ -15,7 +15,10 @@
   (`openai/gpt-image-2.5/sunburst/text-to-image`, medium, 16:9) and draws
   colour-pencil boards. It took 17.6s in testing.
 - Media may always be committed in this repo (see AGENTS.md).
-- Open: replace the comfyui outfit morph with Blender work (backlog row 18);
+- Later the same day: comfyui outfit morph deleted (308 to `/work/vfx-cgi`),
+  blender look-dev moved last on vfx + cgi, ICM teaser moved first on motion
+  graphics. 22 detail routes.
+- Open: a new Blender piece to replace the look-dev pipeline (backlog row 18);
   the unused Vercel env vars `HAMMER_OPENROUTER_API_KEY`,
   `HAMMER_KIRA_WEB_CHAT_API_KEY`, `HAMMER_KIRA_LORA_URL`,
   `HAMMER_KIRA_CHAT_MODEL` and `HAMMER_STORYBOARD_MODEL` can be deleted

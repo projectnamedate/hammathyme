@@ -34,7 +34,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "vfx-cgi/environment-swap": EnvironmentSwap,
   "vfx-cgi/neural-set-capture": NeuralSetCapture,
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
-  "vfx-cgi/comfyui-production-backend": ComfyuiBackend,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/creative-skills": CreativeSkills,
   "interactive-playable/35mm-projector": ProjectorAnatomy,
@@ -236,7 +235,7 @@ function MotionReel() {
         <rect x="15" y="18" width="54" height="34" fill="var(--cinnamon)" />
         <path d="M 24 42 L 36 28 L 48 38 L 58 24" fill="none" stroke="var(--cream-0)" strokeWidth="1.2" />
       </FilmFrame>
-      <MonoLabel y={136}>MOTION REEL</MonoLabel>
+      <MonoLabel y={136} fill="var(--cream-1)">MOTION REEL</MonoLabel>
     </Plate>
   );
 }
@@ -273,7 +272,7 @@ function SpringHealthMotion() {
         <circle cx="61" cy="116" r="2.6" />
         <rect x="72" y="114" width="20" height="4" rx="2" />
       </g>
-      <MonoLabel y={136}>SPRING HEALTH</MonoLabel>
+      <MonoLabel y={136} fill="var(--cream-1)">SPRING HEALTH</MonoLabel>
     </Plate>
   );
 }
@@ -609,40 +608,6 @@ function BlenderLookdev() {
         ))}
       </g>
       <MonoLabel>LOOK-DEV</MonoLabel>
-    </Plate>
-  );
-}
-
-function ComfyuiBackend() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <g transform="translate(0 0)">
-        {/* node flow */}
-        <g stroke="var(--cream-0)" strokeWidth="0.7">
-          <line x1="28" y1="60" x2="48" y2="60" />
-          <line x1="60" y1="60" x2="78" y2="60" />
-        </g>
-        <rect x="18" y="52" width="14" height="16" fill="none" stroke="var(--cream-0)" strokeWidth="0.9" />
-        <rect x="46" y="52" width="14" height="16" fill="none" stroke="var(--cream-0)" strokeWidth="0.9" />
-        {/* quality gate diamond */}
-        <g transform="translate(86 60)">
-          <polygon points="0,-12 12,0 0,12 -12,0" fill="var(--cinnamon)" stroke="var(--cream-0)" strokeWidth="0.8" />
-          <path d="M -5 0 L -1 4 L 6 -5" fill="none" stroke="var(--ink-0)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-        {/* rejected sample dropping out */}
-        <circle className="anim-pulse" cx="86" cy="92" r="2.4" fill="none" stroke="var(--cream-0)" strokeWidth="0.7" />
-      </g>
-      <text
-        x="60"
-        y="139"
-        textAnchor="middle"
-        fontFamily="var(--font-mono)"
-        fontSize="4.8"
-        letterSpacing="1.2"
-        fill="var(--cream-1)"
-      >
-        COMFYUI GATE
-      </text>
     </Plate>
   );
 }

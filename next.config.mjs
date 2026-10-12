@@ -112,6 +112,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/work/vfx-cgi/comfyui-production-backend",
+        destination: "/work/vfx-cgi",
+        permanent: true,
+      },
+      {
+        source: "/work/vfx-cgi/comfyui-production-backend/:path*",
+        destination: "/work/vfx-cgi",
+        permanent: true,
+      },
+      {
         source: "/work/motion-graphics/audio-reactive-overlays",
         destination: "/work/motion-graphics",
         permanent: true,

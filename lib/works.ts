@@ -101,7 +101,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "orchestration, not generation. coding agents write the blender scripts, wire comfyui and runway into repeatable pipelines, and train gaussian splats from sets built with hunyuan 3d.",
+      "orchestration, not generation. coding agents write the blender scripts, wire runway into repeatable pipelines, and train gaussian splats from sets built with hunyuan 3d.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
@@ -115,15 +115,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cinnamon)",
       },
       {
-        slug: "blender-lookdev-pipeline",
-        title: "blender look-dev pipeline",
-        year: "2026",
-        blurb:
-          "one sculptural form through six material moods: cinnamon ceramic, graphite metal, warm cream, bloodlust lacquer, chrome, and clay, finished as a look-dev contact sheet.",
-        status: "live",
-        tint: "var(--cream-2)",
-      },
-      {
         slug: "neural-set-capture",
         title: "neural set capture",
         year: "2026",
@@ -132,13 +123,13 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cinnamon)",
       },
       {
-        slug: "comfyui-production-backend",
-        title: "comfyui outfit morph",
+        slug: "blender-lookdev-pipeline",
+        title: "blender look-dev pipeline",
         year: "2026",
         blurb:
-          "the real ComfyUI graph behind an AIVFX outfit morph: Wan VACE conditioning, mask control, sampler, decode, MP4 review, and PNG frame export.",
+          "one sculptural form through six material moods: cinnamon ceramic, graphite metal, warm cream, bloodlust lacquer, chrome, and clay, finished as a look-dev contact sheet.",
         status: "live",
-        tint: "var(--bloodlust)",
+        tint: "var(--cream-2)",
       },
     ],
   },
@@ -154,6 +145,14 @@ export const CASE_STUDIES: CaseStudy[] = [
     tint: "var(--bloodlust)",
     hero: { main: "motion", italic: "graphics" },
     pieces: [
+      {
+        slug: "internet-capital-markets",
+        title: "icm teaser",
+        year: "2026",
+        blurb: "teaser for the ICM film. title treatment and lower-thirds package built with ai-assisted motion design.",
+        status: "live",
+        tint: "var(--cream-2)",
+      },
       {
         slug: "reel",
         title: "motion graphics reel",
@@ -179,14 +178,6 @@ export const CASE_STUDIES: CaseStudy[] = [
           "a kinetic title sequence for Spotify: 'music for everyone' and 'listening is everything' set in motion. one text-to-video pass via MiniMax H3, native sound.",
         status: "live",
         tint: "var(--cinnamon)",
-      },
-      {
-        slug: "internet-capital-markets",
-        title: "icm teaser",
-        year: "2026",
-        blurb: "teaser for the ICM film. title treatment and lower-thirds package built with ai-assisted motion design.",
-        status: "live",
-        tint: "var(--cream-2)",
       },
     ],
   },
@@ -438,7 +429,6 @@ const DETAIL_READY_KEYS = new Set([
   "vfx-cgi/environment-swap",
   "vfx-cgi/neural-set-capture",
   "vfx-cgi/blender-lookdev-pipeline",
-  "vfx-cgi/comfyui-production-backend",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/creative-skills",
   "interactive-playable/35mm-projector",
