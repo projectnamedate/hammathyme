@@ -4,7 +4,7 @@
 - Categories, in atrium order: film-animation, vfx-cgi, motion-graphics,
   brand-systems, websites, interactive-playable, pipelines-tools (7). The
   agents + digital twins category is gone and 308s to `/work`.
-- New `film-animation/code-animation`: a 47s montage plus five films from
+- New `film-animation/code-animation`: an 85s reel (all five films back to back, hard cuts) plus the five films from
   `~/Desktop/vibe/animation/finals` (web encodes in
   `public/work/film-animation/code-animation/`). The masters stay in the
   animation repo.

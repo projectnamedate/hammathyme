@@ -1148,7 +1148,7 @@ function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
               ["written by", "claude opus 5.5 · directed by hammer"],
               ["lanes", "p5.brush · gpu painter · fframes · three.js"],
               ["sound", "synthesized in code · measured to -14 lufs"],
-              ["format", "47s montage · 1920x1080 · 24fps · h264/aac"],
+              ["format", "85s reel of all five · 1920x1080 · 24fps · h264/aac"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -1173,7 +1173,7 @@ function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
             preload="metadata"
             poster={`${CODE_ANIMATION_DIR}/montage-poster.jpg`}
           >
-            <source src={`${CODE_ANIMATION_DIR}/montage-v01.mp4`} type="video/mp4" />
+            <source src={`${CODE_ANIMATION_DIR}/montage-v03.mp4`} type="video/mp4" />
           </video>
         </div>
       </div>
