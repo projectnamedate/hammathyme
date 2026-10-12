@@ -60,3 +60,13 @@ next-env.d.ts
 
 # standalone previews written by figures/projector/build.mjs
 figures/projector/*.html
+
+# media is allowed in this repo (Jeff, 2026-10-11); override the global media ignore for public assets
+!public/**/*.mp4
+!public/**/*.webm
+!public/**/*.mp3
+!public/**/*.jpg
+!public/**/*.jpeg
+!public/**/*.png
+!public/**/*.webp
+!public/**/*.gif
