@@ -23,43 +23,37 @@ The domain appears only in technical URL surfaces.
 ## route map
 
 - /: entry hall. Primary query target: Jeff Hammer Creative Technologist.
-- /work: atrium with eight portfolio categories.
-- /work/brand-systems: identities built with AI in the loop.
-- /work/brand-systems/hammer: Hammer brand system dossier.
-- /work/brand-systems/kira: Kira autonomous-character agent system, brand bible, and website dossier.
-- /work/brand-systems/agentify: Agentify agent-payment readiness brand guide dossier. Its full guide opens the canonical live brand bible at https://agentify.nexus/brand-bible.
-- /work/agents-digital-twins: autonomous characters layered over agent systems and sensor-fed system twins.
-- /work/agents-digital-twins/kira: Kira autonomous character detail page.
-- /work/motion-graphics: programmatic motion work.
-- /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
-- /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
-- /work/motion-graphics/audio-reactive-overlays: Remotion overlay driven by energy, band, centroid, and beat analysis.
-- /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
-- /work/motion-graphics/spotify-titles: kinetic Spotify title sequence generated in one MiniMax H3 text-to-video pass. Spec study, not a commission.
+- /work: atrium with seven portfolio categories.
+- /work/film-animation: AI-native film, commercial video, shorts, and code-drawn animation.
+- /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
+- /work/film-animation/the-gunfight: 92-second AI-native western comedy short produced through the Studioly pipeline (Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look).
+- /work/film-animation/code-animation: a 47-second montage and five short films drawn entirely in code, sound included. Lanes: p5.brush painted 2D, a GPU painter, fframes, and three.js with a paint pass.
 - /work/vfx-cgi: VFX and CGI production pipelines using Blender, ComfyUI, Runway Aleph 2, Hunyuan 3D, and gaussian splatting.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled and rendered in Blender 5.1, trained with Brush, and viewed with Spark.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
 - /work/vfx-cgi/comfyui-production-backend: ComfyUI outfit morph page showing the AIVFX Wan VACE graph: control video, wardrobe mask, prompt conditioning, sampler, decode, MP4 review, PNG frame export, and downloadable workflow JSON.
-- /work/pipelines-tools: AI production pipeline and tooling work.
-- /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
-- /work/pipelines-tools/prompt-library: public prompt architecture and review-gate walkthrough.
-- /work/pipelines-tools/creative-skills: reusable creative skill system and agent-stack map.
-- /work/interactive-playable: live interactive and playable demos with a shared one-dollar daily provider cap.
-- /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
-- /work/interactive-playable/prompt-to-storyboard: capped Fal Nano Banana 2 six-panel-storyboard demo, with no-spend sample fallback.
-- /work/interactive-playable/consistency-lab: capped Kira character-consistency board with safe LoRA remix hook and sample refs.
-- /work/interactive-playable/talk-to-character: capped DeepSeek V4 Flash Kira character chat demo.
-- /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
-- /work/film-animation: AI-native film, commercial video, shorts, and rigged character animation.
-- /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
-- /work/film-animation/the-gunfight: 92-second AI-native western comedy short produced through the Studioly pipeline (Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look).
-- /work/film-animation/the-applicant: one-minute AI-native short produced end-to-end through the Studioly pipeline (GPT Image 2 locked frames, Seedance 2.0 takes, native audio).
+- /work/motion-graphics: programmatic motion work.
+- /work/motion-graphics/reel: Hammer motion graphics reel with video asset.
+- /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
+- /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
+- /work/motion-graphics/spotify-titles: kinetic Spotify title sequence generated in one MiniMax H3 text-to-video pass. Spec study, not a commission.
+- /work/brand-systems: identities built with AI in the loop.
+- /work/brand-systems/hammer: Hammer brand system dossier.
+- /work/brand-systems/kira: Kira autonomous-character agent system, brand bible, and website dossier.
+- /work/brand-systems/agentify: Agentify agent-payment readiness brand guide dossier. Its full guide opens the canonical live brand bible at https://agentify.nexus/brand-bible.
 - /work/websites: AI-native websites produced by Hammer.
 - /work/websites/hammer: this Hammer site as a portfolio system.
 - /work/websites/kira: onlykira.ai website preview.
 - /work/websites/agentify: agentify.nexus website preview.
 - /work/websites/coefficient: coefficient.mythx.art solana stake-pool health dashboard preview.
+- /work/interactive-playable: live interactive and playable demos with a shared one-dollar daily provider cap.
+- /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
+- /work/interactive-playable/prompt-to-storyboard: capped GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
+- /work/interactive-playable/dot-discipline: Hammer wordmark period placement mini game.
+- /work/pipelines-tools: AI production pipeline and tooling work.
+- /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
+- /work/pipelines-tools/creative-skills: reusable creative skill system and agent-stack map.
 - /about: Jeff Hammer bio, selected clients, and agencies.
 - /contact: public contact surface for work inquiries.
 - /colophon: type, stack, tools, models, build, hosting, and license notes.
@@ -78,21 +72,20 @@ Martin. Public agency names include Angry Gods, Chandelier Creative, PG & Co,
 Conscious Minds, and Look.
 
 Primary work categories:
-- brand systems
-- agents + digital twins
-- motion graphics
-- vfx + cgi
-- pipelines + tools
-- interactive + playable
 - film + animation
+- vfx + cgi
+- motion graphics
+- brand systems
 - websites
+- interactive + playable
+- pipelines + tools
 
 Key positioning terms:
 - Creative Technologist
 - Creative Technologist portfolio
 - AI Producer
 - AI producer portfolio
-- autonomous AI characters
+- AI film and animation
 - AI motion graphics
 - AI video pipeline producer
 - Blender look-development pipeline
@@ -116,8 +109,8 @@ Key positioning terms:
 Email: hammer@hammer.ad
 Availability: taking projects, 48-hour reply
 Work modes: full-time, part-time, contract, project work
-Primary fit: AI pipelines, brand systems, motion graphics, autonomous
-characters, vfx + cgi, websites, and broadcast-grade production.
+Primary fit: film and animation, vfx + cgi, motion graphics, brand systems,
+websites, AI pipelines, and broadcast-grade production.
 
 ## crawl and retrieval
 

@@ -1,43 +1,43 @@
 # /content/work — backlog
 
 Pieces Jeff plans to make as case studies. Each links to its parent category in
-`lib/works.ts` (the canonical model: 8 categories, `DETAIL_READY_KEYS` = live
+`lib/works.ts` (the canonical model: 7 categories, `DETAIL_READY_KEYS` = live
 detail routes). Discuss approach with Jeff *when its category becomes the
 focus* — he has ideas per item.
 
-Rewritten 2026-07-16 to the current category model (`brand-systems`,
-`agents-digital-twins`, `motion-graphics`, `vfx-cgi`, `pipelines-tools`,
-`interactive-playable`, `film-animation`, `websites`). Older dated notes below
+Category model (atrium order, 2026-10-11): `film-animation`, `vfx-cgi`,
+`motion-graphics`, `brand-systems`, `websites`, `interactive-playable`,
+`pipelines-tools`. `agents-digital-twins` was removed 2026-10-11. Older dated notes below
 are kept as history and may use pre-rename names.
 
 ## Open items
 
 | # | piece | category | status |
 |---|---|---|---|
-| 1 | Bradley persona digital twin | agents-digital-twins | in-production in `lib/works.ts`; likeness locked, LoRA training next |
-| 2 | Live sensor twin dashboard | agents-digital-twins | coming-soon card |
-| 6 | Animated short | film-animation | coming-soon card |
-| 8 | Episodic Kira series (5 eps) | agents-digital-twins | idea, no card |
+| 18 | Replace comfyui outfit morph with Blender work | vfx-cgi | Jeff 2026-10-11: the outfit morph page is only a graph + JSON; swap it for a Blender piece |
 | 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |
 | 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
 | 11 | 90-second broadcast-grade short | film-animation | idea, no card |
 | 12 | AI sound design reel | film-animation (audio sub-cat?) | idea, no card |
-| 13 | Audio-reactive overlays rebuild | motion-graphics | live at `/work/motion-graphics/audio-reactive-overlays` but needs a real rebuild so it reads as obviously audio-reactive, not a static infographic |
 | 14 | Rive + Remotion puppet animation reel | film-animation | HARD-GATED: candidate 01 character read approved, but production model must be redesigned into a clean T-pose with no storyboard/shot-board or held prop, then approved, before any rig/animation/`.riv`/runtime work. Run `npm run verify:rive-puppet` first; manifest is `approvalStatus: pending` |
 | 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
-| 16 | Runnable ComfyUI workflow bundle | vfx-cgi | optional: bundle input media + model/custom-node notes so the public outfit-morph workflow JSON runs out of the box (see `docs/AGENT_HANDOFF.md`) |
 | 17 | Runway Solaris generative interface piece | interactive-playable | idea, no card: Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
 
-## Live inventory (for orientation, 2026-10-09)
+## Live inventory (for orientation, 2026-10-11)
 
-25 live detail routes across the 8 categories; the authoritative list is
-`DETAIL_READY_KEYS` in `lib/works.ts`. Highlights per category: brand dossiers
-(hammer/kira/agentify), `agents-digital-twins/kira`, motion graphics
-(reel, ICM teaser, audio-reactive, Spring Health, spotify titles), vfx-cgi (environment-swap,
-blender-lookdev-pipeline, comfyui-production-backend outfit morph),
-pipelines-tools (visualizer, prompt library, creative skills), the four
-interactive demos, `film-animation/equinox` + `film-animation/the-applicant`,
-and the four website previews (hammer, kira, agentify, coefficient).
+23 live detail routes across the 7 categories; the authoritative list is
+`DETAIL_READY_KEYS` in `lib/works.ts`. Per category: film (equinox, the
+gunfight, code animation), vfx-cgi (environment swap, neural set capture,
+blender look-dev, comfyui outfit morph), motion graphics (reel, ICM teaser,
+Spring Health, spotify titles), brand dossiers (hammer/kira/agentify), the four
+website previews (hammer, kira, agentify, coefficient), interactive (35mm
+projector, prompt to storyboard, dot discipline), pipelines (visualizer,
+creative skills).
+
+Removed 2026-10-11: the applicant, animated short placeholder, audio reactive
+overlays, prompt library, consistency lab, and talk to a character (each 308s
+to its category), plus the whole agents + digital twins category (kira detail,
+bradley, live sensor twin), which 308s to /work.
 
 ## Historical notes
 

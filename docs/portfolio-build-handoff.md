@@ -3,6 +3,7 @@
 **For:** the coding agent that will actually build these portfolio pieces.
 **From:** the 2026-06-24 restructure session. Deep-researched, feasibility-graded, and scoped for how Hammer actually works.
 **Status update 2026-07-02:** this is now a historical build spec plus backlog guide. `vfx-cgi/environment-swap`, `vfx-cgi/blender-lookdev-pipeline`, and `vfx-cgi/comfyui-production-backend` are live detail routes. See `docs/AGENT_HANDOFF.md` for the current ComfyUI Gate handoff before acting.
+**Status update 2026-10-11:** the agents + digital twins category is gone, so its pieces here (sensor twin, surrogate model, bradley) are not to be built. The ComfyUI outfit morph is slated for replacement by Blender work (backlog row 18).
 
 ---
 

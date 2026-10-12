@@ -133,7 +133,7 @@ export function HammerSocialImage() {
           color: "#3D1413",
         }}
       >
-        brand systems · agents · motion · visual media · websites
+        film · vfx · motion · brand systems · websites
       </div>
       <div
         style={{

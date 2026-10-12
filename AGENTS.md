@@ -132,9 +132,7 @@ surface:
 - `DAILY_API_BUDGET_USD=1` (values above 1 are clamped to 1 in code)
 - Redis budget store: `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`
   (or Vercel KV-compatible `KV_REST_API_URL` + `KV_REST_API_TOKEN`)
-- OpenRouter text/chat: `HAMMER_OPENROUTER_API_KEY` or
-  `HAMMER_KIRA_WEB_CHAT_API_KEY`
-- Fal consistency render: `HAMMER_FAL_KEY` + `HAMMER_KIRA_LORA_URL`
+- Fal storyboard render (GPT Image 2.5 Sunburst, colour pencil): `HAMMER_FAL_KEY`
 - `HAMMER_DEMOS_ENABLED=0` forces no-spend sample mode
 
 If any paid-provider prerequisite is absent, the public demo stays usable in
@@ -179,7 +177,7 @@ sample mode and does not call the provider.
 
 ```
 /                    entry hall
-/work                atrium: 8 category tiles
+/work                atrium: 7 category tiles
 /work/[category]     category index: editorial header + pieces grid
 /work/[category]/[piece]
                      detail view for ready pieces
@@ -218,20 +216,22 @@ SPEC.md              historical phase-1 spec
 
 ## Capability taxonomy
 
-8 categories, each with a slug that matches the URL and the popup title:
+7 categories, in atrium order, each with a slug that matches the URL and the
+popup title:
 
-1. brand-systems
-2. agents-digital-twins
+1. film-animation
+2. vfx-cgi
 3. motion-graphics
-4. vfx-cgi
-5. pipelines-tools
+4. brand-systems
+5. websites
 6. interactive-playable
-7. film-animation
-8. websites
+7. pipelines-tools
 
-Internal capability tag for category 2 is `autonomous-characters`; it drives
-CardArt specimens. The slug and popup title are `agents-digital-twins`; the
-label is `agents + digital twins`.
+The order of `CASE_STUDIES` in `lib/works.ts` is the atrium order. The
+`agents-digital-twins` category was removed 2026-10-11 (its routes 308 to
+`/work`); Kira survives only as the brand-systems and websites pieces.
+Internal capability tag for film-animation is `visual-media`; it drives the
+CardArt specimen.
 
 The site is visual-only. `/notes` was dropped 2026-05-04 because Jeff is a
 visual creative technologist. `/process` was dropped 2026-05-08 because every project is
@@ -242,12 +242,11 @@ metadata, and structured data, not a blog.
 Each category is a collection with multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
-`/work/motion-graphics/{reel,internet-capital-markets,audio-reactive-overlays,spring-health,spotify-titles}`,
+`/work/film-animation/{equinox,the-gunfight,code-animation}`,
 `/work/vfx-cgi/{environment-swap,neural-set-capture,blender-lookdev-pipeline,comfyui-production-backend}`,
-`/work/pipelines-tools/{pipeline-visualizer,prompt-library,creative-skills}`,
-`/work/agents-digital-twins/kira`,
-`/work/interactive-playable/{35mm-projector,prompt-to-storyboard,consistency-lab,talk-to-character,dot-discipline}`,
-`/work/film-animation/{equinox,the-gunfight,the-applicant}`,
+`/work/motion-graphics/{reel,internet-capital-markets,spring-health,spotify-titles}`,
+`/work/interactive-playable/{35mm-projector,prompt-to-storyboard,dot-discipline}`,
+`/work/pipelines-tools/{pipeline-visualizer,creative-skills}`,
 `/work/websites/{hammer,kira,agentify,coefficient}`, and
 `/work/brand-systems/{hammer,kira,agentify}`.
 

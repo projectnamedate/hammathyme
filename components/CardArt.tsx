@@ -34,7 +34,7 @@ export function CardArt({ capability, active = false }: Props) {
 }
 
 const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> = {
-  /* 01 — brand systems · the hammer wordmark, vertically centered */
+  /* brand systems · the hammer wordmark, vertically centered */
   "brand-systems": () => (
     <g>
       <rect width="100" height="120" fill="var(--cream-1)" />
@@ -54,20 +54,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 02 — autonomous characters · concentric-eye / orbit, centered */
-  "autonomous-characters": () => (
-    <g>
-      <rect width="100" height="120" fill="var(--cream-2)" />
-      <g transform="translate(50 60)">
-        <circle r="28" fill="none" stroke="var(--ink-1)" strokeWidth="0.6" />
-        <circle className="anim-orbit" r="20" fill="none" stroke="var(--ink-2)" strokeWidth="0.6" strokeDasharray="1 2" />
-        <circle r="12" fill="var(--bloodlust)" />
-        <circle r="4" cx="-2" cy="-2" fill="var(--cinnamon)" />
-      </g>
-    </g>
-  ),
-
-  /* 03 — motion graphics · frame ladder, centered */
+  /* motion graphics · frame ladder, centered */
   "motion-graphics": () => (
     <g>
       <rect width="100" height="120" fill="var(--bloodlust)" />
@@ -80,7 +67,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 04 — vfx + cgi · isometric wireframe cube in a render viewport, centered */
+  /* vfx + cgi · isometric wireframe cube in a render viewport, centered */
   "vfx-cgi": () => (
     <g>
       <rect width="100" height="120" fill="var(--cinnamon)" />
@@ -114,7 +101,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 05 — pipelines & tools · node graph, centered */
+  /* pipelines & tools · node graph, centered */
   "pipelines-tools": () => (
     <g>
       <rect width="100" height="120" fill="var(--cream-1)" />
@@ -144,7 +131,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 06 — interactive / playable · cursor + button, centered */
+  /* interactive / playable · cursor + button, centered */
   "interactive-playable": () => (
     <g>
       <rect width="100" height="120" fill="var(--cream-2)" />
@@ -162,7 +149,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 07 — visual media · SMPTE bars + timecode, centered */
+  /* visual media · SMPTE bars + timecode, centered */
   "visual-media": () => (
     <g>
       <rect width="100" height="120" fill="var(--bloodlust)" />
@@ -184,7 +171,7 @@ const SPECIMENS: Record<string, (p: { active: boolean }) => React.ReactElement> 
     </g>
   ),
 
-  /* 08 — websites · browser frame with content blocks, centered */
+  /* websites · browser frame with content blocks, centered */
   websites: () => (
     <g>
       <rect width="100" height="120" fill="var(--cream-1)" />

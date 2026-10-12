@@ -55,21 +55,20 @@ export default function Colophon() {
 
         <Field label="this site authored with" col={6}>
           <Line k="agent" v="claude code · cli" />
-          <Line k="model" v="claude opus 4.7 · gpt-5.5 / codex" />
+          <Line k="model" v="claude opus 5.5 · gpt-5.5 / codex" />
           <Line k="copy" v="jeff, with the model as editor" />
-          <Line k="images" v="hand-drawn svg specimens · no genai stills" />
+          <Line k="card art" v="hand-drawn svg specimens" />
         </Field>
 
         <Field label="production stack" col={6}>
-          <Line k="orchestration" v="hermes agent · nous research" />
-          <Line k="stills" v="nano banana 2 · gpt image · midjourney v7" />
-          <Line k="video" v="kling · seedance · runway" />
-          <Line k="composition" v="remotion · hyperframes" />
+          <Line k="orchestration" v="claude code · studioly pipeline" />
+          <Line k="stills" v="gpt image 2.5 · midjourney v8" />
+          <Line k="video" v="seedance 2.5 · kling 3 · runway aleph" />
+          <Line k="composition" v="remotion · hyperframes · fframes · three.js" />
         </Field>
 
         <Field label="interactive demos" col={6}>
-          <Line k="text" v="openrouter · deepseek v4 flash" />
-          <Line k="image" v="nano banana 2 storyboards · flux 2 lora for kira" />
+          <Line k="image" v="gpt image 2.5 colour-pencil storyboards" />
           <Line k="budget" v="upstash redis · $1 shared daily cap" />
           <Line k="fallback" v="public sample mode when capped or unconfigured" />
         </Field>

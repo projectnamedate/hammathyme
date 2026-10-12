@@ -27,12 +27,8 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "brand-systems/hammer": HammerGuide,
   "brand-systems/kira": KiraGuide,
   "brand-systems/agentify": AgentifyGuide,
-  "agents-digital-twins/kira": KiraAgent,
-  "agents-digital-twins/bradley": BradleyAgent,
-  "agents-digital-twins/sensor-twin-dashboard": SensorTwin,
   "motion-graphics/reel": MotionReel,
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
-  "motion-graphics/audio-reactive-overlays": AudioReactiveOverlays,
   "motion-graphics/spring-health": SpringHealthMotion,
   "motion-graphics/spotify-titles": SpotifyTitles,
   "vfx-cgi/environment-swap": EnvironmentSwap,
@@ -40,17 +36,13 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
   "vfx-cgi/comfyui-production-backend": ComfyuiBackend,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
-  "pipelines-tools/prompt-library": PromptLibrary,
   "pipelines-tools/creative-skills": CreativeSkills,
   "interactive-playable/35mm-projector": ProjectorAnatomy,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
-  "interactive-playable/consistency-lab": ConsistencyLab,
-  "interactive-playable/talk-to-character": TalkToCharacter,
   "interactive-playable/dot-discipline": DotDiscipline,
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
-  "film-animation/the-applicant": TheApplicant,
-  "film-animation/animated-short": AnimatedShort,
+  "film-animation/code-animation": CodeAnimation,
   "websites/hammer": HammerSite,
   "websites/kira": KiraSite,
   "websites/agentify": AgentifySite,
@@ -59,7 +51,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
 
 const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
   "brand-systems": HammerGuide,
-  "agents-digital-twins": KiraAgent,
   "motion-graphics": MotionReel,
   "vfx-cgi": NeuralSetCapture,
   "pipelines-tools": PipelineVisualizerCard,
@@ -238,34 +229,6 @@ function AgentifyGuide() {
   );
 }
 
-function KiraAgent() {
-  return (
-    <Plate bg="var(--cream-2)">
-      <rect x="22" y="32" width="76" height="34" fill="var(--ink-0)" />
-      <circle cx="40" cy="66" r="13" fill="var(--cinnamon)" />
-      <rect x="28" y="84" width="64" height="36" fill="var(--cream-0)" stroke="var(--ink-3)" />
-      <line x1="36" y1="96" x2="84" y2="96" stroke="var(--ink-2)" strokeWidth="0.7" />
-      <line x1="36" y1="106" x2="72" y2="106" stroke="var(--ink-3)" strokeWidth="0.7" />
-      <MonoLabel>LIVE AGENT</MonoLabel>
-    </Plate>
-  );
-}
-
-function BradleyAgent() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <rect x="26" y="38" width="68" height="88" fill="var(--cream-0)" />
-      <circle cx="60" cy="68" r="20" fill="var(--ink-0)" />
-      <rect x="43" y="92" width="34" height="16" fill="var(--cinnamon)" />
-      <g stroke="var(--ink-3)" strokeWidth="0.8">
-        <line x1="34" y1="116" x2="86" y2="116" />
-        <line x1="42" y1="122" x2="78" y2="122" />
-      </g>
-      <MonoLabel y={140}>IDENTITY LOCK</MonoLabel>
-    </Plate>
-  );
-}
-
 function MotionReel() {
   return (
     <Plate bg="var(--bloodlust)">
@@ -288,20 +251,6 @@ function InternetCapitalMarkets() {
       </g>
       <circle cx="89" cy="50" r="4" fill="var(--cinnamon)" />
       <MonoLabel>ICM TEASER</MonoLabel>
-    </Plate>
-  );
-}
-
-function AudioReactiveOverlays() {
-  return (
-    <Plate bg="var(--cinnamon)">
-      <g transform="translate(24 50)" fill="var(--ink-0)">
-        {[18, 34, 50, 28, 62, 40, 24, 54].map((h, i) => (
-          <rect key={i} x={i * 9} y={68 - h} width="5" height={h} />
-        ))}
-      </g>
-      <circle cx="60" cy="82" r="27" fill="none" stroke="var(--cream-0)" strokeWidth="0.8" />
-      <MonoLabel>AUDIO OVERLAY</MonoLabel>
     </Plate>
   );
 }
@@ -360,41 +309,11 @@ function SpotifyTitles() {
   );
 }
 
-function AnimatedShort() {
-  return (
-    <Plate bg="var(--bloodlust)">
-      <FilmFrame>
-        <rect x="17" y="16" width="50" height="38" fill="var(--cream-0)" />
-        <path d="M 24 45 C 30 28, 44 24, 56 38 L 66 22 L 70 54 L 20 54 Z" fill="var(--ink-0)" />
-        <circle cx="34" cy="29" r="5" fill="var(--cinnamon)" />
-        <path d="M 18 58 C 32 64, 50 64, 66 58" fill="none" stroke="var(--cinnamon)" strokeWidth="1" />
-      </FilmFrame>
-      <MonoLabel y={136}>ANIMATED SHORT</MonoLabel>
-    </Plate>
-  );
-}
-
 function PipelineVisualizerCard() {
   return (
     <Plate>
       <NodeGraph />
       <MonoLabel>NODE GRAPH</MonoLabel>
-    </Plate>
-  );
-}
-
-function PromptLibrary() {
-  return (
-    <Plate bg="var(--cream-2)">
-      <g transform="translate(28 42)">
-        {[0, 1, 2].map((i) => (
-          <rect key={i} x={i * 8} y={i * 8} width="58" height="68" fill="var(--cream-0)" stroke="var(--ink-3)" />
-        ))}
-        <line x1="18" y1="28" x2="60" y2="28" stroke="var(--ink-2)" strokeWidth="0.8" />
-        <line x1="18" y1="40" x2="52" y2="40" stroke="var(--ink-3)" strokeWidth="0.8" />
-        <line x1="18" y1="52" x2="56" y2="52" stroke="var(--ink-3)" strokeWidth="0.8" />
-      </g>
-      <MonoLabel>PROMPT STACK</MonoLabel>
     </Plate>
   );
 }
@@ -405,7 +324,7 @@ function CreativeSkills() {
       <g transform="translate(24 40)">
         {[
           ["COLOR", 0],
-          ["KIRA", 21],
+          ["BRAND", 21],
           ["VIDEO", 42],
           ["PROMPT", 63],
         ].map(([label, y], i) => (
@@ -512,37 +431,6 @@ function PromptStoryboard() {
   );
 }
 
-function ConsistencyLab() {
-  return (
-    <Plate bg="var(--cream-2)">
-      <g transform="translate(24 42)">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <g key={i} transform={`translate(${(i % 3) * 28} ${Math.floor(i / 3) * 38})`}>
-            <rect width="20" height="28" fill="var(--cream-0)" stroke="var(--ink-3)" />
-            <circle cx="10" cy="11" r="6" fill="var(--ink-0)" />
-            <circle cx="10" cy="22" r="4" fill="var(--cinnamon)" opacity={i % 2 ? 0.5 : 1} />
-          </g>
-        ))}
-      </g>
-      <MonoLabel>LOCKED FACE</MonoLabel>
-    </Plate>
-  );
-}
-
-function TalkToCharacter() {
-  return (
-    <Plate bg="var(--cinnamon)">
-      <g transform="translate(24 50)">
-        <rect width="58" height="24" fill="var(--cream-0)" stroke="var(--ink-3)" />
-        <path d="M 18 24 L 12 32 L 30 24" fill="var(--cream-0)" stroke="var(--ink-3)" />
-        <rect x="16" y="44" width="58" height="24" fill="var(--ink-0)" />
-        <path d="M 56 68 L 64 76 L 48 68" fill="var(--ink-0)" />
-      </g>
-      <MonoLabel>CHAT SURFACE</MonoLabel>
-    </Plate>
-  );
-}
-
 function DotDiscipline() {
   return (
     <Plate>
@@ -614,91 +502,20 @@ function TheGunfight() {
   );
 }
 
-function TheApplicant() {
+function CodeAnimation() {
   return (
-    <Plate bg="var(--ink-deepest)">
-      {/* arena crowd haze */}
-      <g fill="var(--cream-1)" opacity="0.5">
-        {Array.from({ length: 14 }).map((_, i) => (
-          <circle key={i} cx={18 + (i % 7) * 13} cy={24 + Math.floor(i / 7) * 6} r="0.9" />
-        ))}
-      </g>
-      {/* jumbotron */}
-      <g transform="translate(24 42)">
-        <rect width="72" height="44" fill="var(--ink-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
-        <rect x="3" y="3" width="66" height="38" fill="none" stroke="var(--ink-3)" strokeWidth="0.4" opacity="0.7" />
-        <text
-          x="36"
-          y="18"
-          textAnchor="middle"
-          fontFamily="var(--font-mono)"
-          fontSize="4.6"
-          letterSpacing="1"
-          fill="var(--cream-1)"
-        >
-          POSITIONS FILLED:
+    <Plate bg="var(--cinnamon)">
+      <FilmFrame bg="var(--cream-0)">
+        <path d="M 14 58 C 24 40, 34 64, 44 46 S 62 30, 70 42" fill="none" stroke="var(--ink-0)" strokeWidth="1.1" />
+        <path d="M 30 34 A 12 10 0 0 1 54 34 Z" fill="var(--cinnamon)" />
+        <circle cx="37" cy="29" r="1.8" fill="var(--cream-0)" />
+        <circle cx="46" cy="27" r="1.4" fill="var(--cream-0)" />
+        <rect x="40" y="34" width="4" height="7" fill="var(--cream-1)" stroke="var(--ink-3)" strokeWidth="0.4" />
+        <text x="16" y="20" fontFamily="var(--font-mono)" fontSize="5" letterSpacing="0.6" fill="var(--ink-2)">
+          f(t)
         </text>
-        <text
-          x="36"
-          y="33"
-          textAnchor="middle"
-          fontFamily="var(--font-mono)"
-          fontSize="9"
-          letterSpacing="1"
-          fill="var(--cream-0)"
-        >
-          1
-        </text>
-      </g>
-      {/* hired stamp */}
-      <g transform="translate(60 106) rotate(-7)">
-        <rect x="-19" y="-7.5" width="38" height="15" fill="none" stroke="var(--cinnamon)" strokeWidth="1.1" />
-        <text
-          x="0"
-          y="3.2"
-          textAnchor="middle"
-          fontFamily="var(--font-mono)"
-          fontSize="6.4"
-          letterSpacing="1.6"
-          fill="var(--cinnamon)"
-        >
-          HIRED
-        </text>
-      </g>
-      {/* floor scatter */}
-      <g stroke="var(--cream-1)" strokeWidth="0.5" opacity="0.4">
-        <line x1="30" y1="126" x2="38" y2="126" />
-        <line x1="52" y1="131" x2="63" y2="131" />
-        <line x1="74" y1="125" x2="81" y2="125" />
-      </g>
-      <MonoLabel y={139} fill="var(--cream-1)">THE APPLICANT</MonoLabel>
-    </Plate>
-  );
-}
-
-function SensorTwin() {
-  return (
-    <Plate bg="var(--cream-1)">
-      <g transform="translate(22 44)">
-        <rect width="76" height="64" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.8" />
-        <g stroke="var(--ink-4)" strokeWidth="0.4">
-          <line x1="0" y1="21" x2="76" y2="21" />
-          <line x1="0" y1="42" x2="76" y2="42" />
-        </g>
-        {/* live telemetry trace */}
-        <path d="M 4 48 L 16 32 L 28 40 L 40 18 L 52 44 L 64 26 L 72 34" fill="none" stroke="var(--ink-0)" strokeWidth="1" />
-        {/* anomaly flag at the spike */}
-        <circle className="anim-pulse" cx="40" cy="18" r="4" fill="none" stroke="var(--cinnamon)" strokeWidth="1" />
-        <circle cx="40" cy="18" r="1.6" fill="var(--cinnamon)" />
-      </g>
-      {/* sensor row */}
-      <g transform="translate(34 118)" fill="var(--ink-0)">
-        <circle cx="0" cy="0" r="2.2" />
-        <circle cx="14" cy="0" r="2.2" />
-        <circle cx="28" cy="0" r="2.2" />
-        <circle cx="42" cy="0" r="2.2" fill="var(--cinnamon)" />
-      </g>
-      <MonoLabel>LIVE TELEMETRY</MonoLabel>
+      </FilmFrame>
+      <MonoLabel y={136} fill="var(--ink-0)">CODE ANIMATION</MonoLabel>
     </Plate>
   );
 }

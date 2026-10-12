@@ -8,7 +8,7 @@ export const SITE_LAST_MODIFIED = "2026-10-11T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =
-  "Jeff Hammer is a creative technologist with ten-plus years on broadcast and agency pipelines. He produces brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.";
+  "Jeff Hammer is a creative technologist with ten-plus years on broadcast and agency pipelines. He makes film and animation, vfx and cgi, motion graphics, brand systems, websites, interactive demos, and pipelines.";
 export const DEFAULT_KEYWORDS = [
   "Creative Technologist",
   "Creative Technologist portfolio",
@@ -16,7 +16,7 @@ export const DEFAULT_KEYWORDS = [
   "Hammer creative technologist",
   "AI Producer",
   "AI producer portfolio",
-  "autonomous AI characters",
+  "AI film and animation",
   "AI motion graphics",
   "AI video pipeline producer",
 ];
@@ -150,7 +150,7 @@ export const rootMetadata: Metadata = {
 export const homeMetadata = buildPageMetadata({
   title: SITE_TITLE,
   description:
-    "Hammer is Jeff Hammer's creative technologist portfolio: brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, film and animation, and websites.",
+    "Hammer is Jeff Hammer's creative technologist portfolio: film and animation, vfx and cgi, motion graphics, brand systems, websites, interactive demos, and pipelines.",
   path: "/",
   absoluteTitle: true,
   keywords: ["hire creative technologist", "hire AI producer", "creative technologist Los Angeles"],
@@ -168,7 +168,7 @@ export const aboutMetadata = buildPageMetadata({
 export const contactMetadata = buildPageMetadata({
   title: "contact Jeff Hammer",
   description:
-    "Contact Jeff Hammer for creative technology work across AI pipelines, brand systems, motion graphics, autonomous characters, and broadcast-grade production.",
+    "Contact Jeff Hammer for creative technology work across AI pipelines, film and animation, brand systems, motion graphics, and broadcast-grade production.",
   path: "/contact",
   keywords: ["hire creative technologist", "AI producer freelance", "creative technologist contact"],
 });
@@ -176,7 +176,7 @@ export const contactMetadata = buildPageMetadata({
 export const workMetadata = buildPageMetadata({
   title: "creative technologist portfolio work",
   description:
-    "Explore Hammer's creative technologist portfolio across brand systems, agents and digital twins, motion graphics, vfx and cgi, pipelines, interactive demos, film and animation, and websites.",
+    "Explore Hammer's creative technologist portfolio across film and animation, vfx and cgi, motion graphics, brand systems, websites, interactive demos, and pipelines.",
   path: "/work",
   keywords: ["creative technologist portfolio", "AI producer portfolio", "AI video portfolio"],
 });
@@ -227,10 +227,9 @@ export function buildPersonJsonLd(): JsonLdObject {
     knowsAbout: [
       "AI video production",
       "AI creative production",
-      "autonomous AI characters",
+      "code-drawn animation",
       "motion graphics",
       "brand systems",
-      "prompt libraries",
       "broadcast production",
       "production pipelines",
       "AI websites",
@@ -450,19 +449,18 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
     };
   }
 
-  if (category.slug === "film-animation" && piece.slug === "the-applicant") {
+  if (category.slug === "film-animation" && piece.slug === "code-animation") {
     return {
       "@type": "VideoObject",
       "@id": `${pageUrl}#video`,
-      name: "The Applicant: AI-native short film",
+      name: "Code animation: five short films drawn in code",
       description:
         piece.blurb ??
-        "A one-minute AI-native short made end-to-end through the Studioly pipeline: locked GPT Image 2 frames, Seedance 2.0 takes, native crowd audio.",
-      thumbnailUrl: [
-        getCanonicalUrl("/work/film-animation/the-applicant/the-applicant-poster.jpg"),
-      ],
-      uploadDate: "2026-08-26T00:00:00-07:00",
-      contentUrl: getCanonicalUrl("/work/film-animation/the-applicant/the-applicant-web.mp4"),
+        "A montage of five short films drawn entirely in code, with sound synthesized in code.",
+      thumbnailUrl: [getCanonicalUrl("/work/film-animation/code-animation/montage-poster.jpg")],
+      uploadDate: "2026-10-11T00:00:00-07:00",
+      duration: "PT47S",
+      contentUrl: getCanonicalUrl("/work/film-animation/code-animation/montage-v01.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },
@@ -482,23 +480,6 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       thumbnailUrl: [getCanonicalUrl("/work/motion/icm/icm-the-movie-trailer-poster.jpg")],
       uploadDate: "2026-06-09T00:00:00-07:00",
       contentUrl: getCanonicalUrl("/work/motion/icm/icm-the-movie-trailer-web.mp4"),
-      embedUrl: pageUrl,
-      creator: { "@id": PERSON_ID },
-      publisher: { "@id": PERSON_ID },
-    };
-  }
-
-  if (piece.slug === "audio-reactive-overlays") {
-    return {
-      "@type": "VideoObject",
-      "@id": `${pageUrl}#video`,
-      name: "Hammer audio reactive overlays",
-      description:
-        piece.blurb ??
-        "A Remotion overlay driven by energy, band, centroid, and beat analysis.",
-      thumbnailUrl: [getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-poster.png")],
-      uploadDate: "2026-05-25T00:00:00-07:00",
-      contentUrl: getCanonicalUrl("/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },
@@ -548,7 +529,7 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
     description:
       piece.blurb ??
       "A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion, kinetic type, data motion, particles, and early audio-reactive animation tests.",
-    thumbnailUrl: [getCanonicalUrl(SOCIAL_IMAGE_PATH)],
+    thumbnailUrl: [getCanonicalUrl("/work/motion/hammer-reel-poster.jpg")],
     uploadDate: "2026-05-18T00:00:00-07:00",
     contentUrl: getCanonicalUrl("/work/motion/hammer-reel-v3-web-max-h264.mp4"),
     embedUrl: pageUrl,

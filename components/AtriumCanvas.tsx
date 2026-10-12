@@ -9,7 +9,7 @@ import { ViewLink } from "./ViewLink";
 /**
  * The atrium — a fixed museum wall, not a drag-canvas.
  *
- *   • 8 framed pieces sit at hand-tuned positions on a single 100vw × 100vh
+ *   • 7 framed pieces sit at hand-tuned positions on a single 100vw × 100vh
  *     room. Visitors *scan* the wall — they don't navigate.
  *   • Piece 01 is spotlighted by default; siblings drop to 35% opacity.
  *   • Hover or arrow keys move the spotlight; click enters the piece.
@@ -18,18 +18,18 @@ import { ViewLink } from "./ViewLink";
 
 type Pos = { x: number; y: number; w: number; h: number };
 
-// Hand-tuned 4-over-4 staggered grid for 8 pieces. x/w in vw, y/h in vh.
-// Top row tall/short/tall/short, bottom row short/tall/short/tall (mirrored)
-// for Swiss asymmetry. y leaves a clear title band ~80–144px at the top.
+// Hand-tuned 4-over-3 staggered grid for 7 pieces. x/w in vw, y/h in vh.
+// Top row tall/short/tall/short; the bottom row of three is centred under it,
+// tall/short/tall, for Swiss asymmetry. y leaves a clear title band ~80–144px
+// at the top.
 const POSITIONS: Pos[] = [
-  { x:  6, y: 22, w: 18, h: 26 }, // 01 tall — brand systems
-  { x: 28, y: 28, w: 16, h: 20 }, // 02 short — agents + digital twins
+  { x:  6, y: 22, w: 18, h: 26 }, // 01 tall — film + animation
+  { x: 28, y: 28, w: 16, h: 20 }, // 02 short — vfx + cgi
   { x: 48, y: 22, w: 20, h: 26 }, // 03 tall — motion graphics
-  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — vfx + cgi
-  { x:  6, y: 58, w: 18, h: 20 }, // 05 short — pipelines + tools
-  { x: 28, y: 52, w: 16, h: 26 }, // 06 tall — interactive + playable
-  { x: 48, y: 58, w: 20, h: 20 }, // 07 short — film + animation
-  { x: 72, y: 52, w: 16, h: 26 }, // 08 tall — websites
+  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — brand systems
+  { x: 15, y: 52, w: 18, h: 26 }, // 05 tall — websites
+  { x: 37, y: 58, w: 20, h: 20 }, // 06 short — interactive + playable
+  { x: 61, y: 52, w: 18, h: 26 }, // 07 tall — pipelines + tools
 ];
 
 const CINEMA = [0.65, 0, 0.35, 1] as const;
@@ -90,7 +90,7 @@ export function AtriumCanvas() {
     };
   }, [isMobile, reduce]);
 
-  // Arrow-key navigation between pieces (treats wall as 4×2 grid).
+  // Arrow-key navigation between pieces (treats wall as two rows).
   useEffect(() => {
     if (isMobile) return;
     const onKey = (e: KeyboardEvent) => {

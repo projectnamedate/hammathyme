@@ -4,22 +4,18 @@ import { requireSafeCreativeInput } from "@/lib/demo-safety";
 
 export const runtime = "nodejs";
 
-const STORYBOARD_FAL_MODEL = "fal-ai/nano-banana-2";
+export const maxDuration = 300;
+
+const STORYBOARD_FAL_MODEL = "openai/gpt-image-2.5/sunburst/text-to-image";
 
 function storyboardImagePrompt(brief: string) {
   return [
-    "Create one polished 6-panel storyboard contact sheet for a public creative technologist portfolio.",
-    "Layout: clean 3 by 2 grid, cinematic thumbnails, no visible written captions, small unobtrusive panel numbers only.",
-    "Style: warm cream paper, deep maroon ink, restrained vinaceous cinnamon accents, elegant editorial production-board language.",
-    "Every panel should show a distinct shot: establishing frame, insert, process, character/action, payoff, delivery.",
-    "Panel 01: establishing frame that sets the world, location, or product context.",
-    "Panel 02: insert shot with one important object, hand, screen, texture, or detail.",
-    "Panel 03: process shot that shows the system, assembly, transformation, or work in motion.",
-    "Panel 04: character/action shot with a person, operator, subject, or clear action beat when the brief needs one.",
-    "Panel 05: payoff shot where the core idea resolves visually.",
-    "Panel 06: delivery shot that makes the final output, result, or handoff feel complete.",
-    "Storyboard the user's brief as its own product, campaign, or scene concept.",
-    "Keep it safe for work. No adult content, violence, gore, weapons, medical claims, politics, logos, or private data.",
+    "One storyboard sheet: six panels in a 3 by 2 grid on a single sheet of warm off-white drawing paper, thin pencil-ruled panel borders, small handwritten panel numbers 1 to 6 and no other text.",
+    "Medium: a story artist's colour pencil drawing. Colour pencil line and hatching on warm off-white paper, visible strokes, paper grain showing through, loose and handmade, the same medium in every panel.",
+    "Palette: graphite and deep maroon line, muted teal and warm sepia washes of hatching, soft cinnamon accents, mostly bare paper.",
+    "No 3D render, no CG, no painted illustration finish, no digital painting, no photorealism.",
+    "Every panel shows a distinct shot of the brief: 1 establishing frame for the world or product context; 2 insert of one important object, hand, screen or texture; 3 process shot of the work in motion; 4 a person or subject in a clear action beat; 5 the payoff where the idea resolves; 6 the delivery or final result.",
+    "Storyboard the brief as its own product, campaign, or scene concept. Keep it safe for work: no adult content, violence, gore, weapons, medical claims, politics, logos, or private data.",
     `Brief: ${brief}`,
   ].join(" ");
 }
@@ -45,9 +41,9 @@ export async function POST(request: Request) {
 
   const reservation = await reserveDemoSpend(request, {
     demo: "storyboard",
-    estimatedUsd: 0.08,
+    estimatedUsd: 0.1,
     perClientDailyLimit: 1,
-    globalDailyLimit: 10,
+    globalDailyLimit: 8,
   });
   if (!reservation.ok) {
     return noStore({
@@ -63,24 +59,18 @@ export async function POST(request: Request) {
   try {
     const { fal } = await import("@fal-ai/client");
     fal.config({ credentials: apiKey });
-    const result = await fal.subscribe(process.env.HAMMER_STORYBOARD_FAL_MODEL ?? STORYBOARD_FAL_MODEL, {
+    const result = await fal.subscribe(STORYBOARD_FAL_MODEL, {
       input: {
         prompt: storyboardImagePrompt(safe.value),
         num_images: 1,
-        aspect_ratio: "16:9",
-        output_format: "png",
-        resolution: "1K",
-        safety_tolerance: "2",
-        limit_generations: true,
-        enable_web_search: false,
+        image_size: "landscape_16_9",
+        quality: "medium",
+        output_format: "jpeg",
       },
       logs: false,
     });
 
-    const data = result.data as {
-      images?: { url?: string }[];
-      description?: string;
-    };
+    const data = result.data as { images?: { url?: string }[] };
     const imageUrl = data.images?.[0]?.url;
     if (!imageUrl) throw new Error("empty storyboard image");
     return noStore({
@@ -89,7 +79,6 @@ export async function POST(request: Request) {
       status: "live",
       panels,
       imageUrl,
-      description: data.description?.slice(0, 500),
       requestId: result.requestId,
       capUsd: reservation.capUsd,
       spentUsd: reservation.spentUsd,

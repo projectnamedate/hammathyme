@@ -10,9 +10,7 @@ import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
 import {
-  ConsistencyLabDemo,
   DotDisciplineGame,
-  KiraChatDemo,
   PromptStoryboardDemo,
 } from "@/components/interactives/InteractiveDemos";
 import {
@@ -141,13 +139,9 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
 
 function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: string) {
   const key = pieceDetailKey(category.slug, piece.slug);
-  if (key === "agents-digital-twins/kira") return <KiraAgentDetail transitionName={transitionName} />;
   if (key === "motion-graphics/reel") return <MotionReelDetail transitionName={transitionName} />;
   if (key === "motion-graphics/internet-capital-markets") {
     return <InternetCapitalMarketsDetail transitionName={transitionName} />;
-  }
-  if (key === "motion-graphics/audio-reactive-overlays") {
-    return <AudioReactiveOverlayDetail transitionName={transitionName} />;
   }
   if (key === "motion-graphics/spring-health") {
     return <SpringHealthDetail transitionName={transitionName} />;
@@ -158,16 +152,11 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/pipeline-visualizer") {
     return <PipelineDetail piece={piece} transitionName={transitionName} />;
   }
-  if (key === "pipelines-tools/prompt-library") {
-    return <PromptLibraryDetail piece={piece} transitionName={transitionName} />;
-  }
   if (key === "pipelines-tools/creative-skills") {
     return <CreativeSkillsDetail piece={piece} transitionName={transitionName} />;
   }
   if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
-  if (key === "interactive-playable/consistency-lab") return <ConsistencyLabDemo />;
-  if (key === "interactive-playable/talk-to-character") return <KiraChatDemo />;
   if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
@@ -179,7 +168,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   }
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (key === "film-animation/the-gunfight") return <TheGunfightDetail transitionName={transitionName} />;
-  if (key === "film-animation/the-applicant") return <TheApplicantDetail transitionName={transitionName} />;
+  if (key === "film-animation/code-animation") return <CodeAnimationDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
   }
@@ -258,124 +247,6 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
-const KIRA_AGENT_FACTS = [
-  ["system", "Hermes scheduler, reply queue, voice guards, media policy, and CDP fire path"],
-  ["identity", "persistent face, canonical refs, x + tiktok profile assets, and a 14-part brand bible"],
-  ["outputs", "scheduled originals and replies across x and tiktok, generated photos, clips, memes, and native GIF lanes"],
-  ["governance", "AI disclosure, C2PA/provenance docs, rate caps, pause flags, and review-first expansion"],
-];
-
-const KIRA_AGENT_REFS = [
-  { src: "/work/agents/kira/ref-head-tilt.png", label: "canonical portrait", width: 933, height: 1400 },
-  { src: "/work/agents/kira/ref-serious.png", label: "voice anchor", width: 933, height: 1400 },
-  { src: "/work/agents/kira/ref-desk.png", label: "crypto desk", width: 933, height: 1200 },
-  { src: "/work/agents/kira/ref-brooklyn.png", label: "location test", width: 1089, height: 1400 },
-];
-
-function KiraAgentDetail({ transitionName }: { transitionName: string }) {
-  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
-  return (
-    <section className="mx-auto max-w-[1320px]">
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-x-10">
-        <div
-          className="relative overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)] shadow-[0_24px_80px_rgba(31,7,7,0.07)] md:col-span-8"
-          style={frameStyle}
-        >
-          <Image
-            src="/work/agents/kira/banner.png"
-            alt="Kira profile banner"
-            width={1500}
-            height={500}
-            priority
-            sizes="(min-width: 768px) 66vw, 100vw"
-            className="block aspect-[3/1] w-full object-cover"
-          />
-          <div className="grid grid-cols-[96px_1fr] gap-5 border-t border-[var(--ink-4)] p-5 md:grid-cols-[132px_1fr] md:p-7">
-            <Image
-              src="/work/agents/kira/avatar-hero.jpg"
-              alt="Kira avatar"
-              width={2688}
-              height={1536}
-              sizes="132px"
-              className="aspect-[1/1] w-full border border-[var(--ink-4)] object-cover object-center"
-            />
-            <div className="flex flex-col justify-between gap-6">
-              <div>
-                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-                  autonomous character · live system
-                </p>
-                <p className="mt-3 max-w-[46ch] font-display text-[clamp(22px,2.4vw,42px)] font-light leading-[1.12] tracking-[-0.025em] text-[var(--ink-0)]">
-                  Kira is the working proof that a character can be a brand surface, content engine,
-                  and always-on social operator.
-                </p>
-              </div>
-              <ViewLink
-                href="/work/brand-systems/kira"
-                data-cursor="link"
-                data-cursor-label="open →"
-                className="w-fit font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
-              >
-                brand guide dossier
-              </ViewLink>
-            </div>
-          </div>
-        </div>
-
-        <aside className="md:col-span-4">
-          <p className="font-display text-[clamp(18px,1.45vw,24px)] font-light lowercase leading-[1.42] tracking-[-0.015em] text-[var(--ink-1)]">
-            Kira operates as a live autonomous character: persistent identity, scheduled posts,
-            and replies under a written media policy. The full identity system lives in the brand
-            guide dossier.
-          </p>
-          <dl className="mt-8 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-5">
-            <div>
-              <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">born</dt>
-              <dd className="mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--ink-2)]">
-                february 2026
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">role</dt>
-              <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.7] tracking-[0.14em] text-[var(--ink-2)]">
-                autonomous crypto character · social operator · media testbed
-              </dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-4">
-        {KIRA_AGENT_FACTS.map(([label, value]) => (
-          <div key={label} className="border-t border-[var(--ink-4)] pt-4">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</p>
-            <p className="mt-3 font-display text-[clamp(15px,1.15vw,18px)] font-light leading-[1.45] tracking-[-0.01em] text-[var(--ink-1)]">
-              {value}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-        {KIRA_AGENT_REFS.map((ref) => (
-          <figure key={ref.src} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
-            <Image
-              src={ref.src}
-              alt={`Kira ${ref.label}`}
-              width={ref.width}
-              height={ref.height}
-              sizes="(min-width: 768px) 25vw, 50vw"
-              className="aspect-[3/4] w-full object-cover object-top"
-            />
-            <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-              {ref.label}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 type WebsiteProfile = {
   slug: string;
   status: string;
@@ -392,33 +263,33 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     status: "live portfolio system",
     liveUrl: "https://hammer.ad",
     summary:
-      "The current Hammer site is itself a finished portfolio asset: a warm editorial identity, eight-category work atrium, detail-route gallery model, motion surfaces, and source-readable docs.",
+      "The current Hammer site is itself a finished portfolio asset: a warm editorial identity, seven-category work atrium, detail-route gallery model, motion surfaces, and source-readable docs.",
     stack: ["next.js 16", "react 19", "tailwind v4", "motion", "view transitions", "vercel"],
     facts: [
       ["model", "gallery-first category routes with detail pages for finished work"],
       ["brand", "Outfit wordmark, warm cream system, cinnamon dot, serif italic accents"],
-      ["surfaces", "brand dossiers, reel video, pipeline visualizer, agents, websites"],
+      ["surfaces", "films, a splat viewer, a projector you can crank, brand dossiers, websites"],
       ["docs", "AGENTS, brand guide, llms.txt, and public memory kept in sync with code"],
     ],
     shots: [
       {
-        src: "/work/websites/hammathyme/home.png",
+        src: "/work/websites/hammathyme/home-v02.png",
         label: "entry hall",
         alt: "Hammer homepage screenshot",
         width: 1440,
         height: 1000,
       },
       {
-        src: "/work/websites/hammathyme/agents.png",
-        label: "agents category",
-        alt: "Agents category screenshot",
+        src: "/work/websites/hammathyme/atrium.png",
+        label: "work atrium",
+        alt: "Hammer work atrium screenshot",
         width: 1440,
         height: 1000,
       },
       {
-        src: "/work/websites/hammathyme/kira-agent.png",
-        label: "kira detail",
-        alt: "Kira agent detail screenshot",
+        src: "/work/websites/hammathyme/code-animation.png",
+        label: "code animation detail",
+        alt: "Code animation detail page screenshot",
         width: 1440,
         height: 1000,
       },
@@ -603,7 +474,7 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
           className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
           style={frameStyle}
         >
-          <video aria-label="Hammer motion graphics reel" className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata">
+          <video aria-label="Hammer motion graphics reel" className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata" poster="/work/motion/hammer-reel-poster.jpg">
             <source src="/work/motion/hammer-reel-v3-web-hq-10bit-hevc.mp4" type='video/mp4; codecs="hvc1"' />
             <source
               src="/work/motion/hammer-reel-v3-web-max-h264.mp4"
@@ -1252,23 +1123,32 @@ function TheGunfightDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
-function TheApplicantDetail({ transitionName }: { transitionName: string }) {
+const CODE_ANIMATION_DIR = "/work/film-animation/code-animation";
+
+const CODE_ANIMATION_FILMS = [
+  { slug: "spore-sneeze", title: "spore sneeze", lane: "painted 2d · p5.brush", length: "19s" },
+  { slug: "four-seasons", title: "four seasons", lane: "painted 2d on the gpu", length: "20s loop" },
+  { slug: "paper-city", title: "paper city", lane: "fframes · rust + svg", length: "18s loop" },
+  { slug: "shader-worlds", title: "shader worlds", lane: "fframes · gpu shaders", length: "16s loop" },
+  { slug: "lantern-night", title: "lantern night", lane: "three.js + paint pass", length: "12s" },
+];
+
+function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
   return (
     <section className="mx-auto max-w-[1320px]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            In a near-future where the only way to get a job is to win one, an applicant in a
-            cheap interview suit fights the jobs themselves in a televised arena. Six Seedance
-            shots cut from locked GPT Image 2 frames.
+            Five short films drawn entirely in code. Every frame is a function of time, rendered
+            headless and checked frame by frame before it ships.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["production", "studioly pipeline · driven via kimi code"],
-              ["models", "gpt image 2 stills · seedance 2.0 video via evolink"],
-              ["format", "60s · 1280x720 · 24fps · h264/aac"],
-              ["source", "studioly"],
+              ["written by", "claude opus 5.5 · directed by hammer"],
+              ["lanes", "p5.brush · gpu painter · fframes · three.js"],
+              ["sound", "synthesized in code · measured to -14 lufs"],
+              ["format", "47s montage · 1920x1080 · 24fps · h264/aac"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -1286,27 +1166,47 @@ function TheApplicantDetail({ transitionName }: { transitionName: string }) {
           style={frameStyle}
         >
           <video
-            aria-label="The Applicant, a one-minute AI-native short film"
-            className="block aspect-video w-full bg-[var(--cream-0)]"
+            aria-label="Code animation montage: five short films drawn in code"
+            className="block aspect-video w-full bg-[var(--ink-deepest)]"
             controls
             playsInline
             preload="metadata"
-            poster="/work/film-animation/the-applicant/the-applicant-poster.jpg"
+            poster={`${CODE_ANIMATION_DIR}/montage-poster.jpg`}
           >
-            <source src="/work/film-animation/the-applicant/the-applicant-web.mp4" type="video/mp4" />
+            <source src={`${CODE_ANIMATION_DIR}/montage-v01.mp4`} type="video/mp4" />
           </video>
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
-        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          concept, screenplay, shot list, locked frames, takes, and editorial all ran inside
-          one versioned pipeline. about six dollars of generation spend.
-        </p>
-        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          production: hammer · pipeline: studioly
-        </p>
-      </div>
+      <ul className="mt-10 grid grid-cols-1 gap-6 border-t border-[var(--ink-4)] pt-8 sm:grid-cols-2 lg:grid-cols-3">
+        {CODE_ANIMATION_FILMS.map((film) => (
+          <li key={film.slug}>
+            <div className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-1.5">
+              <video
+                aria-label={`${film.title}, a short film drawn in code`}
+                className="block aspect-video w-full bg-[var(--ink-deepest)]"
+                controls
+                playsInline
+                preload="none"
+                poster={`${CODE_ANIMATION_DIR}/${film.slug}-poster.jpg`}
+              >
+                <source src={`${CODE_ANIMATION_DIR}/${film.slug}.mp4`} type="video/mp4" />
+              </video>
+            </div>
+            <div className="mt-3 flex items-baseline justify-between gap-4">
+              <p className="font-display text-[clamp(16px,1.3vw,20px)] font-light lowercase leading-tight text-[var(--ink-0)]">
+                {film.title}
+              </p>
+              <p className="shrink-0 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-3)]">
+                {film.length}
+              </p>
+            </div>
+            <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--cinnamon)]">
+              {film.lane}
+            </p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -1340,60 +1240,6 @@ function InternetCapitalMarketsDetail({ transitionName }: { transitionName: stri
             <source src="/work/motion/icm/icm-the-movie-trailer-web.mp4" type="video/mp4" />
           </video>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function AudioReactiveOverlayDetail({ transitionName }: { transitionName: string }) {
-  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
-  return (
-    <section className="mx-auto max-w-[1320px]">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
-        <aside className="md:col-span-3">
-          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            A 64-second Remotion overlay driven by energy, band, centroid, and beat analysis.
-            Designed response layers turn the track into motion graphics without fake instrument readouts.
-          </p>
-          <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-            64s · 1920x1080 · 24fps · h264/aac
-          </p>
-        </aside>
-        <div
-          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
-          style={frameStyle}
-        >
-          <video
-            aria-label="Hammer audio reactive overlays motion graphics video"
-            className="block aspect-video w-full bg-[var(--cream-0)]"
-            controls
-            playsInline
-            preload="metadata"
-            poster="/work/motion/audio-reactive/audio-reactive-overlay-poster.png"
-          >
-            <source src="/work/motion/audio-reactive/audio-reactive-overlay-h264.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
-
-      <div className="mt-10 border-y border-[var(--ink-4)] py-5">
-        <p className="max-w-[78ch] font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-          music:{" "}
-          <a
-            href="https://freemusicarchive.org/music/Loyalty_Freak_Music/ROBOT_DANCE_/Loyalty_Freak_Music_-_ROBOT_DANCE__-_02_High_Technologic_Beat_Explosion/"
-            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
-          >
-            High Technologic Beat Explosion
-          </a>{" "}
-          by Loyalty Freak Music. source track listed as CC0 1.0 Universal by{" "}
-          <a
-            href="https://commons.wikimedia.org/wiki/File:Loyalty_Freak_Music_-_02_-_High_Technologic_Beat_Explosion.ogg"
-            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
-          >
-            Wikimedia Commons
-          </a>
-          .
-        </p>
       </div>
     </section>
   );
@@ -1536,34 +1382,6 @@ function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionNam
   );
 }
 
-const PROMPT_LIBRARY_LAYERS = [
-  {
-    label: "intake",
-    artifact: "production brief",
-    copy: "turn a loose ask into one sharp brief: audience, output, constraints, and proof.",
-  },
-  {
-    label: "taste",
-    artifact: "style lock",
-    copy: "protect the visual language before any model gets a chance to flatten it.",
-  },
-  {
-    label: "recipe",
-    artifact: "prompt pack",
-    copy: "shape model behavior with inputs, aspect rules, negative space, and fallback paths.",
-  },
-  {
-    label: "gate",
-    artifact: "select sheet",
-    copy: "score outputs against the brief, mark selects, and stop drift before it spreads.",
-  },
-  {
-    label: "handoff",
-    artifact: "operator note",
-    copy: "leave the next producer a clear pickup state, not a mystery folder.",
-  },
-] as const;
-
 const AGENT_STACK_ROWS = [
   ["director", "taste and corrections"],
   ["brief", "scope and proof"],
@@ -1589,45 +1407,6 @@ const CREATIVE_SKILL_ROWS = [
     copy: "keeps palette, contrast, mood, and grade decisions intentional.",
   },
 ] as const;
-
-function PromptLibraryDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
-  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
-  return (
-    <section className="mx-auto max-w-[1440px]">
-      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-12">
-        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.42] tracking-[-0.015em] text-[var(--ink-1)] md:col-span-5">
-          {piece.blurb}
-        </p>
-        <p className="font-mono text-[10px] uppercase leading-[1.8] tracking-[0.18em] text-[var(--ink-2)] md:col-span-4 md:col-start-9">
-          public architecture · private prompt text withheld · review gates exposed
-        </p>
-      </div>
-
-      <div
-        className="tool-panel border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:p-8"
-        style={frameStyle}
-      >
-        <div className="relative grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-x-10">
-          <div className="md:col-span-7">
-            <PromptStackDiagram />
-          </div>
-          <div className="md:col-span-5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
-              readable method, protected craft
-            </p>
-            <p className="mt-4 font-display text-[clamp(22px,2.2vw,40px)] font-light leading-[1.12] tracking-[-0.025em] text-[var(--ink-0)]">
-              The value is not a secret prompt. It is the judgment to frame the ask, reject the drift, and protect the
-              signal.
-            </p>
-            <p className="mt-7 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-              public method · private prompt text withheld · review gates exposed
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
@@ -1692,76 +1471,6 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
         </div>
       </div>
     </section>
-  );
-}
-
-function PromptStackDiagram() {
-  return (
-    <svg viewBox="0 0 720 440" role="img" aria-label="Prompt library stack diagram" className="h-auto w-full">
-      <defs>
-        <linearGradient id="prompt-sheen" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="var(--cream-0)" />
-          <stop offset="48%" stopColor="var(--cream-2)" stopOpacity="0.34" />
-          <stop offset="100%" stopColor="var(--cream-0)" />
-        </linearGradient>
-      </defs>
-      <rect x="1" y="1" width="718" height="438" fill="url(#prompt-sheen)" stroke="var(--ink-4)" />
-      <rect x="22" y="22" width="676" height="396" fill="none" stroke="var(--ink-4)" strokeDasharray="2 10" opacity="0.72" />
-      <rect className="tool-scanline" x="24" y="34" width="672" height="58" fill="var(--cinnamon)" opacity="0.16" />
-      <g fontFamily="var(--font-mono)" fontSize="11" letterSpacing="1.8">
-        {PROMPT_LIBRARY_LAYERS.map((layer, index) => {
-          const y = 52 + index * 72;
-          const delay = `${120 + index * 110}ms`;
-          return (
-            <g key={layer.label} className="tool-flow-card" style={{ "--tool-delay": delay } as CSSProperties}>
-              <rect
-                x="42"
-                y={y}
-                width="250"
-                height="44"
-                fill={index === 1 ? "var(--cinnamon)" : "var(--cream-1)"}
-                stroke="var(--ink-3)"
-              />
-              <rect x="50" y={y + 8} width="16" height="28" fill="var(--ink-0)" opacity={index === 1 ? 0.14 : 0.06} />
-              <text x="60" y={y + 27} fill="var(--ink-0)">
-                {String(index + 1).padStart(2, "0")} / {layer.label}
-              </text>
-              <path
-                className="tool-flow-line"
-                style={{ "--tool-delay": `${260 + index * 110}ms` } as CSSProperties}
-                d={`M 292 ${y + 22} H 392`}
-                stroke="var(--ink-3)"
-                strokeWidth="1.2"
-              />
-              <circle
-                className="tool-flow-node"
-                style={{ "--tool-delay": `${420 + index * 95}ms` } as CSSProperties}
-                cx="392"
-                cy={y + 22}
-                r="4"
-                fill="var(--cinnamon)"
-              />
-              <rect x="422" y={y - 4} width="220" height="52" fill="var(--cream-1)" stroke="var(--ink-4)" />
-              <line x1="438" y1={y + 36} x2="620" y2={y + 36} stroke="var(--ink-4)" strokeWidth="1" />
-              <text x="442" y={y + 27} fill="var(--ink-1)">
-                {layer.artifact}
-              </text>
-            </g>
-          );
-        })}
-      </g>
-      <path className="tool-orbit-path" d="M 392 74 V 362" stroke="var(--cinnamon)" strokeWidth="1.4" />
-      <text
-        x="42"
-        y="404"
-        fill="var(--ink-2)"
-        fontFamily="var(--font-mono)"
-        fontSize="10"
-        letterSpacing="2"
-      >
-        BRIEF TO REVIEWED HANDOFF · PROMPTS STAY PRIVATE, PROCESS STAYS READABLE
-      </text>
-    </svg>
   );
 }
 

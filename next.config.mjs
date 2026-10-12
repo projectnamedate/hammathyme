@@ -42,18 +42,23 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/work/visual-media/:piece(the-applicant|animated-short)",
+        destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
         source: "/work/visual-media/:piece",
         destination: "/work/film-animation/:piece",
         permanent: true,
       },
       {
         source: "/work/agents",
-        destination: "/work/agents-digital-twins",
+        destination: "/work",
         permanent: true,
       },
       {
         source: "/work/agents/:piece",
-        destination: "/work/agents-digital-twins/:piece",
+        destination: "/work",
         permanent: true,
       },
       {
@@ -84,6 +89,46 @@ const nextConfig = {
       {
         source: "/work/websites/opencrawl",
         destination: "/work/websites",
+        permanent: true,
+      },
+      {
+        source: "/work/agents-digital-twins",
+        destination: "/work",
+        permanent: true,
+      },
+      {
+        source: "/work/agents-digital-twins/:piece",
+        destination: "/work",
+        permanent: true,
+      },
+      {
+        source: "/work/film-animation/the-applicant",
+        destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
+        source: "/work/film-animation/animated-short",
+        destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
+        source: "/work/motion-graphics/audio-reactive-overlays",
+        destination: "/work/motion-graphics",
+        permanent: true,
+      },
+      {
+        source: "/work/pipelines-tools/prompt-library",
+        destination: "/work/pipelines-tools",
+        permanent: true,
+      },
+      {
+        source: "/work/interactive-playable/consistency-lab",
+        destination: "/work/interactive-playable",
+        permanent: true,
+      },
+      {
+        source: "/work/interactive-playable/talk-to-character",
+        destination: "/work/interactive-playable",
         permanent: true,
       },
     ];

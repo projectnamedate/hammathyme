@@ -141,7 +141,6 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
 .tool-flow-card,
 .tool-flow-line,
 .tool-flow-node,
-.tool-orbit-path,
 .tool-orbit-node,
 .tool-scanline {
   transform-box: fill-box;
@@ -163,10 +162,6 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
   .tool-orbit-node {
     animation: tool-pulse 1500ms var(--ease-soft) 2;
     animation-delay: var(--tool-delay, 0ms);
-  }
-  .tool-orbit-path {
-    stroke-dasharray: 7 9;
-    animation: tool-march 1400ms var(--ease-cinema) both;
   }
   .tool-scanline {
     animation: tool-scan 1500ms var(--ease-cinema) 1 both;
@@ -192,9 +187,6 @@ button { background: none; border: 0; font: inherit; color: inherit; cursor: poi
 @keyframes tool-pulse {
   0%, 100% { opacity: 0.72; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.18); }
-}
-@keyframes tool-march {
-  to { stroke-dashoffset: -240; }
 }
 @keyframes tool-scan {
   0% { transform: translateY(-90%); opacity: 0; }
@@ -363,10 +355,6 @@ body[data-idle="1"] .kw .dot { animation: hf-period-pulse 1400ms ease-in-out 1; 
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.55; }
 }
-@keyframes hf-orbit {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
 @keyframes hf-shimmer-x {
   0%   { transform: translateX(-8%); }
   50%  { transform: translateX(0%); }
@@ -387,7 +375,6 @@ body[data-idle="1"] .kw .dot { animation: hf-period-pulse 1400ms ease-in-out 1; 
 
 /* hooks (no-op when not active) */
 [data-active="1"] .anim-pulse        { animation: hf-pulse-soft 3.2s ease-in-out infinite; transform-origin: center; }
-[data-active="1"] .anim-orbit        { animation: hf-orbit 28s linear infinite; transform-origin: center; transform-box: fill-box; }
 [data-active="1"] .anim-shimmer-x    { animation: hf-shimmer-x 4.8s ease-in-out infinite; }
 [data-active="1"] .anim-breathe      { animation: hf-breathe-soft 3.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
 [data-active="1"] .anim-twitch       { animation: hf-twitch 6s ease-in-out infinite; transform-box: fill-box; }
@@ -395,7 +382,6 @@ body[data-idle="1"] .kw .dot { animation: hf-period-pulse 1400ms ease-in-out 1; 
 
 @media (prefers-reduced-motion: reduce) {
   [data-active="1"] .anim-pulse,
-  [data-active="1"] .anim-orbit,
   [data-active="1"] .anim-shimmer-x,
   [data-active="1"] .anim-breathe,
   [data-active="1"] .anim-twitch,
