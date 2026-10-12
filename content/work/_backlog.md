@@ -15,6 +15,13 @@ are kept as history and may use pre-rename names.
 | # | piece | category | status |
 |---|---|---|---|
 | 18 | New Blender piece to replace the blender look-dev pipeline | vfx-cgi | Jeff 2026-10-11: look-dev now sits last on vfx + cgi; swap it for stronger Blender work when one exists. The comfyui outfit morph was deleted the same day |
+| 19 | MiniMax H3 motion graphics piece | motion-graphics | Jeff 2026-10-11 roadmap: a new H3 motion graphics piece |
+| 20 | New interactive / playable piece | interactive-playable | Jeff 2026-10-11 roadmap; concept open |
+| 21 | New code animation short | film-animation | Jeff 2026-10-11 roadmap ("New Code Animation Short?", tentative): a new film from the animation repo, joins the code animation piece |
+| 22 | Breakwater | film-animation | Jeff 2026-10-11 roadmap; the restart has been pending since the applicant subbed for it |
+| 23 | Anime short | film-animation | Jeff 2026-10-11 roadmap |
+| 24 | 3D short | film-animation | Jeff 2026-10-11 roadmap |
+| 25 | World model portfolio project | tbd (interactive-playable or vfx-cgi) | Jeff 2026-10-11 roadmap; see row 17 (Runway Solaris) for one candidate route |
 | 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |
 | 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
 | 11 | 90-second broadcast-grade short | film-animation | idea, no card |
