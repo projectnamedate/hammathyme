@@ -1,4 +1,29 @@
-# Hammer Agent Handoff - 2026-09-10
+# Hammer Agent Handoff - 2026-10-11
+
+## Latest (2026-10-11, commit 136d82f, live)
+- Categories, in atrium order: film-animation, vfx-cgi, motion-graphics,
+  brand-systems, websites, interactive-playable, pipelines-tools (7). The
+  agents + digital twins category is gone and 308s to `/work`.
+- New `film-animation/code-animation`: a 47s montage plus five films from
+  `~/Desktop/vibe/animation/finals` (web encodes in
+  `public/work/film-animation/code-animation/`). The masters stay in the
+  animation repo.
+- Removed: the applicant, animated short, audio reactive overlays, prompt
+  library, consistency lab, talk to a character. Kira lives on only as
+  brand-systems/kira and websites/kira.
+- The storyboard demo runs GPT Image 2.5 Sunburst on fal
+  (`openai/gpt-image-2.5/sunburst/text-to-image`, medium, 16:9) and draws
+  colour-pencil boards. It took 17.6s in testing.
+- Media may always be committed in this repo (see AGENTS.md).
+- Open: replace the comfyui outfit morph with Blender work (backlog row 18);
+  the unused Vercel env vars `HAMMER_OPENROUTER_API_KEY`,
+  `HAMMER_KIRA_WEB_CHAT_API_KEY`, `HAMMER_KIRA_LORA_URL`,
+  `HAMMER_KIRA_CHAT_MODEL` and `HAMMER_STORYBOARD_MODEL` can be deleted
+  (Jeff's call).
+
+The 2026-09-10 handoff below is history.
+
+## 2026-09-10 handoff
 
 ## Status
 Jeff retitled: **Creative Technologist** (was AI Producer). The retitle
