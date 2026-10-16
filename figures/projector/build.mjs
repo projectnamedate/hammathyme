@@ -772,7 +772,20 @@ for (const roller of ROLLERS) {
 }
 
 // ================================================================== settle, assemble, emit
-A.settle(R, P);
+// A part lifted out on its own with the rest at home (a second click on a part): the depth keys
+// and the flight audit cover those poses as well as the whole take-apart.
+// A part whose way out is blocked takes the blocker off first, as on the real machine: the
+// shutter disc sits in front of the lens, and the movement over the intermittent pad roller.
+const BLOCKERS = { lens: ["shutter"], rollers: ["movement"] };
+const LIFTS = Object.fromEntries(
+  STAGGER.filter((id) => PIECES[id].move.some((v) => v)).map((id) => [id, STAGGER.filter((other) => other === id || BLOCKERS[id]?.includes(other))]),
+);
+const atHome = Object.fromEntries(STAGGER.map((id) => [id, 0]));
+const LIFT_STATES = Object.entries(LIFTS).flatMap(([id, set]) =>
+  A.springStates(set, SPRING).map((state) => ({ label: `${id} lift · ${state.label}`, shares: { ...atHome, ...state.shares } })),
+);
+const EXPLODE = A.explodeStates(STAGGER, SPRING);
+A.settle(R, P, { states: [...EXPLODE.depth, ...LIFT_STATES] });
 // The pin rides in a slot with its tip proud of the wheel's face, so it always draws after
 // the wheel; at rest they don't overlap, so the measured keys can't say so on their own.
 {
@@ -816,6 +829,7 @@ Object.assign(D, {
   frameLength: M.FRAME_LENGTH,
   pieces: Object.fromEntries(Object.entries(PIECES).map(([id, piece]) => [id, { name: piece.name, say: piece.say }])),
   stagger: STAGGER,
+  lifts: LIFTS,
   spring: SPRING,
   order: ORDER,
 });
@@ -829,7 +843,7 @@ const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip"
 const paletteButtons = ["auto", "light", "dark", "paper", "blueprint"].map((v) => `<button type="button" class="pj-chip" data-palette-pick="${v}" data-cursor="dot" aria-pressed="false">${v}</button>`).join("");
 const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-trace data-cursor="dot" aria-pressed="false">trace</button><button type="button" class="pj-chip" data-closer data-cursor="dot" aria-pressed="false">look closer</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Finish"><span class="pj-label">finish</span><button type="button" class="pj-chip" data-finish-pick="grey" data-cursor="dot" aria-pressed="true">grey</button><button type="button" class="pj-chip" data-finish-pick="metal" data-cursor="dot" aria-pressed="false">metal</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
-const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, T traces the film path, C looks closer at four details, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
+const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, T traces the film path, C looks closer at four details, period and comma step a frame on or back, space takes it apart, clicking a part shows it working, and clicking it again lifts it out.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
 const caption =
   "A Geneva cross on the intermittent sprocket's shaft makes a quarter turn: four perforations, one frame. It turns only while the driver's pin is in a slot, 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down and the others cut the still frame. So two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";
@@ -899,4 +913,4 @@ writeFileSync(join(SITE, "projector.live.js"), `// ${NOTE}\n${LICENSE}\n/* eslin
 writeFileSync(join(SITE, "projector.live.d.ts"), `// ${NOTE}\nexport declare const PROJECTOR_DATA: Record<string, unknown>;\nexport declare function mountProjector(root: HTMLElement, data: Record<string, unknown>): (() => void) & { snapshot: () => Record<string, unknown> };\n`);
 console.log("wrote", name, `${(page.length / 1024).toFixed(0)} KB`, `${R.items.length} items`, `scale ${KS.toFixed(3)}`);
 
-A.auditOrExit(R, P, {});
+A.auditOrExit(R, P, { frames: [...EXPLODE.frames, ...LIFT_STATES] });

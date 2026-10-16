@@ -75,6 +75,7 @@ const state = {
   clock: 0,
   trace: null,
   closer: null,
+  lift: null,
 };
 let touring = !still.matches;
 let tourClock = 0;
@@ -148,7 +149,8 @@ function markButtons() {
 function scheduleApart(on) {
   const goal = on ? 1 : 0;
   let index = 0;
-  for (const id of on ? D.stagger : [...D.stagger].reverse()) {
+  // A lift takes out one part (and whatever blocks its way out); the rest stay home.
+  for (const id of on ? (state.lift ? D.lifts[state.lift] : D.stagger) : [...D.stagger].reverse()) {
     if (piece[id].target === goal) piece[id].pending = null;
     else piece[id].pending = { value: goal, at: state.clock + (still.matches ? 0 : index++ * SPRING.stagger) };
   }
@@ -156,6 +158,7 @@ function scheduleApart(on) {
 function setApart(on) {
   if (state.apart === on && !state.armed) return;
   state.apart = on;
+  if (!on) state.lift = null;
   state.step = null;
   if (state.crank) letGo();
   if (on) {
@@ -742,10 +745,12 @@ listen(root, "focusout", (event) => (focused = root.contains(event.relatedTarget
 // ---- the frame loop ----
 const FIRE = 3;
 function idleText() {
-  if (state.armed) return Math.abs(state.fps) > 0.05 ? "stopping · then taking apart" : "taking apart";
-  if (springsMoving()) return state.apart ? "taking apart" : "putting together";
+  const out = state.lift ? (D.lifts[state.lift].length > 1 ? `taking the ${D.pieces[D.lifts[state.lift][0]].name} off first` : "lifting it out") : "taking apart";
+  if (state.armed) return Math.abs(state.fps) > 0.05 ? `stopping · then ${out}` : out;
+  if (springsMoving()) return state.apart ? out : "putting together";
+  if (state.lift) return `lifted out · ${D.pieces[state.lift].say}`;
   if (state.apart && !state.selected) return `apart · ${MOVERS.length} assemblies · ${narrow.matches ? "tap" : "click"} one`;
-  if (state.selected && state.demo && state.demoAt !== null && state.clock - state.demoAt < 3.2) return DEMOS[state.selected].text;
+  if (state.selected && state.demo && state.demoAt !== null && state.clock - state.demoAt < 3.2) return D.lifts[state.selected] ? `${DEMOS[state.selected].text} · ${narrow.matches ? "tap" : "click"} again to lift it out` : DEMOS[state.selected].text;
   if (state.selected && !state.demo) return D.pieces[state.selected].say;
   if (state.trace && !state.apart) return still.matches ? "trace · feed reel to take-up, past three sprockets and the gate" : `trace · ${TRACE_SAY[traceStretch()]}`;
   if (tourSay && Math.abs(state.fps - state.target) < 0.5) return tourSay;
@@ -870,7 +875,7 @@ function tick(now) {
   if (home() !== ready || state.step) moving = true;
   if (!springs && !settled && !state.armed) {
     settled = true;
-    announce(state.apart ? `taken apart: ${MOVERS.length} assemblies` : "put together");
+    announce(state.lift ? `${D.pieces[state.lift].name} lifted out` : state.apart ? `taken apart: ${MOVERS.length} assemblies` : "put together");
   }
   if (Math.abs(state.fps) > 1e-4) moving = true;
   if (Math.abs(hand.rate) > 1e-3) moving = true;
@@ -1002,12 +1007,26 @@ finishButtons.forEach((b) =>
 );
 // The page around the figure owns its colours: it keeps the choice and remounts the figure.
 paletteButtons.forEach((b) => listen(b, "click", () => root.dispatchEvent(new CustomEvent("pj-palette", { bubbles: true, detail: b.dataset.palettePick }))));
+// A click shows a part working; a second click lifts it out on its own, and a third, or a
+// click anywhere else, puts it back.
+function choose(id) {
+  if (id === "stand" || id === "head") id = null;
+  if (state.lift) {
+    setApart(false);
+    return select(id, { demo: !!id });
+  }
+  if (!id || (state.selected === id && (state.apart || !D.lifts[id]))) return select(null);
+  if (state.selected === id) {
+    state.lift = id;
+    select(id);
+    return setApart(true);
+  }
+  select(id, { demo: !state.apart });
+}
 partButtons.forEach((b) =>
   listen(b, "click", () => {
     takeOver();
-    const id = b.dataset.part;
-    if (state.selected === id) select(null);
-    else select(id, { demo: !state.apart });
+    choose(b.dataset.part);
   }),
 );
 
@@ -1093,9 +1112,7 @@ listen(stage, "pointerup", (event) => {
   takeOver();
   const id = grab.piece;
   grab = null;
-  if (!id || id === "stand" || id === "head") select(null);
-  else if (state.selected === id) select(null);
-  else select(id, { demo: !state.apart });
+  choose(id);
 });
 listen(stage, "pointercancel", (event) => {
   if (!grab || grab.id !== event.pointerId) return;
@@ -1211,6 +1228,7 @@ if (D.resume) {
   tourSay = (touring && TOUR[tourStep]?.say) || "";
   state.apart = r.apart;
   state.armed = r.armed;
+  state.lift = r.lift;
   if (r.trace) {
     setTrace(true, { tour: true });
     state.trace = { t0: -r.trace.age, tour: r.trace.tour && touring };
@@ -1253,5 +1271,5 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, trace: state.trace && { tour: state.trace.tour, age: state.clock - state.trace.t0 }, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, lift: state.lift, trace: state.trace && { tour: state.trace.tour, age: state.clock - state.trace.t0 }, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
 return teardown;
