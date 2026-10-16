@@ -2966,7 +2966,6 @@ function select(id, { demo = false } = {}) {
   state.demoAt = null;
   if (state.demo) state.inched = false;
   state.target = state.demo ? DEMOS[id].fps : state.chosen;
-  pose();
   markButtons();
   describe();
   if (id) announce(D.pieces[id].say);
@@ -3336,8 +3335,7 @@ function idleText() {
   if (state.selected && !state.demo) return D.pieces[state.selected].say;
   if (tourSay && Math.abs(state.fps - state.target) < 0.5) return tourSay;
   if (state.inched && !state.crank && !state.step && Math.abs(state.fps) < 0.05 && state.clock - state.inchedAt > FIRE) return "stopped · fire shutter down";
-  const held = still.matches && !state.crank && !state.step && state.target > 0;
-  let text = held ? `held still · ${M.readoutOf(state.target, state.blades, M.openPhase(state.blades))}` : M.readoutOf(state.fps, state.blades, state.frames);
+  let text = M.readoutOf(state.fps, state.blades, state.frames);
   // Black leader passes no light, whatever the shutter is doing; nor does a lamp still coming up.
   const black = leaderOf(Math.floor(M.intermittentOf(state.frames) + 1e-9)).number === 0;
   if (black) text = text.replace("light on screen", "black leader, no picture").replace(/\d+% light$/, "black leader");
@@ -3403,9 +3401,8 @@ function tick(now) {
       motor.x = 0;
       motor.v = 0;
     }
-    // Under reduced motion the parts stay where they are; the readout and the screen show the
-    // chosen speed as a steady picture.
-    if (!calm) state.frames += motor.x * dt;
+    // Under reduced motion nothing moves unasked, but a speed the reader chose runs.
+    state.frames += motor.x * dt;
   }
   if (jumped) f0 = state.frames;
   const rate = (state.frames - f0) / dt;
@@ -3459,7 +3456,7 @@ function tick(now) {
     settled = true;
     announce(state.apart ? `taken apart: ${MOVERS.length} assemblies` : "put together");
   }
-  if (!calm && Math.abs(state.fps) > 1e-4) moving = true;
+  if (Math.abs(state.fps) > 1e-4) moving = true;
   if (Math.abs(hand.rate) > 1e-3) moving = true;
   if (state.demo && state.demoAt === null && Math.abs(state.fps - state.target) < 0.3) state.demoAt = state.clock;
   if (state.demo && (state.demoAt === null || state.clock - state.demoAt < 3.4)) moving = true;
@@ -3499,7 +3496,6 @@ function setSpeed(fps) {
   state.chosen = fps;
   select(null);
   if (state.apart) setApart(false);
-  pose();
   announce(fps ? `${fps} frame${fps === 1 ? "" : "s"} a second` : "stopped");
   run();
 }
@@ -3508,7 +3504,6 @@ bladeButtons.forEach((b) =>
   listen(b, "click", () => {
     takeOver();
     state.blades = Number(b.dataset.blades);
-    pose();
     drawnKey = "";
     markButtons();
     describe();
@@ -3528,10 +3523,6 @@ function stepGoal(step, from) {
 function stepCycle(from, dir) {
   const n = Math.floor(M.intermittentOf(from) + 1e-6);
   return dir > 0 ? n : n - 2;
-}
-// Under reduced motion a held speed is shown as one still frame with the shutter open.
-function pose() {
-  if (still.matches && !state.crank && !state.step && state.target > 0) state.frames = Math.floor(state.frames) + M.openPhase(state.blades);
 }
 function stepFrame(dir = 1) {
   takeOver();
@@ -3715,13 +3706,16 @@ listen(narrow, "change", () => {
   if (!state.crank) hint.textContent = wording();
   say(idleText());
 });
-// Reduced motion switched on mid-visit: the tour stops and the machine is shown as a still.
-// The tick checks too, in case the media event never arrives; switched off, the machine runs on.
+// Reduced motion switched on mid-visit: the tour stops, and a speed only the tour had chosen
+// stops with it. The tick checks too, in case the media event never arrives.
 function stillNow() {
+  if (touring) {
+    state.chosen = 0;
+    select(null);
+  }
   touring = false;
   tourSay = "";
   motor.x = state.target;
-  pose();
   drawnKey = "";
 }
 listen(still, "change", () => {
@@ -3778,10 +3772,14 @@ if (D.resume) {
     if (audio) soundButton.setAttribute("aria-pressed", "true");
   }
 }
+// Under reduced motion the machine waits, stopped, for the reader to choose a speed.
+if (still.matches && !D.resume) {
+  state.chosen = 0;
+  state.target = 0;
+}
 if (still.matches) {
   touring = false;
   motor.x = state.target;
-  pose();
 }
 if (!audio) soundButton.setAttribute("aria-pressed", "false");
 markButtons();
