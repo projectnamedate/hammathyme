@@ -4,7 +4,7 @@ import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-10-11T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-10-16T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =
@@ -453,14 +453,14 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
     return {
       "@type": "VideoObject",
       "@id": `${pageUrl}#video`,
-      name: "Code animation: five short films drawn in code",
+      name: "The North Wind and the Sun, an Aesop fable drawn in code",
       description:
         piece.blurb ??
-        "A montage of five short films drawn entirely in code, with sound synthesized in code.",
-      thumbnailUrl: [getCanonicalUrl("/work/film-animation/code-animation/montage-poster.jpg")],
-      uploadDate: "2026-10-11T00:00:00-07:00",
-      duration: "PT1M25S",
-      contentUrl: getCanonicalUrl("/work/film-animation/code-animation/montage-v03.mp4"),
+        "An 82-second Aesop fable drawn entirely in code, with custom voices, a score, and foley.",
+      thumbnailUrl: [getCanonicalUrl("/work/film-animation/code-animation/north-wind-poster.jpg")],
+      uploadDate: "2026-10-16T00:00:00-07:00",
+      duration: "PT1M22S",
+      contentUrl: getCanonicalUrl("/work/film-animation/code-animation/north-wind.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },

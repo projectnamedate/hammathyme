@@ -32,7 +32,7 @@
     { "path": "/work/film-animation", "purpose": "film and animation portfolio category: AI-native commercial film, shorts, and code-drawn animation" },
     { "path": "/work/film-animation/equinox", "purpose": "Equinox Question Everything But Yourself campaign spot with Angry Gods" },
     { "path": "/work/film-animation/the-gunfight", "purpose": "The Gunfight 92-second AI-native western comedy short produced through the Studioly pipeline: Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look" },
-    { "path": "/work/film-animation/code-animation", "purpose": "code animation: an 85-second reel of five short films drawn entirely in code, plus each film on its own, with sound synthesized in code" },
+    { "path": "/work/film-animation/code-animation", "purpose": "code animation: The North Wind and the Sun, an 82-second Aesop fable drawn entirely in code, plus six short films drawn in code" },
     { "path": "/work/vfx-cgi", "purpose": "vfx and cgi portfolio category: coding agents orchestrating Blender, Runway, Hunyuan 3D, and gaussian splat pipelines" },
     { "path": "/work/vfx-cgi/environment-swap", "purpose": "Runway Aleph 2 environment-swap case study: one driving plate relit into multiple worlds while preserving the real dashboard" },
     { "path": "/work/vfx-cgi/neural-set-capture", "purpose": "interactive gaussian splat of The Gunfight main street: Hunyuan 3D meshes from film frames, Blender 5.1 assembly and 234 posed renders, Brush training, Spark web viewer" },

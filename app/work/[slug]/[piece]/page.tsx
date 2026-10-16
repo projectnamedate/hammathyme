@@ -854,6 +854,7 @@ const CODE_ANIMATION_FILMS = [
   { slug: "four-seasons", title: "four seasons", lane: "painted 2d on the gpu", length: "20s loop" },
   { slug: "paper-city", title: "paper city", lane: "fframes · rust + svg", length: "18s loop" },
   { slug: "shader-worlds", title: "shader worlds", lane: "fframes · gpu shaders", length: "16s loop" },
+  { slug: "one-line", title: "one line", lane: "fframes · a single ink line", length: "16s loop" },
   { slug: "lantern-night", title: "lantern night", lane: "three.js + paint pass", length: "12s" },
 ];
 
@@ -864,15 +865,15 @@ function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            Five short films drawn entirely in code. Every frame is a function of time, rendered
-            headless and checked frame by frame before it ships.
+            The North Wind and the Sun, an Aesop fable drawn entirely in code, with six shorts
+            below. Every frame is a function of time, rendered headless and checked before it ships.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
               ["written by", "claude opus 5.5 · directed by hammer"],
               ["lanes", "p5.brush · gpu painter · fframes · three.js"],
-              ["sound", "synthesized in code · measured to -14 lufs"],
-              ["format", "85s reel of all five · 1920x1080 · 24fps · h264/aac"],
+              ["sound", "eleven v4 voices · suno score · foley in code"],
+              ["format", "82s · 1920x1080 · 24fps · h264/aac"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -890,14 +891,14 @@ function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
           style={frameStyle}
         >
           <video
-            aria-label="Code animation montage: five short films drawn in code"
+            aria-label="The North Wind and the Sun, an Aesop fable drawn in code"
             className="block aspect-video w-full bg-[var(--ink-deepest)]"
             controls
             playsInline
             preload="metadata"
-            poster={`${CODE_ANIMATION_DIR}/montage-poster.jpg`}
+            poster={`${CODE_ANIMATION_DIR}/north-wind-poster.jpg`}
           >
-            <source src={`${CODE_ANIMATION_DIR}/montage-v03.mp4`} type="video/mp4" />
+            <source src={`${CODE_ANIMATION_DIR}/north-wind.mp4`} type="video/mp4" />
           </video>
         </div>
       </div>

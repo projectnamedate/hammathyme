@@ -58,7 +58,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "narrative film and animation, ai-native end to end. live work includes Equinox with Angry Gods, the gunfight, a western comedy short, and five short films drawn entirely in code.",
+      "narrative film and animation, ai-native end to end. live work includes Equinox with Angry Gods, the gunfight, a western comedy short, and an Aesop fable drawn entirely in code.",
     tint: "var(--bloodlust)",
     hero: { main: "film", italic: "+ animation" },
     pieces: [
@@ -87,7 +87,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "code animation",
         year: "2026",
         blurb:
-          "five short films drawn entirely in code: painted 2d, a gpu painter, fframes, and three.js with a paint pass. every frame and every sound is code.",
+          "the north wind and the sun, an aesop fable drawn entirely in code, plus six shorts: painted 2d, a gpu painter, fframes, and three.js with a paint pass.",
         status: "live",
         tint: "var(--cinnamon)",
       },
