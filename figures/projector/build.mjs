@@ -1,5 +1,6 @@
 import { materialCss, materialOf } from "./materials.mjs";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as k from "../anatomy-kit/kit/iso-kit.mjs";
@@ -19,8 +20,14 @@ const TAU = Math.PI * 2;
 // ---- world (units of 1 mm; x along the beam, y toward the operator side, z up) ----
 const W = 960;
 const H = 860;
-const AZIMUTH = Number(process.env.PJ_AZ ?? 130);
-const ELEVATION = Number(process.env.PJ_EL ?? 28);
+// Camera views, by height. The painter's order holds through these; round to another azimuth the
+// Geneva lock, pin and cross need each other in front, a cycle no linear key can order.
+const VIEWS = { mid: 28, low: 14, high: 42 };
+const VIEW = process.env.PJ_VIEW ?? "mid";
+if (!(VIEW in VIEWS)) throw new Error(`unknown view ${VIEW}`);
+const OTHER_VIEW = VIEW !== "mid";
+const AZIMUTH = 130;
+const ELEVATION = VIEWS[VIEW];
 const ZA = 500;
 const AY = 27.5;
 const F0 = 10;
@@ -841,7 +848,10 @@ const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
 const paletteButtons = ["auto", "light", "dark", "paper", "blueprint"].map((v) => `<button type="button" class="pj-chip" data-palette-pick="${v}" data-cursor="dot" aria-pressed="false">${v}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}<button type="button" class="pj-chip" data-slow data-cursor="dot" aria-pressed="false">slow</button></span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-trace data-cursor="dot" aria-pressed="false">trace</button><button type="button" class="pj-chip" data-closer data-cursor="dot" aria-pressed="false">look closer</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Finish"><span class="pj-label">finish</span><button type="button" class="pj-chip" data-finish-pick="grey" data-cursor="dot" aria-pressed="true">grey</button><button type="button" class="pj-chip" data-finish-pick="metal" data-cursor="dot" aria-pressed="false">metal</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}<button type="button" class="pj-chip" data-slow data-cursor="dot" aria-pressed="false">slow</button></span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-trace data-cursor="dot" aria-pressed="false">trace</button><button type="button" class="pj-chip" data-closer data-cursor="dot" aria-pressed="false">look closer</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group pj-views" role="group" aria-label="Camera height"><span class="pj-label">view</span>${Object.keys(VIEWS)
+  .sort((a, b) => VIEWS[a] - VIEWS[b])
+  .map((v) => `<button type="button" class="pj-chip" data-view-pick="${v}" data-cursor="dot" aria-pressed="${v === "mid"}">${v}</button>`)
+  .join("")}</span><span class="pj-group" role="group" aria-label="Finish"><span class="pj-label">finish</span><button type="button" class="pj-chip" data-finish-pick="grey" data-cursor="dot" aria-pressed="true">grey</button><button type="button" class="pj-chip" data-finish-pick="metal" data-cursor="dot" aria-pressed="false">metal</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
 const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, S slows it down sixteen times, T traces the film path, C looks closer at four details, period and comma step a frame on or back, space takes it apart, clicking a part shows it working, and clicking it again lifts it out.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
@@ -900,18 +910,42 @@ const page = k.pageHtml({
   script: `${MOUNT}\n${PALETTE_HOST}\nhostPalette(document.body, document.querySelector(".pj"), ${DATA_JSON});`,
   width: 1000,
 });
-const name = THEME === "light" ? "projector-light.html" : "projector.html";
+const name = `projector${OTHER_VIEW ? `-${VIEW}` : ""}${THEME === "light" ? "-light" : ""}.html`;
 writeFileSync(join(HERE, name), page);
 // The site gets three files: the drawing as HTML for the server to render, the styles, and
 // the live code as a module the bundler minifies.
 mkdirSync(SITE, { recursive: true });
 const NOTE = "Generated by figures/projector/build.mjs. Rebuild with `node figures/projector/build.mjs`.";
+// Another view ships only its drawing and data, loaded when the reader picks it.
+if (OTHER_VIEW) writeFileSync(join(SITE, `projector.view-${VIEW}.ts`), `// ${NOTE}\nexport const STAGE = ${JSON.stringify(STAGE_INNER)};\nexport const DATA: Record<string, unknown> = JSON.parse(${JSON.stringify(DATA_JSON)});\n`);
+else {
+const OTHERS = Object.keys(VIEWS).filter((v) => v !== "mid");
+writeFileSync(join(SITE, "projector.views.ts"), `// ${NOTE}\ntype View = { STAGE: string; DATA: Record<string, unknown> };\nexport const VIEW_LOADERS: Record<string, () => Promise<View>> = {\n${OTHERS.map((v) => `  ${v}: () => import("./projector.view-${v}"),`).join("\n")}\n};\n`);
 writeFileSync(join(SITE, "projector.shell.ts"), `// ${NOTE}\nexport const PROJECTOR_SHELL = ${JSON.stringify(shell)};\n`);
 writeFileSync(join(SITE, "projector.stage.ts"), `// ${NOTE}\nexport const PROJECTOR_STAGE = ${JSON.stringify(STAGE_INNER)};\n`);
 const LICENSE = "/*! Drawn with the Anatomy kit (github.com/wheresryan22/anatomy), MIT License, Copyright (c) 2026 Ryan. */";
 writeFileSync(join(SITE, "projector.css"), `/* ${NOTE} */\n${LICENSE}\n${k.ISO_CSS}\n${CSS}`);
 writeFileSync(join(SITE, "projector.live.js"), `// ${NOTE}\n${LICENSE}\n/* eslint-disable */\nexport const PROJECTOR_DATA = ${DATA_JSON};\nexport ${MOUNT}\n`);
 writeFileSync(join(SITE, "projector.live.d.ts"), `// ${NOTE}\nexport declare const PROJECTOR_DATA: Record<string, unknown>;\nexport declare function mountProjector(root: HTMLElement, data: Record<string, unknown>): (() => void) & { snapshot: () => Record<string, unknown> };\n`);
+}
 console.log("wrote", name, `${(page.length / 1024).toFixed(0)} KB`, `${R.items.length} items`, `scale ${KS.toFixed(3)}`);
 
 A.auditOrExit(R, P, { frames: [...EXPLODE.frames, ...LIFT_STATES] });
+
+// The mid view builds the others too, so one command makes and audits every view.
+if (!OTHER_VIEW && THEME === "light") {
+  let failed = process.exitCode === 1;
+  for (const view of Object.keys(VIEWS).filter((v) => v !== "mid")) {
+    try {
+      const out = execFileSync(process.execPath, [fileURLToPath(import.meta.url), ...process.argv.slice(2)], { env: { ...process.env, PJ_VIEW: view }, encoding: "utf8" });
+      const last = out.trim().split("\n").pop();
+      console.log(`view ${view}: ${last}`);
+    } catch (error) {
+      failed = true;
+      console.log(`view ${view}: failed\n${error.stdout ?? ""}${error.stderr ?? ""}`);
+    }
+  }
+  if (process.argv.includes("--audit")) console.log(failed ? "all views: audit failed" : "all views: audit passed");
+  else console.log("wrote every view");
+  if (failed) process.exitCode = 1;
+}

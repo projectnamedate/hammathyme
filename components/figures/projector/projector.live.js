@@ -2758,6 +2758,7 @@ const slowButton = root.querySelector("button[data-slow]");
 const timing = root.querySelector(".pj-timing");
 const paletteButtons = [...root.querySelectorAll("button[data-palette-pick]")];
 const finishButtons = [...root.querySelectorAll("button[data-finish-pick]")];
+const viewButtons = [...root.querySelectorAll("button[data-view-pick]")];
 // The finish is only colour, so it changes in place with no remount; the host keeps it on its
 // element, where the material rules key on it.
 const finishHost = root.closest(".iso");
@@ -2886,6 +2887,8 @@ function markButtons() {
   paletteButtons.forEach((b) => press(b, b.dataset.palettePick === choice));
   const finish = finishHost?.getAttribute("data-finish") === "metal" ? "metal" : "grey";
   finishButtons.forEach((b) => press(b, b.dataset.finishPick === finish));
+  const view = root.closest("[data-view]")?.getAttribute("data-view") ?? "mid";
+  viewButtons.forEach((b) => press(b, b.dataset.viewPick === view));
 }
 
 // ---- explode ----
@@ -3864,6 +3867,8 @@ finishButtons.forEach((b) =>
     announce(metal ? "metal finish" : "grey finish");
   }),
 );
+// A view is another drawing: the page loads it and remounts the figure on it.
+viewButtons.forEach((b) => listen(b, "click", () => root.dispatchEvent(new CustomEvent("pj-view", { bubbles: true, detail: b.dataset.viewPick }))));
 // The page around the figure owns its colours: it keeps the choice and remounts the figure.
 paletteButtons.forEach((b) => listen(b, "click", () => root.dispatchEvent(new CustomEvent("pj-palette", { bubbles: true, detail: b.dataset.palettePick }))));
 // A click shows a part working; a second click lifts it out on its own, and a third, or a

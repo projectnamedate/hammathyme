@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { VIEW_LOADERS } from "./projector.views";
 
 type Unmount = (() => void) & { snapshot?: () => Record<string, unknown> };
 type Mount = (root: HTMLElement, data: Record<string, unknown>) => Unmount;
@@ -40,6 +41,9 @@ export function ProjectorLive() {
     let markup = "";
     let mount: Mount | null = null;
     let data: Record<string, unknown> = {};
+    let mid = { markup: "", data: {} as Record<string, unknown> };
+    host.dataset.views = "";
+    host.dataset.view = "mid";
 
     // Every mount starts from fresh drawing markup, so a theme change mid-use never inherits
     // parts left apart or turned by the run before; what the reader chose carries over.
@@ -57,6 +61,7 @@ export function ProjectorLive() {
       markup = PROJECTOR_STAGE;
       mount = live.mountProjector;
       data = live.PROJECTOR_DATA;
+      mid = { markup, data };
       start();
     };
     const restyle = () => (mount ? start() : theme());
@@ -72,6 +77,23 @@ export function ProjectorLive() {
       restyle();
     };
     host.addEventListener("pj-palette", onPick);
+    // Another camera height is another drawing, loaded the first time it is picked.
+    const onView = async (event: Event) => {
+      const view = (event as CustomEvent<string>).detail;
+      if (!mount || view === host.dataset.view) return;
+      if (view === "mid") ({ markup, data } = mid);
+      else {
+        const load = VIEW_LOADERS[view];
+        if (!load) return;
+        const chosen = await load();
+        if (cancelled) return;
+        markup = chosen.STAGE;
+        data = chosen.DATA;
+      }
+      host.dataset.view = view;
+      start();
+    };
+    host.addEventListener("pj-view", onView);
 
     // Load the drawing once the page has settled and the figure is close, so its chunk of
     // several hundred KB never competes with the page's first paint; the page's intro
@@ -103,6 +125,7 @@ export function ProjectorLive() {
       window.clearTimeout(fallback);
       dark.removeEventListener("change", onTheme);
       host.removeEventListener("pj-palette", onPick);
+      host.removeEventListener("pj-view", onView);
       unmount();
     };
   }, []);

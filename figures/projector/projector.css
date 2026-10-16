@@ -432,6 +432,15 @@
   color: var(--anatomy-text);
 }
 
+/* Views need the page to load their drawings, so the chips show only where a host does. */
+.pj-views {
+  display: none !important;
+}
+
+[data-views] .pj-views {
+  display: inline-flex !important;
+}
+
 .pj-group {
   display: inline-flex;
   align-items: center;
