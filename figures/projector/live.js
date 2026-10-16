@@ -16,6 +16,14 @@ const soundButton = root.querySelector("[data-sound]");
 const traceButton = root.querySelector("[data-trace]");
 const closerButton = root.querySelector("[data-closer]");
 const paletteButtons = [...root.querySelectorAll("[data-palette-pick]")];
+const finishButtons = [...root.querySelectorAll("[data-finish-pick]")];
+// The finish is only colour, so it changes in place with no remount; the host keeps it on its
+// element, where the material rules key on it.
+const finishHost = root.closest(".iso");
+try {
+  const kept = localStorage.getItem("pj-finish");
+  if (kept === "metal") finishHost?.setAttribute("data-finish", "metal");
+} catch {}
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 const part = (name) => stage.querySelector(`[data-part="${name}"]`);
 const TAU = Math.PI * 2;
@@ -132,6 +140,8 @@ function markButtons() {
   partButtons.forEach((b) => press(b, b.dataset.part === state.selected));
   const choice = root.closest("[data-choice]")?.getAttribute("data-choice") ?? "auto";
   paletteButtons.forEach((b) => press(b, b.dataset.palettePick === choice));
+  const finish = finishHost?.getAttribute("data-finish") === "metal" ? "metal" : "grey";
+  finishButtons.forEach((b) => press(b, b.dataset.finishPick === finish));
 }
 
 // ---- explode ----
@@ -978,6 +988,18 @@ listen(soundButton, "click", () => {
     if (audio) soundButton.setAttribute("aria-pressed", "true");
   }
 });
+finishButtons.forEach((b) =>
+  listen(b, "click", () => {
+    const metal = b.dataset.finishPick === "metal";
+    if (metal) finishHost?.setAttribute("data-finish", "metal");
+    else finishHost?.removeAttribute("data-finish");
+    try {
+      localStorage.setItem("pj-finish", metal ? "metal" : "grey");
+    } catch {}
+    markButtons();
+    announce(metal ? "metal finish" : "grey finish");
+  }),
+);
 // The page around the figure owns its colours: it keeps the choice and remounts the figure.
 paletteButtons.forEach((b) => listen(b, "click", () => root.dispatchEvent(new CustomEvent("pj-palette", { bubbles: true, detail: b.dataset.palettePick }))));
 partButtons.forEach((b) =>

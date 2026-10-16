@@ -1,3 +1,4 @@
+import { materialCss, materialOf } from "./materials.mjs";
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -782,7 +783,8 @@ A.settle(R, P);
 R.items.sort((a, b) => a.key - b.key);
 const groups = R.items.map((item, index) => {
   const [mx, my, mz] = item.move;
-  return `<g class="it" data-piece="${item.piece}" data-k="${item.key.toFixed(2)}" data-m="${mx.toFixed(1)},${my.toFixed(1)},${mz.toFixed(1)}" data-i="${index}">${item.svg}</g>`;
+  const mat = materialOf(item.name);
+  return `<g class="it" data-piece="${item.piece}"${mat ? ` data-mat="${mat}"` : ""} data-k="${item.key.toFixed(2)}" data-m="${mx.toFixed(1)},${my.toFixed(1)},${mz.toFixed(1)}" data-i="${index}">${item.svg}</g>`;
 });
 
 const LABEL_TEXT =
@@ -825,7 +827,7 @@ const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
 const paletteButtons = ["auto", "light", "dark", "paper", "blueprint"].map((v) => `<button type="button" class="pj-chip" data-palette-pick="${v}" data-cursor="dot" aria-pressed="false">${v}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-trace data-cursor="dot" aria-pressed="false">trace</button><button type="button" class="pj-chip" data-closer data-cursor="dot" aria-pressed="false">look closer</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-trace data-cursor="dot" aria-pressed="false">trace</button><button type="button" class="pj-chip" data-closer data-cursor="dot" aria-pressed="false">look closer</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Finish"><span class="pj-label">finish</span><button type="button" class="pj-chip" data-finish-pick="grey" data-cursor="dot" aria-pressed="true">grey</button><button type="button" class="pj-chip" data-finish-pick="metal" data-cursor="dot" aria-pressed="false">metal</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
 const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, T traces the film path, C looks closer at four details, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
@@ -835,7 +837,7 @@ const plateWith = (inner) => `<figure class="iso-figure pj" aria-label="35mm pro
 const plate = plateWith(stage);
 const shell = plateWith(`${stageOpen}</div>`);
 
-const CSS = readFileSync(join(HERE, "projector.css"), "utf8");
+const CSS = `${readFileSync(join(HERE, "projector.css"), "utf8")}\n${materialCss()}\n`;
 const latheSource = readFileSync(join(HERE, "..", "anatomy-kit", "kit", "lathe.mjs"), "utf8").replace(/^import .*$/m, "").replace(/^export /gm, "");
 const latheScript = `const G = (() => {${latheSource}\nreturn { viewOf, scaleOf, frameAlong, frameOf, pointOf, disc, circleOf, arcOf, dot3, add3, sub3, mul3, unit3, cross3, len3, lightOf, toneOf, dotsOf, ribsOf };})();\n`;
 const modelScript = `const M = (() => {${readFileSync(join(HERE, "model.mjs"), "utf8").replace(/^export /gm, "")}\nreturn { FRAME_LENGTH, crossOf, intermittentOf, shutterOpen, lightShare, flickerHz, screenLight, leaderAt, readoutOf, phaseOf, openPhase, feetPerMinute, LEADER, SOUND_FPS };})();\n`;
