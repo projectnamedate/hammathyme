@@ -822,7 +822,8 @@ const partButtons = ORDER.map((id, index) => `<button type="button" class="pj-pa
 const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="iso-plate-corner" data-corner="fig">Fig 1</span><span class="iso-plate-corner" data-corner="title">35mm projector</span><span class="iso-plate-corner" data-corner="readout" data-readout>${M.readoutOf(0, 2)}</span></div>`;
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const paletteButtons = ["auto", "light", "dark", "paper", "blueprint"].map((v) => `<button type="button" class="pj-chip" data-palette-pick="${v}" data-cursor="dot" aria-pressed="false">${v}</button>`).join("");
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
 const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
@@ -842,12 +843,42 @@ const liveBody = readFileSync(join(HERE, "live.js"), "utf8");
 const LIVE = `${kitScript()}\n${glScript()}\n${latheScript}${modelScript}${partsScript}\n${liveBody}`;
 
 const DATA_JSON = JSON.stringify(D);
+// The standalone page plays host the way ProjectorLive does on the site: it keeps the reader's
+// palette and remounts on fresh markup, carrying the machine's state over.
+const PALETTE_HOST = `function hostPalette(host, root, D) {
+  const PALETTES = { light: ["light", ""], dark: ["dark", ""], paper: ["light", "paper"], blueprint: ["dark", "blueprint"] };
+  const stage = root.querySelector(".pj-stage");
+  const markup = stage.innerHTML;
+  const base = host.dataset.theme;
+  let choice = "auto";
+  try { choice = localStorage.getItem("pj-palette") || "auto"; } catch {}
+  const apply = () => {
+    const [theme, palette] = PALETTES[choice] || [base, ""];
+    host.dataset.theme = theme;
+    if (palette) host.dataset.palette = palette;
+    else delete host.dataset.palette;
+    host.dataset.choice = choice;
+  };
+  apply();
+  let unmount = mountProjector(root, D);
+  window.__projector = unmount;
+  host.addEventListener("pj-palette", (event) => {
+    choice = event.detail;
+    try { localStorage.setItem("pj-palette", choice); } catch {}
+    const resume = unmount.snapshot();
+    unmount();
+    apply();
+    stage.innerHTML = markup;
+    unmount = mountProjector(root, { ...D, resume });
+    window.__projector = unmount;
+  });
+}`;
 const MOUNT = `function mountProjector(root, D) {\n${LIVE}\n}`;
 const page = k.pageHtml({
   title: "35mm projector",
   theme: THEME,
   body: `<style>${CSS}</style>${plate}`,
-  script: `${MOUNT}\nwindow.__projector = mountProjector(document.querySelector(".pj"), ${DATA_JSON});`,
+  script: `${MOUNT}\n${PALETTE_HOST}\nhostPalette(document.body, document.querySelector(".pj"), ${DATA_JSON});`,
   width: 1000,
 });
 const name = THEME === "light" ? "projector-light.html" : "projector.html";

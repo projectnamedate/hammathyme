@@ -2746,6 +2746,7 @@ const bladeButtons = [...root.querySelectorAll("[data-blades]")];
 const stepButton = root.querySelector("[data-step]");
 const apartButton = root.querySelector("[data-apart]");
 const soundButton = root.querySelector("[data-sound]");
+const paletteButtons = [...root.querySelectorAll("[data-palette-pick]")];
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 const part = (name) => stage.querySelector(`[data-part="${name}"]`);
 const TAU = Math.PI * 2;
@@ -2856,6 +2857,8 @@ function markButtons() {
   bladeButtons.forEach((b) => press(b, Number(b.dataset.blades) === state.blades));
   apartButton.textContent = state.apart ? "put together" : "take apart";
   partButtons.forEach((b) => press(b, b.dataset.part === state.selected));
+  const choice = root.closest("[data-choice]")?.getAttribute("data-choice") ?? "auto";
+  paletteButtons.forEach((b) => press(b, b.dataset.palettePick === choice));
 }
 
 // ---- explode ----
@@ -3559,6 +3562,8 @@ listen(soundButton, "click", () => {
     if (audio) soundButton.setAttribute("aria-pressed", "true");
   }
 });
+// The page around the figure owns its colours: it keeps the choice and remounts the figure.
+paletteButtons.forEach((b) => listen(b, "click", () => root.dispatchEvent(new CustomEvent("pj-palette", { bubbles: true, detail: b.dataset.palettePick }))));
 partButtons.forEach((b) =>
   listen(b, "click", () => {
     takeOver();

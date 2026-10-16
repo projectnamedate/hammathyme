@@ -39,6 +39,86 @@
   --pj-beam-share: 0.55;
 }
 
+/* Two more palettes over the kit's own pair: paper rides the light theme, blueprint the dark,
+   so the kit's shading rules and the beam's blending stay those of their family. */
+.iso[data-palette="paper"] {
+  --anatomy-page: #e7e0d2;
+  --anatomy-card: #f1ece2;
+  --anatomy-text: #5c5549;
+  --anatomy-strong: #1f1b15;
+  --anatomy-muted: #92897a;
+  --anatomy-face: #f8f4ec;
+  --anatomy-top: #f8f4ec;
+  --anatomy-shade-0: #d5cdbc;
+  --anatomy-shade-1: #ddd6c7;
+  --anatomy-shade-2: #e5dfd1;
+  --anatomy-shade-3: #ebe6d9;
+  --anatomy-lit-top: #fbf8f2;
+  --anatomy-lit-shade: #e8e2d5;
+  --anatomy-hi: #2b261f;
+  --anatomy-mid: #8d8474;
+  --anatomy-lo: #b4ab99;
+  --anatomy-faint: #d2cab9;
+  --anatomy-halo: #8a7e66;
+  --anatomy-dot: #3c362d;
+}
+
+[data-palette="paper"] .pj {
+  --pj-chip-ring: #2a1f0a1f;
+  --pj-chip-on: #2a1f0a10;
+  --pj-screen-dark: #bcb4a3;
+  --pj-screen-lit: #fcf9f2;
+  --pj-ink: #2b261f;
+  --pj-port-off: #8e8575;
+  --pj-film-face: #dfd4bd;
+  --pj-mask: #918877;
+  --pj-frame-bg: #e5ddce;
+  --pj-sweep: #cdc4b3;
+  --pj-beam: #efdfc2;
+}
+
+/* Paper grain over the whole plate, multiplied so it darkens fills and lines alike and the
+   drawing reads as printed on the sheet. */
+[data-palette="paper"] .pj .iso-plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .3 0 0 0 0 .22 1.1 0 0 0 -.48'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+}
+
+.iso[data-palette="blueprint"] {
+  --anatomy-page: #0a1a2e;
+  --anatomy-card: #0f2540;
+  --anatomy-text: #9db8d6;
+  --anatomy-strong: #e8f1fb;
+  --anatomy-muted: #6084ab;
+  --anatomy-face: #15304f;
+  --anatomy-top: #173352;
+  --anatomy-shade-0: #0b1d34;
+  --anatomy-shade-1: #0d2139;
+  --anatomy-shade-2: #10263f;
+  --anatomy-shade-3: #132a46;
+  --anatomy-lit-top: #1f3c62;
+  --anatomy-lit-shade: #183456;
+  --anatomy-hi: #d4e5f7;
+  --anatomy-mid: #6d91b8;
+  --anatomy-lo: #3f618a;
+  --anatomy-faint: #28476c;
+  --anatomy-halo: #04101f;
+  --anatomy-dot: #d4e5f7;
+}
+
+[data-palette="blueprint"] .pj {
+  --pj-chip-ring: #d4e5f71f;
+  --pj-chip-on: #d4e5f714;
+  --pj-screen-dark: #0a182b;
+  --pj-port-off: #0c1c31;
+  --pj-mask: #071426;
+}
+
 .pj-host {
   --anatomy-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -47,6 +127,10 @@
    face is lifted to read as a solid disc rather than a wire outline. */
 [data-theme="dark"] [data-plate="shutter"] [data-turn="front"] > .iso-shade {
   fill: #202020;
+}
+
+[data-palette="blueprint"] [data-plate="shutter"] [data-turn="front"] > .iso-shade {
+  fill: #1a3758;
 }
 
 .pj-host[data-theme="dark"] .pj .iso-legend {
@@ -430,7 +514,7 @@
 
 @container pj (max-width: 899px) {
   .pj .iso-plate {
-    padding: 48px 6px 132px;
+    padding: 48px 6px 166px;
   }
 
   .pj-controls {

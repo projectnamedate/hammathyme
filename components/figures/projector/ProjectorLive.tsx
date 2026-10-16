@@ -5,6 +5,10 @@ import { useEffect, useRef } from "react";
 type Unmount = (() => void) & { snapshot?: () => Record<string, unknown> };
 type Mount = (root: HTMLElement, data: Record<string, unknown>) => Unmount;
 
+// Each palette rides one of the kit's two themes, which the shading and the beam key on.
+const PALETTES: Record<string, [string, string]> = { light: ["light", ""], dark: ["dark", ""], paper: ["light", "paper"], blueprint: ["dark", "blueprint"] };
+const KEY = "pj-palette";
+
 export function ProjectorLive() {
   const anchor = useRef<HTMLSpanElement>(null);
 
@@ -13,11 +17,19 @@ export function ProjectorLive() {
     const root = host?.querySelector<HTMLElement>(".pj");
     const stage = root?.querySelector<HTMLElement>(".pj-stage");
     if (!host || !root || !stage) return;
-    // The figure keeps the kit's own light and dark themes and follows the viewer's setting,
+    // The figure follows the viewer's setting unless they picked a palette on its chips, and is
     // set before anything draws so a dark-mode visitor never sees the light card first.
     const dark = matchMedia("(prefers-color-scheme: dark)");
+    let choice = "auto";
+    try {
+      choice = localStorage.getItem(KEY) || "auto";
+    } catch {}
     const theme = () => {
-      host.dataset.theme = dark.matches ? "dark" : "light";
+      const [mode, palette] = PALETTES[choice] ?? [dark.matches ? "dark" : "light", ""];
+      host.dataset.theme = mode;
+      if (palette) host.dataset.palette = palette;
+      else delete host.dataset.palette;
+      host.dataset.choice = choice;
     };
     theme();
     let unmount: Unmount = () => {};
@@ -47,8 +59,19 @@ export function ProjectorLive() {
       data = live.PROJECTOR_DATA;
       start();
     };
-    const onTheme = () => (mount ? start() : theme());
+    const restyle = () => (mount ? start() : theme());
+    const onTheme = () => {
+      if (choice === "auto") restyle();
+    };
     dark.addEventListener("change", onTheme);
+    const onPick = (event: Event) => {
+      choice = (event as CustomEvent<string>).detail;
+      try {
+        localStorage.setItem(KEY, choice);
+      } catch {}
+      restyle();
+    };
+    host.addEventListener("pj-palette", onPick);
 
     // Load the drawing once the page has settled and the figure is close, so its chunk of
     // several hundred KB never competes with the page's first paint; the page's intro
@@ -79,6 +102,7 @@ export function ProjectorLive() {
       if (idle && typeof window.cancelIdleCallback === "function") window.cancelIdleCallback(idle);
       window.clearTimeout(fallback);
       dark.removeEventListener("change", onTheme);
+      host.removeEventListener("pj-palette", onPick);
       unmount();
     };
   }, []);
