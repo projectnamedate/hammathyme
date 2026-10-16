@@ -274,6 +274,25 @@
   -webkit-user-select: none;
 }
 
+.pj-stage {
+  --pj-zb: 1;
+  --pj-zs: 1;
+  --pj-zx: 0.5;
+  --pj-zy: 0.5;
+}
+
+/* The camera: the point (zx, zy) of the drawing, as fractions of it, brought to the middle at
+   scale zs, on top of the card's base zoom zb. All three layers move as one. */
+.pj-stage > svg,
+.pj-stage > canvas {
+  transform: translate(calc((0.5 - var(--pj-zx)) * var(--pj-zb) * var(--pj-zs) * 100%), calc((0.5 - var(--pj-zy)) * var(--pj-zb) * var(--pj-zs) * 100%)) scale(calc(var(--pj-zb) * var(--pj-zs)));
+}
+
+/* Zoomed in, the drawing is framed above the controls rather than running under them. */
+.pj-stage[data-closer] {
+  clip-path: inset(0 0 var(--pj-cut, 0px) 0);
+}
+
 .pj-stage:focus-visible {
   outline: 1px solid var(--anatomy-muted);
   outline-offset: 6px;
@@ -543,6 +562,7 @@
   font: inherit;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
   cursor: pointer;
   box-shadow: inset 0 0 0 1px var(--pj-chip-ring);
   transition: color 160ms var(--anatomy-ease), background 160ms var(--anatomy-ease);
@@ -638,6 +658,15 @@
     font-size: 9.5px;
   }
 
+  .pj-chip {
+    padding: 0 6px;
+    letter-spacing: 0.04em;
+  }
+
+  .pj-group {
+    flex-wrap: wrap;
+  }
+
   .pj .iso-plate {
     padding-top: 64px;
   }
@@ -659,9 +688,8 @@
   }
 
   /* On a narrow card the parts would get too small; the drawing's own air takes the zoom. */
-  .pj-stage > svg,
-  .pj-stage > canvas {
-    transform: scale(1.15);
+  .pj-stage {
+    --pj-zb: 1.15;
   }
 
 }

@@ -14,6 +14,7 @@ const stepButton = root.querySelector("[data-step]");
 const apartButton = root.querySelector("[data-apart]");
 const soundButton = root.querySelector("[data-sound]");
 const traceButton = root.querySelector("[data-trace]");
+const closerButton = root.querySelector("[data-closer]");
 const paletteButtons = [...root.querySelectorAll("[data-palette-pick]")];
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 const part = (name) => stage.querySelector(`[data-part="${name}"]`);
@@ -65,6 +66,7 @@ const state = {
   light: 0,
   clock: 0,
   trace: null,
+  closer: null,
 };
 let touring = !still.matches;
 let tourClock = 0;
@@ -126,6 +128,7 @@ function markButtons() {
   bladeButtons.forEach((b) => press(b, Number(b.dataset.blades) === state.blades));
   apartButton.textContent = state.apart ? "put together" : "take apart";
   press(traceButton, !!state.trace);
+  press(closerButton, !!state.closer && !state.closer.back);
   partButtons.forEach((b) => press(b, b.dataset.part === state.selected));
   const choice = root.closest("[data-choice]")?.getAttribute("data-choice") ?? "auto";
   paletteButtons.forEach((b) => press(b, b.dataset.palettePick === choice));
@@ -491,6 +494,85 @@ function setTrace(on, { tour = false } = {}) {
   run();
 }
 
+// ---- look closer: the camera whips in to four details and holds on each while it works ----
+const SHOTS = ["gate", "movement", "shutter", "lamp"];
+const CLOSER = { whip: 0.55, hold: 2.9, back: 0.7 };
+const HERO = { x: 0.5, y: 0.5, s: 1 };
+let cam = HERO;
+// A shot frames the part's rest pose: getBBox leaves out the explode's own transform.
+function shotOf(id) {
+  const boxes = nodes.filter((node) => node.piece === id).map((node) => node.el.getBBox());
+  const x0 = Math.min(...boxes.map((b) => b.x));
+  const y0 = Math.min(...boxes.map((b) => b.y));
+  const x1 = Math.max(...boxes.map((b) => b.x + b.width));
+  const y1 = Math.max(...boxes.map((b) => b.y + b.height));
+  return { x: (x0 + x1) / 2 / D.W, y: (y0 + y1) / 2 / D.H, s: clamp(0.5 * Math.min(D.W / (x1 - x0), D.H / (y1 - y0)), 1.6, 3) };
+}
+function startCloser() {
+  if (state.apart) setApart(false);
+  select(null);
+  const keys = [{ at: 0, cam }];
+  let t = 0;
+  for (const id of SHOTS) {
+    const shot = shotOf(id);
+    keys.push({ at: (t += CLOSER.whip), cam: shot, id, whip: true });
+    // The hold keeps drifting a little, so a held shot still reads as a camera.
+    keys.push({ at: (t += CLOSER.hold), cam: { x: shot.x + 0.01, y: shot.y - 0.006, s: shot.s * 1.06 }, id });
+  }
+  keys.push({ at: (t += CLOSER.back), cam: HERO, whip: true });
+  state.closer = { t: 0, keys, id: null, back: false };
+  const controls = root.querySelector(".pj-controls")?.getBoundingClientRect();
+  if (controls) stage.style.setProperty("--pj-cut", `${Math.max(0, stage.getBoundingClientRect().bottom - controls.top + 8).toFixed(0)}px`);
+  stage.setAttribute("data-closer", "");
+  markButtons();
+  announce("looking closer");
+  run();
+}
+function pullBack() {
+  state.closer = { t: 0, keys: [{ at: 0, cam }, { at: 0.45, cam: HERO, whip: true }], id: null, back: true };
+  markButtons();
+}
+const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+function stepCloser(dt, calm) {
+  const c = state.closer;
+  c.t += dt;
+  const keys = c.keys;
+  const end = keys[keys.length - 1];
+  if (c.t >= end.at) {
+    setCam(HERO);
+    state.closer = null;
+    stage.removeAttribute("data-closer");
+    if (!c.back) {
+      select(null);
+      announce("back to the whole machine");
+    }
+    markButtons();
+    return;
+  }
+  let i = 0;
+  while (keys[i + 1].at <= c.t) i++;
+  const [a, b] = [keys[i], keys[i + 1]];
+  if (b.id && b.id !== c.id) {
+    c.id = b.id;
+    select(b.id, { demo: true });
+  }
+  // Under reduced motion the camera cuts and holds still.
+  if (calm) return setCam(b.whip ? b.cam : a.cam);
+  const k = (c.t - a.at) / (b.at - a.at);
+  const e = b.whip ? easeInOut(k) : k;
+  setCam({ x: a.cam.x + (b.cam.x - a.cam.x) * e, y: a.cam.y + (b.cam.y - a.cam.y) * e, s: Math.exp(Math.log(a.cam.s) + (Math.log(b.cam.s) - Math.log(a.cam.s)) * e) });
+}
+let shownCam = "";
+function setCam(next) {
+  cam = next;
+  const key = `${next.x.toFixed(4)}|${next.y.toFixed(4)}|${next.s.toFixed(4)}`;
+  if (key === shownCam) return;
+  shownCam = key;
+  stage.style.setProperty("--pj-zx", next.x.toFixed(4));
+  stage.style.setProperty("--pj-zy", next.y.toFixed(4));
+  stage.style.setProperty("--pj-zs", next.s.toFixed(4));
+}
+
 // ---- the projector's beam: haze in the cone from the shutter to the screen ----
 const LIGHT = (root.closest("[data-theme]")?.getAttribute("data-theme") ?? "dark") !== "dark" ? 1 : 0;
 const beam = (() => {
@@ -633,6 +715,7 @@ function stepTour(dt) {
 function takeOver() {
   touring = false;
   tourSay = "";
+  if (state.closer && !state.closer.back) pullBack();
   if (state.trace?.tour) setTrace(false);
   // The tour may have left a speed no chip offers; the reader's machine runs at 24.
   if (!SPEEDS.includes(state.chosen)) {
@@ -682,6 +765,7 @@ function tick(now) {
     if (calm) stillNow();
   }
   if (touring) stepTour(dt);
+  if (state.closer) stepCloser(dt, calm);
   let f0 = state.frames;
   let moving = false;
   let jumped = false;
@@ -783,6 +867,7 @@ function tick(now) {
   if (state.demo && state.demoAt === null && Math.abs(state.fps - state.target) < 0.3) state.demoAt = state.clock;
   if (state.demo && (state.demoAt === null || state.clock - state.demoAt < 3.4)) moving = true;
   if (state.trace && !calm) moving = true;
+  if (state.closer) moving = true;
   draw(f0, state.frames, calm);
   place();
   if (audio) audio.hum(visible && !document.hidden ? Math.abs(state.fps) : 0);
@@ -877,6 +962,11 @@ listen(traceButton, "click", () => {
   takeOver();
   select(null);
   setTrace(on);
+});
+listen(closerButton, "click", () => {
+  const on = !state.closer || state.closer.back;
+  takeOver();
+  if (on) startCloser();
 });
 listen(soundButton, "click", () => {
   if (audio) {
@@ -1008,6 +1098,9 @@ listen(stage, "keydown", (event) => {
   } else if (event.key === "b" || event.key === "B") {
     event.preventDefault();
     bladeButtons[state.blades % 3].click();
+  } else if (event.key === "c" || event.key === "C") {
+    event.preventDefault();
+    closerButton.click();
   } else if (event.key === "t" || event.key === "T") {
     event.preventDefault();
     traceButton.click();
@@ -1063,6 +1156,9 @@ listen(still, "change", () => {
 // A remount after a theme change carries on from what the reader had chosen.
 stage.removeAttribute("data-focus");
 stage.removeAttribute("data-trace");
+// A remount starts on the whole machine.
+stage.removeAttribute("data-closer");
+for (const name of ["--pj-zx", "--pj-zy", "--pj-zs", "--pj-cut"]) stage.style.removeProperty(name);
 if (D.resume) {
   const r = D.resume;
   state.frames = r.frames;
