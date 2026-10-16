@@ -492,35 +492,36 @@
 }
 
 /* selection: the chosen assembly is lit, the rest steps down */
-.pj-stage[data-focus] .it:not([data-on]):not([data-piece="stand"]) {
+/* The .iso .pj prefix outranks the metal finish's material rules, so highlights show on metal. */
+.iso .pj .pj-stage:is([data-focus], [data-peek]) .it:not([data-on]):not([data-peek]):not([data-piece="stand"]) {
   --anatomy-hi: var(--anatomy-mid);
   --anatomy-mid: var(--anatomy-lo);
 }
 
-.pj-stage[data-focus] .it[data-piece="stand"] {
+.iso .pj .pj-stage:is([data-focus], [data-peek]) .it[data-piece="stand"] {
   --anatomy-mid: var(--anatomy-lo);
 }
 
-.it[data-on] {
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) {
   --anatomy-hi: var(--anatomy-lit);
   --anatomy-mid: var(--anatomy-hi);
 }
 
-.it[data-on] .iso-top,
-.it[data-on] .tb-shine {
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) .iso-top,
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) .tb-shine {
   fill: var(--anatomy-lit-top);
 }
 
-.it[data-on] .iso-shade,
-.it[data-on] .tb-body {
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) .iso-shade,
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) .tb-body {
   fill: var(--anatomy-lit-shade);
 }
 
-.it[data-on] [data-seamless] > .iso-shade {
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) [data-seamless] > .iso-shade {
   stroke: var(--anatomy-lit-shade);
 }
 
-.it[data-on] [data-seamless] > .iso-top {
+.iso .pj .pj-stage .it:is([data-on], [data-peek]) [data-seamless] > .iso-top {
   stroke: var(--anatomy-lit-top);
 }
 
@@ -622,6 +623,7 @@
 }
 
 .pj-part:hover,
+.pj-part[data-peek],
 .pj-part[data-on] {
   color: var(--anatomy-strong);
   background: var(--pj-chip-on);

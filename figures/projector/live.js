@@ -8,15 +8,17 @@ const readout = root.querySelector("[data-readout]");
 const live = root.querySelector("[data-live]");
 const hint = root.querySelector(".pj-hint");
 const partButtons = [...root.querySelectorAll(".pj-part")];
-const speedButtons = [...root.querySelectorAll("[data-speed]")];
-const bladeButtons = [...root.querySelectorAll("[data-blades]")];
-const stepButton = root.querySelector("[data-step]");
-const apartButton = root.querySelector("[data-apart]");
-const soundButton = root.querySelector("[data-sound]");
-const traceButton = root.querySelector("[data-trace]");
-const closerButton = root.querySelector("[data-closer]");
-const paletteButtons = [...root.querySelectorAll("[data-palette-pick]")];
-const finishButtons = [...root.querySelectorAll("[data-finish-pick]")];
+const speedButtons = [...root.querySelectorAll("button[data-speed]")];
+const bladeButtons = [...root.querySelectorAll("button[data-blades]")];
+const stepButton = root.querySelector("button[data-step]");
+const apartButton = root.querySelector("button[data-apart]");
+// Controls are matched as buttons: the stage carries some of the same names as state
+// (data-trace, data-closer), and a remount must never take the stage for a control.
+const soundButton = root.querySelector("button[data-sound]");
+const traceButton = root.querySelector("button[data-trace]");
+const closerButton = root.querySelector("button[data-closer]");
+const paletteButtons = [...root.querySelectorAll("button[data-palette-pick]")];
+const finishButtons = [...root.querySelectorAll("button[data-finish-pick]")];
 // The finish is only colour, so it changes in place with no remount; the host keeps it on its
 // element, where the material rules key on it.
 const finishHost = root.closest(".iso");
@@ -260,6 +262,27 @@ function select(id, { demo = false } = {}) {
   if (id) announce(D.pieces[id].say);
   run();
 }
+
+// ---- peek: a part's legend chip and its drawing light each other on hover or focus ----
+let peeked = null;
+function peek(id) {
+  if (id === "stand" || id === "head") id = null;
+  if (id === peeked) return;
+  peeked = id;
+  for (const node of nodes) {
+    if (id && node.piece === id) node.el.setAttribute("data-peek", "");
+    else node.el.removeAttribute("data-peek");
+  }
+  partButtons.forEach((b) => (b.dataset.part === id ? b.setAttribute("data-peek", "") : b.removeAttribute("data-peek")));
+  if (id) stage.setAttribute("data-peek", "");
+  else stage.removeAttribute("data-peek");
+}
+partButtons.forEach((b) => {
+  listen(b, "pointerenter", () => peek(b.dataset.part));
+  listen(b, "pointerleave", () => peek(null));
+  listen(b, "focus", () => peek(b.dataset.part));
+  listen(b, "blur", () => peek(null));
+});
 
 // ---- sound: a gate clatter on every pull-down, motor hum, the 2-pop ----
 let audio = null;
@@ -1114,6 +1137,11 @@ listen(stage, "pointerup", (event) => {
   grab = null;
   choose(id);
 });
+// A mouse over the drawing names the part under it in the legend.
+listen(stage, "pointermove", (event) => {
+  if (event.pointerType === "mouse" && !grab?.dragging) peek(pieceAt(event));
+});
+listen(stage, "pointerleave", () => peek(null));
 listen(stage, "pointercancel", (event) => {
   if (!grab || grab.id !== event.pointerId) return;
   if (grab.dragging) letGo();
@@ -1195,6 +1223,8 @@ listen(still, "change", () => {
 // A remount after a theme change carries on from what the reader had chosen.
 stage.removeAttribute("data-focus");
 stage.removeAttribute("data-trace");
+stage.removeAttribute("data-peek");
+partButtons.forEach((b) => b.removeAttribute("data-peek"));
 // A remount starts on the whole machine.
 stage.removeAttribute("data-closer");
 for (const name of ["--pj-zx", "--pj-zy", "--pj-zs", "--pj-cut"]) stage.style.removeProperty(name);
