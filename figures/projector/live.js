@@ -13,6 +13,7 @@ const bladeButtons = [...root.querySelectorAll("[data-blades]")];
 const stepButton = root.querySelector("[data-step]");
 const apartButton = root.querySelector("[data-apart]");
 const soundButton = root.querySelector("[data-sound]");
+const traceButton = root.querySelector("[data-trace]");
 const paletteButtons = [...root.querySelectorAll("[data-palette-pick]")];
 const still = matchMedia("(prefers-reduced-motion: reduce)");
 const part = (name) => stage.querySelector(`[data-part="${name}"]`);
@@ -63,6 +64,7 @@ const state = {
   beam: 0,
   light: 0,
   clock: 0,
+  trace: null,
 };
 let touring = !still.matches;
 let tourClock = 0;
@@ -123,6 +125,7 @@ function markButtons() {
   speedButtons.forEach((b) => press(b, Number(b.dataset.speed) === state.chosen && !state.demo));
   bladeButtons.forEach((b) => press(b, Number(b.dataset.blades) === state.blades));
   apartButton.textContent = state.apart ? "put together" : "take apart";
+  press(traceButton, !!state.trace);
   partButtons.forEach((b) => press(b, b.dataset.part === state.selected));
   const choice = root.closest("[data-choice]")?.getAttribute("data-choice") ?? "auto";
   paletteButtons.forEach((b) => press(b, b.dataset.palettePick === choice));
@@ -390,7 +393,7 @@ function draw(f0, f1, calm) {
       const length = loop.L0 + loop.sign * (c - i) * FL;
       const pts = parts.loopOf(loop, length);
       const marks = parts.marks(pts, loop.m0 - (loop.drive === "c" ? c : i) * FL, {});
-      group.innerHTML = `${parts.ribbonSvg(pts, { tone: "hi", loop: true })}<path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/>`;
+      group.innerHTML = `${parts.ribbonSvg(pts, { tone: "hi", loop: true })}<path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/>${parts.traceSvg(pts, loop.m0, loop.L0)}`;
     }
     groups.gate.innerHTML = parts.gateFrameSvg(i, leaderOf);
   }
@@ -438,8 +441,54 @@ function draw(f0, f1, calm) {
     shownGate = gateLit;
     lit.gate?.style.setProperty("--pj-lamp", gateLit);
   }
+  traceDraw(calm);
   groups.ammeter?.setAttribute("transform", `rotate(${(-40 + 80 * state.lamp).toFixed(1)} 0 4)`);
   if (beam) beam.paint();
+}
+
+// ---- the trace: a pulse of lamp light that runs the threading, feed reel to take-up ----
+const TRACE = { pass: 5, pulse: 70 };
+const TRACE_SAY = {
+  a1: "off the feed reel",
+  a2: "feed sprocket · pulls it at a steady speed",
+  U: "upper loop · slack, so the gate can stop the film",
+  b1: "gate · each frame stops here to be shown",
+  b2: "intermittent sprocket · steps it on a frame",
+  L: "lower loop · takes the jerk back up",
+  c1: "hold-back sprocket · steady again",
+  c2: "onto the take-up reel",
+};
+const traceAt = () => (state.trace ? ((((state.clock - state.trace.t0) / TRACE.pass) % 1) + 1) % 1 * D.trace.total : 0);
+function traceStretch() {
+  const s = traceAt();
+  let id = "a1";
+  for (const [key, start] of Object.entries(D.trace.at)) if (s >= start) id = key;
+  return id;
+}
+function traceDraw(calm) {
+  if (!state.trace) return;
+  const s = traceAt();
+  const w = TRACE.pulse;
+  for (const el of stage.querySelectorAll(".pj-trace")) {
+    const length = Number(el.getAttribute("pathLength"));
+    if (calm) {
+      el.style.strokeDasharray = "none";
+      continue;
+    }
+    // One dash, measured in film millimetres, ending where the pulse is; off this stretch it
+    // sits in the gap.
+    const local = s - Number(el.dataset.s0);
+    el.style.strokeDasharray = `${w} ${length + 3 * w}`;
+    el.style.strokeDashoffset = String(local > 0 && local - w < length ? w - local : w + 1);
+  }
+}
+function setTrace(on, { tour = false } = {}) {
+  state.trace = on ? { t0: state.clock, tour } : null;
+  if (on) stage.setAttribute("data-trace", "");
+  else stage.removeAttribute("data-trace");
+  markButtons();
+  if (!tour) announce(on ? "tracing the film path" : "trace off");
+  run();
 }
 
 // ---- the projector's beam: haze in the cone from the shutter to the screen ----
@@ -525,7 +574,7 @@ void main(){
 // and waits while the pointer or focus is on the figure ----
 const TOUR = [
   { at: 0, speed: 1, part: "movement" },
-  { at: 6, speed: 3, part: "film" },
+  { at: 6, speed: 3, part: "film", trace: true },
   { at: 11, speed: 24, part: null, blades: 2 },
   { at: 15, speed: 24, part: null, blades: 1 },
   { at: 18.5, speed: 16, part: null, blades: 3, say: "3 blades · 48 Hz at 16 fps, but 5% light" },
@@ -559,6 +608,7 @@ function stepTour(dt) {
   const s = TOUR[index];
   tourSay = s.say ?? "";
   if (s.blades) state.blades = s.blades;
+  if (!!s.trace !== !!state.trace) setTrace(!!s.trace, { tour: true });
   // Every running beat is shorter than the numbered leader, so starting each at the 8 keeps
   // its flicker on picture rather than on the black tail.
   if (s.speed >= 16) {
@@ -583,6 +633,7 @@ function stepTour(dt) {
 function takeOver() {
   touring = false;
   tourSay = "";
+  if (state.trace?.tour) setTrace(false);
   // The tour may have left a speed no chip offers; the reader's machine runs at 24.
   if (!SPEEDS.includes(state.chosen)) {
     state.chosen = 24;
@@ -603,6 +654,7 @@ function idleText() {
   if (state.apart && !state.selected) return `apart · ${MOVERS.length} assemblies · ${narrow.matches ? "tap" : "click"} one`;
   if (state.selected && state.demo && state.demoAt !== null && state.clock - state.demoAt < 3.2) return DEMOS[state.selected].text;
   if (state.selected && !state.demo) return D.pieces[state.selected].say;
+  if (state.trace && !state.apart) return still.matches ? "trace · feed reel to take-up, past three sprockets and the gate" : `trace · ${TRACE_SAY[traceStretch()]}`;
   if (tourSay && Math.abs(state.fps - state.target) < 0.5) return tourSay;
   if (state.inched && !state.crank && !state.step && Math.abs(state.fps) < 0.05 && state.clock - state.inchedAt > FIRE) return "stopped · fire shutter down";
   let text = M.readoutOf(state.fps, state.blades, state.frames);
@@ -730,6 +782,7 @@ function tick(now) {
   if (Math.abs(hand.rate) > 1e-3) moving = true;
   if (state.demo && state.demoAt === null && Math.abs(state.fps - state.target) < 0.3) state.demoAt = state.clock;
   if (state.demo && (state.demoAt === null || state.clock - state.demoAt < 3.4)) moving = true;
+  if (state.trace && !calm) moving = true;
   draw(f0, state.frames, calm);
   place();
   if (audio) audio.hum(visible && !document.hidden ? Math.abs(state.fps) : 0);
@@ -818,6 +871,12 @@ listen(apartButton, "click", () => {
   takeOver();
   select(null);
   setApart(!state.apart);
+});
+listen(traceButton, "click", () => {
+  const on = !state.trace;
+  takeOver();
+  select(null);
+  setTrace(on);
 });
 listen(soundButton, "click", () => {
   if (audio) {
@@ -949,6 +1008,9 @@ listen(stage, "keydown", (event) => {
   } else if (event.key === "b" || event.key === "B") {
     event.preventDefault();
     bladeButtons[state.blades % 3].click();
+  } else if (event.key === "t" || event.key === "T") {
+    event.preventDefault();
+    traceButton.click();
   } else if (event.key === ".") {
     event.preventDefault();
     stepFrame(1);
@@ -1000,6 +1062,7 @@ listen(still, "change", () => {
 
 // A remount after a theme change carries on from what the reader had chosen.
 stage.removeAttribute("data-focus");
+stage.removeAttribute("data-trace");
 if (D.resume) {
   const r = D.resume;
   state.frames = r.frames;
@@ -1030,6 +1093,10 @@ if (D.resume) {
   tourSay = (touring && TOUR[tourStep]?.say) || "";
   state.apart = r.apart;
   state.armed = r.armed;
+  if (r.trace) {
+    setTrace(true, { tour: true });
+    state.trace = { t0: -r.trace.age, tour: r.trace.tour && touring };
+  }
   for (const id of IDS) {
     const q = r.pieces[id];
     Object.assign(piece[id], { x: q.x, v: q.v, target: q.target, pending: q.pending && { value: q.pending.value, at: q.pending.in } });
@@ -1068,5 +1135,5 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, trace: state.trace && { tour: state.trace.tour, age: state.clock - state.trace.t0 }, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
 return teardown;

@@ -707,6 +707,8 @@ D.loops = {
   U: { ...loopU, L0: L0U, m0: startOf.U, drive: "c", sign: 1 },
   L: { ...loopL, L0: L0L, m0: startOf.L, drive: "i", sign: -1 },
 };
+// Where each stretch of the threading starts along the film, for the trace's readout.
+D.trace = { at: startOf, total: along };
 D.runs = runs.filter((run) => !run.hidden).map(({ id, drive, pts, wrap, centre, m0 }) => ({ id, drive, wrap: wrap ?? 0, centre: centre ?? null, m0, pts: pts.map(([x, z]) => [Math.round(x * 100) / 100, Math.round(z * 100) / 100]) }));
 const thin = (pts) => {
   const out = [];
@@ -723,20 +725,20 @@ const thin = (pts) => {
 };
 function filmItem(id, pts, options, extraPart) {
   const marks = PARTS.marks(pts, options.m0 ?? 0, options);
-  const svg = PARTS.ribbonSvg(pts, options) + `<g data-part="marks-${id}"><path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/></g>`;
+  const svg = PARTS.ribbonSvg(pts, options) + `<g data-part="marks-${id}"><path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/></g>` + PARTS.traceSvg(pts, options.s0, PARTS.lengthOf(pts));
   const mid = pts[Math.floor(pts.length / 2)];
   const shapes = [];
   for (let i = 0; i < pts.length - 1; i += 6) shapes.push(record(A.prism(PRISM_Y, thin(pts.slice(i, Math.min(pts.length, i + 7))), F0, F1, { name: `film.${id}`, owner: "film" })));
   put("film", `film.${id}`, [mid[0], AY, mid[1]], `<g data-part="${extraPart ?? `run-${id}`}">${svg}</g>`, shapes, { bias: options.wrap ? 0.6 : 0 });
 }
-for (const run of runs.filter((r) => !r.hidden)) filmItem(run.id, run.pts, { wrap: run.wrap, centre: run.centre, m0: run.m0 - (run.drive === "c" ? REST_C : REST_I) * M.FRAME_LENGTH, tone: "hi" });
+for (const run of runs.filter((r) => !r.hidden)) filmItem(run.id, run.pts, { wrap: run.wrap, centre: run.centre, m0: run.m0 - (run.drive === "c" ? REST_C : REST_I) * M.FRAME_LENGTH, s0: run.m0, tone: "hi" });
 for (const [id, loop] of Object.entries(D.loops)) {
   const pts = PARTS.loopOf(loop, loop.L0 + loop.sign * (REST_C - REST_I) * M.FRAME_LENGTH);
   const marks = PARTS.marks(pts, loop.m0 - (loop.drive === "c" ? REST_C : REST_I) * M.FRAME_LENGTH, {});
   const shapes = [];
   for (let i = 0; i < pts.length - 1; i += 4) shapes.push(record(A.prism(PRISM_Y, thin(pts.slice(i, Math.min(pts.length, i + 5))), F0, F1, { name: `film.loop${id}`, owner: "film" })));
   const mid = pts[Math.floor(pts.length / 2)];
-  put("film", `film.loop${id}`, [mid[0], AY, mid[1]], `<g data-part="loop-${id}">${PARTS.ribbonSvg(pts, { tone: "hi", loop: true })}<path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/></g>`, shapes);
+  put("film", `film.loop${id}`, [mid[0], AY, mid[1]], `<g data-part="loop-${id}">${PARTS.ribbonSvg(pts, { tone: "hi", loop: true })}<path class="pj-perfs" d="${marks.holes}"/><path class="iso-line pj-framelines" data-tone="lo" d="${marks.lines}"/>${PARTS.traceSvg(pts, loop.m0, loop.L0)}</g>`, shapes);
 }
 
 // pad rollers: an arm on a stud for each sprocket, the roller holding the film to the teeth
@@ -823,9 +825,9 @@ const corners = `<div class="iso-plate-corners" aria-hidden="true"><span class="
 const speedButtons = [["0", "stop"], ["1", "1"], ["16", "16"], ["18", "18"], ["24", "24"]].map(([v, l]) => `<button type="button" class="pj-chip" data-speed="${v}" data-cursor="dot" aria-label="${v === "0" ? "stop" : `${v} frame${v === "1" ? "" : "s"} a second`}">${l}</button>`).join("");
 const bladeButtons = [1, 2, 3].map((n) => `<button type="button" class="pj-chip" data-blades="${n}" data-cursor="dot" aria-label="${n} shutter blade${n === 1 ? "" : "s"}">${n}</button>`).join("");
 const paletteButtons = ["auto", "light", "dark", "paper", "blueprint"].map((v) => `<button type="button" class="pj-chip" data-palette-pick="${v}" data-cursor="dot" aria-pressed="false">${v}</button>`).join("");
-const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
+const controls = `<div class="pj-controls"><span class="pj-group" role="group" aria-label="Speed in frames per second"><span class="pj-label">fps</span>${speedButtons}</span><span class="pj-group" role="group" aria-label="Shutter blades"><span class="pj-label">blades</span>${bladeButtons}</span><span class="pj-group"><button type="button" class="pj-chip" data-step data-cursor="dot" aria-label="Step one frame">step</button><button type="button" class="pj-chip" data-apart data-cursor="dot">take apart</button><button type="button" class="pj-chip" data-trace data-cursor="dot" aria-pressed="false">trace</button><button type="button" class="pj-chip" data-sound data-cursor="dot" aria-pressed="false">sound</button></span><span class="pj-group" role="group" aria-label="Colours"><span class="pj-label">theme</span>${paletteButtons}</span><span class="pj-hint">drag to crank · click a part</span><span class="pj-live" aria-live="polite" data-live></span></div>`;
 const STAGE_INNER = `${backSvg}<canvas class="pj-beam" aria-hidden="true"></canvas>${frontSvg}`;
-const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
+const stageOpen = `<div class="pj-stage" tabindex="0" role="group" style="aspect-ratio:${W}/${H}" data-cursor data-cursor-label="crank ↔" aria-label="35mm projector. Drag sideways to crank it by hand. Arrow keys change the speed, Home and End stop it or run it at 24. B changes the shutter blades, T traces the film path, period and comma step a frame on or back, space takes it apart, and clicking a part shows it working.">`;
 const stage = `${stageOpen}${STAGE_INNER}</div>`;
 const caption =
   "A Geneva cross on the intermittent sprocket's shaft makes a quarter turn: four perforations, one frame. It turns only while the driver's pin is in a slot, 90° of the driver's turn. For the other 270° the cross is locked and the frame sits still in the 0.825 × 0.602 in aperture. The shutter turns once a frame. One blade covers every pull-down and the others cut the still frame. So two blades flash each frame twice: 48 Hz at 24 fps. The loops above and below the gate take up the difference between the steady sprockets and the stepping one.";

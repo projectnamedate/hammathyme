@@ -671,3 +671,16 @@
     transition: none !important;
   }
 }
+
+.pj-trace {
+  fill: none;
+  stroke: var(--pj-port-on);
+  stroke-width: 2.2px;
+  stroke-linecap: round;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pj-stage[data-trace] .pj-trace {
+  opacity: 1;
+}

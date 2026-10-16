@@ -529,5 +529,9 @@ export function makeParts(k, G, P, D) {
     return `<rect class="pj-film-face" x="${f1(-w)}" y="${f1(-FL * 2)}" width="${f1(w * 2)}" height="${f1(FL * 4)}"/>${frames.join("")}`;
   }
 
-  return { handCrankDef, crossContour, lockContour, planeMatrix, tangent, angleOf, arc, straight, lengthOf, join, loopOf, ribbonSvg, marks, plateSvg, plateTurn, crossDef, crankDef, lockDef, pinSvg, pinShift, shutterDefs, teethSvg, flangeDef, leaderSvg, gateFrameSvg, circlePts, poly, line, depth };
+  // The threading traced along the film's middle. pathLength is the film's own length in mm, so
+  // a dash measured in film millimetres lands where the film coordinate says.
+  const traceSvg = (pts, s0, length) => `<path class="pj-trace" data-s0="${s0.toFixed(1)}" pathLength="${length.toFixed(1)}" d="${line(pts.map(([x, z]) => at(xz(x, z, (F0 + F1) / 2))))}"/>`;
+
+  return { traceSvg, handCrankDef, crossContour, lockContour, planeMatrix, tangent, angleOf, arc, straight, lengthOf, join, loopOf, ribbonSvg, marks, plateSvg, plateTurn, crossDef, crankDef, lockDef, pinSvg, pinShift, shutterDefs, teethSvg, flangeDef, leaderSvg, gateFrameSvg, circlePts, poly, line, depth };
 }
