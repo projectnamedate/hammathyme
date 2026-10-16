@@ -2755,6 +2755,7 @@ const soundButton = root.querySelector("button[data-sound]");
 const traceButton = root.querySelector("button[data-trace]");
 const closerButton = root.querySelector("button[data-closer]");
 const slowButton = root.querySelector("button[data-slow]");
+const shareButton = root.querySelector("button[data-share]");
 const timing = root.querySelector(".pj-timing");
 const paletteButtons = [...root.querySelectorAll("button[data-palette-pick]")];
 const finishButtons = [...root.querySelectorAll("button[data-finish-pick]")];
@@ -3186,6 +3187,8 @@ function draw(f0, f1, calm) {
   if (n !== shownFrame) {
     shownFrame = n;
     groups.picture.innerHTML = parts.leaderSvg(leaderOf(n), D.pic.w, D.pic.h);
+    // Cranking by hand, each frame the claw pulls down ticks in the hand too, where phones can.
+    if (state.crank) navigator.vibrate?.(8);
     if (audio) {
       audio.tick(clamp(state.fps / 24, 0.25, 1));
       if (leaderOf(n).pop && n !== lastPop && state.lamp > 0.5) {
@@ -3830,6 +3833,29 @@ listen(traceButton, "click", () => {
   select(null);
   setTrace(on);
 });
+// A link to the figure as it is set now: colours, view and the machine's settings.
+let shareTimer = 0;
+cleanups.push(() => clearTimeout(shareTimer));
+listen(shareButton, "click", async () => {
+  const url = new URL(location.href);
+  const put = (key, value, fallback) => (value && value !== fallback ? url.searchParams.set(key, value) : url.searchParams.delete(key));
+  put("theme", root.closest("[data-choice]")?.getAttribute("data-choice"), "auto");
+  put("finish", finishHost?.getAttribute("data-finish"), null);
+  put("view", root.closest("[data-view]")?.getAttribute("data-view"), "mid");
+  put("fps", String(state.chosen), "24");
+  put("blades", String(state.blades), "2");
+  put("slow", state.slow ? "1" : "", "");
+  put("trace", state.trace ? "1" : "", "");
+  let copied = false;
+  try {
+    await navigator.clipboard.writeText(url.toString());
+    copied = true;
+  } catch {}
+  shareButton.textContent = copied ? "copied" : "no clipboard";
+  announce(copied ? "link copied" : "could not copy the link");
+  clearTimeout(shareTimer);
+  shareTimer = setTimeout(() => (shareButton.textContent = "share"), 1600);
+});
 listen(slowButton, "click", () => {
   takeOver();
   state.slow = !state.slow;
@@ -4130,6 +4156,18 @@ if (still.matches && !D.resume) {
 if (still.matches) {
   touring = false;
   motor.x = state.target;
+}
+// A shared link sets the machine up as the sender had it; reduced motion still starts stopped.
+const link = !D.resume && D.link;
+if (link) {
+  touring = false;
+  if (SPEEDS.includes(link.fps) && !still.matches) state.chosen = state.target = link.fps;
+  if ([1, 2, 3].includes(link.blades)) state.blades = link.blades;
+  if (link.slow) state.slow = true;
+  if (link.trace) {
+    state.trace = { t0: 0, tour: false };
+    stage.setAttribute("data-trace", "");
+  }
 }
 if (!audio) soundButton.setAttribute("aria-pressed", "false");
 markButtons();

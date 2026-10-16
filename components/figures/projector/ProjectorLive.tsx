@@ -25,6 +25,15 @@ export function ProjectorLive() {
     try {
       choice = localStorage.getItem(KEY) || "auto";
     } catch {}
+    // A shared link (the figure's share chip) carries its settings in the query.
+    const params = new URLSearchParams(location.search);
+    const linkedTheme = params.get("theme");
+    if (linkedTheme && (linkedTheme === "auto" || linkedTheme in PALETTES)) choice = linkedTheme;
+    if (params.get("finish") === "metal") host.dataset.finish = "metal";
+    const linkedView = params.get("view");
+    const number = (key: string) => (params.has(key) ? Number(params.get(key)) : undefined);
+    const link = { fps: number("fps"), blades: number("blades"), slow: params.get("slow") === "1", trace: params.get("trace") === "1" };
+    const linked = ["fps", "blades", "slow", "trace"].some((key) => params.has(key));
     const theme = () => {
       const [mode, palette] = PALETTES[choice] ?? [dark.matches ? "dark" : "light", ""];
       host.dataset.theme = mode;
@@ -62,6 +71,14 @@ export function ProjectorLive() {
       mount = live.mountProjector;
       data = live.PROJECTOR_DATA;
       mid = { markup, data };
+      if (linkedView && VIEW_LOADERS[linkedView]) {
+        const chosen = await VIEW_LOADERS[linkedView]();
+        if (cancelled) return;
+        markup = chosen.STAGE;
+        data = chosen.DATA;
+        host.dataset.view = linkedView;
+      }
+      if (linked) data = { ...data, link };
       start();
     };
     const restyle = () => (mount ? start() : theme());
