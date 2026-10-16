@@ -536,7 +536,7 @@
 
 @container pj (max-width: 899px) {
   .pj .iso-plate {
-    padding: 48px 6px 166px;
+    padding: 48px 6px 226px;
   }
 
   .pj-controls {
@@ -603,4 +603,70 @@
 
 .pj-stage[data-trace] .pj-trace {
   opacity: 1;
+}
+
+/* One frame of the mechanism, shown while it runs slowly enough to follow. */
+.pj-timing {
+  position: absolute;
+  top: 44px;
+  right: 24px;
+  z-index: 2;
+  width: 240px;
+  opacity: 0;
+  pointer-events: none;
+  cursor: ew-resize;
+  touch-action: none;
+  transition: opacity 200ms var(--anatomy-ease);
+}
+
+.pj[data-timing] .pj-timing {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pj-timing:focus-visible {
+  outline: 1px solid var(--anatomy-muted);
+  outline-offset: 4px;
+}
+
+.pj-timing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pj-timing text {
+  fill: var(--anatomy-text);
+  font-family: var(--anatomy-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pj-t-track {
+  stroke: var(--anatomy-faint);
+  stroke-width: 1px;
+}
+
+.pj-t-pull {
+  fill: var(--anatomy-hi);
+}
+
+.pj-t-light {
+  fill: var(--pj-port-on);
+  opacity: 0.85;
+}
+
+.pj-t-head {
+  stroke: var(--anatomy-strong);
+  stroke-width: 1.2px;
+}
+
+@container pj (max-width: 899px) {
+  .pj-timing {
+    top: 52px;
+    right: 12px;
+    width: 50%;
+  }
 }

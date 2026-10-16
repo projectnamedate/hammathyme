@@ -17,6 +17,8 @@ const apartButton = root.querySelector("button[data-apart]");
 const soundButton = root.querySelector("button[data-sound]");
 const traceButton = root.querySelector("button[data-trace]");
 const closerButton = root.querySelector("button[data-closer]");
+const slowButton = root.querySelector("button[data-slow]");
+const timing = root.querySelector(".pj-timing");
 const paletteButtons = [...root.querySelectorAll("button[data-palette-pick]")];
 const finishButtons = [...root.querySelectorAll("button[data-finish-pick]")];
 // The finish is only colour, so it changes in place with no remount; the host keeps it on its
@@ -78,6 +80,7 @@ const state = {
   trace: null,
   closer: null,
   lift: null,
+  slow: false,
 };
 let touring = !still.matches;
 let tourClock = 0;
@@ -139,6 +142,7 @@ function markButtons() {
   bladeButtons.forEach((b) => press(b, Number(b.dataset.blades) === state.blades));
   apartButton.textContent = state.apart ? "put together" : "take apart";
   press(traceButton, !!state.trace);
+  press(slowButton, state.slow);
   press(closerButton, !!state.closer && !state.closer.back);
   partButtons.forEach((b) => press(b, b.dataset.part === state.selected));
   const choice = root.closest("[data-choice]")?.getAttribute("data-choice") ?? "auto";
@@ -455,11 +459,12 @@ function draw(f0, f1, calm) {
   const mean = M.lightShare(state.blades);
   const raw = f1 !== f0 ? M.screenLight(Math.min(f0, f1), Math.max(f0, f1), state.blades) : M.shutterOpen(((f1 % 1) + 1) % 1, state.blades);
   const hz = M.flickerHz(Math.abs(state.fps), state.blades);
-  const fuse = calm && !state.crank && !state.step && state.target > 3.05 ? 1 : ease(30, 52, hz);
+  // Slowed down nothing fuses: each flash shows, at a little under full depth.
+  const fuse = state.slow && !calm ? 0 : calm && !state.crank && !state.step && state.target > 3.05 ? 1 : ease(30, 52, hz);
   // While the tour plays by itself, flicker faster than three flashes a second is shown at a
   // third of its depth, so an unasked-for screen never flashes hard; slower blinks, and
   // everything the reader chooses, show in full.
-  const depth = touring && hz > 3 ? 0.35 : 1;
+  const depth = state.slow ? 0.7 : touring && hz > 3 ? 0.35 : 1;
   const seen = mean + (raw - mean) * (1 - fuse) * depth;
   state.light = state.beam * clear * Math.pow(clamp(seen / M.lightShare(1), 0, 1), 0.6);
   // Only the few elements that glow carry these, so a change restyles them alone.
@@ -481,6 +486,7 @@ function draw(f0, f1, calm) {
     lit.gate?.style.setProperty("--pj-lamp", gateLit);
   }
   traceDraw(calm);
+  stripDraw();
   groups.ammeter?.setAttribute("transform", `rotate(${(-40 + 80 * state.lamp).toFixed(1)} 0 4)`);
   if (beam) beam.paint();
 }
@@ -528,6 +534,84 @@ function setTrace(on, { tour = false } = {}) {
   markButtons();
   if (!tour) announce(on ? "tracing the film path" : "trace off");
   run();
+}
+
+// ---- the timing strip: one frame of the mechanism, drawn from the model, with a playhead ----
+const STRIP = { x0: 64, x1: 236 };
+const stripX = (p) => STRIP.x0 + (STRIP.x1 - STRIP.x0) * p;
+const fract = (x) => x - Math.floor(x);
+let stripBlades = 0;
+let shownHead = "";
+let scrub = null;
+function stripDraw() {
+  if (!timing) return;
+  const looking = state.inched && state.clock - state.inchedAt < FIRE + 1;
+  const show = !state.apart && !state.closer && (state.slow || !!scrub || !!state.step || looking || (Math.abs(state.target) > 0 && Math.abs(state.target) <= 3.05));
+  root.toggleAttribute("data-timing", show);
+  if (!show) return;
+  if (stripBlades !== state.blades) {
+    stripBlades = state.blades;
+    let pull = 0;
+    while (pull < 1 && M.crossOf(pull) < 1) pull += 1 / 400;
+    const light = Array.from({ length: 121 }, (_, i) => `${stripX(i / 120).toFixed(1)} ${(31 - 9 * M.shutterOpen(i / 120, state.blades)).toFixed(2)}`);
+    timing.querySelector("svg").innerHTML = `<text x="0" y="11">pull-down</text><text x="0" y="29">light</text><path class="pj-t-track" d="M${STRIP.x0} 8H${STRIP.x1}M${STRIP.x0} 31H${STRIP.x1}"/><path class="pj-t-pull" d="M${stripX(0)} 5H${stripX(pull).toFixed(1)}V11H${stripX(0)}Z"/><path class="pj-t-light" d="M${STRIP.x0} 31L${light.join("L")}L${STRIP.x1} 31Z"/><path class="pj-t-head" d="M0 1V35"/>`;
+    shownHead = "";
+  }
+  const x = stripX(fract(state.frames)).toFixed(1);
+  if (x !== shownHead) {
+    shownHead = x;
+    timing.querySelector(".pj-t-head")?.setAttribute("transform", `translate(${x} 0)`);
+    timing.setAttribute("aria-valuenow", String(Math.round(fract(state.frames) * 100)));
+    timing.setAttribute("aria-valuetext", M.phaseOf(state.frames, state.blades));
+  }
+}
+// Dragging the strip turns the mechanism by hand through one frame.
+function startScrub() {
+  takeOver();
+  select(null);
+  if (state.apart) setApart(false);
+  if (state.crank) letGo();
+  state.chosen = 0;
+  state.target = 0;
+  state.step = null;
+  motor.x = 0;
+  motor.v = 0;
+  state.inched = true;
+  state.inchedAt = state.clock;
+  scrub = { base: Math.floor(state.frames), id: null };
+  markButtons();
+}
+function scrubTo(phase) {
+  state.frames = scrub.base + phase;
+  state.inchedAt = state.clock;
+  run();
+}
+const phaseAt = (event) => {
+  const box = timing.getBoundingClientRect();
+  return clamp((((event.clientX - box.left) / box.width) * 240 - STRIP.x0) / (STRIP.x1 - STRIP.x0), 0, 0.999);
+};
+if (timing) {
+  listen(timing, "pointerdown", (event) => {
+    startScrub();
+    scrub.id = event.pointerId;
+    try {
+      timing.setPointerCapture(event.pointerId);
+    } catch {}
+    scrubTo(phaseAt(event));
+  });
+  listen(timing, "pointermove", (event) => {
+    if (scrub && scrub.id === event.pointerId) scrubTo(phaseAt(event));
+  });
+  const endScrub = () => (scrub = null);
+  listen(timing, "pointerup", endScrub);
+  listen(timing, "pointercancel", endScrub);
+  listen(timing, "keydown", (event) => {
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    event.preventDefault();
+    startScrub();
+    scrubTo(clamp(fract(state.frames) + (event.key === "ArrowRight" ? 1 : -1) / 48, 0, 0.999));
+    scrub = null;
+  });
 }
 
 // ---- look closer: the camera whips in to four details and holds on each while it works ----
@@ -767,6 +851,9 @@ listen(root, "focusout", (event) => (focused = root.contains(event.relatedTarget
 
 // ---- the frame loop ----
 const FIRE = 3;
+// Slow motion runs the chosen speed at a sixteenth of real time, so a 24 fps pull-down and its
+// shutter can be watched happening.
+const SLOW = 16;
 function idleText() {
   const out = state.lift ? (D.lifts[state.lift].length > 1 ? `taking the ${D.pieces[D.lifts[state.lift][0]].name} off first` : "lifting it out") : "taking apart";
   if (state.armed) return Math.abs(state.fps) > 0.05 ? `stopping · then ${out}` : out;
@@ -778,6 +865,7 @@ function idleText() {
   if (state.trace && !state.apart) return still.matches ? "trace · feed reel to take-up, past three sprockets and the gate" : `trace · ${TRACE_SAY[traceStretch()]}`;
   if (tourSay && Math.abs(state.fps - state.target) < 0.5) return tourSay;
   if (state.inched && !state.crank && !state.step && Math.abs(state.fps) < 0.05 && state.clock - state.inchedAt > FIRE) return "stopped · fire shutter down";
+  if (state.inched && !state.crank && !state.step && Math.abs(state.fps) < 0.05) return `stopped · ${M.phaseOf(state.frames, state.blades)}`;
   let text = M.readoutOf(state.fps, state.blades, state.frames);
   // Black leader passes no light, whatever the shutter is doing; nor does a lamp still coming up.
   const black = leaderOf(Math.floor(M.intermittentOf(state.frames) + 1e-9)).number === 0;
@@ -786,6 +874,7 @@ function idleText() {
     const rising = state.lamp > 0.5 ? "fire shutter opening" : "lamp coming up";
     text = text.replace("light on screen", rising).replace(/\d+% light$/, rising);
   }
+  if (state.slow && Math.abs(state.fps) > 0.05 && !state.crank && !state.step) text += ` · ${SLOW}× slow`;
   return text;
 }
 const motor = { x: 0, v: 0 };
@@ -846,7 +935,7 @@ function tick(now) {
       motor.v = 0;
     }
     // Under reduced motion nothing moves unasked, but a speed the reader chose runs.
-    state.frames += motor.x * dt;
+    state.frames += motor.x * dt * (state.slow ? 1 / SLOW : 1);
   }
   if (jumped) f0 = state.frames;
   const rate = (state.frames - f0) / dt;
@@ -1000,6 +1089,16 @@ listen(traceButton, "click", () => {
   takeOver();
   select(null);
   setTrace(on);
+});
+listen(slowButton, "click", () => {
+  takeOver();
+  state.slow = !state.slow;
+  // Slow motion is for watching the machine run at sound speed; a sixteenth of a slow speed or
+  // a part's demo would barely move.
+  if (state.slow && (state.chosen < 16 || state.demo)) setSpeed(24);
+  markButtons();
+  announce(state.slow ? `slow motion, ${SLOW} times slower` : "real time");
+  run();
 });
 listen(closerButton, "click", () => {
   const on = !state.closer || state.closer.back;
@@ -1165,6 +1264,9 @@ listen(stage, "keydown", (event) => {
   } else if (event.key === "b" || event.key === "B") {
     event.preventDefault();
     bladeButtons[state.blades % 3].click();
+  } else if (event.key === "s" || event.key === "S") {
+    event.preventDefault();
+    slowButton.click();
   } else if (event.key === "c" || event.key === "C") {
     event.preventDefault();
     closerButton.click();
@@ -1259,6 +1361,7 @@ if (D.resume) {
   state.apart = r.apart;
   state.armed = r.armed;
   state.lift = r.lift;
+  state.slow = !!r.slow;
   if (r.trace) {
     setTrace(true, { tour: true });
     state.trace = { t0: -r.trace.age, tour: r.trace.tour && touring };
@@ -1301,5 +1404,5 @@ const teardown = () => {
   if (audio) audio.close();
   soundButton.setAttribute("aria-pressed", "false");
 };
-teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, lift: state.lift, trace: state.trace && { tour: state.trace.tour, age: state.clock - state.trace.t0 }, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
+teardown.snapshot = () => ({ frames: state.frames, chosen: state.chosen, blades: state.blades, fps: state.fps, motor: state.crank ? (state.crank.goal - state.frames) / 0.12 : motor.x, motorV: state.crank ? 0 : motor.v, touring, tourClock, tourStep, apart: state.apart, selected: state.selected, demo: !!state.demo, lamp: lampState.x, beam: fireState.x, sound: !!audio, leaderShift, inched: state.inched, inchedAge: state.crank ? 0 : state.clock - state.inchedAt, step: state.step && { cycle: state.step.cycle, dir: state.step.dir, queue: [...state.step.queue] }, armed: state.armed, lift: state.lift, slow: state.slow, trace: state.trace && { tour: state.trace.tour, age: state.clock - state.trace.t0 }, demoAge: state.demoAt === null ? null : state.clock - state.demoAt, pieces: Object.fromEntries(IDS.map((id) => [id, { x: piece[id].x, v: piece[id].v, target: piece[id].target, pending: piece[id].pending && { value: piece[id].pending.value, in: piece[id].pending.at - state.clock } }])) });
 return teardown;
