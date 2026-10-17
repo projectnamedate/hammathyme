@@ -46,7 +46,7 @@ The domain appears only in technical URL surfaces.
 - /work/websites/kira: onlykira.ai website preview.
 - /work/websites/agentify: agentify.nexus website preview.
 - /work/websites/coefficient: coefficient.mythx.art solana stake-pool health dashboard preview.
-- /work/interactive-playable: live interactive and playable demos with a shared one-dollar daily provider cap.
+- /work/interactive-playable: live interactive and playable demos; the storyboard demo is rate-limited per visitor.
 - /work/interactive-playable/sushi-scramble: Sushi Scramble, a three.js third-person shooter in a sushi bar. An armoured salmon nigiri rides a conveyor belt against chopstick drones and, every third wave, the diner's hand; wasabi blaster, ginger grenades, rice shield. Endless waves with a local high score; no provider calls.
 - /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
 - /work/interactive-playable/prompt-to-storyboard: capped GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.

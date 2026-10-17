@@ -348,7 +348,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos: a third-person sushi shooter on a conveyor belt, a 35mm projector you can crank and take apart, and a prompt-to-storyboard board in colour pencil. provider calls share a $1 daily cap.",
+      "live demos: a third-person sushi shooter on a conveyor belt, a 35mm projector you can crank and take apart, and a prompt-to-storyboard board in colour pencil.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [

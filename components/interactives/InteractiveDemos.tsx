@@ -55,8 +55,6 @@ function DemoStatus({ state }: { state: ApiState }) {
         transition={reduce ? undefined : { duration: 0.9, repeat: state.loading ? Infinity : 0, ease: SOFT }}
       />
       <span>{statusCopy(state)}</span>
-      <span className="text-[var(--ink-4)]">/</span>
-      <span>$1 daily cap</span>
     </div>
   );
 }
@@ -121,6 +119,7 @@ export function PromptStoryboardDemo() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ prompt }),
       });
+      if (response.status === 429) throw new Error("one live board per visitor every few minutes");
       const data = (await response.json()) as {
         ok?: boolean;
         error?: string;

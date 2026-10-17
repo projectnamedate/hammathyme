@@ -69,8 +69,8 @@ export default function Colophon() {
 
         <Field label="interactive demos" col={6}>
           <Line k="image" v="gpt image 2.5 colour-pencil storyboards" />
-          <Line k="budget" v="upstash redis · $1 shared daily cap" />
-          <Line k="fallback" v="public sample mode when capped or unconfigured" />
+          <Line k="limit" v="vercel firewall · per-visitor rate limit" />
+          <Line k="fallback" v="public sample mode when limited or unconfigured" />
         </Field>
 
         <Field label="brand contract" col={6}>

@@ -122,17 +122,17 @@ they do not replace them.
 
 ## Cost guardrails
 
-Live API demos go through `/api/*` routes with edge-middleware rate-limiting
-and a `DAILY_API_BUDGET_USD` env-var hard cap. Demos auto-disable when the cap
-is hit.
+Live API demos go through `/api/*` routes. Per-visitor limits are a Vercel
+Firewall rate-limit rule ("storyboard per ip": `POST /api/demos/storyboard`,
+2 requests per IP per 10 minutes, 429 past that), so blocked requests never
+reach the function. There is no daily dollar cap (Jeff, 2026-10-17); Redis was
+removed. Hobby allows one rate-limit rule per project. Manage it with
+`npx vercel firewall rules list|inspect|edit`.
 
-Interactive demo provider calls share a one-dollar daily cap. Required runtime
-surface:
+Required runtime surface:
 
-- `DAILY_API_BUDGET_USD=1` (values above 1 are clamped to 1 in code)
-- Redis budget store: `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`
-  (or Vercel KV-compatible `KV_REST_API_URL` + `KV_REST_API_TOKEN`)
-- Fal storyboard render (GPT Image 2.5 Sunburst, colour pencil): `HAMMER_FAL_KEY`
+- Evolink storyboard render (GPT Image 2.5 Sunburst, colour pencil):
+  `EVOLINK_API_KEY`, server-side only
 - `HAMMER_DEMOS_ENABLED=0` forces no-spend sample mode
 
 If any paid-provider prerequisite is absent, the public demo stays usable in

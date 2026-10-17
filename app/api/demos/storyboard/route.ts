@@ -1,4 +1,4 @@
-import { getProviderKey, noStore, reserveDemoSpend } from "@/lib/demo-guards";
+import { demosEnabled, getProviderKey, noStore } from "@/lib/demo-guards";
 import { storyboardFallbackFromPrompt } from "@/lib/demo-samples";
 import { requireSafeCreativeInput } from "@/lib/demo-safety";
 
@@ -6,7 +6,10 @@ export const runtime = "nodejs";
 
 export const maxDuration = 300;
 
-const STORYBOARD_FAL_MODEL = "openai/gpt-image-2.5/sunburst/text-to-image";
+const EVOLINK = "https://api.evolink.ai/v1";
+const STORYBOARD_MODEL = "gpt-image-2.5-sunburst";
+const POLL_MS = 4000;
+const GIVE_UP_MS = 270_000;
 
 function storyboardImagePrompt(brief: string) {
   return [
@@ -28,69 +31,41 @@ export async function POST(request: Request) {
   }
 
   const panels = storyboardFallbackFromPrompt(safe.value);
-  const apiKey = getProviderKey("HAMMER_FAL_KEY", "FAL_KEY");
-  if (!apiKey) {
-    return noStore({
-      ok: true,
-      sample: true,
-      status: "sample: provider key unavailable",
-      panels,
-      capUsd: 1,
-    });
-  }
-
-  const reservation = await reserveDemoSpend(request, {
-    demo: "storyboard",
-    estimatedUsd: 0.1,
-    perClientDailyLimit: 1,
-    globalDailyLimit: 8,
-  });
-  if (!reservation.ok) {
-    return noStore({
-      ok: true,
-      sample: true,
-      status: `sample: ${reservation.reason}`,
-      panels,
-      capUsd: reservation.capUsd,
-      spentUsd: reservation.spentUsd,
-    }, undefined, reservation);
+  const apiKey = getProviderKey("EVOLINK_API_KEY");
+  if (!apiKey || !demosEnabled()) {
+    return noStore({ ok: true, sample: true, status: "sample: live boards are off", panels });
   }
 
   try {
-    const { fal } = await import("@fal-ai/client");
-    fal.config({ credentials: apiKey });
-    const result = await fal.subscribe(STORYBOARD_FAL_MODEL, {
-      input: {
-        prompt: storyboardImagePrompt(safe.value),
-        num_images: 1,
-        image_size: "landscape_16_9",
-        quality: "medium",
-        output_format: "jpeg",
-      },
-      logs: false,
-    });
-
-    const data = result.data as { images?: { url?: string }[] };
-    const imageUrl = data.images?.[0]?.url;
-    if (!imageUrl) throw new Error("empty storyboard image");
-    return noStore({
-      ok: true,
-      sample: false,
-      status: "live",
-      panels,
-      imageUrl,
-      requestId: result.requestId,
-      capUsd: reservation.capUsd,
-      spentUsd: reservation.spentUsd,
-    }, undefined, reservation);
+    const imageUrl = await drawStoryboard(apiKey, storyboardImagePrompt(safe.value));
+    return noStore({ ok: true, sample: false, status: "live", panels, imageUrl });
   } catch {
-    return noStore({
-      ok: true,
-      sample: true,
-      status: "sample: provider failed safely",
-      panels,
-      capUsd: reservation.capUsd,
-      spentUsd: reservation.spentUsd,
-    }, undefined, reservation);
+    return noStore({ ok: true, sample: true, status: "sample: provider failed safely", panels });
   }
+}
+
+async function drawStoryboard(apiKey: string, prompt: string): Promise<string> {
+  const headers = { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" };
+  const submit = await fetch(`${EVOLINK}/images/generations`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ model: STORYBOARD_MODEL, prompt, size: "16:9", quality: "medium" }),
+  });
+  let task = (await submit.json()) as { id?: string; status?: string };
+  if (!submit.ok || !task.id) throw new Error("storyboard submit failed");
+
+  const started = Date.now();
+  while (Date.now() - started < GIVE_UP_MS) {
+    const status = String(task.status ?? "").toLowerCase();
+    if (["failed", "error", "cancelled"].includes(status)) throw new Error("storyboard failed");
+    if (["completed", "succeeded", "success"].includes(status)) {
+      const url = JSON.stringify(task).match(/https:[^"]+?\.(?:png|jpe?g|webp)[^"]*/i)?.[0];
+      if (!url) throw new Error("empty storyboard image");
+      return url;
+    }
+    await new Promise((resolve) => setTimeout(resolve, POLL_MS));
+    const poll = await fetch(`${EVOLINK}/tasks/${task.id}`, { headers });
+    if (poll.ok) task = await poll.json();
+  }
+  throw new Error("storyboard timed out");
 }
