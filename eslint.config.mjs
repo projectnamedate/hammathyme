@@ -18,6 +18,7 @@ export default [
       "node_modules/**",
       "splat/**",
       "figures/**",
+      "films/**",
       "components/figures/projector/projector.live.js",
       "tsconfig.tsbuildinfo",
     ],

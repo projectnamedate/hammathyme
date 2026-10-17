@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Chain Reaction</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --paper: #eef0ea;
+        --blue: #3255a4;
+        --pink: #ff48b0;
+        --yellow: #ffe800;
+        --plate: 5px 4px 0 var(--pink);
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--paper); }
+      #world {
+        position: absolute; left: 0; top: 0; width: 5760px; height: 3240px;
+        transform-origin: 0 0; background: var(--paper); will-change: transform;
+      }
+      .panel { position: absolute; width: 1920px; height: 1080px; }
+      .type { font-family: "Archivo Black", sans-serif; color: var(--blue); text-shadow: var(--plate); line-height: 0.92; }
+      .mono { font-family: "Space Mono", monospace; color: var(--blue); letter-spacing: 0.04em; }
+      .crop { position: absolute; width: 44px; height: 44px; border-color: var(--blue); border-style: solid; border-width: 0; }
+      .panel-no { position: absolute; left: 70px; top: 52px; font-size: 22px; }
+      .reg { position: absolute; right: 70px; top: 46px; width: 44px; height: 44px; }
+      .letter { display: inline-block; will-change: transform; }
+
+      /* 01 type */
+      #p1-head { position: absolute; left: 130px; top: 300px; font-size: 178px; white-space: nowrap; }
+      #p1-head .line { display: block; height: 178px; }
+      #p1-dot { display: inline-block; width: 128px; }
+      #p1-ramp { position: absolute; left: 0; top: 0; overflow: visible; }
+
+      /* 02 data */
+      .dom {
+        position: absolute; top: 420px; width: 80px; height: 440px; background: var(--blue);
+        box-shadow: 6px 5px 0 var(--pink); transform-origin: 100% 100%; will-change: transform;
+      }
+      .bar-val { position: absolute; width: 80px; text-align: center; font-size: 30px; font-weight: 700; }
+      .bar-x { position: absolute; top: 880px; width: 80px; text-align: center; font-size: 22px; }
+      #p2-axis { position: absolute; left: 260px; top: 860px; width: 880px; height: 6px; background: var(--blue); transform-origin: 0 50%; }
+      #p2-title { position: absolute; left: 260px; top: 170px; font-size: 96px; }
+      #p2-sub { position: absolute; left: 264px; top: 280px; font-size: 26px; }
+      #odo {
+        position: absolute; left: 1180px; top: 360px; width: 600px; height: 300px;
+        border: 6px solid var(--blue); box-shadow: 10px 9px 0 var(--pink); background: var(--paper);
+      }
+      #odo-label { position: absolute; left: 1186px; top: 300px; font-size: 26px; }
+      .slot { position: absolute; top: 44px; width: 120px; height: 200px; overflow: hidden; }
+      .strip { position: absolute; left: 0; top: 0; width: 120px; will-change: transform; }
+      .digit { height: 200px; font-size: 168px; line-height: 200px; text-align: center; }
+      #one { position: absolute; left: 0; top: 0; width: 140px; height: 200px; margin: -100px 0 0 -70px; font-size: 196px; line-height: 200px; text-align: center; will-change: transform; }
+
+      /* 03 map */
+      #p3-map { position: absolute; left: 160px; top: 180px; overflow: visible; }
+      #p3-title { position: absolute; left: 160px; top: 70px; font-size: 26px; }
+      .pin { position: absolute; width: 0; height: 0; }
+      .pin-body { position: absolute; left: -26px; top: -104px; width: 52px; height: 104px; transform-origin: 50% 100%; will-change: transform; }
+      .pin-head { position: absolute; left: 0; top: 0; width: 52px; height: 52px; border-radius: 50%; background: var(--pink); box-shadow: 4px 3px 0 var(--blue); }
+      .pin-stem { position: absolute; left: 22px; top: 44px; width: 8px; height: 60px; background: var(--blue); }
+      .pin-tag { position: absolute; left: 66px; top: 148px; font-size: 26px; font-weight: 700; padding: 4px 10px; border: 3px solid var(--blue); background: var(--paper); }
+
+      /* 04 ui */
+      #card { position: absolute; left: 680px; top: 200px; width: 1080px; height: 700px; border: 6px solid var(--blue); background: var(--paper); box-shadow: 12px 11px 0 var(--pink); }
+      #card-title { position: absolute; left: 60px; top: 40px; font-size: 30px; }
+      .row-label { position: absolute; left: 60px; font-size: 64px; }
+      .tog { position: absolute; left: 834px; width: 180px; height: 90px; border-radius: 45px; border: 6px solid var(--blue); background: var(--paper); }
+      .knob { position: absolute; left: 6px; top: 2px; width: 74px; height: 74px; border-radius: 50%; background: var(--blue); will-change: transform; }
+      #slider-track { position: absolute; left: 320px; top: 556px; width: 690px; height: 12px; background: var(--blue); }
+      #slider-handle { position: absolute; left: 0; top: 0; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: var(--yellow); border: 6px solid var(--blue); will-change: transform; }
+      #go { position: absolute; left: 320px; top: 540px; width: 200px; height: 200px; border-radius: 50%; background: var(--blue); box-shadow: 8px 7px 0 var(--pink); display: flex; align-items: center; justify-content: center; will-change: transform; }
+      #go span { font-family: "Archivo Black", sans-serif; font-size: 78px; color: var(--paper); }
+      #cursor { position: absolute; left: 0; top: 0; width: 64px; height: 92px; will-change: transform; }
+      #lever { position: absolute; left: 40px; top: 948px; width: 480px; height: 24px; background: var(--blue); box-shadow: 5px 4px 0 var(--pink); transform-origin: 50% 50%; will-change: transform; }
+      #fulcrum { position: absolute; left: 250px; top: 972px; width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 56px solid var(--blue); }
+      #rod { position: absolute; left: 0; top: 0; overflow: visible; }
+
+      /* 05 / 06 hammer + tear */
+      #ghost { position: absolute; left: 140px; top: 330px; overflow: visible; }
+      #p5-cap { position: absolute; left: 150px; top: 860px; font-size: 26px; }
+      #hammer3d { position: absolute; left: 0; top: 1080px; width: 4320px; height: 1080px; pointer-events: none; }
+      #p6-note { position: absolute; left: 150px; top: 190px; font-size: 64px; }
+      #target { position: absolute; left: 660px; top: 240px; overflow: visible; }
+      #hole { position: absolute; left: 320px; top: 160px; width: 1280px; height: 760px; clip-path: polygon(50% 50%, 50% 50%, 50% 50%); background: #1d2f5c; }
+      #hole-still, #h3-video { position: absolute; left: 0; top: 0; width: 1280px; height: 760px; object-fit: cover; }
+      #tear-rim { position: absolute; left: 320px; top: 160px; overflow: visible; }
+      #bigball { position: absolute; left: 960px; top: 540px; width: 0; height: 0; }
+      #bigball i { position: absolute; left: -100px; top: -100px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle at 36% 32%, #ff86cb 0%, var(--pink) 46%, #dc1470 100%); will-change: transform, opacity; }
+      .shard { position: absolute; width: 0; height: 0; border-style: solid; will-change: transform; }
+
+      /* 07 / 08 / 09 bottom row */
+      .bar-swatch { position: absolute; top: 800px; width: 150px; height: 110px; }
+      #p9-title { position: absolute; left: 150px; top: 300px; font-size: 220px; }
+      #p9-sub { position: absolute; left: 156px; top: 780px; font-size: 28px; }
+      #word { position: absolute; left: 0; top: 380px; width: 1920px; text-align: center; font-family: "Outfit", sans-serif; font-weight: 900; font-size: 300px; letter-spacing: -0.04em; color: var(--blue); line-height: 1; text-shadow: var(--wplate, 7px 6px 0 #ff48b0); }
+      #word .gap { display: inline-block; width: 92px; }
+      #url { position: absolute; left: 0; top: 760px; width: 1920px; text-align: center; font-size: 34px; }
+
+      .ball { position: absolute; left: 0; top: 0; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 50%; background: var(--pink); box-shadow: 5px 4px 0 var(--blue); will-change: transform; }
+
+      #root::after { content: ""; position: absolute; inset: 0; background-image: url("assets/img/paper-grain.png"); background-size: 512px 512px; background-position: var(--gx, 0) var(--gy, 0); mix-blend-mode: multiply; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-e4mq" id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="66">
+      <div data-hf-id="hf-j427" id="world">
+        <!-- 01: type -->
+        <div data-hf-id="hf-k03u" class="panel" id="p1" style="left: 0; top: 0">
+          <div data-hf-id="hf-sb1i" id="p1-head" class="type">
+            <span data-hf-id="hf-sluc" class="line" id="l1"><span data-hf-id="hf-16xe" class="word" data-w="one">one</span> <span data-hf-id="hf-icbm" class="word" data-w="thing">thing</span></span>
+            <span data-hf-id="hf-3hbz" class="line" id="l2"><span data-hf-id="hf-lmxq" class="word" data-w="leads">leads</span> <span data-hf-id="hf-lsoo" class="word" data-w="to">to</span> <span data-hf-id="hf-u8vu" class="word" data-w="another">another</span><span data-hf-id="hf-tcz9" id="p1-dot"></span></span>
+          </div>
+          <svg data-hf-id="hf-fvwu" id="p1-ramp" width="1920" height="1080"><path data-hf-id="hf-aoek" id="ramp-path" d="" fill="none" stroke="#3255a4" stroke-width="6" /></svg>
+        </div>
+
+        <!-- 02: data -->
+        <div data-hf-id="hf-j8a3" class="panel" id="p2" style="left: 1920px; top: 0">
+          <div data-hf-id="hf-iu43" id="p2-title" class="type">momentum</div>
+          <div data-hf-id="hf-tfwg" id="p2-sub" class="mono">per link, 01 to 07</div>
+          <div data-hf-id="hf-cu5n" id="p2-axis"></div>
+          <div data-hf-id="hf-4wdm" id="odo-label" class="mono">total</div>
+          <div data-hf-id="hf-xwqb" id="odo"></div>
+        </div>
+
+        <!-- 03: map -->
+        <div data-hf-id="hf-6i3d" class="panel" id="p3" style="left: 3840px; top: 0">
+          <div data-hf-id="hf-6628" id="p3-title" class="mono">the route, five stops</div>
+          <svg data-hf-id="hf-508j" id="p3-map" width="1600" height="760"><g data-hf-id="hf-lr23" id="dots"></g><path data-hf-id="hf-vdln" id="route" d="" fill="none" stroke="#ff48b0" stroke-width="8" stroke-linecap="round" /></svg>
+        </div>
+
+        <!-- 04: ui -->
+        <div data-hf-id="hf-hmbb" class="panel" id="p4" style="left: 3840px; top: 1080px">
+          <div data-hf-id="hf-55rf" id="card">
+            <div data-hf-id="hf-q0zh" id="card-title" class="mono">settings</div>
+            <div data-hf-id="hf-nlia" class="row-label type" style="top: 130px">gravity</div>
+            <div data-hf-id="hf-1q0l" class="row-label type" style="top: 250px">bounce</div>
+            <div data-hf-id="hf-c1b2" class="row-label type" style="top: 370px">chaos</div>
+            <div data-hf-id="hf-ied6" class="row-label mono" style="top: 520px; font-size: 34px">speed</div>
+            <div data-hf-id="hf-esfu" class="tog" id="tog0" style="top: 135px"><div data-hf-id="hf-0pvg" class="knob"></div></div>
+            <div data-hf-id="hf-0sa4" class="tog" id="tog1" style="top: 255px"><div data-hf-id="hf-860k" class="knob"></div></div>
+            <div data-hf-id="hf-q4i6" class="tog" id="tog2" style="top: 375px"><div data-hf-id="hf-6z3h" class="knob"></div></div>
+            <div data-hf-id="hf-x1go" id="slider-track"></div>
+          </div>
+          <div data-hf-id="hf-ub6n" id="go"><span data-hf-id="hf-93zb">go</span></div>
+          <svg data-hf-id="hf-wel5" id="rod" width="1920" height="1080"><path data-hf-id="hf-pz5c" id="rod-path" d="M 420 742 L 420 860 L 500 860 L 500 946" fill="none" stroke="#3255a4" stroke-width="8" /></svg>
+          <div data-hf-id="hf-faxz" id="fulcrum"></div>
+          <div data-hf-id="hf-gpcz" id="lever"></div>
+        </div>
+
+        <!-- 05: hammer flight -->
+        <div data-hf-id="hf-zo5t" class="panel" id="p5" style="left: 1920px; top: 1080px">
+          <svg data-hf-id="hf-9usl" id="ghost" width="1700" height="420" aria-hidden="true"><text data-hf-id="hf-of1a" x="0" y="330" font-family="Archivo Black" font-size="400" fill="rgba(50, 85, 164, 0.16)">heavy.</text></svg>
+          <div data-hf-id="hf-3n26" id="p5-cap" class="mono">fig. 06, the hammer</div>
+        </div>
+
+        <!-- 06: the sheet -->
+        <div data-hf-id="hf-fctc" class="panel" id="p6" style="left: 0; top: 1080px">
+          <div data-hf-id="hf-p32v" id="p6-note" class="type">please do not tear.</div>
+          <svg data-hf-id="hf-tjki" id="target" width="600" height="600"></svg>
+          <div data-hf-id="hf-f5vf" id="hole">
+            <img data-hf-id="hf-43ny" id="hole-still" src="assets/img/paper-machine-end.jpg" alt="" />
+            <video data-hf-id="hf-pva3" id="h3-video" class="clip" src="assets/video/h3/paper-machine-v02.mp4" playsinline data-has-audio="true" data-start="42.98" data-duration="6.1" data-playback-rate="1.08" data-track-index="1" data-volume="0.45"></video>
+          </div>
+          <svg data-hf-id="hf-dsms" id="tear-rim" width="1280" height="760"><path data-hf-id="hf-7k9l" id="rim-path" d="" fill="none" stroke="#ffffff" stroke-width="12" stroke-linejoin="round" /></svg>
+          <div data-hf-id="hf-coz6" id="shards"></div>
+          <div data-hf-id="hf-9yk6" id="bigball"><i data-hf-id="hf-wt6k"></i></div>
+        </div>
+
+        <!-- 07: colour bars -->
+        <div data-hf-id="hf-oxb5" class="panel" id="p7" style="left: 0; top: 2160px">
+          <div data-hf-id="hf-6kk4" class="mono" style="position: absolute; left: 150px; top: 690px; font-size: 26px">plates: blue 3255a4, pink ff48b0, yellow ffe800</div>
+          <div data-hf-id="hf-fipa" class="bar-swatch" style="left: 150px; background: var(--blue)"></div>
+          <div data-hf-id="hf-dwnh" class="bar-swatch" style="left: 300px; background: var(--pink)"></div>
+          <div data-hf-id="hf-rek1" class="bar-swatch" style="left: 450px; background: var(--yellow)"></div>
+          <div data-hf-id="hf-o1fh" class="bar-swatch" style="left: 600px; background: var(--blue); mix-blend-mode: multiply"></div>
+          <div data-hf-id="hf-6s9i" class="bar-swatch" style="left: 600px; background: var(--pink); mix-blend-mode: multiply; opacity: 0.85"></div>
+          <div data-hf-id="hf-q5m4" class="bar-swatch" style="left: 750px; background: var(--blue)"></div>
+          <div data-hf-id="hf-1kwn" class="bar-swatch" style="left: 750px; background: var(--yellow); mix-blend-mode: multiply"></div>
+        </div>
+
+        <!-- 08: sign-off -->
+        <div data-hf-id="hf-i06q" class="panel" id="p8" style="left: 1920px; top: 2160px">
+          <div data-hf-id="hf-65gj" id="word">hammer<span data-hf-id="hf-m69e" class="gap" id="word-gap"></span></div>
+          <div data-hf-id="hf-hzsr" id="url" class="mono">hammer.ad</div>
+        </div>
+
+        <!-- 09: title -->
+        <div data-hf-id="hf-omck" class="panel" id="p9" style="left: 3840px; top: 2160px">
+          <div data-hf-id="hf-zxa4" id="p9-title" class="type">chain reaction.</div>
+          <div data-hf-id="hf-99l8" id="p9-sub" class="mono">a riso machine in nine panels</div>
+        </div>
+
+        <canvas data-hf-id="hf-ourt" id="hammer3d" width="6480" height="1620"></canvas>
+
+        <div data-hf-id="hf-xq42" class="ball" id="ball"></div>
+        <div data-hf-id="hf-5qhh" class="type" id="one">1</div>
+        <div data-hf-id="hf-31yk" class="ball" id="ball2"></div>
+      </div>
+      <audio data-hf-id="hf-fcww" id="sfx" src="assets/audio/sfx/chain-sfx-v01.wav" data-start="0" data-duration="66" data-track-index="3" data-volume="0.85"></audio>
+      <audio data-hf-id="hf-asih" id="bed" src="assets/audio/music/chain-bed-v04.mp3" data-start="0" data-duration="65.66" data-track-index="2" data-volume="0.9"></audio>
+    </div>
+    <script src="js/map-data.js"></script>
+    <script src="js/reel.js"></script>
+    <script>
+      document.fonts.ready.then(() => {
+        const tl = window.CR.makeTimeline();
+        window.__timelines["main"] = tl;
+      });
+    </script>
+    <script type="module" src="js/hammer.js"></script>
+  </body>
+</html>

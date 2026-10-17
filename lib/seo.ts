@@ -4,7 +4,7 @@ import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-10-16T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-10-17T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =
@@ -528,10 +528,11 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
     name: "Hammer motion graphics reel",
     description:
       piece.blurb ??
-      "A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion, kinetic type, data motion, particles, and early audio-reactive animation tests.",
-    thumbnailUrl: [getCanonicalUrl("/work/motion/hammer-reel-poster.jpg")],
-    uploadDate: "2026-05-18T00:00:00-07:00",
-    contentUrl: getCanonicalUrl("/work/motion/hammer-reel-v3-web-max-h264.mp4"),
+      "One continuous shot where every move sets off the next: kinetic type, a 3D bar chart, a dot-matrix globe, interface motion, and a three.js Rube Goldberg machine.",
+    thumbnailUrl: [getCanonicalUrl("/work/motion/hammer-reel-v04-poster.jpg")],
+    uploadDate: "2026-10-17T00:00:00-07:00",
+    duration: "PT1M6S",
+    contentUrl: getCanonicalUrl("/work/motion/hammer-reel-v04-web-max-h264.mp4"),
     embedUrl: pageUrl,
     creator: { "@id": PERSON_ID },
     publisher: { "@id": PERSON_ID },

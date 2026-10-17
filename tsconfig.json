@@ -39,6 +39,7 @@
     "node_modules",
     "brand",
     "splat",
-    "figures"
+    "figures",
+    "films"
   ]
 }

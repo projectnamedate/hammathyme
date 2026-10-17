@@ -157,7 +157,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "reel",
         title: "motion graphics reel",
         year: "2026",
-        blurb: "selected ai motion work cut to a single piece. remotion and hyperframes, rendered from prores masters.",
+        blurb: "one continuous shot where 24 motion moves set each other off, ending in a three.js rube goldberg machine. made in code with hyperframes.",
         status: "live",
         tint: "var(--bloodlust)",
       },

@@ -460,22 +460,23 @@ function MotionReelDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-[-0.015em] text-[var(--ink-1)]">
-            A compact reel of AI motion work: Remotion, HyperFrames, brand identity motion,
-            kinetic type, data motion, particles, and early audio-reactive animation tests.
+            One continuous shot where every move sets off the next: kinetic type, a 3D bar chart,
+            a dot-matrix globe, interface motion, and a three.js Rube Goldberg machine. 24 named
+            motion moves, made entirely in code.
           </p>
           <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-            code-rendered motion · web video · social crops
+            hyperframes · three.js · one shot, zero cuts
           </p>
         </aside>
         <div
           className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
           style={frameStyle}
         >
-          <video aria-label="Hammer motion graphics reel" className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata" poster="/work/motion/hammer-reel-poster.jpg">
-            <source src="/work/motion/hammer-reel-v3-web-hq-10bit-hevc.mp4" type='video/mp4; codecs="hvc1"' />
+          <video aria-label="Hammer motion graphics reel" className="block aspect-video w-full bg-[var(--cream-0)]" controls playsInline preload="metadata" poster="/work/motion/hammer-reel-v04-poster.jpg">
+            <source src="/work/motion/hammer-reel-v04-web-hq-10bit-hevc.mp4" type='video/mp4; codecs="hvc1"' />
             <source
-              src="/work/motion/hammer-reel-v3-web-max-h264.mp4"
-              type='video/mp4; codecs="avc1.64002A, mp4a.40.2"'
+              src="/work/motion/hammer-reel-v04-web-max-h264.mp4"
+              type='video/mp4; codecs="avc1.640032, mp4a.40.2"'
             />
           </video>
         </div>

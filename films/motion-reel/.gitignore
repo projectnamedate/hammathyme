@@ -1,0 +1,8 @@
+# Media and caches stay on disk; the shipped encodes live in public/work/motion/.
+assets/
+renders/
+build/
+.hyperframes/
+.thumbnails/
+.waveform-cache/
+.DS_Store

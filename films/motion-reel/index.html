@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Chain Reaction</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --paper: #dad4ee;
+        --paper-hi: #f8f6fd;
+        --blue: #3255a4;
+        --blue-deep: #22396f;
+        --pink: #ff48b0;
+        --yellow: #ffe800;
+        --plate: 5px 4px 0 var(--pink);
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--paper); }
+      #world { position: absolute; left: 0; top: 0; width: 5760px; height: 3240px; transform-origin: 0 0; background: var(--paper); }
+      .panel { position: absolute; width: 1920px; height: 1080px; }
+      .type { font-family: "Archivo Black", sans-serif; color: var(--blue); text-shadow: var(--plate); line-height: 0.92; }
+      .mono { font-family: "Space Mono", monospace; color: var(--blue); letter-spacing: 0.04em; }
+      .cap { position: absolute; left: 150px; top: 112px; font-size: 104px; white-space: nowrap; }
+      .crop { position: absolute; width: 44px; height: 44px; border-color: var(--blue); border-style: solid; border-width: 0; }
+      .panel-no { position: absolute; left: 92px; top: 52px; font-size: 22px; }
+      .reg { position: absolute; right: 92px; top: 46px; width: 44px; height: 44px; }
+      canvas.layer3d { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+
+      /* 01: 3D letters */
+      .word3d { position: absolute; left: 130px; font-family: "Archivo Black", sans-serif; font-size: 220px; line-height: 1; white-space: nowrap; perspective: 1600px; }
+      .l3 { position: relative; display: inline-block; transform-style: preserve-3d; }
+      .l3 .face { position: relative; display: block; color: var(--blue); text-shadow: var(--plate); }
+      .l3 .depth { position: absolute; left: 0; top: 0; }
+      #hook { top: 300px; }
+      #kt { top: 330px; }
+      #hook-sub { position: absolute; left: 140px; top: 580px; font-size: 40px; }
+      .gap3d { display: inline-block; width: 128px; }
+      #ramp { position: absolute; left: 0; top: 0; overflow: visible; }
+
+      /* 02: data */
+      .bar-val { position: absolute; width: 120px; margin-left: -60px; text-align: center; font-size: 30px; font-weight: 700; }
+      #odo { position: absolute; left: 1220px; top: 400px; width: 600px; height: 300px; border: 6px solid var(--blue); box-shadow: 10px 9px 0 var(--pink); background: var(--paper-hi); }
+      #odo-label { position: absolute; left: 1226px; top: 340px; font-size: 26px; }
+      .slot { position: absolute; top: 44px; width: 120px; height: 200px; overflow: hidden; }
+      .strip { position: absolute; left: 0; top: 0; width: 120px; }
+      .digit { height: 200px; font-size: 168px; line-height: 200px; text-align: center; }
+      #one { position: absolute; left: 0; top: 0; width: 140px; height: 200px; margin: -100px 0 0 -70px; font-size: 196px; line-height: 200px; text-align: center; }
+
+      /* 04: interfaces */
+      #card { position: absolute; left: 680px; top: 240px; width: 1080px; height: 700px; border: 6px solid var(--blue); background: var(--paper-hi); box-shadow: 12px 11px 0 var(--pink); transform-origin: 50% 50%; }
+      #card-title { position: absolute; left: 60px; top: 40px; font-size: 30px; }
+      .row-label { position: absolute; left: 60px; font-size: 64px; }
+      .tog { position: absolute; left: 834px; width: 180px; height: 90px; border-radius: 45px; border: 6px solid var(--blue); background: var(--paper-hi); }
+      .knob { position: absolute; left: 6px; top: 2px; width: 74px; height: 74px; border-radius: 50%; background: var(--blue); }
+      #slider-track { position: absolute; left: 320px; top: 556px; width: 690px; height: 12px; background: var(--blue); }
+      #slider-handle { position: absolute; left: 0; top: 0; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: var(--yellow); border: 6px solid var(--blue); }
+      #go { position: absolute; left: 460px; top: 710px; width: 200px; height: 200px; border-radius: 50%; background: var(--blue); box-shadow: 8px 7px 0 var(--pink); display: flex; align-items: center; justify-content: center; }
+      #go span { font-family: "Archivo Black", sans-serif; font-size: 78px; color: var(--paper-hi); }
+      #toast { position: absolute; left: 1150px; top: 262px; width: 560px; height: 86px; border: 5px solid var(--blue); background: var(--paper-hi); box-shadow: 8px 7px 0 var(--pink); display: flex; align-items: center; gap: 22px; padding: 0 28px; font-size: 32px; font-weight: 700; }
+      #toast i { display: block; width: 30px; height: 30px; border-radius: 50%; background: var(--pink); flex: none; }
+      #lever { position: absolute; left: 40px; top: 948px; width: 480px; height: 24px; background: var(--blue); box-shadow: 5px 4px 0 var(--pink); transform-origin: 50% 50%; }
+      #fulcrum { position: absolute; left: 250px; top: 972px; width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 56px solid var(--blue); }
+      #rod { position: absolute; left: 0; top: 0; overflow: visible; }
+
+      /* 05 / 06 */
+      #ghost { position: absolute; left: 520px; top: 250px; overflow: visible; }
+      #hammer3d { position: absolute; left: 0; top: 1080px; width: 4320px; height: 1080px; pointer-events: none; }
+      #p6-note { position: absolute; left: 150px; top: 150px; font-size: 64px; }
+      #p6-cap { position: absolute; left: 150px; top: 920px; font-size: 26px; }
+      #target { position: absolute; left: 660px; top: 240px; overflow: visible; }
+      #hole { position: absolute; left: 320px; top: 160px; width: 1280px; height: 760px; clip-path: polygon(50% 50%, 50% 50%, 50% 50%); background: var(--paper); }
+      #rg { position: absolute; left: 0; top: 0; width: 1280px; height: 760px; }
+      #tear-rim { position: absolute; left: 320px; top: 160px; overflow: visible; }
+      .shard { position: absolute; width: 0; height: 0; border-style: solid; }
+
+      /* 07: sign-off */
+      #word, #word-sweep { position: absolute; left: 0; top: 380px; width: 1920px; text-align: center; font-family: "Outfit", sans-serif; font-weight: 900; font-size: 300px; letter-spacing: -0.04em; color: var(--blue); line-height: 1; text-shadow: var(--wplate, 7px 6px 0 #ff48b0); }
+      #word .gap, #word-sweep .gap { display: inline-block; width: 70px; }
+      #url { position: absolute; left: 0; top: 760px; width: 1920px; text-align: center; font-size: 34px; }
+
+      .ball { position: absolute; left: 0; top: 0; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 50%; background: var(--pink); box-shadow: 5px 4px 0 var(--blue); }
+      #ball2 { width: 64px; height: 64px; margin: -32px 0 0 -32px; box-shadow: 3px 3px 0 var(--blue); }
+
+      /* screen-space: tags and the move counter */
+      #tags { position: absolute; inset: 0; pointer-events: none; }
+      .tag { position: absolute; left: 0; top: 0; padding: 8px 16px 9px; background: var(--blue); color: var(--paper-hi); font-family: "Space Mono", monospace; font-size: 26px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; box-shadow: 5px 4px 0 var(--pink); transform-origin: 0 100%; }
+      .tag b { color: var(--yellow); font-weight: 700; }
+      #hud { position: absolute; right: 110px; bottom: 52px; padding: 10px 18px; background: var(--paper-hi); border: 4px solid var(--blue); font-family: "Space Mono", monospace; font-size: 30px; font-weight: 700; color: var(--blue); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="66">
+      <div id="world">
+        <!-- 01: kinetic type -->
+        <div class="panel" id="p1" style="left: 0; top: 0">
+          <div class="word3d" id="hook" data-text="one shot."></div>
+          <div id="hook-sub" class="mono">24 motion moves · zero cuts · made in code</div>
+          <div class="word3d" id="kt" data-text="kinetic type" data-gap="1"></div>
+          <svg id="ramp" width="1920" height="1080"><path id="ramp-path" d="" fill="none" stroke="#3255a4" stroke-width="6" /></svg>
+        </div>
+
+        <!-- 02: data that moves -->
+        <div class="panel" id="p2" style="left: 1920px; top: 0">
+          <canvas class="layer3d" id="p2-3d" width="2880" height="1620"></canvas>
+          <div class="cap type">data that moves</div>
+          <div id="odo-label" class="mono">momentum</div>
+          <div id="odo"></div>
+        </div>
+
+        <!-- 03: maps, in 3D -->
+        <div class="panel" id="p3" style="left: 3840px; top: 0">
+          <canvas class="layer3d" id="p3-3d" width="2880" height="1620"></canvas>
+          <div class="cap type" style="left: 900px; top: 100px">maps, in 3D</div>
+        </div>
+
+        <!-- 04: interfaces -->
+        <div class="panel" id="p4" style="left: 3840px; top: 1080px">
+          <div class="cap type">interfaces</div>
+          <div id="card">
+            <div id="card-title" class="mono">settings</div>
+            <div class="row-label type" style="top: 130px">gravity</div>
+            <div class="row-label type" style="top: 250px">bounce</div>
+            <div class="row-label type" style="top: 370px">chaos</div>
+            <div class="row-label mono" style="top: 520px; font-size: 34px">speed</div>
+            <div class="tog" id="tog0" style="top: 135px"><div class="knob"></div></div>
+            <div class="tog" id="tog1" style="top: 255px"><div class="knob"></div></div>
+            <div class="tog" id="tog2" style="top: 375px"><div class="knob"></div></div>
+            <div id="slider-track"></div>
+          </div>
+          <div id="toast" class="mono"><i></i>gravity is on</div>
+          <div id="go"><span>go</span></div>
+          <svg id="rod" width="1920" height="1080"><path id="rod-path" d="M 460 810 L 440 810 L 440 925 L 500 925 L 500 946" fill="none" stroke="#3255a4" stroke-width="8" /></svg>
+          <div id="fulcrum"></div>
+          <div id="lever"></div>
+        </div>
+
+        <!-- 05: real-time 3D -->
+        <div class="panel" id="p5" style="left: 1920px; top: 1080px">
+          <div class="cap type">real-time 3D</div>
+          <svg id="ghost" width="1300" height="700" aria-hidden="true"><text x="0" y="560" font-family="Archivo Black" font-size="640" fill="rgba(50, 85, 164, 0.14)">3D</text></svg>
+        </div>
+
+        <!-- 06: the sheet, and the machine behind it -->
+        <div class="panel" id="p6" style="left: 0; top: 1080px">
+          <div id="p6-note" class="type">please do not tear.</div>
+          <div id="p6-cap" class="mono">behind this sheet: simulated physics</div>
+          <svg id="target" width="600" height="600"></svg>
+          <div id="hole"><canvas id="rg" width="2304" height="1368"></canvas></div>
+          <svg id="tear-rim" width="1280" height="760"><path id="rim-path" d="" fill="none" stroke="#f8f6fd" stroke-width="12" stroke-linejoin="round" /></svg>
+          <div id="shards"></div>
+        </div>
+
+        <!-- 07: sign-off -->
+        <div class="panel" id="p8" style="left: 1920px; top: 2160px">
+          <div id="word">hammer<span class="gap" id="word-gap"></span></div>
+          <div id="url" class="mono">hammer.ad</div>
+        </div>
+
+        <canvas id="hammer3d" width="6480" height="1620"></canvas>
+        <div class="ball" id="ball"></div>
+        <div class="type" id="one">1</div>
+        <div class="ball" id="ball2"></div>
+      </div>
+      <div id="tags"></div>
+      <div id="hud">moves 00 / 24</div>
+      <audio id="sfx" src="assets/audio/sfx/chain-sfx-v05.wav" data-start="0" data-duration="66" data-track-index="3" data-volume="0.85"></audio>
+      <audio id="bed" src="assets/audio/music/chain-bed-edit-v01.wav" data-start="0" data-duration="66" data-track-index="2" data-volume="0.9"></audio>
+    </div>
+    <script src="js/map-data.js"></script>
+    <script src="js/reel.js"></script>
+    <script type="module" src="js/world3d.js"></script>
+    <script>
+      Promise.all([document.fonts.ready, window.CR3D_READY]).then(() => {
+        const tl = window.CR.makeTimeline();
+        window.__timelines["main"] = tl;
+      });
+    </script>
+  </body>
+</html>
