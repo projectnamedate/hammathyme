@@ -1,0 +1,7 @@
+# Media stays on disk; prompts, scripts and the ledger are committed.
+stills/
+meshes/
+build/
+.DS_Store
+src-assets/
+audio-src/

@@ -16,7 +16,7 @@ are kept as history and may use pre-rename names.
 |---|---|---|---|
 | 18 | Blender piece (AR?) | vfx-cgi | Jeff 2026-10-17 roadmap: a new Blender piece, maybe AR (USDZ/GLB quick look). Replaces the blender look-dev pipeline, which sits last on vfx + cgi until then |
 | 19 | Better motion graphics reel: Chain Reaction | motion-graphics | shipped 2026-10-17 at /work/motion-graphics/reel (hammer-reel-v04): one continuous HyperFrames shot, 24 named motion moves setting each other off, ending in a three.js Rube Goldberg machine; lilac stock, cool techno bed. Source in `films/motion-reel` |
-| 20 | Conveyor Belt Ringworld | interactive-playable | in progress 2026-10-17: a silly three.js third-person shooter. An armoured salmon nigiri on a rotating sushi belt fights chopstick drones with a wasabi blaster; the rice is the shield |
+| 20 | Sushi Scramble | interactive-playable | shipped 2026-10-17 at /work/interactive-playable/sushi-scramble (first in the category; dot discipline deleted): a three.js third-person shooter in a food-photo look. An armoured salmon nigiri holds a sushi belt against chopstick drones and the diner's hand; endless waves. Source in `games/sushi-scramble` |
 | 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
 | 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
 | 23 | Anime short | film-animation | Jeff 2026-10-11 roadmap |

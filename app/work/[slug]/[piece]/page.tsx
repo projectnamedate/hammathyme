@@ -6,13 +6,11 @@ import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { SplatViewer } from "@/components/SplatViewer";
 import { ProjectorFigure } from "@/components/figures/projector/ProjectorFigure";
+import { SushiScrambleGame } from "@/components/games/sushi-scramble/SushiScrambleGame";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
-import {
-  DotDisciplineGame,
-  PromptStoryboardDemo,
-} from "@/components/interactives/InteractiveDemos";
+import { PromptStoryboardDemo } from "@/components/interactives/InteractiveDemos";
 import {
   findCase,
   findPiece,
@@ -155,9 +153,9 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/creative-skills") {
     return <CreativeSkillsDetail piece={piece} transitionName={transitionName} />;
   }
+  if (key === "interactive-playable/sushi-scramble") return <SushiScrambleDetail transitionName={transitionName} />;
   if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
-  if (key === "interactive-playable/dot-discipline") return <DotDisciplineGame />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/blender-lookdev-pipeline") {
@@ -174,6 +172,42 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
     if (guide) return <BrandGuideDetail guide={guide} transitionName={transitionName} />;
   }
   notFound();
+}
+
+const SUSHI_SCRAMBLE_FACTS = [
+  ["controls", "wasd · mouse to aim and fire · g ginger grenade · space jump · touch: twin sticks"],
+  ["built with", "three.js · physically based materials · bokeh, bloom and ambient occlusion · web audio"],
+  ["ai assets", "hero, hand and sushi: hunyuan 3d 3.1 from gpt image 2.5 designs · music: suno · ambience: elevenlabs"],
+  ["set", "poly haven cc0 hdri and textures · lanterns, belt and plates built in code"],
+];
+
+function SushiScrambleDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A third-person shooter in a sushi bar. You are a salmon nigiri in power armour on a belt that never
+            stops. Chopstick drones pinch, soy slows you down, and every third wave the diner reaches in.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {SUSHI_SCRAMBLE_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div className="relative md:col-span-9" style={frameStyle}>
+          <SushiScrambleGame />
+        </div>
+      </div>
+    </section>
+  );
 }
 
 const PROJECTOR_FACTS = [

@@ -36,9 +36,9 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/creative-skills": CreativeSkills,
+  "interactive-playable/sushi-scramble": SushiScramble,
   "interactive-playable/35mm-projector": ProjectorAnatomy,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
-  "interactive-playable/dot-discipline": DotDiscipline,
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
   "film-animation/code-animation": CodeAnimation,
@@ -409,6 +409,34 @@ function ProjectorAnatomy() {
   );
 }
 
+function SushiScramble() {
+  return (
+    <Plate>
+      <g stroke="var(--ink-3)" strokeWidth="0.9" fill="none">
+        <ellipse cx="60" cy="96" rx="40" ry="15" />
+        <ellipse cx="60" cy="96" rx="30" ry="9.5" />
+      </g>
+      <g fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.7">
+        <ellipse cx="29" cy="94" rx="5.5" ry="2" />
+        <ellipse cx="88" cy="101" rx="5.5" ry="2" />
+      </g>
+      <g transform="translate(60 99)">
+        <rect x="-5.5" y="-2" width="3" height="5" fill="var(--ink-1)" />
+        <rect x="2.5" y="-2" width="3" height="5" fill="var(--ink-1)" />
+        <ellipse cx="0" cy="-7" rx="9" ry="6.5" fill="var(--cream-0)" stroke="var(--ink-3)" strokeWidth="0.7" />
+        <path d="M-10.5 -8 Q0 -19 10.5 -8 Q0 -12 -10.5 -8Z" fill="var(--cinnamon)" />
+        <circle cx="0" cy="-6" r="2" fill="var(--ink-0)" />
+      </g>
+      <g stroke="var(--ink-1)" strokeWidth="1.1" strokeLinecap="round">
+        <line x1="70" y1="52" x2="88" y2="44" />
+        <line x1="71" y1="56" x2="89" y2="50" />
+      </g>
+      <circle cx="69" cy="54" r="2.2" fill="var(--ink-2)" />
+      <MonoLabel>SUSHI SHOOTER</MonoLabel>
+    </Plate>
+  );
+}
+
 function PromptStoryboard() {
   return (
     <Plate>
@@ -426,39 +454,6 @@ function PromptStoryboard() {
         ))}
       </g>
       <MonoLabel>6 PANEL DEMO</MonoLabel>
-    </Plate>
-  );
-}
-
-function DotDiscipline() {
-  return (
-    <Plate>
-      <g transform="translate(21 66)">
-        <text
-          x="0"
-          y="0"
-          fontFamily="var(--font-display)"
-          fontWeight="300"
-          fontSize="26"
-          letterSpacing="-1.2"
-          fill="var(--ink-0)"
-        >
-          hammer
-        </text>
-        <circle cx="74" cy="-1.8" r="3.2" fill="var(--cinnamon)" />
-        <line x1="2" y1="7" x2="84" y2="7" stroke="var(--ink-4)" strokeWidth="0.8" />
-        <line x1="70" y1="-13" x2="78" y2="-13" stroke="var(--cinnamon)" strokeWidth="1.1" />
-        <line x1="74" y1="-17" x2="74" y2="-9" stroke="var(--cinnamon)" strokeWidth="1.1" />
-      </g>
-      <g transform="translate(28 96)" stroke="var(--ink-3)" strokeWidth="0.8">
-        <line x1="0" y1="0" x2="64" y2="0" />
-        <line x1="0" y1="12" x2="64" y2="12" />
-        <line x1="0" y1="24" x2="64" y2="24" />
-        <circle cx="58" cy="0" r="2.4" fill="var(--cinnamon)" stroke="none" />
-        <circle cx="47" cy="12" r="2.4" fill="var(--ink-0)" stroke="none" />
-        <circle cx="52" cy="24" r="2.4" fill="var(--ink-0)" stroke="none" />
-      </g>
-      <MonoLabel>BRAND GAME</MonoLabel>
     </Plate>
   );
 }

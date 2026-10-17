@@ -1,0 +1,3 @@
+Image 1 is the approved open-hand design: keep the same hand, skin, nails, indigo sleeve cuff, scale and lighting identical.
+The same hand closed into a tight grabbing fist, fingers wrapped into the palm as if snatching something small, seen from the same three-quarter view from above, wrist ending cleanly inside the same indigo sleeve cuff.
+Plain seamless light-grey cyclorama background, soft even studio light from the front, no harsh shadows, no rim colour. The whole object is in frame with a margin on every side and fills most of the frame. One single object only. No text, no logos, no watermark, no floor props.

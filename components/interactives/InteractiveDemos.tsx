@@ -2,14 +2,13 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { track } from "@vercel/analytics";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   SAMPLE_STORYBOARD,
   STORYBOARD_PRESETS,
   type StoryboardPreset,
   type StoryboardPanel,
 } from "@/lib/demo-samples";
-import { WORDMARK_LETTERS } from "@/components/Wordmark";
 
 type ApiState = {
   loading: boolean;
@@ -262,182 +261,6 @@ export function PromptStoryboardDemo() {
             ) : null}
           </motion.figure>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function clamp(value: number, min: number, max: number) {
-  return Math.max(min, Math.min(max, value));
-}
-
-const DOT_TARGET = {
-  gap: -9,
-  baseline: 12,
-  size: 171,
-};
-
-export function DotDisciplineGame() {
-  const reduce = useReducedMotion();
-  const [gap, setGap] = useState(28);
-  const [baseline, setBaseline] = useState(-34);
-  const [size, setSize] = useState(132);
-  const [streak, setStreak] = useState(0);
-  const [best, setBest] = useState(0);
-  const [message, setMessage] = useState("align the mark");
-
-  const score = useMemo(() => {
-    const gapScore = Math.abs(gap - DOT_TARGET.gap) * 0.9;
-    const baselineScore = Math.abs(baseline - DOT_TARGET.baseline) * 0.95;
-    const sizeScore = Math.abs(size - DOT_TARGET.size) * 0.42;
-    return clamp(Math.round(100 - gapScore - baselineScore - sizeScore), 0, 100);
-  }, [baseline, gap, size]);
-  const controls: [string, number, (next: number) => void, number, number][] = [
-    ["dot gap", gap, setGap, -60, 44],
-    ["baseline", baseline, setBaseline, -60, 88],
-    ["diameter", size, setSize, 118, 230],
-  ];
-
-  function lock() {
-    const nextStreak = score >= 90 ? streak + 1 : 0;
-    setStreak(nextStreak);
-    setBest(Math.max(best, score));
-    setMessage(score >= 98 ? "approved" : score >= 90 ? "near the recipe" : "missed the recipe");
-    if (score >= 90) {
-      setGap(DOT_TARGET.gap + (Math.random() * 72 - 36));
-      setBaseline(DOT_TARGET.baseline + (Math.random() * 92 - 46));
-      setSize(DOT_TARGET.size + (Math.random() * 92 - 46));
-    }
-  }
-
-  return (
-    <section className="mx-auto max-w-[1220px]">
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_360px]">
-        <motion.div
-          className="relative overflow-hidden border border-[var(--ink-4)] bg-[var(--cream-1)] p-5 md:p-8"
-          initial={reduce ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduce ? 0 : 0.65, ease: CINEMA }}
-        >
-          <div className="relative h-[300px] overflow-hidden bg-[var(--cream-0)] md:aspect-[16/9] md:h-auto md:min-h-[320px]">
-            <div className="absolute left-[8%] right-[8%] top-[55%] h-[1px] bg-[var(--ink-4)]" />
-            <div className="absolute left-[8%] right-[8%] top-[62%] h-[1px] bg-[var(--cinnamon)] opacity-45" />
-            <div className="absolute left-1/2 top-1/2 w-[min(88vw,640px)] -translate-x-1/2 -translate-y-1/2 text-center">
-              <div className="relative inline-block pb-[0.18em]">
-                <span
-                  className="kw text-[clamp(36px,10vw,172px)] leading-[0.84] text-[var(--ink-0)]"
-                  aria-label="hammer wordmark calibration"
-                >
-                  <span className="kw-word" aria-hidden>
-                    {WORDMARK_LETTERS.map((letter, index) => (
-                      <span className="kw-letter-mask" key={`${letter}-${index}`}>
-                        <span className="kw-letter">{letter}</span>
-                      </span>
-                    ))}
-                  </span>
-                  <span
-                    aria-hidden
-                    className="relative inline-block rounded-full align-baseline"
-                    style={{
-                      width: `${DOT_TARGET.size / 1000}em`,
-                      height: `${DOT_TARGET.size / 1000}em`,
-                      marginLeft: `${DOT_TARGET.gap / 1000}em`,
-                      transform: `translateY(${DOT_TARGET.baseline / 1000}em)`,
-                    }}
-                  >
-                    <motion.span
-                      className="absolute inset-0 rounded-full border border-[var(--cinnamon)]"
-                      animate={reduce ? undefined : { scale: [1, 1.18, 1], opacity: [0.3, 0.82, 0.3] }}
-                      transition={reduce ? undefined : { duration: 1.8, repeat: Infinity, ease: SOFT }}
-                    />
-                    <motion.span
-                      className="absolute rounded-full bg-[var(--cinnamon)]"
-                      style={{
-                        width: `${size / 1000}em`,
-                        height: `${size / 1000}em`,
-                        left: `calc(50% + ${(gap - DOT_TARGET.gap) / 1000}em)`,
-                        top: `calc(50% + ${(baseline - DOT_TARGET.baseline) / 1000}em)`,
-                        transform: "translate(-50%, -50%)",
-                      }}
-                      animate={reduce ? undefined : { boxShadow: score >= 90 ? "0 0 0 12px rgba(242,142,134,0.18)" : "0 0 0 0 rgba(242,142,134,0)" }}
-                      transition={{ duration: reduce ? 0 : 0.35, ease: SOFT }}
-                    />
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between font-mono uppercase tracking-[0.16em]">
-              <span className="text-[10px] text-[var(--ink-2)]">{message}</span>
-              <motion.span
-                className="font-display text-[56px] font-light leading-none tracking-[-0.04em] text-[var(--ink-0)]"
-                animate={reduce ? undefined : { scale: score >= 90 ? 1.08 : 1 }}
-                transition={{ duration: reduce ? 0 : 0.25, ease: SOFT }}
-              >
-                {score}
-              </motion.span>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.aside
-          className="border-y border-[var(--ink-4)] py-6"
-          initial={reduce ? false : { opacity: 0, x: 18 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: reduce ? 0 : 0.62, ease: CINEMA }}
-        >
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              ["score", String(score)],
-              ["streak", String(streak)],
-              ["best", String(best)],
-            ].map(([label, value]) => (
-              <div key={label} className="border border-[var(--ink-4)] bg-[var(--cream-0)] p-3">
-                <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--cinnamon)]">{label}</p>
-                <p className="mt-2 font-display text-[28px] font-light leading-none tracking-[-0.035em] text-[var(--ink-0)]">{value}</p>
-              </div>
-            ))}
-          </div>
-
-          {controls.map(([label, value, setter, min, max]) => (
-            <label key={String(label)} className="mt-6 block">
-              <span className="flex justify-between font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--ink-2)]">
-                <span>{label}</span>
-                <span>{Math.round(Number(value))}</span>
-              </span>
-              <input
-                className="mt-3 h-1 w-full accent-[var(--cinnamon)]"
-                type="range"
-                name={`dot-${label.replace(/\s+/g, "-")}`}
-                min={Number(min)}
-                max={Number(max)}
-                step="0.1"
-                value={Number(value)}
-                onChange={(event) => setter(Number(event.target.value))}
-              />
-            </label>
-          ))}
-
-          <div className="mt-6 grid grid-cols-2 gap-2">
-            <button className={CONTROL} data-cursor="link" data-cursor-label="lock" type="button" onClick={lock}>
-              lock
-            </button>
-            <button
-              className={CONTROL}
-              data-cursor="link"
-              data-cursor-label="reset"
-              type="button"
-              onClick={() => {
-                setGap(28);
-                setBaseline(-34);
-                setSize(132);
-                setStreak(0);
-                setMessage("align the mark");
-              }}
-            >
-              reset
-            </button>
-          </div>
-        </motion.aside>
       </div>
     </section>
   );

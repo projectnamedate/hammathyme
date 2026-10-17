@@ -15,6 +15,7 @@ const PRIORITY_SITEMAP_ROUTES = [
   { path: "/work/film-animation/the-gunfight", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/film-animation/code-animation", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/pipelines-tools/pipeline-visualizer", priority: "0.8", changeFrequency: "monthly" },
+  { path: "/work/interactive-playable/sushi-scramble", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/brand-systems/hammer", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/websites/hammer", priority: "0.8", changeFrequency: "monthly" },
 ] as const;

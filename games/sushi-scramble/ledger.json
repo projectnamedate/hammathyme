@@ -1,0 +1,453 @@
+{
+  "project": "conveyor-belt-ringworld",
+  "events": [
+    {
+      "id": "look-food-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274188-bt6idfzc",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.808,
+          "usd": 0.056,
+          "cny": 0.381
+        },
+        "credits_used": 3.808,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 384,
+        "total_tokens": 2394
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/look-food-v01.md",
+      "recordedAt": "2026-10-17T21:57:05.467Z"
+    },
+    {
+      "id": "look-clay-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274188-in4mbih9",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.8052,
+          "usd": 0.056,
+          "cny": 0.381
+        },
+        "credits_used": 3.8052,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 375,
+        "total_tokens": 2385
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/look-clay-v01.md",
+      "recordedAt": "2026-10-17T21:57:05.555Z"
+    },
+    {
+      "id": "look-toon-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274188-jzbaxaav",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.808,
+          "usd": 0.056,
+          "cny": 0.381
+        },
+        "credits_used": 3.808,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 384,
+        "total_tokens": 2394
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/look-toon-v01.md",
+      "recordedAt": "2026-10-17T21:57:11.659Z"
+    },
+    {
+      "id": "hand-open-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274656-nlxv7ze2",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 6.6106,
+          "usd": 0.098,
+          "cny": 0.662
+        },
+        "credits_used": 6.6106,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 195,
+        "total_tokens": 3763
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/hand-open-v01.md",
+      "recordedAt": "2026-10-17T22:04:53.966Z"
+    },
+    {
+      "id": "diner-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274656-ru8foank",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.7513,
+          "usd": 0.056,
+          "cny": 0.376
+        },
+        "credits_used": 3.7513,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 199,
+        "total_tokens": 2209
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/diner-v01.md",
+      "recordedAt": "2026-10-17T22:04:54.189Z"
+    },
+    {
+      "id": "tuna-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274656-7bwz7usn",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 6.6073,
+          "usd": 0.098,
+          "cny": 0.661
+        },
+        "credits_used": 6.6073,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 184,
+        "total_tokens": 3752
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/tuna-v01.md",
+      "recordedAt": "2026-10-17T22:05:00.011Z"
+    },
+    {
+      "id": "hero-front-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274656-ojx0quaw",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 6.6311,
+          "usd": 0.098,
+          "cny": 0.664
+        },
+        "credits_used": 6.6311,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 262,
+        "total_tokens": 3830
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/hero-front-v01.md",
+      "recordedAt": "2026-10-17T22:05:00.136Z"
+    },
+    {
+      "id": "noren-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274656-n7w1ivjn",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 6.5763,
+          "usd": 0.097,
+          "cny": 0.658
+        },
+        "credits_used": 6.5763,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 83,
+        "total_tokens": 3651
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/noren-v01.md",
+      "recordedAt": "2026-10-17T22:05:00.226Z"
+    },
+    {
+      "id": "tamago-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274656-fv19ndez",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 6.6097,
+          "usd": 0.098,
+          "cny": 0.661
+        },
+        "credits_used": 6.6097,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 192,
+        "total_tokens": 3760
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/tamago-v01.md",
+      "recordedAt": "2026-10-17T22:05:00.253Z"
+    },
+    {
+      "id": "hand-fist-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274719-dy2texur",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 7.3415,
+          "usd": 0.108,
+          "cny": 0.735
+        },
+        "credits_used": 7.3415,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 1521,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 150,
+        "total_tokens": 5239
+      },
+      "refs": [
+        "games/conveyor-belt-ringworld/stills/hand-open-v01.png"
+      ],
+      "prompt": "games/conveyor-belt-ringworld/prompts/hand-fist-v01.md",
+      "recordedAt": "2026-10-17T22:05:56.625Z"
+    },
+    {
+      "id": "hero-back-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274719-rtljzr0e",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 7.3633,
+          "usd": 0.109,
+          "cny": 0.737
+        },
+        "credits_used": 7.3633,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 1521,
+        "image_output_tokens": 3568,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 221,
+        "total_tokens": 5310
+      },
+      "refs": [
+        "games/conveyor-belt-ringworld/stills/hero-front-v01.png"
+      ],
+      "prompt": "games/conveyor-belt-ringworld/prompts/hero-back-v01.md",
+      "recordedAt": "2026-10-17T22:06:03.049Z"
+    },
+    {
+      "id": "diner-open-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792274719-oaxpg4x8",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 4.174,
+          "usd": 0.062,
+          "cny": 0.418
+        },
+        "credits_used": 4.174,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 920,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 108,
+        "total_tokens": 3038
+      },
+      "refs": [
+        "games/conveyor-belt-ringworld/stills/diner-v01.png"
+      ],
+      "prompt": "games/conveyor-belt-ringworld/prompts/diner-open-v01.md",
+      "recordedAt": "2026-10-17T22:06:46.182Z"
+    },
+    {
+      "id": "diner-v02",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "task-unified-1792274909-dci3wjk5",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.7624,
+          "usd": 0.056,
+          "cny": 0.377
+        },
+        "credits_used": 3.7624,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 235,
+        "total_tokens": 2245
+      },
+      "refs": [],
+      "prompt": "games/conveyor-belt-ringworld/prompts/diner-v02.md",
+      "recordedAt": "2026-10-17T22:08:54.107Z"
+    },
+    {
+      "id": "diner-open-v02",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "task-unified-1792274941-oiuswgpk",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 4.1807,
+          "usd": 0.062,
+          "cny": 0.419
+        },
+        "credits_used": 4.1807,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 920,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 130,
+        "total_tokens": 3060
+      },
+      "refs": [
+        "games/conveyor-belt-ringworld/stills/diner-v02.png"
+      ],
+      "prompt": "games/conveyor-belt-ringworld/prompts/diner-open-v02.md",
+      "recordedAt": "2026-10-17T22:09:26.488Z"
+    },
+    {
+      "id": "hand-open-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a14be8-c7f5-7162-b378-e7d272489bff",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "games/conveyor-belt-ringworld/stills/hand-open-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-17T22:11:26.098Z"
+    },
+    {
+      "id": "hand-fist-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a14be8-b896-7a92-9b66-d72ba1f98a2a",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "games/conveyor-belt-ringworld/stills/hand-fist-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-17T22:11:28.767Z"
+    },
+    {
+      "id": "tamago-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a14be8-bf59-7e63-b97a-941fa6e889fc",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "games/conveyor-belt-ringworld/stills/tamago-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-17T22:11:29.257Z"
+    },
+    {
+      "id": "tuna-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a14be8-cde1-7383-98cc-d8112c7e2622",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "games/conveyor-belt-ringworld/stills/tuna-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-17T22:11:43.474Z"
+    },
+    {
+      "id": "ikura-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a14be8-cd47-7801-ac19-1e8e292f3a2a",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "games/conveyor-belt-ringworld/stills/ikura-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-17T22:11:48.425Z"
+    },
+    {
+      "id": "hero-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a14be8-d7fb-7101-b0dd-96b028d1aab3",
+      "status": "completed",
+      "estimatedUsd": 0.675,
+      "input": {
+        "input_image_url": "games/conveyor-belt-ringworld/stills/hero-front-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000,
+        "back_image_url": "games/conveyor-belt-ringworld/stills/hero-back-v01.png"
+      },
+      "recordedAt": "2026-10-17T22:12:15.374Z"
+    },
+    {
+      "id": "music",
+      "provider": "evolink",
+      "model": "suno-v6-wild-beta",
+      "requestId": "task-unified-1792277116-534g5yuu",
+      "status": "completed",
+      "cost": 0.118,
+      "style": "Cool, minimal, technical techno instrumental for a video game. 122 BPM, steady metronomic 4/4. A tight dry kick, crisp closed hi-hats and small glitch ticks on the sixteenths, a deep round sub bass, a clean plucked koto riff in a minor pentatonic scale answered by short breathy shakuhachi phrases, cold digital pads underneath. Dark, focused and confident. A loopable groove that is already running from the first bar: no intro, no breakdown, no ending.",
+      "recordedAt": "2026-10-17T22:45:49.136Z"
+    },
+    {
+      "id": "ambience",
+      "provider": "elevenlabs",
+      "model": "eleven_text_to_sound_v2",
+      "status": "completed",
+      "requestId": null,
+      "text": "Busy Japanese kaiten sushi bar ambience: the soft mechanical hum and gentle rattle of a conveyor belt, ceramic plates clinking now and then, distant indistinct chatter of diners, warm room tone. No music, no clear words.",
+      "recordedAt": "2026-10-17T22:45:54.505Z"
+    }
+  ]
+}

@@ -245,7 +245,7 @@ case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/film-animation/{equinox,the-gunfight,code-animation}`,
 `/work/vfx-cgi/{environment-swap,neural-set-capture,blender-lookdev-pipeline}`,
 `/work/motion-graphics/{internet-capital-markets,reel,spring-health,spotify-titles}`,
-`/work/interactive-playable/{35mm-projector,prompt-to-storyboard,dot-discipline}`,
+`/work/interactive-playable/{sushi-scramble,35mm-projector,prompt-to-storyboard}`,
 `/work/pipelines-tools/{pipeline-visualizer,creative-skills}`,
 `/work/websites/{hammer,kira,agentify,coefficient}`, and
 `/work/brand-systems/{hammer,kira,agentify}`.

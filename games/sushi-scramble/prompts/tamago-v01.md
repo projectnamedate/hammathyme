@@ -1,0 +1,4 @@
+Image 1 is the approved concept frame: copy only the character design, materials and photographic finish from it; ignore its background, its camera angle, its lighting setup and every other object in it.
+A product reference photograph, seen from a three-quarter view slightly above, of one piece of tamago nigiri: a thick golden layered sweet omelette block on an oval block of white rice, tied with a thin band of dark nori seaweed. No plate, no chopsticks, nothing else.
+The look is a luxury food-advertising photograph: hyperreal, glossy, individually visible rice grains, appetising.
+Plain seamless light-grey cyclorama background, soft even studio light from the front, no harsh shadows, no rim colour. The whole object is in frame with a margin on every side and fills most of the frame. One single object only. No text, no logos, no watermark, no floor props.

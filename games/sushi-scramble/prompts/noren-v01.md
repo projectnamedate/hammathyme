@@ -1,0 +1,1 @@
+A flat, front-on, evenly lit photograph of a section of a deep indigo cotton noren curtain filling the entire frame edge to edge: visible fabric weave, a few soft vertical folds, and one large white wave-crest roundel (stylised waves inside a circle) centred in the frame. No text, no lettering, no logos, no border, no background visible.

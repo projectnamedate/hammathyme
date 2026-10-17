@@ -1,0 +1,4 @@
+Image 1 is the approved concept frame: copy only the character design, materials and photographic finish from it; ignore its background, its camera angle, its lighting setup and every other object in it.
+A product reference photograph of one giant human hand reaching down to grab, seen from a three-quarter view from above: palm facing down, fingers spread and slightly curled, an adult hand with natural skin texture, short clean nails, no rings, no jewellery. The wrist ends cleanly inside the cuff of a deep indigo cotton sleeve, cut off flat a short way above the cuff.
+Photographic, hyperreal, warm natural skin tones.
+Plain seamless light-grey cyclorama background, soft even studio light from the front, no harsh shadows, no rim colour. The whole object is in frame with a margin on every side and fills most of the frame. One single object only. No text, no logos, no watermark, no floor props.

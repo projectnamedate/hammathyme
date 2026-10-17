@@ -70,3 +70,4 @@ figures/projector/*.html
 !public/**/*.png
 !public/**/*.webp
 !public/**/*.gif
+!public/**/*.m4a
