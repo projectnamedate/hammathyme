@@ -14,11 +14,11 @@ are kept as history and may use pre-rename names.
 
 | # | piece | category | status |
 |---|---|---|---|
-| 18 | New Blender piece to replace the blender look-dev pipeline | vfx-cgi | Jeff 2026-10-11: look-dev now sits last on vfx + cgi; swap it for stronger Blender work when one exists. The comfyui outfit morph was deleted the same day |
-| 19 | MiniMax H3 motion graphics piece | motion-graphics | Jeff 2026-10-11 roadmap: a new H3 motion graphics piece |
-| 20 | New interactive / playable piece | interactive-playable | Jeff 2026-10-11 roadmap; concept open |
-| 21 | New code animation short | film-animation | Jeff 2026-10-11 roadmap ("New Code Animation Short?", tentative): a new film from the animation repo, joins the code animation piece |
-| 22 | Breakwater | film-animation | Jeff 2026-10-11 roadmap; the restart has been pending since the applicant subbed for it |
+| 18 | Blender piece (AR?) | vfx-cgi | Jeff 2026-10-17 roadmap: a new Blender piece, maybe AR (USDZ/GLB quick look). Replaces the blender look-dev pipeline, which sits last on vfx + cgi until then |
+| 19 | Better motion graphics reel: Chain Reaction | motion-graphics | shipped 2026-10-17 at /work/motion-graphics/reel (hammer-reel-v04): one continuous HyperFrames shot, 24 named motion moves setting each other off, ending in a three.js Rube Goldberg machine; lilac stock, cool techno bed. Source in `films/motion-reel` |
+| 20 | Conveyor Belt Ringworld | interactive-playable | in progress 2026-10-17: a silly three.js third-person shooter. An armoured salmon nigiri on a rotating sushi belt fights chopstick drones with a wasabi blaster; the rice is the shield |
+| 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
+| 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
 | 23 | Anime short | film-animation | Jeff 2026-10-11 roadmap |
 | 24 | 3D short | film-animation | Jeff 2026-10-11 roadmap |
 | 25 | World model portfolio project | tbd (interactive-playable or vfx-cgi) | Jeff 2026-10-11 roadmap; see row 17 (Runway Solaris) for one candidate route |
