@@ -1,6 +1,23 @@
-# Hammer Agent Handoff - 2026-10-11
+# Hammer Agent Handoff - 2026-10-17
 
-## Latest (2026-10-11, commit 136d82f, live)
+## Latest (2026-10-17, live through ae2c6b1)
+- Motion reel: Chain Reaction (`hammer-reel-v04`, 66 s, 24p) replaces v3 at
+  `/work/motion-graphics/reel`. Source in `films/motion-reel`.
+- Sushi Scramble (`ff7149a`): a three.js third-person sushi shooter, first in
+  interactive + playable (`/work/interactive-playable/sushi-scramble`). Code
+  in `lib/games/sushi-scramble`, `components/games/sushi-scramble`; source
+  prompts, scripts and ledger in `games/sushi-scramble`. Dot discipline is
+  deleted. Never call the game "Ringworld" (its working name).
+- Storyboard demo (`ae2c6b1`): Evolink `gpt-image-2.5-sunburst`, 16:9,
+  medium, about 21 s. `EVOLINK_API_KEY` is a sensitive Vercel production env
+  var. Redis, the $1 daily cap and fal are gone. The per-IP limit is the
+  Vercel Firewall rule "storyboard per ip" (2 POSTs per IP per 10 min, 429);
+  see AGENTS.md "Cost guardrails". The old UPSTASH_*, DAILY_API_BUDGET_USD and
+  HAMMER_FAL_KEY env vars were deleted.
+- Open: Sushi Scramble untested by a human on a touch device; backlog rows 18
+  and 21–25.
+
+## 2026-10-11 (commit 136d82f, history)
 - Categories, in atrium order: film-animation, vfx-cgi, motion-graphics,
   brand-systems, websites, interactive-playable, pipelines-tools (7). The
   agents + digital twins category is gone and 308s to `/work`.
@@ -11,9 +28,7 @@
 - Removed: the applicant, animated short, audio reactive overlays, prompt
   library, consistency lab, talk to a character. Kira lives on only as
   brand-systems/kira and websites/kira.
-- The storyboard demo runs GPT Image 2.5 Sunburst on fal
-  (`openai/gpt-image-2.5/sunburst/text-to-image`, medium, 16:9) and draws
-  colour-pencil boards. It took 17.6s in testing.
+- The storyboard demo ran on fal then; superseded 2026-10-17 (Evolink).
 - Media may always be committed in this repo (see AGENTS.md).
 - Later the same day: comfyui outfit morph deleted (308 to `/work/vfx-cgi`),
   blender look-dev moved last on vfx + cgi, ICM teaser moved first on motion

@@ -165,7 +165,14 @@ sample mode and does not call the provider.
   JS-rendered.
 - Media (video, audio, images) may always be committed and pushed in this
   repo (operator rule 2026-10-11), overriding the global no-media rule. Git
-  push is the deploy path; `.gitignore` un-ignores `public/` media.
+  push is the deploy path; `.gitignore` un-ignores `public/` media
+  (mp4, webm, mp3, m4a, jpg, png, webp, gif). Add a `!public/**/*.<ext>` line
+  for any new media type; the global ignore blocks it otherwise, and the file
+  404s live without an error. Check with `git check-ignore -v <file>`.
+- Global element resets in `app/globals.css` (`button`, `a`, …) go inside
+  `@layer base`. Unlayered CSS beats every Tailwind v4 utility, so a bare
+  `button { background: none; border: 0 }` silently strips buttons' own
+  `bg-*`/`border` classes (found 2026-10-17 on the splat and game buttons).
 - The Artlist × Sony pitch is permanently do-not-publish (operator rule
   2026-09-10). Do not surface it in any page, asset, metadata, or
   agent-readable file.
