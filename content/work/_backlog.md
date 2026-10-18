@@ -12,23 +12,21 @@ are kept as history and may use pre-rename names.
 
 ## Open items
 
+Priority order (Jeff 2026-10-17): AR piece, splat cleanup, code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
+
 | # | piece | category | status |
 |---|---|---|---|
 | 18 | Blender piece (AR?) | vfx-cgi | Jeff 2026-10-17 roadmap: a new Blender piece, maybe AR (USDZ/GLB quick look). Replaces the blender look-dev pipeline, which sits last on vfx + cgi until then. **Next session (Jeff 2026-10-17): build the AR piece in vfx-cgi** |
 | 26 | Fix the neural set capture splat | vfx-cgi | Jeff 2026-10-17: "theres like a weird thing in the distance" in the live gaussian splat (/work/vfx-cgi/neural-set-capture). Not yet diagnosed; pipeline in `splat/`. Next session |
-| 19 | Better motion graphics reel: Chain Reaction | motion-graphics | shipped 2026-10-17 at /work/motion-graphics/reel (hammer-reel-v04): one continuous HyperFrames shot, 24 named motion moves setting each other off, ending in a three.js Rube Goldberg machine; lilac stock, cool techno bed. Source in `films/motion-reel` |
-| 20 | Sushi Scramble | interactive-playable | shipped 2026-10-17 at /work/interactive-playable/sushi-scramble (first in the category; dot discipline deleted): a three.js third-person shooter in a food-photo look. An armoured salmon nigiri holds a sushi belt against chopstick drones and the diner's hand; endless waves. Source in `games/sushi-scramble` |
 | 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
 | 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
+| 25 | World model piece: World Labs Chisel | new world-model subcategory | Jeff 2026-10-17: build it with Chisel (Atlas beta, "from 3D layout to world": block a layout at metric scale, place cameras, generate the finished world; modes for game environments, film, architecture and robotics). Tutorial https://www.youtube.com/watch?v=3s10wcyy3Ik, API https://atlas-beta.worldlabs.ai/docs/api-reference/atlas-chisel. Give world model work its own subcategory (where it sits in the category model is decided at build) |
 | 23 | Anime short | film-animation | Jeff 2026-10-11 roadmap |
 | 24 | 3D short | film-animation | Jeff 2026-10-11 roadmap |
-| 25 | World model portfolio project | tbd (interactive-playable or vfx-cgi) | Jeff 2026-10-11 roadmap; see row 17 (Runway Solaris) for one candidate route |
-| 9 | Hedra avatar of Jeff explaining the creative technologist role | film-animation | idea, no card |
-| 10 | Documentary opener / broadcast cold open | film-animation | idea, no card |
-| 11 | 90-second broadcast-grade short | film-animation | idea, no card |
-| 12 | AI sound design reel | film-animation (audio sub-cat?) | idea, no card |
+| 17 | Runway Solaris generative interface piece | interactive-playable | keep (Jeff 2026-10-17: spin something up once access exists): Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
 | 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
-| 17 | Runway Solaris generative interface piece | interactive-playable | idea, no card: Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
+
+Shipped 2026-10-17: row 19 (Chain Reaction reel), row 20 (Sushi Scramble).
 
 ## Live inventory (for orientation, 2026-10-11)
 
