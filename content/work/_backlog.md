@@ -14,7 +14,8 @@ are kept as history and may use pre-rename names.
 
 | # | piece | category | status |
 |---|---|---|---|
-| 18 | Blender piece (AR?) | vfx-cgi | Jeff 2026-10-17 roadmap: a new Blender piece, maybe AR (USDZ/GLB quick look). Replaces the blender look-dev pipeline, which sits last on vfx + cgi until then |
+| 18 | Blender piece (AR?) | vfx-cgi | Jeff 2026-10-17 roadmap: a new Blender piece, maybe AR (USDZ/GLB quick look). Replaces the blender look-dev pipeline, which sits last on vfx + cgi until then. **Next session (Jeff 2026-10-17): build the AR piece in vfx-cgi** |
+| 26 | Fix the neural set capture splat | vfx-cgi | Jeff 2026-10-17: "theres like a weird thing in the distance" in the live gaussian splat (/work/vfx-cgi/neural-set-capture). Not yet diagnosed; pipeline in `splat/`. Next session |
 | 19 | Better motion graphics reel: Chain Reaction | motion-graphics | shipped 2026-10-17 at /work/motion-graphics/reel (hammer-reel-v04): one continuous HyperFrames shot, 24 named motion moves setting each other off, ending in a three.js Rube Goldberg machine; lilac stock, cool techno bed. Source in `films/motion-reel` |
 | 20 | Sushi Scramble | interactive-playable | shipped 2026-10-17 at /work/interactive-playable/sushi-scramble (first in the category; dot discipline deleted): a three.js third-person shooter in a food-photo look. An armoured salmon nigiri holds a sushi belt against chopstick drones and the diner's hand; endless waves. Source in `games/sushi-scramble` |
 | 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
