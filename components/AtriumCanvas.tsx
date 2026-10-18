@@ -25,10 +25,10 @@ type Pos = { x: number; y: number; w: number; h: number };
 const POSITIONS: Pos[] = [
   { x:  6, y: 22, w: 18, h: 26 }, // 01 tall — film + animation
   { x: 28, y: 28, w: 16, h: 20 }, // 02 short — vfx + cgi
-  { x: 48, y: 22, w: 20, h: 26 }, // 03 tall — motion graphics
-  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — brand systems
-  { x: 15, y: 52, w: 18, h: 26 }, // 05 tall — websites
-  { x: 37, y: 58, w: 20, h: 20 }, // 06 short — interactive + playable
+  { x: 48, y: 22, w: 20, h: 26 }, // 03 tall — interactive + playable
+  { x: 72, y: 28, w: 16, h: 20 }, // 04 short — motion graphics
+  { x: 15, y: 52, w: 18, h: 26 }, // 05 tall — brand systems
+  { x: 37, y: 58, w: 20, h: 20 }, // 06 short — websites
   { x: 61, y: 52, w: 18, h: 26 }, // 07 tall — pipelines + tools
 ];
 

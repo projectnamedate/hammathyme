@@ -228,10 +228,10 @@ popup title:
 
 1. film-animation
 2. vfx-cgi
-3. motion-graphics
-4. brand-systems
-5. websites
-6. interactive-playable
+3. interactive-playable
+4. motion-graphics
+5. brand-systems
+6. websites
 7. pipelines-tools
 
 The order of `CASE_STUDIES` in `lib/works.ts` is the atrium order. The
@@ -251,8 +251,8 @@ an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/film-animation/{equinox,the-gunfight,code-animation}`,
 `/work/vfx-cgi/{environment-swap,neural-set-capture,blender-lookdev-pipeline}`,
-`/work/motion-graphics/{internet-capital-markets,reel,spring-health,spotify-titles}`,
 `/work/interactive-playable/{sushi-scramble,35mm-projector,prompt-to-storyboard}`,
+`/work/motion-graphics/{internet-capital-markets,reel,spring-health,spotify-titles}`,
 `/work/pipelines-tools/{pipeline-visualizer,creative-skills}`,
 `/work/websites/{hammer,kira,agentify,coefficient}`, and
 `/work/brand-systems/{hammer,kira,agentify}`.

@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: Creative Technologist
 contact: hammer@hammer.ad
 location: LA / NY / remote
-last updated: 2026-10-17
+last updated: 2026-10-18
 
 ## summary
 
@@ -32,6 +32,10 @@ The domain appears only in technical URL surfaces.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
 - /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled and rendered in Blender 5.1, trained with Brush, and viewed with Spark.
 - /work/vfx-cgi/blender-lookdev-pipeline: Blender look-development board with six material studies and a rendered contact sheet.
+- /work/interactive-playable: live interactive and playable demos; the storyboard demo is rate-limited per visitor.
+- /work/interactive-playable/sushi-scramble: Sushi Scramble, a three.js third-person shooter in a sushi bar. An armoured salmon nigiri rides a conveyor belt against chopstick drones and, every third wave, the diner's hand; wasabi blaster, ginger grenades, rice shield. Endless waves with a local high score; no provider calls.
+- /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
+- /work/interactive-playable/prompt-to-storyboard: capped GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
 - /work/motion-graphics: programmatic motion work.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/reel: Chain Reaction, a one-shot motion graphics reel where 24 named moves set each other off, ending in a three.js Rube Goldberg machine. Video asset.
@@ -46,10 +50,6 @@ The domain appears only in technical URL surfaces.
 - /work/websites/kira: onlykira.ai website preview.
 - /work/websites/agentify: agentify.nexus website preview.
 - /work/websites/coefficient: coefficient.mythx.art solana stake-pool health dashboard preview.
-- /work/interactive-playable: live interactive and playable demos; the storyboard demo is rate-limited per visitor.
-- /work/interactive-playable/sushi-scramble: Sushi Scramble, a three.js third-person shooter in a sushi bar. An armoured salmon nigiri rides a conveyor belt against chopstick drones and, every third wave, the diner's hand; wasabi blaster, ginger grenades, rice shield. Endless waves with a local high score; no provider calls.
-- /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
-- /work/interactive-playable/prompt-to-storyboard: capped GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
 - /work/pipelines-tools/creative-skills: reusable creative skill system and agent-stack map.
@@ -73,10 +73,10 @@ Conscious Minds, and Look.
 Primary work categories:
 - film + animation
 - vfx + cgi
+- interactive + playable
 - motion graphics
 - brand systems
 - websites
-- interactive + playable
 - pipelines + tools
 
 Key positioning terms:

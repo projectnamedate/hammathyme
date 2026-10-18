@@ -4,11 +4,11 @@ import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-10-17T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-10-18T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =
-  "Jeff Hammer is a creative technologist with ten-plus years on broadcast and agency pipelines. He makes film and animation, vfx and cgi, motion graphics, brand systems, websites, interactive demos, and pipelines.";
+  "Jeff Hammer is a creative technologist with ten-plus years on broadcast and agency pipelines. He makes film and animation, vfx and cgi, interactive demos, motion graphics, brand systems, websites, and pipelines.";
 export const DEFAULT_KEYWORDS = [
   "Creative Technologist",
   "Creative Technologist portfolio",
@@ -150,7 +150,7 @@ export const rootMetadata: Metadata = {
 export const homeMetadata = buildPageMetadata({
   title: SITE_TITLE,
   description:
-    "Hammer is Jeff Hammer's creative technologist portfolio: film and animation, vfx and cgi, motion graphics, brand systems, websites, interactive demos, and pipelines.",
+    "Hammer is Jeff Hammer's creative technologist portfolio: film and animation, vfx and cgi, interactive demos, motion graphics, brand systems, websites, and pipelines.",
   path: "/",
   absoluteTitle: true,
   keywords: ["hire creative technologist", "hire AI producer", "creative technologist Los Angeles"],
@@ -176,7 +176,7 @@ export const contactMetadata = buildPageMetadata({
 export const workMetadata = buildPageMetadata({
   title: "creative technologist portfolio work",
   description:
-    "Explore Hammer's creative technologist portfolio across film and animation, vfx and cgi, motion graphics, brand systems, websites, interactive demos, and pipelines.",
+    "Explore Hammer's creative technologist portfolio across film and animation, vfx and cgi, interactive demos, motion graphics, brand systems, websites, and pipelines.",
   path: "/work",
   keywords: ["creative technologist portfolio", "AI producer portfolio", "AI video portfolio"],
 });

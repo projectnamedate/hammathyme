@@ -5,8 +5,8 @@ Pieces Jeff plans to make as case studies. Each links to its parent category in
 detail routes). Discuss approach with Jeff *when its category becomes the
 focus* — he has ideas per item.
 
-Category model (atrium order, 2026-10-11): `film-animation`, `vfx-cgi`,
-`motion-graphics`, `brand-systems`, `websites`, `interactive-playable`,
+Category model (atrium order, 2026-10-18): `film-animation`, `vfx-cgi`,
+`interactive-playable`, `motion-graphics`, `brand-systems`, `websites`,
 `pipelines-tools`. `agents-digital-twins` was removed 2026-10-11. Older dated notes below
 are kept as history and may use pre-rename names.
 
