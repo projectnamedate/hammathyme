@@ -16,12 +16,17 @@ gaussian splat for `hammer.ad/work/vfx-cgi/neural-set-capture`.
 3. `meshes/`: Hunyuan 3D 3.1 Pro image-to-3D on fal (`scripts/hunyuan.mjs`).
 4. Blender 5.1 assembles the street and renders posed views
    (`scripts/build_street.py`, `scripts/render_views.py`) into `dataset/`
-   (nerfstudio `transforms.json` + `points3d.ply` seed).
+   (nerfstudio `transforms.json` + `points3d.ply` seed). Pass
+   `--viewer-shell` to add views on the web viewer's own orbit. Anything the
+   viewer can see but no training view covers trains into junk: v02 shipped
+   a black and yellow hillside blob that the 70 shell views fixed in v03
+   (2026-10-18).
 5. Brush trains the splat into `splats/` (`scripts/train.sh`). Brush is an external
    Rust tool, not vendored: `scripts/setup_brush.sh` clones and builds the pinned
    commit into `~/src/brush` (override with `BRUSH_DIR`).
 6. SuperSplat cleanup, then `@playcanvas/splat-transform` to `.sog` for the web
-   (Spark viewer on the site).
+   (Spark viewer on the site). Its filters apply to the file named before
+   them: `splat-transform in.ply -N -S 0,0,0,140 --decimate-adaptive 1000000 out.ply`.
 
 ## Rules
 
