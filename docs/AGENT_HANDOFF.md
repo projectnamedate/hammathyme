@@ -1,6 +1,13 @@
 # Hammer Agent Handoff - 2026-10-18
 
 ## Latest (2026-10-18)
+- Later (`0d874e2`): pipeline visualizer adds short film, film to splat and
+  still to ar (receipts from the project ledgers); creative skills shows six
+  skills Jeff picked (never model-prompting skills, ask first); new
+  `pipelines-tools/qc-by-measurement`; vfx summary mentions AR; storyboard is
+  "rate-limited", not "capped". Next session starts with backlog row 27 (the
+  Hammer brand illustration look-into). Pre-existing: two older visualizer
+  tabs have tool labels spilling past their node boxes.
 - Atrium order (`951b965`): film-animation, vfx-cgi, interactive-playable,
   motion-graphics, brand-systems, websites, pipelines-tools.
 - Splat v03 (`b4f441d`): the "thing in the distance" was a north-west
