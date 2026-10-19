@@ -6,8 +6,8 @@
   skills Jeff picked (never model-prompting skills, ask first); new
   `pipelines-tools/qc-by-measurement`; vfx summary mentions AR; storyboard is
   "rate-limited", not "capped". Next session starts with backlog row 27 (the
-  Hammer brand illustration look-into). Pre-existing: two older visualizer
-  tabs have tool labels spilling past their node boxes.
+  Hammer brand illustration look-into). All visualizer tool labels now fit
+  their node boxes.
 - Atrium order (`951b965`): film-animation, vfx-cgi, interactive-playable,
   motion-graphics, brand-systems, websites, pipelines-tools.
 - Splat v03 (`b4f441d`): the "thing in the distance" was a north-west

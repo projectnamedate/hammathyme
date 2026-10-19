@@ -83,7 +83,7 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "video",
         label: "generation",
-        tool: "seedance 2.5 · kling 3 · runway aleph",
+        tool: "seedance · kling · aleph",
         cost: "$8–22",
         time: "18 min",
         output: "candidate takes · 1080p",
@@ -303,7 +303,7 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "scene",
         label: "scene code",
-        tool: "p5.brush · fframes · three.js",
+        tool: "p5 · fframes · three.js",
         output: "scene code",
         summary: "every frame is a function of time, so any frame renders on its own.",
         x: 320, y: ROW,
@@ -311,7 +311,7 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "render",
         label: "render",
-        tool: "headless gpu browser · fframes",
+        tool: "headless gpu · fframes",
         output: "frames · 24fps",
         summary: "the film is recorded frame by frame, the same every run.",
         x: 540, y: ROW,
@@ -319,7 +319,7 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "review",
         label: "self-review",
-        tool: "contact sheets · frame strips",
+        tool: "contact sheets · strips",
         output: "review notes",
         summary: "the agent checks its own frames for pops, flicker, and timing before anyone watches.",
         x: 760, y: ROW,
@@ -327,7 +327,7 @@ export const PIPELINES: Pipeline[] = [
       {
         id: "master",
         label: "score + master",
-        tool: "web audio synthesis · ffmpeg",
+        tool: "web audio · ffmpeg",
         output: "h.264 + aac",
         summary: "sound is synthesized in code, measured, and mixed into the master.",
         x: 980, y: ROW,
