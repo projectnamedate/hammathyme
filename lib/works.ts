@@ -106,15 +106,6 @@ export const CASE_STUDIES: CaseStudy[] = [
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
       {
-        slug: "environment-swap",
-        title: "environment swap",
-        year: "2026",
-        blurb:
-          "one first-person driving plate relit into many worlds (neon city, alien desert, blue crystal forest, alpine snow), with the real dashboard preserved. a mask-free video-to-video environment swap via Runway Aleph 2.",
-        status: "live",
-        tint: "var(--cinnamon)",
-      },
-      {
         slug: "neural-set-capture",
         title: "neural set capture",
         year: "2026",
@@ -123,13 +114,22 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "var(--cinnamon)",
       },
       {
-        slug: "blender-lookdev-pipeline",
-        title: "blender look-dev pipeline",
+        slug: "humpback-ar",
+        title: "humpback in ar",
         year: "2026",
         blurb:
-          "one sculptural form through six material moods: cinnamon ceramic, graphite metal, warm cream, bloodlust lacquer, chrome, and clay, finished as a look-dev contact sheet.",
+          "a 15-metre humpback that swims circles around you in augmented reality. modelled with Hunyuan 3D, then rigged and animated in Blender.",
         status: "live",
-        tint: "var(--cream-2)",
+        tint: "#0B3A4E",
+      },
+      {
+        slug: "environment-swap",
+        title: "environment swap",
+        year: "2026",
+        blurb:
+          "one first-person driving plate relit into many worlds (neon city, alien desert, blue crystal forest, alpine snow), with the real dashboard preserved. a mask-free video-to-video environment swap via Runway Aleph 2.",
+        status: "live",
+        tint: "var(--cinnamon)",
       },
     ],
   },
@@ -428,7 +428,7 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/spotify-titles",
   "vfx-cgi/environment-swap",
   "vfx-cgi/neural-set-capture",
-  "vfx-cgi/blender-lookdev-pipeline",
+  "vfx-cgi/humpback-ar",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/creative-skills",
   "interactive-playable/sushi-scramble",

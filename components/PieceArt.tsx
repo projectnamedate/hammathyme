@@ -33,7 +33,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "motion-graphics/spotify-titles": SpotifyTitles,
   "vfx-cgi/environment-swap": EnvironmentSwap,
   "vfx-cgi/neural-set-capture": NeuralSetCapture,
-  "vfx-cgi/blender-lookdev-pipeline": BlenderLookdev,
+  "vfx-cgi/humpback-ar": HumpbackAr,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/creative-skills": CreativeSkills,
   "interactive-playable/sushi-scramble": SushiScramble,
@@ -587,22 +587,17 @@ function NeuralSetCapture() {
   );
 }
 
-function BlenderLookdev() {
+function HumpbackAr() {
   return (
-    <Plate bg="var(--cream-2)">
-      {/* look-dev ball */}
-      <g transform="translate(60 70)">
-        <circle r="26" fill="var(--ink-0)" />
-        <circle cx="-8" cy="-9" r="7" fill="var(--cinnamon)" opacity="0.85" />
-        <path d="M 18 12 A 26 26 0 0 1 -14 22" fill="none" stroke="var(--cream-0)" strokeWidth="0.8" opacity="0.5" />
+    <Plate bg="#0B3A4E">
+      <ellipse cx="60" cy="104" rx="36" ry="9" fill="none" stroke="var(--cinnamon)" strokeWidth="0.8" strokeDasharray="2.5 2.5" />
+      <g fill="var(--cream-1)">
+        <path d="M94 74 C 92 66, 72 62, 54 66 C 44 68, 37 72, 31 76 L 22 69 L 25 77 L 19 84 L 31 80 C 42 85, 64 87, 82 83 C 90 81, 95 78, 94 74 Z" />
+        <path d="M68 82 L 60 100 L 64 101 L 72 84 Z" />
+        <path d="M47 67 L 44 62 L 52 66 Z" />
       </g>
-      {/* material variant swatches */}
-      <g transform="translate(28 110)">
-        {["var(--ink-0)", "var(--cinnamon)", "var(--bloodlust)", "var(--cream-0)"].map((c, i) => (
-          <rect key={i} x={i * 17} y="0" width="13" height="13" fill={c} stroke="var(--ink-4)" strokeWidth="0.6" />
-        ))}
-      </g>
-      <MonoLabel>LOOK-DEV</MonoLabel>
+      <circle cx="88" cy="73" r="1" fill="#0B3A4E" />
+      <MonoLabel y={139} fill="var(--cream-1)">AR · 1:1</MonoLabel>
     </Plate>
   );
 }

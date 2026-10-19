@@ -5,6 +5,7 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { ViewLink } from "@/components/ViewLink";
 import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { SplatViewer } from "@/components/SplatViewer";
+import { WhaleAR } from "@/components/WhaleAR";
 import { ProjectorFigure } from "@/components/figures/projector/ProjectorFigure";
 import { SushiScrambleGame } from "@/components/games/sushi-scramble/SushiScrambleGame";
 import { Wordmark } from "@/components/Wordmark";
@@ -158,9 +159,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
-  if (key === "vfx-cgi/blender-lookdev-pipeline") {
-    return <BlenderLookdevDetail transitionName={transitionName} />;
-  }
+  if (key === "vfx-cgi/humpback-ar") return <HumpbackArDetail transitionName={transitionName} />;
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (key === "film-animation/the-gunfight") return <TheGunfightDetail transitionName={transitionName} />;
   if (key === "film-animation/code-animation") return <CodeAnimationDetail transitionName={transitionName} />;
@@ -577,39 +576,6 @@ function EnvironmentSwapDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
-const BLENDER_LOOKDEV_VARIANTS = [
-  {
-    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-01-cinnamon.png",
-    label: "cinnamon ceramic",
-    alt: "Blender look-dev render with cinnamon ceramic material",
-  },
-  {
-    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-02-graphite.png",
-    label: "graphite metal",
-    alt: "Blender look-dev render with graphite metal material",
-  },
-  {
-    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-03-cream.png",
-    label: "warm cream",
-    alt: "Blender look-dev render with warm cream material",
-  },
-  {
-    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-04-bloodlust.png",
-    label: "bloodlust lacquer",
-    alt: "Blender look-dev render with bloodlust lacquer material",
-  },
-  {
-    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-05-chrome.png",
-    label: "polished chrome",
-    alt: "Blender look-dev render with polished chrome material",
-  },
-  {
-    src: "/work/vfx-cgi/blender-lookdev-pipeline/variant-06-clay.png",
-    label: "production clay",
-    alt: "Blender look-dev render with production clay material",
-  },
-];
-
 const SPLAT_DIR = "/work/vfx-cgi/neural-set-capture";
 // Opening view matches the poster: training view 200, converted from the Blender Z-up frame.
 const CAMERA: [number, number, number] = [40.65, 20, 13.47];
@@ -687,22 +653,30 @@ function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) 
   );
 }
 
-function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
+const HUMPBACK_DIR = "/work/vfx-cgi/humpback-ar";
+
+const HUMPBACK_STEPS = [
+  { src: `${HUMPBACK_DIR}/step-1-reference.jpg`, label: "01 · gpt image 2.5 reference", alt: "A humpback whale reference image on a grey backdrop" },
+  { src: `${HUMPBACK_DIR}/step-2-hunyuan-mesh.jpg`, label: "02 · hunyuan 3d mesh", alt: "The humpback as a textured Hunyuan 3D mesh render" },
+  { src: `${HUMPBACK_DIR}/step-3-blender-rig.jpg`, label: "03 · blender rig and swim", alt: "The rigged humpback mid-stroke in Blender" },
+];
+
+function HumpbackArDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };
   return (
     <section className="mx-auto max-w-[1320px]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            one sculptural form, six material reads. ceramic, graphite, cream, lacquer, chrome,
-            and clay stay comparable under one clean studio frame.
+            a full-size humpback that swims circles around you. open it on a phone and it lands in
+            your room, on the table or at 15 metres.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["tool", "Blender 5.1"],
-              ["source", "single glb form"],
-              ["output", "six material studies"],
-              ["finish", "rendered contact sheet"],
+              ["model", "gpt image 2.5 reference · hunyuan 3d 3.1 mesh"],
+              ["rig", "blender 5.1 · spine skinned in code · 24s seamless lap"],
+              ["scale", "15 m life-size · 0.6 m tabletop"],
+              ["ar", "usdz for iphone quick look · glb for android scene viewer"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -720,44 +694,26 @@ function BlenderLookdevDetail({ transitionName }: { transitionName: string }) {
           className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
           style={frameStyle}
         >
-          <Image
-            src="/work/vfx-cgi/blender-lookdev-pipeline/blender-lookdev-contact-sheet.jpg"
-            alt="Blender look-dev contact sheet with six material and lighting variants"
-            width={2016}
-            height={792}
-            priority
-            sizes="(min-width: 768px) 75vw, 100vw"
-            className="block aspect-[28/11] w-full bg-[var(--cream-0)] object-cover"
-          />
+          <WhaleAR qrSrc={`${HUMPBACK_DIR}/humpback-ar-qr.svg`} />
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
-        {BLENDER_LOOKDEV_VARIANTS.map((variant) => (
-          <figure key={variant.src} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
+      <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 md:gap-5">
+        {HUMPBACK_STEPS.map((step) => (
+          <figure key={step.src} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
             <Image
-              src={variant.src}
-              alt={variant.alt}
+              src={step.src}
+              alt={step.alt}
               width={1280}
               height={720}
-              sizes="(min-width: 768px) 33vw, 50vw"
+              sizes="(min-width: 640px) 33vw, 100vw"
               className="aspect-video w-full object-cover"
             />
             <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
-              {variant.label}
+              {step.label}
             </figcaption>
           </figure>
         ))}
-      </div>
-
-      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
-        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          the board is built for direction: same silhouette, same frame, different finishes. compare
-          surface, weight, and read at a glance.
-        </p>
-        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          render: blender 5.1 · output: six-look contact sheet
-        </p>
       </div>
     </section>
   );

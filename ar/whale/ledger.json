@@ -1,0 +1,80 @@
+{
+  "events": [
+    {
+      "id": "humpback-ref-flare-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-flare",
+      "requestId": "task-unified-1792374279-4d83n5k1",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.807,
+          "usd": 0.056,
+          "cny": 0.381
+        },
+        "credits_used": 3.807,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 381,
+        "total_tokens": 2391
+      },
+      "refs": [],
+      "prompt": "../ar/whale/prompts/humpback-ref-v01.md",
+      "recordedAt": "2026-10-19T01:45:28.376Z"
+    },
+    {
+      "id": "humpback-ref-sunburst-v01",
+      "provider": "evolink",
+      "model": "gpt-image-2.5-sunburst",
+      "requestId": "task-unified-1792374279-i1t3tupg",
+      "status": "completed",
+      "cost": {
+        "cost": {
+          "credits": 3.807,
+          "usd": 0.056,
+          "cny": 0.381
+        },
+        "credits_used": 3.807,
+        "image_cached_input_tokens": 0,
+        "image_input_tokens": 0,
+        "image_output_tokens": 2010,
+        "text_cached_input_tokens": 0,
+        "text_input_tokens": 381,
+        "total_tokens": 2391
+      },
+      "refs": [],
+      "prompt": "../ar/whale/prompts/humpback-ref-v01.md",
+      "recordedAt": "2026-10-19T01:45:28.798Z"
+    },
+    {
+      "id": "humpback-sunburst-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a151d6-1526-7942-9cdc-a27150418bdd",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "../ar/whale/stills/humpback-ref-sunburst-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-19T01:48:38.035Z"
+    },
+    {
+      "id": "humpback-flare-v01",
+      "provider": "fal",
+      "model": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+      "requestId": "01a151d6-0b1c-7c60-8acc-078328063fd6",
+      "status": "completed",
+      "estimatedUsd": 0.525,
+      "input": {
+        "input_image_url": "../ar/whale/stills/humpback-ref-flare-v01.png",
+        "enable_pbr": true,
+        "face_count": 500000
+      },
+      "recordedAt": "2026-10-19T01:48:51.770Z"
+    }
+  ]
+}

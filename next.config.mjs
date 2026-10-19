@@ -17,6 +17,11 @@ const nextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
+      {
+        // AR Quick Look only opens USDZ served with its own type, and nosniff above forbids guessing.
+        source: "/:path(.*\\.usdz)",
+        headers: [{ key: "Content-Type", value: "model/vnd.usdz+zip" }],
+      },
     ];
   },
   async redirects() {
@@ -109,6 +114,16 @@ const nextConfig = {
       {
         source: "/work/film-animation/animated-short",
         destination: "/work/film-animation",
+        permanent: true,
+      },
+      {
+        source: "/work/vfx-cgi/blender-lookdev-pipeline",
+        destination: "/work/vfx-cgi",
+        permanent: true,
+      },
+      {
+        source: "/work/vfx-cgi/blender-lookdev-pipeline/:path*",
+        destination: "/work/vfx-cgi",
         permanent: true,
       },
       {

@@ -406,6 +406,23 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       publisher: { "@id": PERSON_ID },
     };
   }
+  if (category.slug === "vfx-cgi" && piece.slug === "humpback-ar") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "Humpback in AR: swim loop",
+      description:
+        piece.blurb ??
+        "A 15-metre humpback modelled with Hunyuan 3D, rigged and animated in Blender, swimming a seamless lap for augmented reality.",
+      thumbnailUrl: [getCanonicalUrl("/work/vfx-cgi/humpback-ar/humpback-loop-poster-v01.jpg")],
+      uploadDate: "2026-10-18T00:00:00-07:00",
+      duration: "PT24S",
+      contentUrl: getCanonicalUrl("/work/vfx-cgi/humpback-ar/humpback-loop-v01.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
   if (category.slug === "film-animation" && piece.slug === "equinox") {
     return {
       "@type": "VideoObject",

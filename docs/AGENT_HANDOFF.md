@@ -1,6 +1,27 @@
-# Hammer Agent Handoff - 2026-10-17
+# Hammer Agent Handoff - 2026-10-18
 
-## Latest (2026-10-17, live through ae2c6b1)
+## Latest (2026-10-18)
+- Atrium order (`951b965`): film-animation, vfx-cgi, interactive-playable,
+  motion-graphics, brand-systems, websites, pipelines-tools.
+- Splat v03 (`b4f441d`): the "thing in the distance" was a north-west
+  hillside patch that only 3 of 234 training views saw; it trained black
+  and yellow. `splat/scripts/render_views.py --viewer-shell` adds 70 views
+  on the web viewer's own low orbit; live asset `gunfight-street-v03.sog`.
+- Humpback in AR (`/work/vfx-cgi/humpback-ar`): GPT Image 2.5 reference,
+  Hunyuan 3D mesh, procedural spine skin and swim in Blender
+  (`ar/whale/whale_rig.py`), 15 m life-size and 0.6 m tabletop. Every iOS
+  browser goes through `rel="ar"` links (Chrome on iPhone fails the
+  `relList.supports("ar")` check), Android through a Scene Viewer intent,
+  desktop shows a QR. Jeff confirmed on iPhone that the skinned USDZ swims
+  in Quick Look. Hero loop from `ar/whale/render_loop.py`.
+- Blender look-dev deleted (308 to /work/vfx-cgi). vfx + cgi order: neural set
+  capture, humpback in ar, environment swap.
+- Open: rig cleanup (spine
+  joints sit below the centreline because slice medians include the fins,
+  fin bones sit off the fins; v03 shipped as approved); a device retest of
+  Chrome on iPhone against the live page.
+
+## 2026-10-17 (live through ae2c6b1)
 - Motion reel: Chain Reaction (`hammer-reel-v04`, 66 s, 24p) replaces v3 at
   `/work/motion-graphics/reel`. Source in `films/motion-reel`.
 - Sushi Scramble (`ff7149a`): a three.js third-person sushi shooter, first in

@@ -1,0 +1,5 @@
+# Pipeline intermediates stay on disk: Blender scenes, raw Hunyuan meshes, test exports, render frames.
+# Shipped assets live in public/work/vfx-cgi/humpback-ar/.
+*/out/
+*/meshes/*.glb
+*/stills/*.png

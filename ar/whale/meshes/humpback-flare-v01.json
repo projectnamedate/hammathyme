@@ -1,0 +1,13 @@
+{
+  "id": "humpback-flare-v01",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "front": "../ar/whale/stills/humpback-ref-flare-v01.png",
+  "input": {
+    "input_image_url": "../ar/whale/stills/humpback-ref-flare-v01.png",
+    "enable_pbr": true,
+    "face_count": 500000
+  },
+  "seed": null,
+  "requestId": "01a151d6-0b1c-7c60-8acc-078328063fd6",
+  "seconds": 191
+}
