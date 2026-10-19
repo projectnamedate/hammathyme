@@ -35,7 +35,7 @@ The domain appears only in technical URL surfaces.
 - /work/interactive-playable: live interactive and playable demos; the storyboard demo is rate-limited per visitor.
 - /work/interactive-playable/sushi-scramble: Sushi Scramble, a three.js third-person shooter in a sushi bar. An armoured salmon nigiri rides a conveyor belt against chopstick drones and, every third wave, the diner's hand; wasabi blaster, ginger grenades, rice shield. Endless waves with a local high score; no provider calls.
 - /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
-- /work/interactive-playable/prompt-to-storyboard: capped GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
+- /work/interactive-playable/prompt-to-storyboard: rate-limited GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
 - /work/motion-graphics: programmatic motion work.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/reel: Chain Reaction, a one-shot motion graphics reel where 24 named moves set each other off, ending in a three.js Rube Goldberg machine. Video asset.
@@ -52,7 +52,8 @@ The domain appears only in technical URL surfaces.
 - /work/websites/coefficient: coefficient.mythx.art solana stake-pool health dashboard preview.
 - /work/pipelines-tools: AI production pipeline and tooling work.
 - /work/pipelines-tools/pipeline-visualizer: interactive production pipeline graph.
-- /work/pipelines-tools/creative-skills: reusable creative skill system and agent-stack map.
+- /work/pipelines-tools/creative-skills: reusable creative skill system and agent-stack map: startup check, end-session sweep, color theory, composition, shot coverage, video qc.
+- /work/pipelines-tools/qc-by-measurement: finished work checked by numbers: frame-numbered contact sheets, a cut detector (The Gunfight: 42 cuts, 43 shots), a composition overlay that measures where a subject lands, and a splat audit rendered from the viewer's own angles.
 - /about: Jeff Hammer bio, selected clients, and agencies.
 - /contact: public contact surface for work inquiries.
 - /colophon: type, stack, tools, models, build, hosting, and license notes.

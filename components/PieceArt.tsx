@@ -36,6 +36,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "vfx-cgi/humpback-ar": HumpbackAr,
   "pipelines-tools/pipeline-visualizer": PipelineVisualizerCard,
   "pipelines-tools/creative-skills": CreativeSkills,
+  "pipelines-tools/qc-by-measurement": QcByMeasurement,
   "interactive-playable/sushi-scramble": SushiScramble,
   "interactive-playable/35mm-projector": ProjectorAnatomy,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
@@ -344,6 +345,27 @@ function CreativeSkills() {
         ))}
       </g>
       <MonoLabel>CREATIVE SKILLS</MonoLabel>
+    </Plate>
+  );
+}
+
+function QcByMeasurement() {
+  const spikes = [30, 44, 52, 61, 70, 76, 84];
+  return (
+    <Plate>
+      <g transform="translate(24 36)">
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <rect key={i} x={(i % 3) * 25} y={Math.floor(i / 3) * 16} width="22" height="13" fill={i === 4 ? "var(--cinnamon)" : "var(--cream-0)"} stroke="var(--ink-3)" strokeWidth="0.6" />
+        ))}
+      </g>
+      <line x1="24" y1="112" x2="96" y2="112" stroke="var(--ink-3)" strokeWidth="0.6" />
+      {spikes.map((x, i) => (
+        <g key={x}>
+          <line x1={x} y1="112" x2={x} y2={i % 2 ? 90 : 82} stroke="var(--ink-0)" strokeWidth="0.9" />
+          <circle cx={x} cy={i % 2 ? 90 : 82} r="1.6" fill="none" stroke="var(--cinnamon)" strokeWidth="0.8" />
+        </g>
+      ))}
+      <MonoLabel>QC BY NUMBERS</MonoLabel>
     </Plate>
   );
 }

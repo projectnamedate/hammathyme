@@ -101,7 +101,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "orchestration, not generation. coding agents write the blender scripts, wire runway into repeatable pipelines, and train gaussian splats from sets built with hunyuan 3d.",
+      "orchestration, not generation. coding agents write the blender scripts, wire runway into repeatable pipelines, and train gaussian splats from hunyuan 3d sets. the same agents rig a life-size whale for augmented reality.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
@@ -386,7 +386,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "the tools beneath the work: pipeline maps, reusable creative skills, and agent-stack patterns built for repeatable ai production.",
+      "the tools beneath the work: pipeline maps, reusable creative skills, measured qc, and agent-stack patterns built for repeatable ai production.",
     tint: "var(--cream-1)",
     hero: { main: "pipelines", italic: "+ tools" },
     pieces: [
@@ -402,7 +402,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "creative-skills",
         title: "creative skills",
         year: "2026",
-        blurb: "the reusable operating layer: startup checks, end session sweeps, color theory, and review systems.",
+        blurb: "the reusable operating layer: startup checks, end session sweeps, color theory, composition, shot coverage, and video qc.",
+        status: "live",
+        tint: "var(--cream-1)",
+      },
+      {
+        slug: "qc-by-measurement",
+        title: "qc by measurement",
+        year: "2026",
+        blurb: "finished work checked by numbers, not by eye: frame-numbered contact sheets, a cut detector, a composition overlay, and a splat audit.",
         status: "live",
         tint: "var(--cream-1)",
       },
@@ -431,6 +439,7 @@ const DETAIL_READY_KEYS = new Set([
   "vfx-cgi/humpback-ar",
   "pipelines-tools/pipeline-visualizer",
   "pipelines-tools/creative-skills",
+  "pipelines-tools/qc-by-measurement",
   "interactive-playable/sushi-scramble",
   "interactive-playable/35mm-projector",
   "interactive-playable/prompt-to-storyboard",

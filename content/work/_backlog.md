@@ -12,10 +12,11 @@ are kept as history and may use pre-rename names.
 
 ## Open items
 
-Priority order (Jeff 2026-10-17): code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
+Priority order (Jeff 2026-10-17, updated 2026-10-18): first the brand illustration look-into (row 27), then code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
 
 | # | piece | category | status |
 |---|---|---|---|
+| 27 | Hammer brand isometric illustrations (anatomy-asset skill) | brand-systems | Jeff 2026-10-18: "im confused on this, lets not do it now", **top of next session: look into it**. The idea: detailed isometric spot illustrations in Hammer colours for the Hammer brand dossier (options raised: a seven-object category set, a studio-tools trio, or one hero object). Explain it with a quick visual before building |
 | 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
 | 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
 | 25 | World model piece: World Labs Chisel | new world-model subcategory | Jeff 2026-10-17: build it with Chisel (Atlas beta, "from 3D layout to world": block a layout at metric scale, place cameras, generate the finished world; modes for game environments, film, architecture and robotics). Tutorial https://www.youtube.com/watch?v=3s10wcyy3Ik, API https://atlas-beta.worldlabs.ai/docs/api-reference/atlas-chisel. Give world model work its own subcategory (where it sits in the category model is decided at build) |
@@ -25,6 +26,7 @@ Priority order (Jeff 2026-10-17): code animation, Breakwater, world model (Chise
 | 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
 
 Shipped 2026-10-17: row 19 (Chain Reaction reel), row 20 (Sushi Scramble).
+Shipped 2026-10-18 (later): pipeline visualizer gained short film, film to splat, and still to ar; creative skills adds composition, shotlist cinematography, video check; new qc by measurement piece. Jeff declined a public spend page and the prompt-to-AR demo (too expensive).
 Shipped 2026-10-18: row 18 (humpback in AR, `/work/vfx-cgi/humpback-ar`; blender look-dev deleted, 308s to /work/vfx-cgi; vfx order is neural set capture, humpback in ar, environment swap), row 26 (splat hillside blob fixed by retraining with the viewer's own low views, `gunfight-street-v03.sog`).
 
 ## Live inventory (for orientation, 2026-10-11)

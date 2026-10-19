@@ -154,6 +154,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/creative-skills") {
     return <CreativeSkillsDetail piece={piece} transitionName={transitionName} />;
   }
+  if (key === "pipelines-tools/qc-by-measurement") return <QcDetail transitionName={transitionName} />;
   if (key === "interactive-playable/sushi-scramble") return <SushiScrambleDetail transitionName={transitionName} />;
   if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
@@ -1122,6 +1123,21 @@ const CREATIVE_SKILL_ROWS = [
     mode: "taste",
     copy: "keeps palette, contrast, mood, and grade decisions intentional.",
   },
+  {
+    name: "composition",
+    mode: "frame",
+    copy: "places the subject on purpose and measures where it actually landed.",
+  },
+  {
+    name: "shotlist cinematography",
+    mode: "coverage",
+    copy: "turns a script into shots: sizes, angles, the axis, and continuity.",
+  },
+  {
+    name: "video check",
+    mode: "qc",
+    copy: "reviews a finished video by measurement: contact sheets, cuts, and flicker.",
+  },
 ] as const;
 
 function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transitionName: string }) {
@@ -1179,12 +1195,114 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
             ))}
           </div>
           <p className="mt-7 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-            startup · closeout · color decisions
+            startup · closeout · color · framing · coverage · qc
           </p>
         </div>
         <div className="md:col-span-7">
           <AgentStackDiagram />
         </div>
+      </div>
+    </section>
+  );
+}
+
+const QC_DIR = "/work/pipelines-tools/qc-by-measurement";
+
+const QC_FIGURES = [
+  {
+    src: `${QC_DIR}/qc-composition.jpg`,
+    width: 1920,
+    height: 808,
+    label: "composition · eyes at 0.55, 0.23 of frame · 11.5% from the nearest third point",
+    alt: "A frame from The Gunfight with rule-of-thirds lines drawn over it",
+  },
+  {
+    src: `${QC_DIR}/qc-splat-audit.jpg`,
+    width: 1280,
+    height: 360,
+    label: "splat audit · the hillside blob at the viewer's low angle (v02) and gone after retraining (v03)",
+    alt: "Two renders of the gaussian splat street from the same low angle, before and after the fix",
+  },
+];
+
+function QcDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            every finished piece gets checked by numbers before anyone calls it done. these are
+            the checks, run on real work from this site.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["contact sheet", "frames with their number and timecode burned in"],
+              ["cut detector", "frame-to-frame change: lone spikes are cuts, runs are motion"],
+              ["composition", "thirds, phi and spiral drawn on the frame, with a measured position"],
+              ["splat audit", "renders from every angle the viewer allows, not just the nice one"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+
+        <figure
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <Image
+            src={`${QC_DIR}/qc-contact-sheet.jpg`}
+            alt="Contact sheet of nine frames from The Gunfight, each labelled with its frame number and timecode"
+            width={1920}
+            height={810}
+            priority
+            sizes="(min-width: 768px) 75vw, 100vw"
+            className="block w-full"
+          />
+          <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+            contact sheet · the gunfight · every 10 seconds
+          </figcaption>
+        </figure>
+      </div>
+
+      <figure className="mt-10 border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
+        <Image
+          src={`${QC_DIR}/qc-cut-detector.png`}
+          alt="A chart of frame-to-frame change across The Gunfight, with 42 cuts marked"
+          width={1920}
+          height={560}
+          sizes="100vw"
+          className="block w-full"
+        />
+        <figcaption className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[var(--ink-2)]">
+          cut detector · the gunfight · 2,209 frames · 42 cuts marked, 43 shots
+        </figcaption>
+      </figure>
+
+      <div className="mt-5 grid grid-cols-1 items-start gap-3 md:grid-cols-2 md:gap-5">
+        {QC_FIGURES.map((fig) => (
+          <figure key={fig.src} className="border border-[var(--ink-4)] bg-[var(--cream-1)] p-2">
+            <Image
+              src={fig.src}
+              alt={fig.alt}
+              width={fig.width}
+              height={fig.height}
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="block w-full"
+            />
+            <figcaption className="mt-3 font-mono text-[9px] uppercase leading-[1.6] tracking-[0.18em] text-[var(--ink-2)]">
+              {fig.label}
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </section>
   );
