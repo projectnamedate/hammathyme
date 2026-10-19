@@ -636,7 +636,7 @@ function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) 
             {[
               ["source", "frames from the gunfight"],
               ["assets", "gpt image 2.5 stills · hunyuan 3d 3.1 meshes"],
-              ["set", "blender 5.1 · 234 posed renders"],
+              ["set", "blender 5.1 · 304 posed renders"],
               ["splat", "brush on apple silicon · sog via splat-transform"],
             ].map(([label, value]) => (
               <div key={label}>
@@ -656,7 +656,7 @@ function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) 
           style={frameStyle}
         >
           <SplatViewer
-            src={`${SPLAT_DIR}/gunfight-street-v02.sog`}
+            src={`${SPLAT_DIR}/gunfight-street-v03.sog`}
             poster={`${SPLAT_DIR}/gunfight-street-poster-v02.jpg`}
             posterAlt="The rebuilt gunfight main street as a gaussian splat at golden hour"
             camera={CAMERA}

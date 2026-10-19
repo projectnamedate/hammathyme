@@ -35,7 +35,7 @@
     { "path": "/work/film-animation/code-animation", "purpose": "code animation: The North Wind and the Sun, an 82-second Aesop fable drawn entirely in code, plus six short films drawn in code" },
     { "path": "/work/vfx-cgi", "purpose": "vfx and cgi portfolio category: coding agents orchestrating Blender, Runway, Hunyuan 3D, and gaussian splat pipelines" },
     { "path": "/work/vfx-cgi/environment-swap", "purpose": "Runway Aleph 2 environment-swap case study: one driving plate relit into multiple worlds while preserving the real dashboard" },
-    { "path": "/work/vfx-cgi/neural-set-capture", "purpose": "interactive gaussian splat of The Gunfight main street: Hunyuan 3D meshes from film frames, Blender 5.1 assembly and 234 posed renders, Brush training, Spark web viewer" },
+    { "path": "/work/vfx-cgi/neural-set-capture", "purpose": "interactive gaussian splat of The Gunfight main street: Hunyuan 3D meshes from film frames, Blender 5.1 assembly and 304 posed renders, Brush training, Spark web viewer" },
     { "path": "/work/vfx-cgi/blender-lookdev-pipeline", "purpose": "Blender look-development board with six material studies and a rendered contact sheet" },
     { "path": "/work/interactive-playable", "purpose": "live capped interactive and playable demo category" },
     { "path": "/work/interactive-playable/sushi-scramble", "purpose": "Sushi Scramble, a three.js third-person shooter: an armoured salmon nigiri on a sushi conveyor belt against chopstick drones and the diner's hand; no provider calls" },

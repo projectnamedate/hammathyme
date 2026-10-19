@@ -1,5 +1,5 @@
 # Render posed training views + nerfstudio transforms.json + a surface-sampled points3d.ply seed.
-# usage: blender -b <street.blend> -P scripts/render_views.py -- <dataset_dir> [--preview]
+# usage: blender -b <street.blend> -P scripts/render_views.py -- <dataset_dir> [--preview] [--viewer-shell]
 import bpy, sys, os, math, random, json
 import numpy as np
 from mathutils import Vector
@@ -62,6 +62,28 @@ def views():
     for i in range(8):
         a = 2 * math.pi * i / 8
         v.append((Vector((20 * math.cos(a), 20 * math.sin(a), 45)), Vector((0, 0, 0)), 30))
+    if "--viewer-shell" in argv:
+        v += viewer_shell()
+    return v
+
+
+def viewer_shell():
+    # The web viewer orbits a fixed target down to ~5 degrees elevation, so it sees the hill ring
+    # behind the town from angles the views above never cover; unsupervised hillside drifts into blobs.
+    # Appended after the original views so their random draws (and file names) stay unchanged.
+    target = Vector((10.16, -1.35, 1.5))
+    deps = bpy.context.evaluated_depsgraph_get()
+    v = []
+    for dist in (25, 45, 65):
+        for elev in (6, 14):
+            for i in range(12):
+                a = 2 * math.pi * i / 12
+                e = math.radians(elev)
+                p = target + dist * Vector((math.cos(e) * math.cos(a), math.cos(e) * math.sin(a), math.sin(e)))
+                up = scene.ray_cast(deps, p, Vector((0, 0, 1)), distance=200)
+                if up[0]:
+                    continue  # inside a building or under the terrain
+                v.append((p, target, 30))
     return v
 
 
