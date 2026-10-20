@@ -1,6 +1,24 @@
-# Hammer Agent Handoff - 2026-10-18
+# Hammer Agent Handoff - 2026-10-20
 
-## Latest (2026-10-18)
+## Latest (2026-10-20): lab track
+- New roadmap section "Lab track (Jeff 2026-10-20)" in `content/work/_backlog.md`, rows L1–L8, from a link
+  triage in the skills repo (new `viggle-api` and `sunra-api` skills; Spark, cinetic and opuscar merges). Jeff's
+  order: small items, then L4, then L5–L8. Jeff 2026-10-20: "we can continue in there with the next items on the
+  roadmap".
+- **L1 live** (`fbf0586`): `@sparkjsdev/spark` 2.4.0 on the splat viewer; local prod build renders at 1440 and 390,
+  live viewer reaches its loaded state. Live WebGL screenshots hang in the Playwright browser; read pixels in the
+  page (`canvas.toDataURL` with `preserveDrawingBuffer`) or check state instead.
+- **L2:** ACE-Step blind pack waits on Jeff's listen
+  (`~/Desktop/vibe/studioly/projects/the-gunfight/07-score/blind-acestep-v01/`).
+- **L3 done:** Pi3 0.205 m vs `track_camera.py` 3.45 m on R4 s02; Pi3 weights are non-commercial, research only.
+- **L8 research done:** scale carries through `SparkPortals`; shrinking renders soft (shared LoD). Plan and fixes:
+  `~/Desktop/vibe/atlas/docs/nested-worlds-test.md`. Test page (git-ignored): `scratchpad/nested-portal-v01/`.
+- **Next pickup:** whichever of these Jeff unblocks first: L4 Sunra paired take (needs `SUNRA_KEY`), L5 Genjutsu
+  (needs his 6–8 s prop clip), L6 Viggle test (needs `VIGGLE_API_KEY`), L7 VirtuCamera (he buys it); or the L8 build
+  (worlds from Marble export, Viggle or our Blender sets). Row 27 (brand illustrations) is still first in the main
+  priority list once the lab track is set aside.
+
+## 2026-10-18
 - Later (`0d874e2`): pipeline visualizer adds short film, film to splat and
   still to ar (receipts from the project ledgers); creative skills shows six
   skills Jeff picked (never model-prompting skills, ask first); new

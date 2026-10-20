@@ -12,7 +12,7 @@ are kept as history and may use pre-rename names.
 
 ## Open items
 
-Priority order (Jeff 2026-10-17, updated 2026-10-18): first the brand illustration look-into (row 27), then code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
+Jeff 2026-10-20: the Lab track below runs next (L4–L8, each waiting on one input from Jeff; L2 waits on his listen). Priority order for pieces (Jeff 2026-10-17, updated 2026-10-18): first the brand illustration look-into (row 27), then code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
 
 | # | piece | category | status |
 |---|---|---|---|
