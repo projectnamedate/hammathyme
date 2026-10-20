@@ -25,6 +25,21 @@ Priority order (Jeff 2026-10-17, updated 2026-10-18): first the brand illustrati
 | 17 | Runway Solaris generative interface piece | interactive-playable | keep (Jeff 2026-10-17: spin something up once access exists): Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
 | 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
 
+## Lab track (Jeff 2026-10-20)
+
+New tools and tests from the 2026-10-20 link triage (skills repo `a547dcb`/`2cb090c`). Jeff's order: the small items first (L1–L3), then L4, then L5–L8. Each row is a test or tool upgrade that feeds a pipeline or a future piece; nothing here becomes a public page until Jeff says so. Facts and how-to live in the named skills.
+
+| # | item | feeds | status |
+|---|---|---|---|
+| L1 | Bump Spark 2.3.1 → 2.4.0 on the site | neural set capture (`components/SplatViewer.tsx`), row 25 | 2.4.0 (2026-10-19): portals (`SparkPortals`), SPZ v4, paged LoD and XR splat-width fixes. `threejs` skill `references/gaussian-splats-spark.md` |
+| L2 | ACE-Step 1.5 local music vs a Suno cue, judged blind | film scores without Suno's reseller-rights caveat | MIT code and weights, runs on this Mac (MLX). `suno` skill, "A local alternative to test" |
+| L3 | Pi3 camera solve on helsinki vs `track_camera.py` (3.45 m RMS today) | blender previz camera tracking | Pi3 is BSD-2 (TrackEverything's other layers are non-commercial). Lead in `~/Desktop/vibe/blender/docs/research/ai-lanes.md` |
+| L4 | Sunra paired Seedance 2.5 take vs Evolink (about $5–9) | every Seedance 1080p take (paper rate about $0.57/s vs our measured $0.74/s) | needs a Sunra account and `SUNRA_KEY`. `sunra-api` skill, "First test" |
+| L5 | Genjutsu restyle: Jeff's own 6–8 s prop clip → depth map + face mesh → Seedance 2.5 edit (about $3–5) | a film-animation or vfx-cgi piece candidate ("same moves, new world") | needs Jeff's clip; depth on fal `fal-ai/depth-anything-video`, face mesh via MediaPipe. `seedance-master`, "Restyle a real clip through a depth map" |
+| L6 | Viggle world-model test (about $0.85, inside the 100 free credits) | mocap for blender previz, $0.06 splat worlds, cheap H3 | Jeff signed up 2026-10-20, no key yet. `viggle-api` skill, `references/world-model-test.md` |
+| L7 | VirtuCamera phone camera for previz ($19.99 Standard) | handheld moves in Seedance previs | Jeff buys the app; not virtucam.app (a camera spoofer). `blender-previz` `references/camera.md` |
+| L8 | Nested worlds: portals between splat worlds, each world inside an object of the last | row 25 (world model piece) | handoff `~/Desktop/vibe/atlas/docs/nested-worlds-test.md`; worlds from Marble, Viggle and our own Blender sets, A/B'd. After Ian Curtis's portal demo (World Labs, 2026-10-19) |
+
 Shipped 2026-10-17: row 19 (Chain Reaction reel), row 20 (Sushi Scramble).
 Shipped 2026-10-18 (later): pipeline visualizer gained short film, film to splat, and still to ar; creative skills adds composition, shotlist cinematography, video check; new qc by measurement piece. Jeff declined a public spend page and the prompt-to-AR demo (too expensive).
 Shipped 2026-10-18: row 18 (humpback in AR, `/work/vfx-cgi/humpback-ar`; blender look-dev deleted, 308s to /work/vfx-cgi; vfx order is neural set capture, humpback in ar, environment swap), row 26 (splat hillside blob fixed by retraining with the viewer's own low views, `gunfight-street-v03.sog`).

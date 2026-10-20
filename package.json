@@ -12,7 +12,7 @@
     "submit:indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
-    "@sparkjsdev/spark": "^2.3.1",
+    "@sparkjsdev/spark": "^2.4.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",
