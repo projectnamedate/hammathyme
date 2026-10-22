@@ -12,11 +12,11 @@ are kept as history and may use pre-rename names.
 
 ## Open items
 
-Jeff 2026-10-20: the Lab track below runs next (L5–L8, each waiting on one input from Jeff; L2 waits on his listen; L4 moved to Studioly 2026-10-21). Priority order for pieces (Jeff 2026-10-17, updated 2026-10-21): **the DOOM-style shooter (row 29) first**, then code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
+Jeff 2026-10-20: the Lab track below runs next (L5–L8, each waiting on one input from Jeff; L2 waits on his listen; L4 moved to Studioly 2026-10-21). Priority order for pieces (Jeff 2026-10-17, updated 2026-10-21): code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
 
 | # | piece | category | status |
 |---|---|---|---|
-| 29 | DOOM-style browser shooter with a twist | interactive-playable | **Item 1** (Jeff 2026-10-21). Backrooms setting dropped the same day ("maybe Backrooms is played out"); twist being chosen. Keep the DOOM-style shooter; never "Doom" in the name, domain or logo (ZeniMax shut Fallout: New York down within days over its name and domain). Research and the shelved Backrooms plan: `games/backrooms/PLAN.md` |
+| 29 | slopocalypse: DOOM-style browser shooter where the demons are AI slop (working title) | interactive-playable (optional) | Jeff 2026-10-21: picked the AI slop twist and made it **its own project**: repo `~/Desktop/vibe/slopocalypse` (private, github.com/projectnamedate/slopocalypse), plan in its `docs/PLAN.md`. Built in a separate session. A hammer.ad card is welcome later but not a priority |
 | 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
 | 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
 | 25 | World model piece: World Labs Chisel | new world-model subcategory | Jeff 2026-10-17: build it with Chisel (Atlas beta, "from 3D layout to world": block a layout at metric scale, place cameras, generate the finished world; modes for game environments, film, architecture and robotics). Tutorial https://www.youtube.com/watch?v=3s10wcyy3Ik, API https://atlas-beta.worldlabs.ai/docs/api-reference/atlas-chisel. Give world model work its own subcategory (where it sits in the category model is decided at build) |
