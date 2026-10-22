@@ -12,11 +12,10 @@ are kept as history and may use pre-rename names.
 
 ## Open items
 
-Jeff 2026-10-20: the Lab track below runs next (L4–L8, each waiting on one input from Jeff; L2 waits on his listen). Priority order for pieces (Jeff 2026-10-17, updated 2026-10-18): first the brand illustration look-into (row 27), then code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
+Jeff 2026-10-20: the Lab track below runs next (L4–L8, each waiting on one input from Jeff; L2 waits on his listen). Priority order for pieces (Jeff 2026-10-17, updated 2026-10-21): code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
 
 | # | piece | category | status |
 |---|---|---|---|
-| 27 | Hammer brand isometric illustrations (anatomy-asset skill) | brand-systems | Jeff 2026-10-18: "im confused on this, lets not do it now", **top of next session: look into it**. The idea: detailed isometric spot illustrations in Hammer colours for the Hammer brand dossier (options raised: a seven-object category set, a studio-tools trio, or one hero object). Explain it with a quick visual before building |
 | 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
 | 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
 | 25 | World model piece: World Labs Chisel | new world-model subcategory | Jeff 2026-10-17: build it with Chisel (Atlas beta, "from 3D layout to world": block a layout at metric scale, place cameras, generate the finished world; modes for game environments, film, architecture and robotics). Tutorial https://www.youtube.com/watch?v=3s10wcyy3Ik, API https://atlas-beta.worldlabs.ai/docs/api-reference/atlas-chisel. Give world model work its own subcategory (where it sits in the category model is decided at build) |
@@ -40,6 +39,7 @@ New tools and tests from the 2026-10-20 link triage (skills repo `a547dcb`/`2cb0
 | L7 | VirtuCamera phone camera for previz ($19.99 Standard) | handheld moves in Seedance previs | Jeff buys the app; not virtucam.app (a camera spoofer). `blender-previz` `references/camera.md` |
 | L8 | Nested worlds: portals between splat worlds, each world inside an object of the last | row 25 (world model piece) | handoff `~/Desktop/vibe/atlas/docs/nested-worlds-test.md`; worlds from Marble, Viggle and our own Blender sets, A/B'd. After Ian Curtis's portal demo (World Labs, 2026-10-19). **Research step done 2026-10-20:** scale carries through `SparkPortals`, shrinking renders soft because the behind pass reuses the front LoD (18.4 vs 7.95 baseline pixel difference); fixes listed in the handoff |
 
+Removed 2026-10-21: row 27 (brand isometric illustrations), Jeff's call after the look-into; card plate restyles are being mocked up instead.
 Shipped 2026-10-21: car wash, a playable Colorfigures tunnel wash at `/work/interactive-playable/car-wash` (source `figures/car-wash/`, built page in `public/work/interactive-playable/car-wash/`).
 Shipped 2026-10-17: row 19 (Chain Reaction reel), row 20 (Sushi Scramble).
 Shipped 2026-10-18 (later): pipeline visualizer gained short film, film to splat, and still to ar; creative skills adds composition, shotlist cinematography, video check; new qc by measurement piece. Jeff declined a public spend page and the prompt-to-AR demo (too expensive).

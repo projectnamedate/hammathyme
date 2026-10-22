@@ -1,6 +1,6 @@
 # Hammer Agent Handoff - 2026-10-21
 
-## Latest (2026-10-21): car wash, wordmark boards, row 27 look-into
+## Latest (2026-10-21): car wash, wordmark boards, card plate mockups
 - **Car wash live** (`3d68c4a`) at `/work/interactive-playable/car-wash`, third in the category: a playable
   Colorfigures tunnel wash. The steps are pay (basic or deluxe), pull in, wash and drive off, then next car.
   Each station changes the car only as it passes: foam, side and top brushes, rinse, wax, tire shine, blowers.
@@ -10,9 +10,8 @@
   - Screenshot states: `?stage=paid|loaded|wash&t=0.4|done|parked&wash=basic|deluxe`, plus `?press=Pay>Deluxe@300,...`.
 - **Wordmark boards** (`f35554b`): the recommended badge no longer overlaps the meta label, and direction B now
   says technologist. Both pickup items are closed.
-- **Row 27 look-into:** Jeff got an explainer page (scratchpad, not on the site). It shows the anatomy look vs
-  the Colorfigures look and three sizes: seven category objects, a studio trio, or one hero object.
-  Recommendation: one hero object in the anatomy look, in Hammer colours. Waiting on Jeff's pick.
+- **Row 27 deleted** (Jeff, after the look-into). Instead: card plate restyles using the new figure skills,
+  mocked up for Jeff's approval before anything ships.
 
 ## 2026-10-20: lab track
 - New roadmap section "Lab track (Jeff 2026-10-20)" in `content/work/_backlog.md`, rows L1–L8, from a link
