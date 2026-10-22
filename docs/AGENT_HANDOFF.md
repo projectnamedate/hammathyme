@@ -1,6 +1,12 @@
 # Hammer Agent Handoff - 2026-10-21
 
-## Latest (2026-10-21): car wash, wordmark boards, card plate mockups
+## Latest (2026-10-21, end of session): roadmap renumbered, shooter spun out
+- `content/work/_backlog.md` was renumbered from 1 (the old-to-new map is at the top of Open items). Pieces: 1 code animation, 2 Breakwater, 3 world model (Chisel), 4 anime short, 5 3D short, 6 isometric card plates (someday), 7 Solaris (waits on access), 8 external SEO (needs Jeff's access), 9 slopocalypse (its own repo). Lab: L1 ACE-Step blind listen (Jeff's ears), L2 nested worlds (ready to build), L3 Genjutsu (his clip), L4 Viggle (his key), L5 VirtuCamera (he buys it).
+- **slopocalypse:** a DOOM-style browser shooter where the demons are AI slop. It lives in `~/Desktop/vibe/slopocalypse` (private GitHub, plan in its `docs/PLAN.md`). Not a hammer priority. Never "Doom" in its name. The shelved Backrooms plan and research: `games/backrooms/PLAN.md`.
+- **Sunra:** now Studioly ROADMAP Next item 1 (move every model it carries, no paired test). Lab L4 is gone from here.
+- **Card plates:** stay flat. The isometric mock is in `figures/card-mocks/car-wash-anatomy/` (item 6).
+
+## Earlier 2026-10-21: car wash, wordmark boards, card plate mockups
 - **Car wash live** (`3d68c4a`) at `/work/interactive-playable/car-wash`, third in the category: a playable
   Colorfigures tunnel wash. The steps are pay (basic or deluxe), pull in, wash and drive off, then next car.
   Each station changes the car only as it passes: foam, side and top brushes, rinse, wax, tire shine, blowers.
@@ -10,8 +16,7 @@
   - Screenshot states: `?stage=paid|loaded|wash&t=0.4|done|parked&wash=basic|deluxe`, plus `?press=Pay>Deluxe@300,...`.
 - **Wordmark boards** (`f35554b`): the recommended badge no longer overlaps the meta label, and direction B now
   says technologist. Both pickup items are closed.
-- **Row 27 deleted** (Jeff, after the look-into). Instead: card plate restyles using the new figure skills,
-  mocked up for Jeff's approval before anything ships.
+- **Row 27 deleted** (Jeff, after the look-into). Card plate styles were mocked up instead; Jeff kept the flat plates.
 
 ## 2026-10-20: lab track
 - New roadmap section "Lab track (Jeff 2026-10-20)" in `content/work/_backlog.md`, rows L1–L8, from a link

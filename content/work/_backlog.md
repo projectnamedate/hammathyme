@@ -12,34 +12,35 @@ are kept as history and may use pre-rename names.
 
 ## Open items
 
-Jeff 2026-10-20: the Lab track below runs next (L5–L8, each waiting on one input from Jeff; L2 waits on his listen; L4 moved to Studioly 2026-10-21). Priority order for pieces (Jeff 2026-10-17, updated 2026-10-21): code animation, Breakwater, world model (Chisel), then the anime and 3D shorts. Solaris waits on access.
+Renumbered 2026-10-21 (Jeff: "starts with 1 again"). Old numbers: 21→1, 22→2, 25→3, 23→4, 24→5, 28→6, 17→7, 15→8, 29→9; lab L2→L1, L8→L2, L5→L3, L6→L4, L7→L5.
+
+Priority order for pieces (Jeff 2026-10-17, updated 2026-10-21): 1 code animation, 2 Breakwater, 3 world model (Chisel), then 4–5 the anime and 3D shorts. 6 is a someday restyle, 7 waits on Solaris access, 8 needs Jeff's GSC access. 9 lives in its own repo.
 
 | # | piece | category | status |
 |---|---|---|---|
-| 29 | slopocalypse: DOOM-style browser shooter where the demons are AI slop (working title) | interactive-playable (optional) | Jeff 2026-10-21: picked the AI slop twist and made it **its own project**: repo `~/Desktop/vibe/slopocalypse` (private, github.com/projectnamedate/slopocalypse), plan in its `docs/PLAN.md`. Built in a separate session. A hammer.ad card is welcome later but not a priority |
-| 21 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
-| 22 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
-| 25 | World model piece: World Labs Chisel | new world-model subcategory | Jeff 2026-10-17: build it with Chisel (Atlas beta, "from 3D layout to world": block a layout at metric scale, place cameras, generate the finished world; modes for game environments, film, architecture and robotics). Tutorial https://www.youtube.com/watch?v=3s10wcyy3Ik, API https://atlas-beta.worldlabs.ai/docs/api-reference/atlas-chisel. Give world model work its own subcategory (where it sits in the category model is decided at build) |
-| 23 | Anime short | film-animation | Jeff 2026-10-11 roadmap |
-| 24 | 3D short | film-animation | Jeff 2026-10-11 roadmap |
-| 28 | Precise isometric card plates on every card (anatomy-asset) | all categories | Jeff 2026-10-21: keep today's flat plates for now; "eventually maybe precise isometric would be cool on all the cards". Picked from a six-style mockup (flat, isometric, Colorfigures, risograph, soft 3D, gouache). Reference card: `figures/card-mocks/car-wash-anatomy/` (cream with a cinnamon subject, quiet CSS motion). Each of the 23 cards needs its own object; polish the mock first (6 floating line ends) |
-| 17 | Runway Solaris generative interface piece | interactive-playable | keep (Jeff 2026-10-17: spin something up once access exists): Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
-| 15 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
+| 1 | 5 min code animation | film-animation | Jeff 2026-10-17 roadmap: in production in the animation repo (`films/stones-that-drink`); joins the code animation piece |
+| 2 | Breakwater, claymation in Blender? | film-animation | Jeff 2026-10-17 roadmap (tentative): restart Breakwater as a Blender claymation film |
+| 3 | World model piece: World Labs Chisel | new world-model subcategory | Jeff 2026-10-17: build it with Chisel (Atlas beta, "from 3D layout to world": block a layout at metric scale, place cameras, generate the finished world; modes for game environments, film, architecture and robotics). Tutorial https://www.youtube.com/watch?v=3s10wcyy3Ik, API https://atlas-beta.worldlabs.ai/docs/api-reference/atlas-chisel. Give world model work its own subcategory (where it sits in the category model is decided at build) |
+| 4 | Anime short | film-animation | Jeff 2026-10-11 roadmap |
+| 5 | 3D short | film-animation | Jeff 2026-10-11 roadmap |
+| 6 | Precise isometric card plates on every card (anatomy-asset) | all categories | Jeff 2026-10-21: keep today's flat plates for now; "eventually maybe precise isometric would be cool on all the cards". Picked from a six-style mockup (flat, isometric, Colorfigures, risograph, soft 3D, gouache). Reference card: `figures/card-mocks/car-wash-anatomy/` (cream with a cinnamon subject, quiet CSS motion). Each of the 23 cards needs its own object; polish the mock first (6 floating line ends) |
+| 7 | Runway Solaris generative interface piece | interactive-playable | keep (Jeff 2026-10-17: spin something up once access exists): Runway's Interface World Model (announced 2026-08-31) renders interactive UIs frame-by-frame with no code; early access only, no public API. Build a generative-interface demo piece when access exists |
+| 8 | External SEO follow-up | launch | repo-side SEO is done (metadata, JSON-LD, sitemaps, robots, llms, agents.json). Open: GSC URL inspection/indexing requests for the priority sitemap set, Rich Results validation, Lighthouse mobile SEO. 2026-05-25 GSC showed `Discovered - currently not indexed`. Needs Jeff's access + explicit approval |
+| 9 | slopocalypse: DOOM-style browser shooter where the demons are AI slop (working title) | interactive-playable (optional) | Separate project, not a hammer priority (Jeff 2026-10-21): the AI slop twist, built as **its own project**: repo `~/Desktop/vibe/slopocalypse` (private, github.com/projectnamedate/slopocalypse), plan in its `docs/PLAN.md`. Built in a separate session. A hammer.ad card is welcome later but not a priority |
 
 ## Lab track (Jeff 2026-10-20)
 
-New tools and tests from the 2026-10-20 link triage (skills repo `a547dcb`/`2cb090c`). Jeff's order: the small items first (L1–L3), then L4, then L5–L8. Each row is a test or tool upgrade that feeds a pipeline or a future piece; nothing here becomes a public page until Jeff says so. Facts and how-to live in the named skills.
+Tests and tool upgrades from the 2026-10-20 link triage (skills repo `a547dcb`/`2cb090c`). Each feeds a pipeline or a future piece; nothing here becomes a public page until Jeff says so. Facts and how-to live in the named skills. L1 waits on Jeff's ears; L2 is ready to build; L3–L5 each wait on one input from Jeff.
 
 | # | item | feeds | status |
 |---|---|---|---|
-| L1 | Bump Spark 2.3.1 → 2.4.0 on the site | neural set capture (`components/SplatViewer.tsx`), row 25 | **shipped 2026-10-20** (`fbf0586`, deploy READY): splat renders at 1440 and 390 locally, reaches its live state on hammer.ad. 2.4.0 adds portals (`SparkPortals`), SPZ v4, paged LoD and XR fixes. `threejs` skill `references/gaussian-splats-spark.md` |
-| L2 | ACE-Step 1.5 local music vs a Suno cue, judged blind | film scores without Suno's reseller-rights caveat | **ran 2026-10-20, waiting on Jeff's ears**: two 60 s takes of the gunfight standoff brief in 45 s on this Mac; blind pack `~/Desktop/vibe/studioly/projects/the-gunfight/07-score/blind-acestep-v01/` (X1–X4, two Suno v6 and two ACE-Step, loudness-matched; key in `key-open-after-listening.json`). Measured: ACE hit 60 s exactly (Suno gave 160/80 s), more dynamic range. `suno` skill |
-| L3 | Pi3 camera solve vs `track_camera.py` | blender previz camera tracking (research) | **done 2026-10-20**: on R4 s02 Pi3 scored 0.205 m path RMS (worst 0.62 m) against `track_camera.py`'s 3.45 m (worst 13.7 m); 49 frames in 92 s on this Mac (helsinki has no GPU). Weights CC BY-NC, so research only. `~/Desktop/vibe/blender/tests/pi3_compare/` |
-| L5 | Genjutsu restyle: Jeff's own 6–8 s prop clip → depth map + face mesh → Seedance 2.5 edit (about $3–5) | a film-animation or vfx-cgi piece candidate ("same moves, new world") | needs Jeff's clip; depth on fal `fal-ai/depth-anything-video`, face mesh via MediaPipe. `seedance-master`, "Restyle a real clip through a depth map" |
-| L6 | Viggle world-model test (about $0.85, inside the 100 free credits) | mocap for blender previz, $0.06 splat worlds, cheap H3 | Jeff signed up 2026-10-20, no key yet. `viggle-api` skill, `references/world-model-test.md` |
-| L7 | VirtuCamera phone camera for previz ($19.99 Standard) | handheld moves in Seedance previs | Jeff buys the app; not virtucam.app (a camera spoofer). `blender-previz` `references/camera.md` |
-| L8 | Nested worlds: portals between splat worlds, each world inside an object of the last | row 25 (world model piece) | handoff `~/Desktop/vibe/atlas/docs/nested-worlds-test.md`; worlds from Marble, Viggle and our own Blender sets, A/B'd. After Ian Curtis's portal demo (World Labs, 2026-10-19). **Research step done 2026-10-20:** scale carries through `SparkPortals`, shrinking renders soft because the behind pass reuses the front LoD (18.4 vs 7.95 baseline pixel difference); fixes listed in the handoff |
+| L1 | ACE-Step 1.5 local music vs a Suno cue, judged blind | film scores without Suno's reseller-rights caveat | **ran 2026-10-20, waiting on Jeff's ears**: two 60 s takes of the gunfight standoff brief in 45 s on this Mac; blind pack `~/Desktop/vibe/studioly/projects/the-gunfight/07-score/blind-acestep-v01/` (X1–X4, two Suno v6 and two ACE-Step, loudness-matched; key in `key-open-after-listening.json`). Measured: ACE hit 60 s exactly (Suno gave 160/80 s), more dynamic range. `suno` skill |
+| L2 | Nested worlds: portals between splat worlds, each world inside an object of the last | item 3 (world model piece) | handoff `~/Desktop/vibe/atlas/docs/nested-worlds-test.md`; worlds from Marble, Viggle and our own Blender sets, A/B'd. After Ian Curtis's portal demo (World Labs, 2026-10-19). **Research step done 2026-10-20:** scale carries through `SparkPortals`, shrinking renders soft because the behind pass reuses the front LoD (18.4 vs 7.95 baseline pixel difference); fixes listed in the handoff |
+| L3 | Genjutsu restyle: Jeff's own 6–8 s prop clip → depth map + face mesh → Seedance 2.5 edit (about $3–5) | a film-animation or vfx-cgi piece candidate ("same moves, new world") | needs Jeff's clip; depth on fal `fal-ai/depth-anything-video`, face mesh via MediaPipe. `seedance-master`, "Restyle a real clip through a depth map" |
+| L4 | Viggle world-model test (about $0.85, inside the 100 free credits) | mocap for blender previz, $0.06 splat worlds, cheap H3 | Jeff signed up 2026-10-20, no key yet. `viggle-api` skill, `references/world-model-test.md` |
+| L5 | VirtuCamera phone camera for previz ($19.99 Standard) | handheld moves in Seedance previs | Jeff buys the app; not virtucam.app (a camera spoofer). `blender-previz` `references/camera.md` |
 
+Done 2026-10-20 (old lab numbers): L1 Spark 2.3.1 → 2.4.0 on the site (`fbf0586`, live; adds `SparkPortals`, SPZ v4, paged LoD); L3 Pi3 camera solve, 0.205 m path RMS vs `track_camera.py`'s 3.45 m on R4 s02, research only (CC BY-NC weights), `~/Desktop/vibe/blender/tests/pi3_compare/`.
 Moved 2026-10-21: L4 (Sunra) to Studioly ROADMAP Next item 1, no paired test (Jeff: move every model Sunra carries).
 Removed 2026-10-21: row 27 (brand isometric illustrations), Jeff's call after the look-into; card plate restyles are being mocked up instead.
 Shipped 2026-10-21: car wash, a playable Colorfigures tunnel wash at `/work/interactive-playable/car-wash` (source `figures/car-wash/`, built page in `public/work/interactive-playable/car-wash/`).
@@ -47,21 +48,22 @@ Shipped 2026-10-17: row 19 (Chain Reaction reel), row 20 (Sushi Scramble).
 Shipped 2026-10-18 (later): pipeline visualizer gained short film, film to splat, and still to ar; creative skills adds composition, shotlist cinematography, video check; new qc by measurement piece. Jeff declined a public spend page and the prompt-to-AR demo (too expensive).
 Shipped 2026-10-18: row 18 (humpback in AR, `/work/vfx-cgi/humpback-ar`; blender look-dev deleted, 308s to /work/vfx-cgi; vfx order is neural set capture, humpback in ar, environment swap), row 26 (splat hillside blob fixed by retraining with the viewer's own low views, `gunfight-street-v03.sog`).
 
-## Live inventory (for orientation, 2026-10-11)
+## Live inventory (for orientation, 2026-10-21)
 
-22 live detail routes across the 7 categories; the authoritative list is
-`DETAIL_READY_KEYS` in `lib/works.ts`. Per category: film (equinox, the
-gunfight, code animation), vfx-cgi (environment swap, neural set capture,
-blender look-dev), motion graphics (ICM teaser, reel, Spring Health, spotify
-titles), brand dossiers (hammer/kira/agentify), the four
-website previews (hammer, kira, agentify, coefficient), interactive (35mm
-projector, prompt to storyboard, dot discipline), pipelines (visualizer,
-creative skills).
+24 live detail routes across the 7 categories; the authoritative list is `DETAIL_READY_KEYS` in `lib/works.ts`. In category order:
+
+- film-animation: equinox, the-gunfight, code-animation
+- vfx-cgi: neural-set-capture, humpback-ar, environment-swap
+- interactive-playable: sushi-scramble, 35mm-projector, car-wash, prompt-to-storyboard
+- motion-graphics: internet-capital-markets, reel, spring-health, spotify-titles
+- brand-systems: hammer, kira, agentify
+- websites: hammer, kira, agentify, coefficient
+- pipelines-tools: pipeline-visualizer, creative-skills, qc-by-measurement
 
 Removed 2026-10-11: comfyui outfit morph, the applicant, animated short placeholder, audio reactive
 overlays, prompt library, consistency lab, and talk to a character (each 308s
 to its category), plus the whole agents + digital twins category (kira detail,
-bradley, live sensor twin), which 308s to /work.
+bradley, live sensor twin), which 308s to /work. Removed later: blender look-dev (2026-10-18), dot discipline (2026-10-17).
 
 ## Historical notes
 
