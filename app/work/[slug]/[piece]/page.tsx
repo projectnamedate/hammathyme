@@ -7,6 +7,7 @@ import { PipelineVisualizer } from "@/components/PipelineVisualizer";
 import { SplatViewer } from "@/components/SplatViewer";
 import { WhaleAR } from "@/components/WhaleAR";
 import { ProjectorFigure } from "@/components/figures/projector/ProjectorFigure";
+import { CarWashFrame } from "@/components/figures/car-wash/CarWashFrame";
 import { SushiScrambleGame } from "@/components/games/sushi-scramble/SushiScrambleGame";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
@@ -157,6 +158,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/qc-by-measurement") return <QcDetail transitionName={transitionName} />;
   if (key === "interactive-playable/sushi-scramble") return <SushiScrambleDetail transitionName={transitionName} />;
   if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
+  if (key === "interactive-playable/car-wash") return <CarWashDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
@@ -265,6 +267,73 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
           (
           <a
             href="/licenses/anatomy.txt"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+            data-cursor="link"
+            data-cursor-label="read"
+          >
+            mit
+          </a>
+          )
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const CAR_WASH_FACTS = [
+  ["process", "pay · pull in · foam · brushes · rinse · wax · tire shine · blowers · drive off"],
+  ["controls", "pay picks basic or deluxe · deluxe adds triple foam, wax and tire shine · the swatches repaint the car"],
+  ["built with", "colorfigures skill · claude code · svg · hand-drawn wobble filter"],
+];
+
+function CarWashDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A tunnel car wash you run yourself. Pay at the kiosk, roll onto the conveyor, and the car rides
+            through foam, brushes, rinse and blowers from muddy to dry.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {CAR_WASH_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div className="relative md:col-span-9" style={frameStyle}>
+          <CarWashFrame />
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          drawn in code with colorfigures, a skill that builds everyday machines as hand-inked isometric
+          figures. every station changes the car only as it passes.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          figure: hammer · kit:{" "}
+          <TrackedLink
+            event="outbound_click"
+            data={{ piece: "car-wash", target: "colorfigures" }}
+            href="https://april-zhu.com/colorfigures"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+            data-cursor="link"
+            data-cursor-label="open"
+          >
+            colorfigures by april zhu
+          </TrackedLink>{" "}
+          (
+          <a
+            href="/licenses/colorfigures.txt"
             className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
             data-cursor="link"
             data-cursor-label="read"

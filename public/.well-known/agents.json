@@ -40,6 +40,7 @@
     { "path": "/work/interactive-playable", "purpose": "live interactive and playable demo category" },
     { "path": "/work/interactive-playable/sushi-scramble", "purpose": "Sushi Scramble, a three.js third-person shooter: an armoured salmon nigiri on a sushi conveyor belt against chopstick drones and the diner's hand; no provider calls" },
     { "path": "/work/interactive-playable/35mm-projector", "purpose": "interactive 35mm projector anatomy figure; no provider calls" },
+    { "path": "/work/interactive-playable/car-wash", "purpose": "playable car wash Colorfigures drawing: pay, pull in, wash through foam, brushes, rinse, wax and blowers, drive off; no provider calls" },
     { "path": "/work/interactive-playable/prompt-to-storyboard", "purpose": "rate-limited GPT Image 2.5 Sunburst prompt-to-storyboard demo that draws a six-panel colour-pencil board" },
     { "path": "/work/motion-graphics", "purpose": "motion graphics portfolio category" },
     { "path": "/work/motion-graphics/internet-capital-markets", "purpose": "ICM film teaser with title cards, lower thirds, and screen inserts" },

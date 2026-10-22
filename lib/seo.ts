@@ -4,7 +4,7 @@ import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-10-18T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-10-21T00:00:00-07:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =

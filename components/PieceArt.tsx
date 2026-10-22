@@ -39,6 +39,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "pipelines-tools/qc-by-measurement": QcByMeasurement,
   "interactive-playable/sushi-scramble": SushiScramble,
   "interactive-playable/35mm-projector": ProjectorAnatomy,
+  "interactive-playable/car-wash": CarWash,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
@@ -427,6 +428,35 @@ function ProjectorAnatomy() {
         <circle cx="89.5" cy="82" r="1.9" fill="var(--ink-2)" stroke="none" />
       </g>
       <MonoLabel>GENEVA · 24 FPS</MonoLabel>
+    </Plate>
+  );
+}
+
+function CarWash() {
+  return (
+    <Plate>
+      <g stroke="var(--ink-3)" strokeWidth="0.9">
+        <rect x="24" y="46" width="72" height="6" fill="var(--cinnamon)" />
+        <rect x="24" y="52" width="5" height="62" fill="var(--cream-0)" />
+        <rect x="91" y="52" width="5" height="62" fill="var(--cream-0)" />
+        <rect x="34" y="60" width="9" height="46" rx="4.5" fill="var(--cream-2)" />
+        <rect x="77" y="60" width="9" height="46" rx="4.5" fill="var(--cream-2)" />
+      </g>
+      <g stroke="var(--ink-3)" strokeWidth="0.6" strokeLinecap="round" strokeDasharray="2 2.5">
+        {[50, 56, 62, 68].map((x) => (
+          <line key={x} x1={x} y1="54" x2={x} y2="80" />
+        ))}
+      </g>
+      <g stroke="var(--ink-1)" strokeWidth="0.9">
+        <path d="M46 102 L46 92 L52 86 L68 86 L74 92 L74 102 Z" fill="var(--cinnamon)" />
+        <rect x="53" y="88.5" width="14" height="5" fill="var(--cream-0)" />
+      </g>
+      <g fill="var(--ink-1)">
+        <circle cx="50.5" cy="104" r="2.6" />
+        <circle cx="69.5" cy="104" r="2.6" />
+      </g>
+      <line x1="20" y1="114" x2="100" y2="114" stroke="var(--ink-3)" strokeWidth="0.9" />
+      <MonoLabel>TUNNEL WASH</MonoLabel>
     </Plate>
   );
 }
