@@ -20,8 +20,8 @@
   <rect class="paper" width="1400" height="480" />
   <line x1="80" y1="64" x2="1320" y2="64" stroke="#1F0707" stroke-width="1" opacity="0.18" />
   <text class="meta ink-2" x="80" y="48">hammer · brand guide</text>
-  <rect x="1140" y="34" width="120" height="20" fill="#5A201D" />
-  <text class="badge" fill="#FAEEE9" x="1200" y="48" text-anchor="middle">★ recommended</text>
+  <rect x="995" y="34" width="120" height="20" fill="#5A201D" />
+  <text class="badge" fill="#FAEEE9" x="1055" y="48" text-anchor="middle">★ recommended</text>
   <text class="meta ink-2" x="1320" y="48" text-anchor="end">B · the technologist</text>
 
   <!-- Main lowercase wordmark -->
