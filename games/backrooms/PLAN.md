@@ -1,4 +1,6 @@
-# Backrooms shooter: plan (2026-10-21, not built)
+# Backrooms shooter: plan (2026-10-21, not built; shelved)
+
+**Shelved the same day.** Jeff: "maybe Backrooms is played out" (Steam search lists 659 "backrooms" results). The DOOM-style shooter stays item 1 with a different twist. The research below (horror design, naming and IP, the tech stack) still applies.
 
 Jeff, 2026-10-21: "make a game, DOOM but in the Backrooms. So Backrooms is actually scary. Do deep research and plan that out and make it item 1. Don't build yet." Backlog row 29, item 1 in the pieces order. Category: interactive + playable.
 
