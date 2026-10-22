@@ -1,0 +1,144 @@
+{
+  "sfx": {
+    "algorithm.active": "sfx/algorithm.active.mp3",
+    "algorithm.attack": "sfx/algorithm.attack.mp3",
+    "algorithm.death": "sfx/algorithm.death.mp3",
+    "algorithm.pain": "sfx/algorithm.pain.mp3",
+    "algorithm.sight": "sfx/algorithm.sight.mp3",
+    "banhammer": "sfx/banhammer.mp3",
+    "boom": "sfx/boom.mp3",
+    "captcha": "sfx/captcha.mp3",
+    "delete": "sfx/delete.mp3",
+    "door": "sfx/door.mp3",
+    "exit": "sfx/exit.mp3",
+    "farmer.active": "sfx/farmer.active.mp3",
+    "farmer.attack": "sfx/farmer.attack.mp3",
+    "farmer.death": "sfx/farmer.death.mp3",
+    "farmer.heal": "sfx/farmer.heal.mp3",
+    "farmer.pain": "sfx/farmer.pain.mp3",
+    "farmer.sight": "sfx/farmer.sight.mp3",
+    "gib": "sfx/gib.mp3",
+    "golem.active": "sfx/golem.active.mp3",
+    "golem.attack": "sfx/golem.attack.mp3",
+    "golem.death": "sfx/golem.death.mp3",
+    "golem.pain": "sfx/golem.pain.mp3",
+    "golem.sight": "sfx/golem.sight.mp3",
+    "handy.active": "sfx/handy.active.mp3",
+    "handy.attack": "sfx/handy.attack.mp3",
+    "handy.death": "sfx/handy.death.mp3",
+    "handy.pain": "sfx/handy.pain.mp3",
+    "handy.sight": "sfx/handy.sight.mp3",
+    "hurt": "sfx/hurt.mp3",
+    "itemup": "sfx/itemup.mp3",
+    "lasereyes.active": "sfx/lasereyes.active.mp3",
+    "lasereyes.attack": "sfx/lasereyes.attack.mp3",
+    "lasereyes.death": "sfx/lasereyes.death.mp3",
+    "lasereyes.pain": "sfx/lasereyes.pain.mp3",
+    "lasereyes.sight": "sfx/lasereyes.sight.mp3",
+    "mainchar.active": "sfx/mainchar.active.mp3",
+    "mainchar.attack": "sfx/mainchar.attack.mp3",
+    "mainchar.death": "sfx/mainchar.death.mp3",
+    "mainchar.pain": "sfx/mainchar.pain.mp3",
+    "mainchar.sight": "sfx/mainchar.sight.mp3",
+    "melter.active": "sfx/melter.active.mp3",
+    "melter.attack": "sfx/melter.attack.mp3",
+    "melter.death": "sfx/melter.death.mp3",
+    "melter.pain": "sfx/melter.pain.mp3",
+    "melter.sight": "sfx/melter.sight.mp3",
+    "noway": "sfx/noway.mp3",
+    "pistol": "sfx/pistol.mp3",
+    "playerdeath": "sfx/playerdeath.mp3",
+    "ratio": "sfx/ratio.mp3",
+    "replyall": "sfx/replyall.mp3",
+    "scroll.active": "sfx/scroll.active.mp3",
+    "scroll.attack": "sfx/scroll.attack.mp3",
+    "scroll.death": "sfx/scroll.death.mp3",
+    "scroll.pain": "sfx/scroll.pain.mp3",
+    "scroll.sight": "sfx/scroll.sight.mp3",
+    "secret": "sfx/secret.mp3",
+    "shotgun": "sfx/shotgun.mp3",
+    "spambot.active": "sfx/spambot.active.mp3",
+    "spambot.attack": "sfx/spambot.attack.mp3",
+    "spambot.death": "sfx/spambot.death.mp3",
+    "spambot.pain": "sfx/spambot.pain.mp3",
+    "spambot.sight": "sfx/spambot.sight.mp3",
+    "thumbnail.active": "sfx/thumbnail.active.mp3",
+    "thumbnail.attack": "sfx/thumbnail.attack.mp3",
+    "thumbnail.death": "sfx/thumbnail.death.mp3",
+    "thumbnail.pain": "sfx/thumbnail.pain.mp3",
+    "thumbnail.sight": "sfx/thumbnail.sight.mp3",
+    "troll.active": "sfx/troll.active.mp3",
+    "troll.attack": "sfx/troll.attack.mp3",
+    "troll.death": "sfx/troll.death.mp3",
+    "troll.pain": "sfx/troll.pain.mp3",
+    "troll.sight": "sfx/troll.sight.mp3",
+    "weaponup": "sfx/weaponup.mp3",
+    "wraith.active": "sfx/wraith.active.mp3",
+    "wraith.attack": "sfx/wraith.attack.mp3",
+    "wraith.death": "sfx/wraith.death.mp3",
+    "wraith.pain": "sfx/wraith.pain.mp3",
+    "wraith.sight": "sfx/wraith.sight.mp3"
+  },
+  "music": {
+    "e1m1": {
+      "file": "music/e1m1.m4a",
+      "loopEnd": 105.3292,
+      "bpm": 127.6
+    },
+    "e1m2": {
+      "file": "music/e1m2.m4a",
+      "loopEnd": 105,
+      "bpm": 128
+    },
+    "e1m3": {
+      "file": "music/e1m3.m4a",
+      "loopEnd": 108.3434,
+      "bpm": 124.05
+    },
+    "e1m4": {
+      "file": "music/e1m4.m4a",
+      "loopEnd": 109.0496,
+      "bpm": 132.05
+    },
+    "e2m1": {
+      "file": "music/e2m1.m4a",
+      "loopEnd": 106.6244,
+      "bpm": 126.05
+    },
+    "e2m2": {
+      "file": "music/e2m2.m4a",
+      "loopEnd": 106.6244,
+      "bpm": 126.05
+    },
+    "e2m3": {
+      "file": "music/e2m3.m4a",
+      "loopEnd": 105,
+      "bpm": 128
+    },
+    "e2m4": {
+      "file": "music/e2m4.m4a",
+      "loopEnd": 107.5028,
+      "bpm": 133.95
+    },
+    "e3m1": {
+      "file": "music/e3m1.m4a",
+      "loopEnd": 103.3846,
+      "bpm": 130
+    },
+    "e3m2": {
+      "file": "music/e3m2.m4a",
+      "loopEnd": 101.836,
+      "bpm": 122.55
+    },
+    "e3m3": {
+      "file": "music/e3m3.m4a",
+      "loopEnd": 104.0248,
+      "bpm": 129.2
+    },
+    "e3m4": {
+      "file": "music/e3m4.m4a",
+      "loopEnd": 105.8824,
+      "bpm": 136
+    }
+  }
+}

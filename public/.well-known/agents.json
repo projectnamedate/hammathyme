@@ -39,6 +39,7 @@
     { "path": "/work/vfx-cgi/environment-swap", "purpose": "Runway Aleph 2 environment-swap case study: one driving plate relit into multiple worlds while preserving the real dashboard" },
     { "path": "/work/interactive-playable", "purpose": "live interactive and playable demo category" },
     { "path": "/work/interactive-playable/sushi-scramble", "purpose": "Sushi Scramble, a three.js third-person shooter: an armoured salmon nigiri on a sushi conveyor belt against chopstick drones and the diner's hand; no provider calls" },
+    { "path": "/work/interactive-playable/slopocalypse", "purpose": "slopocalypse, a 1993-style first-person shooter whose demons are AI slop: twelve maps over three episodes, keycards, secrets, seven guns; the game is a static build at /work/interactive-playable/slopocalypse/index.html; no provider calls" },
     { "path": "/work/interactive-playable/35mm-projector", "purpose": "interactive 35mm projector anatomy figure; no provider calls" },
     { "path": "/work/interactive-playable/car-wash", "purpose": "playable car wash Colorfigures drawing: pay, pull in, wash through foam, brushes, rinse, wax and blowers, drive off; no provider calls" },
     { "path": "/work/interactive-playable/prompt-to-storyboard", "purpose": "rate-limited GPT Image 2.5 Sunburst prompt-to-storyboard demo that draws a six-panel colour-pencil board" },

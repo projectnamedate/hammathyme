@@ -1,0 +1,1738 @@
+{
+  "HAND_A": {
+    "file": "HAND_A.png",
+    "w": 42,
+    "h": 44,
+    "kind": "sprite",
+    "src": "assets/raw/handy-front-v03.png"
+  },
+  "MARBLE": {
+    "file": "MARBLE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-marble-v01.png"
+  },
+  "CAPS": {
+    "file": "CAPS.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-caps-v01.png"
+  },
+  "HAND_B": {
+    "file": "HAND_B.png",
+    "w": 38,
+    "h": 44,
+    "kind": "sprite",
+    "src": "assets/raw/handy-walk-v01.png"
+  },
+  "HAND_C": {
+    "file": "HAND_C.png",
+    "w": 34,
+    "h": 43,
+    "kind": "sprite",
+    "src": "assets/raw/handy-rear-v01.png"
+  },
+  "HAND_D": {
+    "file": "HAND_D.png",
+    "w": 34,
+    "h": 43,
+    "kind": "sprite",
+    "src": "assets/raw/handy-rear-v01.png"
+  },
+  "HAND_E": {
+    "file": "HAND_E.png",
+    "w": 45,
+    "h": 42,
+    "kind": "sprite",
+    "src": "assets/raw/handy-strike-v01.png"
+  },
+  "HAND_F": {
+    "file": "HAND_F.png",
+    "w": 33,
+    "h": 44,
+    "kind": "sprite",
+    "src": "assets/raw/handy-pain-v01.png"
+  },
+  "HAND_G": {
+    "file": "HAND_G.png",
+    "w": 43,
+    "h": 43,
+    "kind": "sprite",
+    "src": "assets/raw/handy-die1-v01.png"
+  },
+  "HAND_H": {
+    "file": "HAND_H.png",
+    "w": 52,
+    "h": 36,
+    "kind": "sprite",
+    "src": "assets/raw/handy-die2-v01.png"
+  },
+  "HAND_I": {
+    "file": "HAND_I.png",
+    "w": 52,
+    "h": 36,
+    "kind": "sprite",
+    "src": "assets/raw/handy-die2-v01.png"
+  },
+  "HAND_J": {
+    "file": "HAND_J.png",
+    "w": 51,
+    "h": 34,
+    "kind": "sprite",
+    "src": "assets/raw/handy-corpse-v01.png"
+  },
+  "HAND_K": {
+    "file": "HAND_K.png",
+    "w": 50,
+    "h": 48,
+    "kind": "sprite",
+    "src": "assets/raw/handy-gib-v01.png"
+  },
+  "HAND_L": {
+    "file": "HAND_L.png",
+    "w": 50,
+    "h": 48,
+    "kind": "sprite",
+    "src": "assets/raw/handy-gib-v01.png"
+  },
+  "HAND_M": {
+    "file": "HAND_M.png",
+    "w": 42,
+    "h": 22,
+    "kind": "sprite",
+    "src": "assets/raw/handy-gibbed-v01.png"
+  },
+  "HAND_N": {
+    "file": "HAND_N.png",
+    "w": 42,
+    "h": 22,
+    "kind": "sprite",
+    "src": "assets/raw/handy-gibbed-v01.png"
+  },
+  "MELT_A": {
+    "file": "MELT_A.png",
+    "w": 24,
+    "h": 64,
+    "kind": "sprite",
+    "src": "assets/raw/melter-front-v01.png"
+  },
+  "MELT_B": {
+    "file": "MELT_B.png",
+    "w": 21,
+    "h": 53,
+    "kind": "sprite",
+    "src": "assets/raw/melter-walk-v01.png"
+  },
+  "MELT_C": {
+    "file": "MELT_C.png",
+    "w": 33,
+    "h": 53,
+    "kind": "sprite",
+    "src": "assets/raw/melter-attack-v01.png"
+  },
+  "MELT_F": {
+    "file": "MELT_F.png",
+    "w": 23,
+    "h": 53,
+    "kind": "sprite",
+    "src": "assets/raw/melter-pain-v01.png"
+  },
+  "MELT_G": {
+    "file": "MELT_G.png",
+    "w": 24,
+    "h": 52,
+    "kind": "sprite",
+    "src": "assets/raw/melter-die1-v01.png"
+  },
+  "MELT_J": {
+    "file": "MELT_J.png",
+    "w": 44,
+    "h": 46,
+    "kind": "sprite",
+    "src": "assets/raw/melter-corpse-v01.png"
+  },
+  "MELT_K": {
+    "file": "MELT_K.png",
+    "w": 32,
+    "h": 54,
+    "kind": "sprite",
+    "src": "assets/raw/melter-gib-v01.png"
+  },
+  "MELT_N": {
+    "file": "MELT_N.png",
+    "w": 52,
+    "h": 31,
+    "kind": "sprite",
+    "src": "assets/raw/melter-gibbed-v01.png"
+  },
+  "CASINO": {
+    "file": "CASINO.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-casino-v01.png"
+  },
+  "STARS": {
+    "file": "STARS.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-stars-v01.png"
+  },
+  "POPUP": {
+    "file": "POPUP.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-popup-v01.png"
+  },
+  "RECIPE": {
+    "file": "RECIPE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-recipe-v01.png"
+  },
+  "CATSHRINE": {
+    "file": "CATSHRINE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-catshrine-v01.png"
+  },
+  "CORK": {
+    "file": "CORK.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-cork-v01.png"
+  },
+  "INFLUENCER": {
+    "file": "INFLUENCER.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-influencer-v01.png"
+  },
+  "WIKI": {
+    "file": "WIKI.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-wiki-v01.png"
+  },
+  "CAPTCHA": {
+    "file": "CAPTCHA.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-captcha-v01.png"
+  },
+  "TOS": {
+    "file": "TOS.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-tos-v01.png"
+  },
+  "STAGE": {
+    "file": "STAGE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-stage-v01.png"
+  },
+  "FLESH": {
+    "file": "FLESH.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-flesh-v01.png"
+  },
+  "DOOR1": {
+    "file": "DOOR1.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-door1-v01.png"
+  },
+  "DOORRED": {
+    "file": "DOORRED.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-doorred-v01.png"
+  },
+  "DOORBLUE": {
+    "file": "DOORBLUE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-doorblue-v01.png"
+  },
+  "DOORYELLOW": {
+    "file": "DOORYELLOW.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-dooryellow-v01.png"
+  },
+  "EXIT": {
+    "file": "EXIT.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-exit-v01.png"
+  },
+  "STEP1": {
+    "file": "STEP1.png",
+    "w": 64,
+    "h": 32,
+    "kind": "wall",
+    "src": "assets/raw/tex-step1-v01.png"
+  },
+  "TILEPINK": {
+    "file": "TILEPINK.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-tilepink-v01.png"
+  },
+  "CEILPINK": {
+    "file": "CEILPINK.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-ceilpink-v01.png"
+  },
+  "CARPETCASINO": {
+    "file": "CARPETCASINO.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-carpetcasino-v01.png"
+  },
+  "FLOORDARK": {
+    "file": "FLOORDARK.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-floordark-v01.png"
+  },
+  "TURF": {
+    "file": "TURF.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-turf-v01.png"
+  },
+  "KITCHEN": {
+    "file": "KITCHEN.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-kitchen-v01.png"
+  },
+  "TEMPLE": {
+    "file": "TEMPLE.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-temple-v01.png"
+  },
+  "LIBRARY": {
+    "file": "LIBRARY.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-library-v01.png"
+  },
+  "SAND": {
+    "file": "SAND.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-sand-v01.png"
+  },
+  "FLESHFLOOR": {
+    "file": "FLESHFLOOR.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-fleshfloor-v01.png"
+  },
+  "SKY1": {
+    "file": "SKY1.png",
+    "w": 256,
+    "h": 128,
+    "kind": "sky",
+    "src": "assets/raw/sky-sky1-v01.png"
+  },
+  "SKY2": {
+    "file": "SKY2.png",
+    "w": 256,
+    "h": 128,
+    "kind": "sky",
+    "src": "assets/raw/sky-sky2-v01.png"
+  },
+  "SKY3": {
+    "file": "SKY3.png",
+    "w": 256,
+    "h": 128,
+    "kind": "sky",
+    "src": "assets/raw/sky-sky3-v01.png"
+  },
+  "WRTH_A": {
+    "file": "WRTH_A.png",
+    "w": 27,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/wraith-front-v01.png"
+  },
+  "WRTH_B": {
+    "file": "WRTH_B.png",
+    "w": 34,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/wraith-walk-v01.png"
+  },
+  "WRTH_C": {
+    "file": "WRTH_C.png",
+    "w": 20,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/wraith-attack-v01.png"
+  },
+  "WRTH_F": {
+    "file": "WRTH_F.png",
+    "w": 28,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/wraith-pain-v01.png"
+  },
+  "WRTH_G": {
+    "file": "WRTH_G.png",
+    "w": 26,
+    "h": 67,
+    "kind": "sprite",
+    "src": "assets/raw/wraith-die1-v01.png"
+  },
+  "WRTH_J": {
+    "file": "WRTH_J.png",
+    "w": 44,
+    "h": 30,
+    "kind": "sprite",
+    "src": "assets/raw/wraith-corpse-v01.png"
+  },
+  "FARM_A": {
+    "file": "FARM_A.png",
+    "w": 41,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-front-v01.png"
+  },
+  "FARM_B": {
+    "file": "FARM_B.png",
+    "w": 35,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-walk-v01.png"
+  },
+  "FARM_C": {
+    "file": "FARM_C.png",
+    "w": 43,
+    "h": 67,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-attack-v01.png"
+  },
+  "FARM_F": {
+    "file": "FARM_F.png",
+    "w": 53,
+    "h": 64,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-pain-v01.png"
+  },
+  "FARM_G": {
+    "file": "FARM_G.png",
+    "w": 60,
+    "h": 60,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-die1-v01.png"
+  },
+  "FARM_J": {
+    "file": "FARM_J.png",
+    "w": 57,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-corpse-v01.png"
+  },
+  "FARM_K": {
+    "file": "FARM_K.png",
+    "w": 60,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-gib-v01.png"
+  },
+  "FARM_N": {
+    "file": "FARM_N.png",
+    "w": 64,
+    "h": 44,
+    "kind": "sprite",
+    "src": "assets/raw/farmer-gibbed-v01.png"
+  },
+  "SCRL_A": {
+    "file": "SCRL_A.png",
+    "w": 67,
+    "h": 124,
+    "kind": "sprite",
+    "src": "assets/raw/scroll-front-v01.png"
+  },
+  "SCRL_C": {
+    "file": "SCRL_C.png",
+    "w": 78,
+    "h": 123,
+    "kind": "sprite",
+    "src": "assets/raw/scroll-attack-v01.png"
+  },
+  "SCRL_F": {
+    "file": "SCRL_F.png",
+    "w": 69,
+    "h": 123,
+    "kind": "sprite",
+    "src": "assets/raw/scroll-pain-v01.png"
+  },
+  "SCRL_G": {
+    "file": "SCRL_G.png",
+    "w": 73,
+    "h": 124,
+    "kind": "sprite",
+    "src": "assets/raw/scroll-die1-v01.png"
+  },
+  "SCRL_J": {
+    "file": "SCRL_J.png",
+    "w": 76,
+    "h": 83,
+    "kind": "sprite",
+    "src": "assets/raw/scroll-dead-v01.png"
+  },
+  "PIST_A": {
+    "file": "PIST_A.png",
+    "w": 89,
+    "h": 72,
+    "kind": "psprite",
+    "src": "assets/raw/weap-ctrlz-v01.png"
+  },
+  "PIST_B": {
+    "file": "PIST_B.png",
+    "w": 100,
+    "h": 84,
+    "kind": "psprite",
+    "src": "assets/raw/weap-ctrlz-fire-v01.png"
+  },
+  "PIST_C": {
+    "file": "PIST_C.png",
+    "w": 89,
+    "h": 72,
+    "kind": "psprite",
+    "src": "assets/raw/weap-ctrlz-v01.png"
+  },
+  "SHOT_A": {
+    "file": "SHOT_A.png",
+    "w": 114,
+    "h": 84,
+    "kind": "psprite",
+    "src": "assets/raw/weap-report-v01.png"
+  },
+  "SHOT_B": {
+    "file": "SHOT_B.png",
+    "w": 117,
+    "h": 103,
+    "kind": "psprite",
+    "src": "assets/raw/weap-report-fire-v01.png"
+  },
+  "SHOT_C": {
+    "file": "SHOT_C.png",
+    "w": 116,
+    "h": 90,
+    "kind": "psprite",
+    "src": "assets/raw/weap-report-pump-v01.png"
+  },
+  "SHOT_D": {
+    "file": "SHOT_D.png",
+    "w": 116,
+    "h": 90,
+    "kind": "psprite",
+    "src": "assets/raw/weap-report-pump-v01.png"
+  },
+  "CHAN_A": {
+    "file": "CHAN_A.png",
+    "w": 107,
+    "h": 88,
+    "kind": "psprite",
+    "src": "assets/raw/weap-captcha-v01.png"
+  },
+  "CHAN_B": {
+    "file": "CHAN_B.png",
+    "w": 107,
+    "h": 88,
+    "kind": "psprite",
+    "src": "assets/raw/weap-captcha-fire-v01.png"
+  },
+  "DELT_A": {
+    "file": "DELT_A.png",
+    "w": 143,
+    "h": 92,
+    "kind": "psprite",
+    "src": "assets/raw/weap-delete-v01.png"
+  },
+  "DELT_B": {
+    "file": "DELT_B.png",
+    "w": 143,
+    "h": 122,
+    "kind": "psprite",
+    "src": "assets/raw/weap-delete-fire-v01.png"
+  },
+  "PISF_A": {
+    "file": "PISF_A.png",
+    "w": 29,
+    "h": 26,
+    "kind": "psprite",
+    "src": "assets/raw/flash-small-v01.png"
+  },
+  "SHTF_A": {
+    "file": "SHTF_A.png",
+    "w": 64,
+    "h": 40,
+    "kind": "psprite",
+    "src": "assets/raw/flash-big-v01.png"
+  },
+  "SHTF_B": {
+    "file": "SHTF_B.png",
+    "w": 45,
+    "h": 28,
+    "kind": "psprite",
+    "src": "assets/raw/flash-big-v01.png"
+  },
+  "CHNF_A": {
+    "file": "CHNF_A.png",
+    "w": 31,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/flash-check-v01.png"
+  },
+  "CHNF_B": {
+    "file": "CHNF_B.png",
+    "w": 23,
+    "h": 22,
+    "kind": "psprite",
+    "src": "assets/raw/flash-check-v01.png"
+  },
+  "DELF_A": {
+    "file": "DELF_A.png",
+    "w": 51,
+    "h": 54,
+    "kind": "psprite",
+    "src": "assets/raw/flash-delete-v01.png"
+  },
+  "TEXT_A": {
+    "file": "TEXT_A.png",
+    "w": 11,
+    "h": 12,
+    "kind": "sprite",
+    "src": "assets/raw/proj-text-v01.png"
+  },
+  "TEXT_B": {
+    "file": "TEXT_B.png",
+    "w": 29,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/flash-big-v01.png"
+  },
+  "TEXT_C": {
+    "file": "TEXT_C.png",
+    "w": 42,
+    "h": 26,
+    "kind": "sprite",
+    "src": "assets/raw/flash-big-v01.png"
+  },
+  "TEXT_D": {
+    "file": "TEXT_D.png",
+    "w": 16,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/flash-small-v01.png"
+  },
+  "POPB_A": {
+    "file": "POPB_A.png",
+    "w": 14,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/proj-popup-v01.png"
+  },
+  "POPB_B": {
+    "file": "POPB_B.png",
+    "w": 18,
+    "h": 16,
+    "kind": "sprite",
+    "src": "assets/raw/flash-small-v01.png"
+  },
+  "POPB_C": {
+    "file": "POPB_C.png",
+    "w": 11,
+    "h": 10,
+    "kind": "sprite",
+    "src": "assets/raw/flash-small-v01.png"
+  },
+  "CARD_A": {
+    "file": "CARD_A.png",
+    "w": 16,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/proj-card-v01.png"
+  },
+  "DELB_A": {
+    "file": "DELB_A.png",
+    "w": 15,
+    "h": 16,
+    "kind": "sprite",
+    "src": "assets/raw/flash-delete-v01.png"
+  },
+  "DELB_B": {
+    "file": "DELB_B.png",
+    "w": 38,
+    "h": 40,
+    "kind": "sprite",
+    "src": "assets/raw/flash-delete-v01.png"
+  },
+  "DELB_C": {
+    "file": "DELB_C.png",
+    "w": 61,
+    "h": 64,
+    "kind": "sprite",
+    "src": "assets/raw/flash-delete-v01.png"
+  },
+  "DELB_D": {
+    "file": "DELB_D.png",
+    "w": 34,
+    "h": 36,
+    "kind": "sprite",
+    "src": "assets/raw/flash-delete-v01.png"
+  },
+  "FACE_0": {
+    "file": "FACE_0.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-master-v01.png"
+  },
+  "FACE_1": {
+    "file": "FACE_1.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-hurt1-v01.png"
+  },
+  "FACE_2": {
+    "file": "FACE_2.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-hurt2-v01.png"
+  },
+  "FACE_3": {
+    "file": "FACE_3.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-hurt3-v01.png"
+  },
+  "FACE_4": {
+    "file": "FACE_4.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-hurt4-v01.png"
+  },
+  "FACE_DEAD": {
+    "file": "FACE_DEAD.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-dead-v01.png"
+  },
+  "FACE_OUCH": {
+    "file": "FACE_OUCH.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-ouch-v01.png"
+  },
+  "FACE_GRIN": {
+    "file": "FACE_GRIN.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-grin-v01.png"
+  },
+  "FACE_L": {
+    "file": "FACE_L.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-left-v01.png"
+  },
+  "FACE_R": {
+    "file": "FACE_R.png",
+    "w": 24,
+    "h": 30,
+    "kind": "psprite",
+    "src": "assets/raw/face-right-v01.png"
+  },
+  "STMP": {
+    "file": "STMP.png",
+    "w": 16,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/pick-stamp-v01.png"
+  },
+  "MEDK": {
+    "file": "MEDK.png",
+    "w": 21,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/pick-medkit-v01.png"
+  },
+  "VEST": {
+    "file": "VEST.png",
+    "w": 13,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/pick-vest-v01.png"
+  },
+  "VESB": {
+    "file": "VESB.png",
+    "w": 15,
+    "h": 20,
+    "kind": "sprite",
+    "src": "assets/raw/pick-vestbig-v01.png"
+  },
+  "KEYC": {
+    "file": "KEYC.png",
+    "w": 9,
+    "h": 12,
+    "kind": "sprite",
+    "src": "assets/raw/pick-keys-v01.png"
+  },
+  "KEYB": {
+    "file": "KEYB.png",
+    "w": 22,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/pick-keybox-v01.png"
+  },
+  "FLAG": {
+    "file": "FLAG.png",
+    "w": 15,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/pick-flags-v01.png"
+  },
+  "FLGB": {
+    "file": "FLGB.png",
+    "w": 19,
+    "h": 20,
+    "kind": "sprite",
+    "src": "assets/raw/pick-flagbox-v01.png"
+  },
+  "RKEY": {
+    "file": "RKEY.png",
+    "w": 9,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/pick-keyred-v01.png"
+  },
+  "BKEY": {
+    "file": "BKEY.png",
+    "w": 9,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/pick-keyblue-v01.png"
+  },
+  "YKEY": {
+    "file": "YKEY.png",
+    "w": 8,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/pick-keyyellow-v01.png"
+  },
+  "PSHT": {
+    "file": "PSHT.png",
+    "w": 46,
+    "h": 10,
+    "kind": "sprite",
+    "src": "assets/raw/pick-report-v01.png"
+  },
+  "PCAP": {
+    "file": "PCAP.png",
+    "w": 28,
+    "h": 12,
+    "kind": "sprite",
+    "src": "assets/raw/pick-captcha-v01.png"
+  },
+  "PDEL": {
+    "file": "PDEL.png",
+    "w": 32,
+    "h": 16,
+    "kind": "sprite",
+    "src": "assets/raw/pick-delete-v02.png"
+  },
+  "BYTE": {
+    "file": "BYTE.png",
+    "w": 11,
+    "h": 12,
+    "kind": "sprite",
+    "src": "assets/raw/pick-floppy-v01.png"
+  },
+  "BYTB": {
+    "file": "BYTB.png",
+    "w": 19,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/pick-floppybox-v01.png"
+  },
+  "DSLT": {
+    "file": "DSLT.png",
+    "w": 34,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/dec-slot-v01.png"
+  },
+  "DCAT": {
+    "file": "DCAT.png",
+    "w": 34,
+    "h": 54,
+    "kind": "sprite",
+    "src": "assets/raw/dec-cat-v01.png"
+  },
+  "DBST": {
+    "file": "DBST.png",
+    "w": 23,
+    "h": 48,
+    "kind": "sprite",
+    "src": "assets/raw/dec-bust-v01.png"
+  },
+  "DPLM": {
+    "file": "DPLM.png",
+    "w": 42,
+    "h": 76,
+    "kind": "sprite",
+    "src": "assets/raw/dec-palm-v01.png"
+  },
+  "DRNG": {
+    "file": "DRNG.png",
+    "w": 24,
+    "h": 74,
+    "kind": "sprite",
+    "src": "assets/raw/dec-ring-v01.png"
+  },
+  "DTRF": {
+    "file": "DTRF.png",
+    "w": 17,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/dec-traffic-v01.png"
+  },
+  "DBKS": {
+    "file": "DBKS.png",
+    "w": 14,
+    "h": 50,
+    "kind": "sprite",
+    "src": "assets/raw/dec-books-v01.png"
+  },
+  "DTRS": {
+    "file": "DTRS.png",
+    "w": 21,
+    "h": 36,
+    "kind": "sprite",
+    "src": "assets/raw/dec-trash-v01.png"
+  },
+  "DFNT": {
+    "file": "DFNT.png",
+    "w": 26,
+    "h": 46,
+    "kind": "sprite",
+    "src": "assets/raw/dec-fountain-v01.png"
+  },
+  "DCND": {
+    "file": "DCND.png",
+    "w": 14,
+    "h": 56,
+    "kind": "sprite",
+    "src": "assets/raw/dec-candles-v01.png"
+  },
+  "TITLEPIC": {
+    "file": "TITLEPIC.png",
+    "w": 320,
+    "h": 168,
+    "kind": "screen",
+    "src": "assets/raw/title-v01.png"
+  },
+  "UNBOX": {
+    "file": "UNBOX.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-unbox-v01.png"
+  },
+  "CHART": {
+    "file": "CHART.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-chart-v01.png"
+  },
+  "MEMES": {
+    "file": "MEMES.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-memes-v01.png"
+  },
+  "SWIPE": {
+    "file": "SWIPE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-swipe-v01.png"
+  },
+  "CHAT": {
+    "file": "CHAT.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-chat-v01.png"
+  },
+  "HUSTLE": {
+    "file": "HUSTLE.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-hustle-v01.png"
+  },
+  "REVIEWS": {
+    "file": "REVIEWS.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-reviews-v01.png"
+  },
+  "COOKIES": {
+    "file": "COOKIES.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-cookies-v01.png"
+  },
+  "CITATION": {
+    "file": "CITATION.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-citation-v01.png"
+  },
+  "SPAM": {
+    "file": "SPAM.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-spam-v01.png"
+  },
+  "LOADING": {
+    "file": "LOADING.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-loading-v01.png"
+  },
+  "MIRROR": {
+    "file": "MIRROR.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-mirror-v01.png"
+  },
+  "NOTIF": {
+    "file": "NOTIF.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-notif-v01.png"
+  },
+  "EYEWALL": {
+    "file": "EYEWALL.png",
+    "w": 64,
+    "h": 128,
+    "kind": "wall",
+    "src": "assets/raw/tex-eyewall-v01.png"
+  },
+  "CARDBOARD": {
+    "file": "CARDBOARD.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-cardboard-v01.png"
+  },
+  "TICKER": {
+    "file": "TICKER.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-ticker-v01.png"
+  },
+  "MUD": {
+    "file": "MUD.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-mud-v01.png"
+  },
+  "SEWER": {
+    "file": "SEWER.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-sewer-v01.png"
+  },
+  "BADGES": {
+    "file": "BADGES.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-badges-v01.png"
+  },
+  "IRIS": {
+    "file": "IRIS.png",
+    "w": 64,
+    "h": 64,
+    "kind": "flat",
+    "src": "assets/raw/flat-iris-v01.png"
+  },
+  "SKY4": {
+    "file": "SKY4.png",
+    "w": 256,
+    "h": 128,
+    "kind": "sky",
+    "src": "assets/raw/sky-sky4-v01.png"
+  },
+  "SKY5": {
+    "file": "SKY5.png",
+    "w": 256,
+    "h": 128,
+    "kind": "sky",
+    "src": "assets/raw/sky-sky5-v01.png"
+  },
+  "DBEL": {
+    "file": "DBEL.png",
+    "w": 22,
+    "h": 42,
+    "kind": "sprite",
+    "src": "assets/raw/dec-bell-v01.png"
+  },
+  "DCHR": {
+    "file": "DCHR.png",
+    "w": 33,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/dec-chair-v01.png"
+  },
+  "DNRG": {
+    "file": "DNRG.png",
+    "w": 26,
+    "h": 46,
+    "kind": "sprite",
+    "src": "assets/raw/dec-energy-v01.png"
+  },
+  "DGRD": {
+    "file": "DGRD.png",
+    "w": 33,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/dec-grind-v01.png"
+  },
+  "DCHT": {
+    "file": "DCHT.png",
+    "w": 15,
+    "h": 74,
+    "kind": "sprite",
+    "src": "assets/raw/dec-candlechart-v01.png"
+  },
+  "DCOK": {
+    "file": "DCOK.png",
+    "w": 26,
+    "h": 50,
+    "kind": "sprite",
+    "src": "assets/raw/dec-cookiejar-v01.png"
+  },
+  "DSLF": {
+    "file": "DSLF.png",
+    "w": 18,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/dec-selfie-v01.png"
+  },
+  "DSPN": {
+    "file": "DSPN.png",
+    "w": 17,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/dec-spinner-v01.png"
+  },
+  "DVER": {
+    "file": "DVER.png",
+    "w": 28,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/dec-verified-v01.png"
+  },
+  "DREV": {
+    "file": "DREV.png",
+    "w": 42,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/dec-reviews-v01.png"
+  },
+  "DSKP": {
+    "file": "DSKP.png",
+    "w": 28,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/dec-skipad-v01.png"
+  },
+  "DRAG": {
+    "file": "DRAG.png",
+    "w": 28,
+    "h": 30,
+    "kind": "sprite",
+    "src": "assets/raw/dec-ragequit-v01.png"
+  },
+  "DART": {
+    "file": "DART.png",
+    "w": 25,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/dec-aiart-v01.png"
+  },
+  "DHAD": {
+    "file": "DHAD.png",
+    "w": 34,
+    "h": 50,
+    "kind": "sprite",
+    "src": "assets/raw/dec-hashad-v01.png"
+  },
+  "DBOX": {
+    "file": "DBOX.png",
+    "w": 25,
+    "h": 42,
+    "kind": "sprite",
+    "src": "assets/raw/dec-unboxing-v01.png"
+  },
+  "DOOO": {
+    "file": "DOOO.png",
+    "w": 28,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/dec-ooo-v01.png"
+  },
+  "DFOM": {
+    "file": "DFOM.png",
+    "w": 19,
+    "h": 74,
+    "kind": "sprite",
+    "src": "assets/raw/dec-foamhand-v01.png"
+  },
+  "DRGB": {
+    "file": "DRGB.png",
+    "w": 38,
+    "h": 50,
+    "kind": "sprite",
+    "src": "assets/raw/dec-rgbpc-v01.png"
+  },
+  "PBAN": {
+    "file": "PBAN.png",
+    "w": 23,
+    "h": 16,
+    "kind": "sprite",
+    "src": "assets/raw/pick-banhammer-v01.png"
+  },
+  "PRAT": {
+    "file": "PRAT.png",
+    "w": 35,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/pick-ratio-v01.png"
+  },
+  "PRPL": {
+    "file": "PRPL.png",
+    "w": 28,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/pick-replyall-v01.png"
+  },
+  "TAKE": {
+    "file": "TAKE.png",
+    "w": 10,
+    "h": 12,
+    "kind": "sprite",
+    "src": "assets/raw/pick-take-v01.png"
+  },
+  "TAKB": {
+    "file": "TAKB.png",
+    "w": 13,
+    "h": 18,
+    "kind": "sprite",
+    "src": "assets/raw/pick-takebox-v01.png"
+  },
+  "RATB_A": {
+    "file": "RATB_A.png",
+    "w": 8,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/proj-ratio-v01.png"
+  },
+  "RPLB_A": {
+    "file": "RPLB_A.png",
+    "w": 11,
+    "h": 12,
+    "kind": "sprite",
+    "src": "assets/raw/proj-reply-v01.png"
+  },
+  "CIRC_A": {
+    "file": "CIRC_A.png",
+    "w": 14,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/proj-circle-v01.png"
+  },
+  "TILE_A": {
+    "file": "TILE_A.png",
+    "w": 13,
+    "h": 14,
+    "kind": "sprite",
+    "src": "assets/raw/proj-tile-v01.png"
+  },
+  "FEED_A": {
+    "file": "FEED_A.png",
+    "w": 14,
+    "h": 16,
+    "kind": "sprite",
+    "src": "assets/raw/proj-feed-v01.png"
+  },
+  "RATF_A": {
+    "file": "RATF_A.png",
+    "w": 36,
+    "h": 50,
+    "kind": "psprite",
+    "src": "assets/raw/flash-ratio-v01.png"
+  },
+  "RPLF_A": {
+    "file": "RPLF_A.png",
+    "w": 38,
+    "h": 40,
+    "kind": "psprite",
+    "src": "assets/raw/flash-reply-v01.png"
+  },
+  "BANH_A": {
+    "file": "BANH_A.png",
+    "w": 85,
+    "h": 96,
+    "kind": "psprite",
+    "src": "assets/raw/weap-banhammer-v01.png"
+  },
+  "BANH_B": {
+    "file": "BANH_B.png",
+    "w": 103,
+    "h": 99,
+    "kind": "psprite",
+    "src": "assets/raw/weap-banhammer-swing-v01.png"
+  },
+  "BANH_C": {
+    "file": "BANH_C.png",
+    "w": 80,
+    "h": 75,
+    "kind": "psprite",
+    "src": "assets/raw/weap-banhammer-strike-v02.png"
+  },
+  "RATI_A": {
+    "file": "RATI_A.png",
+    "w": 107,
+    "h": 84,
+    "kind": "psprite",
+    "src": "assets/raw/weap-ratio-v01.png"
+  },
+  "RATI_B": {
+    "file": "RATI_B.png",
+    "w": 110,
+    "h": 112,
+    "kind": "psprite",
+    "src": "assets/raw/weap-ratio-fire-v01.png"
+  },
+  "RPLY_A": {
+    "file": "RPLY_A.png",
+    "w": 121,
+    "h": 80,
+    "kind": "psprite",
+    "src": "assets/raw/weap-replyall-v01.png"
+  },
+  "RPLY_B": {
+    "file": "RPLY_B.png",
+    "w": 121,
+    "h": 105,
+    "kind": "psprite",
+    "src": "assets/raw/weap-replyall-fire-v01.png"
+  },
+  "THMB_A": {
+    "file": "THMB_A.png",
+    "w": 51,
+    "h": 58,
+    "kind": "sprite",
+    "src": "assets/raw/thumbnail-front-v01.png"
+  },
+  "THMB_B": {
+    "file": "THMB_B.png",
+    "w": 51,
+    "h": 57,
+    "kind": "sprite",
+    "src": "assets/raw/thumbnail-walk-v01.png"
+  },
+  "THMB_C": {
+    "file": "THMB_C.png",
+    "w": 51,
+    "h": 60,
+    "kind": "sprite",
+    "src": "assets/raw/thumbnail-attack-v01.png"
+  },
+  "THMB_F": {
+    "file": "THMB_F.png",
+    "w": 50,
+    "h": 57,
+    "kind": "sprite",
+    "src": "assets/raw/thumbnail-pain-v01.png"
+  },
+  "THMB_G": {
+    "file": "THMB_G.png",
+    "w": 49,
+    "h": 59,
+    "kind": "sprite",
+    "src": "assets/raw/thumbnail-die1-v01.png"
+  },
+  "THMB_J": {
+    "file": "THMB_J.png",
+    "w": 60,
+    "h": 39,
+    "kind": "sprite",
+    "src": "assets/raw/thumbnail-corpse-v01.png"
+  },
+  "SPAM_A": {
+    "file": "SPAM_A.png",
+    "w": 47,
+    "h": 40,
+    "kind": "sprite",
+    "src": "assets/raw/spambot-front-v01.png"
+  },
+  "SPAM_B": {
+    "file": "SPAM_B.png",
+    "w": 48,
+    "h": 42,
+    "kind": "sprite",
+    "src": "assets/raw/spambot-walk-v01.png"
+  },
+  "SPAM_C": {
+    "file": "SPAM_C.png",
+    "w": 46,
+    "h": 40,
+    "kind": "sprite",
+    "src": "assets/raw/spambot-attack-v01.png"
+  },
+  "SPAM_F": {
+    "file": "SPAM_F.png",
+    "w": 43,
+    "h": 42,
+    "kind": "sprite",
+    "src": "assets/raw/spambot-pain-v01.png"
+  },
+  "SPAM_G": {
+    "file": "SPAM_G.png",
+    "w": 47,
+    "h": 45,
+    "kind": "sprite",
+    "src": "assets/raw/spambot-die1-v01.png"
+  },
+  "SPAM_J": {
+    "file": "SPAM_J.png",
+    "w": 47,
+    "h": 33,
+    "kind": "sprite",
+    "src": "assets/raw/spambot-corpse-v01.png"
+  },
+  "TROL_A": {
+    "file": "TROL_A.png",
+    "w": 41,
+    "h": 62,
+    "kind": "sprite",
+    "src": "assets/raw/troll-front-v01.png"
+  },
+  "TROL_B": {
+    "file": "TROL_B.png",
+    "w": 47,
+    "h": 61,
+    "kind": "sprite",
+    "src": "assets/raw/troll-walk-v01.png"
+  },
+  "TROL_C": {
+    "file": "TROL_C.png",
+    "w": 44,
+    "h": 62,
+    "kind": "sprite",
+    "src": "assets/raw/troll-attack-v01.png"
+  },
+  "TROL_D": {
+    "file": "TROL_D.png",
+    "w": 44,
+    "h": 62,
+    "kind": "sprite",
+    "src": "assets/raw/troll-attack-v01.png"
+  },
+  "TROL_E": {
+    "file": "TROL_E.png",
+    "w": 47,
+    "h": 61,
+    "kind": "sprite",
+    "src": "assets/raw/troll-bite-v01.png"
+  },
+  "TROL_F": {
+    "file": "TROL_F.png",
+    "w": 43,
+    "h": 61,
+    "kind": "sprite",
+    "src": "assets/raw/troll-pain-v01.png"
+  },
+  "TROL_G": {
+    "file": "TROL_G.png",
+    "w": 49,
+    "h": 62,
+    "kind": "sprite",
+    "src": "assets/raw/troll-die1-v01.png"
+  },
+  "TROL_H": {
+    "file": "TROL_H.png",
+    "w": 49,
+    "h": 62,
+    "kind": "sprite",
+    "src": "assets/raw/troll-die1-v01.png"
+  },
+  "TROL_J": {
+    "file": "TROL_J.png",
+    "w": 61,
+    "h": 52,
+    "kind": "sprite",
+    "src": "assets/raw/troll-corpse-v01.png"
+  },
+  "TROL_K": {
+    "file": "TROL_K.png",
+    "w": 61,
+    "h": 62,
+    "kind": "sprite",
+    "src": "assets/raw/troll-gib-v01.png"
+  },
+  "TROL_N": {
+    "file": "TROL_N.png",
+    "w": 59,
+    "h": 39,
+    "kind": "sprite",
+    "src": "assets/raw/troll-gibbed-v01.png"
+  },
+  "LASR_A": {
+    "file": "LASR_A.png",
+    "w": 28,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-front-v01.png"
+  },
+  "LASR_B": {
+    "file": "LASR_B.png",
+    "w": 27,
+    "h": 63,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-walk-v01.png"
+  },
+  "LASR_C": {
+    "file": "LASR_C.png",
+    "w": 28,
+    "h": 64,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-attack-v01.png"
+  },
+  "LASR_F": {
+    "file": "LASR_F.png",
+    "w": 33,
+    "h": 63,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-pain-v01.png"
+  },
+  "LASR_G": {
+    "file": "LASR_G.png",
+    "w": 35,
+    "h": 57,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-die1-v01.png"
+  },
+  "LASR_J": {
+    "file": "LASR_J.png",
+    "w": 65,
+    "h": 17,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-corpse-v02.png"
+  },
+  "LASR_K": {
+    "file": "LASR_K.png",
+    "w": 43,
+    "h": 66,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-gib-v01.png"
+  },
+  "LASR_N": {
+    "file": "LASR_N.png",
+    "w": 43,
+    "h": 45,
+    "kind": "sprite",
+    "src": "assets/raw/lasereyes-gibbed-v01.png"
+  },
+  "GOLM_A": {
+    "file": "GOLM_A.png",
+    "w": 57,
+    "h": 80,
+    "kind": "sprite",
+    "src": "assets/raw/golem-front-v01.png"
+  },
+  "GOLM_B": {
+    "file": "GOLM_B.png",
+    "w": 57,
+    "h": 80,
+    "kind": "sprite",
+    "src": "assets/raw/golem-walk-v01.png"
+  },
+  "GOLM_C": {
+    "file": "GOLM_C.png",
+    "w": 57,
+    "h": 82,
+    "kind": "sprite",
+    "src": "assets/raw/golem-attack-v01.png"
+  },
+  "GOLM_F": {
+    "file": "GOLM_F.png",
+    "w": 59,
+    "h": 79,
+    "kind": "sprite",
+    "src": "assets/raw/golem-pain-v01.png"
+  },
+  "GOLM_G": {
+    "file": "GOLM_G.png",
+    "w": 56,
+    "h": 82,
+    "kind": "sprite",
+    "src": "assets/raw/golem-die1-v01.png"
+  },
+  "GOLM_J": {
+    "file": "GOLM_J.png",
+    "w": 57,
+    "h": 54,
+    "kind": "sprite",
+    "src": "assets/raw/golem-corpse-v01.png"
+  },
+  "MAIN_A": {
+    "file": "MAIN_A.png",
+    "w": 66,
+    "h": 124,
+    "kind": "sprite",
+    "src": "assets/raw/mainchar-front-v01.png"
+  },
+  "MAIN_B": {
+    "file": "MAIN_B.png",
+    "w": 64,
+    "h": 116,
+    "kind": "sprite",
+    "src": "assets/raw/mainchar-walk-v01.png"
+  },
+  "MAIN_C": {
+    "file": "MAIN_C.png",
+    "w": 63,
+    "h": 124,
+    "kind": "sprite",
+    "src": "assets/raw/mainchar-attack-v01.png"
+  },
+  "MAIN_F": {
+    "file": "MAIN_F.png",
+    "w": 60,
+    "h": 123,
+    "kind": "sprite",
+    "src": "assets/raw/mainchar-pain-v01.png"
+  },
+  "MAIN_G": {
+    "file": "MAIN_G.png",
+    "w": 68,
+    "h": 116,
+    "kind": "sprite",
+    "src": "assets/raw/mainchar-die1-v01.png"
+  },
+  "MAIN_J": {
+    "file": "MAIN_J.png",
+    "w": 83,
+    "h": 102,
+    "kind": "sprite",
+    "src": "assets/raw/mainchar-corpse-v01.png"
+  },
+  "ALGO_A": {
+    "file": "ALGO_A.png",
+    "w": 81,
+    "h": 112,
+    "kind": "sprite",
+    "src": "assets/raw/algorithm-front-v01.png"
+  },
+  "ALGO_B": {
+    "file": "ALGO_B.png",
+    "w": 95,
+    "h": 114,
+    "kind": "sprite",
+    "src": "assets/raw/algorithm-walk-v01.png"
+  },
+  "ALGO_C": {
+    "file": "ALGO_C.png",
+    "w": 111,
+    "h": 112,
+    "kind": "sprite",
+    "src": "assets/raw/algorithm-attack-v01.png"
+  },
+  "ALGO_F": {
+    "file": "ALGO_F.png",
+    "w": 99,
+    "h": 113,
+    "kind": "sprite",
+    "src": "assets/raw/algorithm-pain-v01.png"
+  },
+  "ALGO_G": {
+    "file": "ALGO_G.png",
+    "w": 104,
+    "h": 113,
+    "kind": "sprite",
+    "src": "assets/raw/algorithm-die1-v01.png"
+  },
+  "ALGO_J": {
+    "file": "ALGO_J.png",
+    "w": 108,
+    "h": 81,
+    "kind": "sprite",
+    "src": "assets/raw/algorithm-corpse-v01.png"
+  }
+}

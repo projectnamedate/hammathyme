@@ -9,6 +9,7 @@ import { WhaleAR } from "@/components/WhaleAR";
 import { ProjectorFigure } from "@/components/figures/projector/ProjectorFigure";
 import { CarWashFrame } from "@/components/figures/car-wash/CarWashFrame";
 import { SushiScrambleGame } from "@/components/games/sushi-scramble/SushiScrambleGame";
+import { SlopocalypseFrame } from "@/components/games/slopocalypse/SlopocalypseFrame";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
@@ -158,6 +159,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "pipelines-tools/qc-by-measurement") return <QcDetail transitionName={transitionName} />;
   if (key === "interactive-playable/sushi-scramble") return <SushiScrambleDetail transitionName={transitionName} />;
   if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
+  if (key === "interactive-playable/slopocalypse") return <SlopocalypseDetail transitionName={transitionName} />;
   if (key === "interactive-playable/car-wash") return <CarWashDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
@@ -274,6 +276,53 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
             mit
           </a>
           )
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const SLOPOCALYPSE_FACTS = [
+  ["how to play", "find the keycards · open their doors · reach the exit · delete everything that moves · walls that look wrong hide secrets"],
+  ["controls", "click to start · wasd move · mouse aims · click fires · space or e uses · 1-7, q or wheel switch guns · pgup and pgdn look · esc pauses · m mutes"],
+  ["touch", "left half moves · right half turns · fire, use and weapon buttons"],
+  ["built with", "three.js · 200-line palette renderer · 35 hz simulation on 1993 numbers · web audio"],
+  ["ai assets", "monsters, guns, walls and props: gpt image 2.5 · sound: elevenlabs · music: suno"],
+];
+
+function SlopocalypseDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A 1993-style shooter where the demons are AI slop. Seven-fingered hands, melting stock-photo people
+            and a giant influencer, across three episodes of a broken internet.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {SLOPOCALYPSE_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div className="relative md:col-span-9" style={frameStyle}>
+          <SlopocalypseFrame />
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          the art is made the way 1993&apos;s was: photos of sculpted maquettes, keyed, shrunk and forced into
+          one 256-colour palette. a script checks every pixel against it.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          game: hammer · built with claude code · three episodes, twelve maps, twelve monsters, seven guns
         </p>
       </div>
     </section>

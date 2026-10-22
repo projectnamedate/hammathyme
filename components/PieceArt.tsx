@@ -39,6 +39,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "pipelines-tools/qc-by-measurement": QcByMeasurement,
   "interactive-playable/sushi-scramble": SushiScramble,
   "interactive-playable/35mm-projector": ProjectorAnatomy,
+  "interactive-playable/slopocalypse": Slopocalypse,
   "interactive-playable/car-wash": CarWash,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "film-animation/equinox": EquinoxCampaign,
@@ -428,6 +429,32 @@ function ProjectorAnatomy() {
         <circle cx="89.5" cy="82" r="1.9" fill="var(--ink-2)" stroke="none" />
       </g>
       <MonoLabel>GENEVA · 24 FPS</MonoLabel>
+    </Plate>
+  );
+}
+
+function Slopocalypse() {
+  return (
+    <Plate>
+      <g stroke="var(--ink-3)" strokeWidth="0.9" fill="none">
+        <rect x="20" y="34" width="80" height="80" />
+        <rect x="46" y="60" width="28" height="28" />
+        <line x1="20" y1="34" x2="46" y2="60" />
+        <line x1="100" y1="34" x2="74" y2="60" />
+        <line x1="20" y1="114" x2="46" y2="88" />
+        <line x1="100" y1="114" x2="74" y2="88" />
+      </g>
+      <g stroke="var(--ink-1)" strokeWidth="0.9" fill="var(--cream-0)">
+        {[51, 55, 59, 63, 67, 71, 75].map((x, i) => (
+          <rect key={x} x={x - 1.4} y={68 - (i % 3) * 2} width="2.8" height={12 + (i % 3) * 2} rx="1.4" />
+        ))}
+        <rect x="50" y="78" width="26" height="8" rx="2" />
+      </g>
+      <g stroke="var(--cinnamon)" strokeWidth="1.1" fill="none">
+        <circle cx="60" cy="74" r="7" strokeDasharray="9 2" />
+      </g>
+      <circle cx="60" cy="74" r="0.9" fill="var(--cinnamon)" />
+      <MonoLabel>SLOP SHOOTER</MonoLabel>
     </Plate>
   );
 }

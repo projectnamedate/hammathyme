@@ -141,7 +141,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a car wash to run, and a prompt-to-storyboard board in colour pencil.",
+      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, a car wash to run, and a prompt-to-storyboard board in colour pencil.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [
@@ -158,6 +158,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "35mm projector",
         year: "2026",
         blurb: "a working 35mm projector drawn in code: crank it, click a part to watch it work, take it apart.",
+        status: "live",
+        tint: "var(--cream-1)",
+      },
+      {
+        slug: "slopocalypse",
+        title: "slopocalypse",
+        year: "2026",
+        blurb: "a 1993-style shooter where the demons are ai slop, across twelve maps of a broken internet.",
         status: "live",
         tint: "var(--cream-1)",
       },
@@ -450,6 +458,7 @@ const DETAIL_READY_KEYS = new Set([
   "pipelines-tools/qc-by-measurement",
   "interactive-playable/sushi-scramble",
   "interactive-playable/35mm-projector",
+  "interactive-playable/slopocalypse",
   "interactive-playable/car-wash",
   "interactive-playable/prompt-to-storyboard",
   "film-animation/equinox",
