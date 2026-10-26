@@ -42,6 +42,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/35mm-projector": ProjectorAnatomy,
   "interactive-playable/slopocalypse": Slopocalypse,
   "interactive-playable/car-wash": CarWash,
+  "interactive-playable/bioluminescent-bay": BioBay,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
@@ -477,6 +478,42 @@ function Slopocalypse() {
       </g>
       <circle cx="60" cy="74" r="0.9" fill="var(--cinnamon)" />
       <MonoLabel>SLOP SHOOTER</MonoLabel>
+    </Plate>
+  );
+}
+
+function BioBay() {
+  // the night beach: moon and its path, a glowing wave at the shore, a jellyfish, footprints lit in the sand
+  const steps = [[34, 131], [41, 125], [43, 118], [50, 113], [51, 107], [57, 103], [58, 98]];
+  return (
+    <Plate bg="#0b1220">
+      {[[24, 26], [36, 40], [52, 22], [94, 28], [100, 46], [64, 44], [88, 54]].map(([x, y]) => (
+        <circle key={`${x}-${y}`} cx={x} cy={y} r="0.55" fill="#c9d4e6" />
+      ))}
+      <circle cx="78" cy="36" r="10" fill="#f2efe6" opacity="0.08" />
+      <circle cx="78" cy="36" r="5" fill="#f2efe6" />
+      <line x1="12" y1="62" x2="108" y2="62" stroke="#34456a" strokeWidth="0.7" />
+      <g stroke="#f2efe6" strokeLinecap="round">
+        {[[66, 2.6, 0.7], [70, 3.4, 0.55], [74, 2.2, 0.45], [78, 3.8, 0.35]].map(([y, w, o]) => (
+          <line key={y} x1={78 - w} y1={y} x2={78 + w} y2={y} strokeWidth="0.8" opacity={o} />
+        ))}
+      </g>
+      <g transform="translate(38 74)">
+        <path d="M -6 0 A 6 4.6 0 0 1 6 0 Z" fill="#9b7be0" />
+        <g stroke="#9b7be0" strokeWidth="0.5" strokeLinecap="round" opacity="0.8">
+          <path d="M -3.5 0 q -0.8 3 0.4 6" fill="none" /><path d="M 0 0 q 0.8 3.2 -0.2 6.6" fill="none" /><path d="M 3.5 0 q 0.9 2.6 -0.3 5.6" fill="none" />
+        </g>
+      </g>
+      <path d="M 12 92 Q 46 84 70 88 T 108 82 L 108 146 L 12 146 Z" fill="#121a29" />
+      <path d="M 12 92 Q 46 84 70 88 T 108 82" fill="none" stroke="#46d6ff" strokeWidth="3" opacity="0.18" />
+      <path d="M 12 92 Q 46 84 70 88 T 108 82" fill="none" stroke="#7fe8ff" strokeWidth="0.9" />
+      {steps.map(([x, y], i) => (
+        <g key={i} opacity={1 - i * 0.11}>
+          <ellipse cx={x} cy={y} rx="3.4" ry="2.2" fill="#46d6ff" opacity="0.22" />
+          <ellipse cx={x} cy={y} rx={1.5 - i * 0.07} ry={2.3 - i * 0.12} fill="#8ff0ff" transform={`rotate(-38 ${x} ${y})`} />
+        </g>
+      ))}
+      <MonoLabel fill="#8fdcf0">GLOWING BAY</MonoLabel>
     </Plate>
   );
 }
