@@ -27,6 +27,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "brand-systems/hammer": HammerGuide,
   "brand-systems/kira": KiraGuide,
   "brand-systems/agentify": AgentifyGuide,
+  "motion-graphics/chrome-hammer": ChromeHammer,
   "motion-graphics/reel": MotionReel,
   "motion-graphics/internet-capital-markets": InternetCapitalMarkets,
   "motion-graphics/spring-health": SpringHealthMotion,
@@ -276,6 +277,27 @@ function SpringHealthMotion() {
         <rect x="72" y="114" width="20" height="4" rx="2" />
       </g>
       <MonoLabel y={136} fill="var(--cream-1)">SPRING HEALTH</MonoLabel>
+    </Plate>
+  );
+}
+
+function ChromeHammer() {
+  // a chrome drop over its own reflection, and the wordmark it becomes
+  return (
+    <Plate bg="#E9E9EA">
+      <g transform="translate(60 70)">
+        <ellipse cx="0" cy="34" rx="22" ry="3.2" fill="#c9c9cc" />
+        <ellipse cx="0" cy="0" rx="21" ry="23" fill="#8d8f94" />
+        <ellipse cx="-2" cy="-3" rx="17" ry="18.5" fill="#b9bbc0" />
+        <ellipse cx="-6" cy="-9" rx="9" ry="7" fill="#eceef1" />
+        <path d="M -16 10 Q 0 22 15 9 Q 4 16 -16 10 Z" fill="#5c5e63" />
+        <ellipse cx="9" cy="-12" rx="2.6" ry="1.8" fill="#ffffff" />
+        <circle cx="31" cy="-18" r="3.4" fill="#9fa1a6" />
+        <circle cx="30.2" cy="-19" r="1.3" fill="#f2f3f5" />
+      </g>
+      <text x="60" y="132" textAnchor="middle" fontFamily="var(--font-display)" fontSize="15" fontWeight="700" fill="#9c9ea3" letterSpacing="-0.4">
+        hammer<tspan fill="#d4553a">.</tspan>
+      </text>
     </Plate>
   );
 }

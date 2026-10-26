@@ -141,6 +141,7 @@ function DetailHeader({ category, piece }: { category: CaseStudy; piece: Piece }
 
 function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: string) {
   const key = pieceDetailKey(category.slug, piece.slug);
+  if (key === "motion-graphics/chrome-hammer") return <ChromeHammerDetail transitionName={transitionName} />;
   if (key === "motion-graphics/reel") return <MotionReelDetail transitionName={transitionName} />;
   if (key === "motion-graphics/internet-capital-markets") {
     return <InternetCapitalMarketsDetail transitionName={transitionName} />;
@@ -581,29 +582,6 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
         width: 1200,
         height: 862,
         tone: "dark",
-      },
-    ],
-  },  {
-    slug: "gatelight",
-    status: "fictional brand · one-page site",
-    liveUrl: "/work/websites/gatelight/index.html",
-    summary:
-      "gatelight is a fictional maker of restored 35mm projectors. The page carries one brand across a hero, three feature spots and a reveal film, all drawn from real parts in code: the art with anatomy-asset, the film with anatomy-reveal from 150 convex parts.",
-    stack: ["static html", "anatomy-asset (svg)", "anatomy-reveal (film + interactive figure)", "fraunces · inter tight · plex mono"],
-    facts: [
-      ["brief", "a home-cinema projector restorer: warm, crafted, trustworthy; one amber accent on cream"],
-      ["art", "hero at 1200 × 640 and three 320 × 320 spots from one camera; every line ends on a part (line check: 0 floating)"],
-      ["film", "the projector turned, taken apart and reassembled; the same model opens as an interactive figure"],
-      ["note", "fictional: the booking form sends nothing"],
-    ],
-    shots: [
-      {
-        src: "/work/websites/gatelight/live.jpeg",
-        label: "gatelight",
-        alt: "Gatelight landing page screenshot: an isometric projector on a walnut cabinet beside the headline, three feature spots, the reveal film and a booking form",
-        width: 1440,
-        height: 3020,
-        tone: "light",
       },
     ],
   },
@@ -1222,6 +1200,47 @@ function SpringHealthDetail({ transitionName }: { transitionName: string }) {
   );
 }
 
+
+function ChromeHammerDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-4">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            a chrome drop splits, rains into the hammer wordmark, holds, then melts back into one drop. the last frame
+            flows into the first, so it loops forever.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["built with", "three.js · raymarched in one shader: drops that blend into each other and a signed-distance wordmark · claude code"],
+              ["sound", "synthesized from the frame numbers · every hit lands one frame after its picture"],
+              ["format", "6s seamless loop · 1080x1080 · 30fps · h264/aac"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div className="relative md:col-span-8" style={frameStyle}>
+          <video
+            aria-label="a chrome drop that rains into the hammer wordmark and melts back, on a loop"
+            className="block aspect-square w-full border border-[var(--ink-4)] bg-[#e9e9ea]"
+            src="/work/motion/chrome-hammer/chrome-hammer.mp4"
+            poster="/work/motion/chrome-hammer/chrome-hammer-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 function SpotifyTitlesDetail({ transitionName }: { transitionName: string }) {
   const frameStyle: CSSProperties = { viewTransitionName: transitionName };

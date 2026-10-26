@@ -203,10 +203,18 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "various",
     summary:
-      "programmatic motion design built in remotion and hyperframes. deterministic, reproducible, broadcast-grade.",
+      "programmatic motion design built in remotion, hyperframes and three.js. deterministic, reproducible, broadcast-grade.",
     tint: "var(--bloodlust)",
     hero: { main: "motion", italic: "graphics" },
     pieces: [
+      {
+        slug: "chrome-hammer",
+        title: "chrome hammer",
+        year: "2026",
+        blurb: "a six-second loop: a chrome drop splits, rains into the hammer wordmark, then melts back into one drop. three.js, drawn and scored in code.",
+        status: "live",
+        tint: "#E9E9EA",
+      },
       {
         slug: "internet-capital-markets",
         title: "icm teaser",
@@ -400,15 +408,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "#161A2B",
       },
-      {
-        slug: "gatelight",
-        title: "gatelight",
-        year: "2026",
-        client: "fictional",
-        blurb: "a landing page for a fictional maker of restored 35mm projectors: isometric art drawn in code and a reveal film rendered from 150 parts.",
-        status: "live",
-        tint: "#F3EEE4",
-      },
     ],
   },
   {
@@ -463,6 +462,7 @@ const DETAIL_READY_KEYS = new Set([
   "brand-systems/hammer",
   "brand-systems/kira",
   "brand-systems/agentify",
+  "motion-graphics/chrome-hammer",
   "motion-graphics/reel",
   "motion-graphics/internet-capital-markets",
   "motion-graphics/spring-health",
@@ -486,7 +486,6 @@ const DETAIL_READY_KEYS = new Set([
   "websites/kira",
   "websites/agentify",
   "websites/coefficient",
-  "websites/gatelight",
 ]);
 
 export function pieceDetailKey(categorySlug: string, pieceSlug: string): string {
