@@ -1,0 +1,15 @@
+{
+  "model": "hunyuan",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "request_id": "01a1799d-61ed-7f21-9858-db09252c8d4d",
+  "input": {
+    "enable_pbr": true,
+    "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-globe-v01.png"
+  },
+  "estimated_usd": 0.525,
+  "seconds": 196,
+  "file": "globe-hunyuan-v01.glb",
+  "extra": {
+    "seed": null
+  }
+}

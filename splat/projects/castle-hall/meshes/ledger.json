@@ -1,0 +1,146 @@
+[
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a17988-1931-7892-95e7-e86c47c4728f",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-table-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 180,
+    "file": "table-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T18:48:24Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a1798a-e1dd-7652-a425-3bc4c9526a52",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-bench-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 175,
+    "file": "bench-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T18:51:22Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a1798d-9a34-7952-9a5a-8e96cc752d35",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-chair-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 196,
+    "file": "chair-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T18:54:41Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a17990-a18d-7e72-85b2-ed03ecb881ed",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-candelabrum-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 169,
+    "file": "candelabrum-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T18:57:32Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a17993-4a76-7223-a925-1d84f36cff53",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-chest-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 223,
+    "file": "chest-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T19:01:20Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a17996-b9b1-71f2-b9f5-c1df3000e03d",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-armour-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 225,
+    "file": "armour-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T19:05:07Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a1799a-30fc-7083-9b99-ba02acf31f9f",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-lectern-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 207,
+    "file": "lectern-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T19:08:37Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a1799d-61ed-7f21-9858-db09252c8d4d",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-globe-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 196,
+    "file": "globe-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T19:11:55Z"
+  },
+  {
+    "model": "hunyuan",
+    "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+    "request_id": "01a1799f-bbe2-7592-b116-cab794025601",
+    "input": {
+      "enable_pbr": true,
+      "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-jug-v01.png"
+    },
+    "estimated_usd": 0.525,
+    "seconds": 227,
+    "file": "jug-hunyuan-v01.glb",
+    "extra": {
+      "seed": null
+    },
+    "recorded_at": "2026-10-26T19:15:00Z"
+  }
+]

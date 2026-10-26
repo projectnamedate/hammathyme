@@ -1,0 +1,15 @@
+{
+  "model": "hunyuan",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "request_id": "01a17990-a18d-7e72-85b2-ed03ecb881ed",
+  "input": {
+    "enable_pbr": true,
+    "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-candelabrum-v01.png"
+  },
+  "estimated_usd": 0.525,
+  "seconds": 169,
+  "file": "candelabrum-hunyuan-v01.glb",
+  "extra": {
+    "seed": null
+  }
+}

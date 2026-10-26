@@ -1,0 +1,15 @@
+{
+  "model": "hunyuan",
+  "endpoint": "fal-ai/hunyuan-3d/v3.1/pro/image-to-3d",
+  "request_id": "01a17996-b9b1-71f2-b9f5-c1df3000e03d",
+  "input": {
+    "enable_pbr": true,
+    "input_image_url": "/Users/hammer/Desktop/vibe/studioly/projects/castle-hall-probe/assets/images/iso-armour-v01.png"
+  },
+  "estimated_usd": 0.525,
+  "seconds": 225,
+  "file": "armour-hunyuan-v01.glb",
+  "extra": {
+    "seed": null
+  }
+}

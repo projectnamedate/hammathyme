@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Castle Hall</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block;width:100vw;height:100vh;touch-action:none}
+#hint{position:fixed;left:16px;bottom:14px;font:12px/1.5 ui-monospace,Menlo,monospace;color:#efe7d4;opacity:.8;pointer-events:none;text-shadow:0 1px 2px #000}
+</style>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/","@sparkjsdev/spark":"/node_modules/@sparkjsdev/spark/dist/spark.module.js"}}</script>
+</head><body>
+<div id="hint">click to look · wasd to walk · walk into the armillary globe</div>
+<script type="module">
+// Castle Hall (P07 + P23). Three Marble worlds 1 km apart in one scene, joined by Spark disk portals, nested by
+// scale: the hall's armillary globe holds a forest; a small light in the forest holds the hall at night; the night
+// hall's mirror steps back into the day hall. To enter something small you shrink to 0.1× on the way in, and the
+// exit portal is scaled 10×, so you arrive at full size.
+import * as THREE from "three";
+import { SparkPortals, SplatMesh } from "@sparkjsdev/spark";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const q = new URLSearchParams(location.search);
+const renderer = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5)); renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(70, innerWidth / innerHeight, 0.01, 300);
+const localFrame = new THREE.Group(); scene.add(localFrame); localFrame.add(camera);
+const portals = new SparkPortals({ renderer, scene, camera, localFrame, sparkOptions: { lodSplatScale: 2 } });
+
+// Spark gives splats depth in world metres, but three.js gives meshes depth in the scaled player frame's units, so
+// once you shrink, the splat room behind a mesh draws over it. Scaling a view-space position uniformly about the
+// camera keeps its place on screen and changes only its depth: multiply by the frame scale to put meshes in metres.
+// Meshes also follow Spark's front-pass portal rule: a fragment behind a portal disk, seen through that disk, is
+// dropped, so the world on the other side shows through instead of the mesh behind the glass.
+// In Spark's behind pass (the far world, seen through a disk) meshes keep only what lies beyond that disk, seen
+// through it, as Spark does for splats; otherwise a ring of the hall's globe draws across the forest.
+const frameScale = { value: 1 }, MAX_DISKS = 6;
+const diskUniforms = { uDiskC: { value: Array.from({ length: MAX_DISKS }, () => new THREE.Vector4()) }, uDiskN: { value: Array.from({ length: MAX_DISKS }, () => new THREE.Vector3()) },
+  uBehindC: { value: new THREE.Vector4() }, uBehindN: { value: new THREE.Vector3() } };
+function metricDepth(material, portalCut = true) {
+  material.onBeforeCompile = (shader) => {
+    Object.assign(shader.uniforms, { uFrameScale: frameScale }, diskUniforms);
+    shader.vertexShader = "uniform float uFrameScale;\nvarying vec3 vPortalWorld;\n" + shader.vertexShader.replace("#include <project_vertex>",
+      "#include <project_vertex>\n\tgl_Position = projectionMatrix * vec4( mvPosition.xyz * uFrameScale, 1.0 );\n\tvPortalWorld = ( modelMatrix * vec4( transformed, 1.0 ) ).xyz;");
+    shader.fragmentShader = `uniform vec4 uDiskC[${MAX_DISKS}];\nuniform vec3 uDiskN[${MAX_DISKS}];\nuniform vec4 uBehindC;\nuniform vec3 uBehindN;\nvarying vec3 vPortalWorld;\n` + shader.fragmentShader.replace("void main() {", `void main() {
+	if ( uBehindC.w > 0.0 ) {
+		float a = dot( cameraPosition - uBehindC.xyz, uBehindN ), b = dot( vPortalWorld - uBehindC.xyz, uBehindN );
+		if ( a * b >= 0.0 ) discard;
+		if ( distance( cameraPosition + ( vPortalWorld - cameraPosition ) * ( a / ( a - b ) ), uBehindC.xyz ) > uBehindC.w ) discard;
+	}
+	for ( int k = 0; k < ${portalCut ? MAX_DISKS : 0}; k ++ ) {
+		if ( uDiskC[k].w <= 0.0 ) continue;
+		vec3 c = uDiskC[k].xyz, n = uDiskN[k];
+		float a = dot( cameraPosition - c, n ), b = dot( vPortalWorld - c, n );
+		if ( abs( a ) < 1e-4 ) a = 1e-4;   // a camera on the plane counts as in front
+		if ( a * b >= 0.0 ) continue;
+		vec3 q = cameraPosition + ( vPortalWorld - cameraPosition ) * ( a / ( a - b ) );
+		if ( distance( q, c ) < uDiskC[k].w ) discard;
+	}`);
+  };
+  material.needsUpdate = true;
+}
+
+// ---------- worlds ----------
+const WORLDS = { hall: { file: "hall", x: 0 }, forest: { file: "forest", x: 1000 }, night: { file: "night", x: 2000 } };
+const box = new THREE.Box3();
+async function loadWorld(w) {
+  const meta = (await (await fetch(`../worlds/${w.file}-meta.json`)).json()).assets.splats.semantics_metadata;
+  const f = meta.metric_scale_factor, off = meta.ground_plane_offset;
+  const mesh = new SplatMesh({ url: `../worlds/${w.file}-500k.spz` });
+  mesh.scale.set(f, -f, -f); mesh.position.set(w.x, off, 0);   // raw OpenCV → three, metres; the offset is already metric, so the floor lands at y = 0
+  scene.add(mesh);
+  // the walk map (tools/walk_grid.py): ground height and blocked cells from the world's collider, in world-local metres
+  const map = await (await fetch(`../worlds/${w.file}-walk.json`)).json();
+  const bytes = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+  map.ground = new Int16Array(bytes(map.ground).buffer); map.blocked = bytes(map.blocked); w.map = map;
+  await mesh.initialized; w.mesh = mesh;
+}
+await Promise.all(Object.values(WORLDS).map(loadWorld));
+const worldAt = (x) => (x > 1500 ? WORLDS.night : x > 500 ? WORLDS.forest : WORLDS.hall);
+const cellOf = (w, x, z) => { const m = w.map; return [Math.floor((z - m.z0) / m.cell), Math.floor((x - w.x - m.x0) / m.cell)]; };
+function isBlocked(x, z) {
+  const w = worldAt(x), m = w.map, [i, j] = cellOf(w, x, z);
+  if (i < 0 || j < 0 || i >= m.h || j >= m.w) return true;
+  const k = i * m.w + j; return (m.blocked[k >> 3] >> (7 - (k & 7))) & 1;
+}
+const setBlocked = (w, i, j, on) => { const m = w.map; if (i < 0 || j < 0 || i >= m.h || j >= m.w) return; const k = i * m.w + j; m.blocked[k >> 3] = on ? m.blocked[k >> 3] | (128 >> (k & 7)) : m.blocked[k >> 3] & ~(128 >> (k & 7)); };
+function groundAt(x, z) {   // bilinear over cell centres
+  const w = worldAt(x), m = w.map, fx = (x - w.x - m.x0) / m.cell - 0.5, fz = (z - m.z0) / m.cell - 0.5;
+  const j = Math.max(0, Math.min(m.w - 2, Math.floor(fx))), i = Math.max(0, Math.min(m.h - 2, Math.floor(fz))), a = fx - j, b = fz - i;
+  const g = (ii, jj) => m.ground[ii * m.w + jj] / 100;
+  return (g(i, j) * (1 - a) + g(i, j + 1) * a) * (1 - b) + (g(i + 1, j) * (1 - a) + g(i + 1, j + 1) * a) * b;
+}
+// the nearest walkable spot, for arrivals and start positions that land inside a blocked cell
+function nearestFree(x, z) {
+  if (!isBlocked(x, z)) return [x, z];
+  for (let r = 0.1; r <= 3; r += 0.1) for (let a = 0; a < 6.283; a += 0.3 / r) { const nx = x + r * Math.cos(a), nz = z + r * Math.sin(a); if (!isBlocked(nx, nz)) return [nx, nz]; }
+  return [x, z];
+}
+// mark a footprint (or clear a passage) in a world's walk map
+function paintMap(w, x0, z0, x1, z1, on, floor) {   // floor (m): also level the ground there
+  const [i0, j0] = cellOf(w, x0, z0), [i1, j1] = cellOf(w, x1, z1), m = w.map;
+  for (let i = i0; i <= i1; i++) for (let j = j0; j <= j1; j++) { setBlocked(w, i, j, on); if (floor !== undefined && i >= 0 && j >= 0 && i < m.h && j < m.w) m.ground[i * m.w + j] = Math.round(floor * 100); }
+}
+
+// ---------- the furniture (Hunyuan 3.1 Pro meshes) in the day hall, lit to match the plate ----------
+// Hunyuan's PBR metals (pewter, brass, steel, iron) go black with nothing to reflect, so they get a neutral room to
+// reflect; the wood keeps the plate-matched lights only, since the room's sheen greys oak. Set per material: a
+// scene environment greyed the wood even at envMapIntensity 0.
+const roomEnv = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+const sun = new THREE.DirectionalLight(0xffd7a0, 2.2); sun.position.set(-4, 3, -1); scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xd8d2c4, 0x5a4a3a, 0.9));
+const fire = new THREE.PointLight(0xff8a3a, 6, 9, 1.6); fire.position.set(0, 0.6, -9.8); scene.add(fire);
+const FURNITURE = [ // name, x, z, height m, yaw, long axis along z, standing on (m)
+  ["table", 0, -4.5, 0.8, 0, true], ["bench", -0.95, -4.5, 0.48, 0, true], ["bench", 0.95, -4.5, 0.48, Math.PI, true],
+  ["chair", 0, -8.6, 1.55, 0, false], ["candelabrum", -1.7, -5.3, 1.7, 0, false], ["chest", -2.15, -4.4, 0.62, Math.PI / 2, false],
+  ["armour", 2.15, -3.9, 1.95, -Math.PI / 2, false], ["lectern", 2.0, -2.5, 1.25, -Math.PI / 2, false], ["globe", -2.0, -2.2, 1.45, Math.PI / 2, false],
+  ["jug", 0.18, -4.0, 0.3, 0.6, false, 0.8],
+];
+const loader = new GLTFLoader(); const objects = {}; const METAL = new Set(["jug", "armour", "globe", "candelabrum"]);
+// a soft contact shadow under each piece, so it stands on the splat floor instead of hovering over it
+const shadowTex = new THREE.CanvasTexture((() => { const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d"); const r = g.createRadialGradient(64, 64, 8, 64, 64, 64); r.addColorStop(0, "rgba(0,0,0,0.9)"); r.addColorStop(0.5, "rgba(0,0,0,0.6)"); r.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = r; g.fillRect(0, 0, 128, 128); return c; })());
+function contactShadow(obj) {
+  box.setFromObject(obj); const sz = box.getSize(new THREE.Vector3());
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.85 }));
+  m.rotation.x = -Math.PI / 2; m.scale.set(sz.x * 1.2 + 0.12, sz.z * 1.2 + 0.12, 1);
+  // 3 cm up, drawn after the splats: the splat floor writes depth and wanders a centimetre or two above y = 0; the furniture still hides it by depth
+  m.position.set((box.min.x + box.max.x) / 2, 0.03, (box.min.z + box.max.z) / 2); m.renderOrder = 10; scene.add(m); (window.shadows ??= []).push(m);
+}
+await Promise.all(FURNITURE.map(async ([name, x, z, h, yaw, alongZ, on = 0], i) => {
+  let g; try { g = (await loader.loadAsync(`../meshes/${name}-hunyuan-v01.glb`)).scene; } catch { return; }
+  box.setFromObject(g); const size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+  const pivot = new THREE.Group(); g.position.set(-c.x, -box.min.y, -c.z); pivot.add(g);
+  const s = h / size.y; pivot.scale.setScalar(s);
+  const longIsX = size.x > size.z;
+  pivot.rotation.y = yaw + (alongZ && longIsX ? Math.PI / 2 : 0);
+  pivot.position.set(x, on, z); scene.add(pivot); objects[`${name}${i}`] = pivot; pivot.updateMatrixWorld(true); if (!on) contactShadow(pivot);
+  box.setFromObject(pivot); paintMap(WORLDS.hall, box.min.x - 0.22, box.min.z - 0.22, box.max.x + 0.22, box.max.z + 0.22, true);
+  g.traverse((m) => { if (m.isMesh && METAL.has(name)) { m.material.envMap = roomEnv; m.material.needsUpdate = true; } });
+}));
+
+// ---------- portals ----------
+const globe = objects.globe8;
+let globeCenter = new THREE.Vector3(-2.0, 1.12, -2.2);
+if (globe) { box.setFromObject(globe); globeCenter = new THREE.Vector3(globe.position.x, box.max.y - (box.max.y - box.min.y) * 0.24, globe.position.z); }
+const facing = (o, from, to) => { o.position.copy(from); o.lookAt(to); };
+// 1. the globe → the forest (in at 0.1×, out ×10)
+const p1 = portals.addPortalPair({ radius: 0.17, onCross: arrived });
+const globeDisk = globeCenter.clone().add(new THREE.Vector3(0.17, 0.06, 0));   // 6 cm above the flat horizon ring, so the glide never slices it edge-on   // just in front of the armillary's solid inner ball
+facing(p1.entryPortal, globeDisk, globeDisk.clone().add(new THREE.Vector3(1, 0, 0)));
+const forestIn = new THREE.Vector3(WORLDS.forest.x, 1.5, 1.5);
+facing(p1.exitPortal, forestIn, forestIn.clone().add(new THREE.Vector3(0, 0, 1)));   // you come out walking −z, into the glade
+p1.exitPortal.scale.setScalar(10);
+// 2. a small light in the forest → the night hall's globe (in at 0.1×, out ×10)
+// ahead and to the right of where you arrive, 2 m clear of the trees, 1.25 m above the ground there
+const orbAt = new THREE.Vector3(WORLDS.forest.x + 3, 0, -7); orbAt.y = groundAt(orbAt.x, orbAt.z) + 1.25;
+const orb = new THREE.Mesh(new THREE.SphereGeometry(0.11, 32, 16), new THREE.MeshBasicMaterial({ color: 0xfff1c0, transparent: true }));
+orb.userData.noPortalCut = true;
+orb.position.copy(orbAt); scene.add(orb);
+const halo = new THREE.Sprite(new THREE.SpriteMaterial({ color: 0xffd27a, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false,
+  map: new THREE.CanvasTexture((() => { const c = document.createElement("canvas"); c.width = c.height = 128; const g = c.getContext("2d"); const r = g.createRadialGradient(64, 64, 0, 64, 64, 64); r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(0.3, "rgba(255,220,140,.5)"); r.addColorStop(1, "rgba(255,200,120,0)"); g.fillStyle = r; g.fillRect(0, 0, 128, 128); return c; })()) }));
+halo.scale.setScalar(0.9); halo.position.copy(orbAt); scene.add(halo);
+const p2 = portals.addPortalPair({ radius: 0.1, onCross: arrived });
+const orbDisk = orbAt.clone().add(new THREE.Vector3(0, 0, 0.13));   // in front of the light, so the light becomes a glowing rim around the window
+facing(p2.entryPortal, orbDisk, orbDisk.clone().add(new THREE.Vector3(0, 0, 1)));
+const nightGlobe = new THREE.Vector3(WORLDS.night.x - 2.5, 1.15, -2.6);   // just in front of the night hall's globe, by the left wall near the door
+facing(p2.exitPortal, nightGlobe, nightGlobe.clone().add(new THREE.Vector3(-1, 0, 0)));
+p2.exitPortal.scale.setScalar(10);
+// 3. the night hall's mirror ↔ the day hall's mirror, 1:1
+// each mirror's glass fitted from its collider (tools/fit_mirror.py): centre, and the normal toward the room; the
+// glass leans back about 7°. 0.42 m fits inside both panes, so the pair stays 1:1 with no change of scale
+const mirror = new THREE.Vector3(2.286, 0.97, -8.994), mirrorFace = new THREE.Vector3(-0.866, 0.118, 0.487).normalize();
+const p3 = portals.addPortalPair({ radius: 0.42, onCross: arrived });
+const nightMirror = new THREE.Vector3(WORLDS.night.x + 3.35, 1.562, -13.09), nightFace = new THREE.Vector3(-0.852, 0.059, 0.519).normalize();
+facing(p3.entryPortal, nightMirror, nightMirror.clone().sub(nightFace));
+facing(p3.exitPortal, mirror, mirror.clone().add(mirrorFace));
+// thin things Marble's collider missed, found by ray-casting their base in the world's own photograph
+paintMap(WORLDS.night, -2.01 - 0.45, -4.94 - 0.45, -2.01 + 0.45, -4.94 + 0.45, true);   // the night hall's candelabrum
+// the night mirror leans on the wall, inside its own blocked cells: open a path to its glass, on the room's floor
+// (the walk map reads the frame and wall as ground there, which would lift you over the glass)
+const roomFloor = groundAt(nightMirror.x + nightFace.x * 1.2, nightMirror.z + nightFace.z * 1.2);
+for (let t = -0.15; t <= 1.0; t += 0.05) { const c = nightMirror.clone().addScaledVector(nightFace, t); paintMap(WORLDS.night, c.x - 0.4, c.z - 0.4, c.x + 0.4, c.z + 0.4, false, roomFloor); }
+// Spark's portal shader measures splat depth in world metres, but takes the disk centre in the camera's scaled
+// units and the radius unscaled: put both in metres, so the window into the next world holds while you shrink
+const _ws = new THREE.Vector3(), _cs = new THREE.Vector3(), setDisk = portals.setPortalDiskUniforms.bind(portals);
+let behindDisk = null;
+portals.setPortalDiskUniforms = (cam, portal, radius, twoSided) => {
+  if (radius > 0) behindDisk = { portal, radius };   // Spark sets the behind pass's disk just before drawing it
+  setDisk(cam, portal, Math.sign(radius) * Math.abs(radius) * portal.getWorldScale(_ws).x, twoSided);
+  portals.portalRenderer.uniforms.diskCenter.value.multiplyScalar(cam.getWorldScale(_cs).x);
+};
+const behindRender = portals.behindRenderer.render.bind(portals.behindRenderer);
+portals.behindRenderer.render = (...args) => {
+  const { portal, radius } = behindDisk; portal.updateMatrixWorld(true);
+  diskUniforms.uBehindN.value.set(0, 0, 1).applyQuaternion(portal.getWorldQuaternion(new THREE.Quaternion()));
+  portal.getWorldPosition(_cs); diskUniforms.uBehindC.value.set(_cs.x, _cs.y, _cs.z, radius * portal.getWorldScale(_ws).x);
+  try { return behindRender(...args); } finally { diskUniforms.uBehindC.value.w = 0; }
+};
+const PAIRS = [p1, p2, p3];
+function updateDisks() {
+  let k = 0;
+  for (const pair of PAIRS) for (const portal of [pair.entryPortal, pair.exitPortal]) {
+    portal.updateMatrixWorld(true);
+    portal.getWorldPosition(_cs); diskUniforms.uDiskN.value[k].set(0, 0, 1).applyQuaternion(portal.getWorldQuaternion(new THREE.Quaternion()));
+    diskUniforms.uDiskC.value[k++].set(_cs.x, _cs.y, _cs.z, pair.radius * portal.getWorldScale(_ws).x);
+  }
+}
+scene.traverse((o) => { if (o.isMesh && !(o instanceof SplatMesh) && o.material && !o.material.isShaderMaterial) metricDepth(o.material, !o.userData.noPortalCut); });
+// at: the object you walk toward; disk: its portal, which the glide flies through
+const GLIDES = [{ at: globeCenter, disk: globeDisk, normal: new THREE.Vector3(1, 0, 0) }, { at: orbAt, disk: orbDisk, normal: new THREE.Vector3(0, 0, 1) }];
+
+// ---------- walking, looking, the shrink-glide ----------
+const EYE = 1.55; let yaw = 0, pitch = 0, glide = null; const keys = new Set();
+localFrame.position.set(+(q.get("x") ?? 0), EYE, +(q.get("z") ?? 0));
+[localFrame.position.x, localFrame.position.z] = nearestFree(localFrame.position.x, localFrame.position.z);
+if (q.has("yaw")) yaw = +q.get("yaw"); if (q.has("pitch")) pitch = +q.get("pitch");
+addEventListener("keydown", (e) => keys.add(e.code)); addEventListener("keyup", (e) => keys.delete(e.code));
+renderer.domElement.addEventListener("click", () => renderer.domElement.requestPointerLock?.());
+addEventListener("mousemove", (e) => { if (document.pointerLockElement && !glide) { yaw -= e.movementX * 0.0022; pitch = Math.max(-1.2, Math.min(1.2, pitch - e.movementY * 0.0022)); } });
+let touch = null;
+renderer.domElement.addEventListener("pointerdown", (e) => { if (e.pointerType === "touch") touch = { x: e.clientX, y: e.clientY, t: now() }; });
+renderer.domElement.addEventListener("pointermove", (e) => { if (touch && !glide) { yaw -= (e.clientX - touch.x) * 0.004; pitch = Math.max(-1.2, Math.min(1.2, pitch - (e.clientY - touch.y) * 0.004)); touch.x = e.clientX; touch.y = e.clientY; } });
+renderer.domElement.addEventListener("pointerup", () => (touch = null));
+let walkTouch = false; addEventListener("touchstart", (e) => (walkTouch = e.touches.length >= 2)); addEventListener("touchend", (e) => (walkTouch = e.touches.length >= 2));
+const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+function arrived() {   // carry on looking where the glide ended, instead of snapping back to the yaw before it
+  glide = null; arrivedAt = now();
+  const e = new THREE.Euler().setFromQuaternion(camera.quaternion, "YXZ"); pitch = e.x; yaw = e.y;
+  [localFrame.position.x, localFrame.position.z] = nearestFree(localFrame.position.x, localFrame.position.z);
+}
+let arrivedAt = 0;
+window.state = () => ({ blocked: !!isBlocked(localFrame.position.x, localFrame.position.z), ground: +groundAt(localFrame.position.x, localFrame.position.z).toFixed(2), x: +localFrame.position.x.toFixed(2), y: +localFrame.position.y.toFixed(2), z: +localFrame.position.z.toFixed(2), scale: +localFrame.scale.x.toFixed(3), world: worldAt(localFrame.position.x).file, glide: !!glide });
+window.debugGlide = () => ({ globeCenter: globeCenter.toArray().map((v) => +v.toFixed(2)), globePos: objects.globe8?.position.toArray(), cam: camera.getWorldPosition(new THREE.Vector3()).toArray().map((v) => +v.toFixed(2)), fwd: camera.getWorldDirection(new THREE.Vector3()).toArray().map((v) => +v.toFixed(2)), p1: glide?.p1?.toArray().map((v) => +v.toFixed(2)) });
+window.dbg = { WORLDS, portals, renderer, scene, camera, objects };
+window.park = (x, sc) => { localFrame.position.set(x, 1.1, -2.2); localFrame.scale.setScalar(sc); camera.quaternion.set(0, Math.SQRT1_2, 0, Math.SQRT1_2); };
+window.heading = () => { const f = camera.getWorldDirection(new THREE.Vector3()); return Math.atan2(-f.x, -f.z); };
+window.setYaw = (y) => { yaw = y - new THREE.Euler().setFromQuaternion(localFrame.quaternion, "YXZ").y; pitch = 0; };   // a world heading, for scripted checks
+window.walk = (seconds) => new Promise((r) => { keys.add("KeyW"); setTimeout(() => { keys.delete("KeyW"); r(window.state()); }, seconds * 1000); });
+
+const now = () => (window.__manual ? simNow : performance.now());
+const clock = new THREE.Clock(); const tmp = new THREE.Vector3();
+function tick() {
+  const dt = window.__manual ? 1 / 30 : Math.min(clock.getDelta(), 0.05), s = localFrame.scale.x;
+  if (window.__manual) simNow += 1000 / 30;
+  if (window.__hold) { frameScale.value = localFrame.scale.x; updateDisks(); portals.animateLoopHook(); requestAnimationFrame(tick); return; }   // scripted checks park the camera
+  if (glide) {
+    glide.t += dt / glide.dur;
+    const u = ease(Math.min(glide.t, 1));
+    localFrame.scale.setScalar(THREE.MathUtils.lerp(glide.s0, 0.1, u));
+    localFrame.position.lerpVectors(glide.p0, glide.p1, u);
+    camera.quaternion.slerpQuaternions(glide.q0, glide.q1, u);
+    if (glide.t > 1) localFrame.position.copy(glide.through);   // then straight through in one step: a frame on the disk's plane shows the inside of the object
+  } else {
+    camera.rotation.set(pitch, yaw, 0, "YXZ");
+    camera.getWorldDirection(tmp); tmp.y = 0; tmp.normalize();
+    const right = new THREE.Vector3(-tmp.z, 0, tmp.x), v = new THREE.Vector3();
+    if (keys.has("KeyW") || keys.has("ArrowUp") || walkTouch) v.add(tmp); if (keys.has("KeyS") || keys.has("ArrowDown")) v.sub(tmp);
+    if (keys.has("KeyD")) v.add(right); if (keys.has("KeyA")) v.sub(right);
+    if (keys.has("ArrowLeft")) yaw += 1.4 * dt; if (keys.has("ArrowRight")) yaw -= 1.4 * dt;
+    if (v.lengthSq()) {   // one axis at a time, so you slide along a wall
+      const P = localFrame.position, step = v.normalize().multiplyScalar(1.6 * s * dt);
+      if (!isBlocked(P.x + step.x, P.z)) P.x += step.x;
+      if (!isBlocked(P.x, P.z + step.z)) P.z += step.z;
+    }
+    // settle to full size and eye height after an arrival
+    const k = Math.min(1, (now() - arrivedAt) / 900);
+    localFrame.scale.setScalar(THREE.MathUtils.lerp(localFrame.scale.x, 1, k * 0.2));
+    localFrame.position.y = THREE.MathUtils.lerp(localFrame.position.y, groundAt(localFrame.position.x, localFrame.position.z) + EYE * localFrame.scale.x, 0.12);
+    // walking into the globe or the light starts the glide
+    for (const g of GLIDES) {
+      const d = new THREE.Vector3(localFrame.position.x - g.at.x, 0, localFrame.position.z - g.at.z);
+      if (now() - arrivedAt > 2500 && d.length() < 1.3 && v.lengthSq() && d.normalize().dot(g.normal) > 0.2) {   // a pause after each arrival, so one held key never runs two worlds together
+        const p1 = g.disk.clone().addScaledVector(g.normal, 0.05);
+        const look = new THREE.PerspectiveCamera(); look.position.copy(p1); look.lookAt(g.disk.clone().sub(g.normal));   // camera semantics: look down −z
+        const camLocal = new THREE.Quaternion().copy(localFrame.quaternion).invert().multiply(look.quaternion);
+        glide = { t: 0, dur: 1.8, s0: localFrame.scale.x, p0: localFrame.position.clone(), p1, q0: camera.quaternion.clone(), q1: camLocal, through: g.disk.clone().addScaledVector(g.normal, -0.01) };
+        break;
+      }
+    }
+  }
+  orb.visible = halo.visible = worldAt(localFrame.position.x) === WORLDS.forest;
+  orb.scale.setScalar(1 + 0.08 * Math.sin(now() / 400)); 
+  // the light and its halo dissolve into the window as you shrink toward it
+  orb.material.opacity = THREE.MathUtils.smoothstep(localFrame.scale.x, 0.25, 0.8);
+  halo.material.opacity = (0.45 + 0.15 * Math.sin(now() / 600)) * THREE.MathUtils.smoothstep(localFrame.scale.x, 0.2, 0.7);
+  frameScale.value = localFrame.scale.x; updateDisks();
+  portals.animateLoopHook();
+  if (!window.__manual) requestAnimationFrame(tick);
+}
+// scripted captures: window.__manual = true, then stepFrame() advances exactly 1/30 s and renders
+let simNow = 0;
+window.stepFrame = () => tick();
+addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); portals.updateAspect(camera.aspect); renderer.setSize(innerWidth, innerHeight); });
+tick();
+window.ready = true;
+</script></body></html>

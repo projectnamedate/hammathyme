@@ -1,0 +1,4 @@
+# full World Labs responses (CDN links to the worlds) stay on disk; the viewer reads <world>-meta.json
+worlds/hall.json
+worlds/forest.json
+worlds/night.json

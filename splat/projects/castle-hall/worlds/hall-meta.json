@@ -1,0 +1,10 @@
+{
+ "assets": {
+  "splats": {
+   "semantics_metadata": {
+    "metric_scale_factor": 1.6026313,
+    "ground_plane_offset": 0.95321435
+   }
+  }
+ }
+}
