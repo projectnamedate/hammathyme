@@ -141,7 +141,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, a car wash to run, and a prompt-to-storyboard board in colour pencil.",
+      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, a car wash to run, a glowing bay to walk, and a prompt-to-storyboard board in colour pencil.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [
@@ -176,6 +176,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb: "a tunnel car wash drawn in code: pay at the kiosk, then ride the conveyor through foam, brushes, rinse and blowers.",
         status: "live",
         tint: "var(--cream-1)",
+      },
+      {
+        slug: "bioluminescent-bay",
+        title: "bioluminescent bay",
+        year: "2026",
+        blurb: "a night beach to walk in unity: your footsteps light the plankton in the sand and your hand leaves glowing swirls in the water.",
+        status: "live",
+        tint: "#0b1220",
       },
       {
         slug: "prompt-to-storyboard",
@@ -469,6 +477,7 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/35mm-projector",
   "interactive-playable/slopocalypse",
   "interactive-playable/car-wash",
+  "interactive-playable/bioluminescent-bay",
   "interactive-playable/prompt-to-storyboard",
   "film-animation/equinox",
   "film-animation/the-gunfight",
