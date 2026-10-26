@@ -87,7 +87,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "code animation",
         year: "2026",
         blurb:
-          "the north wind and the sun, an aesop fable drawn entirely in code, plus six shorts: painted 2d, a gpu painter, fframes, and three.js with a paint pass.",
+          "the north wind and the sun, an aesop fable drawn entirely in code, plus seven shorts: a linocut, painted 2d, a gpu painter, fframes, and three.js with a paint pass.",
         status: "live",
         tint: "var(--cinnamon)",
       },
@@ -392,6 +392,15 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "#161A2B",
       },
+      {
+        slug: "gatelight",
+        title: "gatelight",
+        year: "2026",
+        client: "fictional",
+        blurb: "a landing page for a fictional maker of restored 35mm projectors: isometric art drawn in code and a reveal film rendered from 150 parts.",
+        status: "live",
+        tint: "#F3EEE4",
+      },
     ],
   },
   {
@@ -468,6 +477,7 @@ const DETAIL_READY_KEYS = new Set([
   "websites/kira",
   "websites/agentify",
   "websites/coefficient",
+  "websites/gatelight",
 ]);
 
 export function pieceDetailKey(categorySlug: string, pieceSlug: string): string {

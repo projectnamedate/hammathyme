@@ -278,6 +278,28 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
           )
         </p>
       </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-3">
+          the same machine as a reveal film: 150 solid parts, turned, taken apart and put back together.
+        </p>
+        <div className="md:col-span-9">
+          <video
+            className="block h-auto w-full"
+            src="/work/interactive-playable/35mm-projector/reveal-16x9.mp4"
+            poster="/work/interactive-playable/35mm-projector/reveal-poster.jpg"
+            muted
+            loop
+            playsInline
+            autoPlay
+            preload="metadata"
+            aria-label="The projector turns, shows its reels, lens, crank and lamphouse, comes apart into its parts and goes back together."
+          />
+          <p className="mt-3 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+            film: anatomy-reveal · motion blur sized to each frame&apos;s movement · 10 s
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
@@ -521,6 +543,29 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
         width: 1200,
         height: 862,
         tone: "dark",
+      },
+    ],
+  },  {
+    slug: "gatelight",
+    status: "fictional brand · one-page site",
+    liveUrl: "/work/websites/gatelight/index.html",
+    summary:
+      "gatelight is a fictional maker of restored 35mm projectors. The page carries one brand across a hero, three feature spots and a reveal film, all drawn from real parts in code: the art with anatomy-asset, the film with anatomy-reveal from 150 convex parts.",
+    stack: ["static html", "anatomy-asset (svg)", "anatomy-reveal (film + interactive figure)", "fraunces · inter tight · plex mono"],
+    facts: [
+      ["brief", "a home-cinema projector restorer: warm, crafted, trustworthy; one amber accent on cream"],
+      ["art", "hero at 1200 × 640 and three 320 × 320 spots from one camera; every line ends on a part (line check: 0 floating)"],
+      ["film", "the projector turned, taken apart and reassembled; the same model opens as an interactive figure"],
+      ["note", "fictional: the booking form sends nothing"],
+    ],
+    shots: [
+      {
+        src: "/work/websites/gatelight/live.jpeg",
+        label: "gatelight",
+        alt: "Gatelight landing page screenshot: an isometric projector on a walnut cabinet beside the headline, three feature spots, the reveal film and a booking form",
+        width: 1440,
+        height: 3020,
+        tone: "light",
       },
     ],
   },
@@ -960,6 +1005,7 @@ function TheGunfightDetail({ transitionName }: { transitionName: string }) {
 const CODE_ANIMATION_DIR = "/work/film-animation/code-animation";
 
 const CODE_ANIMATION_FILMS = [
+  { slug: "night-ferry", title: "night ferry", lane: "linocut · three spot plates", length: "27s" },
   { slug: "spore-sneeze", title: "spore sneeze", lane: "painted 2d · p5.brush", length: "19s" },
   { slug: "four-seasons", title: "four seasons", lane: "painted 2d on the gpu", length: "20s loop" },
   { slug: "paper-city", title: "paper city", lane: "fframes · rust + svg", length: "18s loop" },
@@ -975,7 +1021,7 @@ function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            The North Wind and the Sun, an Aesop fable drawn entirely in code, with six shorts
+            The North Wind and the Sun, an Aesop fable drawn entirely in code, with seven shorts
             below. Every frame is a function of time, rendered headless and checked before it ships.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
