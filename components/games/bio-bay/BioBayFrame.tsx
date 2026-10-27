@@ -13,7 +13,7 @@ export function BioBayFrame() {
         <iframe
           src={`${BASE}/index.html`}
           title="bioluminescent bay, a night beach to walk"
-          allow="fullscreen; autoplay"
+          allow="fullscreen; autoplay; accelerometer; gyroscope; web-share"
           allowFullScreen
           className="block aspect-[16/10] w-full border border-[var(--ink-4)] bg-black"
         />
