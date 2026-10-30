@@ -250,9 +250,9 @@ Each category is a collection with multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/film-animation/{equinox,the-gunfight,code-animation}`,
-`/work/vfx-cgi/{neural-set-capture,humpback-ar,environment-swap}`,
+`/work/vfx-cgi/{bioluminescent-bay,portal-worlds,neural-set-capture,humpback-ar,environment-swap}`,
 `/work/interactive-playable/{sushi-scramble,35mm-projector,slopocalypse,car-wash,prompt-to-storyboard}`,
-`/work/motion-graphics/{internet-capital-markets,reel,spring-health,spotify-titles}`,
+`/work/motion-graphics/{chrome-hammer,internet-capital-markets,reel,spring-health,spotify-titles}`,
 `/work/pipelines-tools/{pipeline-visualizer,creative-skills,qc-by-measurement}`,
 `/work/websites/{hammer,kira,agentify,coefficient}`, and
 `/work/brand-systems/{hammer,kira,agentify}`.

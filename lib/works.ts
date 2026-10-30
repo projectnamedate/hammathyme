@@ -101,10 +101,26 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "orchestration, not generation. coding agents write the blender scripts, wire runway into repeatable pipelines, and train gaussian splats from hunyuan 3d sets. the same agents rig a life-size whale for augmented reality.",
+      "real-time worlds and orchestrated pipelines: a glowing bay in hand-written shaders, splat worlds joined by bubble portals, a gunfight street trained into a gaussian splat, a life-size whale in augmented reality, and runway world swaps.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
+      {
+        slug: "bioluminescent-bay",
+        title: "bioluminescent bay",
+        year: "2026",
+        blurb: "a night beach to walk in unity: footsteps light the plankton, waves ignite, rain and shooting stars pass over, and you can slip under the surface.",
+        status: "live",
+        tint: "#0b1220",
+      },
+      {
+        slug: "portal-worlds",
+        title: "portal worlds",
+        year: "2026",
+        blurb: "three gaussian-splat worlds joined by bubble portals: walk a castle hall, step through a sparkling bubble into a forest, then on into the hall at night.",
+        status: "live",
+        tint: "#1a1424",
+      },
       {
         slug: "neural-set-capture",
         title: "neural set capture",
@@ -141,7 +157,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, a car wash to run, a glowing bay to walk, and a prompt-to-storyboard board in colour pencil.",
+      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, a car wash to run, and a prompt-to-storyboard board in colour pencil.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [
@@ -176,22 +192,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb: "a tunnel car wash drawn in code: pay at the kiosk, then ride the conveyor through foam, brushes, rinse and blowers.",
         status: "live",
         tint: "var(--cream-1)",
-      },
-      {
-        slug: "bioluminescent-bay",
-        title: "bioluminescent bay",
-        year: "2026",
-        blurb: "a night beach to walk in unity: footsteps light the plankton, waves ignite, rain and shooting stars pass over, and you can slip under the surface.",
-        status: "live",
-        tint: "#0b1220",
-      },
-      {
-        slug: "portal-worlds",
-        title: "portal worlds",
-        year: "2026",
-        blurb: "three gaussian-splat worlds joined by bubble portals: walk a castle hall, step through a sparkling bubble into a forest, then on into the hall at night.",
-        status: "live",
-        tint: "#1a1424",
       },
       {
         slug: "prompt-to-storyboard",
@@ -475,6 +475,8 @@ const DETAIL_READY_KEYS = new Set([
   "motion-graphics/internet-capital-markets",
   "motion-graphics/spring-health",
   "motion-graphics/spotify-titles",
+  "vfx-cgi/bioluminescent-bay",
+  "vfx-cgi/portal-worlds",
   "vfx-cgi/environment-swap",
   "vfx-cgi/neural-set-capture",
   "vfx-cgi/humpback-ar",
@@ -485,8 +487,6 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/35mm-projector",
   "interactive-playable/slopocalypse",
   "interactive-playable/car-wash",
-  "interactive-playable/bioluminescent-bay",
-  "interactive-playable/portal-worlds",
   "interactive-playable/prompt-to-storyboard",
   "film-animation/equinox",
   "film-animation/the-gunfight",

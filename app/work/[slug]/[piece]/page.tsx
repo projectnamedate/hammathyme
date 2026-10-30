@@ -164,8 +164,8 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/35mm-projector") return <ProjectorDetail transitionName={transitionName} />;
   if (key === "interactive-playable/slopocalypse") return <SlopocalypseDetail transitionName={transitionName} />;
   if (key === "interactive-playable/car-wash") return <CarWashDetail transitionName={transitionName} />;
-  if (key === "interactive-playable/bioluminescent-bay") return <BioBayDetail transitionName={transitionName} />;
-  if (key === "interactive-playable/portal-worlds") return <PortalWorldsDetail transitionName={transitionName} />;
+  if (key === "vfx-cgi/bioluminescent-bay") return <BioBayDetail transitionName={transitionName} />;
+  if (key === "vfx-cgi/portal-worlds") return <PortalWorldsDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;

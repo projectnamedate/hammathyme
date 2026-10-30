@@ -156,6 +156,16 @@ const nextConfig = {
         destination: "/work/interactive-playable",
         permanent: true,
       },
+      {
+        source: "/work/interactive-playable/bioluminescent-bay",
+        destination: "/work/vfx-cgi/bioluminescent-bay",
+        permanent: true,
+      },
+      {
+        source: "/work/interactive-playable/portal-worlds",
+        destination: "/work/vfx-cgi/portal-worlds",
+        permanent: true,
+      },
     ];
   },
   turbopack: {

@@ -19,6 +19,7 @@ export default [
       "splat/**",
       "figures/**",
       "films/**",
+      "public/work/**",
       "components/figures/projector/projector.live.js",
       "tsconfig.tsbuildinfo",
     ],

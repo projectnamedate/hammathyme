@@ -8,6 +8,8 @@ const PRIORITY_SITEMAP_ROUTES = [
   { path: "/work/motion-graphics/reel", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/motion-graphics/internet-capital-markets", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/motion-graphics/spring-health", priority: "0.8", changeFrequency: "monthly" },
+  { path: "/work/vfx-cgi/bioluminescent-bay", priority: "0.8", changeFrequency: "monthly" },
+  { path: "/work/vfx-cgi/portal-worlds", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/vfx-cgi/environment-swap", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/film-animation/equinox", priority: "0.8", changeFrequency: "monthly" },
   { path: "/work/vfx-cgi/neural-set-capture", priority: "0.8", changeFrequency: "monthly" },

@@ -28,7 +28,9 @@ The domain appears only in technical URL surfaces.
 - /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
 - /work/film-animation/the-gunfight: 92-second AI-native western comedy short produced through the Studioly pipeline (Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look).
 - /work/film-animation/code-animation: The North Wind and the Sun, an 82-second Aesop fable drawn entirely in code with custom voices and a score, plus six short films drawn in code. Lanes: p5.brush painted 2D, a GPU painter, fframes, and three.js with a paint pass.
-- /work/vfx-cgi: VFX and CGI production pipelines using Blender, Runway Aleph 2, Hunyuan 3D, gaussian splatting, and augmented reality.
+- /work/vfx-cgi: real-time worlds and VFX/CGI production pipelines using Unity shaders, Blender, Runway Aleph 2, Hunyuan 3D, gaussian splatting, and augmented reality.
+- /work/vfx-cgi/bioluminescent-bay: a night beach to walk in a Unity 6.3 web build. Footsteps light the wet sand, waves ignite as they break, a fish school and a manta ray trail light, rain lights the water drop by drop, shooting stars cross the sky, and you can slip under the surface among glowing jellyfish. Hand-written URP shaders and a ping-pong glow map; every sound synthesized live in the browser; loads on a click; no provider calls.
+- /work/vfx-cgi/portal-worlds: three World Labs Marble gaussian-splat worlds (a castle hall, a forest, the hall at night) joined by bubble portals. A bubble wakes as you come near, bursts into a sparkling rim with the next world inside, and you step through. three.js and Spark 2.4, each world drawn by its own splat renderer into a render target; loads on a click; no provider calls.
 - /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled and rendered in Blender 5.1, trained with Brush, and viewed with Spark.
 - /work/vfx-cgi/humpback-ar: a 15-metre humpback in augmented reality. A GPT Image 2.5 reference became a Hunyuan 3D 3.1 mesh, skinned to a spine and animated in Blender 5.1 as a seamless 24-second lap. iPhone opens a USDZ in AR Quick Look and Android opens a GLB in Scene Viewer, at tabletop size or life size; desktop shows a QR code.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
@@ -39,6 +41,7 @@ The domain appears only in technical URL surfaces.
 - /work/interactive-playable/car-wash: playable Colorfigures drawing of a tunnel car wash; pay at the kiosk (basic or deluxe), pull onto the conveyor, and the car rides through foam, side and top brushes, rinse, wax, tire shine and blowers; no provider calls.
 - /work/interactive-playable/prompt-to-storyboard: rate-limited GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
 - /work/motion-graphics: programmatic motion work.
+- /work/motion-graphics/chrome-hammer: a six-second three.js loop; a chrome drop splits, rains into the hammer wordmark, then melts back into one drop. Drawn and scored in code.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.
 - /work/motion-graphics/reel: Chain Reaction, a one-shot motion graphics reel where 24 named moves set each other off, ending in a three.js Rube Goldberg machine. Video asset.
 - /work/motion-graphics/spring-health: Spring Health HyperFrames showcase translating brand, product UI, and care-system story into a motion reel.
