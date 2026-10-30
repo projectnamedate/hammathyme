@@ -264,6 +264,14 @@ the standalone guide artifact instead of embedding the full guide. Website
 pieces are the exception: Hammer shows a summary and preview first, then links
 out to the live public site.
 
-Category piece cards use `components/PieceArt.tsx` for Hammer-native SVG plates
-while case studies are still in production. Keep these plates on the Hammer
-token system.
+Category piece cards use `components/PieceArt.tsx` for flat SVG plates. Each
+plate wears its own piece's colours, sampled from its poster, build or live
+site (Jeff, 2026-10-30); only `brand-systems/hammer` and `websites/hammer` stay
+on the Hammer cream + cinnamon. Set the plate's `frame` and `MonoLabel` fill
+from the same palette (label at least 4.5:1 against the plate), and set the
+piece's `tint` in `lib/works.ts` to the plate background.
+
+When a piece moves category, its route moves but its asset folder can stay:
+compiled builds such as `public/work/interactive-playable/portal-worlds/`
+hardcode their own path. Add a 308 from the old route. `public/work/**` is
+excluded from eslint because it holds compiled game builds.
