@@ -75,7 +75,7 @@ export function Plinth({
           className="pointer-events-none absolute inset-0 opacity-100 transition-opacity duration-500 group-hover:opacity-70"
           style={{
             background:
-              "linear-gradient(135deg, rgba(250, 238, 233, 0.20), rgba(242, 142, 134, 0.08) 52%, rgba(229, 191, 180, 0.18))",
+              "linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0.06))",
           }}
         />
 

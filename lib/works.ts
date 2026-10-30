@@ -70,7 +70,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "campaign spot for Equinox with Angry Gods: AI culture chaos against the human body as proof.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#332825",
       },
       {
         slug: "the-gunfight",
@@ -80,7 +80,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "a 92-second western comedy short: two old gunfighters, one empty street, and a draw nobody saw coming. Seedance 2.5 takes on a 35mm print look.",
         status: "live",
-        tint: "var(--bloodlust)",
+        tint: "#3A2320",
       },
       {
         slug: "code-animation",
@@ -89,7 +89,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "the north wind and the sun, an aesop fable drawn entirely in code, plus seven shorts: a linocut, painted 2d, a gpu painter, fframes, and three.js with a paint pass.",
         status: "live",
-        tint: "var(--cinnamon)",
+        tint: "#575F68",
       },
     ],
   },
@@ -119,7 +119,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "three gaussian-splat worlds joined by bubble portals: walk a castle hall, step through a sparkling bubble into a forest, then on into the hall at night.",
         status: "live",
-        tint: "#1a1424",
+        tint: "#e9dcc3",
       },
       {
         slug: "neural-set-capture",
@@ -127,7 +127,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "the gunfight's main street rebuilt from film frames with Hunyuan 3D, assembled in Blender, and trained into a gaussian splat you can orbit.",
         status: "live",
-        tint: "var(--cinnamon)",
+        tint: "#291B13",
       },
       {
         slug: "humpback-ar",
@@ -136,7 +136,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "a 15-metre humpback that swims circles around you in augmented reality. modelled with Hunyuan 3D, then rigged and animated in Blender.",
         status: "live",
-        tint: "#0B3A4E",
+        tint: "#2A7590",
       },
       {
         slug: "environment-swap",
@@ -145,7 +145,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "one first-person driving plate relit into many worlds (neon city, alien desert, blue crystal forest, alpine snow), with the real dashboard preserved. a mask-free video-to-video environment swap via Runway Aleph 2.",
         status: "live",
-        tint: "var(--cinnamon)",
+        tint: "#19140F",
       },
     ],
   },
@@ -167,7 +167,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "a third-person shooter in a sushi bar: an armoured salmon nigiri holds the belt against chopstick drones and the diner's hand.",
         status: "live",
-        tint: "#120d10",
+        tint: "#200F0A",
       },
       {
         slug: "35mm-projector",
@@ -175,7 +175,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "a working 35mm projector drawn in code: crank it, click a part to watch it work, take it apart.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#F2F0E5",
       },
       {
         slug: "slopocalypse",
@@ -183,7 +183,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "a 1993-style shooter where the demons are ai slop, across twelve maps of a broken internet.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#2B1A12",
       },
       {
         slug: "car-wash",
@@ -191,7 +191,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "a tunnel car wash drawn in code: pay at the kiosk, then ride the conveyor through foam, brushes, rinse and blowers.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#CFE9F0",
       },
       {
         slug: "prompt-to-storyboard",
@@ -199,7 +199,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "type a sentence, get a six-panel storyboard drawn in colour pencil.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#E9D9C2",
       },
     ],
   },
@@ -229,7 +229,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "teaser for the ICM film. title treatment and lower-thirds package built with ai-assisted motion design.",
         status: "live",
-        tint: "var(--cream-2)",
+        tint: "#040E12",
       },
       {
         slug: "reel",
@@ -237,7 +237,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "one continuous shot where 24 motion moves set each other off, ending in a three.js rube goldberg machine. made in code with hyperframes.",
         status: "live",
-        tint: "var(--bloodlust)",
+        tint: "#DAD1EE",
       },
       {
         slug: "spring-health",
@@ -255,7 +255,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "a kinetic title sequence for Spotify: 'music for everyone' and 'listening is everything' set in motion. one text-to-video pass via MiniMax H3, native sound.",
         status: "live",
-        tint: "var(--cinnamon)",
+        tint: "#121212",
       },
     ],
   },
@@ -288,7 +288,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "agent identity, character bible, runtime guardrails, and website system for an autonomous ai crypto character.",
         status: "live",
-        tint: "var(--cream-2)",
+        tint: "#F7F3EC",
       },
       {
         slug: "agentify",
@@ -396,7 +396,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         blurb:
           "onlykira.ai: public microsite for the autonomous Kira agent character, built with AI and the Kira brand bible.",
         status: "live",
-        tint: "var(--cream-2)",
+        tint: "#0F0F0F",
       },
       {
         slug: "agentify",
@@ -414,7 +414,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         client: "mythx",
         blurb: "coefficient.mythx.art: solana stake-pool health dashboard: nakamoto coefficient tracking, pool scorecards, and validator reach, indexed daily.",
         status: "live",
-        tint: "#161A2B",
+        tint: "#1B1B1E",
       },
     ],
   },
@@ -436,7 +436,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "interactive node-graph of three real pipelines. opens as a detail view.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#1B1D22",
       },
       {
         slug: "creative-skills",
@@ -444,7 +444,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "the reusable operating layer: startup checks, end session sweeps, color theory, composition, shot coverage, and video qc.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#22252B",
       },
       {
         slug: "qc-by-measurement",
@@ -452,7 +452,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         year: "2026",
         blurb: "finished work checked by numbers, not by eye: frame-numbered contact sheets, a cut detector, a composition overlay, and a splat audit.",
         status: "live",
-        tint: "var(--cream-1)",
+        tint: "#28211C",
       },
     ],
   }
