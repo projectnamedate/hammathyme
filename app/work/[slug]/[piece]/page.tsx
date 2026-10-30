@@ -357,9 +357,9 @@ function SlopocalypseDetail({ transitionName }: { transitionName: string }) {
 }
 
 const BIO_BAY_FACTS = [
-  ["what to do", "walk the wet sand and each step lights up · stir the water and the light drifts on the current · wade into the school and it scatters · watch for the ray · wade out far enough and you slip under the surface"],
-  ["controls", "wasd or arrows walk · right-drag or q and e look · left-drag stirs · phone: drag lower left to walk, one finger stirs, two fingers look, or tilt to look · postcard saves the view"],
-  ["built with", "unity 6.3 web · urp shaders written by hand · a ping-pong glow map · claude code in batch mode"],
+  ["what to do", "walk the wet sand and each step lights up · stir the water and the light drifts on the current · wade into the school and it scatters · watch for the ray and the shooting stars · wait for the rain · wade out far enough and you slip under the surface"],
+  ["controls", "wasd or arrows walk · right-drag or q and e look · left-drag stirs · m or the sound button mutes · phone: drag lower left to walk, one finger stirs, two fingers look, or tilt to look · postcard saves the view"],
+  ["built with", "unity 6.3 web · urp shaders written by hand · a ping-pong glow map · every sound synthesized live in the browser · claude code in batch mode"],
   ["life", "jellyfish modelled in blender geometry nodes, pulsing in a vertex shader · fish and the ray drawn and animated in code, their wakes stamped into the glow map"],
 ];
 
@@ -371,8 +371,8 @@ function BioBayDetail({ transitionName }: { transitionName: string }) {
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
             a night beach under the milky way where the plankton glow. your footsteps light the wet sand, waves ignite
-            as they break, a school of fish and a manta ray trail light through the shallows, and under the surface the
-            jellyfish glow from inside.
+            as they break, a school of fish and a manta ray trail light through the shallows, shooting stars cross the
+            sky and rain lights the water drop by drop. under the surface the jellyfish glow from inside.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {BIO_BAY_FACTS.map(([label, value]) => (

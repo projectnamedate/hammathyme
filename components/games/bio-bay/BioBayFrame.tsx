@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const BASE = "/work/interactive-playable/bio-bay";
 
-// The bay is an 18 MB Unity web build, so the page shows a walk through it and loads the build only on a click.
+// The bay is a 10 MB Unity web build, so the page shows a walk through it and loads the build only on a click.
 export function BioBayFrame() {
   const [playing, setPlaying] = useState(false);
   return (
@@ -35,7 +35,7 @@ export function BioBayFrame() {
             className="absolute inset-0 h-full w-full object-cover"
           />
           <span className="absolute bottom-4 left-4 bg-black/55 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white transition-colors group-hover:bg-[var(--cinnamon)]">
-            walk the bay · 18 mb
+            walk the bay · 10 mb
           </span>
         </button>
       )}

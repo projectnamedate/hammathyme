@@ -4,26 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bioluminescent Bay</title>
+<link rel="icon" href="data:,">
 <style>
-  /* the bay fills whatever frame holds it; two quiet buttons sit bottom right */
+  /* the bay fills whatever frame holds it; quiet buttons sit in a row bottom right */
   html, body { margin: 0; height: 100%; background: #05070d; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none }
   #c { width: 100%; height: 100%; display: block; outline: none }
   #load { position: fixed; left: 50%; top: 50%; width: 160px; height: 2px; margin-left: -80px; background: #16263a }
   #bar { height: 100%; width: 0; background: #5fe3ff; transition: width .2s }
-  .btn { position: fixed; bottom: max(14px, env(safe-area-inset-bottom)); font: 500 11px/1 ui-monospace, Menlo, monospace; letter-spacing: .14em;
+  #btns { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: max(14px, env(safe-area-inset-bottom)); display: flex; gap: 8px }
+  .btn { font: 500 11px/1 ui-monospace, Menlo, monospace; letter-spacing: .14em;
          text-transform: uppercase; color: #cdefff; background: rgba(5, 10, 20, .55); border: 1px solid rgba(95, 227, 255, .35);
          border-radius: 999px; padding: 10px 14px; cursor: pointer; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px) }
   .btn:focus-visible { outline: 2px solid #5fe3ff; outline-offset: 2px }
-  #post { right: max(14px, env(safe-area-inset-right)) }
-  #tilt { right: calc(max(14px, env(safe-area-inset-right)) + 118px) }
   [hidden] { display: none !important }
 </style>
 </head>
 <body>
 <canvas id="c" tabindex="-1"></canvas>
 <div id="load"><div id="bar"></div></div>
+<div id="btns">
+<button class="btn" id="snd" hidden>sound off</button>
 <button class="btn" id="tilt" hidden>tilt to look</button>
 <button class="btn" id="post" hidden>postcard</button>
+</div>
+<script src="sound.js"></script>
 <script src="Build/Web.loader.js"></script>
 <script>
   const canvas = document.getElementById("c"), bar = document.getElementById("bar");
@@ -32,6 +36,7 @@
     dataUrl: "Build/Web.data.unityweb", frameworkUrl: "Build/Web.framework.js.unityweb", codeUrl: "Build/Web.wasm.unityweb",
     streamingAssetsUrl: "StreamingAssets", companyName: "hammer", productName: "Bioluminescent Bay", productVersion: "0.1.0",
     webglContextAttributes: { preserveDrawingBuffer: true },   // so a postcard can copy the frame
+    autoSyncPersistentDataPath: true,                          // the bay saves nothing; this opts out of a deprecated sync
   };
   if (touch) config.devicePixelRatio = Math.min(window.devicePixelRatio, 1.5);
   createUnityInstance(canvas, config, (p) => (bar.style.width = 100 * p + "%"))
@@ -39,9 +44,13 @@
       window.bay = unity;
       document.getElementById("load").remove();
       document.getElementById("post").hidden = false;
+      if (window.baySound) document.getElementById("snd").hidden = false;
       if (touch && "DeviceOrientationEvent" in window) document.getElementById("tilt").hidden = false;
     })
     .catch((e) => console.error(e));
+
+  // sound starts on the first tap, click or key anywhere (sound.js); the button turns it off and on again
+  document.getElementById("snd").addEventListener("click", () => window.baySound && window.baySound.press());
 
   // tilt to look: the phone's turn and tilt, relative to how it was held when switched on, go to the walker each frame
   let tilt = null, base = null, sent = 0;

@@ -181,7 +181,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "bioluminescent-bay",
         title: "bioluminescent bay",
         year: "2026",
-        blurb: "a night beach to walk in unity: footsteps light the plankton, waves ignite, fish and a manta ray trail light, and you can slip under the surface.",
+        blurb: "a night beach to walk in unity: footsteps light the plankton, waves ignite, rain and shooting stars pass over, and you can slip under the surface.",
         status: "live",
         tint: "#0b1220",
       },
