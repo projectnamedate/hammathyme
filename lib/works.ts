@@ -186,6 +186,14 @@ export const CASE_STUDIES: CaseStudy[] = [
         tint: "#0b1220",
       },
       {
+        slug: "portal-worlds",
+        title: "portal worlds",
+        year: "2026",
+        blurb: "three gaussian-splat worlds joined by bubble portals: walk a castle hall, step through a sparkling bubble into a forest, then on into the hall at night.",
+        status: "live",
+        tint: "#1a1424",
+      },
+      {
         slug: "prompt-to-storyboard",
         title: "prompt -> storyboard",
         year: "2026",
@@ -478,6 +486,7 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/slopocalypse",
   "interactive-playable/car-wash",
   "interactive-playable/bioluminescent-bay",
+  "interactive-playable/portal-worlds",
   "interactive-playable/prompt-to-storyboard",
   "film-animation/equinox",
   "film-animation/the-gunfight",

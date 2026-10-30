@@ -11,6 +11,7 @@ import { CarWashFrame } from "@/components/figures/car-wash/CarWashFrame";
 import { SushiScrambleGame } from "@/components/games/sushi-scramble/SushiScrambleGame";
 import { SlopocalypseFrame } from "@/components/games/slopocalypse/SlopocalypseFrame";
 import { BioBayFrame } from "@/components/games/bio-bay/BioBayFrame";
+import { PortalWorldsFrame } from "@/components/games/portal-worlds/PortalWorldsFrame";
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
@@ -164,6 +165,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/slopocalypse") return <SlopocalypseDetail transitionName={transitionName} />;
   if (key === "interactive-playable/car-wash") return <CarWashDetail transitionName={transitionName} />;
   if (key === "interactive-playable/bioluminescent-bay") return <BioBayDetail transitionName={transitionName} />;
+  if (key === "interactive-playable/portal-worlds") return <PortalWorldsDetail transitionName={transitionName} />;
   if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
@@ -385,6 +387,41 @@ function BioBayDetail({ transitionName }: { transitionName: string }) {
         </aside>
         <div className="relative md:col-span-9" style={frameStyle}>
           <BioBayFrame />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const PORTAL_WORLDS_FACTS = [
+  ["what to do", "walk the castle hall · a soap bubble floats by the fireplace · walk up to it and it bursts open into a torn, sparkling window on a forest · step through · find the next bubble to the hall at night, and the mirror there brings you home"],
+  ["controls", "click to look and hear · wasd or arrows walk · mouse looks · phone: drag to look, two fingers to walk"],
+  ["built with", "three.js and spark 2.4 · three marble worlds by world labs · each world drawn by its own splat renderer into a render target · the bubble and its rim drawn per pixel in a shader · sound synthesized in code"],
+];
+
+function PortalWorldsDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            three worlds made of gaussian splats, joined by bubble portals. a bubble wakes as you come near, bursts
+            into a sparkling rim with the next world inside it, and you step straight through.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {PORTAL_WORLDS_FACTS.map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">{label}</dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div className="relative md:col-span-9" style={frameStyle}>
+          <PortalWorldsFrame />
         </div>
       </div>
     </section>

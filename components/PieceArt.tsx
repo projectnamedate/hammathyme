@@ -43,6 +43,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/slopocalypse": Slopocalypse,
   "interactive-playable/car-wash": CarWash,
   "interactive-playable/bioluminescent-bay": BioBay,
+  "interactive-playable/portal-worlds": PortalWorlds,
   "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
@@ -514,6 +515,41 @@ function BioBay() {
         </g>
       ))}
       <MonoLabel fill="#8fdcf0">GLOWING BAY</MonoLabel>
+    </Plate>
+  );
+}
+
+function PortalWorlds() {
+  // a castle hall: arched windows, a floor running to the fireplace, and a torn bubble portal opening on a forest
+  const rim = "M 80.2 78.0 L 79.2 81.7 L 80.4 86.0 L 76.6 88.3 L 76.2 92.7 L 73.1 94.9 L 69.5 95.8 L 67.2 99.3 L 63.3 98.2 L 60.0 100.4 L 56.7 98.3 L 53.4 97.5 L 49.7 97.3 L 45.6 96.6 L 45.2 91.4 L 42.9 88.7 L 39.7 86.0 L 37.4 82.3 L 38.7 78.0 L 39.8 74.1 L 38.3 69.5 L 43.5 67.7 L 42.7 62.3 L 47.1 61.4 L 50.3 59.8 L 53.4 58.4 L 56.5 56.6 L 60.0 53.8 L 63.4 57.2 L 67.3 56.3 L 70.8 57.8 L 73.1 61.1 L 76.2 63.3 L 76.5 67.7 L 77.9 71.0 L 79.4 74.3 Z";
+  const sparks = [[50.3, 55.5, 0.39], [40.1, 65.2, 0.38], [66.9, 52.2, 0.36], [38.9, 66.5, 0.64], [57.2, 54.4, 0.69], [76.9, 94.7, 0.59], [73.5, 98.6, 0.27], [47.5, 54.2, 0.51], [75.7, 61.1, 0.56], [40.0, 63.5, 0.46], [74.3, 53.7, 0.46], [49.5, 59.1, 0.57], [43.8, 54.8, 0.62], [55.1, 101.9, 0.55], [83.0, 81.5, 0.33], [75.1, 92.8, 0.60], [74.9, 95.0, 0.43], [74.2, 61.9, 0.45], [35.1, 69.4, 0.62], [74.4, 60.1, 0.44], [43.5, 99.9, 0.68], [72.4, 96.6, 0.35], [62.4, 103.1, 0.52], [58.4, 99.6, 0.44], [43.7, 96.9, 0.68], [51.4, 54.3, 0.53]];
+  return (
+    <Plate bg="#e9dcc3">
+      {[22, 98].map((x) => (
+        <path key={x} d={`M ${x - 4} 66 L ${x - 4} 44 Q ${x} 36 ${x + 4} 44 L ${x + 4} 66 Z`} fill="#f8f1e2" stroke="#b9a582" strokeWidth="0.6" />
+      ))}
+      <path d="M 12 112 L 46 96 L 74 96 L 108 112 L 108 146 L 12 146 Z" fill="#cdb894" />
+      <g stroke="#b9a582" strokeWidth="0.5">
+        <line x1="12" y1="124" x2="108" y2="124" /><line x1="30" y1="104" x2="22" y2="146" /><line x1="60" y1="96" x2="60" y2="146" /><line x1="90" y1="104" x2="98" y2="146" />
+      </g>
+      <defs>
+        <clipPath id="portal-worlds-inside"><path d={rim} /></clipPath>
+      </defs>
+      <g clipPath="url(#portal-worlds-inside)">
+        <rect x="30" y="50" width="60" height="60" fill="#3f6b2f" />
+        <rect x="30" y="50" width="60" height="22" fill="#a9c97a" />
+        <path d="M 30 92 Q 60 84 90 92 L 90 112 L 30 112 Z" fill="#5f8f3a" />
+        <rect x="44" y="58" width="3.4" height="34" fill="#4a3424" />
+        <rect x="70" y="56" width="4" height="36" fill="#4a3424" />
+        <circle cx="45.5" cy="60" r="9" fill="#2f5524" />
+        <circle cx="72" cy="58" r="10" fill="#2f5524" />
+      </g>
+      <path d={rim} fill="none" stroke="#c98bff" strokeWidth="4.5" opacity="0.35" />
+      <path d={rim} fill="none" stroke="#fff6ff" strokeWidth="1.2" />
+      {sparks.map(([x, y, r]) => (
+        <circle key={`${x}-${y}`} cx={x} cy={y} r={r} fill="#ffffff" />
+      ))}
+      <MonoLabel fill="#6b5a40">PORTAL WORLDS</MonoLabel>
     </Plate>
   );
 }
