@@ -7,11 +7,11 @@ is a portfolio piece.
 
 Hammer is ported to the shared vault at
 `/Users/hammer/Obsidian/AgentMemory/Projects/hammer-ad/hammer-ad.md`. After
-reading this file, read `/Users/hammer/Obsidian/AgentMemory/AGENTS.md` and the
-Hammer project note before acting. Treat vault notes as durable cross-agent
+reading this file, read `/Users/hammer/Obsidian/AgentMemory/AGENTS.md` and run
+`/Users/hammer/Obsidian/AgentMemory/scripts/vault-brief.sh hammer-ad` before acting (the full note only when history is needed). Treat vault notes as durable cross-agent
 memory, not a replacement for repo docs, project files, live site checks,
 Vercel proof, or current repo state. At wrap-up, run the **end-session-sweep**
-skill (Codex: `$end-session-sweep`) — it forces the vault session write and runs
+skill — it forces the vault session write and runs
 the full per-project closeout: update the project note and append a dated
 session summary. Never store secrets, env values, private credentials, provider
 keys, or live tokens in the vault.
