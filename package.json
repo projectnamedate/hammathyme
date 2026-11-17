@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.ts",
     "verify:seo": "node scripts/verify-seo.mjs",
     "submit:indexnow": "node scripts/submit-indexnow.mjs"
   },

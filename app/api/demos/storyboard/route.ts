@@ -1,6 +1,7 @@
 import { demosEnabled, getProviderKey, noStore } from "@/lib/demo-guards";
 import { storyboardFallbackFromPrompt } from "@/lib/demo-samples";
 import { requireSafeCreativeInput } from "@/lib/demo-safety";
+import { liveDemoHost } from "@/lib/demo-host";
 
 export const runtime = "nodejs";
 
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
 
   const panels = storyboardFallbackFromPrompt(safe.value);
   const apiKey = getProviderKey("EVOLINK_API_KEY");
-  if (!apiKey || !demosEnabled()) {
+  if (!apiKey || !demosEnabled() || !liveDemoHost(request.headers.get("host"))) {
     return noStore({ ok: true, sample: true, status: "sample: live boards are off", panels });
   }
 
