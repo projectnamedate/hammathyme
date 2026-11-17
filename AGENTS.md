@@ -16,14 +16,11 @@ the full per-project closeout: update the project note and append a dated
 session summary. Never store secrets, env values, private credentials, provider
 keys, or live tokens in the vault.
 
-## Global Codex Defaults
+## Working Defaults
 
 - For underspecified coding tasks, normalize the request into goal, context,
   constraints, and done criteria before implementing. Infer from local docs and
   repo state when safe; ask only for blocking or high-risk ambiguity.
-- Use `$codex-workflow-guardrails` for complex, ambiguous, multi-step,
-  high-risk, live-runtime, repo-takeover, reusable-guidance, or
-  verification-heavy work.
 - Plan before editing when risk or ambiguity is real. For simple low-risk
   tasks, execute directly.
 - Before finalizing code edits, run the most relevant validation available and
@@ -48,13 +45,11 @@ Read these before changing the project:
   framing, awwwards refs.
 - `docs/AGENT_HANDOFF.md` — current short handoff for the next Hammer agent.
   Read it after the startup-check/vault pass and before changing active work.
-- `hammer-startup-check` skill — resume audit workflow for roadmap, site drift,
-  content state, and deploy truth. Codex reaches it via the repo symlink
-  `.codex/skills/hammer-startup-check` →
-  `~/.codex/skills.profiles/project/skills/hammer-startup-check/SKILL.md`; Claude
-  Code uses the mirrored `check-hammer` skill. Both read the shared vault first.
-- `~/.codex/memories/MEMORY.md` — prior decisions. Visual taste, kerning
-  recipe, portfolio categories, voice rules, roadmap.
+- `check-hammer` skill — resume audit workflow for roadmap, site drift,
+  content state, and deploy truth. It reads the shared vault first.
+- The old Codex memories (prior decisions: visual taste, kerning recipe, portfolio
+  categories, voice rules, roadmap) are archived in the encrypted vibe-secrets vault,
+  `codex-kimi-2026-11-16/codex/memories/`.
 
 `SPEC.md` is a phase-1 planning document and is now historical. It still
 references `/notes`, `/process`, `/lab`, and a top-level `/agents` route, none
