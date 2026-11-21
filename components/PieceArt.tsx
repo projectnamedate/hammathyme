@@ -48,6 +48,7 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
   "film-animation/code-animation": CodeAnimation,
+  "film-animation/toast": Toast,
   "websites/hammer": HammerSite,
   "websites/kira": KiraSite,
   "websites/agentify": AgentifySite,
@@ -722,6 +723,34 @@ function CodeAnimation() {
         </text>
       </FilmFrame>
       <MonoLabel y={136} fill="#E9EEF0">CODE ANIMATION</MonoLabel>
+    </Plate>
+  );
+}
+
+function Toast() {
+  // the payoff frame: mustard wall, red-and-cream tiles, a grey clay mouse wearing the toast, the red toaster
+  return (
+    <Plate bg="#853D06" frame="#B4602A">
+      <FilmFrame bg="#F4B24B" edge="#923108" holes="#F4E2C0">
+        <g>
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <rect key={i} x={9 + i * 11} y="36" width="11" height="9" fill={i % 2 ? "#F4E2C0" : "#D22D11"} />
+          ))}
+        </g>
+        <rect x="9" y="45" width="66" height="29" fill="#D36A28" />
+        <rect x="50" y="28" width="22" height="26" rx="4" fill="#D22D11" />
+        <rect x="55" y="28" width="12" height="2.4" rx="1" fill="#923108" />
+        <ellipse cx="32" cy="52" rx="10" ry="9" fill="#8E8A8C" />
+        <circle cx="32" cy="41" r="7" fill="#8E8A8C" />
+        <circle cx="25" cy="36" r="3.4" fill="#E8A0A8" />
+        <circle cx="39" cy="36" r="3.4" fill="#E8A0A8" />
+        <path d="M 23 31 Q 24 26 28 27 Q 32 25 36 27 Q 40 26 41 31 Z" fill="#E19040" stroke="#89642C" strokeWidth="0.8" />
+        <circle cx="29.5" cy="41" r="1" fill="#1E1311" />
+        <circle cx="34.5" cy="41" r="1" fill="#1E1311" />
+        <circle cx="32" cy="43.5" r="0.9" fill="#E8A0A8" />
+        <path d="M 27 48 L 32 51 L 37 48" fill="none" stroke="#3B8FD0" strokeWidth="1.6" />
+      </FilmFrame>
+      <MonoLabel y={136} fill="#F4E2C0">TOAST</MonoLabel>
     </Plate>
   );
 }

@@ -244,7 +244,7 @@ metadata, and structured data, not a blog.
 Each category is a collection with multiple pieces inside. The category page is
 an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
-`/work/film-animation/{equinox,the-gunfight,code-animation}`,
+`/work/film-animation/{equinox,the-gunfight,code-animation,toast}`,
 `/work/vfx-cgi/{bioluminescent-bay,portal-worlds,neural-set-capture,humpback-ar,environment-swap}`,
 `/work/interactive-playable/{sushi-scramble,35mm-projector,slopocalypse,car-wash,prompt-to-storyboard}`,
 `/work/motion-graphics/{chrome-hammer,internet-capital-markets,reel,spring-health,spotify-titles}`,

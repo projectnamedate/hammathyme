@@ -58,7 +58,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "narrative film and animation, ai-native end to end. live work includes Equinox with Angry Gods, the gunfight, a western comedy short, and an Aesop fable drawn entirely in code.",
+      "narrative film and animation, ai-native end to end. live work includes Equinox with Angry Gods, the gunfight, an Aesop fable drawn in code, and toast, a claymation short.",
     tint: "var(--bloodlust)",
     hero: { main: "film", italic: "+ animation" },
     pieces: [
@@ -90,6 +90,15 @@ export const CASE_STUDIES: CaseStudy[] = [
           "the north wind and the sun, an aesop fable drawn entirely in code, plus seven shorts: a linocut, painted 2d, a gpu painter, fframes, and three.js with a paint pass.",
         status: "live",
         tint: "#575F68",
+      },
+      {
+        slug: "toast",
+        title: "toast",
+        year: "2026",
+        blurb:
+          "a 20-second claymation short: a hungry clay mouse sniffs the toaster just as the toast pops, and ends up wearing breakfast as a hat.",
+        status: "live",
+        tint: "#853D06",
       },
     ],
   },
@@ -491,6 +500,7 @@ const DETAIL_READY_KEYS = new Set([
   "film-animation/equinox",
   "film-animation/the-gunfight",
   "film-animation/code-animation",
+  "film-animation/toast",
   "websites/hammer",
   "websites/kira",
   "websites/agentify",

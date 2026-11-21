@@ -4,7 +4,7 @@ import { hasPieceDetail, type CaseStudy, type Piece } from "@/lib/works";
 export type JsonLdObject = Record<string, unknown>;
 
 export const CANONICAL_ORIGIN = "https://hammer.ad";
-export const SITE_LAST_MODIFIED = "2026-10-30T00:00:00-07:00";
+export const SITE_LAST_MODIFIED = "2026-11-21T00:00:00-08:00";
 export const SITE_NAME = "hammer";
 export const SITE_TITLE = "hammer · creative technologist";
 export const DEFAULT_DESCRIPTION =
@@ -478,6 +478,24 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       uploadDate: "2026-10-16T00:00:00-07:00",
       duration: "PT1M22S",
       contentUrl: getCanonicalUrl("/work/film-animation/code-animation/north-wind.mp4"),
+      embedUrl: pageUrl,
+      creator: { "@id": PERSON_ID },
+      publisher: { "@id": PERSON_ID },
+    };
+  }
+
+  if (category.slug === "film-animation" && piece.slug === "toast") {
+    return {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#video`,
+      name: "Toast, a claymation short",
+      description:
+        piece.blurb ??
+        "A 20-second claymation short made from generated clay sheets moved frame by frame in code.",
+      thumbnailUrl: [getCanonicalUrl("/work/film-animation/toast/toast-poster.jpg")],
+      uploadDate: "2026-11-21T00:00:00-08:00",
+      duration: "PT20S",
+      contentUrl: getCanonicalUrl("/work/film-animation/toast/toast-web.mp4"),
       embedUrl: pageUrl,
       creator: { "@id": PERSON_ID },
       publisher: { "@id": PERSON_ID },

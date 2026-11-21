@@ -173,6 +173,7 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "film-animation/equinox") return <EquinoxCampaignDetail transitionName={transitionName} />;
   if (key === "film-animation/the-gunfight") return <TheGunfightDetail transitionName={transitionName} />;
   if (key === "film-animation/code-animation") return <CodeAnimationDetail transitionName={transitionName} />;
+  if (key === "film-animation/toast") return <ToastDetail transitionName={transitionName} />;
   if (category.slug === "websites") {
     return <WebsiteDetail piece={piece} transitionName={transitionName} />;
   }
@@ -1050,6 +1051,89 @@ function TheGunfightDetail({ transitionName }: { transitionName: string }) {
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           production: hammer · pipeline: studioly
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ToastDetail({ transitionName }: { transitionName: string }) {
+  const frameStyle: CSSProperties = { viewTransitionName: transitionName };
+  return (
+    <section className="mx-auto max-w-[1320px]">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
+        <aside className="md:col-span-3">
+          <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
+            A hungry clay mouse leans in to sniff the toaster just as the toast pops. Breakfast
+            comes down as a hat.
+          </p>
+          <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
+            {[
+              ["production", "lemo-animi · sheets moved in code"],
+              ["models", "gpt image 2.6 puppet, set and action sheets · sampled score and foley"],
+              ["format", "20s · 1920x1080 · 24fps on twos · h264/aac"],
+              ["method", "no video model: every move is timed in code"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
+                  {label}
+                </dt>
+                <dd className="mt-2 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+        <div
+          className="relative overflow-hidden border border-[var(--ink-3)] bg-[var(--cream-1)] p-2 shadow-[0_24px_80px_rgba(31,7,7,0.08)] md:col-span-9 md:p-4"
+          style={frameStyle}
+        >
+          <video
+            aria-label="Toast, a claymation short film"
+            className="block aspect-[16/9] w-full bg-[var(--ink-deepest)]"
+            controls
+            playsInline
+            preload="metadata"
+            poster="/work/film-animation/toast/toast-poster.jpg"
+          >
+            <source src="/work/film-animation/toast/toast-web.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
+        <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
+          twelve generated clay sheets, cut into cells and timed on twos in code. about sixty cents
+          of image generation for the whole film.
+        </p>
+        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
+          production: hammer · made with{" "}
+          <TrackedLink
+            event="outbound_click"
+            data={{ piece: "toast", target: "lemo-animi" }}
+            href="https://github.com/lemomo-ai/lemo-animi"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+            data-cursor="link"
+            data-cursor-label="open"
+          >
+            lemo-animi by Lemomo (LemoLab)
+          </TrackedLink>
+          , run with our own image adapter ·{" "}
+          <TrackedLink
+            event="outbound_click"
+            data={{ piece: "toast", target: "cc-by-nc-4.0" }}
+            href="https://creativecommons.org/licenses/by-nc/4.0/"
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
+            data-cursor="link"
+            data-cursor-label="open"
+          >
+            cc by-nc 4.0
+          </TrackedLink>
         </p>
       </div>
     </section>
