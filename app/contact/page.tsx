@@ -30,8 +30,8 @@ export default function Vestibule() {
             </h1>
           </MaskReveal>
           <p className="mt-12 max-w-[44ch] font-display font-light text-[clamp(20px,2vw,26px)] leading-[1.45] tracking-[-0.015em] text-[var(--ink-1)]">
-            full-time, part-time, contract, project work. i'm open. ai
-            pipelines, brand systems, broadcast-grade production.
+            open to full-time, part-time, contract and project work in ai
+            pipelines, brand systems and broadcast production.
           </p>
         </div>
 

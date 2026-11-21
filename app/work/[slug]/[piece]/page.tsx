@@ -15,7 +15,6 @@ import { PortalWorldsFrame } from "@/components/games/portal-worlds/PortalWorlds
 import { Wordmark } from "@/components/Wordmark";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MaskReveal } from "@/components/motion/MaskReveal";
-import { PromptStoryboardDemo } from "@/components/interactives/InteractiveDemos";
 import {
   findCase,
   findPiece,
@@ -166,7 +165,6 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
   if (key === "interactive-playable/car-wash") return <CarWashDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/bioluminescent-bay") return <BioBayDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/portal-worlds") return <PortalWorldsDetail transitionName={transitionName} />;
-  if (key === "interactive-playable/prompt-to-storyboard") return <PromptStoryboardDemo />;
   if (key === "vfx-cgi/environment-swap") return <EnvironmentSwapDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/neural-set-capture") return <NeuralSetCaptureDetail transitionName={transitionName} />;
   if (key === "vfx-cgi/humpback-ar") return <HumpbackArDetail transitionName={transitionName} />;
@@ -186,8 +184,8 @@ function renderPieceDetail(category: CaseStudy, piece: Piece, transitionName: st
 
 const SUSHI_SCRAMBLE_FACTS = [
   ["controls", "wasd · mouse to aim and fire · g ginger grenade · space jump · touch: twin sticks"],
-  ["built with", "three.js · physically based materials · bokeh, bloom and ambient occlusion · web audio"],
-  ["ai assets", "hero, hand and sushi: hunyuan 3d 3.1 from gpt image 2.5 designs · music: suno · ambience: elevenlabs"],
+  ["built with", "three.js · bloom, bokeh and ambient occlusion · web audio"],
+  ["ai assets", "hunyuan 3d models from gpt image designs · suno music · elevenlabs ambience"],
   ["set", "poly haven cc0 hdri and textures · lanterns, belt and plates built in code"],
 ];
 
@@ -223,7 +221,7 @@ function SushiScrambleDetail({ transitionName }: { transitionName: string }) {
 const PROJECTOR_FACTS = [
   ["mechanism", "4-slot geneva cross · 90° pull-down · front shutter, 1 to 3 blades"],
   ["film", "35mm · 4 perf · 0.825 × 0.602 in aperture · smpte universal leader"],
-  ["built with", "anatomy skill · claude code · svg · webgl beam · web audio"],
+  ["built with", "svg · webgl beam · web audio"],
   ["sources", "smpte st 139, st 195, st 242, st 55 · us patent 6,183,087"],
 ];
 
@@ -255,11 +253,10 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          drawn in code with anatomy, a skill that explains an idea by building it as a working
-          machine. the readout comes from the same model that moves the parts.
+          drawn in code. the readout comes from the same model that moves the parts.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          figure: hammer · kit:{" "}
+          made by hammer with the{" "}
           <TrackedLink
             event="outbound_click"
             data={{ piece: "35mm-projector", target: "anatomy" }}
@@ -270,7 +267,7 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
             data-cursor="link"
             data-cursor-label="open"
           >
-            anatomy by wheresryan22
+            anatomy skill by wheresryan22
           </TrackedLink>{" "}
           (
           <a
@@ -302,7 +299,7 @@ function ProjectorDetail({ transitionName }: { transitionName: string }) {
             aria-label="The projector turns, shows its reels, lens, crank and lamphouse, comes apart into its parts and goes back together."
           />
           <p className="mt-3 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-            film: anatomy-reveal · motion blur sized to each frame&apos;s movement · 10 s
+            reveal film made with the anatomy-reveal skill by ann nguyen · 10 s
           </p>
         </div>
       </div>
@@ -314,8 +311,8 @@ const SLOPOCALYPSE_FACTS = [
   ["how to play", "find the keycards · open their doors · reach the exit · delete everything that moves · walls that look wrong hide secrets"],
   ["controls", "click to start · wasd move · mouse aims · click fires · space or e uses · 1-7, q or wheel switch guns · pgup and pgdn look · esc pauses · m mutes"],
   ["touch", "left half moves · right half turns · fire, use and weapon buttons"],
-  ["built with", "three.js · 200-line palette renderer · 35 hz simulation on 1993 numbers · web audio"],
-  ["ai assets", "monsters, guns, walls and props: gpt image 2.5 · sound: elevenlabs · music: suno"],
+  ["built with", "three.js · a 256-colour renderer in the 1993 style · web audio"],
+  ["ai assets", "art: gpt image 2.5 · sound: elevenlabs · music: suno"],
 ];
 
 function SlopocalypseDetail({ transitionName }: { transitionName: string }) {
@@ -346,11 +343,11 @@ function SlopocalypseDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          the art is made the way 1993&apos;s was: photos of sculpted maquettes, keyed, shrunk and forced into
-          one 256-colour palette. a script checks every pixel against it.
+          the art is made the way 1993&apos;s was, from photos of sculpted maquettes forced into one
+          256-colour palette.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          game: hammer · built with claude code · three episodes, twelve maps, twelve monsters, seven guns
+          game: hammer · three episodes, twelve maps, twelve monsters, seven guns
         </p>
       </div>
     </section>
@@ -358,10 +355,10 @@ function SlopocalypseDetail({ transitionName }: { transitionName: string }) {
 }
 
 const BIO_BAY_FACTS = [
-  ["what to do", "walk the wet sand and each step lights up · stir the water and the light drifts on the current · wade into the school and it scatters · watch for the ray and the shooting stars · wait for the rain · wade out far enough and you slip under the surface"],
+  ["what to do", "walk the wet sand and each step lights up · stir the water · wade into the fish and they scatter · wait for the rain and the shooting stars · wade out far enough to slip under the surface"],
   ["controls", "wasd or arrows walk · right-drag or q and e look · left-drag stirs · m or the sound button mutes · phone: drag lower left to walk, one finger stirs, two fingers look, or tilt to look · postcard saves the view"],
-  ["built with", "unity 6.3 web · urp shaders written by hand · a ping-pong glow map · every sound synthesized live in the browser · claude code in batch mode"],
-  ["life", "jellyfish modelled in blender geometry nodes, pulsing in a vertex shader · fish and the ray drawn and animated in code, their wakes stamped into the glow map"],
+  ["built with", "unity 6.3 web · hand-written shaders · every sound synthesized live in the browser"],
+  ["life", "jellyfish modelled in blender · fish and the ray animated in code"],
 ];
 
 function BioBayDetail({ transitionName }: { transitionName: string }) {
@@ -371,9 +368,9 @@ function BioBayDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            a night beach under the milky way where the plankton glow. your footsteps light the wet sand, waves ignite
-            as they break, a school of fish and a manta ray trail light through the shallows, shooting stars cross the
-            sky and rain lights the water drop by drop. under the surface the jellyfish glow from inside.
+            a night beach under the milky way where the plankton glow. your footsteps light the wet sand and waves
+            ignite as they break. fish and a manta ray trail light through the shallows, and under the surface the
+            jellyfish glow from inside.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {BIO_BAY_FACTS.map(([label, value]) => (
@@ -395,9 +392,9 @@ function BioBayDetail({ transitionName }: { transitionName: string }) {
 }
 
 const PORTAL_WORLDS_FACTS = [
-  ["what to do", "walk the castle hall · a soap bubble floats by the fireplace · walk up to it and it bursts open into a torn, sparkling window on a forest · step through · find the next bubble to the hall at night, and the mirror there brings you home"],
+  ["what to do", "walk the castle hall · walk up to the bubble by the fireplace and step through into a forest · find the next bubble to the hall at night · the mirror there brings you home"],
   ["controls", "click to look and hear · wasd or arrows walk · mouse looks · phone: drag to look, two fingers to walk"],
-  ["built with", "three.js and spark 2.4 · three marble worlds by world labs · each world drawn by its own splat renderer into a render target · the bubble and its rim drawn per pixel in a shader · sound synthesized in code"],
+  ["built with", "three.js and spark 2.4 · three world labs marble worlds · the bubble drawn in a shader · sound synthesized in code"],
 ];
 
 function PortalWorldsDetail({ transitionName }: { transitionName: string }) {
@@ -432,7 +429,7 @@ function PortalWorldsDetail({ transitionName }: { transitionName: string }) {
 const CAR_WASH_FACTS = [
   ["process", "pay · pull in · foam · brushes · rinse · wax · tire shine · blowers · drive off"],
   ["controls", "pay picks basic or deluxe · deluxe adds triple foam, wax and tire shine · the swatches repaint the car"],
-  ["built with", "colorfigures skill · claude code · svg · hand-drawn wobble filter"],
+  ["built with", "svg · hand-drawn wobble filter"],
 ];
 
 function CarWashDetail({ transitionName }: { transitionName: string }) {
@@ -463,11 +460,10 @@ function CarWashDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          drawn in code with colorfigures, a skill that builds everyday machines as hand-inked isometric
-          figures. every station changes the car only as it passes.
+          drawn in code as a hand-inked isometric figure. each station changes the car only as it passes.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          figure: hammer · kit:{" "}
+          made by hammer with the{" "}
           <TrackedLink
             event="outbound_click"
             data={{ piece: "car-wash", target: "colorfigures" }}
@@ -478,7 +474,7 @@ function CarWashDetail({ transitionName }: { transitionName: string }) {
             data-cursor="link"
             data-cursor-label="open"
           >
-            colorfigures by april zhu
+            colorfigures skill by april zhu
           </TrackedLink>{" "}
           (
           <a
@@ -512,13 +508,13 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     status: "live portfolio system",
     liveUrl: "https://hammer.ad",
     summary:
-      "The current Hammer site is itself a finished portfolio asset: a warm editorial identity, seven-category work atrium, detail-route gallery model, motion surfaces, and source-readable docs.",
+      "This site, built as a portfolio piece of its own: a warm editorial identity, a seven-category work atrium, detail pages, motion, and docs that agents can read.",
     stack: ["next.js 16", "react 19", "tailwind v4", "motion", "view transitions", "vercel"],
     facts: [
       ["model", "gallery-first category routes with detail pages for finished work"],
       ["brand", "Outfit wordmark, warm cream system, cinnamon dot, serif italic accents"],
       ["surfaces", "films, a splat viewer, a projector you can crank, brand dossiers, websites"],
-      ["docs", "AGENTS, brand guide, llms.txt, and public memory kept in sync with code"],
+      ["docs", "brand guide and llms.txt kept in sync with the code"],
     ],
     shots: [
       {
@@ -549,7 +545,7 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     status: "live public character site",
     liveUrl: "https://onlykira.ai",
     summary:
-      "onlykira.ai is the public microsite for Kira: an agent-character web surface built from the Kira bible, live media language, and AI-native site production.",
+      "onlykira.ai is the public home of Kira, an autonomous AI character, built from the Kira brand bible.",
     stack: ["next.js 15", "react 19", "gsap", "lenis", "brand bible", "ai media"],
     facts: [
       ["site", "live at onlykira.ai"],
@@ -573,13 +569,13 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
     status: "live agent-payment readiness site",
     liveUrl: "https://agentify.nexus",
     summary:
-      "agentify.nexus is the public proof surface for Agentify: a cinematic agent-payment readiness site with service catalog, free audit path, legal routes, and agent-readable manifests.",
+      "agentify.nexus is the public site for Agentify, which gets commerce and B2B teams ready for agent payments. It has cinematic shaders, a service catalog, a free audit, and files agents can read.",
     stack: ["next.js 15", "webgl2 shaders", "mcp", "llms.txt", "service catalog", "vercel"],
     facts: [
       ["offer", "agent-payment readiness audits and integration builds for commerce and B2B teams"],
       ["brand", "Nocturne Ledger v2: Ledger Gate mark, rail wordmark, dark protocol field"],
       ["proof", "robots, llms files, well-known manifests, markdown twins, and public MCP route"],
-      ["funnel", "free readiness audit first; paid implementation quoted only after fit is clear"],
+      ["funnel", "a free readiness audit first, then a quote for paid work once the fit is clear"],
     ],
     shots: [
       {
@@ -603,7 +599,7 @@ const WEBSITE_DETAILS: WebsiteProfile[] = [
       ["product", "nakamoto coefficient tracker and stake-pool scorecard across 15 solana pools"],
       ["views", "pool scorecards, validator reach, and stake overlap"],
       ["data", "daily cron indexer writes fresh snapshots to turso"],
-      ["label", "designed and built by Jeff Hammer under the mythx label"],
+      ["label", "designed and built by hammer under the mythx label"],
     ],
     shots: [
       {
@@ -784,8 +780,8 @@ function EnvironmentSwapDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          the swap is prompt-driven and mask-free: name only what changes, keep the foreground. shoot
-          the drive once, deliver it as any location: neon city, alien desert, blue crystal forest, alpine snow.
+          one drive, shot once and delivered as neon city, alien desert, blue crystal forest and alpine
+          snow, without masks.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           plate + edit: hammer · model: runway aleph 2
@@ -821,8 +817,8 @@ function NeuralSetCaptureDetail({ transitionName }: { transitionName: string }) 
             {[
               ["source", "frames from the gunfight"],
               ["assets", "gpt image 2.5 stills · hunyuan 3d 3.1 meshes"],
-              ["set", "blender 5.1 · 304 posed renders"],
-              ["splat", "brush on apple silicon · sog via splat-transform"],
+              ["set", "blender 5.1"],
+              ["splat", "brush · spark viewer"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -893,7 +889,7 @@ function HumpbackArDetail({ transitionName }: { transitionName: string }) {
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
               ["model", "gpt image 2.5 reference · hunyuan 3d 3.1 mesh"],
-              ["rig", "blender 5.1 · spine skinned in code · 24s seamless lap"],
+              ["rig", "blender 5.1 · 24s seamless swim loop"],
               ["scale", "15 m life-size · 0.6 m tabletop"],
               ["ar", "usdz for iphone quick look · glb for android scene viewer"],
             ].map(([label, value]) => (
@@ -953,7 +949,6 @@ function EquinoxCampaignDetail({ transitionName }: { transitionName: string }) {
               ["client", "Equinox"],
               ["agency", "Angry Gods"],
               ["format", "30s · 1276x720 · 24fps · h264/aac"],
-              ["source", "Angry Gods"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -991,9 +986,6 @@ function EquinoxCampaignDetail({ transitionName }: { transitionName: string }) {
           The spot uses unstable AI-coded imagery as the setup, then resolves into the campaign line:
           question everything but yourself.
         </p>
-        <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          source: Angry Gods
-        </p>
       </div>
     </section>
   );
@@ -1011,10 +1003,9 @@ function TheGunfightDetail({ transitionName }: { transitionName: string }) {
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["production", "studioly pipeline · blender previz refs"],
+              ["previz", "blender"],
               ["models", "nano banana 2.1 + midjourney stills · seedance 2.5 video · suno score"],
               ["format", "92s · 1920x808 · 2.39:1 · 24fps · h264/aac"],
-              ["source", "studioly"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -1046,11 +1037,11 @@ function TheGunfightDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          43 shots cut from Seedance 2.5 reference-to-video takes, then finished with a 35mm print
-          look and real 250D grain. about two hundred dollars of generation spend.
+          43 shots cut from Seedance 2.5 takes, then finished with a 35mm print look and real 250D
+          grain.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          production: hammer · pipeline: studioly
+          production: hammer
         </p>
       </div>
     </section>
@@ -1069,10 +1060,10 @@ function ToastDetail({ transitionName }: { transitionName: string }) {
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["production", "lemo-animi · sheets moved in code"],
-              ["models", "gpt image 2.6 puppet, set and action sheets · sampled score and foley"],
+              ["stills", "gpt image 2.6 puppet, set and action sheets"],
+              ["animation", "stop-motion timed in code"],
+              ["sound", "score and foley"],
               ["format", "20s · 1920x1080 · 24fps on twos · h264/aac"],
-              ["method", "no video model: every move is timed in code"],
             ].map(([label, value]) => (
               <div key={label}>
                 <dt className="font-mono text-[9px] uppercase tracking-[0.2em] text-[var(--cinnamon)]">
@@ -1104,11 +1095,11 @@ function ToastDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          twelve generated clay sheets, cut into cells and timed on twos in code. about sixty cents
-          of image generation for the whole film.
+          every frame comes from generated clay sheets, cut into cells and timed on twos in code,
+          with no video model.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
-          production: hammer · made with{" "}
+          made by hammer with the{" "}
           <TrackedLink
             event="outbound_click"
             data={{ piece: "toast", target: "lemo-animi" }}
@@ -1119,9 +1110,9 @@ function ToastDetail({ transitionName }: { transitionName: string }) {
             data-cursor="link"
             data-cursor-label="open"
           >
-            lemo-animi by Lemomo (LemoLab)
-          </TrackedLink>
-          , run with our own image adapter ·{" "}
+            lemo-animi skill by Lemomo (LemoLab)
+          </TrackedLink>{" "}
+          ·{" "}
           <TrackedLink
             event="outbound_click"
             data={{ piece: "toast", target: "cc-by-nc-4.0" }}
@@ -1164,7 +1155,7 @@ function CodeAnimationDetail({ transitionName }: { transitionName: string }) {
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["written by", "claude opus 5.5 · directed by hammer"],
+              ["directed by", "hammer"],
               ["lanes", "p5.brush · gpu painter · fframes · three.js"],
               ["sound", "eleven v4 voices · suno score · foley in code"],
               ["format", "82s · 1920x1080 · 24fps · h264/aac"],
@@ -1237,8 +1228,8 @@ function InternetCapitalMarketsDetail({ transitionName }: { transitionName: stri
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            The ICM trailer package puts crypto-market footage, pixel-title cards, lower thirds,
-            and screen inserts into one finished film teaser.
+            A teaser for the ICM film, with crypto-market footage, pixel title cards, lower thirds
+            and screen inserts.
           </p>
           <p className="mt-5 border-t border-[var(--ink-4)] pt-4 font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
             2m 46s · 1920x1080 · 23.976fps · h264/aac
@@ -1271,8 +1262,8 @@ function SpringHealthDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            A Spring Health motion showcase built from brand guidelines, product UI,
-            care-system storytelling, and HyperFrames production polish.
+            A Spring Health motion showcase built in HyperFrames from the brand guidelines and
+            product UI.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
@@ -1311,8 +1302,7 @@ function SpringHealthDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 grid grid-cols-1 gap-6 border-y border-[var(--ink-4)] py-5 md:grid-cols-12 md:gap-x-8">
         <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)] md:col-span-7">
-          The reel turns Spring Health's static identity into reusable motion: brand translation,
-          product storytelling, system clarity, and final delivery in one compact cut.
+          The reel turns Spring Health's static identity into motion the brand can reuse.
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)] md:col-span-5">
           music: EDM Detection Mode by Kevin MacLeod, licensed under Creative Commons: By Attribution.
@@ -1335,8 +1325,8 @@ function ChromeHammerDetail({ transitionName }: { transitionName: string }) {
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
-              ["built with", "three.js · raymarched in one shader: drops that blend into each other and a signed-distance wordmark · claude code"],
-              ["sound", "synthesized from the frame numbers · every hit lands one frame after its picture"],
+              ["built with", "three.js · one raymarched shader"],
+              ["sound", "synthesized in code"],
               ["format", "6s seamless loop · 1080x1080 · 30fps · h264/aac"],
             ].map(([label, value]) => (
               <div key={label}>
@@ -1371,14 +1361,13 @@ function SpotifyTitlesDetail({ transitionName }: { transitionName: string }) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-8">
         <aside className="md:col-span-3">
           <p className="font-display text-[clamp(18px,1.5vw,24px)] font-light lowercase leading-[1.4] tracking-normal text-[var(--ink-1)]">
-            A Spotify title sequence generated in a single text-to-video pass. Kinetic type,
-            an album-wall flythrough, and the sound-wave end card, with display type holding
-            razor sharp at 2k.
+            A Spotify title sequence generated in one text-to-video pass: kinetic type, an
+            album-wall flythrough and a sound-wave end card, with the type sharp at 2k.
           </p>
           <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[var(--ink-4)] pt-4">
             {[
               ["type", "spec title study · not a spotify commission"],
-              ["system", "minimax h3 (hailuo 3.0) via evolink · text-to-video"],
+              ["system", "minimax h3 · text-to-video"],
               ["sound", "native model audio · sound design, no music"],
               ["format", "12s · 2560x1440 · 24fps · h264/aac"],
             ].map(([label, value]) => (
@@ -1412,8 +1401,7 @@ function SpotifyTitlesDetail({ transitionName }: { transitionName: string }) {
 
       <div className="mt-10 border-y border-[var(--ink-4)] py-5">
         <p className="max-w-[78ch] font-mono text-[10px] uppercase leading-[1.65] tracking-[0.14em] text-[var(--ink-2)]">
-          spec study · not commissioned by spotify · generated with minimax h3 (hailuo 3.0)
-          via evolink · one pass, no keyframes, native 24fps
+          spec study · not commissioned by spotify · minimax h3 · one pass, no keyframes
         </p>
       </div>
     </section>
@@ -1429,7 +1417,7 @@ function PipelineDetail({ piece, transitionName }: { piece: Piece; transitionNam
           {piece.blurb}
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.8] tracking-[0.18em] text-[var(--ink-2)] md:col-span-4 md:col-start-9">
-          interactive production map · cost, time, tools, handoff points
+          interactive production map · steps, tools, handoff points
         </p>
       </div>
       <div
@@ -1454,17 +1442,17 @@ const CREATIVE_SKILL_ROWS = [
   {
     name: "startup check",
     mode: "open",
-    copy: "starts from vault, repo, backlog, and live truth before edits.",
+    copy: "reads the notes, the repo, the backlog and the live site before any edit.",
   },
   {
     name: "end session sweep",
     mode: "close",
-    copy: "records commit, deploy, validation, open state, and next pickup.",
+    copy: "records what shipped, what was checked, and what comes next.",
   },
   {
     name: "color theory",
     mode: "taste",
-    copy: "keeps palette, contrast, mood, and grade decisions intentional.",
+    copy: "picks palette, contrast, mood and grade on purpose.",
   },
   {
     name: "composition",
@@ -1492,7 +1480,7 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
           {piece.blurb}
         </p>
         <p className="font-mono text-[10px] uppercase leading-[1.8] tracking-[0.18em] text-[var(--ink-2)] md:col-span-4 md:col-start-9">
-          skill router · agent stack · repeatable creative operations
+          skill router · agent stack
         </p>
       </div>
 
@@ -1505,11 +1493,11 @@ function CreativeSkillsDetail({ piece, transitionName }: { piece: Piece; transit
             operating layer
           </p>
           <p className="mt-4 font-display text-[clamp(24px,2.7vw,52px)] font-light leading-[1.05] tracking-[-0.035em] text-[var(--ink-0)]">
-            Skills keep taste from resetting at every prompt.
+            The same rules on every job.
           </p>
           <p className="mt-5 font-display text-[clamp(15px,1.1vw,18px)] font-light leading-[1.5] tracking-[-0.01em] text-[var(--ink-1)]">
-            This is the layer between a director's note and a tool call: brand rules, production recipes,
-            verification habits, and review formats that keep outputs from going generic.
+            Skills sit between a director's note and a tool call. They hold brand rules, checks and
+            review formats, so the work doesn't drift into generic.
           </p>
           <div className="mt-7 border-y border-[var(--ink-4)]">
             {CREATIVE_SKILL_ROWS.map((skill, index) => (
@@ -1704,7 +1692,7 @@ function AgentStackDiagram() {
         fontSize="10"
         letterSpacing="2"
       >
-        DIRECTOR NOTE IN · SKILLED TOOL USE · VERIFIED CREATIVE OUTPUT OUT
+        DIRECTOR NOTE → SKILLS → TOOLS → CHECKED WORK
       </text>
     </svg>
   );

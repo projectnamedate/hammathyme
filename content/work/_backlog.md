@@ -52,14 +52,14 @@ Shipped 2026-10-17: row 19 (Chain Reaction reel), row 20 (Sushi Scramble).
 Shipped 2026-10-18 (later): pipeline visualizer gained short film, film to splat, and still to ar; creative skills adds composition, shotlist cinematography, video check; new qc by measurement piece. Jeff declined a public spend page and the prompt-to-AR demo (too expensive).
 Shipped 2026-10-18: row 18 (humpback in AR, `/work/vfx-cgi/humpback-ar`; blender look-dev deleted, 308s to /work/vfx-cgi; vfx order is neural set capture, humpback in ar, environment swap), row 26 (splat hillside blob fixed by retraining with the viewer's own low views, `gunfight-street-v03.sog`).
 
-## Live inventory (for orientation, 2026-10-21)
+## Live inventory (for orientation, 2026-11-21)
 
-24 live detail routes across the 7 categories; the authoritative list is `DETAIL_READY_KEYS` in `lib/works.ts`. In category order:
+28 live detail routes across the 7 categories; the authoritative list is `DETAIL_READY_KEYS` in `lib/works.ts`. In category order:
 
-- film-animation: equinox, the-gunfight, code-animation
-- vfx-cgi: neural-set-capture, humpback-ar, environment-swap
-- interactive-playable: sushi-scramble, 35mm-projector, car-wash, prompt-to-storyboard
-- motion-graphics: internet-capital-markets, reel, spring-health, spotify-titles
+- film-animation: equinox, the-gunfight, code-animation, toast
+- vfx-cgi: bioluminescent-bay, portal-worlds, neural-set-capture, humpback-ar, environment-swap
+- interactive-playable: sushi-scramble, 35mm-projector, slopocalypse, car-wash
+- motion-graphics: chrome-hammer, internet-capital-markets, reel, spring-health, spotify-titles
 - brand-systems: hammer, kira, agentify
 - websites: hammer, kira, agentify, coefficient
 - pipelines-tools: pipeline-visualizer, creative-skills, qc-by-measurement

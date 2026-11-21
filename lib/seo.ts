@@ -184,7 +184,7 @@ export const workMetadata = buildPageMetadata({
 export const colophonMetadata = buildPageMetadata({
   title: "colophon",
   description:
-    "The Hammer colophon documents the typefaces, build stack, AI models, hosting, source-readable docs, and production materials behind the portfolio site.",
+    "The Hammer colophon lists the typefaces, build stack, tools, and hosting behind the portfolio site.",
   path: "/colophon",
   keywords: ["Hammer portfolio stack", "creative technologist site build", "Next.js portfolio"],
 });
@@ -453,7 +453,7 @@ export function buildVideoObjectJsonLd(category: CaseStudy, piece: Piece): JsonL
       name: "The Gunfight: AI-native western comedy short",
       description:
         piece.blurb ??
-        "A 92-second western comedy short made through the Studioly pipeline with Seedance 2.5 takes and a 35mm print look.",
+        "A 92-second western comedy short made with Seedance 2.5 takes and a 35mm print look.",
       thumbnailUrl: [
         getCanonicalUrl("/work/film-animation/the-gunfight/the-gunfight-poster.jpg"),
       ],

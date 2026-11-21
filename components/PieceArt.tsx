@@ -44,7 +44,6 @@ const SPECIMENS: Record<string, () => ReactElement> = {
   "interactive-playable/car-wash": CarWash,
   "vfx-cgi/bioluminescent-bay": BioBay,
   "vfx-cgi/portal-worlds": PortalWorlds,
-  "interactive-playable/prompt-to-storyboard": PromptStoryboard,
   "film-animation/equinox": EquinoxCampaign,
   "film-animation/the-gunfight": TheGunfight,
   "film-animation/code-animation": CodeAnimation,
@@ -60,7 +59,7 @@ const CATEGORY_FALLBACKS: Record<string, () => ReactElement> = {
   "motion-graphics": MotionReel,
   "vfx-cgi": NeuralSetCapture,
   "pipelines-tools": PipelineVisualizerCard,
-  "interactive-playable": PromptStoryboard,
+  "interactive-playable": SushiScramble,
   "film-animation": EquinoxCampaign,
   websites: HammerSite,
 };
@@ -642,28 +641,6 @@ function SushiScramble() {
       </g>
       <circle cx="69" cy="54" r="2.2" fill="#5B6FC2" />
       <MonoLabel fill="#F5C48A">SUSHI SHOOTER</MonoLabel>
-    </Plate>
-  );
-}
-
-function PromptStoryboard() {
-  // colour pencil on warm paper: graphite panels, the first one shaded in ochre
-  return (
-    <Plate bg="#E9D9C2" frame="#C7B59F">
-      <g transform="translate(22 38)">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <rect
-            key={i}
-            x={(i % 2) * 41}
-            y={Math.floor(i / 2) * 27}
-            width="34"
-            height="20"
-            fill={i === 0 ? "#C98F5A" : i === 3 ? "#AAC0CC" : "#F6EEE2"}
-            stroke="#7A6F62"
-          />
-        ))}
-      </g>
-      <MonoLabel fill="#5C5248">6 PANEL DEMO</MonoLabel>
     </Plate>
   );
 }

@@ -6,7 +6,7 @@ primary entity: Jeff Hammer
 role: Creative Technologist
 contact: hammer@hammer.ad
 location: LA / NY / remote
-last updated: 2026-10-18
+last updated: 2026-11-21
 
 ## summary
 
@@ -26,21 +26,20 @@ The domain appears only in technical URL surfaces.
 - /work: atrium with seven portfolio categories.
 - /work/film-animation: AI-native film, commercial video, shorts, and code-drawn animation.
 - /work/film-animation/equinox: Equinox Question Everything But Yourself campaign spot with Angry Gods.
-- /work/film-animation/the-gunfight: 92-second AI-native western comedy short produced through the Studioly pipeline (Seedance 2.5 reference-to-video takes, Blender previz references, 35mm print look).
-- /work/film-animation/code-animation: The North Wind and the Sun, an 82-second Aesop fable drawn entirely in code with custom voices and a score, plus six short films drawn in code. Lanes: p5.brush painted 2D, a GPU painter, fframes, and three.js with a paint pass.
-- /work/film-animation/toast: Toast, a 20-second claymation short. GPT Image 2.6 puppet, set and action sheets cut into cells and timed on twos in code, with a sampled score and foley; no video model. Made with lemo-animi by Lemomo (LemoLab), CC BY-NC 4.0.
+- /work/film-animation/the-gunfight: 92-second AI-native western comedy short made with Seedance 2.5, Blender previz and a 35mm print look.
+- /work/film-animation/code-animation: The North Wind and the Sun, an 82-second Aesop fable drawn entirely in code with custom voices and a score, plus seven short films drawn in code. Lanes: p5.brush painted 2D, a GPU painter, fframes, and three.js with a paint pass.
+- /work/film-animation/toast: Toast, a 20-second claymation short. GPT Image 2.6 puppet, set and action sheets cut into cells and timed on twos in code, with a score and foley and no video model. Made by Hammer with the lemo-animi skill by Lemomo (LemoLab), CC BY-NC 4.0.
 - /work/vfx-cgi: real-time worlds and VFX/CGI production pipelines using Unity shaders, Blender, Runway Aleph 2, Hunyuan 3D, gaussian splatting, and augmented reality.
-- /work/vfx-cgi/bioluminescent-bay: a night beach to walk in a Unity 6.3 web build. Footsteps light the wet sand, waves ignite as they break, a fish school and a manta ray trail light, rain lights the water drop by drop, shooting stars cross the sky, and you can slip under the surface among glowing jellyfish. Hand-written URP shaders and a ping-pong glow map; every sound synthesized live in the browser; loads on a click; no provider calls.
-- /work/vfx-cgi/portal-worlds: three World Labs Marble gaussian-splat worlds (a castle hall, a forest, the hall at night) joined by bubble portals. A bubble wakes as you come near, bursts into a sparkling rim with the next world inside, and you step through. three.js and Spark 2.4, each world drawn by its own splat renderer into a render target; loads on a click; no provider calls.
-- /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled and rendered in Blender 5.1, trained with Brush, and viewed with Spark.
+- /work/vfx-cgi/bioluminescent-bay: a night beach to walk in a Unity 6.3 web build. Footsteps light the wet sand, waves ignite as they break, a fish school and a manta ray trail light, rain lights the water drop by drop, shooting stars cross the sky, and you can slip under the surface among glowing jellyfish. Hand-written shaders; every sound synthesized live in the browser; loads on a click; no provider calls.
+- /work/vfx-cgi/portal-worlds: three World Labs Marble gaussian-splat worlds (a castle hall, a forest, the hall at night) joined by bubble portals. A bubble wakes as you come near, bursts into a sparkling rim with the next world inside, and you step through. three.js and Spark 2.4; loads on a click; no provider calls.
+- /work/vfx-cgi/neural-set-capture: interactive gaussian splat of the main street from The Gunfight, rebuilt from film frames with GPT Image 2.5 stills and Hunyuan 3D 3.1 meshes, assembled in Blender 5.1, trained into a splat, and viewed with Spark.
 - /work/vfx-cgi/humpback-ar: a 15-metre humpback in augmented reality. A GPT Image 2.5 reference became a Hunyuan 3D 3.1 mesh, skinned to a spine and animated in Blender 5.1 as a seamless 24-second lap. iPhone opens a USDZ in AR Quick Look and Android opens a GLB in Scene Viewer, at tabletop size or life size; desktop shows a QR code.
 - /work/vfx-cgi/environment-swap: Runway Aleph 2 environment-swap case study.
-- /work/interactive-playable: live interactive and playable demos; the storyboard demo is rate-limited per visitor.
+- /work/interactive-playable: live interactive and playable demos.
 - /work/interactive-playable/sushi-scramble: Sushi Scramble, a three.js third-person shooter in a sushi bar. An armoured salmon nigiri rides a conveyor belt against chopstick drones and, every third wave, the diner's hand; wasabi blaster, ginger grenades, rice shield. Endless waves with a local high score; no provider calls.
 - /work/interactive-playable/slopocalypse: slopocalypse, a 1993-style first-person shooter whose demons are AI slop (seven-fingered hands, melting stock-photo people, a giant influencer, the Algorithm). Twelve maps over three episodes of a broken internet; find keycards, open doors, reach the exit, find secrets. Seven guns, mouse look, touch controls. Art is generated maquette photos forced into one 256-colour palette; no provider calls while playing.
 - /work/interactive-playable/35mm-projector: interactive anatomy figure of a running 35mm projector (Geneva cross, shutter, loops, SMPTE leader); crank, step, take apart; no provider calls.
 - /work/interactive-playable/car-wash: playable Colorfigures drawing of a tunnel car wash; pay at the kiosk (basic or deluxe), pull onto the conveyor, and the car rides through foam, side and top brushes, rinse, wax, tire shine and blowers; no provider calls.
-- /work/interactive-playable/prompt-to-storyboard: rate-limited GPT Image 2.5 Sunburst demo that draws a six-panel colour-pencil storyboard, with a no-spend sample fallback.
 - /work/motion-graphics: programmatic motion work.
 - /work/motion-graphics/chrome-hammer: a six-second three.js loop; a chrome drop splits, rains into the hammer wordmark, then melts back into one drop. Drawn and scored in code.
 - /work/motion-graphics/internet-capital-markets: ICM film teaser with title cards, lower thirds, and screen inserts.

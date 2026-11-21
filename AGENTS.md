@@ -117,21 +117,20 @@ they do not replace them.
 
 ## Cost guardrails
 
-Live API demos go through `/api/*` routes. Per-visitor limits are a Vercel
-Firewall rate-limit rule ("storyboard per ip": `POST /api/demos/storyboard`,
-2 requests per IP per 10 minutes, 429 past that), so blocked requests never
-reach the function. There is no daily dollar cap (Jeff, 2026-10-17); Redis was
-removed. Hobby allows one rate-limit rule per project. Manage it with
-`npx vercel firewall rules list|inspect|edit`.
+The site has no live paid-provider demos. The prompt-to-storyboard demo was
+retired 2026-11-21 and 308s to `/work/interactive-playable`. Its Vercel
+Firewall rule ("storyboard per ip") and the `EVOLINK_API_KEY` /
+`HAMMER_DEMOS_ENABLED` env vars stay until Hammer approves deleting them.
 
-Required runtime surface:
+A future live demo goes through an `/api/*` route with the provider key
+server-side, a Vercel Firewall per-IP rate limit (Hobby allows one rule per
+project), and a sample mode when the key is absent.
 
-- Evolink storyboard render (GPT Image 2.5 Sunburst, colour pencil):
-  `EVOLINK_API_KEY`, server-side only
-- `HAMMER_DEMOS_ENABLED=0` forces no-spend sample mode
-
-If any paid-provider prerequisite is absent, the public demo stays usable in
-sample mode and does not call the provider.
+Public copy never states what anything cost: no dollar figures, generation
+spend or call counts on any page, pipeline view or agent-readable file
+(Hammer, 2026-11-21). Process copy names headline tools only. Third-party
+skills get one credit line that keeps Hammer as the maker ("made by hammer
+with the <skill> skill by <author>").
 
 ## Domain status
 
@@ -164,6 +163,10 @@ sample mode and does not call the provider.
   (mp4, webm, mp3, m4a, jpg, png, webp, gif). Add a `!public/**/*.<ext>` line
   for any new media type; the global ignore blocks it otherwise, and the file
   404s live without an error. Check with `git check-ignore -v <file>`.
+- After deleting a route (e.g. `app/api/*`), `npm run typecheck` fails on
+  stale `.next/dev/types/validator.ts` imports of the deleted file even
+  though `npm run build` passes. Delete `.next/dev/types` and rerun
+  (found 2026-11-21 retiring the storyboard API).
 - Global element resets in `app/globals.css` (`button`, `a`, …) go inside
   `@layer base`. Unlayered CSS beats every Tailwind v4 utility, so a bare
   `button { background: none; border: 0 }` silently strips buttons' own
@@ -246,7 +249,7 @@ an editorial portfolio index only: header, plinth grid, footer. Long demos and
 case-study surfaces live behind detail pages. Current ready detail routes are:
 `/work/film-animation/{equinox,the-gunfight,code-animation,toast}`,
 `/work/vfx-cgi/{bioluminescent-bay,portal-worlds,neural-set-capture,humpback-ar,environment-swap}`,
-`/work/interactive-playable/{sushi-scramble,35mm-projector,slopocalypse,car-wash,prompt-to-storyboard}`,
+`/work/interactive-playable/{sushi-scramble,35mm-projector,slopocalypse,car-wash}`,
 `/work/motion-graphics/{chrome-hammer,internet-capital-markets,reel,spring-health,spotify-titles}`,
 `/work/pipelines-tools/{pipeline-visualizer,creative-skills,qc-by-measurement}`,
 `/work/websites/{hammer,kira,agentify,coefficient}`, and

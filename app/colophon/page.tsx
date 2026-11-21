@@ -31,8 +31,7 @@ export default function Colophon() {
         </div>
         <aside className="flex items-end md:col-span-4">
           <p className="max-w-[40ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
-            the back-of-book. typefaces, models, hosting, license. nothing
-            hidden: every tool that touched this site, listed below.
+            typefaces, tools, hosting and license for this site.
           </p>
         </aside>
       </header>
@@ -56,21 +55,15 @@ export default function Colophon() {
         <Field label="this site authored with" col={6}>
           <Line k="agent" v="claude code · cli" />
           <Line k="model" v="claude opus 5.5 · gpt-5.5 / codex" />
-          <Line k="copy" v="jeff, with the model as editor" />
+          <Line k="copy" v="hammer" />
           <Line k="card art" v="hand-drawn svg specimens" />
         </Field>
 
         <Field label="production stack" col={6}>
-          <Line k="orchestration" v="claude code · studioly pipeline" />
+          <Line k="orchestration" v="claude code" />
           <Line k="stills" v="gpt image 2.5 · midjourney v8" />
           <Line k="video" v="seedance 2.5 · kling 3 · runway aleph" />
           <Line k="composition" v="remotion · hyperframes · fframes · three.js" />
-        </Field>
-
-        <Field label="interactive demos" col={6}>
-          <Line k="image" v="gpt image 2.5 colour-pencil storyboards" />
-          <Line k="limit" v="vercel firewall · per-visitor rate limit" />
-          <Line k="fallback" v="public sample mode when limited or unconfigured" />
         </Field>
 
         <Field label="brand contract" col={6}>

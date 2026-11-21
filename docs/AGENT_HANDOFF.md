@@ -1,4 +1,10 @@
-# Hammer Agent Handoff - 2026-10-21
+# Hammer Agent Handoff - 2026-11-21
+
+## Latest (2026-11-21): copy pass, no costs, storyboard retired
+- **Rule (Hammer):** public copy never states costs (no dollar figures, spend, call counts), names headline tools only, and credits third-party skills as "made by hammer with the <skill> skill by <author>". Recorded in AGENTS.md "Cost guardrails".
+- Detail pages, pipeline visualizer (cost/time fields removed from `lib/pipelines.ts`), colophon, about, contact, llms files, agents.json and `public/memories/jeff.md` went through a no-ai-slop and sauce-trim pass. Toast credits lemo-animi as a tool (CC BY-NC needs the credit); the projector reveal now credits anatomy-reveal by Ann Nguyen.
+- **prompt-to-storyboard retired:** piece, demo component, `app/api/demos/*`, `lib/demo-*` and sample image deleted; the route 308s to `/work/interactive-playable`. 28 live detail routes.
+- **Open, needs Hammer's OK:** delete the Vercel firewall rule "storyboard per ip" and the `EVOLINK_API_KEY` / `HAMMER_DEMOS_ENABLED` env vars (plus the five unused env vars already parked in the vault). Whether Claude Code should come back on piece fact rows (it stays on the colophon).
 
 ## Latest (2026-10-21, end of session): roadmap renumbered, shooter spun out
 - `content/work/_backlog.md` was renumbered from 1 (the old-to-new map is at the top of Open items). Pieces: 1 code animation, 2 Breakwater, 3 world model (Chisel), 4 anime short, 5 3D short, 6 isometric card plates (someday), 7 Solaris (waits on access), 8 external SEO (needs Jeff's access), 9 slopocalypse (its own repo). Lab: L1 ACE-Step blind listen (Jeff's ears), L2 nested worlds (ready to build), L3 Genjutsu (his clip), L4 Viggle (his key), L5 VirtuCamera (he buys it).

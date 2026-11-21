@@ -97,6 +97,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: "/work/interactive-playable/prompt-to-storyboard",
+        destination: "/work/interactive-playable",
+        permanent: true,
+      },
+      {
         source: "/work/agents-digital-twins",
         destination: "/work",
         permanent: true,

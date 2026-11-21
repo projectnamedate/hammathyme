@@ -51,8 +51,8 @@ export default function Anteroom() {
         </div>
         <aside className="flex items-end md:col-span-4">
           <p className="max-w-[36ch] font-display font-light text-[clamp(18px,1.5vw,22px)] leading-[1.5] tracking-[-0.015em] text-[var(--ink-1)]">
-            ten-plus years on broadcast and agency pipelines. now producing
-            with ai. same discipline, new tools.
+            ten-plus years on broadcast and agency pipelines, now producing
+            with ai.
           </p>
         </aside>
       </header>

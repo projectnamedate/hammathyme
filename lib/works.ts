@@ -58,7 +58,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "narrative film and animation, ai-native end to end. live work includes Equinox with Angry Gods, the gunfight, an Aesop fable drawn in code, and toast, a claymation short.",
+      "narrative film and animation made with ai: the Equinox spot with Angry Gods, the gunfight, an Aesop fable drawn in code, and toast, a claymation short.",
     tint: "var(--bloodlust)",
     hero: { main: "film", italic: "+ animation" },
     pieces: [
@@ -76,7 +76,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "the-gunfight",
         title: "the gunfight",
         year: "2026",
-        client: "studioly",
         blurb:
           "a 92-second western comedy short: two old gunfighters, one empty street, and a draw nobody saw coming. Seedance 2.5 takes on a 35mm print look.",
         status: "live",
@@ -110,7 +109,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "selected",
     summary:
-      "real-time worlds and orchestrated pipelines: a glowing bay in hand-written shaders, splat worlds joined by bubble portals, a gunfight street trained into a gaussian splat, a life-size whale in augmented reality, and runway world swaps.",
+      "real-time worlds and 3d pipelines: a glowing bay in hand-written shaders, splat worlds joined by bubble portals, a gunfight street trained into a gaussian splat, a life-size whale in augmented reality, and runway world swaps.",
     tint: "var(--cinnamon)",
     hero: { main: "vfx", italic: "+ cgi" },
     pieces: [
@@ -166,7 +165,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, a car wash to run, and a prompt-to-storyboard board in colour pencil.",
+      "live demos: a sushi shooter, a 35mm projector to crank and take apart, a slop shooter, and a car wash to run.",
     tint: "var(--cream-2)",
     hero: { main: "interactive", italic: "+ playable" },
     pieces: [
@@ -202,14 +201,6 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "live",
         tint: "#CFE9F0",
       },
-      {
-        slug: "prompt-to-storyboard",
-        title: "prompt -> storyboard",
-        year: "2026",
-        blurb: "type a sentence, get a six-panel storyboard drawn in colour pencil.",
-        status: "live",
-        tint: "#E9D9C2",
-      },
     ],
   },
   {
@@ -220,7 +211,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "various",
     summary:
-      "programmatic motion design built in remotion, hyperframes and three.js. deterministic, reproducible, broadcast-grade.",
+      "motion design written in code with remotion, hyperframes and three.js. every render comes out identical and ready for broadcast.",
     tint: "var(--bloodlust)",
     hero: { main: "motion", italic: "graphics" },
     pieces: [
@@ -316,7 +307,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "canonical studio guide",
         source: "brand guide, visual reference, site tokens, motion reel wordmark",
         description:
-          "Hammer is the portfolio studio identity: a warm editorial system built around a lowercase Outfit Black wordmark, a protected cinnamon circular period, Geist body copy, Instrument Serif italic accents, and motion tokens shared by the site and reel.",
+          "Hammer is the studio identity for this portfolio. It is built around a lowercase Outfit Black wordmark and a cinnamon period, with Geist body copy, Instrument Serif italic accents, and motion tokens shared by the site and reel.",
         evidence: [
           "canonical wordmark construction, optical letter gaps, and protected dot rules",
           "warm cream surface system with vinaceous cinnamon and polished bloodlust accents",
@@ -337,7 +328,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "agent system + bible + website",
         source: "14-part brand bible, agent runtime guardrails, onlykira site",
         description:
-          "Kira is an autonomous-character agent system, not just a look. The bible defines canon, voice, visual anchors, content recipes, governance, runtime guardrails, and the website that consumes those rules.",
+          "Kira is an autonomous AI character with a full agent system behind the look. The bible defines canon, voice, visual anchors, content recipes, governance, runtime guardrails, and the website that uses those rules.",
         evidence: [
           "fourteen-section brand bible with editable markdown source and compiled HTML",
           "agent voice, reply, media, and disclosure rules shape public behavior",
@@ -359,7 +350,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         status: "locked brand guide",
         source: "Nocturne Ledger v2 guide, brand bible route, live marketing site",
         description:
-          "Agentify is the identity for agent-payment readiness. The surface is dark protocol, built around the Ledger Gate mark, an italic rail wordmark, moon-ash copy, and violet and ion signal colors. The site carries public proof that agents can read it.",
+          "Agentify is the identity for agent-payment readiness. The look is dark and protocol-like, built around the Ledger Gate mark, an italic rail wordmark, moon-ash copy, and violet and ion signal colors. The site ships files agents can read, as public proof.",
         evidence: [
           "Ledger Gate mark uses two posts, a top crossbar, a ledger cut, and a center node",
           "the Rail Underline wordmark turns the agent-on-a-rail motif into typography",
@@ -393,7 +384,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         title: "hammer",
         year: "2026",
         client: "self",
-        blurb: "this site. a brand-system-first portfolio with gallery routes, detail pages, motion, and source-readable docs.",
+        blurb: "this site: a portfolio built brand-first, with gallery routes, detail pages, motion, and docs agents can read.",
         status: "live",
         tint: "var(--cream-1)",
       },
@@ -435,7 +426,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     year: "2026",
     client: "hammer studios",
     summary:
-      "the tools beneath the work: pipeline maps, reusable creative skills, measured qc, and agent-stack patterns built for repeatable ai production.",
+      "the tools under the work: pipeline maps, reusable creative skills and measured qc.",
     tint: "var(--cream-1)",
     hero: { main: "pipelines", italic: "+ tools" },
     pieces: [
@@ -443,7 +434,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "pipeline-visualizer",
         title: "pipeline visualizer",
         year: "2026",
-        blurb: "interactive node-graph of three real pipelines. opens as a detail view.",
+        blurb: "an interactive map of six production pipelines, step by step.",
         status: "live",
         tint: "#1B1D22",
       },
@@ -451,7 +442,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         slug: "creative-skills",
         title: "creative skills",
         year: "2026",
-        blurb: "the reusable operating layer: startup checks, end session sweeps, color theory, composition, shot coverage, and video qc.",
+        blurb: "the skills behind every job: startup checks, end-of-session sweeps, color theory, composition, shot coverage and video qc.",
         status: "live",
         tint: "#22252B",
       },
@@ -496,7 +487,6 @@ const DETAIL_READY_KEYS = new Set([
   "interactive-playable/35mm-projector",
   "interactive-playable/slopocalypse",
   "interactive-playable/car-wash",
-  "interactive-playable/prompt-to-storyboard",
   "film-animation/equinox",
   "film-animation/the-gunfight",
   "film-animation/code-animation",

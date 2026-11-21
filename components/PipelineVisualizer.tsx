@@ -124,12 +124,10 @@ export function PipelineVisualizer() {
 function Totals({ pipeline }: { pipeline: Pipeline }) {
   const items = [
     { k: "brief", v: pipeline.brief },
-    { k: "cost", v: pipeline.totalCost },
-    { k: "time", v: pipeline.totalTime },
     { k: "out", v: pipeline.finalOutput },
   ];
   return (
-    <dl className="grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-4">
+    <dl className="grid grid-cols-2 gap-x-8 gap-y-4">
       {items.map((it) => (
         <div key={it.k} className="flex flex-col gap-1">
           <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-3)]">
@@ -275,17 +273,6 @@ function Node({
         {node.tool}
       </text>
 
-      {/* cost · time line */}
-      <text
-        x={left + 14}
-        y={top + 89}
-        fontFamily="var(--font-mono)"
-        fontSize="9"
-        fill="var(--ink-3)"
-        style={{ letterSpacing: "0.06em" }}
-      >
-        {[node.cost, node.time].filter(Boolean).join("  ·  ")}
-      </text>
     </motion.g>
   );
 }
@@ -394,19 +381,17 @@ function Drawer({
         </p>
         <ul className="mt-3 flex flex-col gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--ink-1)]">
           <Receipt label="tool" value={n.tool} />
-          {n.cost ? <Receipt label="cost" value={n.cost} /> : null}
-          {n.time ? <Receipt label="time" value={n.time} /> : null}
           <Receipt label="out" value={n.output} />
         </ul>
 
         <a
-          href="mailto:hammer@hammer.ad?subject=portfolio%20%C2%B7%20pipeline%20configs"
+          href="mailto:hammer@hammer.ad?subject=portfolio%20%C2%B7%20pipelines"
           data-cursor="link"
           data-cursor-label="ask →"
           className="mt-6 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--ink-2)] underline decoration-[var(--ink-3)] underline-offset-4 hover:text-[var(--cinnamon)]"
         >
           <span aria-hidden className="block h-px w-6 bg-[var(--ink-3)]" />
-          request the full prompt + config
+          ask about this pipeline
         </a>
       </div>
     </motion.div>
